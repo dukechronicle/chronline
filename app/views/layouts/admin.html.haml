@@ -5,6 +5,7 @@
     = stylesheet_link_tag "admin", :media => "all"
     = csrf_meta_tags
   %body
+    = render 'admin/partials/header'
     .container
       = yield
     #scripts

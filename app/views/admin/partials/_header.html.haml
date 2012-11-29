@@ -1,0 +1,33 @@
+.navbar
+  .navbar-inner
+    .container
+      %a.brand{href: "/"} The Chronicle
+      %ul.nav
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Articles
+          %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+            %li
+              %a{href: "/article"} Manage
+            %li
+              %a{href: "/article/new"} Create
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Images
+          %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+            %li
+              %a{href: "/image"} Manage
+            %li
+              %a{href: "/image/upload"} Upload
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Pages
+          %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+            %li
+              %a{href: "/page"} Manage
+            %li
+              %a{href: "/page/new"} Create
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Staff
+          %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+            %li
+              %a{href: "/staff"} Search
+            %li
+              %a{href: "/staff/new"} Create
