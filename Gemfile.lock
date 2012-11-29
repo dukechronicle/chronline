@@ -51,6 +51,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.2.0)
+    haml (3.1.7)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -142,6 +143,7 @@ PLATFORMS
 DEPENDENCIES
   capybara (= 1.1.2)
   coffee-rails (~> 3.2.1)
+  haml
   jquery-rails
   rails (= 3.2.9)
   rspec-rails (= 2.11.0)
