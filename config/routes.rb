@@ -2,15 +2,11 @@ Chronline::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  namespace :admin, :path => '/'  do
-    match '/' => 'main#home'
+  constraints :subdomain => 'admin' do
+    namespace :admin, :path => '/'  do
+      match '/' => 'main#home'
+    end
   end
-
-  # namespace :admin do
-  #   constraints :subdomain => "admin" do
-  #     match '/' => 'admin/main#home'
-  #   end
-  # end
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
