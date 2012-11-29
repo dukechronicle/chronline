@@ -2,8 +2,10 @@
 %html
   %head
     %title The Chronicle
-    = stylesheet_link_tag "application", :media => "all"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag "admin", :media => "all"
     = csrf_meta_tags
   %body
-    = yield
+    .container
+      = yield
+    #scripts
+      = javascript_include_tag "application"

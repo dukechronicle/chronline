@@ -23,6 +23,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'bootstrap-sass', '2.1'
 gem 'haml'
 
 group :test do
