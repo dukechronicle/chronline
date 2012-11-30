@@ -23,6 +23,7 @@ group :assets do
 end
 
 gem 'haml'
+gem 'rails_config'
 
 group :test do
   gem 'capybara', '1.1.2'
