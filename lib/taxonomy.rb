@@ -1,10 +1,18 @@
+require 'exceptions'
+
+
 class Taxonomy
+  include Exceptions
+
 
   def initialize(taxonomy)
     if taxonomy.is_a? String
       taxonomy = taxonomy.split '/'
     end
     @node = find_taxonomy_node(taxonomy)
+    if @node.nil?
+      raise InvalidTaxonomyError.new(taxonomy)
+    end
   end
 
   def to_s
