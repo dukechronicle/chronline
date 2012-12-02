@@ -1,10 +1,9 @@
 Chronline::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
   constraints :subdomain => 'admin' do
     namespace :admin, :path => '/'  do
       match '/' => 'main#home'
+
+      resources :articles, :except => :show
     end
   end
 
