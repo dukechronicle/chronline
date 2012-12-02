@@ -54,9 +54,10 @@ describe Taxonomy do
 
   describe "#children" do
      it do
-      sections = ['University', 'Local & National', 'Health & Science']
-      children = sections.map {|section| Taxonomy.new(['News'] + [section]) }
-      @taxonomy = Taxonomy.new(['News'])
+      sections = ['Academics', 'Board of Trustees']
+      children = sections.map do |section|
+        Taxonomy.new(['News', 'University'] + [section])
+      end
       @taxonomy.children.should == children
     end
   end
