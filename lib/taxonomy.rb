@@ -49,6 +49,16 @@ class Taxonomy
     Settings.taxonomy.map {|section| Taxonomy.new([section.name])}
   end
 
+  def self.levels
+    level = Taxonomy.main_sections
+    levels = []
+    while not level.empty? do
+      levels << level
+      level = levels.last.map {|taxonomy| taxonomy.children}.flatten
+    end
+    levels
+  end
+
   private
 
   def find_taxonomy_node(taxonomy)

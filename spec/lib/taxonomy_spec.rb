@@ -74,4 +74,18 @@ describe Taxonomy do
       Taxonomy.main_sections.should == taxonomies
     end
   end
+
+  describe "::levels" do
+    it do
+      levels =
+        [
+         ['/news/', '/sports/', '/opinion/', '/recess/', '/towerview/'],
+         ['/news/university/'],
+         ['/news/university/academics/', '/news/university/board of trustees/'],
+        ]
+      Taxonomy.levels.should == levels.map do |level|
+        level.map {|taxonomy| Taxonomy.new(taxonomy)}
+      end
+    end
+  end
 end
