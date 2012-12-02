@@ -51,4 +51,11 @@ describe Article do
     end
   end
 
+  describe "#render_body" do
+    it "should render the article body with markdown" do
+      html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
+      @article.render_body.should == html
+    end
+  end
+
 end

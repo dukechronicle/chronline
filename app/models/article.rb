@@ -18,6 +18,10 @@ class Article < ActiveRecord::Base
   validates :body, presence: true
   validates :title, presence: true
 
+  def render_body
+    BlueCloth.new(body).to_html  # Uses bluecloth markdown renderer
+  end
+
   def section
     Taxonomy.new(self[:section])
   end
