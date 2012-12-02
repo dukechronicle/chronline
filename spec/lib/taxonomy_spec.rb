@@ -65,4 +65,12 @@ describe Taxonomy do
     it { @taxonomy.parent.should == Taxonomy.new(['News']) }
     it { Taxonomy.new.parent.should be_nil }
   end
+
+  describe "::main_sections" do
+    it do
+      sections = ['News', 'Sports', 'Opinion', 'Recess', 'Towerview']
+      taxonomies = sections.map {|section| Taxonomy.new([section])}
+      Taxonomy.main_sections.should == taxonomies
+    end
+  end
 end

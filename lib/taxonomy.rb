@@ -45,6 +45,10 @@ class Taxonomy
     '/' + @node[:taxonomy].map { |section| section.downcase + '/' }.join
   end
 
+  def self.main_sections
+    Settings.taxonomy.map {|section| Taxonomy.new([section.name])}
+  end
+
   private
 
   def find_taxonomy_node(taxonomy)
