@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20121130045750) do
   create_table "articles", :force => true do |t|
     t.text     "body"
     t.string   "subtitle"
-    t.string   "taxonomy"
+    t.string   "section"
     t.string   "teaser"
     t.string   "title"
     t.datetime "created_at", :null => false

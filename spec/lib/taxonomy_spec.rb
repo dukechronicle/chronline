@@ -29,8 +29,8 @@ describe Taxonomy do
     it { Taxonomy.new.to_a.should == [] }
   end
 
-  describe "#to_s" do
-    it { @taxonomy.to_s.should == '/news/university/' }
+  describe "#to_str" do
+    it { @taxonomy.to_str.should == '/news/university/' }
   end
 
   describe "#to_a" do

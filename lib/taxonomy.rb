@@ -30,7 +30,7 @@ class Taxonomy
   end
 
   def parent
-    if to_s == '/'
+    if to_str == '/'
       nil
     else
       Taxonomy.new(to_a[0..-2])
@@ -41,7 +41,7 @@ class Taxonomy
     @node[:taxonomy]
   end
 
-  def to_s
+  def to_str
     '/' + @node[:taxonomy].map { |section| section.downcase + '/' }.join
   end
 

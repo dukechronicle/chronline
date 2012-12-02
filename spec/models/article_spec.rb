@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  body       :text
 #  subtitle   :string(255)
-#  taxonomy   :string(255)
+#  section    :string(255)
 #  teaser     :string(255)
 #  title      :string(255)
 #  created_at :datetime         not null
@@ -14,6 +14,9 @@
 
 require 'spec_helper'
 
+require 'taxonomy'
+
+
 describe Article do
 
   before do
@@ -21,7 +24,7 @@ describe Article do
                            subtitle: 'Oak arrives just in time',
                            teaser: 'Ash becomes new Pokemon champion',
                            body: '**Pikachu** wrecks everyone. The End.',
-                           taxonomy: 'news/',
+                           section: '/news/',
                            )
   end
 
@@ -37,6 +40,15 @@ describe Article do
   describe "when title is not present" do
     before { @article.title = "" }
     it { should_not be_valid }
+  end
+
+  describe "#section" do
+    it { @article.section.should be_a_kind_of(Taxonomy) }
+    it do
+      taxonomy = Taxonomy.new(['News', 'University'])
+      @article.section = taxonomy
+      @article.section.should == taxonomy
+    end
   end
 
 end

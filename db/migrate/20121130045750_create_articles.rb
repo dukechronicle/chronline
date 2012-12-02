@@ -3,7 +3,7 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.text :body
       t.string :subtitle
-      t.string :taxonomy
+      t.string :section
       t.string :teaser
       t.string :title
 
