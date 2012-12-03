@@ -1,7 +1,7 @@
 Chronline::Application.routes.draw do
   constraints :subdomain => 'admin' do
     namespace :admin, :path => '/'  do
-      match '/' => 'main#home'
+      root to: 'main#home'
 
       resources :articles, :except => :show
     end

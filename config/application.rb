@@ -15,6 +15,10 @@ module Chronline
 
     config.assets.paths << "#{Rails.root}/vendor/assets/components"
 
+    SubdomainFu.configure do |config|
+      config.tld_size = 1 # {development: 0, test: 0, production: 1}
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -29,6 +29,7 @@ end
 gem 'haml'
 gem 'rails_config'
 gem 'bluecloth', '>= 2.0.0'
+gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 
 group :test do
   gem 'capybara', '1.1.2'
