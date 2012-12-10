@@ -12,6 +12,9 @@
 #  updated_at :datetime         not null
 #
 
+require 'taxonomy'
+
+
 class Article < ActiveRecord::Base
   attr_accessible :body, :subtitle, :section, :teaser, :title
 

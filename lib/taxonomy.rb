@@ -6,7 +6,9 @@ class Taxonomy
 
 
   def initialize(taxonomy=[])
-    if taxonomy.is_a? String
+    if taxonomy.nil?
+      taxonomy = []
+    elsif taxonomy.is_a? String
       taxonomy = taxonomy.split('/')[1..-1]
     end
     @node = find_taxonomy_node(taxonomy)

@@ -29,6 +29,10 @@ describe Taxonomy do
     it { Taxonomy.new.to_a.should == [] }
   end
 
+  describe "when constructed with nil argument" do
+    it { Taxonomy.new.to_a.should == [] }
+  end
+
   describe "#to_str" do
     it { @taxonomy.to_str.should == '/news/university/' }
   end
