@@ -30,6 +30,11 @@ describe "Admin::Articles" do
         find_field("Body").native.parent.parent
           .get_attribute(:class).should include('error')
       end
+
+      it "should fill fields with entered values" do
+        click_button :submit
+        find_field("Subtitle").value.should == "Oak arrives just in time"
+      end
     end
 
     describe "with valid information" do
@@ -42,6 +47,14 @@ describe "Admin::Articles" do
 
       it "should create an Article" do
         expect { click_button :submit }.to change(Article, :count).by(1)
+      end
+
+      it "should create an Article with the correct fields" do
+        click_button :submit
+        article = Article.find_by_title("Ash defeats Gary in Indigo Plateau")
+        article.subtitle.should == "Oak arrives just in time"
+        article.teaser.should == "Ash becomes new Pokemon Champion."
+        article.body.should == "**Pikachu** wrecks everyone. The End."
       end
     end
   end
