@@ -54,6 +54,7 @@ describe "Admin::Articles" do
         article = Article.find_by_title("Ash defeats Gary in Indigo Plateau")
         article.subtitle.should == "Oak arrives just in time"
         article.teaser.should == "Ash becomes new Pokemon Champion."
+        article.taxonomy.should == ['News', 'University']
         article.body.should == "**Pikachu** wrecks everyone. The End."
       end
     end
