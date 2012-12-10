@@ -20,6 +20,8 @@ class Article < ActiveRecord::Base
 
   validates :body, presence: true
   validates :title, presence: true
+  validates :section, presence: true
+
 
   def render_body
     BlueCloth.new(body).to_html  # Uses bluecloth markdown renderer
@@ -30,6 +32,7 @@ class Article < ActiveRecord::Base
   end
 
   def section=(taxonomy)
+    taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
     self[:section] = taxonomy.to_str
   end
 
