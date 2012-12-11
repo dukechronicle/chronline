@@ -12,9 +12,7 @@ When /^I click "(.*?)"$/ do |button|
 end
 
 Then /^the "(.*?)" field should show an error$/ do |field|
-  # TODO: extend poltergeist node to give parent
-  #  page.find_field(field).native.parent.parent
-  #    .get_attribute(:class).should include('error')
+  page.find_field(field).find(:xpath, '../..')[:class].should include('error')
 end
 
 Then /^the "(.*?)" field should be set to "(.*?)"$/ do |field, value|
