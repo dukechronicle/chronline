@@ -34,7 +34,10 @@ gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'simple_form'
 
 group :test do
-  gem 'capybara', '1.1.2'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 end
 
 # To use ActiveModel has_secure_password

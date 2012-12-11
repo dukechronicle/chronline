@@ -9,7 +9,7 @@ class Taxonomy
     if taxonomy.nil?
       taxonomy = []
     elsif taxonomy.is_a? String
-      taxonomy = taxonomy.split('/')[1..-1]
+      taxonomy = taxonomy.split('/')[1..-1] || []
     end
     @node = find_taxonomy_node(taxonomy)
     if @node.nil?
@@ -32,7 +32,7 @@ class Taxonomy
   end
 
   def parent
-    if to_str == '/'
+    if to_s == '/'
       nil
     else
       Taxonomy.new(to_a[0..-2])
@@ -43,7 +43,7 @@ class Taxonomy
     @node[:taxonomy]
   end
 
-  def to_str
+  def to_s
     '/' + @node[:taxonomy].map { |section| section.downcase + '/' }.join
   end
 

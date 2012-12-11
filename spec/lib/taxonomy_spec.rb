@@ -33,8 +33,12 @@ describe Taxonomy do
     it { Taxonomy.new.to_a.should == [] }
   end
 
-  describe "#to_str" do
-    it { @taxonomy.to_str.should == '/news/university/' }
+  describe "when constructed with root string" do
+    it { Taxonomy.new('/').to_a.should == [] }
+  end
+
+  describe "#to_s" do
+    it { @taxonomy.to_s.should == '/news/university/' }
   end
 
   describe "#to_a" do

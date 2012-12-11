@@ -6,7 +6,7 @@ describe "Admin::Articles" do
   describe "creation" do
     before do
       default_url_options[:host] = "lvh.me"
-      default_url_options[:port] = "3000"
+      default_url_options[:port] = Capybara.current_session.driver.app_server.port
       visit new_admin_article_url(:subdomain => :admin)
     end
 
@@ -16,6 +16,7 @@ describe "Admin::Articles" do
       before { fill_in "Subtitle", with: "Oak arrives just in time" }
 
       it "should not create an article" do
+        p page.html
         expect { click_button :submit }.not_to change(Article, :count)
       end
 

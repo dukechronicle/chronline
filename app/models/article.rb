@@ -33,7 +33,7 @@ class Article < ActiveRecord::Base
 
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    self[:section] = taxonomy.to_str
+    self[:section] = taxonomy.to_s
   end
 
 end
