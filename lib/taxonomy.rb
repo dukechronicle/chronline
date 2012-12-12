@@ -21,6 +21,10 @@ class Taxonomy
     rhs.is_a? Taxonomy and to_a == rhs.to_a
   end
 
+  def [](i)
+    @node[:taxonomy][i]
+  end
+
   def children
     @node[:children].map do |child|
       Taxonomy.new(to_a + [child.name])

@@ -60,6 +60,15 @@ describe Taxonomy do
     it { @taxonomy.should_not == ['News', 'University'] }
   end
 
+  describe "#[]" do
+    it do
+      @taxonomy[0].should == 'News'
+      @taxonomy[1].should == 'University'
+    end
+
+    it { @taxonomy[2].should == nil }
+  end
+
   describe "#children" do
      it do
       sections = ['Academics', 'Board of Trustees']
