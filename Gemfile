@@ -37,6 +37,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'cucumber-rails', :require => false
+  gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'cucumber-websteps'
 end

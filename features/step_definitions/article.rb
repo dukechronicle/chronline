@@ -1,3 +1,11 @@
+###
+# Given step definitions
+###
+
+Given /^there are (\d+) articles$/ do |arg1|
+  FactoryGirl.create(:article)
+end
+
 Given /^I am on the new article page$/ do
   port = Capybara.current_session.driver.app_server.port
   visit new_admin_article_url(subdomain: :admin, host: 'lvh.me', port: port)
@@ -7,6 +15,11 @@ Given /^I am on the article index page$/ do
   port = Capybara.current_session.driver.app_server.port
   visit admin_articles_url(subdomain: :admin, host: 'lvh.me', port: port)
 end
+
+
+###
+# When step definitions
+###
 
 When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
  fill_in field, with: value
@@ -24,6 +37,11 @@ When /^I enter a valid article$/ do
   select "News", from: 'article_section_0'
   select "University", from: 'article_section_1'
 end
+
+
+###
+# Then step definitions
+###
 
 Then /^the "(.*?)" field should show an error$/ do |field|
   find_field(field).find(:xpath, '../..')[:class].should include('error')
