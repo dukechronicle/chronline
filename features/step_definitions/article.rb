@@ -3,6 +3,11 @@ Given /^I am on the new article page$/ do
   visit new_admin_article_url(subdomain: :admin, host: 'lvh.me', port: port)
 end
 
+Given /^I am on the article index page$/ do
+  port = Capybara.current_session.driver.app_server.port
+  visit admin_articles_url(subdomain: :admin, host: 'lvh.me', port: port)
+end
+
 When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
  fill_in field, with: value
 end
@@ -38,4 +43,18 @@ Then /^the article should have the correct properties$/ do
   article.teaser.should == "Ash becomes new Pokemon Champion."
   article.section.should == Taxonomy.new(['News', 'University'])
   article.body.should == "**Pikachu** wrecks everyone. The End."
+end
+
+Then /^I should see a listing of articles sorted by creation date$/ do
+  Article.order("created_at DESC").each_with_index do |article, i|
+    page.find("tr:nth-child(#{i + 1})").text.should include(article.title)
+  end
+end
+
+Then /^they should have links to edit pages$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^they should have links to delete them$/ do
+  pending # express the regexp above with the code you wish you had
 end
