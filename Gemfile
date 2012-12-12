@@ -38,6 +38,7 @@ group :test do
   gem 'poltergeist'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
+  gem 'cucumber-websteps'
 end
 
 # To use ActiveModel has_secure_password

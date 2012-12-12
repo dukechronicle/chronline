@@ -14,7 +14,6 @@ require 'capybara/poltergeist'
 Capybara.default_selector = :css
 Capybara.javascript_driver = :poltergeist
 
-
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
 # your application behaves in the production environment, where an error page will 

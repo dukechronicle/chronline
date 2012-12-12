@@ -1,10 +1,20 @@
 Feature: Article Creation
+  As an editor
+  I want to create an article
+  So that it can get displayed on the site
 
   @javascript
   Scenario: Invalid creation
     Given I am on the new article page
-    When I fill in "Subtitle" with "Oak arrives just in time"
+    When I fill in "Title" with "Ash defeats Gary in Indigo Plateau"
     And I click "Create Article"
-    Then the "Title" field should show an error
+    Then the "Title" field should be set to "Ash defeats Gary in Indigo Plateau"
     And the "Body" field should show an error
-    And the "Subtitle" field should be set to "Oak arrives just in time"
+
+  @javascript
+  Scenario: Valid creation
+    Given I am on the new article page
+    When I enter a valid article
+    And I click "Create Article"
+    Then a new Article should be created
+    And the article should have the correct properties

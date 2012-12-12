@@ -1,20 +1,41 @@
 Given /^I am on the new article page$/ do
   port = Capybara.current_session.driver.app_server.port
-  page.visit new_admin_article_url(subdomain: :admin, host: 'lvh.me', port: port)
+  visit new_admin_article_url(subdomain: :admin, host: 'lvh.me', port: port)
 end
 
 When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
-  page.fill_in field, with: value
+ fill_in field, with: value
 end
 
 When /^I click "(.*?)"$/ do |button|
-  page.click_button button
+ click_button button
+end
+
+When /^I enter a valid article$/ do
+  fill_in "Title", with: "Ash defeats Gary in Indigo Plateau"
+  fill_in "Subtitle", with: "Oak arrives just in time"
+  fill_in "Teaser", with: "Ash becomes new Pokemon Champion."
+  fill_in "Body", with: "**Pikachu** wrecks everyone. The End."
+  select "News", from: 'article_section_0'
+  select "University", from: 'article_section_1'
 end
 
 Then /^the "(.*?)" field should show an error$/ do |field|
-  page.find_field(field).find(:xpath, '../..')[:class].should include('error')
+  find_field(field).find(:xpath, '../..')[:class].should include('error')
 end
 
 Then /^the "(.*?)" field should be set to "(.*?)"$/ do |field, value|
   find_field(field).value.should == value
+end
+
+Then /^a new Article should be created$/ do
+  Article.count.should == 1
+end
+
+Then /^the article should have the correct properties$/ do
+  article = Article.find_by_title "Ash defeats Gary in Indigo Plateau"
+  article.subtitle.should == "Oak arrives just in time"
+  article.teaser.should == "Ash becomes new Pokemon Champion."
+  article.section.should == Taxonomy.new(['News', 'University'])
+  article.body.should == "**Pikachu** wrecks everyone. The End."
 end
