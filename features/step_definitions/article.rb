@@ -2,13 +2,22 @@
 # Given step definitions
 ###
 
-Given /^there are (\d+) articles$/ do |arg1|
+Given /^there exist (\d+) articles?$/ do |arg1|
   FactoryGirl.create(:article)
+end
+
+Given /^there exists an article$/ do
+  @article = FactoryGirl.create(:article)
 end
 
 Given /^I am on the new article page$/ do
   port = Capybara.current_session.driver.app_server.port
   visit new_admin_article_url(subdomain: :admin, host: 'lvh.me', port: port)
+end
+
+Given /^I am on the edit article page$/ do
+  port = Capybara.current_session.driver.app_server.port
+  visit edit_admin_article_url(@article, subdomain: :admin, host: 'lvh.me', port: port)
 end
 
 Given /^I am on the article index page$/ do
@@ -75,4 +84,11 @@ end
 
 Then /^they should have links to delete them$/ do
   pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should see the fields with article information$/ do
+  find_field('Title').value.should == @article.title
+  find_field('Subtitle').value.should == @article.subtitle
+  find_field('Teaser').value.should == @article.teaser
+  find_field('Body').value.should == @article.body
 end

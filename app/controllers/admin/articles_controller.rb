@@ -9,6 +9,10 @@ class Admin::ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
   def create
     # Last element of taxonomy array may be an empty string
     params[:article][:section].pop if params[:article][:section].last.blank?
