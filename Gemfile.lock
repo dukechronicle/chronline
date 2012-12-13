@@ -80,6 +80,8 @@ GEM
     factory_girl_rails (4.1.0)
       factory_girl (~> 4.1.0)
       railties (>= 3.0.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
     faye-websocket (0.4.6)
       eventmachine (>= 0.12.0)
     ffi (1.2.0)
@@ -199,6 +201,7 @@ DEPENDENCIES
   cucumber-websteps
   database_cleaner
   factory_girl_rails
+  faker
   haml
   jquery-rails
   poltergeist

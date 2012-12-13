@@ -2,8 +2,8 @@
 # Given step definitions
 ###
 
-Given /^there exist (\d+) articles?$/ do |arg1|
-  FactoryGirl.create(:article)
+Given /^there exist (\d+) articles?$/ do |n|
+  @articles = FactoryGirl.create_list(:article, n.to_i)
 end
 
 Given /^there exists an article$/ do
@@ -101,11 +101,17 @@ Then /^I should see a listing of articles sorted by creation date$/ do
 end
 
 Then /^they should have links to edit pages$/ do
-  pending # express the regexp above with the code you wish you had
+  @articles.each do |article|
+    row = page.find('tr', text: article.title)
+    row.should have_link('Edit', href: edit_admin_article_path(article))
+  end
 end
 
 Then /^they should have links to delete them$/ do
-  pending # express the regexp above with the code you wish you had
+  @articles.each do |article|
+    row = page.find('tr', text: article.title)
+    row.should have_link('Delete')
+  end
 end
 
 Then /^I should see the fields with article information$/ do
