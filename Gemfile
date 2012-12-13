@@ -34,6 +34,7 @@ gem 'rails_config'
 gem 'bluecloth', '>= 2.0.0'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'simple_form'
+gem 'friendly_id'
 
 group :test do
   gem 'capybara'

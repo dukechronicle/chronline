@@ -16,7 +16,11 @@ require 'taxonomy'
 
 
 class Article < ActiveRecord::Base
-  attr_accessible :body, :subtitle, :section, :teaser, :title
+  include FriendlyId
+
+  attr_accessible :body, :subtitle, :section, :slug, :teaser, :title
+
+  friendly_id :title, use: :slugged
 
   validates :body, presence: true
   validates :title, presence: true
