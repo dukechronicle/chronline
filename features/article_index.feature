@@ -10,3 +10,10 @@ Feature: Article Management
     Then I should see a listing of articles sorted by creation date
     And they should have links to edit pages
     And they should have links to delete them
+
+  @javascript
+  Scenario: Article deletion
+    Given there exist 10 articles
+    And I am on the article index page
+    When I click "Delete"
+    Then I should see 9 articles

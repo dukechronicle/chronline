@@ -69,6 +69,10 @@ When /^I make valid changes$/ do
   select @article.section[0], from: 'article_section_0'
 end
 
+When /^I click a delete link$/ do
+  click_link 'Delete'
+end
+
 
 ###
 # Then step definitions
@@ -135,4 +139,8 @@ end
 
 Then /^I should see a deletion success message$/ do
   find('.alert').text.should include("Article \"#{@article.title}\" was deleted")
+end
+
+Then /^I should see (\d+) articles$/ do |n|
+  page.all('tr').should have(n.to_i).items
 end
