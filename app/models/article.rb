@@ -27,8 +27,18 @@ class Article < ActiveRecord::Base
   validates :section, presence: true
 
 
-  def normalize_friendly_id(title)
-    super
+  # Stolen from http://snipt.net/jpartogi/slugify-javascript/
+  def normalize_friendly_id(title, max_chars=100)
+    removelist = %w(a an as at before but by for from is in into like of off on
+onto per since than the this that to up via with)
+    r = /\b(#{removelist.join('|')})\b/i
+
+    s = title.downcase  # convert to lowercase
+    s.gsub!(r, '')
+    s.strip!
+    s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
+    s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
+    s[0...max_chars].chomp('-')
   end
 
   def render_body

@@ -78,7 +78,7 @@ describe Article do
     end
 
     context "long title" do
-      subject { @article.title = 'a' * 99 + '-' + 'b' * 100 }
+      subject { @article.normalize_friendly_id('a' * 99 + '-' + 'b' * 100) }
       it { should have_at_most(100).characters }
       it { should_not match(/\-$/) }
     end
