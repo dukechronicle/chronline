@@ -91,4 +91,7 @@ Then /^I should see the fields with article information$/ do
   find_field('Subtitle').value.should == @article.subtitle
   find_field('Teaser').value.should == @article.teaser
   find_field('Body').value.should == @article.body
+  find_field('article_section_0').value.should == @article.section[0]
+  find_field('article_section_1').value.should == @article.section[1]
+  find_field('article_section_2').value.should == (@article.section[2] || '')
 end
