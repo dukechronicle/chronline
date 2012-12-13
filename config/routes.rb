@@ -4,6 +4,7 @@ Chronline::Application.routes.draw do
       root to: 'main#home'
 
       resources :articles, :except => :show
+      resources :staff, :except => :show
     end
   end
 
