@@ -58,4 +58,29 @@ describe Article do
     end
   end
 
+  describe "#normalize_friendly_id" do
+    subject { @article.normalize_friendly_id(@article.title) }
+
+    it "should be lowercased" do
+      should match(/[a-z_\d\-]+/)
+    end
+
+    it "should contain key words of title" do
+      should include('ash')
+      should include('defeats')
+      should include('gary')
+      should include('indigo')
+      should include('plateau')
+    end
+
+    it "should not have unnecessary words" do
+      should_not include('-in-')
+    end
+
+    context "long title" do
+      subject { @article.title = 'a' * 99 + '-' + 'b' * 100 }
+      it { should have_at_most(100).characters }
+      it { should_not match(/\-$/) }
+    end
+  end
 end

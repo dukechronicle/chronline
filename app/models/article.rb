@@ -27,6 +27,10 @@ class Article < ActiveRecord::Base
   validates :section, presence: true
 
 
+  def normalize_friendly_id(title)
+    super
+  end
+
   def render_body
     BlueCloth.new(body).to_html  # Uses bluecloth markdown renderer
   end
