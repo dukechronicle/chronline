@@ -25,7 +25,5 @@
         %li.dropdown
           %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Staff
           %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
-            %li
-              %a{href: "/staff"} Search
-            %li
-              %a{href: "/staff/new"} Create
+            %li= link_to "Search", admin_staff_index_path
+            %li= link_to "Create", new_admin_staff_path

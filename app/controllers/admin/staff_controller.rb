@@ -4,4 +4,8 @@ class Admin::StaffController < ApplicationController
   def new
     @staff = Staff.new
   end
+
+  def update
+
+  end
 end
