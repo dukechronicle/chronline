@@ -34,4 +34,11 @@ class Admin::ArticlesController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    article = Article.find(params[:id])
+    article.destroy
+    flash[:success] = "Article \"#{article.title}\" was deleted."
+    redirect_to admin_articles_path
+  end
 end

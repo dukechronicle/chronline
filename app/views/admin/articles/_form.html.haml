@@ -8,4 +8,5 @@
     = f.input :teaser, as: :text, input_html: {rows: 3, class: 'input-xxlarge'}
     = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}
   .form-actions
-    = f.button :submit, class: "btn btn-large btn-primary"
+    = f.button :submit, class: 'btn btn-large btn-primary'
+    = link_to "Delete Article", [:admin, @article], method: :delete, :confirm => "Are you sure?", class: 'btn btn-large btn-danger'

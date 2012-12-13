@@ -28,6 +28,7 @@ group :assets do
 end
 
 gem 'haml'
+gem 'jquery-rails'
 gem 'rails_config'
 gem 'bluecloth', '>= 2.0.0'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'

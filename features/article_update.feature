@@ -18,7 +18,14 @@ Feature: Article Update
     Then the "Title" field should show an error
 
   @javascript
-  Scenario: Invalid Update
+  Scenario: Valid Update
     When I make valid changes
     And I click "Update Article"
     Then the article should have the correct properties
+
+  @javascript
+  Scenario: Article Deletion
+    When I click "Delete Article"
+    Then article should no longer exist
+    And I should be on the article manage page
+    And I should see a deletion success message

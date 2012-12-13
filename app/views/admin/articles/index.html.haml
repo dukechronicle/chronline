@@ -1,3 +1,4 @@
+= render 'admin/partials/flash', flash: flash
 %table.table.table-striped
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}

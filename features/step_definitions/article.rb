@@ -39,7 +39,11 @@ When /^I leave "(.*?)" empty$/ do |field|
 end
 
 When /^I click "(.*?)"$/ do |button|
- click_button button
+  begin
+    click_button button
+  rescue Capybara::ElementNotFound
+    click_link button
+  end
 end
 
 When /^I enter a valid article$/ do
@@ -112,4 +116,17 @@ Then /^I should see the fields with article information$/ do
   find_field('article_section_0').value.should == @article.section[0]
   find_field('article_section_1').value.should == @article.section[1]
   find_field('article_section_2').value.should == (@article.section[2] || '')
+end
+
+Then /^article should no longer exist$/ do
+  article_finder = lambda { Article.find(@article.id) }
+  article_finder.should raise_error(ActiveRecord::RecordNotFound)
+end
+
+Then /^I should be on the article manage page$/ do
+  current_path.should == admin_articles_path
+end
+
+Then /^I should see a deletion success message$/ do
+  find('.alert').text.should include("Article \"#{@article.title}\" was deleted")
 end
