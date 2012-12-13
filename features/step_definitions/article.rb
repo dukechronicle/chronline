@@ -34,17 +34,35 @@ When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
  fill_in field, with: value
 end
 
+When /^I leave "(.*?)" empty$/ do |field|
+ fill_in field, with: nil
+end
+
 When /^I click "(.*?)"$/ do |button|
  click_button button
 end
 
 When /^I enter a valid article$/ do
-  fill_in "Title", with: "Ash defeats Gary in Indigo Plateau"
-  fill_in "Subtitle", with: "Oak arrives just in time"
-  fill_in "Teaser", with: "Ash becomes new Pokemon Champion."
-  fill_in "Body", with: "**Pikachu** wrecks everyone. The End."
-  select "News", from: 'article_section_0'
-  select "University", from: 'article_section_1'
+  @article = FactoryGirl.build(:article)
+  fill_in 'Title', with: @article.title
+  fill_in 'Subtitle', with: @article.subtitle
+  fill_in 'Teaser', with: @article.teaser
+  fill_in 'Body', with: @article.body
+  select @article.section[0], from: 'article_section_0'
+  select @article.section[1], from: 'article_section_1'
+  select (@article.section[2] || ''), from: 'article_section_2'
+end
+
+When /^I make valid changes$/ do
+  @article.subtitle = "Starter Pokemon already taken"
+  @article.teaser = "Ash arrived too late"
+  @article.body = "**Pikachu** wrecks everyone."
+  @article.section = "/sports/"
+
+  fill_in 'Subtitle', with: @article.subtitle
+  fill_in 'Teaser', with: @article.teaser
+  fill_in 'Body', with: @article.body
+  select @article.section[0], from: 'article_section_0'
 end
 
 
@@ -65,11 +83,11 @@ Then /^a new Article should be created$/ do
 end
 
 Then /^the article should have the correct properties$/ do
-  article = Article.find_by_title "Ash defeats Gary in Indigo Plateau"
-  article.subtitle.should == "Oak arrives just in time"
-  article.teaser.should == "Ash becomes new Pokemon Champion."
-  article.section.should == Taxonomy.new(['News', 'University'])
-  article.body.should == "**Pikachu** wrecks everyone. The End."
+  article = Article.find_by_title @article.title
+  article.subtitle.should == @article.subtitle
+  article.teaser.should == @article.teaser
+  article.section.should == @article.section
+  article.body.should == @article.body
 end
 
 Then /^I should see a listing of articles sorted by creation date$/ do

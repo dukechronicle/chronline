@@ -13,6 +13,17 @@ class Admin::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def update
+    # Last element of taxonomy array may be an empty string
+    params[:article][:section].pop if params[:article][:section].last.blank?
+    @article = Article.find(params[:id])
+    if @article.update_attributes(params[:article])
+      redirect_to admin_root_path
+    else
+      render 'edit'
+    end
+  end
+
   def create
     # Last element of taxonomy array may be an empty string
     params[:article][:section].pop if params[:article][:section].last.blank?
