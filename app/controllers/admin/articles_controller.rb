@@ -11,6 +11,9 @@ class Admin::ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    if request.path != edit_admin_article_path(@article)
+      redirect_to [:edit, :admin, @article], status: :moved_permanently
+    end
   end
 
   def update

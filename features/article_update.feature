@@ -29,3 +29,10 @@ Feature: Article Update
     Then article should no longer exist
     And I should be on the article manage page
     And I should see a deletion success message
+
+  @javascript
+  Scenario: Title Update
+    When I fill in "Title" with "New title"
+    And I click "Update Article"
+    And I go to the original edit article path
+    Then I should be on the edit article page

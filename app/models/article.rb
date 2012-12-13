@@ -20,7 +20,7 @@ class Article < ActiveRecord::Base
 
   attr_accessible :body, :subtitle, :section, :slug, :teaser, :title
 
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: [:slugged, :history]
 
   validates :body, presence: true
   validates :title, presence: true

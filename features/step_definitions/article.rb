@@ -17,7 +17,8 @@ end
 
 Given /^I am on the edit article page$/ do
   port = Capybara.current_session.driver.app_server.port
-  visit edit_admin_article_url(@article, subdomain: :admin, host: 'lvh.me', port: port)
+  @path = edit_admin_article_url(@article, subdomain: :admin, host: 'lvh.me', port: port)
+  visit @path
 end
 
 Given /^I am on the article index page$/ do
@@ -71,6 +72,10 @@ end
 
 When /^I click a delete link$/ do
   click_link 'Delete'
+end
+
+When /^I go to the original edit article path$/ do
+  visit @path
 end
 
 
@@ -143,4 +148,10 @@ end
 
 Then /^I should see (\d+) articles$/ do |n|
   page.all('tr').should have(n.to_i).items
+end
+
+Then /^I should be on the edit article page$/ do
+  Article.find(@article.id) do |article|
+    current_path.should == edit_admin_article_path(article)
+  end
 end
