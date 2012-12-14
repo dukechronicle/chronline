@@ -3,9 +3,11 @@ Feature: Article Creation
   I want to create an article
   So that it can get displayed on the site
 
+  Background:
+    Given I am on the new article page
+
   @javascript
   Scenario: Invalid creation
-    Given I am on the new article page
     When I fill in "Title" with "Ash defeats Gary in Indigo Plateau"
     And I click "Create Article"
     Then the "Title" field should be set to "Ash defeats Gary in Indigo Plateau"
@@ -13,8 +15,15 @@ Feature: Article Creation
 
   @javascript
   Scenario: Valid creation
-    Given I am on the new article page
-    And an author "Hiker Martin" exists
+    Given an author "Hiker Martin" exists
+    When I enter a valid article
+    And I add author "Hiker Martin"
+    And I click "Create Article"
+    Then a new Article should be created
+    And the article should have the correct properties
+
+  @javascript
+  Scenario: Creation with non existent author
     When I enter a valid article
     And I add author "Hiker Martin"
     And I click "Create Article"

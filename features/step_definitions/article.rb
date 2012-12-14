@@ -79,6 +79,7 @@ When /^I go to the original edit article path$/ do
 end
 
 When /^I add author "(.*?)"$/ do |name|
+  @article.authors << Author.new(name: name)
   fill_in 'article_author_ids_0', with: name
 end
 
@@ -105,7 +106,7 @@ Then /^the article should have the correct properties$/ do
   article.teaser.should == @article.teaser
   article.section.should == @article.section
   article.body.should == @article.body
-  article.authors.should == [@author]
+  article.authors.map(&:name).should == @article.authors.map(&:name)
 end
 
 Then /^I should see a listing of articles sorted by creation date$/ do
