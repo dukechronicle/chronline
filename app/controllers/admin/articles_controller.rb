@@ -15,7 +15,7 @@ class Admin::ArticlesController < ApplicationController
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
 
     @article = Article.new(params[:article])
-    @article.authors = Author.where(name: author_names)
+    @article.authors = Author.find_or_create_all_by_name(author_names)
     if @article.save
       redirect_to admin_root_path
     else
