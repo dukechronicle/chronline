@@ -5,6 +5,14 @@ FactoryGirl.define do
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
+
+    factory :article_with_authors do
+      ignore { authors_count 2 }
+
+      after(:create) do |article, evaluator|
+        FactoryGirl.create_list(:author, evaluator.authors_count, articles: [article])
+      end
+    end
   end
 end
 

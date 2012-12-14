@@ -6,8 +6,8 @@ Given /^there exist (\d+) articles?$/ do |n|
   @articles = FactoryGirl.create_list(:article, n.to_i)
 end
 
-Given /^there exists an article$/ do
-  @article = FactoryGirl.create(:article)
+Given /^there exists an article with authors$/ do
+  @article = FactoryGirl.create(:article_with_authors)
 end
 
 Given /^I am on the new article page$/ do
@@ -134,6 +134,8 @@ Then /^I should see the fields with article information$/ do
   find_field('Subtitle').value.should == @article.subtitle
   find_field('Teaser').value.should == @article.teaser
   find_field('Body').value.should == @article.body
+  find_field('article_author_ids_0').value.should == @article.authors[0].name
+  find_field('article_author_ids_1').value.should == @article.authors[1].name
   find_field('article_section_0').value.should == @article.section[0]
   find_field('article_section_1').value.should == @article.section[1]
   find_field('article_section_2').value.should == (@article.section[2] || '')

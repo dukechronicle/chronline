@@ -4,7 +4,7 @@ Feature: Article Update
   So that I can change incorrect information
 
   Background:
-    Given there exists an article
+    Given there exists an article with authors
     And I am on the edit article page
 
   @javascript
