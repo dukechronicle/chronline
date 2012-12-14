@@ -13,7 +13,7 @@
 #
 
 require 'taxonomy'
-require 'staff'
+require_dependency 'staff'
 
 
 class Article < ActiveRecord::Base
