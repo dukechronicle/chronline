@@ -9,6 +9,17 @@ class Admin::ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def create
+    # Last element of taxonomy array may be an empty string
+    params[:article][:section].pop if params[:article][:section].last.blank?
+    @article = Article.new(params[:article])
+    if @article.save
+      redirect_to admin_root_path
+    else
+      render 'new'
+    end
+  end
+
   def edit
     @article = Article.find(params[:id])
     if request.path != edit_admin_article_path(@article)
@@ -24,17 +35,6 @@ class Admin::ArticlesController < ApplicationController
       redirect_to admin_root_path
     else
       render 'edit'
-    end
-  end
-
-  def create
-    # Last element of taxonomy array may be an empty string
-    params[:article][:section].pop if params[:article][:section].last.blank?
-    @article = Article.new(params[:article])
-    if @article.save
-      redirect_to admin_root_path
-    else
-      render 'new'
     end
   end
 
