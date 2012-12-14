@@ -29,6 +29,8 @@ class Article < ActiveRecord::Base
 
   has_and_belongs_to_many :authors
 
+  self.per_page = 25  # set will_paginate default to 25 articles
+
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)

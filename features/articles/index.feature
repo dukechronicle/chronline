@@ -17,3 +17,9 @@ Feature: Article Management
     And I am on the article index page
     When I click "Delete"
     Then I should see 9 articles
+
+  @javascript
+  Scenario: Article pagination
+    Given there exist 30 articles
+    And I am on the article index page
+    Then I should see 25 articles

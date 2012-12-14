@@ -39,6 +39,8 @@ GEM
       rake
     arel (3.0.2)
     bluecloth (2.2.0)
+    bootstrap-will_paginate (0.0.9)
+      will_paginate
     builder (3.0.4)
     capybara (1.1.4)
       mime-types (>= 1.16)
@@ -187,6 +189,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     websocket (1.0.4)
+    will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -196,6 +199,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bluecloth (>= 2.0.0)
+  bootstrap-will_paginate
   capybara
   coffee-rails (~> 3.2.1)
   cucumber-rails
@@ -216,3 +220,4 @@ DEPENDENCIES
   sqlite3 (= 1.3.5)
   subdomain-fu!
   uglifier (>= 1.0.3)
+  will_paginate

@@ -35,6 +35,8 @@ gem 'bluecloth', '>= 2.0.0'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'simple_form'
 gem 'friendly_id'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :test do
   gem 'capybara'
