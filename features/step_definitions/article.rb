@@ -91,8 +91,8 @@ Then /^the "(.*?)" field should be set to "(.*?)"$/ do |field, value|
   find_field(field).value.should == value
 end
 
-Then /^a new Article should be created$/ do
-  Article.count.should == 1
+Then /^a new (\w+) should be created$/ do |class_name|
+  eval(class_name).count.should == 1
 end
 
 Then /^the article should have the correct properties$/ do

@@ -10,3 +10,11 @@ Feature: Staff Creation
     And I click "Create Staff"
     Then the "Name" field should be set to "Ash Ketchum"
     And the "Type" field should show an error
+
+  @javascript
+  Scenario: Valid creation
+    Given I am on the new staff page
+    When I enter a valid author
+    And I click "Create Staff"
+    Then a new Author should be created
+    And the author should have the correct properties
