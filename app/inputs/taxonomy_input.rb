@@ -1,9 +1,5 @@
 require 'taxonomy'
 
-
-
-
-
 class TaxonomyInput < SimpleForm::Inputs::Base
   def input
     levels = Taxonomy.levels
