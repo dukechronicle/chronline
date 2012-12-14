@@ -1,1 +1,13 @@
-%h1 Hi
+= simple_form_for([:admin, @staff], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+  %legend= yield :form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :type, collection: %w(Author)
+    = f.input :name
+    = f.input :affiliation
+    = f.input :tagline
+    = f.input :twitter
+    = f.input :columnist, label: 'Current Columnist?'
+    = f.input :biography, input_html: {rows: 5, class: 'input-xxlarge'}
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary'

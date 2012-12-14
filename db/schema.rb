@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20121213231611) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "staffs", :force => true do |t|
+  create_table "staff", :force => true do |t|
     t.string   "affiliation"
     t.text     "biography"
     t.boolean  "columnist"
