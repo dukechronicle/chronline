@@ -12,7 +12,10 @@ class Admin::ArticlesController < ApplicationController
   def create
     # Last element of taxonomy array may be an empty string
     params[:article][:section].pop if params[:article][:section].last.blank?
+    author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
+
     @article = Article.new(params[:article])
+    @article.authors = Author.where(name: author_names)
     if @article.save
       redirect_to admin_root_path
     else

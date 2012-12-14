@@ -7,6 +7,9 @@ Given /^I am on the new staff page$/ do
   visit new_admin_staff_url(subdomain: :admin, host: 'lvh.me', port: port)
 end
 
+Given /^an author "(.*?)" exists$/ do |name|
+  @author = Author.create(name: name)
+end
 
 When /^I enter a valid author$/ do
   @author = FactoryGirl.build(:author)

@@ -78,6 +78,10 @@ When /^I go to the original edit article path$/ do
   visit @path
 end
 
+When /^I add author "(.*?)"$/ do |name|
+  fill_in 'article_author_ids_0', with: name
+end
+
 
 ###
 # Then step definitions
@@ -101,6 +105,7 @@ Then /^the article should have the correct properties$/ do
   article.teaser.should == @article.teaser
   article.section.should == @article.section
   article.body.should == @article.body
+  article.authors.should == [@author]
 end
 
 Then /^I should see a listing of articles sorted by creation date$/ do
