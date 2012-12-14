@@ -26,6 +26,8 @@ class Article < ActiveRecord::Base
   validates :title, presence: true
   validates :section, presence: true
 
+  has_and_belongs_to_many :authors
+
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)

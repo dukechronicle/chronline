@@ -5,5 +5,5 @@ class Staff < ActiveRecord::Base
 end
 
 class Author < Staff
-
+  has_and_belongs_to_many :articles
 end

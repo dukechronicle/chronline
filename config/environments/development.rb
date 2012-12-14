@@ -1,4 +1,7 @@
 Chronline::Application.configure do
+  # Make sure we preload the parent and children classes in development
+  require_dependency File.join("app", "models", "staff.rb")
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
