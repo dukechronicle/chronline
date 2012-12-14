@@ -163,3 +163,7 @@ Then /^I should be on the edit article page$/ do
     current_path.should == edit_admin_article_path(article)
   end
 end
+
+Then /^it should have a link to the next page$/ do
+  page.should have_link('Next', href: "#{current_path}?page=2")
+end

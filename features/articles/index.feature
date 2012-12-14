@@ -23,3 +23,4 @@ Feature: Article Management
     Given there exist 30 articles
     And I am on the article index page
     Then I should see 25 articles
+    And it should have a link to the next page
