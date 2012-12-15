@@ -2,8 +2,9 @@
 %html
   %head
     %title= yield :title
-    %script{language: "javascript", src: "http://use.typekit.com/dwv2bjy.js"}
+    %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
     = stylesheet_link_tag "site", :media => "all"
+    = render 'site/partials/openx'
     = csrf_meta_tags
   %body
     #fb-root
