@@ -1,0 +1,10 @@
+!!! 5
+%html
+  %head
+    %title= yield :title
+    = stylesheet_link_tag "site", :media => "all"
+    = csrf_meta_tags
+  %body
+    .container= yield
+    #scripts
+      = javascript_include_tag "site"
