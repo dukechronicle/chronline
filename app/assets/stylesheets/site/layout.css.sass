@@ -1,0 +1,23 @@
+html, body
+  width: 100%
+  height: 100%
+  background-color: $background-bottom-color
+  +background(linear-gradient(top, $background-top-color, $background-bottom-color), no-repeat)
+
+body
+  font-family: skolar, "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
+
+  h1, h2, h3, h4, h5, h6
+    font-family: skolar, Georgia,"Century Schoolbook","Times New Roman",Times,serif
+    font-weight: normal
+
+  a
+    text-decoration: none
+    color: $link-color
+
+  a.hover
+    display: block
+    +single-transition(border-color, .25s, linear)
+
+    h1, h2, h3, h4, h5, h6, p
+      +single-transition(color, .25s, linear)
