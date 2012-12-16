@@ -21,3 +21,49 @@ body
 
     h1, h2, h3, h4, h5, h6, p
       +single-transition(color, .25s, linear)
+
+  a.hover:hover, a.hover.selected
+    h1, h2, h3, h4, h5, h6
+      color: $link-color
+
+  a.highlight-left
+    border-left: 1px solid transparent
+  a.highlight-left:hover, a.highlight-left.selected
+    border-left-color: $highlight-color
+  a.highlight-right
+    border-right: 1px solid transparent
+  a.highlight-right:hover, a.highlight-right.selected
+    border-right-color: $highlight-color
+  a.highlight-bottom
+    border-bottom: 1px solid transparent
+  a.highlight-bottom:hover, a.highlight-bottom.selected
+    border-bottom-color: $highlight-color
+  a.highlight-top
+    border-top: 1px solid transparent
+  a.highlight-top:hover, a.highlight-top.selected
+    border-top-color: $highlight-color
+
+
+  img.large-rect
+    width: 636px
+    height: 393px
+
+  img.thumb-rect
+    width: 186px
+    height: 133px
+
+  img.thumb-rect-large
+    width: 276px
+    height: 165px
+
+  img.thumb-square-medium
+    width: 200px
+    height: 200px
+
+  img.thumb-wide
+    width: 300px
+    height: 120px
+
+  img.staff-headshot
+    width: 300px
+    height: 225px

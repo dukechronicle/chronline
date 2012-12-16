@@ -18,3 +18,18 @@
     = link_to "Advertising", "/page/advertising"
     = link_to "Classifieds", "http://dukechronicle.campusave.com"
     = link_to "Housing", "http://chroniclehousing.com"
+
+%header#header
+  #header-top
+    %a#home-link{href: '/'}
+      %h1.brand The Chronicle
+    %nav#nav
+      - Taxonomy.main_sections.each do |taxonomy|
+        %a{href: taxonomy.to_s, class: ("active" if "News" == taxonomy.name)}
+          %h2= taxonomy.name
+      %a{href: "http://chronicleblogs.com"}
+        %h2 Blogs
+      %a{href: "http://shutter.dukechronicle.com"}
+        %h2 Photos
+    = form_tag '/search', method: :get, id: 'search-box' do
+      = search_field_tag 'q', nil, placeholder: 'Search archives', results: '5'

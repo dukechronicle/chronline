@@ -1,6 +1,8 @@
 .leaderboard-row
   +clearfix
   margin-bottom: 3px
+
+.leaderboard-row
   .custom-ad
     float: left
     margin-right: 10px
@@ -34,3 +36,90 @@
       color: #666
     a:last-child
       margin-right: 0px
+
+
+#search-box
+  display: inline-block
+  float: right
+  position: relative
+  top: 9px
+
+  input
+    font-size: 12px
+    font-family: inherit
+    border: 1px inset
+    +border-radius(10px)
+    width: 150px
+
+    background: white image-url("search-button.png") no-repeat
+    background-position: 2px 2px
+    padding-left: 20px
+    +box-sizing(border-box)
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  html #search-box input
+    background: white
+    padding: 0px
+
+header
+  margin-bottom: 20px
+
+#header
+  +border-radius($corner-radius)
+  background-color: $banner-color
+  +single-box-shadow(rgba(0,0,0,0.40), 0, 1px, 3px)
+  color: $light-color
+  overflow: hidden
+
+  #header-top
+    +clearfix
+    padding: 3px 8px 0px
+
+  #home-link
+    float: left
+    position: relative
+    padding: 3px 8px
+
+    .brand
+      font-family: ambroise-std
+      font-weight: lighter
+      font-size: 2.4em
+      display: inline-block
+      line-height: 100%
+      margin: 0px
+      +single-text-shadow(0 1px 3px rgba(0,0,0,.4))
+      color: $light-color
+
+  #nav
+    float: left
+    letter-spacing: 1px
+    position: relative
+    top: 13px
+    left: 10px
+
+    a
+      display: inline-block
+      margin-right: 10px
+      vertical-align: bottom
+
+      h2
+        display: inline-block
+        margin: 0px
+        vertical-align: bottom
+        background-color: $banner-color
+
+        font-weight: bold
+        font-size: 1.2em
+        +text-shadow(0, 1px, 2px, rgba(0,0,0,.4))
+        letter-spacing: 1.2px
+        text-transform: uppercase
+        color: $light-color
+        padding: 0px 5px 1.5px 5px
+
+        +transition(background-color, .2s)
+        +border-top-left-radius($corner-radius)
+        +border-top-right-radius($corner-radius)
+
+    a:hover h2, a.active h2
+      background-color: $light-color
+      color: $banner-color
