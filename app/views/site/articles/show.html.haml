@@ -9,7 +9,9 @@
           %p.subtitle= @article.subtitle
 
         %p.byline
-          %span.author By &nbsp;
+          %span.author By #{byline(@article)}
+          %span.sep= "|"
+          %span.date= @article.created_at.strftime("%B %e, %Y")
 
         .article-body
           #social-media
