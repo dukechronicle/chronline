@@ -1,8 +1,11 @@
+.clearfix
+  overflow: visible
+  +pie-clearfix
+
 html, body
   width: 100%
   height: 100%
-  background-color: $background-bottom-color
-  +background(linear-gradient(top, $background-top-color, $background-bottom-color), no-repeat)
+  +background($background-bottom-color linear-gradient(top, $background-top-color, $background-bottom-color) no-repeat)
 
 body
   .container

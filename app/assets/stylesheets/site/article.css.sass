@@ -1,5 +1,5 @@
 #article
-  +clearfix
+  +pie-clearfix
 
   .article-body
     +clearfix
@@ -17,26 +17,20 @@
       font-style: italic
 
     .article-body
-      font-size 1.2em
-      line-height 1.6em
+      font-size: 1.2em
+      line-height: 1.6em
 
   #social-media
     float: right
     margin-left: 10px
-    a
-      display: block
-
     .comment-link, .print-link
       padding-left: 20px
       color: $dark-text
 
     .comment-link
-      background-image: url(/img/icons/article_comment.gif)
-      background-repeat: no-repeat
+      background: image-url("icons/article_comment.gif") no-repeat
       background-position: 0px 3px
 
-
     .print-link
-      background-image: url(/img/icons/article_print.gif)
-      background-repeat: no-repeat
+      background: image-url("icons/article_print.gif") no-repeat
       background-position: 0px 3px
