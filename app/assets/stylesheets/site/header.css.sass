@@ -13,6 +13,7 @@
 #super-header
   +clearfix
   color: #666
+  padding: 3px 0px
 
   .date
     float: left
@@ -67,9 +68,8 @@ header
 #header
   +border-radius($corner-radius)
   background-color: $banner-color
-  +single-box-shadow(rgba(0,0,0,0.40), 0, 1px, 3px)
+  +box-shadow(0px 1px 3px 0px rgba(0,0,0,0.40))
   color: $light-color
-  overflow: hidden
 
   #header-top
     +clearfix
@@ -87,7 +87,7 @@ header
       display: inline-block
       line-height: 100%
       margin: 0px
-      +single-text-shadow(0 1px 3px rgba(0,0,0,.4))
+      +single-text-shadow(0px 1px 3px 0px rgba(0,0,0,.4))
       color: $light-color
 
   #nav
@@ -110,7 +110,7 @@ header
 
         font-weight: bold
         font-size: 1.2em
-        +text-shadow(0, 1px, 2px, rgba(0,0,0,.4))
+        +text-shadow(0px 1px 2px rgba(0,0,0,.4))
         letter-spacing: 1.2px
         text-transform: uppercase
         color: $light-color
@@ -121,5 +121,19 @@ header
         +border-top-right-radius($corner-radius)
 
     a:hover h2, a.active h2
-      background-color: $light-color
+      background-color: white
       color: $banner-color
+
+  #subheader
+    +clearfix
+    background-color: $light-color
+    +border-bottom-left-radius($corner-radius)
+    +border-bottom-right-radius($corner-radius)
+    +background(linear-gradient(bottom, whiteSmoke 0%, white 33%))
+
+    .pagetitle
+      white-space: nowrap
+      padding: .8em 0px .8em 19px
+      h1
+        font-size: 1.5em
+        margin: 0px

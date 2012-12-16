@@ -33,3 +33,17 @@
         %h2 Photos
     = form_tag '/search', method: :get, id: 'search-box' do
       = search_field_tag 'q', nil, placeholder: 'Search archives', results: '5'
+
+  #subheader
+    .span-5
+      .pagetitle
+        - if content_for?(:title_block)
+          = yield :title_block
+        - else
+          %h1= yield :title
+        - if defined? subsections
+          .nav-container.span-7.last
+            %nav#subnav
+              - subsections.each do |subsection|
+                %a.hover{href: '/section' + subsection.path}
+                  %h2= subsection.name
