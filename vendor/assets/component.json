@@ -4,6 +4,11 @@
   "dependencies": {
     "bootstrap": "latest",
     "jquery": "latest",
-    "underscore": "~1.4.3"
+    "underscore": "~1.4.3",
+    "jquery-file-upload": "latest",
+    "jquery-ui": "~1.9.2",
+    "blueimp-tmpl": "latest",
+    "blueimp-canvas-to-blob": "latest",
+    "blueimp-load-image": "latest"
   }
 }

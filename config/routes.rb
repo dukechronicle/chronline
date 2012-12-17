@@ -1,14 +1,19 @@
 Chronline::Application.routes.draw do
   constraints :subdomain => 'www' do
     namespace :site, :path => '/'  do
-      resources :articles, only: :show
-      match 'articles/:id/print' => 'articles#print', as: :print
+      resources :articles, only: :show do
+        get 'print', on: :member
+      end
     end
   end
 
   constraints :subdomain => 'admin' do
     namespace :admin, :path => '/'  do
       root to: 'main#home'
+
+      resources :images, only: [:create, :upload] do
+        get 'upload', on: :collection
+      end
 
       resources :articles, except: :show
       resources :staff, except: :show
