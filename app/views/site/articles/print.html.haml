@@ -1,10 +1,10 @@
 - provide :title, @article.title
 
 %h1#mast The Chronicle
-%article#article-print
+%article#article
   %h1.title= @article.title
   - if not @article.subtitle.blank?
-    %p.subtitle= @article.subtitle
+    %h2.subtitle= @article.subtitle
 
   %p.byline
     %span.author By #{byline(@article)}

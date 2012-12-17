@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title "#{yield(:title)} | The Chronicle"
+    %title #{yield(:title)} | The Chronicle
     = stylesheet_link_tag "print", :media => "all"
   %body
-    = yield
+    .container= yield

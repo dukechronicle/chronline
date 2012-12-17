@@ -6,7 +6,7 @@
       .article-container
         %h1.title= @article.title
         - if not @article.subtitle.blank?
-          %p.subtitle= @article.subtitle
+          %h2.subtitle= @article.subtitle
 
         %p.byline
           %span.author By #{byline(@article)}
@@ -16,7 +16,7 @@
         .article-body
           #social-media
             %div= link_to "Comments", "#disqus_thread", class: "comment-link"
-            %div= link_to "Print", "TODO: link this", class: "print-link"
+            %div= link_to "Print", site_print_path(@article), class: "print-link"
             %div
               .fb-like{data: {href: @site_article_url, send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
