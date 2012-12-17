@@ -1,0 +1,14 @@
+- provide :title, @article.title
+
+%h1#mast The Chronicle
+%article#article-print
+  %h1.title= @article.title
+  - if not @article.subtitle.blank?
+    %p.subtitle= @article.subtitle
+
+  %p.byline
+    %span.author By #{byline(@article)}
+    %span.sep= "|"
+    %span.date= @article.created_at.strftime("%B %e, %Y")
+
+  != @article.render_body

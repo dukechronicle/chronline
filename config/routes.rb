@@ -2,6 +2,7 @@ Chronline::Application.routes.draw do
   constraints :subdomain => 'www' do
     namespace :site, :path => '/'  do
       resources :articles, only: :show
+      match 'articles/:id/print' => 'articles#print', as: :print
     end
   end
 
