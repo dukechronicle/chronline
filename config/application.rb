@@ -20,10 +20,6 @@ module Chronline
       config.preferred_mirror = 'www'
     end
 
-    ActiveSupport::Inflector.inflections do |inflect|
-      inflect.irregular 'staff', 'staff'
-    end
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
