@@ -1,16 +1,18 @@
 class Image < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   attr_accessible :caption, :location, :original
   has_attached_file :original
 
 
   def to_jq_upload
     [{
-      name: "picture1.jpg",
-      size: 902604,
-      url: "http:\/\/example.org\/files\/picture1.jpg",
-      thumbnail_url: "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
-      delete_url: "http:\/\/example.org\/files\/picture1.jpg",
-      delete_type: "DELETE",
+      name: original_file_name,
+      size: original_file_size,
+      url: edit_admin_image_path(self),
+      thumbnail_url: original.url,
+      delete_url: admin_image_path(self),
+      delete_type: 'DELETE',
      }]
   end
 end

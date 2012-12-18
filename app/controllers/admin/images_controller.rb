@@ -6,7 +6,10 @@ class Admin::ImagesController < ApplicationController
 
   def create
     @image = Image.new(params[:image])
-    @image.save!
-    render json: @image.to_jq_upload
+    if @image.save
+      render json: {files: @image.to_jq_upload}
+    else
+      render json: @image.errors, status: :unprocessable_entity
+    end
   end
 end

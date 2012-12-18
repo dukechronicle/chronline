@@ -11,7 +11,7 @@ Chronline::Application.routes.draw do
     namespace :admin, :path => '/'  do
       root to: 'main#home'
 
-      resources :images, only: [:create, :upload] do
+      resources :images, except: :show do
         get 'upload', on: :collection
       end
 
