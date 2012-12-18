@@ -47,9 +47,12 @@ ActiveRecord::Schema.define(:version => 20121217035913) do
   create_table "images", :force => true do |t|
     t.string   "caption"
     t.string   "location"
-    t.string   "original"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "original_file_name"
+    t.string   "original_content_type"
+    t.integer  "original_file_size"
+    t.datetime "original_updated_at"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "staff", :force => true do |t|
