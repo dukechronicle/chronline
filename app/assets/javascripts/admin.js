@@ -14,4 +14,5 @@
 //= require admin/upload
 
 //= require jquery.chained.js
-//= require_tree .
+//= require initialize
+//= require_tree ./admin
