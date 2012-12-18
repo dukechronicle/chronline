@@ -5,9 +5,7 @@ class Admin::ImagesController < ApplicationController
   end
 
   def create
-    p params[:image][:original]
-    @image = Image.new
-    @image.original = params[:image][:original]
+    @image = Image.new(params[:image])
     @image.save!
     render json: @image.to_jq_upload
   end

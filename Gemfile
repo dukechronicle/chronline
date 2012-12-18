@@ -38,8 +38,8 @@ gem 'simple_form'
 gem 'friendly_id'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-gem 'carrierwave'
-gem 'fog'
+gem 'paperclip'
+gem 'aws-sdk'
 
 group :test do
   gem 'capybara'
