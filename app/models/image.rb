@@ -2,6 +2,7 @@ class Image < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   attr_accessible :caption, :location, :original
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original
 
 
