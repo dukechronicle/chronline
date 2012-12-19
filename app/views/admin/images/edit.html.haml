@@ -5,7 +5,7 @@
   = f.input :crop_y, as: :hidden
   = f.input :crop_w, as: :hidden
   = f.input :crop_h, as: :hidden
-  = f.submit 'New Version', class: 'btn'
+  = f.submit 'Crop Version', class: 'btn'
 
 = simple_form_for [:admin, @image], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|
   %legend Photo Information

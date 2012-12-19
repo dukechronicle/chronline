@@ -3,6 +3,7 @@
 //= require jquery-ui/ui/jquery-ui.js
 //= require bootstrap/docs/assets/js/bootstrap.js
 //= require underscore/underscore.js
+//= require jcrop/js/jquery.Jcrop.js
 
 //= require blueimp-tmpl/tmpl.min.js
 //= require blueimp-load-image/load-image.min.js
