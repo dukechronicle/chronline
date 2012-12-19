@@ -1,5 +1,4 @@
-class Admin::StaffController < ApplicationController
-  layout 'admin'
+class Admin::StaffController < Admin::BaseController
 
   def new
     @staff = Staff.new

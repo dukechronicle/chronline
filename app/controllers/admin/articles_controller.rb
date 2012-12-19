@@ -1,5 +1,4 @@
-class Admin::ArticlesController < ApplicationController
-  layout 'admin'
+class Admin::ArticlesController < Admin::BaseController
 
   def index
     @articles = Article.page(params[:page]).order('created_at DESC')
@@ -11,7 +10,6 @@ class Admin::ArticlesController < ApplicationController
 
   def create
     @article = update_article(Article.new)
-    @article.authors = Author.find_or_create_all_by_name(author_names)
     if @article.save
       redirect_to admin_root_path
     else
