@@ -1,5 +1,4 @@
-class Admin::ImagesController < ApplicationController
-  layout 'admin'
+class Admin::ImagesController < Admin::BaseController
 
   def index
     @images = Image.page(params[:page]).order('created_at DESC')
@@ -16,4 +15,5 @@ class Admin::ImagesController < ApplicationController
       render json: @image.errors, status: :unprocessable_entity
     end
   end
+
 end
