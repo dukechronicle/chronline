@@ -3,7 +3,7 @@
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, "TODO: article url"
-      %td= link_to "Edit", edit_admin_article_path(article)
+      %td= link_to "Edit", [:admin, article], method: :edit
       %td= link_to "Delete", [:admin, article], method: :delete,
-  data: { confirm: "You sure?" }
+  data: {confirm: "Are you sure?"}
 = will_paginate

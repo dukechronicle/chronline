@@ -1,6 +1,10 @@
 class Admin::ImagesController < ApplicationController
   layout 'admin'
 
+  def index
+    @images = Image.page(params[:page]).order('created_at DESC')
+  end
+
   def upload
   end
 

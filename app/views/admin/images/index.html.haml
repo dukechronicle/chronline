@@ -1,0 +1,8 @@
+= render 'admin/partials/flash', flash: flash
+%table.table.table-striped
+  - @images.each do |image|
+    %tr{id: "image_#{image.id}"}
+      %td= image.original_file_name
+      %td= link_to image_tag(image.original.url), [:admin, image], method: :edit
+      %td= link_to "Delete", [:admin, image], method: :delete, data: {confirm: "Are you sure?"}
+= will_paginate
