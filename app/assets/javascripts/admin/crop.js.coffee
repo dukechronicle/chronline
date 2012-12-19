@@ -35,3 +35,11 @@ initialize '#crop-target', ->
   $('#image_crop_style').change(updateCropSize)
   disableOptions()
   updateCropSize()
+
+initialize '.image-help', ->
+  $('.image-help').popover(
+    title: 'Image Versions'
+    trigger: 'hover'
+    html: true
+    content: helpContent()
+  )
