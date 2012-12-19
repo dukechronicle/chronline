@@ -13,8 +13,19 @@ When /^I attach an image file$/ do
 end
 
 When /^I start the upload$/ do
-  stub = stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
+  @stub = stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
   click_button "Start"
-  wait_until { find('.template-download .preview') rescue nil }
-  stub.should have_been_requested
+  wait_until { find('.template-download .name') rescue nil }
+end
+
+Then /^it should contain the file$/ do
+  Image.where(original_file_name: 'pikachu.png').should have(1).model
+end
+
+Then /^the image file should be uploaded to S3$/ do
+  @stub.should have_been_requested
+end
+
+Then /^it should not show an upload error$/ do
+  expect { find('.template-download .error') }.to raise_error(Capybara::ElementNotFound)
 end
