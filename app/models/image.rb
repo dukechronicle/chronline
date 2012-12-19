@@ -1,3 +1,6 @@
+require 'array'
+
+
 class Image < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
@@ -5,9 +8,16 @@ class Image < ActiveRecord::Base
     Image::Styles = YAML::load(file)
   end
 
+  def self.styles
+    Image::Styles.map do |type, info|
+      [type.underscore.to_sym, "#{info['width']}x#{info['height']}#"]
+    end.to_h
+  end
+
+
   attr_accessible :caption, :location, :original
   attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
-  has_attached_file :original
+  has_attached_file :original, styles: self.styles
 
 
   def to_jq_upload
@@ -20,4 +30,5 @@ class Image < ActiveRecord::Base
       delete_type: 'DELETE',
      }]
   end
+
 end
