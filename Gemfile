@@ -48,6 +48,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'cucumber-websteps'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 # To use ActiveModel has_secure_password

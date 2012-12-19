@@ -11,7 +11,7 @@ end
 
 module Chronline
   class Application < Rails::Application
-#    config.logger = Logger.new(STDOUT)
+    #config.logger = Logger.new(STDOUT)
 
     config.assets.paths << "#{Rails.root}/vendor/assets/components"
 

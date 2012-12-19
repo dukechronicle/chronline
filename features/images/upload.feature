@@ -7,8 +7,7 @@ Feature: Image Upload
   Scenario: Single Upload
     Given I am on the image upload page
     When I attach an image file
-    And I click "Start"
-    And I wait for upload to finish
+    And I start the upload
     Then a new Image should be created
     And it should contain the file
     And the image file should be uploaded to S3

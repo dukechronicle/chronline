@@ -12,6 +12,9 @@ When /^I attach an image file$/ do
   end
 end
 
-When /^I wait for upload to finish$/ do
+When /^I start the upload$/ do
+  stub = stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
+  click_button "Start"
   wait_until { find('.template-download .preview') rescue nil }
+  stub.should have_been_requested
 end

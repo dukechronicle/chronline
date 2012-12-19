@@ -7,6 +7,7 @@
 require 'cucumber/rails'
 require 'capybara/poltergeist'
 require 'rspec/rails'
+require 'webmock/cucumber'
 
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
@@ -61,3 +62,12 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+VCR.configure do |c|
+  c.cassette_library_dir = 'vcr_cassettes'
+  c.hook_into :webmock
+  c.ignore_localhost = true
+  c.default_cassette_options = {record: :all}
+  c.allow_http_connections_when_no_cassette = true
+end
+
+VCR.cucumber_tags {|t| t.tag '@vcr'}
