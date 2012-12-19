@@ -40,6 +40,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'browser'
 
 group :test do
   gem 'capybara'

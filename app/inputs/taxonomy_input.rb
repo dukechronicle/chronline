@@ -1,6 +1,8 @@
 require 'taxonomy'
 
 class TaxonomyInput < SimpleForm::Inputs::Base
+  include InputValueHelper
+
   def input
     levels = Taxonomy.levels
 
@@ -21,11 +23,5 @@ class TaxonomyInput < SimpleForm::Inputs::Base
     [['--', nil]] + Taxonomy.levels[level].map do |t|
       [t.name, {class: t.parent.name}]
      end
-  end
-
-  def value(attribute_name)
-    tag = ActionView::Helpers::InstanceTag.new(
-      @builder.object_name, attribute_name, @builder.template)
-    tag.value(tag.object)
   end
 end

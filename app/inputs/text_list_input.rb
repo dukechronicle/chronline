@@ -1,4 +1,6 @@
 class TextListInput < SimpleForm::Inputs::Base
+  include InputValueHelper
+
   def input
     @builder.fields_for(attribute_name, input_options, input_html_options) do |form|
       # Custom naming of select fields required in order to form array
@@ -27,11 +29,5 @@ class TextListInput < SimpleForm::Inputs::Base
     options = options.clone
     options[:value] = value || ''
     input = form.text_field(i, options)
-  end
-
-  def value(attribute_name)
-    tag = ActionView::Helpers::InstanceTag.new(
-      @builder.object_name, attribute_name, @builder.template)
-    tag.value(tag.object)
   end
 end

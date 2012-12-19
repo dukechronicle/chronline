@@ -16,4 +16,12 @@ class Admin::ImagesController < Admin::BaseController
     end
   end
 
+  def edit
+    @image = Image.find(params[:id])
+  end
+
+  def update
+    @image = Image.find(params[:id])
+  end
+
 end

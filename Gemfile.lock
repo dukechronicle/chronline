@@ -46,6 +46,7 @@ GEM
     bluecloth (2.2.0)
     bootstrap-will_paginate (0.0.9)
       will_paginate
+    browser (0.1.5)
     builder (3.0.4)
     capybara (1.1.4)
       mime-types (>= 1.16)
@@ -231,6 +232,7 @@ DEPENDENCIES
   aws-sdk
   bluecloth (>= 2.0.0)
   bootstrap-will_paginate
+  browser
   capybara
   coffee-rails (~> 3.2.1)
   compass-rails
