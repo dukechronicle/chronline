@@ -1,5 +1,4 @@
-class Admin::MainController < ApplicationController
-  layout 'admin'
+class Admin::MainController < Admin::BaseController
 
   def home
   end
