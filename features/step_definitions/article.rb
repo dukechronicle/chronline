@@ -144,7 +144,7 @@ Then /^I should see a deletion success message$/ do
   find('.alert').text.should include("Article \"#{@article.title}\" was deleted")
 end
 
-Then /^I should see (\d+) articles$/ do |n|
+Then /^I should see (\d+) (\w+) listed$/ do |n, collection|
   page.all('tr').should have(n.to_i).items
 end
 

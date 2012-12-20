@@ -16,11 +16,11 @@ Feature: Article Management
     Given there exist 10 articles
     And I am on the index articles page
     When I click "Delete"
-    Then I should see 9 articles
+    Then I should see 9 articles listed
 
   @javascript
   Scenario: Article pagination
     Given there exist 30 articles
     And I am on the index articles page
-    Then I should see 25 articles
+    Then I should see 25 articles listed
     And it should have a link to the next page
