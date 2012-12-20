@@ -5,7 +5,7 @@ Feature: Image Upload
 
   @javascript
   Scenario: Single Upload
-    Given I am on the image upload page
+    Given I am on the upload image page
     When I attach an image file
     And I start the upload
     Then a new Image should be created

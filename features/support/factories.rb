@@ -1,3 +1,6 @@
+include ActionDispatch::TestProcess
+
+
 FactoryGirl.define do
   factory :article do
     title { Faker::Lorem.words(5).join(' ') }
@@ -14,9 +17,7 @@ FactoryGirl.define do
       end
     end
   end
-end
 
-FactoryGirl.define do
   factory :author do
     name { Faker::Name.name }
     affiliation "PokeTrainer"
@@ -24,5 +25,9 @@ FactoryGirl.define do
     twitter "pokefan"
     columnist false
     biography "The best Pokemon trainer ever."
+  end
+
+  factory :image do
+    original { fixture_file_upload('lib/sample-images/pikachu.png') }
   end
 end

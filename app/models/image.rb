@@ -25,7 +25,7 @@ class Image < ActiveRecord::Base
       name: original_file_name,
       size: original_file_size,
       url: edit_admin_image_path(self),
-      thumbnail_url: original.url,
+      thumbnail_url: original.url(:thumb_rect),
       delete_url: admin_image_path(self),
       delete_type: 'DELETE',
      }]
