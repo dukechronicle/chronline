@@ -1,4 +1,5 @@
 require 'array'
+require 'cropper'
 
 
 class Image < ActiveRecord::Base
@@ -16,7 +17,7 @@ class Image < ActiveRecord::Base
 
   attr_accessible :caption, :created_at, :location, :original
   attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
-  has_attached_file :original, styles: self.styles
+  has_attached_file :original, styles: self.styles, processors: [:cropper]
 
 
   def to_jq_upload
