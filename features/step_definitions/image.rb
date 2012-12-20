@@ -1,3 +1,13 @@
+Given /^there exists an image$/ do
+  stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
+  @image = FactoryGirl.create(:image)
+end
+
+Given /^I am on the edit page for the image$/ do
+  port = Capybara.current_session.driver.app_server.port
+  visit edit_admin_image_url(@image, subdomain: :admin, host: 'lvh.me', port: port)
+end
+
 Given /^there exist (\d+) images$/ do |n|
   stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
   @images = FactoryGirl.create_list(:image, n.to_i)
@@ -65,4 +75,27 @@ Then /^they should have links to delete images$/ do
     row = page.find("tr#image_#{image.id}")
     row.should have_link('Delete', href: admin_image_path(image))
   end
+end
+
+Then /^I should see the fields with image information$/ do
+  find_field('Caption').value.should == @image.caption
+  find_field('Location').value.should == @image.location
+  find_field('image_created_at_1i').value.should == @image.created_at.year.to_s
+  find_field('image_created_at_2i').value.should == @image.created_at.month.to_s
+  find_field('image_created_at_3i').value.should == @image.created_at.day.to_s
+end
+
+When /^I make valid changes to the image$/ do
+  @image.caption = "Ash goes into hiding in Johto."
+  @image.location = "Mt. Silver"
+
+  fill_in 'Caption', with: @image.caption
+  fill_in 'Location', with: @image.location
+end
+
+Then /^the image should have the correct properties$/ do
+  image = Image.find(@image.id)
+  image.caption.should == @image.caption
+  image.location.should == @image.location
+  image.created_at.should == @image.created_at
 end
