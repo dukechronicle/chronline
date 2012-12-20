@@ -12,6 +12,7 @@ Chronline::Application.routes.draw do
       root to: 'main#home'
 
       resources :images, except: :show do
+        put 'crop', on: :member
         get 'upload', on: :collection
       end
 

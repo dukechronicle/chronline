@@ -29,6 +29,14 @@ class Admin::ImagesController < Admin::BaseController
     end
   end
 
+  def crop
+    image = Image.find(params[:id])
+    image.assign_attributes(params[:image], without_protection: true)
+    image.original.reprocess!(image.crop_style.underscore.to_sym)
+    flash[:success] = "#{image.crop_style} version was cropped."
+    redirect_to [:edit, :admin, image]
+  end
+
   def destroy
     image = Image.find(params[:id])
     success_message = "Image \"#{image.original_file_name}\" was deleted."

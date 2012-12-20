@@ -1,6 +1,6 @@
 %h1 Edit Image
 = image_tag @image.original.url, id: 'crop-target'
-= form_for [:admin, @image], class: 'form-inline' do |f|
+= form_for [:crop, :admin, @image], class: 'form-inline' do |f|
   = f.hidden_field :crop_x
   = f.hidden_field :crop_y
   = f.hidden_field :crop_w
@@ -11,6 +11,7 @@
 
 = simple_form_for [:admin, @image], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|
   %legend Photo Information
+  = render 'admin/partials/flash', flash: flash
   = f.error_notification
   .form-inputs
     = f.input :caption
