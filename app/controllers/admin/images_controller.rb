@@ -21,8 +21,8 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def update
-    @image = Image.find(params[:id])
-    if @image.update_attributes(params[:image])
+    @image = update_image(Image.find(params[:id]))
+    if @image.save
       redirect_to [:edit, :admin, @image]
     else
       render 'edit'
@@ -43,6 +43,20 @@ class Admin::ImagesController < Admin::BaseController
     image.destroy
     flash[:success] = success_message
     redirect_to admin_images_path
+  end
+
+  private
+
+  def update_image(image)
+    photographer_name = params[:image].delete(:photographer_id)
+    image.assign_attributes(params[:image])
+    puts photographer_name
+    if photographer_name.blank?
+      image.photographer = nil
+    else
+      image.photographer = Photographer.find_or_create_by_name(photographer_name)
+    end
+    image
   end
 
 end
