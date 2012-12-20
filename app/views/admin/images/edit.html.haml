@@ -19,3 +19,12 @@
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
     = link_to "Delete Image", [:admin, @image], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
+
+%table.table.table-striped#styles
+  %tr
+    %th Type
+    %th Image Version
+  - Image.styles.keys.each do |style|
+    %tr
+      %td= style.to_s.camelcase
+      %td= image_tag @image.original.url(style)
