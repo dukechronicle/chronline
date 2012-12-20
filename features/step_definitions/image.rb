@@ -97,5 +97,5 @@ Then /^the image should have the correct properties$/ do
   image = Image.find(@image.id)
   image.caption.should == @image.caption
   image.location.should == @image.location
-  image.created_at.should == @image.created_at
+  image.created_at.should == @image.created_at.to_date
 end

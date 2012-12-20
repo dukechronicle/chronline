@@ -22,6 +22,11 @@ class Admin::ImagesController < Admin::BaseController
 
   def update
     @image = Image.find(params[:id])
+    if @image.update_attributes(params[:image])
+      redirect_to [:edit, :admin, @image]
+    else
+      render 'edit'
+    end
   end
 
   def destroy
