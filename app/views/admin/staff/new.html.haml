@@ -1,8 +1,10 @@
+- provide :form_title, 'New Staff Member'
+
 = simple_form_for([:admin, @staff], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
   %legend= yield :form_title
   = f.error_notification
   .form-inputs
-    = f.input :type, required: true, collection: %w(Author)
+    = f.input :type, required: true, collection: Staff.subclasses.map(&:name)
     = f.input :name
     = f.input :affiliation
     = f.input :tagline

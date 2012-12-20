@@ -22,3 +22,7 @@ class Author < Staff
     authors.values
   end
 end
+
+class Photographer < Staff
+  has_many :images
+end

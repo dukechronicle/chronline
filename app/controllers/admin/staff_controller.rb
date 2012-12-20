@@ -5,11 +5,9 @@ class Admin::StaffController < Admin::BaseController
   end
 
   def create
-    type = params[:staff].delete(:type).downcase.to_sym
-    cls = case type.downcase.to_sym
-          when :author then Author
-          else nil
-          end
+    type = params[:staff].delete(:type)
+    index = Staff.subclasses.index {|cls| cls.name == type}
+    cls = Staff.subclasses[index] if index
 
     if cls.nil?
       @staff = Staff.new(params[:staff])
