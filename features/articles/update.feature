@@ -5,7 +5,7 @@ Feature: Article Update
 
   Background:
     Given there exists an article with authors
-    And I am on the edit article page
+    And I am on the edit page for the article
 
   @javascript
   Scenario: Edit Page Display

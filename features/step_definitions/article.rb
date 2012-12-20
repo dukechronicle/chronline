@@ -10,20 +10,10 @@ Given /^there exists an article with authors$/ do
   @article = FactoryGirl.create(:article_with_authors)
 end
 
-Given /^I am on the new article page$/ do
-  port = Capybara.current_session.driver.app_server.port
-  visit new_admin_article_url(subdomain: :admin, host: 'lvh.me', port: port)
-end
-
-Given /^I am on the edit article page$/ do
+Given /^I am on the edit page for the article$/ do
   port = Capybara.current_session.driver.app_server.port
   @path = edit_admin_article_url(@article, subdomain: :admin, host: 'lvh.me', port: port)
   visit @path
-end
-
-Given /^I am on the article index page$/ do
-  port = Capybara.current_session.driver.app_server.port
-  visit admin_articles_url(subdomain: :admin, host: 'lvh.me', port: port)
 end
 
 
