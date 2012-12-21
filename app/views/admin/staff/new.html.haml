@@ -8,7 +8,7 @@
     = f.input :name
     = f.input :affiliation
     = f.input :tagline
-    = f.input :twitter, :wrapper => :prepend do
+    = f.input :twitter, wrapper: :prepend do
       = content_tag :span, '@', :class => 'add-on'
       = f.input_field :twitter
     = f.input :columnist, label: "Current Columnist?"
