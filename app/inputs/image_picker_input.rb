@@ -6,7 +6,8 @@ class ImagePickerInput < SimpleForm::Inputs::Base
 
   def input
     field = @builder.hidden_field(attribute_name, input_html_options)
-    url = value(@reflection.name).original.url(:thumb_rect)
+    target = value(@reflection.name)
+    url = target.original.url(:thumb_rect) if target
     field + image_picker(url).html_safe
   end
 
@@ -23,7 +24,7 @@ class ImagePickerInput < SimpleForm::Inputs::Base
     <i class="icon-picture icon-white"></i>
     Change
   </button>
-  <button class="btn btn-danger image-attach">
+  <button class="btn btn-danger image-remove">
     <i class="icon-remove icon-white"></i>
     Remove
   </button>

@@ -1,3 +1,14 @@
+removeImage = ($imagePicker) ->
+  $imagePicker.find('input').val(undefined)
+  $imagePicker.find('.image-display').removeAttr('data-content')
+  setVisibilities($imagePicker)
+
+createModal = (version) ->
+  template = $('#image-select-template').text()
+  html = _.template(template, {})
+  $imageSelect = $(html)
+  $imageSelect.modal('show').on('hidden', -> $(this).remove())
+
 setVisibilities = ($imagePicker) ->
   if $imagePicker.find('input').val()
     $imagePicker.find('.controls > .image-attach').hide()
@@ -18,3 +29,14 @@ initialize '.control-group.image_picker', ->
       html: true
       trigger: 'hover'
     )
+
+  $(this).on 'click', '.image-remove', (e) ->
+    e.preventDefault()
+    $imagePicker = $(this).parents('.control-group.image_picker').first()
+    removeImage($imagePicker)
+
+  $(this).on 'click', '.image-attach', (e) ->
+    e.preventDefault()
+    $imagePicker = $(this).parents('.control-group.image_picker').first()
+    $versionInput = $imagePicker.children('input')
+    $imageSelect = createModal()
