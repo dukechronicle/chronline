@@ -2,7 +2,7 @@
 %table.table.table-striped
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
-      %td= link_to article.title, "TODO: article url"
+      %td= link_to article.title, site_article_url(article, subdomain: 'www')
       %td= link_to "Edit", [:edit, :admin, article]
       %td= link_to "Delete", [:admin, article], method: :delete,
   data: {confirm: "Are you sure?"}
