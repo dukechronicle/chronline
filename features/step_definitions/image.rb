@@ -80,6 +80,7 @@ end
 Then /^I should see the fields with image information$/ do
   find_field('Caption').value.should == @image.caption
   find_field('Location').value.should == @image.location
+  find_field('Photographer').value.should == @image.photographer.name
   find_field('image_created_at_1i').value.should == @image.created_at.year.to_s
   find_field('image_created_at_2i').value.should == @image.created_at.month.to_s
   find_field('image_created_at_3i').value.should == @image.created_at.day.to_s
@@ -88,14 +89,17 @@ end
 When /^I make valid changes to the image$/ do
   @image.caption = "Ash goes into hiding in Johto."
   @image.location = "Mt. Silver"
+  @image.photographer = Photographer.new(name: 'Youngster Todd')
 
   fill_in 'Caption', with: @image.caption
   fill_in 'Location', with: @image.location
+  fill_in 'Photographer', with: @image.photographer.name
 end
 
 Then /^the image should have the correct properties$/ do
   image = Image.find(@image.id)
   image.caption.should == @image.caption
   image.location.should == @image.location
+  image.photographer.should == Photographer.find_by_name('Youngster Todd')
   image.created_at.should == @image.created_at.to_date
 end

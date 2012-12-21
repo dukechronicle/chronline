@@ -16,7 +16,7 @@
   .form-inputs
     = f.input :caption
     = f.input :location
-    = f.association :photographer, value_method: :name
+    = f.association :photographer, value_method: :name, as: :string
     = f.input :created_at, as: :date, native: browser.chrome?, label: 'Date'
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'

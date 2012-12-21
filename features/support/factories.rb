@@ -27,9 +27,14 @@ FactoryGirl.define do
     biography "The best Pokemon trainer ever."
   end
 
+  factory :photographer do
+    name { Faker::Name.name }
+  end
+
   factory :image do
     caption "Ash battles Gary to become the Pokemon champion."
     location "Pokemon Stadium"
+    photographer
     original { fixture_file_upload('lib/sample-images/pikachu.png') }
   end
 end
