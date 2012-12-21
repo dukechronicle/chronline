@@ -1,7 +1,7 @@
 require 'erb'
 
 
-class ImageInput < SimpleForm::Inputs::Base
+class ImagePickerInput < SimpleForm::Inputs::Base
   include InputValueHelper
 
   def input

@@ -8,7 +8,7 @@
     = f.association :authors, as: :text_list, value_method: :name
     = f.input :teaser, as: :text, input_html: {rows: 3, class: 'input-xxlarge'}
     = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}, hint: "Click #{link_to 'here', 'http://daringfireball.net/projects/markdown/syntax', target: '_blank'} for Markdown syntax reference (italics, bold, links, etc.)"
-    = f.association :image, as: :image
+    = f.association :image, as: :image_picker
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
     - if not @article.new_record?
