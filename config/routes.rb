@@ -1,14 +1,14 @@
 Chronline::Application.routes.draw do
-  constraints :subdomain => 'www' do
-    namespace :site, :path => '/'  do
+  constraints subdomain: 'www' do
+    namespace :site, path: '/'  do
       resources :articles, only: :show do
         get 'print', on: :member
       end
     end
   end
 
-  constraints :subdomain => 'admin' do
-    namespace :admin, :path => '/'  do
+  constraints subdomain: 'admin' do
+    namespace :admin, path: '/'  do
       root to: 'main#home'
 
       resources :images, except: :show do
@@ -18,6 +18,12 @@ Chronline::Application.routes.draw do
 
       resources :articles, except: :show
       resources :staff, except: :show
+    end
+  end
+
+  constraints subdomain: 'api' do
+    namespace :api, path: '/' do
+      resources :images, only: :index
     end
   end
 
