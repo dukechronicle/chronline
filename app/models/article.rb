@@ -28,6 +28,7 @@ class Article < ActiveRecord::Base
   validates :section, presence: true
 
   has_and_belongs_to_many :authors
+  belongs_to :image
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
