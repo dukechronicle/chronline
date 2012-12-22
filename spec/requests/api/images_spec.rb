@@ -28,7 +28,8 @@ describe "Images API" do
     end
 
     it "should have original url" do
-      images.first.should include(url: @image.original.url)
+      images.first.should include(
+        "thumbnail_url" => @image.original.url(:thumb_rect))
     end
   end
 end

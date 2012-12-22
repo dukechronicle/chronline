@@ -20,6 +20,8 @@ class Image < ActiveRecord::Base
   attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles, processors: [:cropper]
 
+  validates :original, attachment_presence: true
+
   has_many :articles
   belongs_to :photographer
 
@@ -33,6 +35,10 @@ class Image < ActiveRecord::Base
       delete_url: admin_image_path(self),
       delete_type: 'DELETE',
      }]
+  end
+
+  def thumbnail_url
+    original.url(:thumb_rect)
   end
 
 end
