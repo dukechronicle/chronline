@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: staff
+#
+#  id          :integer          not null, primary key
+#  affiliation :string(255)
+#  biography   :text
+#  columnist   :boolean
+#  name        :string(255)
+#  tagline     :string(255)
+#  twitter     :string(255)
+#  type        :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 require 'spec_helper'
 
 describe Staff do

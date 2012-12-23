@@ -1,9 +1,29 @@
-class Staff < ActiveRecord::Base
-  attr_accessible :affiliation, :biography, :columnist, :name, :tagline, :twitter
+# == Schema Information
+#
+# Table name: staff
+#
+#  id          :integer          not null, primary key
+#  affiliation :string(255)
+#  biography   :text
+#  columnist   :boolean
+#  name        :string(255)
+#  tagline     :string(255)
+#  twitter     :string(255)
+#  type        :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 
-  validates :name, presence: true
+class Staff < ActiveRecord::Base
+  include FriendlyId
 
   SEARCH_LIMIT = 10
+
+  attr_accessible :affiliation, :biography, :columnist, :name, :tagline, :twitter
+
+  friendly_id :name, use: :slugged
+
+  validates :name, presence: true, uniqueness: true
 
 
   def self.search(name)
