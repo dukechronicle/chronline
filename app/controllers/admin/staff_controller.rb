@@ -1,5 +1,8 @@
 class Admin::StaffController < Admin::BaseController
 
+  def index
+  end
+
   def new
     @staff = Staff.new
   end
