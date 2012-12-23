@@ -11,10 +11,8 @@
         %li.dropdown
           %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Images
           %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
-            %li
-              %a{href: admin_images_path} Manage
-            %li
-              %a{href: upload_admin_images_path} Upload
+            %li= link_to "Manage", admin_images_path
+            %li= link_to "Upload", upload_admin_images_path
         %li.dropdown
           %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Pages
           %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}

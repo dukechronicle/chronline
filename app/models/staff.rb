@@ -2,6 +2,13 @@ class Staff < ActiveRecord::Base
   attr_accessible :affiliation, :biography, :columnist, :name, :tagline, :twitter
 
   validates :name, presence: true
+
+  SEARCH_LIMIT = 10
+
+
+  def self.search(name)
+    self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")
+  end
 end
 
 class Author < Staff

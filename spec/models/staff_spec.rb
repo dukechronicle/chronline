@@ -1,6 +1,29 @@
 require 'spec_helper'
 
 describe Staff do
+  describe Staff do
+    before do
+      @staff = [Author.create(name: 'Joe Smith'),
+                Author.create(name: 'John Smith'),
+                Photographer.create(name: 'Jordan Smith'),
+                Author.create(name: 'Will Smith')]
+    end
+
+    describe "::search" do
+      it "should return staff with matching names" do
+        Staff.search('Jo').should have(3).members
+      end
+
+      it "should return all when given nil" do
+        Staff.search(nil).should have(4).members
+      end
+
+      it "should search by staff type" do
+        Photographer.search(nil).should have(1).members
+      end
+    end
+  end
+
   describe Author do
     describe "::find_or_create_all_by_name" do
       before(:each) do

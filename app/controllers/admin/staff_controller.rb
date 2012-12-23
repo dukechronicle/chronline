@@ -1,13 +1,15 @@
 class Admin::StaffController < Admin::BaseController
 
+  def index
+  end
+
   def new
     @staff = Staff.new
   end
 
   def create
     type = params[:staff].delete(:type)
-    index = Staff.subclasses.index {|cls| cls.name == type}
-    cls = Staff.subclasses[index] if index
+    cls = Staff.subclasses.find {|cls| cls.name == type}
 
     if cls.nil?
       @staff = Staff.new(params[:staff])
