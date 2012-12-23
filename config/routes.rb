@@ -24,6 +24,7 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'api' do
     namespace :api, path: '/' do
       resources :images, only: :index
+      resources :staff, only: :index
     end
   end
 
