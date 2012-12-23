@@ -38,5 +38,7 @@ initialize '.control-group.image_picker', ->
   $(this).on 'click', '.image-attach', (e) ->
     e.preventDefault()
     $imagePicker = $(this).parents('.control-group.image_picker').first()
-    $versionInput = $imagePicker.children('input')
     $imageSelect = createModal()
+
+    $.get fullUrl('api', '/images'), (images) ->
+      addImages($imageSelect, $imagePicker, images)

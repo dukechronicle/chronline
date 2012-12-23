@@ -4,6 +4,7 @@
 //= require bootstrap/docs/assets/js/bootstrap.js
 //= require underscore/underscore.js
 //= require jcrop/js/jquery.Jcrop.js
+//= require jquery.chained.js
 
 //= require blueimp-tmpl/tmpl.min.js
 //= require blueimp-load-image/load-image.min.js
@@ -14,6 +15,6 @@
 //= require jquery-file-upload/js/jquery.fileupload-ui.js
 //= require admin/upload
 
-//= require jquery.chained.js
+//= require util
 //= require initialize
 //= require_tree ./admin
