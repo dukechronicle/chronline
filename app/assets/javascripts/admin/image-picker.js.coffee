@@ -1,7 +1,22 @@
+addImages = ($imageSelect, $imagePicker, images) ->
+  for image in images
+    $imageTag = $("<img src=\"#{image.thumbnail_url}\" />")
+    $imageSelect.find('.modal-body').append($imageTag)
+    do (image) ->
+      $imageTag.click ->
+        selectImage($imagePicker, image)
+
 removeImage = ($imagePicker) ->
   $imagePicker.find('input').val(undefined)
   $imagePicker.find('.image-display').removeAttr('data-content')
   setVisibilities($imagePicker)
+
+selectImage = ($imagePicker, image) ->
+  $imagePicker.find('input').val(image.id)
+  $imagePicker.find('.image-display').attr(
+    'data-content', "<img src=\"#{image.thumbnail_url}\" />")
+  setVisibilities($imagePicker)
+  $('#image-select').modal('hide')
 
 createModal = (version) ->
   template = $('#image-select-template').text()
