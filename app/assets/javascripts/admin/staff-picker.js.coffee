@@ -12,3 +12,9 @@ $ ->
   $('body').on('click', '.staff-picker', staffTypeahead())
   $('body').on('click', '.author-picker', staffTypeahead('Author'))
   $('body').on('click', '.photographer-picker', staffTypeahead('Photographer'))
+
+initialize 'form.staff-search', ->
+  $(this).submit (e) ->
+    e.preventDefault()
+    slug = $(this).find('input').val().toLowerCase().replace(/\s/g, '-')
+    window.location = "/staff/#{slug}/edit"
