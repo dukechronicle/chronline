@@ -6,10 +6,12 @@ setCoordinates = (c) ->
 
 updateCropSize = ->
   dim = $('#image_crop_style option:selected').data('dimensions')
+  target = $('#crop-target')[0]
   options =
     aspectRatio: dim.width / dim.height
     minSize: [dim.width, dim.height]
     setSelect: [0, 0, dim.width, dim.height]
+    trueSize: [target.naturalWidth, target.naturalHeight]
   $('#crop-target').Jcrop(options)
 
 helpContent = ->

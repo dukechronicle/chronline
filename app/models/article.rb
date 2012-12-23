@@ -19,7 +19,7 @@ require_dependency 'staff'
 class Article < ActiveRecord::Base
   include FriendlyId
 
-  attr_accessible :body, :subtitle, :section, :slug, :teaser, :title
+  attr_accessible :body, :image_id, :subtitle, :section, :slug, :teaser, :title
 
   friendly_id :title, use: [:slugged, :history]
 
