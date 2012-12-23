@@ -1,0 +1,17 @@
+= simple_form_for([:admin, @staff], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+  %legend= yield :form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :type, required: true, collection: Staff.subclasses.map(&:name)
+    = f.input :name
+    = f.input :affiliation
+    = f.input :tagline
+    = f.input :twitter, wrapper: :prepend do
+      = content_tag :span, '@', :class => 'add-on'
+      = f.input_field :twitter
+    = f.input :columnist, label: "Current Columnist?"
+    = f.input :biography, input_html: {rows: 5, class: 'input-xxlarge'}
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary'
+    - if not @staff.new_record?
+      = link_to "Delete Staff", [:admin, @staff], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'

@@ -25,6 +25,10 @@ class Admin::StaffController < Admin::BaseController
     end
   end
 
+  def edit
+    @staff = Staff.find(params[:id])
+  end
+
   def update
 
   end

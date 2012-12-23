@@ -29,6 +29,18 @@ class Staff < ActiveRecord::Base
   def self.search(name)
     self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")
   end
+
+  # Fixes problem with subclass route helpers
+  # http://www.christopherbloom.com/2012/02/01/notes-on-sti-in-rails-3-0/
+  def self.inherited(child)
+    child.instance_eval do
+      alias :original_model_name :model_name
+      def model_name
+        Staff.model_name
+      end
+    end
+    super
+  end
 end
 
 class Author < Staff
