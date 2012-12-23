@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/cyu/rack-cors.git
+  revision: 13782d90ebdaacd6cd12de46ff060d76c8842b3b
+  specs:
+    rack-cors (0.2.7)
+      rack
+
+GIT
   remote: git://github.com/mbleigh/subdomain-fu.git
   revision: 722ef32dbad274a4547a343c6e010088cee2d8d2
   specs:
@@ -246,6 +253,7 @@ DEPENDENCIES
   jquery-rails
   paperclip
   poltergeist
+  rack-cors!
   rails (= 3.2.9)
   rails_config
   rb-readline

@@ -15,6 +15,16 @@ module Chronline
 
     config.assets.paths << "#{Rails.root}/vendor/assets/components"
 
+    config.middleware.use Rack::Cors do
+      allow do
+        origins do |source, env|
+          domain = env['HTTP_HOST'].sub(/^\w+\./, '')
+          source =~ %r{https?://\w+\.#{domain}}
+        end
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -29,18 +29,19 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'aws-sdk'
+gem 'bluecloth', '>= 2.0.0'
+gem 'bootstrap-will_paginate'
+gem 'browser'
+gem 'friendly_id'
 gem 'haml'
 gem 'jquery-rails'
-gem 'rails_config'
-gem 'bluecloth', '>= 2.0.0'
-gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
-gem 'simple_form'
-gem 'friendly_id'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
 gem 'paperclip'
-gem 'aws-sdk'
-gem 'browser'
+gem 'rack-cors', :require => 'rack/cors', :git => 'git://github.com/cyu/rack-cors.git'
+gem 'rails_config'
+gem 'simple_form'
+gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
+gem 'will_paginate'
 
 group :test do
   gem 'capybara'

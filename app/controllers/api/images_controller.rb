@@ -1,4 +1,4 @@
-class Api::ImagesController < Api::BaseController
+class Api::ImagesController < ApplicationController
 
   def index
     images = Image.order('created_at DESC')
