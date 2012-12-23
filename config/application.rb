@@ -13,7 +13,7 @@ module Chronline
   class Application < Rails::Application
     #config.logger = Logger.new(STDOUT)
 
-    config.assets.paths << "#{Rails.root}/vendor/assets/components"
+    config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
 
     config.middleware.use Rack::Cors do
       allow do
