@@ -30,6 +30,11 @@ class Admin::StaffController < Admin::BaseController
   end
 
   def update
-
+    @staff = Staff.find(params[:id])
+    if @staff.update_attributes(params[:staff])
+      redirect_to admin_root_path
+    else
+      render 'edit'
+    end
   end
 end
