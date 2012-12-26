@@ -15,8 +15,9 @@ Feature: Article Management
   Scenario: Article deletion
     Given there exist 10 articles
     And I am on the index articles page
-    When I click "Delete"
+    When I click an article delete link
     Then I should see 9 articles listed
+    And I should see an article deletion success message
 
   @javascript
   Scenario: Article pagination

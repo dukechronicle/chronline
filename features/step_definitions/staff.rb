@@ -1,6 +1,15 @@
+###
+# Given step definitions
+###
+
 Given /^an author "(.*?)" exists$/ do |name|
   @author = Author.create(name: name)
 end
+
+
+###
+# When step definitions
+###
 
 When /^I enter a valid author$/ do
   @author = FactoryGirl.build(:author)
@@ -11,6 +20,11 @@ When /^I enter a valid author$/ do
   fill_in 'Twitter', with: @author.twitter
   check 'Current Columnist?' if @author.columnist
 end
+
+
+###
+# Then step definitions
+###
 
 Then /^the author should have the correct properties$/ do
   author = Author.find_by_name @author.name

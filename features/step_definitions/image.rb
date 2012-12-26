@@ -26,6 +26,11 @@ When /^I attach an image file$/ do
   end
 end
 
+When /^I click an image delete link$/ do
+  click_link "Delete"
+  @image = (@images - Image.all).first
+end
+
 When /^I start the upload$/ do
   click_button "Start"
   wait_until(60) { find('.template-download .name') rescue nil }
@@ -74,6 +79,10 @@ Then /^they should have links to delete images$/ do
   @images.each do |image|
     image_row(image).should have_link('Delete', href: admin_image_path(image))
   end
+end
+
+Then /^I should see an image deletion success message$/ do
+  confirm_alert(:success, "Image \"#{@image.original_file_name}\" was deleted")
 end
 
 Then /^I should see the fields with image information$/ do

@@ -2,10 +2,6 @@
 # Given step definitions
 ###
 
-Given /^there exist (\d+) articles?$/ do |n|
-  @articles = FactoryGirl.create_list(:article, n.to_i)
-end
-
 Given /^there exists an article with authors$/ do
   @article = FactoryGirl.create(:article_with_authors)
 end
@@ -20,22 +16,6 @@ end
 ###
 # When step definitions
 ###
-
-When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
- fill_in field, with: value
-end
-
-When /^I leave "(.*?)" empty$/ do |field|
- fill_in field, with: nil
-end
-
-When /^I click "(.*?)"$/ do |button|
-  begin
-    click_button button
-  rescue Capybara::ElementNotFound
-    click_link button
-  end
-end
 
 When /^I enter a valid article$/ do
   @article = FactoryGirl.build(:article)
@@ -60,10 +40,6 @@ When /^I make valid changes$/ do
   select @article.section[0], from: 'article_section_0'
 end
 
-When /^I click a delete link$/ do
-  click_link 'Delete'
-end
-
 When /^I go to the original edit article path$/ do
   visit @path
 end
@@ -73,22 +49,15 @@ When /^I add author "(.*?)"$/ do |name|
   fill_in 'article_author_ids_0', with: name
 end
 
+When /^I click an article delete link$/ do
+  click_link "Delete"
+  @article = (@articles - Article.all).first
+end
+
 
 ###
 # Then step definitions
 ###
-
-Then /^the "(.*?)" field should show an error$/ do |field|
-  find_field(field).find(:xpath, '../..')[:class].should include('error')
-end
-
-Then /^the "(.*?)" field should be set to "(.*?)"$/ do |field, value|
-  find_field(field).value.should == value
-end
-
-Then /^a new (\w+) should be created$/ do |class_name|
-  eval(class_name).count.should == 1
-end
 
 Then /^the article should have the correct properties$/ do
   article = Article.find_by_title @article.title
@@ -107,15 +76,15 @@ end
 
 Then /^they should have links to edit pages$/ do
   @articles.each do |article|
-    row = page.find('tr', text: article.title)
-    row.should have_link('Edit', href: edit_admin_article_path(article))
+    article_row(article)
+      .should have_link('Edit', href: edit_admin_article_path(article))
   end
 end
 
 Then /^they should have links to delete them$/ do
   @articles.each do |article|
-    row = page.find('tr', text: article.title)
-    row.should have_link('Delete')
+    article_row(article)
+      .should have_link('Delete', href: admin_article_path(article))
   end
 end
 
@@ -131,17 +100,8 @@ Then /^I should see the fields with article information$/ do
   find_field('article_section_2').value.should == (@article.section[2] || '')
 end
 
-Then /^article should no longer exist$/ do
-  article_finder = lambda { Article.find(@article.id) }
-  article_finder.should raise_error(ActiveRecord::RecordNotFound)
-end
-
-Then /^I should be on the article manage page$/ do
-  current_path.should == admin_articles_path
-end
-
-Then /^I should see a deletion success message$/ do
-  find('.alert').text.should include("Article \"#{@article.title}\" was deleted")
+Then /^I should see an article deletion success message$/ do
+  confirm_alert(:success, "Article \"#{@article.title}\" was deleted")
 end
 
 Then /^I should be on the edit article page$/ do
@@ -150,6 +110,11 @@ Then /^I should be on the edit article page$/ do
   end
 end
 
-Then /^it should have a link to the next page$/ do
-  page.should have_link('Next', href: "#{current_path}?page=2")
+
+###
+# Helpers
+###
+
+def article_row(article)
+  page.find("tr#article_#{article.id}")
 end

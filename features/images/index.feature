@@ -16,5 +16,6 @@ Feature: Image Management
 
   @javascript @mock_s3
   Scenario: Image listing
-    When I click "Delete"
+    When I click an image delete link
     Then I should see 2 images listed
+    And I should see an image deletion success message
