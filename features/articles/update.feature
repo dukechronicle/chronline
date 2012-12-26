@@ -7,30 +7,25 @@ Feature: Article Update
     Given there exists an article with authors
     And I am on the edit page for the article
 
-  @javascript
   Scenario: Edit Page Display
     Then I should see the fields with article information
 
-  @javascript
   Scenario: Invalid Update
     When I leave "Title" empty
     And I click "Update Article"
     Then the "Title" field should show an error
 
-  @javascript
   Scenario: Valid Update
     When I make valid changes
     And I click "Update Article"
     Then the article should have the correct properties
 
-  @javascript
   Scenario: Article Deletion
     When I click "Delete Article"
     Then article should no longer exist
     And I should be on the article manage page
     And I should see an article deletion success message
 
-  @javascript
   Scenario: Title Update
     When I fill in "Title" with "New title"
     And I click "Update Article"

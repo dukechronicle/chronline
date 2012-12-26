@@ -6,14 +6,12 @@ Feature: Article Creation
   Background:
     Given I am on the new article page
 
-  @javascript
   Scenario: Invalid creation
     When I fill in "Title" with "Ash defeats Gary in Indigo Plateau"
     And I click "Create Article"
     Then the "Title" field should be set to "Ash defeats Gary in Indigo Plateau"
     And the "Body" field should show an error
 
-  @javascript
   Scenario: Valid creation
     Given an author "Hiker Martin" exists
     When I enter a valid article
@@ -22,7 +20,6 @@ Feature: Article Creation
     Then a new Article should be created
     And the article should have the correct properties
 
-  @javascript
   Scenario: Creation with non existent author
     When I enter a valid article
     And I add author "Hiker Martin"
