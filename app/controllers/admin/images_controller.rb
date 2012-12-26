@@ -50,7 +50,6 @@ class Admin::ImagesController < Admin::BaseController
   def update_image(image)
     photographer_name = params[:image].delete(:photographer_id)
     image.assign_attributes(params[:image])
-    puts photographer_name
     if photographer_name.blank?
       image.photographer = nil
     else

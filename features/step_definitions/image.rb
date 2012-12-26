@@ -1,24 +1,10 @@
-Given /^there exists an image$/ do
-  stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
-  @image = FactoryGirl.create(:image)
+Before '@mock_s3' do
+  @stub = stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
 end
 
 Given /^I am on the edit page for the image$/ do
   port = Capybara.current_session.driver.app_server.port
   visit edit_admin_image_url(@image, subdomain: :admin, host: 'lvh.me', port: port)
-end
-
-Given /^there exist (\d+) images$/ do |n|
-  stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
-  @images = FactoryGirl.create_list(:image, n.to_i)
-end
-
-Given /^I am on the (\w+) (\w+) page$/ do |action, collection|
-  visit url_for(action: action,
-                controller: "admin/#{collection.pluralize}",
-                subdomain: :admin,
-                port: Capybara.current_session.driver.app_server.port,
-                host: 'lvh.me')
 end
 
 When /^I attach an image file$/ do

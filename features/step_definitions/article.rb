@@ -144,10 +144,6 @@ Then /^I should see a deletion success message$/ do
   find('.alert').text.should include("Article \"#{@article.title}\" was deleted")
 end
 
-Then /^I should see (\d+) (\w+) listed$/ do |n, collection|
-  page.all('tr').should have(n.to_i).items
-end
-
 Then /^I should be on the edit article page$/ do
   Article.find(@article.id) do |article|
     current_path.should == edit_admin_article_path(article)
