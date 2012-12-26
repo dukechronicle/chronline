@@ -3,7 +3,7 @@ Feature: Image Upload
   I want to upload an image
   So that it can be attached to an article
 
-  @javascript
+  @javascript @mock_s3
   Scenario: Single Upload
     Given I am on the upload image page
     When I attach an image file
