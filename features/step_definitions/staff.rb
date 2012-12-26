@@ -21,6 +21,15 @@ When /^I enter a valid author$/ do
   check 'Current Columnist?' if @author.columnist
 end
 
+When /^I fill in the search box with "(.*?)"$/ do |query|
+  fill_in 'staff-search-input', with: query
+end
+
+Then /^I should see the typeahead suggestion "(.*?)"$/ do |name|
+  puts find('.typeahead').text
+end
+
+
 
 ###
 # Then step definitions
