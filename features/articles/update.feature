@@ -16,7 +16,7 @@ Feature: Article Update
     Then the "Title" field should show an error
 
   Scenario: Valid Update
-    When I make valid changes
+    When I make valid changes to the article
     And I click "Update Article"
     Then the article should have the correct properties
 

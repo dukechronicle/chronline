@@ -19,6 +19,16 @@ Given /^I am on the (\w+) (\w+) page$/ do |action, collection|
                 host: 'lvh.me')
 end
 
+Given /^I am on the (\w+) page for the (\w+)$/ do |action, model|
+  @path = url_for(id: instance_variable_get("@#{model}").id,
+                  action: action,
+                  controller: "admin/#{model.pluralize}",
+                  subdomain: :admin,
+                  port: Capybara.current_session.driver.app_server.port,
+                  host: 'lvh.me')
+  visit @path
+end
+
 
 ###
 # Then step definitions
@@ -82,4 +92,10 @@ end
 
 def confirm_alert(type, message)
   find(".alert-#{type.to_s}").should have_content(message)
+end
+
+def confirm_field_values(fields)
+  fields.each do |label, value|
+    find_field(label).value.should == value
+  end
 end

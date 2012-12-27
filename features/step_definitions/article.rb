@@ -6,12 +6,6 @@ Given /^there exists an article with authors$/ do
   @article = FactoryGirl.create(:article_with_authors)
 end
 
-Given /^I am on the edit page for the article$/ do
-  port = Capybara.current_session.driver.app_server.port
-  @path = edit_admin_article_url(@article, subdomain: :admin, host: 'lvh.me', port: port)
-  visit @path
-end
-
 
 ###
 # When step definitions
@@ -28,7 +22,7 @@ When /^I enter a valid article$/ do
   select (@article.section[2] || ''), from: 'article_section_2'
 end
 
-When /^I make valid changes$/ do
+When /^I make valid changes to the article$/ do
   @article.subtitle = "Starter Pokemon already taken"
   @article.teaser = "Ash arrived too late"
   @article.body = "**Pikachu** wrecks everyone."
@@ -89,15 +83,16 @@ Then /^they should have links to delete them$/ do
 end
 
 Then /^I should see the fields with article information$/ do
-  find_field('Title').value.should == @article.title
-  find_field('Subtitle').value.should == @article.subtitle
-  find_field('Teaser').value.should == @article.teaser
-  find_field('Body').value.should == @article.body
-  find_field('article_author_ids_0').value.should == @article.authors[0].name
-  find_field('article_author_ids_1').value.should == @article.authors[1].name
-  find_field('article_section_0').value.should == @article.section[0]
-  find_field('article_section_1').value.should == @article.section[1]
-  find_field('article_section_2').value.should == (@article.section[2] || '')
+  confirm_field_values('Title' => @article.title,
+                       'Subtitle' => @article.subtitle,
+                       'Teaser' => @article.teaser,
+                       'Body' => @article.body,
+                       'article_author_ids_0' => @article.authors[0].name,
+                       'article_author_ids_1' =>  @article.authors[1].name,
+                       'article_section_0' => @article.section[0],
+                       'article_section_1' => @article.section[1],
+                       'article_section_2' => @article.section[2] || '',
+                       )
 end
 
 Then /^I should see an article deletion success message$/ do
