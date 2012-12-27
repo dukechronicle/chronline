@@ -25,11 +25,6 @@ When /^I fill in the search box with "(.*?)"$/ do |query|
   fill_in 'staff-search-input', with: query
 end
 
-Then /^I should see the typeahead suggestion "(.*?)"$/ do |name|
-  puts find('.typeahead').text
-end
-
-
 
 ###
 # Then step definitions
@@ -41,4 +36,15 @@ Then /^the author should have the correct properties$/ do
   author.tagline.should == @author.tagline
   author.twitter.should == @author.twitter
   author.columnist.should == @author.columnist
+end
+
+Then /^I should see the typeahead suggestion "(.*?)"$/ do |name|
+  # puts find('.typeahead').text
+  pending
+end
+
+Then /^I should be on the edit staff page for "(.*?)"$/ do |name|
+  Staff.find_by_name(name) do |staff|
+    current_path.should == edit_admin_staff_path(staff)
+  end
 end

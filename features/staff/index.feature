@@ -9,3 +9,10 @@ Feature: Staff Search
     And I am on the index staff page
     When I fill in the search box with "L"
     Then I should see the typeahead suggestion "Lass Charlotte"
+
+  Scenario: Search Success
+    Given an author "Gambler Gordon" exists
+    And I am on the index staff page
+    When I fill in the search box with "Gambler Gordon"
+    And I click "Search"
+    Then I should be on the edit staff page for "Gambler Gordon"
