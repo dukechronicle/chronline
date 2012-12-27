@@ -62,12 +62,16 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-VCR.configure do |c|
-  c.cassette_library_dir = 'vcr_cassettes'
-  c.hook_into :webmock
-  c.ignore_localhost = true
-  c.default_cassette_options = {record: :all}
-  c.allow_http_connections_when_no_cassette = true
-end
+WebMock.disable_net_connect!(allow_localhost: true)
 
-VCR.cucumber_tags {|t| t.tag '@vcr'}
+# Uncomment the following to use VCR to record network requests
+
+# VCR.configure do |c|
+#   c.cassette_library_dir = 'vcr_cassettes'
+#   c.hook_into :webmock
+#   c.ignore_localhost = true
+#   c.default_cassette_options = {record: :all}
+#   c.allow_http_connections_when_no_cassette = true
+# end
+
+# VCR.cucumber_tags {|t| t.tag '@vcr'}
