@@ -2,8 +2,8 @@ class Site::ArticlesController < ApplicationController
   layout 'site'
 
   def index
-    section = Taxonomy.new("/#{params[:section]}/")
-    @articles = Article.find_by_section(section)
+    @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    @articles = Article.find_by_section(@taxonomy)
   end
 
   def show
