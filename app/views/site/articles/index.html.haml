@@ -4,7 +4,7 @@
       %a.hover{href: site_article_path(article)}
         .content-container
           %h3= article.title
-          .byline
+          .subtitle
             %span.date= article.created_at.strftime("%B %e, %Y")
             %span.author= byline(article)
           %p= article.teaser

@@ -19,7 +19,7 @@
               %p.photo-caption= @article.image.caption
 
         %p.byline
-          %span.author By #{byline(@article)}
+          %span.author By #{byline(@article, include_links: true)}
           %span.sep= "|"
           %span.date= @article.created_at.strftime("%B %e, %Y")
 
