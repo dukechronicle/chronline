@@ -43,6 +43,14 @@ class Taxonomy
     end
   end
 
+  def parents
+    parents = [self]
+    while parents.last != Taxonomy.new
+      parents.push(parents.last.parent)
+    end
+    parents[0..-2].reverse
+  end
+
   def to_a
     @node[:taxonomy]
   end

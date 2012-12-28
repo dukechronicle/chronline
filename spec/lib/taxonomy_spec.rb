@@ -84,6 +84,13 @@ describe Taxonomy do
     it { Taxonomy.new.parent.should be_nil }
   end
 
+  describe "#parents" do
+    it do
+      @taxonomy.parents.should == [Taxonomy.new(['News']),
+                                   Taxonomy.new(['News', 'University'])]
+    end
+  end
+
   describe "::main_sections" do
     it do
       sections = ['News', 'Sports', 'Opinion', 'Recess', 'Towerview']
