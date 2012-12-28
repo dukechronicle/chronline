@@ -16,3 +16,10 @@ Feature: Image Update
     When I make valid changes to the image
     And I click "Update Image"
     Then the image should have the correct properties
+
+  @mock_s3
+  Scenario: Image Deletion
+    When I click "Delete Image"
+    Then the image should no longer exist
+    And I should be on the image manage page
+    And I should see an image deletion success message

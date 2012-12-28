@@ -1,4 +1,6 @@
 Before '@mock_s3' do
+  stub_request(:head, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
+  stub_request(:delete, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
   @stub = stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
 end
 
@@ -6,11 +8,6 @@ end
 ###
 # Given step definitions
 ###
-
-Given /^I am on the edit page for the image$/ do
-  port = Capybara.current_session.driver.app_server.port
-  visit edit_admin_image_url(@image, subdomain: :admin, host: 'lvh.me', port: port)
-end
 
 
 ###
