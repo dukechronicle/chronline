@@ -37,4 +37,12 @@ class Admin::StaffController < Admin::BaseController
       render 'edit'
     end
   end
+
+  def destroy
+    staff = Staff.find(params[:id])
+    staff.destroy
+    flash[:success] = "#{staff.class.name} \"#{staff.name}\" was deleted."
+    redirect_to admin_staff_index_path
+  end
+
 end

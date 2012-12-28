@@ -75,3 +75,7 @@ Then /^I should see the fields with staff information$/ do
                        'Biography' => @staff.biography,
                        )
 end
+
+Then /^I should see a staff deletion success message$/ do
+  confirm_alert(:success, "Author \"#{@staff.name}\" was deleted")
+end

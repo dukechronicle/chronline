@@ -22,7 +22,7 @@ Feature: Article Update
 
   Scenario: Article Deletion
     When I click "Delete Article"
-    Then article should no longer exist
+    Then the article should no longer exist
     And I should be on the article manage page
     And I should see an article deletion success message
 

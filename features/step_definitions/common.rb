@@ -71,15 +71,18 @@ Then /^a new (\w+) should be created$/ do |class_name|
   class_name.constantize.count.should == 1
 end
 
-Then /^I should be on the article manage page$/ do
-  current_path.should == admin_articles_path
+Then /^I should be on the (\w+) manage page$/ do |collection|
+  current_path.should == url_for(action: :index,
+                                 controller: "admin/#{collection.pluralize}",
+                                 only_path: true,
+                                 )
 end
 
 Then /^it should have a link to the next page$/ do
   page.should have_link('Next', href: "#{current_path}?page=2")
 end
 
-Then /^(\w+) should no longer exist$/ do |model|
+Then /^the (\w+) should no longer exist$/ do |model|
   cls = model.camelcase.constantize
   instance = instance_variable_get("@#{model}")
   cls.find_by_id(instance.id).should be_nil

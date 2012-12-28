@@ -14,3 +14,9 @@ Feature: Staff Update
     When I make valid changes to the author
     And I click "Update Staff"
     Then the author should have the correct properties
+
+  Scenario: Staff Deletion
+    When I click "Delete Staff"
+    Then the staff should no longer exist
+    And I should be on the staff manage page
+    And I should see a staff deletion success message
