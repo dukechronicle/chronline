@@ -62,4 +62,8 @@ onto per since than the this that to up via with)
     self[:section] = taxonomy.to_s
   end
 
+  def self.find_by_section(taxonomy)
+    self.where('section LIKE ?', "#{taxonomy.to_s}%")
+  end
+
 end

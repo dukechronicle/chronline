@@ -85,4 +85,31 @@ describe Article do
       it { should_not match(/\-$/) }
     end
   end
+
+  describe "::find_by_section" do
+    before do
+      Article.create(title: 'What? Squirtle is evolving!',
+                     body: 'Squirtle evolved into Wartortle',
+                     section: '/news/')
+      Article.create(title: 'What? Charmander is evolving!',
+                     body: 'Charmander evolved into Charmeleon',
+                     section: '/news/university')
+      Article.create(title: 'What? Bulbasaur is evolving!',
+                     body: 'Bulbasaur evolved into Ivysaur',
+                     section: '/sports/')
+    end
+
+    subject { Article.find_by_section(Taxonomy.new(['News'])) }
+
+    it "should return all articles with a subsection of the given section" do
+      should include(Article.find_by_title('What? Squirtle is evolving!'))
+      should include(Article.find_by_title('What? Charmander is evolving!'))
+    end
+
+    it "should be chainable with other query methods" do
+      articles = Article.find_by_section(Taxonomy.new(['News'])).limit(1)
+      articles.should have(1).article
+    end
+  end
+
 end
