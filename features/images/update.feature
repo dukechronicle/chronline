@@ -10,6 +10,7 @@ Feature: Image Update
   @mock_s3
   Scenario: Edit Page Display
     Then I should see the fields with image information
+    And I should see a listing of the image styles
 
   @mock_s3
   Scenario: Valid Update

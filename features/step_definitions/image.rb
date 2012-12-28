@@ -61,7 +61,7 @@ end
 Then /^they should have the thumbnail versions$/ do
   @images.each do |image|
     image_selector = "img[src=\"#{image.original.url(:thumb_rect)}\"]"
-    image_row(image).should have_css(image_selector)
+    image_row(image).should have_selector(image_selector)
   end
 end
 
@@ -107,6 +107,13 @@ Then /^the image should have the correct properties$/ do
   image.location.should == @image.location
   image.photographer.should == Photographer.find_by_name('Youngster Todd')
   image.created_at.should == @image.created_at.to_date
+end
+
+Then /^I should see a listing of the image styles$/ do
+  @image.original.styles.keys.each do |style|
+    find('#styles tr', text: style.to_s.camelcase)
+      .should have_selector("img[src=\"#{@image.original.url(style)}\"]")
+  end
 end
 
 
