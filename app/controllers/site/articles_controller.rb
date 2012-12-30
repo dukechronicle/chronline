@@ -1,5 +1,4 @@
-class Site::ArticlesController < ApplicationController
-  layout 'site'
+class Site::ArticlesController < Site::BaseController
 
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
@@ -14,4 +13,5 @@ class Site::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     render 'print', layout: 'print'
   end
+
 end

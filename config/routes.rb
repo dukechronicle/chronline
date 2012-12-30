@@ -1,4 +1,5 @@
 Chronline::Application.routes.draw do
+
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
       match 'section/*section' => 'articles#index'
@@ -6,6 +7,8 @@ Chronline::Application.routes.draw do
       resources :articles, only: :show do
         get 'print', on: :member
       end
+
+      resources :staff, only: :show
     end
   end
 

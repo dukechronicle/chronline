@@ -8,6 +8,9 @@ updateCropSize = ->
   dim = $('#image_crop_style option:selected').data('dimensions')
   target = $('#crop-target')[0]
   options =
+    onChange: setCoordinates
+    onSelect: setCoordinates
+    onRelease: setCoordinates
     aspectRatio: dim.width / dim.height
     minSize: [dim.width, dim.height]
     setSelect: [0, 0, dim.width, dim.height]
@@ -29,11 +32,6 @@ disableOptions = ->
   $('#image_crop_style option').filter(-> not $(this).attr('disabled')).first().prop('selected', true)
 
 initialize '#crop-target', ->
-  $(this).Jcrop(
-    onChange: setCoordinates
-    onSelect: setCoordinates
-    onRelease: setCoordinates
-  )
   $('#image_crop_style').change(updateCropSize)
   disableOptions()
   updateCropSize()
