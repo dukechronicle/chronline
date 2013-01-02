@@ -1,0 +1,39 @@
+- provide :title, @article.title
+
+- content_for :title_block do
+  %h2
+    = link_to "Home", "/"
+    - @article.section.parents.each do |parent|
+      &raquo;
+      = link_to parent.name, "/section#{parent.to_s}"
+
+%article#article
+  .article-container
+    %h1.title= @article.title
+    %h2.subtitle= @article.subtitle
+
+    - if @article.image
+      = image_tag @article.image.original.url(:large_rect), class: 'main-image'
+      .clearfix
+        - if @article.image.photographer
+          .photo-credit
+            %span= @article.image.photographer.name
+            %span / The Chronicle
+        - if not @article.image.caption.blank?
+          %p.photo-caption= @article.image.caption
+
+    %p.byline
+      %span.author By #{byline(@article)}
+      %span.sep= "|"
+      %span.date= @article.created_at.strftime("%B %e, %Y")
+
+    #social-media
+      .fb-like{data: {href: site_article_url(@article, subdomain: 'www'), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
+      .g-plusone{data: {size: "medium", annotation: "bubble", href: site_article_url(@article, subdomain: 'www')}}
+      %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: site_article_url(@article, subdomain: 'www')}} Tweet
+
+    .article-body!= @article.render_body
+
+    %a{href: "/", data: {direction: "reverse", role: "button", rel: "back", icon: "back"}} Back
+
+    #disqus_thread.rounded{data: {disqus: @article.disqus.to_json}}
