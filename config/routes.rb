@@ -12,6 +12,14 @@ Chronline::Application.routes.draw do
     end
   end
 
+  constraints subdomain: 'm' do
+    namespace :mobile, path: '/'  do
+      match 'section/*section' => 'articles#index'
+
+      resources :articles, only: :show
+    end
+  end
+
   constraints subdomain: 'admin' do
     namespace :admin, path: '/'  do
       root to: 'main#home'

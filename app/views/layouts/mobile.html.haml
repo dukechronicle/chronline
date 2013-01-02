@@ -1,0 +1,19 @@
+!!! 5
+%html
+  %head
+    %title #{yield :title} | The Chronicle
+    %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
+    :javascript
+      try{Typekit.load()}catch(e){}
+
+    = stylesheet_link_tag "mobile", :media => "all"
+    = csrf_meta_tags
+  %body
+    #fb-root
+    %div{data: {role: "page"}}
+      = render 'mobile/partials/header'
+      .container{data: {role: "content"}}= yield
+      = render 'mobile/partials/footer'
+
+    #scripts
+      = javascript_include_tag "mobile"
