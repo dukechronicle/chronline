@@ -51,6 +51,10 @@ class Taxonomy
     parents[0..-2].reverse
   end
 
+  def root?
+    to_s == '/'
+  end
+
   def to_a
     @node[:taxonomy]
   end

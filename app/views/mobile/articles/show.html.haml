@@ -1,11 +1,7 @@
 - provide :title, @article.title
 
 - content_for :title_block do
-  %h2
-    = link_to "Home", "/"
-    - @article.section.parents.each do |parent|
-      &raquo;
-      = link_to parent.name, "/section#{parent.to_s}"
+  = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @article.section}
 
 %article#article
   .article-container

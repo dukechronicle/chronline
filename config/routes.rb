@@ -14,6 +14,7 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'm' do
     namespace :mobile, path: '/'  do
+      root to: 'articles#index'
       match 'section/*section' => 'articles#index'
 
       resources :articles, only: :show

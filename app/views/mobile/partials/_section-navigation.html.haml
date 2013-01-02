@@ -1,0 +1,5 @@
+%h2
+  = link_to "Home", "/"
+  - taxonomy.parents.each do |parent|
+    &raquo;
+    = link_to parent.name, "/section#{parent.to_s}"
