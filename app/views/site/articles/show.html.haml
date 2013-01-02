@@ -37,13 +37,13 @@
             %div
               .fb-like{data: {href: @site_article_url, send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
-              %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle"}} Tweet
+              %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: site_article_url(@article, subdomain: 'www')}} Tweet
             %div
               .g-plusone{data: {size: "medium", annotation: "bubble"}}
 
           != @article.render_body
 
-    #disqus_thread.rounded{data: {disqus: @disqus.to_json}}
+    #disqus_thread.rounded{data: {disqus: @article.disqus.to_json}}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

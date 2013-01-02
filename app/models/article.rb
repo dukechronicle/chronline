@@ -35,6 +35,16 @@ class Article < ActiveRecord::Base
   self.per_page = 25  # set will_paginate default to 25 articles
 
 
+  def disqus
+    {
+      production: Rails.env.production?,
+      shortname: Settings.disqus_shortname,
+      identifier: id,  # TODO: should be old unique identifier for backwards compatibility
+      title: title,
+      url: site_article_path(self),
+    }
+  end
+
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)
     removelist = %w(a an as at before but by for from is in into like of off on
