@@ -20,6 +20,7 @@ require_dependency 'staff'
 
 class Article < ActiveRecord::Base
   include FriendlyId
+  include Rails.application.routes.url_helpers
 
   attr_accessible :body, :image_id, :subtitle, :section, :slug, :teaser, :title
 
