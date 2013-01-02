@@ -7,6 +7,13 @@ class Site::ArticlesController < Site::BaseController
 
   def show
     @article = Article.find(params[:id])
+    @disqus = {
+      production: Rails.env.production?,
+      shortname: Settings.disqus_shortname,
+      identifier: @article.id,  # TODO: should be old unique identifier for backwards compatibility
+      title: @article.title,
+      url: site_article_url(@article, subdomain: 'www'),
+    }
   end
 
   def print
