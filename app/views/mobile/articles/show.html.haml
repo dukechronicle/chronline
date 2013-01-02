@@ -32,4 +32,4 @@
 
     %a{href: "/", data: {direction: "reverse", role: "button", rel: "back", icon: "back"}} Back
 
-    #disqus_thread.rounded{data: {disqus: @article.disqus.to_json}}
+    #disqus_thread.rounded{data: {disqus: @article.disqus(current_domain).to_json}}

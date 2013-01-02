@@ -43,7 +43,7 @@
 
           != @article.render_body
 
-    #disqus_thread.rounded{data: {disqus: @article.disqus.to_json}}
+    #disqus_thread.rounded{data: {disqus: @article.disqus(current_domain).to_json}}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
