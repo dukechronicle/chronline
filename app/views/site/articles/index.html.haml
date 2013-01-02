@@ -1,3 +1,5 @@
+- provide :title, @taxonomy.to_a.join(', ')
+
 - content_for :title_block do
   %h1
     - @taxonomy.parents.each_with_index do |parent, i|

@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title= yield :title
+    %title #{yield :title} | The Chronicle
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
     :javascript
       try{Typekit.load()}catch(e){}
@@ -15,5 +15,4 @@
       %section#content.clearfix= yield
       = render 'site/partials/footer'
     #scripts
-      = render 'site/partials/facebook-sdk'
       = javascript_include_tag "site"
