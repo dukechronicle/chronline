@@ -15,3 +15,12 @@
               = image_tag article.image.original.url(:thumb_square_s)
             %h2= article.title
             %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
+  - @taxonomy.children.each do |child|
+    %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true"}}
+      %h3= child.name
+      %ul{data: {role: "listview"}}
+        %li
+          %a{href: "/section#{child.to_s}"}
+            More
+            %em= child.to_a.join(', ')
+            Articles

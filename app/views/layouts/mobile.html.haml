@@ -12,7 +12,7 @@
     #fb-root
     %div{data: {role: "page"}}
       = render 'mobile/partials/header'
-      .container{data: {role: "content"}}= yield
+      %section{data: {role: "content"}}= yield
       = render 'mobile/partials/footer'
 
     #scripts
