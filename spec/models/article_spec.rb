@@ -86,6 +86,20 @@ describe Article do
     end
   end
 
+  describe "#disqus" do
+    before { @article.save! }
+    subject { @article.disqus('example.com') }
+
+    it { should be_a_kind_of(Hash) }
+    it do
+      should have_key(:production)
+      should have_key(:shortname)
+      should have_key(:identifier)
+      should have_key(:title)
+      should have_key(:url)
+    end
+  end
+
   describe "::find_by_section" do
     before do
       Article.create(title: 'What? Squirtle is evolving!',

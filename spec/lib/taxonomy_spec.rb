@@ -60,6 +60,11 @@ describe Taxonomy do
     it { @taxonomy.should_not == ['News', 'University'] }
   end
 
+  describe "#root?" do
+    it { Taxonomy.new.root?.should be_true }
+    it { @taxonomy.root?.should_not be_true }
+  end
+
   describe "#[]" do
     it do
       @taxonomy[0].should == 'News'

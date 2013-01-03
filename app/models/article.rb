@@ -42,7 +42,7 @@ class Article < ActiveRecord::Base
       shortname: Settings.disqus_shortname,
       identifier: id,  # TODO: should be old unique identifier for backwards compatibility
       title: title,
-      url: site_article_url(self, subdomain: 'www', host: host),
+      url: 'something', #site_article_url(self, subdomain: 'www', host: host),
     }
   end
 
