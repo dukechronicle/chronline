@@ -28,6 +28,7 @@ describe Article do
                            body: '**Pikachu** wrecks everyone. The End.',
                            section: '/news/',
                            )
+    @article.authors << Author.new(name: 'Trainer Mitch')
   end
 
   subject { @article }

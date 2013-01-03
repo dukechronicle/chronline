@@ -2,8 +2,9 @@ class Api::ArticlesController < ApplicationController
 
   def index
     taxonomy = Taxonomy.new("/#{params[:section]}/")
-    articles = Article.find_by_section(taxonomy)
-    render json: articles
+    articles = Article.includes(:authors, :image).
+      find_by_section(taxonomy)
+    render json: articles, include: :authors
   end
 
 end

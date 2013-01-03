@@ -77,4 +77,9 @@ onto per since than the this that to up via with)
     self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
+
+  ###
+  # Helper methods for rendering JSON
+  ###
+
 end
