@@ -82,4 +82,8 @@ onto per since than the this that to up via with)
   # Helper methods for rendering JSON
   ###
 
+  def thumb_square_s_url
+    image.original.url(:thumb_rect) if image
+  end
+
 end
