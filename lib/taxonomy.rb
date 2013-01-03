@@ -25,6 +25,10 @@ class Taxonomy
     @node[:taxonomy][i]
   end
 
+  def as_json(options=nil)
+    to_a
+  end
+
   def children
     @node[:children].map do |child|
       Taxonomy.new(to_a + [child.name])

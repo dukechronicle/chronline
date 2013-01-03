@@ -49,6 +49,10 @@ describe Taxonomy do
     it { @taxonomy.name.should == 'University' }
   end
 
+  describe "#to_json" do
+    it { @taxonomy.to_json.should == ['News', 'University'].to_json }
+  end
+
   describe "#==" do
     it { @taxonomy.should == Taxonomy.new(['News', 'University']) }
     it { @taxonomy.should_not == Taxonomy.new(['News']) }

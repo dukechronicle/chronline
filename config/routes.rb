@@ -2,7 +2,7 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
-      match 'section/*section' => 'articles#index'
+      get 'section/*section' => 'articles#index', as: :article_section
 
       resources :articles, only: :show do
         get 'print', on: :member
@@ -15,7 +15,7 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'm' do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'
-      match 'section/*section' => 'articles#index'
+      get 'section/*section' => 'articles#index', as: :article_section
 
       resources :articles, only: :show
     end
@@ -37,8 +37,10 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'api' do
     namespace :api, path: '/' do
+      get 'section/*section' => 'articles#index', as: :article_section
       resources :images, only: :index
       resources :staff, only: :index
+      resources :articles, only: :index
     end
   end
 
