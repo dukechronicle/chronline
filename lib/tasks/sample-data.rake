@@ -21,10 +21,14 @@ namespace :db do
                             subtitle: subtitle,
                             teaser: Faker::Lorem.sentence,
                             body: Faker::Lorem.paragraph,
-                            section: '/news/university',
+                            section: random_taxonomy,
                             image_id: image.id)
       article.authors = [authors.sample]
       article.save!
     end
   end
+end
+
+def random_taxonomy
+  Taxonomy.levels.flatten.sample
 end
