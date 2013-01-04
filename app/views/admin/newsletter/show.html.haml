@@ -1,0 +1,15 @@
+%form.form-horizontal{action: admin_newsletter_path, method: 'POST'}
+  %legend Newsletter
+  .form-inputs
+    .control-group
+      %label.control-label{for: 'email'} Article
+      .controls
+        %input#article-select{type: 'checkbox'}
+        %input.input-xlarge#article{type: 'text', name: 'article', disabled: true}
+    .control-group
+      %label.control-label{for: 'email'} Test email
+      .controls
+        %input#email-select{type: 'checkbox'}
+        %input.input-xlarge#email{type: 'text', name: 'email', disabled: true}
+  .form-actions
+    %button.btn.btn-large.btn-primary{type: 'submit'} Send
