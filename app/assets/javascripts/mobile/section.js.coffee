@@ -20,7 +20,7 @@ initialize '#section-listing', ->
     if not $(this).data('initialized')
       $listview = $(this).find('ul[data-role=listview]')
       url = fullUrl('api', '/section' + $(this).data('section'))
-      $.get url, {limit: 7}, (articles) ->
+      $.get url, {limit: 7}, (articles) =>
         $listview.children().last().before(_.map(articles, listItem))
         $listview.listview('refresh')
         $(this).data('initialized', true)

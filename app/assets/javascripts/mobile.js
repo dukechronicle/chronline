@@ -8,3 +8,6 @@
 //= require site/social-media.js
 //= require site/disqus.js
 //= require_tree ./mobile
+
+// TODO: figure out scripting issues with ajax transitions
+$.mobile.ajaxEnabled = false;
