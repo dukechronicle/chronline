@@ -114,6 +114,7 @@ GEM
       json (>= 1.4.6)
     haml (3.1.7)
     hike (1.2.1)
+    hiredis (0.4.5)
     http_parser.rb (0.5.3)
     httparty (0.9.0)
       multi_json (~> 1.0)
@@ -178,6 +179,7 @@ GEM
     rb-readline (0.4.2)
     rdoc (3.12)
       json (~> 1.4)
+    redis (3.0.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -249,6 +251,7 @@ DEPENDENCIES
   ffaker
   friendly_id
   haml
+  hiredis
   jquery-rails
   paperclip
   poltergeist
@@ -256,6 +259,7 @@ DEPENDENCIES
   rails (= 3.2.9)
   rails_config
   rb-readline
+  redis
   rspec-rails (= 2.11.0)
   sass-rails (~> 3.2.3)
   simple_form
