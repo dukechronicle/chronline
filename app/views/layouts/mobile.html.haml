@@ -1,5 +1,5 @@
 !!! 5
-%html
+%html.ui-mobile-rendering
   %head
     %title #{yield :title} | The Chronicle
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
@@ -12,10 +12,10 @@
     #fb-root
     %div.container{data: {role: "page"}}
       = render 'mobile/partials/header'
-      / = image_tag "chapel.svg", id: 'background-image'
+      = image_tag "chapel.svg", id: 'background-image'
       %section{data: {role: "content"}}= yield
       = render 'mobile/partials/footer'
-      / = render 'mobile/partials/advertisement'
+      = render 'mobile/partials/advertisement'
 
     #scripts
       = javascript_include_tag "mobile"
