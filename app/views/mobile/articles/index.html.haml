@@ -1,4 +1,4 @@
-- provide :title, @taxonomy.to_a.join(', ')
+- provide :title, if @taxonomy.root? then 'The Independent Daily at Duke University' else @taxonomy.to_a.join(', ') end
 
 - if not @taxonomy.root?
   - content_for :title_block do
