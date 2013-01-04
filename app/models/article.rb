@@ -83,7 +83,7 @@ onto per since than the this that to up via with)
   ###
 
   def thumb_square_s_url
-    image.original.url(:thumb_rect) if image
+    image.original.url(:thumb_square_s) if image
   end
 
 end

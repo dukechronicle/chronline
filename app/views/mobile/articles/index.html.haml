@@ -16,7 +16,7 @@
             %h2= article.title
             %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
   - @taxonomy.children.each do |child|
-    %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true"}}
+    %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true", section: child.to_s}}
       %h3= child.name
       %ul{data: {role: "listview"}}
         %li
