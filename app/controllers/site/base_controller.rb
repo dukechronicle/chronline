@@ -6,7 +6,10 @@ class Site::BaseController < ApplicationController
 
   def redirect_mobile
     if browser.mobile?
-      # TODO: look into lazy loading and short circuit ANDing
+      if params[:force_full_site]
+        session[:force_full_site] = true
+      end
+
       if not session[:force_full_site]
         url = URI(request.url)
         url.host.sub!(/^www/, 'm')
