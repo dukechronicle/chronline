@@ -60,6 +60,11 @@ onto per since than the this that to up via with)
     s[0...max_chars].chomp('-')
   end
 
+  def register_view
+    key = "popularity:#{section[0].downcase}:#{Date.today}"
+    $redis.zincrby(key, 1, id)
+  end
+
   def render_body
     BlueCloth.new(body).to_html  # Uses bluecloth markdown renderer
   end
@@ -77,6 +82,10 @@ onto per since than the this that to up via with)
     self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
+  def self.popular(section, options)
+    key = "popularity:#{section}:#{Date.today}"
+    $redis.zrevrangebyscore(key, "+inf", 0, with_scores: true, limit: [0, 2])
+  end
 
   ###
   # Helper methods for rendering JSON

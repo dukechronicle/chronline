@@ -12,6 +12,7 @@ class Mobile::ArticlesController < Mobile::BaseController
     if request.path != mobile_article_path(@article)
       return redirect_to [:mobile, @article], status: :moved_permanently
     end
+    @article.register_view
   end
 
   def search
