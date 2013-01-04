@@ -61,6 +61,7 @@ onto per since than the this that to up via with)
   end
 
   def register_view
+    # TODO: expire old keys
     key = "popularity:#{section[0].downcase}:#{Date.today}"
     $redis.zincrby(key, 1, id)
   end
@@ -82,9 +83,20 @@ onto per since than the this that to up via with)
     self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
-  def self.popular(section, options)
-    key = "popularity:#{section}:#{Date.today}"
-    $redis.zrevrangebyscore(key, "+inf", 0, with_scores: true, limit: [0, 2])
+  def self.popular(section, options={})
+    limit = options[:limit] || 10
+    popular = {}
+    articles = fetch_popular_from_redis(section, limit)
+    articles.each_with_index do |level, days|
+      level.each do |pair|
+        id, score = pair.map(&:to_i)
+        popular[id] = 0.0 if not popular.has_key?(id)
+        popular[id] += score / (days + 1)
+      end
+    end
+    article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
+      .take(limit).map(&:first)
+    self.find(article_ids)
   end
 
   ###
@@ -93,6 +105,18 @@ onto per since than the this that to up via with)
 
   def thumb_square_s_url
     image.original.url(:thumb_square_s) if image
+  end
+
+  private
+
+  def self.fetch_popular_from_redis(section, limit)
+    $redis.multi do
+      5.times do |i|
+        key = "popularity:#{section}:#{Date.today - i}"
+        $redis.zrevrangebyscore(key, "+inf", 0, with_scores: true,
+                                limit: [0, limit])
+      end
+    end
   end
 
 end
