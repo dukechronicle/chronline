@@ -24,6 +24,8 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'admin' do
     namespace :admin, path: '/'  do
       root to: 'main#home'
+      get "newsletter" => "newsletter#show"
+      post "newsletter" => "newsletter#send"
 
       resources :images, except: :show do
         put 'crop', on: :member
