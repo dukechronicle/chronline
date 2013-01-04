@@ -4,8 +4,8 @@
   - content_for :title_block do
     = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @taxonomy}
 
-%div{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
-  %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "false"}}
+#section-listing{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
+  %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "false", initialized: "true"}}
     %h3= @taxonomy.name || "Top Headlines"
     %ul{data: {role: "listview"}}
       - @articles.each do |article|
