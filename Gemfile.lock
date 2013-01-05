@@ -112,6 +112,9 @@ GEM
     fssm (0.2.9)
     gherkin (2.11.5)
       json (>= 1.4.6)
+    gibbon (0.4.2)
+      httparty
+      json
     haml (3.1.7)
     hike (1.2.1)
     hiredis (0.4.5)
@@ -250,6 +253,7 @@ DEPENDENCIES
   factory_girl_rails
   ffaker
   friendly_id
+  gibbon
   haml
   hiredis
   jquery-rails
