@@ -17,10 +17,7 @@ module Chronline
 
     config.middleware.use Rack::Cors do
       allow do
-        origins do |source, env|
-          domain = env['HTTP_HOST'].sub(/^\w+\./, '')
-          source =~ %r{https?://\w+\.#{domain}}
-        end
+        origins %r{https?://\w+\.#{Settings.domain}}
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end

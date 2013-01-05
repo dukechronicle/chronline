@@ -4,6 +4,7 @@ aws:
   secret_access_key: secret_key
   bucket: chrondev
 content_cdn: cdn.example.com
+domain: lvh.me
 taxonomy:
   - name: News
     children:

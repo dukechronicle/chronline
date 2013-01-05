@@ -1,0 +1,9 @@
+%h1
+  %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}= article.title
+
+%p.byline
+  %span.author By #{article.authors.map(&:name).join(', ')}
+  %span.sep= "|"
+  %span.date= article.created_at.strftime("%B %e, %Y")
+
+%p= article.render_body

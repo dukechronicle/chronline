@@ -49,16 +49,22 @@ end
 class ArticleNewsletter < Newsletter
   attr_accessor :article
 
-  def initialize(article_id)
-    @article = Article.find(article_id)
+
+  def initialize(article)
+    if article.is_a? Article
+      @article = article
+    elsif not article.nil?
+      Article.find(article_id, include: :authors)
+    end
   end
-
-
-  private
 
   def content
-    "<b>Hello World</b>"
+    # TODO: look into executing in an actual controller context with helpers
+    template = File.read(File.join(%w{app views newsletter article.html.haml}))
+    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, article: @article)
   end
+
+  private
 
   def subject
     @article.title

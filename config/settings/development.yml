@@ -1,4 +1,5 @@
 ---
+domain: lvh.me
 taxonomy:
   - name: News
     children:
