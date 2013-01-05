@@ -1,15 +1,16 @@
-%form.form-horizontal{action: admin_newsletter_path, method: 'POST'}
+= render 'admin/partials/flash', flash: flash
+= form_for ArticleNewsletter.new, url: admin_newsletter_path, html: {class: 'form-horizontal'} do |f|
   %legend Newsletter
   .form-inputs
     .control-group
-      %label.control-label{for: 'email'} Article
+      %label.control-label{for: 'newsletter_article'} Article
       .controls
-        %input#article-select{type: 'checkbox'}
-        %input.input-xlarge#article{type: 'text', name: 'article', disabled: true}
+        %input.input-enabler{type: 'checkbox', data: {target: 'newsletter_article'}}
+        = f.text_field :article, disabled: true, class: 'input-xlarge'
     .control-group
-      %label.control-label{for: 'email'} Test email
+      %label.control-label{for: 'newsletter_test_email'} Test email
       .controls
-        %input#email-select{type: 'checkbox'}
-        %input.input-xlarge#email{type: 'text', name: 'email', disabled: true}
+        %input.input-enabler{type: 'checkbox', data: {target: 'newsletter_test_email'}}
+        = f.text_field :test_email, disabled: true, class: 'input-xlarge'
   .form-actions
-    %button.btn.btn-large.btn-primary{type: 'submit'} Send
+    = f.submit 'Send', class: 'btn btn-large btn-primary'

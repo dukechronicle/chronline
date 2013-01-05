@@ -1,6 +1,20 @@
 class Newsletter
+  include ActiveModel::Validations
+  include ActiveModel::Conversion
+  extend ActiveModel::Naming
 
-  def send(test_email=nil)
+  attr_accessor :test_email
+
+
+  def initialize(attributes)
+    @test_email = attributes[:test_email]
+  end
+
+  def persisted?
+    false
+  end
+
+  def send_campaign
     gb = Gibbon.new(Settings.mailchimp.api_key)
     cid = create_campaign(gb)
     if test_email.nil?
@@ -50,11 +64,10 @@ class ArticleNewsletter < Newsletter
   attr_accessor :article
 
 
-  def initialize(article)
-    if article.is_a? Article
-      @article = article
-    elsif not article.nil?
-      Article.find(article_id, include: :authors)
+  def initialize(attributes = {})
+    super
+    if attributes[:article]
+      @article = Article.find(attributes[:article], include: :authors)
     end
   end
 
@@ -62,6 +75,10 @@ class ArticleNewsletter < Newsletter
     # TODO: look into executing in an actual controller context with helpers
     template = File.read(File.join(%w{app views newsletter article.html.haml}))
     Haml::Engine.new(template).render(Rails.application.routes.url_helpers, article: @article)
+  end
+
+  def self.model_name
+    Newsletter.model_name
   end
 
   private

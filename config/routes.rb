@@ -25,7 +25,7 @@ Chronline::Application.routes.draw do
     namespace :admin, path: '/'  do
       root to: 'main#home'
       get "newsletter" => "newsletter#show"
-      post "newsletter" => "newsletter#send"
+      post "newsletter" => "newsletter#send_newsletter"
 
       resources :images, except: :show do
         put 'crop', on: :member
