@@ -2,6 +2,11 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
+      resource :newsletter, only: :show do
+        post 'subscribe'
+        post 'unsubscribe'
+      end
+
       get 'section/*section' => 'articles#index', as: :article_section
 
       resources :articles, only: :show do
@@ -24,8 +29,8 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'admin' do
     namespace :admin, path: '/'  do
       root to: 'main#home'
-      get "newsletter" => "newsletter#show"
-      post "newsletter" => "newsletter#send_newsletter"
+      get 'newsletter' => 'newsletter#show'
+      post 'newsletter' => 'newsletter#send_newsletter'
 
       resources :images, except: :show do
         put 'crop', on: :member
