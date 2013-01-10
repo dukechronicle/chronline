@@ -1,0 +1,15 @@
+.row
+  .span8
+    %h1 Page Layout
+  .span4
+    = simple_form_for [:admin, @page], defaults: {input_html: {class: 'input-xlarge'}} do |f|
+      %legend Page Settings
+      .form-inputs
+        = f.error_notification
+        = f.input :title
+        = f.input :path, label: "URL Path"
+        = f.input :layout_template, collection: Page::Layouts.constants
+      .form-actions
+        = f.button :submit, class: 'btn btn-large btn-primary'
+        - if not @page.new_record?
+          = link_to "Delete Page", [:admin, @page], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
