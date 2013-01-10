@@ -11,7 +11,17 @@ class Page < ActiveRecord::Base
   validates :template, presence: true
 
   def layout
-    Page::Layouts::SingleBlock.new(layout_data)
+    layout_class.new(layout_data)
+  end
+
+  def layout_class
+    class_name = layout_template.to_s.camelcase.to_sym
+    begin
+      layout_class = Page::Layouts.const_get(class_name)
+      layout_class if layout_class < Layout
+    rescue NameError
+      nil
+    end
   end
 
 end
