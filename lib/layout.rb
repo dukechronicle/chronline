@@ -15,8 +15,13 @@ class Layout
     JSON::Validator.fully_validate(json_schema, @data, validate_schema: true)
   end
 
-  def generate
+  def generate_model
     Layout::Validator.new(json_schema, @data).validate
+  end
+
+  def model
+    @model = generate_model if @model.nil?
+    @model
   end
 
   def json_schema
