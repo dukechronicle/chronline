@@ -1,0 +1,4 @@
+@import "blueprint";
+
+// Generate the blueprint IE-specific customizations:
+@include blueprint-ie;
