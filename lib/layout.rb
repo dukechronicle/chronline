@@ -1,4 +1,9 @@
+require 'layout/validator'
+
+
 class Layout
+  require 'layout/schema'
+
   @@schemata = {}
 
 
@@ -11,7 +16,7 @@ class Layout
   end
 
   def generate
-    JSON::Validator.validate!(json_schema, @data)
+    Layout::Validator.new(json_schema, @data).validate
   end
 
   def json_schema
@@ -40,6 +45,5 @@ end
 Layout.add_schema(:markdown, {
                     "type" => "string",
                     "description" => "Markdown text",
+                    "transformation" => lambda {|str| BlueCloth.new(str).to_html },
                   })
-
-require 'layout/schema'
