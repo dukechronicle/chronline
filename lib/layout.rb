@@ -1,0 +1,41 @@
+class Layout
+  @schemata = {}
+
+
+  def initialize(data)
+    @data = data
+  end
+
+  def generate
+    JSON::Validator.validate!(json_schema, @data)
+  end
+
+  def json_schema
+    {
+      '$schema' => Layout::Schema::SCHEMA_URI,
+      'type' => 'object',
+      'required' => true,
+      'properties' => schema,
+    }
+  end
+
+  def self.add_schema(name, schema)
+    @schemata[name.to_s] = schema
+  end
+
+  self.add_schema(:markdown, {
+                    "type" => "string",
+                    "description" => "Markdown text",
+                  })
+
+  def method_missing(method)
+    if method =~ /(\w+)_schema/ and @@schemata.has_key?($1)
+      @@schemata[$1]
+    else
+      super
+    end
+  end
+
+end
+
+require 'layout/schema'

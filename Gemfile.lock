@@ -121,6 +121,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.5)
+    json-schema (1.0.12)
     launchy (2.1.2)
       addressable (~> 2.3)
     libwebsocket (0.1.7.1)
@@ -178,6 +179,7 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
+    require_all (1.2.1)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -252,6 +254,7 @@ DEPENDENCIES
   haml
   hiredis
   jquery-rails
+  json-schema
   paperclip
   poltergeist
   rack-cors
@@ -259,6 +262,7 @@ DEPENDENCIES
   rails_config
   rb-readline
   redis
+  require_all
   rspec-rails (= 2.11.0)
   sass-rails (~> 3.2.3)
   simple_form

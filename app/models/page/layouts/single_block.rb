@@ -1,9 +1,9 @@
-class Page::Template::SingleBlock < Page::Template
+class Page::Layouts::SingleBlock < Layout
 
-  def model
+  def schema
     {
       'contents' => {
-        'extends' => markdown,
+        'extends' => markdown_schema,
         'required' => true,
         'label' => 'Body Contents',
       }

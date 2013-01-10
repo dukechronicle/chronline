@@ -1,10 +1,10 @@
 class CreatePages < ActiveRecord::Migration
   def change
     create_table :pages do |t|
-      t.text :model
+      t.text :layout_data
+      t.string :layout_template
       t.string :path
       t.string :title
-      t.string :template
 
       t.timestamps
     end
