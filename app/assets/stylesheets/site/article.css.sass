@@ -1,43 +1,6 @@
 #article
   +pie-clearfix
 
-  .article-body
-    +clearfix
-
-  .article-container
-    padding: 1.2em 1.5em
-
-    .title
-      font-size: 2.4em
-      line-height: 1.2em
-
-    .subtitle
-      font-size: 1.5em
-      margin-top: -10px
-      font-style: italic
-
-    .main-image
-      width: 100%
-      +border-radius($corner-radius)
-
-    .photo-credit
-      float: right
-      margin-left: 2em
-      font-size: .8em
-      span
-        color: #777
-
-    .photo-caption
-      color: $caption-color
-
-    .byline
-      color: $caption-color
-
-    .article-body
-      font-size: 1.2em
-      line-height: 1.6em
-      color: $dark-text
-
   #social-media
     float: right
     margin-left: 10px
@@ -58,6 +21,43 @@
 
     .twitter-share-button
       margin-bottom: -3px
+
+.article-body
+  +clearfix
+
+.article-container
+  padding: 1.2em 1.5em
+
+  .title
+    font-size: 2.4em
+    line-height: 1.2em
+
+  .subtitle
+    font-size: 1.5em
+    margin-top: -10px
+    font-style: italic
+
+  .main-image
+    width: 100%
+    +border-radius($corner-radius)
+
+  .photo-credit
+    float: right
+    margin-left: 2em
+    font-size: .8em
+    span
+      color: #777
+
+  .photo-caption
+    color: $caption-color
+
+  .byline
+    color: $caption-color
+
+  .article-body
+    font-size: 1.2em
+    line-height: 1.6em
+    color: $dark-text
 
 #disqus_thread
   padding: 5px

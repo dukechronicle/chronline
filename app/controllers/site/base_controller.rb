@@ -18,4 +18,10 @@ class Site::BaseController < ApplicationController
     end
   end
 
+  def custom_page
+    @page = Page.find_by_path!(request.path)
+    @model = @page.layout.generate
+    render "site/pages/#{@page.layout_template}"
+  end
+
 end
