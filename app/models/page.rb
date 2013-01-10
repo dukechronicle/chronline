@@ -18,8 +18,6 @@ require 'has_layout'
 class Page < ActiveRecord::Base
   extend HasLayout
 
-  require_rel 'page/layouts'
-
   attr_accessible :path, :title
 
   has_layout
