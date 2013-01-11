@@ -3,6 +3,9 @@
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
   - Taxonomy.main_sections.each do |section|
     %li{class: ('active' if @taxonomy == section)}= link_to section.name, "/section#{section.to_s}"
+  %form.navbar-search.pull-right
+    %input.search-query{type: 'date', name: 'date'}
+    %input.btn{type: 'submit', value: 'Jump to date'}
 %table.table.table-striped
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
