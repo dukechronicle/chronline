@@ -32,4 +32,11 @@ class Admin::PagesController < Admin::BaseController
     end
   end
 
+  def destroy
+    page = Page.find(params[:id])
+    page.destroy
+    flash[:success] = "Page \"#{page.title}\" was deleted."
+    redirect_to admin_pages_path
+  end
+
 end
