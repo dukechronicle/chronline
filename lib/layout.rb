@@ -22,7 +22,6 @@ class Layout
 
   def model
     @model = generate_model if @model.nil?
-    p @model
     @model
   end
 

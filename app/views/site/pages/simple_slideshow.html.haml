@@ -1,0 +1,7 @@
+- provide :title, @page.title
+
+.clearfix
+  .span-8
+    = render partial: 'site/partials/slideshow', locals: {articles: @page.layout.model['slideshow']}
+  .span-4.last
+    .title-small= render partial: 'site/containers/article-list', locals: {title: @page.layout.model['list_title'], articles: @page.layout.model['top_articles']}
