@@ -1,7 +1,12 @@
 class Admin::ArticlesController < Admin::BaseController
 
   def index
-    @articles = Article.page(params[:page]).order('created_at DESC')
+    taxonomy_string = "/#{params[:section]}/" if params[:section]
+    @taxonomy = Taxonomy.new(taxonomy_string)
+    @articles = Article.includes(:authors, :image)
+      .order('created_at DESC')
+      .page(params[:page])
+      .find_by_section(@taxonomy)
   end
 
   def new

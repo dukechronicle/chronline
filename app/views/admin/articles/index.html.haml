@@ -1,4 +1,8 @@
 = render 'admin/partials/flash', flash: flash
+%ul.nav.nav-tabs
+  %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
+  - Taxonomy.main_sections.each do |section|
+    %li{class: ('active' if @taxonomy == section)}= link_to section.name, "/section#{section.to_s}"
 %table.table.table-striped
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
