@@ -22,6 +22,7 @@ class Layout
 
   def model
     @model = generate_model if @model.nil?
+    p @model
     @model
   end
 
@@ -67,5 +68,10 @@ end
 Layout.add_schema(:article, {
                     "type" => "integer",
                   }) do |article_ids|
-  Article.includes(:authors, :image).find(article_ids)
+  dtrt(Article.includes(:authors, :image), article_ids)
+end
+
+def dtrt(finder, ids)
+  models = finder.find(ids).map {|model| [model.id, model]}.to_h
+  ids.map {|id| models[id]}
 end
