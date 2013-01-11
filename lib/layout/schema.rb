@@ -2,12 +2,11 @@ class Transformation < JSON::Schema::Attribute
 
   def self.validate(current_schema, data, fragments, validator, options = {})
     if options[:apply_transformations]
-      key = parent.is_a?(Array) ? fragments.last.to_i : fragments.last
-      value = current_schema.schema['transformation'].call(data)
-      parent = fragments[0..-2].reduce(options[:data]) do |data, property|
-        data.is_a?(Array) ? data[property.to_i] : data[property]
+      trans = current_schema.schema[:transformation]
+      if not options[:apply_transformations].has_key?(trans)
+        options[:apply_transformations][trans] = []
       end
-      parent[key] = value
+      options[:apply_transformations][trans] << [fragments.clone, data]
     end
   end
 

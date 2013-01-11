@@ -30,7 +30,6 @@ group :assets do
 end
 
 gem 'aws-sdk'
-gem 'bluecloth', '>= 2.0.0'
 gem 'bootstrap-will_paginate'
 gem 'browser'
 gem 'friendly_id'
@@ -42,6 +41,7 @@ gem 'json-schema'
 gem 'paperclip'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rails_config'
+gem 'rdiscount'
 gem 'require_all'
 gem 'redis'
 gem 'simple_form'

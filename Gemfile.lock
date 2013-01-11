@@ -43,7 +43,6 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
-    bluecloth (2.2.0)
     bootstrap-will_paginate (0.0.9)
       will_paginate
     browser (0.1.5)
@@ -176,6 +175,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
     rb-readline (0.4.2)
+    rdiscount (1.6.8)
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
@@ -238,7 +238,6 @@ PLATFORMS
 DEPENDENCIES
   annotate
   aws-sdk
-  bluecloth (>= 2.0.0)
   bootstrap-will_paginate
   browser
   capybara
@@ -261,6 +260,7 @@ DEPENDENCIES
   rails (= 3.2.11)
   rails_config
   rb-readline
+  rdiscount
   redis
   require_all
   rspec-rails (= 2.11.0)

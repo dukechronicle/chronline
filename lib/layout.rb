@@ -5,6 +5,7 @@ class Layout
   require 'layout/schema'
 
   @@schemata = {}
+  @@transformations = {}
 
 
   def initialize(data)
@@ -33,8 +34,16 @@ class Layout
     }
   end
 
-  def self.add_schema(name, schema)
+  def self.add_schema(name, schema, &proc)
+    if block_given?
+      schema[:transformation] = name
+      @@transformations[name] = proc
+    end
     @@schemata[name.to_s] = schema
+  end
+
+  def self.transform(transformation, elements)
+    @@transformations[transformation].call(elements)
   end
 
   def method_missing(method)
@@ -51,5 +60,12 @@ Layout.add_schema(:markdown, {
                     "type" => "string",
                     # "description" => "Markdown text",
                     "format" => "multiline",  # for onde.js
-                    "transformation" => lambda {|str| BlueCloth.new(str).to_html },
-                  })
+                  }) do |markdown_strings|
+  markdown_strings.map {|str| RDiscount.new(str).to_html}
+end
+
+Layout.add_schema(:article, {
+                    "type" => "integer",
+                  }) do |article_ids|
+  Article.includes(:authors, :image).find(article_ids)
+end
