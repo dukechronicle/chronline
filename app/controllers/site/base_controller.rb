@@ -20,7 +20,7 @@ class Site::BaseController < ApplicationController
 
   def custom_page
     @page = Page.find_by_path!(request.path)
-    render "site/pages/#{@page.layout_template}"
+    render "site/pages/#{@page.layout_template.to_s.underscore}"
   end
 
 end

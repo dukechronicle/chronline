@@ -6,6 +6,21 @@ class Admin::PagesController < Admin::BaseController
 
   def new
     @page = Page.new
+    render 'form'
+  end
+
+  def edit
+    @page = Page.find(params[:id])
+    render 'form'
+  end
+
+  def update
+    @page = Page.find(params[:id])
+    if @page.update_attributes(params[:page])
+      redirect_to admin_pages_path
+    else
+      render 'form'
+    end
   end
 
   def create
@@ -13,7 +28,7 @@ class Admin::PagesController < Admin::BaseController
     if @page.save
       redirect_to admin_pages_path
     else
-      render 'new'
+      render 'form'
     end
   end
 

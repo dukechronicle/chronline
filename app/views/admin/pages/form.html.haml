@@ -1,6 +1,8 @@
 .row
-  .span8
+  #layout-data.span8
     %h1 Page Layout
+    %form#layout-data
+      .onde-panel
   .span4
     = simple_form_for [:admin, @page], html: {id: 'page-settings'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|
       %legend Page Settings

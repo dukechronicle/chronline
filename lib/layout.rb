@@ -49,6 +49,7 @@ end
 
 Layout.add_schema(:markdown, {
                     "type" => "string",
-                    "description" => "Markdown text",
+                    # "description" => "Markdown text",
+                    "format" => "multiline",  # for onde.js
                     "transformation" => lambda {|str| BlueCloth.new(str).to_html },
                   })
