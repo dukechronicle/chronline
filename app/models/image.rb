@@ -14,10 +14,7 @@
 #  photographer_id       :integer
 #
 
-require 'array'
-require 'cropper'
 require_dependency 'staff'
-
 
 class Image < ActiveRecord::Base
   include Rails.application.routes.url_helpers

@@ -14,7 +14,6 @@
 #  image_id   :integer
 #
 
-require 'taxonomy'
 require_dependency 'staff'
 
 
