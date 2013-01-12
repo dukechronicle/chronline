@@ -1,4 +1,10 @@
 = render 'admin/partials/flash', flash: flash
+
+= simple_form_for(@article_search, url: url_for(controller: 'articles', action: 'index', subdomain: 'admin'), html: {method:'get', class: 'form-inline'}) do |f|
+  = f.error_notification
+  = f.input :query, label: false, placeholder: "Search"
+  = f.button :submit, class: 'btn', value: "Submit"
+
 %table.table.table-striped
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
@@ -6,4 +12,5 @@
       %td= link_to "Edit", [:edit, :admin, article]
       %td= link_to "Delete", [:admin, article], method: :delete,
   data: {confirm: "Are you sure?"}
+
 = will_paginate

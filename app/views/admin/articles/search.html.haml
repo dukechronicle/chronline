@@ -1,0 +1,10 @@
+= simple_form_for(@article_search, url: url_for(controller: 'articles', action: 'index', subdomain: 'admin'), html: {method:'get', class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+  %legend Advanced Search
+  = f.error_notification
+  .form-inputs
+    = f.input :query
+    = f.input :title
+    = f.input :author
+    = f.input :body
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary', value: 'Search'

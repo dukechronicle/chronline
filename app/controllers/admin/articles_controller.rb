@@ -1,7 +1,13 @@
 class Admin::ArticlesController < Admin::BaseController
+  before_filter :persist_search
 
   def index
-    @articles = Article.page(params[:page]).order('created_at DESC')
+    if @article_search.query_set?
+      @article_search.run
+      @articles = @article_search.results
+    else
+      @articles = Article.page(params[:page]).order('created_at DESC')
+    end
   end
 
   def new
@@ -38,6 +44,17 @@ class Admin::ArticlesController < Admin::BaseController
     article.destroy
     flash[:success] = "Article \"#{article.title}\" was deleted."
     redirect_to admin_articles_path
+  end
+
+  def search
+  end
+
+  protected
+
+  def persist_search
+    @article_search = ArticleSearch.new params[:article_search]
+    Rails.logger.debug "asdfasdfas dfasfasdfasdfasfasfasdfasfaasfasfasdfasdfas"
+    Rails.logger.debug @article_search.to_yaml
   end
 
   private
