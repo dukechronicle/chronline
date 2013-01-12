@@ -1,15 +1,14 @@
 namespace :redis do
     options = {
       config: "#{Rails.root}/config/redis.conf",
-      bind: 127.0.0.1,
       daemonize: "no",
       pidfile: "#{Rails.root}/tmp/redis.pid",
+      host: '127.0.0.1',
       port: 6379,
       timeout: 0,
       dbfilename: "#{Rails.root}/db/dump.rdb",
       dir: "#{Rails.root}",
-      loglevel: "notice",
-      # logfile: "#{Rails.root}/log/redis.log"
+      loglevel: 'notice',
       logfile: 'stdout'
     }
   desc "Create redis configuration file"
@@ -20,12 +19,13 @@ please ensure you have redis installed.
     options.merge! Settings.redis.to_hash if defined?(Settings.redis)
     config = options[:config]
     File.open(config, 'w') do |f|
-      %w{bind daemonize pidfile port timeout dbfilename dir loglevel logfile}.each do |opt|
+      %w{daemonize pidfile port timeout dbfilename dir loglevel logfile}.each do |opt|
         f.puts "#{opt} #{options[opt.to_sym]}"
       end
-      f.puts "save 900 1"
-      f.puts "save 300 10"
-      f.puts "save 60 10000"
+      f.puts "bind #{options[:host]}"
+      f.puts "save 900 1
+              save 300 10
+              save 60 10000".gsub(/^\s+/,'')
     end
     puts "Created Redis configration at #{config}"
   end

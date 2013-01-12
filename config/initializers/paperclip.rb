@@ -1,4 +1,10 @@
-if Rails.env.production? or defined?(Settings.aws)
+if Settings.aws.nil?
+  url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
+  options = {
+    url: "/#{url}",
+    path: ":rails_root/public/#{url}"
+  }
+else
   options = {
     storage: :s3,
     s3_credentials: {
@@ -11,12 +17,6 @@ if Rails.env.production? or defined?(Settings.aws)
     url: ':s3_alias_url',
     hash_secret: 'super secret string',
     hash_data: ':class/:attachment/:id/:style',
-  }
-else
-  url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
-  options = {
-    url: "/#{url}",
-    path: ":rails_root/public/#{url}"
   }
 end
 

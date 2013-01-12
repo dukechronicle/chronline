@@ -1,4 +1,8 @@
 namespace :db do
+
+  desc "Refresh the database"
+  task :run => [:drop, :migrate, :populate]
+
   desc "Fill database with sample data"
   task populate: :environment do
     (15 - Author.count).times do
