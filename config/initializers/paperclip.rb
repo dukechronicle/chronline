@@ -13,10 +13,10 @@ if Rails.env.production? or defined?(Settings.aws)
     hash_data: ':class/:attachment/:id/:style',
   }
 else
-  url = "images/#{Rails.env}/:class/:attachment/:id/:style.:extension"
+  url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
   options = {
     url: "/#{url}",
-    path: ":rails_root/public/images/#{url}"
+    path: ":rails_root/public/#{url}"
   }
 end
 
