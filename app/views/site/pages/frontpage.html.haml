@@ -9,3 +9,6 @@
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     .title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model['opinion'], style: :subhead}
+.clearfix
+  .span-6= render partial: 'site/containers/article-box', locals: {title: 'News', articles: @model['news']}
+  .span-6.last= render partial: 'site/containers/article-box', locals: {title: 'Sports', articles: @model['sports']}
