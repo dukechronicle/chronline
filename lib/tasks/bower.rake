@@ -1,28 +1,47 @@
-# Partially stolen from bower-rails project
-# https://github.com/rharriso/bower-rails
-
-
 namespace :bower do
-
-  desc "install files from bower"
+  desc "Install Bower packages"
   task :install do
-    perform_command do
-      system 'bower install'
+    in_vendor_assets do
+      bower 'install'
     end
   end
 
-  desc "update bower packages"
+  desc "Update Bower packages"
   task :update do
-    perform_command false do
-      system 'bower update'
+    in_vendor_assets remove_components: false do
+      bower 'update'
     end
   end
 
 end
 
-def perform_command(remove_components=true)
+def in_vendor_assets(options={})
+  options[:remove_components] ||= true
   Dir.chdir("#{Rails.root}/vendor/assets") do
-    FileUtils.rm_rf("components") if remove_components
+    puts "Working in #{Dir.pwd}..."
+    if options[:remove_components]
+      puts "Removing components..."
+      FileUtils.rm_rf('components')
+    end
     yield
   end
+end
+
+def bower(arguments)
+  bower = find_command('bower') or
+    raise "Bower not found! You can install Bower using Node and npm:
+    `npm install bower -g`
+For more info see http://twitter.github.com/bower/"
+  system("#{bower} #{arguments}")
+end
+
+def find_command(cmd)
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+    exts.each do |ext|
+      exe = "#{path}#{File::SEPARATOR}#{cmd}#{ext}"
+      return exe if File.executable? exe
+    end
+  end
+  return nil
 end
