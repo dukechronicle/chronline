@@ -1,13 +1,21 @@
 class Admin::ArticlesController < Admin::BaseController
-  before_filter :persist_search
 
   def index
-    if @article_search.query_set?
-      @article_search.run
-      @articles = @article_search.results
-    else
-      @articles = Article.page(params[:page]).order('created_at DESC')
+    if params.has_key? :article_search
+      @article_search = Article::Search.new params[:article_search]
+      if @article_search.valid?
+        @articles = @article_search.results
+        Rails.logger.debug(@articles.to_yaml)
+        flash[:error] = "No results found!" if @articles.empty?
+      else
+        @articles = Article.page(params[:page]).order('created_at DESC')
+      end
+      render and return
     end
+
+    @article_search = Article::Search.new
+    @articles = Article.page(params[:page]).order('created_at DESC')
+    #end
   end
 
   def new
@@ -42,19 +50,19 @@ class Admin::ArticlesController < Admin::BaseController
   def destroy
     article = Article.find(params[:id])
     article.destroy
-    flash[:success] = "Article \"#{article.title}\" was deleted."
+    flash[:success] = %Q[Article "#{article.title}" was deleted.]
     redirect_to admin_articles_path
   end
 
   def search
-  end
-
-  protected
-
-  def persist_search
-    @article_search = ArticleSearch.new params[:article_search]
-    Rails.logger.debug "asdfasdfas dfasfasdfasdfasfasfasdfasfaasfasfasdfasdfas"
-    Rails.logger.debug @article_search.to_yaml
+    if params.has_key? :article_search
+      @article_search = Article::Search.new params[:article_search]
+      @article_search.valid?
+      @articles = @article_search.results
+      render 'index' and return
+    else
+      @article_search = Article::Search.new
+    end
   end
 
   private

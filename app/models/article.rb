@@ -126,59 +126,36 @@ onto per since than the this that to up via with)
       end
     end
   end
-
 end
 
+class Article::Search
+  include ActiveAttr::Model
+  attribute :query
+  attribute :year
+  attribute :author
+  attribute :sort
+  attribute :order
 
+  attr_accessible :query
 
+  validates :query, :length => {:minimum => 2}, format: {with: /\A[\w]+\z/}
 
-require 'ostruct'
-class ArticleSearch < OpenStruct
-  include ActiveModel::Validations
-  include ActiveModel::Conversion
-  extend  ActiveModel::Naming
-
-  # TODO: finish search validations
-  # validates :query, :length => { :minimum => 2 }
-
-  def initialize(*args)
-    super
-  end
-
-  def run
-    request = Article.search do
-      fulltext query
+  def execute
+    self.sort = 'relevance' if not ['relevance', 'data'].include? self.sort
+    self.order = 'desc' if not ['asc', 'desc'].include? self.order
+    @request = Article.search do
+      fulltext self.query
     end
-    add_attrs(request: request, results: request.results)
   end
 
-  # So ActiveModel knows this isn't persisted
-  def persisted?
-    false
-  end
-
-  def query_set?
-    defined?(query) and not query.empty?
+  def results
+    execute if valid? and request.nil?
+    @request.results
   end
 
   private
+  attr_accessor :request
 
-  def add_attrs(attrs)
-    attrs.each do |var, value|
-      class_eval { attr_accessor var }
-      instance_variable_set "@#{var}", value
-    end
-  end
-
-  def parse_query(q)
-    parsed = q.partition(' -')
-    q = parsed.first
-    exclusion = parsed.last
-  end
 
 end
 
-class Search
-  include ActiveAttr::Attributes
-  attribute :query
-end

@@ -32,6 +32,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'active_attr'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
