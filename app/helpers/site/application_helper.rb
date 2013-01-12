@@ -9,4 +9,8 @@ EOS
       .html_safe
   end
 
+  def frontpage?
+    request.path == site_root_path
+  end
+
 end
