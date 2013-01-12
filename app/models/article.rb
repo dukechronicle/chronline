@@ -35,6 +35,14 @@ class Article < ActiveRecord::Base
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
+  searchable do
+    text :title, :boost => 2.0
+    text :subtitle, :boost => 1.5
+    text :body
+    string :section
+    time :created_at
+    time :updated_at
+  end
 
   def disqus(host)
     {
@@ -67,7 +75,7 @@ onto per since than the this that to up via with)
   end
 
   def render_body
-    BlueCloth.new(body).to_html  # Uses bluecloth markdown renderer
+    RDiscount.new(body).to_html
   end
 
   def section
@@ -117,6 +125,52 @@ onto per since than the this that to up via with)
                                 limit: [0, limit])
       end
     end
+  end
+
+end
+
+require 'ostruct'
+class ArticleSearch < OpenStruct
+  include ActiveModel::Validations
+  include ActiveModel::Conversion
+  extend  ActiveModel::Naming
+
+  # TODO: finish search validations
+  # validates :query, :length => { :minimum => 2 }
+
+  def initialize(*args)
+    super
+  end
+
+  def run
+    request = Article.search do
+      fulltext query
+    end
+    add_attrs(request: request, results: request.results)
+  end
+
+  # So ActiveModel knows this isn't persisited
+  def persisted?
+    false
+  end
+
+  def query_set?
+    defined?(query) and not query.empty?
+  end
+
+  private
+
+  def add_attrs(attrs)
+    attrs.each do |var, value|
+      class_eval { attr_accessor var }
+      instance_variable_set "@#{var}", value
+    end
+  end
+
+  def parse_query(q)
+    parsed = q.partition(' -')
+    q = parsed.first
+    exclusion = parsed.last
   end
 
 end
