@@ -129,6 +129,9 @@ onto per since than the this that to up via with)
 
 end
 
+
+
+
 require 'ostruct'
 class ArticleSearch < OpenStruct
   include ActiveModel::Validations
@@ -149,7 +152,7 @@ class ArticleSearch < OpenStruct
     add_attrs(request: request, results: request.results)
   end
 
-  # So ActiveModel knows this isn't persisited
+  # So ActiveModel knows this isn't persisted
   def persisted?
     false
   end
@@ -173,4 +176,9 @@ class ArticleSearch < OpenStruct
     exclusion = parsed.last
   end
 
+end
+
+class Search
+  include ActiveAttr::Attributes
+  attribute :query
 end
