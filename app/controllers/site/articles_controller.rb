@@ -25,4 +25,16 @@ class Site::ArticlesController < Site::BaseController
     render 'print', layout: 'print'
   end
 
+  def search
+    if params.has_key? :article_search
+      @article_search = Article::Search.new params[:article_search]
+      @article_search.valid?
+      @articles = @article_search.results
+    else
+      @articles = []
+      @article_search = Article::Search.new
+    end
+    render 'index'
+  end
+
 end
