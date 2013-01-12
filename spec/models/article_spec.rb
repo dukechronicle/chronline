@@ -16,9 +16,6 @@
 
 require 'spec_helper'
 
-require 'taxonomy'
-
-
 describe Article do
 
   before do

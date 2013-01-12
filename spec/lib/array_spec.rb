@@ -1,6 +1,3 @@
-require 'array'
-
-
 describe Array do
 
   describe "#to_h" do
