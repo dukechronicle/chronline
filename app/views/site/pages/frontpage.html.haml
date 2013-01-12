@@ -1,0 +1,11 @@
+- provide :title, @page.title
+
+.clearfix
+  .span-8
+    - if @model.has_key?('top_headline')
+      = render partial: 'site/containers/article-list/single', locals: {article: @model['top_headline']['article'], breaking: @model['top_headline']['breaking']}
+    = render partial: 'site/partials/slideshow', locals: {articles: @model['slideshow']}
+    /= render partial: 'site/containers/two-column-article-list', locals: {articles: @model['headlines']}
+  .span-4.last
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    .title-small= render partial: 'site/containers/article-list', locals: {title: "Opinion", articles: @model['opinion'], style: :subhead}
