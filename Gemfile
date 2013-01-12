@@ -10,10 +10,13 @@ group :development, :test do
   gem 'rspec-rails', '2.11.0'
   gem 'rb-readline'
   gem 'ffaker'
+  gem 'sunspot_solr'
 end
 
 group :development do
   gem 'annotate'
+  gem 'pry-rails'
+  gem 'progress_bar'
 end
 
 # Gems used only for assets and not required
@@ -30,7 +33,6 @@ group :assets do
 end
 
 gem 'aws-sdk'
-gem 'bluecloth', '>= 2.0.0'
 gem 'bootstrap-will_paginate'
 gem 'browser'
 gem 'friendly_id'
@@ -41,9 +43,11 @@ gem 'jquery-rails'
 gem 'paperclip'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rails_config'
+gem 'rdiscount'
 gem 'redis'
 gem 'simple_form'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
+gem 'sunspot_rails'
 gem 'will_paginate'
 
 group :test do
