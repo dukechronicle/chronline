@@ -45,6 +45,9 @@ $RECYCLE.BIN/
 
 # Editors/IDEs
 # ============
+ 
+## Eclipse
+.project
 
 ## Emacs
 *~
