@@ -1,0 +1,24 @@
+.article-box
+  %h2.vertical-label= title
+  .rounded
+    .top.clearfix
+      %a.hover.highlight-left{href: site_article_path(articles.first)}
+        .content-container
+          - if articles.first.image
+            = image_tag articles.first.image.original.url(:thumb_rect), class: 'thumb-rect'
+          %h4.title= articles.first.title
+          %p.teaser= articles.first.teaser
+    .bottom.clearfix
+      .span-3.left-column.content-container
+        %a.hover.highlight-left{href: site_article_path(articles[1])}
+          %h4.title= articles[1].title
+          %p.teaser= articles[1].teaser
+        %a.hover.highlight-left{href: site_article_path(articles[2])}
+          %h4.title= articles[2].title
+          %p.teaser= articles[2].teaser
+      .span-3.last.right-column.content-container
+        %ul.articles
+          - articles.drop(3).each do |article|
+            %li
+              %a.hover.highlight-right{href: site_article_path(article)}
+                %h4.title= article.title

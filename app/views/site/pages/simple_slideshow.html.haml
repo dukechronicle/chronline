@@ -5,3 +5,6 @@
     = render partial: 'site/partials/slideshow', locals: {articles: @page.layout.model['slideshow']}
   .span-4.last
     .title-small= render partial: 'site/containers/article-list', locals: {title: @page.layout.model['list_title'], articles: @page.layout.model['top_articles']}
+.clearfix
+  - @page.layout.model['bottom_articles'].each_with_index do |article, i|
+    .span-4{class: (i % 3 == 2 ? 'last' : nil)}= render partial: 'site/containers/block/square', locals: {article: article}
