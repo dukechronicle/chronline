@@ -4,11 +4,16 @@
   .span-8
     - if @model.has_key?('top_headline')
       = render partial: 'site/containers/article-list/single', locals: {article: @model['top_headline']['article'], breaking: @model['top_headline']['breaking']}
-    = render partial: 'site/partials/slideshow', locals: {articles: @model['slideshow']}
-    = render partial: 'site/containers/two-column-article-list', locals: {title: 'Top Stories', articles: @model['headlines']}
+    #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model['slideshow']}
+    #headlines= render partial: 'site/containers/two-column-article-list', locals: {title: 'Top Stories', articles: @model['headlines']}
+
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model['opinion'], style: :subhead}
+    #opinion.title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model['opinion'], style: :subhead}
+
 .clearfix
-  .span-6= render partial: 'site/containers/article-box', locals: {title: 'News', articles: @model['news']}
-  .span-6.last= render partial: 'site/containers/article-box', locals: {title: 'Sports', articles: @model['sports']}
+  #news.span-6= render partial: 'site/containers/article-box', locals: {title: 'News', articles: @model['news']}
+  #sports.span-6.last= render partial: 'site/containers/article-box', locals: {title: 'Sports', articles: @model['sports']}
+
+#recess= render partial: 'site/containers/article-row', locals: {title: 'Recess', articles: @model['recess'], feature: true}
+#towerview= render partial: 'site/containers/article-row', locals: {title: 'Towerview', articles: @model['towerview'], feature: true}
