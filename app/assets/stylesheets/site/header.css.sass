@@ -43,14 +43,12 @@
   display: inline-block
   float: right
   position: relative
-  top: 9px
 
   input
     font-size: 12px
     font-family: inherit
     border: 1px inset
     +border-radius(10px)
-    width: 150px
 
     background: white image-url("search-button.png") no-repeat
     background-position: 2px 2px
@@ -69,9 +67,21 @@ header
   +black-box-shadow($default-box-shadow-opacity, 0px, 1px, 3px)
   color: $light-color
 
+  #home-link
+    h1, h2, h3
+      line-height: 100%
+      +single-text-shadow(0px, 1px, 3px, rgba(0, 0, 0, $default-box-shadow-opacity))
+      margin: 0px
+      color: $light-color
+
+    .brand
+      font-family: ambroise-std
+      font-weight: lighter
+
 #header-frontpage
-  overflow: hidden
-  padding: 10px 10px 3px
+  #header-top
+    overflow: hidden
+    padding: 10px 10px 3px
 
   #home-link
     border-bottom: 2px solid $light-color
@@ -91,17 +101,11 @@ header
       width: 300px
 
     h1, h2, h3
-      line-height: 100%
-      +single-text-shadow(0px, 1px, 3px, rgba(0, 0, 0, $default-box-shadow-opacity))
-      margin: 0px
-      color: $light-color
       text-align: center
       position: relative
       z-index: 1
 
     .brand
-      font-family: ambroise-std
-      font-weight: lighter
       font-size: 5.25em
       letter-spacing: 1px
 
@@ -144,7 +148,6 @@ header
       width: 170px
 
 #header
-
   #header-top
     +clearfix
     padding: 3px 8px 0px
@@ -155,14 +158,8 @@ header
     padding: 3px 8px
 
     .brand
-      font-family: ambroise-std
-      font-weight: lighter
       font-size: 2.4em
       display: inline-block
-      line-height: 100%
-      margin: 0px
-      +single-text-shadow(rgba(0,0,0,.4), 0px, 1px, 3px)
-      color: $light-color
 
   #nav
     float: left
@@ -190,13 +187,18 @@ header
         color: $light-color
         padding: 0px 5px 1.5px 5px
 
-        +transition(background-color, .2s)
+        +transition(background-color, 0.25s)
         +border-top-left-radius($corner-radius)
         +border-top-right-radius($corner-radius)
 
     a:hover h2, a.active h2
       background-color: white
       color: $banner-color
+
+  #search-box
+    top: 9px
+    input
+      width: 150px
 
   #subheader
     +clearfix
