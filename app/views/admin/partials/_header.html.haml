@@ -16,10 +16,8 @@
         %li.dropdown
           %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Pages
           %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
-            %li
-              %a{href: "/page"} Manage
-            %li
-              %a{href: "/page/new"} Create
+            %li= link_to "Manage", admin_pages_path
+            %li= link_to "Create", new_admin_page_path
         %li.dropdown
           %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Staff
           %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}

@@ -19,13 +19,17 @@
     = link_to "Classifieds", "http://dukechronicle.campusave.com"
     = link_to "Housing", "http://chroniclehousing.com"
 
-%header#header
+%header{id: (frontpage? ? 'header-frontpage' : 'header')}
   #header-top
-    %a#home-link{href: '/'}
-      %h1.brand The Chronicle
+    #home-link
+      %a{href: site_root_path}
+        - if frontpage?
+          = image_tag 'chapel.svg', id: 'header-overlay'
+          %h3.tagline The Independent Daily at Duke University
+        %h1.brand The Chronicle
     %nav#nav
       - Taxonomy.main_sections.each do |taxonomy|
-        %a{href: "/section#{taxonomy.to_s}", class: ("active" if "News" == taxonomy.name)}
+        %a{href: "/section#{taxonomy.to_s}", class: ("active" if @taxonomy == taxonomy)}
           %h2= taxonomy.name
       %a{href: "http://chronicleblogs.com"}
         %h2 Blogs
@@ -34,16 +38,17 @@
     = form_tag '/search', method: :get, id: 'search-box' do
       = search_field_tag 'q', nil, placeholder: 'Search archives', results: '5'
 
-  #subheader
-    .span-5
-      .pagetitle
-        - if content_for?(:title_block)
-          = yield :title_block
-        - else
-          %h1= yield :title
-        - if defined? subsections
-          .nav-container.span-7.last
-            %nav#subnav
-              - subsections.each do |subsection|
-                %a.hover{href: '/section' + subsection.path}
-                  %h2= subsection.name
+  - if not frontpage?
+    #subheader
+      .span-5
+        .pagetitle
+          - if content_for?(:title_block)
+            = yield :title_block
+          - else
+            %h1= yield :title
+          - if defined? subsections
+            .nav-container.span-7.last
+              %nav#subnav
+                - subsections.each do |subsection|
+                  %a.hover{href: '/section' + subsection.path}
+                    %h2= subsection.name

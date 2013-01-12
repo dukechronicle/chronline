@@ -7,6 +7,8 @@ Chronline::Application.routes.draw do
         post 'unsubscribe'
       end
 
+      root to: 'base#custom_page'
+      get 'pages/*path' => 'base#custom_page'
       get 'section/*section' => 'articles#index', as: :article_section
 
       resources :articles, only: :show do
@@ -39,6 +41,7 @@ Chronline::Application.routes.draw do
       end
 
       resources :articles, except: :show
+      resources :pages, except: :show
       resources :staff, except: :show
     end
   end
