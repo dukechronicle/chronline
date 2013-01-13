@@ -28,11 +28,11 @@ end
 original_session = nil            # always nil between specs
 sunspot_server = nil              # one server shared by all specs
 
-if defined? Spork
-  Spork.prefork do
-    sunspot_server = start_solr(60) if Spork.using_spork?
-  end
-end
+# if defined? Spork
+#   Spork.prefork do
+#     sunspot_server = start_solr(60) if Spork.using_spork?
+#   end
+# end
 
 RSpec.configure do |config|
   config.before(:each) do

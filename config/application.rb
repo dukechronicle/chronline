@@ -9,12 +9,19 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-RailsConfig.setup do |config|
-  config.const_name = "Settings"
-end
 
 module Chronline
   class Application < Rails::Application
+    RailsConfig.load_and_set_settings(
+      Rails.root.join("config", "settings.yml").to_s,
+      Rails.root.join("config", "settings", "#{Rails.env}.yml").to_s,
+      Rails.root.join("config", "environments", "#{Rails.env}.yml").to_s,
+
+      Rails.root.join("config", "settings.local.yml").to_s,
+      Rails.root.join("config", "settings", "#{Rails.env}.local.yml").to_s,
+      Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
+    )
+
     #config.logger = Logger.new(STDOUT)
 
     config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
@@ -74,6 +81,21 @@ module Chronline
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.action_mailer.default_url_options = {
+      :host => "dukechronicle.com"
+    }
+
+    # TODO Remove Gmail for production!
+    config.action_mailer.smtp_settings = {
+      address: "smtp.gmail.com",
+      port: 587,
+      domain: "dukechronicle.com",
+      authentication: "plain",
+      enable_starttls_auto: true,
+      user_name: Settings.gmail_acccount,
+      password: Settings.gmail_password
+    }
   end
 end
 

@@ -16,12 +16,16 @@ group :development, :test do
   gem 'rb-readline'
   gem 'ffaker'
   gem 'sunspot_solr'
+  gem 'guard-rspec'
 end
 
 group :development do
   gem 'annotate'
   gem 'pry-rails'
+  gem 'pry-doc'
   gem 'progress_bar'
+  gem 'guard-spork'
+  gem 'meta_request', '0.2.1'
 end
 
 # Gems used only for assets and not required
@@ -65,11 +69,41 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'cucumber-rails', :require => false
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
   gem 'cucumber-websteps'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'guard-cucumber'
+  gem 'guard-spork'
+  gem 'shoulda-matchers'
   gem 'webmock'
   gem 'vcr'
+
+  platforms :mingw, :mswin do
+    gem 'rb-fchange'
+    gem 'rb-notifu'
+    gem 'win32console'
+  end
+
+  platforms :ruby do
+    gem 'rb-inotify',
+      require: RbConfig::CONFIG['host_os'].include?('linux') && 'rb-inotify'
+    gem 'libnotify',
+      require: RbConfig::CONFIG['host_os'].include?('linux') && 'libnotify'
+    gem 'rb-fsevent',
+      require: RbConfig::CONFIG['host_os'].include?('darwin') && 'rb-fsevent'
+  end
+
+end
+
+# Installed but manually required; equivalent of ":require => false"
+group :install do
+  gem 'spork'
+  # Test Progress Bars
+  gem 'nyan-cat-formatter'
+  gem 'fuubar'
+  gem 'fuubar-cucumber'
+  gem 'simplecov'
+  gem 'growl'
 end
 
 # To use ActiveModel has_secure_password
