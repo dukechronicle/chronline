@@ -59,6 +59,7 @@ group :test do
   gem 'database_cleaner'
   gem 'cucumber-websteps'
   gem 'webmock'
+  gem 'shoulda-matchers'
   gem 'vcr'
 end
 
