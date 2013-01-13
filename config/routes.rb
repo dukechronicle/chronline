@@ -1,5 +1,7 @@
 Chronline::Application.routes.draw do
 
+  devise_for :users
+
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
       get 'search' => 'articles#search'
