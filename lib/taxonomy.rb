@@ -1,9 +1,5 @@
-require 'exceptions'
-
-
 class Taxonomy
-  include Exceptions
-
+  include Errors
 
   def initialize(taxonomy=[])
     if taxonomy.nil?

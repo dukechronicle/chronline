@@ -14,7 +14,6 @@
 #  image_id   :integer
 #
 
-require 'taxonomy'
 require_dependency 'staff'
 
 
@@ -35,6 +34,14 @@ class Article < ActiveRecord::Base
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
+  searchable do
+    text :title, :boost => 2.0
+    text :subtitle, :boost => 1.5
+    text :body
+    string :section
+    time :created_at
+    time :updated_at
+  end
 
   def disqus(host)
     {
@@ -118,5 +125,34 @@ onto per since than the this that to up via with)
       end
     end
   end
+end
+
+class Article::Search
+  include ActiveAttr::Model
+  attribute :query
+  attribute :year
+  attribute :author
+  attribute :sort
+  attribute :order
+
+  attr_accessible :query
+
+  validates :query, :length => {:minimum => 2}, format: {with: /\A[\w]+\z/}
+
+  def execute
+    self.sort = 'relevance' if not ['relevance', 'data'].include? self.sort
+    self.order = 'desc' if not ['asc', 'desc'].include? self.order
+    @request = Article.search do
+      fulltext self.query
+    end
+  end
+
+  def results
+    execute if valid? and request.nil?
+    @request.results
+  end
+
+  private
+  attr_accessor :request
 
 end

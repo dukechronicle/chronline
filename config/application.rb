@@ -9,6 +9,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+RailsConfig.setup do |config|
+  config.const_name = "Settings"
+end
+
 module Chronline
   class Application < Rails::Application
     #config.logger = Logger.new(STDOUT)
@@ -28,6 +32,7 @@ module Chronline
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -69,8 +74,8 @@ module Chronline
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
-    config.assets.precompile += ['site.js', 'admin.js', 'mobile.js']
-    config.assets.precompile += ['site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css']
   end
 end
+
+# Load core extensions
+Dir["#{Rails.root}/lib/extensions/core/*.rb"].each {|f| require f }

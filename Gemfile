@@ -15,10 +15,13 @@ group :development, :test do
   gem 'rspec-rails', '2.11.0'
   gem 'rb-readline'
   gem 'ffaker'
+  gem 'sunspot_solr'
 end
 
 group :development do
   gem 'annotate'
+  gem 'pry-rails'
+  gem 'progress_bar'
 end
 
 # Gems used only for assets and not required
@@ -34,6 +37,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'active_attr'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
@@ -51,6 +55,7 @@ gem 'require_all'
 gem 'redis'
 gem 'simple_form'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
+gem 'sunspot_rails'
 gem 'will_paginate'
 
 group :test do

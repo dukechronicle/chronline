@@ -1,4 +1,11 @@
 = render 'admin/partials/flash', flash: flash
+
+= simple_form_for(@article_search,
+  url: url_for(controller: 'articles', action: 'index', subdomain: 'admin'),
+  validate: true, html: {method:'get', class: 'form-inline'}) do |f|
+  = f.input :query, label: false, placeholder: "Search"
+  = f.button :submit, class: 'btn', value: "Submit"
+
 %ul.nav.nav-tabs
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
   - Taxonomy.main_sections.each do |section|
@@ -6,11 +13,19 @@
   %form.navbar-search.pull-right
     %input.search-query{type: 'date', name: 'date'}
     %input.btn{type: 'submit', value: 'Jump to date'}
+
 %table.table.table-striped
+  %thead
+    %tr
+      %th Title
+      %th Creation Date
+      %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      %td= link_to "Edit", [:edit, :admin, article]
-      %td= link_to "Delete", [:admin, article], method: :delete,
-  data: {confirm: "Are you sure?"}
+      %td= article.created_at
+      %td
+        = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
+        = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
+
 = will_paginate
