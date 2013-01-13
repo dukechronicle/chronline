@@ -5,7 +5,8 @@
     = stylesheet_link_tag "admin", :media => "all"
     = csrf_meta_tags
   %body
-    = render 'admin/partials/header'
+    - if user_signed_in?
+      = render 'admin/partials/header'
     .container
       = render 'admin/partials/flash', flash: flash
       = yield
