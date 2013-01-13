@@ -9,12 +9,19 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-RailsConfig.setup do |config|
-  config.const_name = "Settings"
-end
 
 module Chronline
   class Application < Rails::Application
+    RailsConfig.load_and_set_settings(
+      Rails.root.join("config", "settings.yml").to_s,
+      Rails.root.join("config", "settings", "#{Rails.env}.yml").to_s,
+      Rails.root.join("config", "environments", "#{Rails.env}.yml").to_s,
+
+      Rails.root.join("config", "settings.local.yml").to_s,
+      Rails.root.join("config", "settings", "#{Rails.env}.local.yml").to_s,
+      Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
+    )
+
     #config.logger = Logger.new(STDOUT)
 
     config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
