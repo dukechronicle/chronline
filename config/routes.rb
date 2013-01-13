@@ -1,7 +1,5 @@
 Chronline::Application.routes.draw do
 
-  devise_for :users
-
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
       get 'search' => 'articles#search'
@@ -31,6 +29,8 @@ Chronline::Application.routes.draw do
   end
 
   constraints subdomain: 'admin' do
+    devise_for :users
+
     namespace :admin, path: '/'  do
       root to: 'main#home'
 
