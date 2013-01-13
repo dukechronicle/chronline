@@ -46,6 +46,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    bcrypt-ruby (3.0.1)
     bootstrap-will_paginate (0.0.9)
       will_paginate
     browser (0.1.5)
@@ -91,6 +92,15 @@ GEM
       launchy
     daemons (1.1.9)
     database_cleaner (0.9.1)
+    devise (2.1.2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
+    devise_invitable (1.1.4)
+      actionmailer (~> 3.0)
+      devise (>= 2.1.0)
+      railties (~> 3.0)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
@@ -144,6 +154,7 @@ GEM
     nokogiri (1.5.6)
     options (2.3.0)
       fattr
+    orm_adapter (0.4.0)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -259,6 +270,8 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     uuidtools (2.1.3)
     vcr (2.4.0)
+    warden (1.2.1)
+      rack (>= 1.0)
     webmock (1.9.0)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
@@ -282,6 +295,8 @@ DEPENDENCIES
   cucumber-rails
   cucumber-websteps
   database_cleaner
+  devise (= 2.1.2)
+  devise_invitable
   factory_girl_rails
   ffaker
   friendly_id
