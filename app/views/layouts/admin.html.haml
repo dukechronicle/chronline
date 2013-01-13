@@ -6,6 +6,8 @@
     = csrf_meta_tags
   %body
     = render 'admin/partials/header'
-    .container= yield
+    .container
+      = render 'admin/partials/flash', flash: flash
+      = yield
     #scripts
       = javascript_include_tag "admin"
