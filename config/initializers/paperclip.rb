@@ -1,4 +1,4 @@
-if false # Settings.aws.nil?
+if Settings.aws.nil? # if no aws configuration is provided
   url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
   options = {
     url: "/#{url}",
