@@ -67,10 +67,11 @@ end
 Layout.add_schema(:article, {
                     "type" => "integer",
                   }) do |article_ids|
-  dtrt(Article.includes(:authors, :image), article_ids)
+  Article.includes(:authors, :image).find_all(article_ids)
 end
 
-def dtrt(finder, ids)
-  models = finder.find(ids).map {|model| [model.id, model]}.to_h
-  ids.map {|id| models[id]}
+Layout.add_schema(:disqus_popular, {
+                    "type" => "integer",
+                  }) do |article_ids|
+  Article.includes(:authors, :image).find_all(article_ids)
 end
