@@ -1,18 +1,6 @@
 class Admin::ArticlesController < Admin::BaseController
 
   def index
-    if params.has_key? :article_search
-      @article_search = Article::Search.new params[:article_search]
-      if @article_search.valid?
-        @articles = @article_search.results
-        Rails.logger.debug(@articles.to_yaml)
-        flash[:error] = "No results found!" if @articles.empty?
-      else
-        @articles = Article.page(params[:page]).order('created_at DESC')
-      end
-      render and return
-    end
-
     taxonomy_string = "/#{params[:section]}/" if params[:section]
     @taxonomy = Taxonomy.new(taxonomy_string)
 
