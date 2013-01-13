@@ -46,4 +46,6 @@ Chronline::Application.configure do
   config.assets.debug = false
 
   config.action_mailer.default_url_options = {host: Settings.domain}
+
+  ActionMailer::Base.raise_delivery_errors = true
 end
