@@ -1,5 +1,8 @@
 - provide :title, @page.title
 
+- content_for :title_block do
+  = render 'site/partials/navigation'
+
 .clearfix
   .span-6
     #featured= render partial: 'site/containers/block/featured', locals: {article: @model['featured']}

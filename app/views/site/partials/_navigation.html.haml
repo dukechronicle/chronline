@@ -1,0 +1,10 @@
+.nav-container
+  %nav.subnav
+    - @taxonomy.children.each do |subsection|
+      %a.hover{href: "/section#{subsection.to_s}"}
+        %h2= subsection.name
+%h1
+  - @taxonomy.parents.each_with_index do |parent, i|
+    - if i > 0
+      &raquo;
+    = link_to parent.name, "/section#{parent.to_s}"

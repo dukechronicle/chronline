@@ -1,12 +1,12 @@
 class Site::ArticlesController < Site::BaseController
 
   def index
+    @taxonomy = Taxonomy.new("/#{params[:section]}/")
     begin
       custom_page and return
     rescue ActiveRecord::RecordNotFound
       nil
     end
-    @taxonomy = Taxonomy.new("/#{params[:section]}/")
     @articles = Article.includes(:authors, :image)
       .order('created_at DESC')
       .find_by_section(@taxonomy)
