@@ -46,7 +46,7 @@ class Article < ActiveRecord::Base
   def disqus(host)
     {
       production: Rails.env.production?,
-      shortname: Settings.disqus_shortname,
+      shortname: Settings.disqus.shortname,
       identifier: id,  # TODO: should be old unique identifier for backwards compatibility
       title: title,
       url: site_article_url(self, subdomain: 'www', host: host),

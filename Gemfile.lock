@@ -344,6 +344,7 @@ DEPENDENCIES
   guard-spork
   haml
   hiredis
+  httparty
   jquery-rails
   json-schema
   libnotify

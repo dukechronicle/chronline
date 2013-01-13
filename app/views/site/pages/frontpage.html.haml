@@ -2,13 +2,14 @@
 
 .clearfix
   .span-8
-    - if @model.has_key?('top_headline')
+    - if @model['top_headline'].has_key?('article')
       = render partial: 'site/containers/article-list/single', locals: {article: @model['top_headline']['article'], breaking: @model['top_headline']['breaking']}
     #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model['slideshow']}
     #headlines= render partial: 'site/containers/two-column-article-list', locals: {title: 'Top Stories', articles: @model['headlines']}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    #popular.title-small= render partial: 'site/containers/article-list', locals: {title: "What's Hot", articles: @model['popular'], style: :subhead}
     #opinion.title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model['opinion'], style: :subhead}
 
 .clearfix
