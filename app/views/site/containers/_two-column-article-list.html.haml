@@ -1,0 +1,24 @@
+.two-column-article-list
+  %h2.vertical-label= title
+  .rounded.clearfix
+    .top
+      .span-4.content-container
+        %a.hover.highlight-left.teaser{href: site_article_path(articles['left'].first)}
+          %h4= articles['left'].first.title
+          %p= articles['left'].first.teaser
+
+      .span-4.content-container.last
+        %a.hover.highlight-right.teaser{href: site_article_path(articles['right'].first)}
+          %h4= articles['right'].first.title
+          %p= articles['right'].first.teaser
+
+    .bottom.story-list
+      .span-4.content-container
+        - articles['left'].drop(1).each do |article|
+          %a.hover.list-story.highlight-left{href: site_article_path(article)}
+            %h4= article.title
+
+      .span-4.content-container.last
+        - articles['right'].drop(1).each do |article|
+          %a.hover.list-story.highlight-right{href: site_article_path(article)}
+            %h4= article.title

@@ -1,4 +1,4 @@
-if Settings.aws.nil?
+if false # Settings.aws.nil?
   url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
   options = {
     url: "/#{url}",
@@ -15,7 +15,8 @@ else
     s3_host_alias: Settings.content_cdn,
     s3_headers: {'Cache-Control' => 'max-age=315576000'},
     url: ':s3_alias_url',
-    hash_secret: 'super secret string',
+    path: 'images/:style/:hash.:extension',
+    hash_secret: 'super secret string',  # TODO: do something better
     hash_data: ':class/:attachment/:id/:style',
   }
 end

@@ -6,6 +6,10 @@
     :javascript
       try{Typekit.load()}catch(e){}
     = stylesheet_link_tag "site", :media => "all"
+    /[if lt IE 9]
+      %script{type: "text/javascript", src: "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
+      = stylesheet_link_tag "ie", :media => "all"
+
     = render 'site/partials/openx'
     = csrf_meta_tags
   %body

@@ -13,9 +13,19 @@ class Admin::ArticlesController < Admin::BaseController
       render and return
     end
 
+    taxonomy_string = "/#{params[:section]}/" if params[:section]
+    @taxonomy = Taxonomy.new(taxonomy_string)
+
+    if params[:date]
+      date = Date.parse(params[:date]) + 1
+      params[:page] = find_article_page_for_date(date, @taxonomy)
+    end
+
     @article_search = Article::Search.new
-    @articles = Article.page(params[:page]).order('created_at DESC')
-    #end
+    @articles = Article.includes(:authors, :image)
+      .order('created_at DESC')
+      .page(params[:page])
+      .find_by_section(@taxonomy)
   end
 
   def new
@@ -75,4 +85,15 @@ class Admin::ArticlesController < Admin::BaseController
     article.authors = Author.find_or_create_all_by_name(author_names)
     article
   end
+
+  def find_article_page_for_date(date, taxonomy)
+    first_article = Article.where(["created_at <= ?", date])
+      .order('created_at DESC').limit(1).first
+    index = Article.order('created_at DESC')
+      .find_by_section(@taxonomy)
+      .index(first_article)
+    index = Article.count if index.nil?
+    index / Article.per_page + 1
+  end
+
 end

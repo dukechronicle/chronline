@@ -1,7 +1,11 @@
-- provide :title, "Search"
+- provide :title, @taxonomy.to_a.join(', ')
 
 - content_for :title_block do
-  %h1 "Search query"
+  %h1
+    - @taxonomy.parents.each_with_index do |parent, i|
+      - if i > 0
+        &raquo;
+      = link_to parent.name, "/section#{parent.to_s}"
 
 .span-8
   - @articles.each do |article|
