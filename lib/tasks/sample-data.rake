@@ -23,7 +23,7 @@ namespace :db do
       subtitle = Faker::Lorem.words(5).map(&:capitalize).join(' ')
       article = Article.new(title: title,
                             subtitle: subtitle,
-                            teaser: Faker::Lorem.sentence,
+                            teaser: Faker::Lorem.sentence(10),
                             body: Faker::Lorem.paragraph,
                             section: random_taxonomy,
                             image_id: image.id)
