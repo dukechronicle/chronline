@@ -3,16 +3,16 @@
 - content_for :title_block do
   = render 'site/partials/navigation'
 
-.clearfix
-  .span-6
+.clearfix.align-group
+  .span-6.align-element{data: {aligntarget: '#featured .rounded'}}
     #featured= render partial: 'site/containers/block/featured', locals: {article: @model['featured']}
     - @model['headlines'].each do |article|
       = render partial: 'site/containers/block/horizontal', locals: {article: article}
 
-  .span-6.last
-    .clearfix
-      #popular.title-small.span-2= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @model['popular']}
-      .span-4.last= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+  .span-6.last.align-element{data: {aligntarget: '#headlines .rounded, #blog .rounded'}}
+    .clearfix.align-group
+      #popular.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @model['popular']}
+      .span-4.last.align-element{data: {alignprimary: true}}= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
 
     #headlines.span-3.title-medium= render partial: 'site/containers/article-list', locals: {title: 'Headlines', articles: @model['right_headlines'], style: :featured}
 
