@@ -20,7 +20,7 @@ Chronline::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += ['site.js', 'admin.js', 'mobile.js']
+  config.assets.precompile += ['site.js', 'admin.js', 'mobile.js', 'htmlshiv.js']
   config.assets.precompile += ['site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css']
 
   # Defaults to nil and saved in location specified by config.assets.prefix
