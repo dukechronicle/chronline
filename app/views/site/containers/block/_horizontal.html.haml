@@ -1,9 +1,9 @@
-.block.block-square
+.block.block-horizontal
   .rounded
     %a.hover.highlight-right{href: site_article_path(article)}
       - if article.image
         .image-container
-          = image_tag article.image.original.url(:thumb_square_m)
+          = image_tag article.image.original.url(:thumb_rect)
       .content-container
         %h4.title= article.title
         %p.teaser= article.teaser

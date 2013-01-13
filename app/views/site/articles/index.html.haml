@@ -1,11 +1,7 @@
 - provide :title, @taxonomy.to_a.join(', ')
 
 - content_for :title_block do
-  %h1
-    - @taxonomy.parents.each_with_index do |parent, i|
-      - if i > 0
-        &raquo;
-      = link_to parent.name, "/section#{parent.to_s}"
+  = render 'site/partials/navigation'
 
 .span-8
   - @articles.each do |article|
@@ -20,5 +16,5 @@
 
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  // popular
-  // facebook recommendations
+  .title-small= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
+  = render 'site/partials/facebook-recommended'
