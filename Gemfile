@@ -25,6 +25,7 @@ group :development do
   gem 'pry-doc'
   gem 'progress_bar'
   gem 'guard-spork'
+  gem 'meta_request', '0.2.1'
 end
 
 # Gems used only for assets and not required
@@ -73,7 +74,6 @@ group :test do
   gem 'guard-spork'
   gem 'shoulda-matchers'
   gem 'webmock'
-  gem 'shoulda-matchers'
   gem 'vcr'
 
   platforms :mingw, :mswin do
