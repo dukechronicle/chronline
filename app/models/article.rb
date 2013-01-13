@@ -28,6 +28,7 @@ class Article < ActiveRecord::Base
   validates :body, presence: true
   validates :title, presence: true
   validates :section, presence: true
+  validates :authors, presence: true
 
   has_and_belongs_to_many :authors
   belongs_to :image
@@ -140,8 +141,8 @@ class Article::Search
   validates :query, :length => {:minimum => 2}, format: {with: /\A[\w]+\z/}
 
   def execute
-    self.sort = 'relevance' if not ['relevance', 'data'].include? self.sort
-    self.order = 'desc' if not ['asc', 'desc'].include? self.order
+    self.sort = 'relevance' unless['relevance', 'data'].include? self.sort
+    self.order = 'desc' unless ['asc', 'desc'].include? self.order
     @request = Article.search do
       fulltext self.query
     end

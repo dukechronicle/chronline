@@ -30,11 +30,16 @@ describe Article do
 
   subject { @article }
 
-  it { should be_valid }
   it { should have_and_belong_to_many :authors }
+
+  it { should be_valid }
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
-
+  it { should validate_presence_of :section }
+  it { should validate_presence_of :authors }
+  it "should be searchable" do
+    Article.searchable?.should be_true
+  end
   describe "#section" do
     it { @article.section.should be_a_kind_of(Taxonomy) }
     it do
