@@ -40,15 +40,8 @@
 
   - if not frontpage?
     #subheader
-      .span-5
-        .pagetitle
-          - if content_for?(:title_block)
-            = yield :title_block
-          - else
-            %h1= yield :title
-          - if defined? subsections
-            .nav-container.span-7.last
-              %nav#subnav
-                - subsections.each do |subsection|
-                  %a.hover{href: '/section' + subsection.path}
-                    %h2= subsection.name
+      .pagetitle
+        - if content_for?(:title_block)
+          = yield :title_block
+        - else
+          %h1= yield :title

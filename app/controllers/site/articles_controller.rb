@@ -2,9 +2,15 @@ class Site::ArticlesController < Site::BaseController
 
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    begin
+      custom_page and return
+    rescue ActiveRecord::RecordNotFound
+      nil
+    end
     @articles = Article.includes(:authors, :image)
       .order('created_at DESC')
       .find_by_section(@taxonomy)
+    @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
   end
 
   def show

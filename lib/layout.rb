@@ -74,3 +74,13 @@ Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
   articles = Article.includes(:authors, :image).find_in_order(article_slugs)
   [articles] * invocations.length
 end
+
+
+Layout.add_schema(:popular, {
+                    'type' => 'string',
+                    'enum' => Taxonomy.main_sections.map {|t| t.name.downcase},
+                  }) do |sections|
+  sections.map do |section|
+    Article.popular(section, limit: 7)
+  end
+end

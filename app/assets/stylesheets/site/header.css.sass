@@ -217,3 +217,30 @@ header
           +transition(color .25s linear)
         a:hover
           color: $highlight-color
+
+    .nav-container
+      width: 558px
+      float: right
+      margin-left: 20px
+      margin-top: -8px
+      +box-sizing(border-box)
+
+    .subnav
+      text-align: right
+      white-space: nowrap
+      position: relative
+      overflow-x: hidden
+      left: 0px
+      a
+        display: inline-block
+        h2
+          display: inline-block
+          letter-spacing: 1px
+          font-size: 0.9em
+          text-transform: uppercase
+          color: $text-color
+          display: block
+          padding: 9px 11px
+          margin: 0px
+      a:first-child h2
+        padding-left: 0px
