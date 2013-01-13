@@ -6,6 +6,7 @@
       .controls
         %input.input-enabler{type: 'checkbox', data: {target: 'newsletter_article'}}
         = f.text_field :article, disabled: true, class: 'input-xlarge', class: 'input-xlarge article-picker'
+        %span.help-block= link_to "Lay out the newsletter here", edit_admin_page_path(@newsletter_page)
     .control-group
       %label.control-label{for: 'newsletter_test_email'} Test email
       .controls
