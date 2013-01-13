@@ -1,0 +1,17 @@
+- provide :title, "Search: #{params[:query]}"
+
+.span-8
+  - @articles.each do |article|
+    .rounded
+      %a.hover{href: site_article_path(article)}
+        .content-container
+          %h3= article.title
+          .subtitle
+            %span.date= article.created_at.strftime("%B %e, %Y")
+            %span.author= byline(article)
+          %p= article.teaser
+
+.span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+  // popular
+  // facebook recommendations
