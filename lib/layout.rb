@@ -34,7 +34,7 @@ class Layout
     }
   end
 
-  def self.add_schema(name, schema, &proc)
+  def self.add_schema(name, schema={}, &proc)
     if block_given?
       schema[:transformation] = name
       @@transformations[name] = proc
@@ -64,14 +64,11 @@ Layout.add_schema(:markdown, {
   markdown_strings.map {|str| RDiscount.new(str).to_html}
 end
 
-Layout.add_schema(:article, {
-                    "type" => "integer",
-                  }) do |article_ids|
-  Article.includes(:authors, :image).find_all(article_ids)
+Layout.add_schema(:article, {"type" => "integer"}) do |article_ids|
+  Article.includes(:authors, :image).find_in_order(article_ids)
 end
 
-Layout.add_schema(:disqus_popular, {
-                    "type" => "integer",
-                  }) do |article_ids|
-  Article.includes(:authors, :image).find_all(article_ids)
+Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
+  puts "SOMETHING"
+  Article.all.limit(5) * invocations.length
 end

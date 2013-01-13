@@ -9,6 +9,7 @@
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    #popular.title-small= render partial: 'site/containers/article-list', locals: {title: "What's Hot", articles: @model['popular'], style: :subhead}
     #opinion.title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model['opinion'], style: :subhead}
 
 .clearfix

@@ -26,3 +26,4 @@ initialize 'form#page-settings', ->
       $(this).find('#page_layout_data').val(getLayoutData())
     catch err
       e.preventDefault()
+      console.error(err)
