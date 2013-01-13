@@ -93,8 +93,8 @@ module Chronline
       domain: "dukechronicle.com",
       authentication: "plain",
       enable_starttls_auto: true,
-      user_name: Settings.gmail_acccount,
-      password: Settings.gmail_password
+      user_name: Settings.gmail.username,
+      password: Settings.gmail.password,
     }
   end
 end
