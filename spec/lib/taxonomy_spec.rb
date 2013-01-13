@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-require 'exceptions'
-require 'taxonomy'
-
-
 describe Taxonomy do
 
   before { @taxonomy = Taxonomy.new(['news', 'university']) }
@@ -19,9 +15,9 @@ describe Taxonomy do
   end
 
   describe "when constructed with an invalid taxonomy" do
-    it "should raise an Exception::InvalidTaxonomy" do
+    it "should raise an InvalidTaxonomyError" do
       constructor = lambda { Taxonomy.new(['fake', 'taxonomy']) }
-      constructor.should raise_error(Exceptions::InvalidTaxonomyError)
+      constructor.should raise_error(Taxonomy::InvalidTaxonomyError)
     end
   end
 

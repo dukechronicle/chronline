@@ -1,9 +1,25 @@
 = render 'admin/partials/flash', flash: flash
+
+= simple_form_for(@article_search,
+  url: url_for(controller: 'articles', action: 'index', subdomain: 'admin'),
+  validate: true, html: {method:'get', class: 'form-inline'}) do |f|
+  = f.input :query, label: false, placeholder: "Search"
+  = f.button :submit, class: 'btn', value: "Submit"
+
 %table.table.table-striped
+  %thead
+    %tr
+      %th ID
+      %th Title
+      %th Authors
+      %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
+      %td= article.id
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      %td= link_to "Edit", [:edit, :admin, article]
-      %td= link_to "Delete", [:admin, article], method: :delete,
-  data: {confirm: "Are you sure?"}
+      %td= article.authors
+      %td
+        = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
+        = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
+
 = will_paginate

@@ -1,5 +1,3 @@
-require 'taxonomy'
-
 class TaxonomyInput < SimpleForm::Inputs::Base
   include InputValueHelper
 

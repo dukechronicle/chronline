@@ -16,9 +16,6 @@
 
 require 'spec_helper'
 
-require 'taxonomy'
-
-
 describe Article do
 
   before do
@@ -50,14 +47,14 @@ describe Article do
     it do
       taxonomy = Taxonomy.new(['News', 'University'])
       @article.section = taxonomy
-      @article.section.should == taxonomy
+      @article.section.should eq taxonomy
     end
   end
 
   describe "#render_body" do
     it "should render the article body with markdown" do
       html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
-      @article.render_body.should == html
+      @article.render_body.rstrip.should eq html
     end
   end
 
