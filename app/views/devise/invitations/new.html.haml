@@ -3,7 +3,9 @@
 = simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
   = devise_error_messages!
 
-  - resource.class.invite_key_fields.each do |field|
-    = f.input field, label: false, placeholder: field.to_s.capitalize
+  .form-inputs
+    - resource.class.invite_key_fields.each do |field|
+      = f.input field, label: false, placeholder: field.to_s.capitalize
 
-  = f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-primary'
+  .form-actions
+    = f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-primary'
