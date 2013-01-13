@@ -1,0 +1,21 @@
+.pagination
+  +rounded
+  padding: 10px
+  font-size: 2em
+
+  ul
+    padding: 0px
+    margin: 0px
+    list-style: none
+
+  li
+    display: inline
+    a
+      color: $text-color
+      +single-transition(color, 0.25s, linear)
+
+  li a:hover, li.active a
+    color: $link-color
+
+  li.prev, li.next
+    font-size: .6em

@@ -7,7 +7,7 @@ class Newsletter
 
 
   def initialize(attributes)
-    @test_email = attributes[:test_email]
+    @test_email = attributes[:test_email] if attributes
   end
 
   def persisted?
@@ -64,7 +64,7 @@ class ArticleNewsletter < Newsletter
   attr_accessor :article
 
 
-  def initialize(attributes = {})
+  def initialize(attributes={})
     super
     if attributes[:article]
       @article = Article.find(attributes[:article], include: :authors)
@@ -85,6 +85,33 @@ class ArticleNewsletter < Newsletter
 
   def subject
     @article.title
+  end
+
+end
+
+class DailyNewsletter < Newsletter
+  NEWSLETTER_PAGE_PATH = '/newsletter'
+
+
+  def initialize(attributes={})
+    super
+    @model = Page.find_by_path!(NEWSLETTER_PAGE_PATH).layout.model
+  end
+
+  def content
+    # TODO: look into executing in an actual controller context with helpers
+    template = File.read(File.join(%w{app views newsletter daily.html.haml}))
+    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, model: @model)
+  end
+
+  def self.model_name
+    Newsletter.model_name
+  end
+
+  private
+
+  def subject
+    "Duke Chronicle Daily Newsletter #{issue_date}"
   end
 
 end

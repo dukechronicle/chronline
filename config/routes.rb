@@ -1,3 +1,5 @@
+require_dependency 'admin/users_controller' # contains admin devise controllers
+
 Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
@@ -29,6 +31,12 @@ Chronline::Application.routes.draw do
   end
 
   constraints subdomain: 'admin' do
+    devise_for :users, controllers: {
+      sessions: 'admin/sessions',
+      invitations: 'admin/invitations',
+      passwords: 'admin/passwords',
+    }
+
     namespace :admin, path: '/'  do
       root to: 'main#home'
 

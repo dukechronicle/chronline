@@ -1,4 +1,4 @@
-.rounded
+@mixin rounded
   +border-radius($corner-radius)
   +black-box-shadow($default-box-shadow-opacity, 0px, 1px, 3px)
   background-color: white
@@ -9,6 +9,9 @@
     margin-left: -1px
   .highlight-right
     margin-right: -1px
+
+.rounded
+  +rounded
 
 .image-container
   padding: $image-padding
