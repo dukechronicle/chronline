@@ -22,6 +22,7 @@ if Configz.has_key? 'spork'
   Configz['spork'].each do |k,v|
     spork_options[k.to_sym] = v
   end
+
   guard 'spork', spork_options do
     watch('config/application.rb')
     watch('config/environment.rb')
@@ -34,9 +35,10 @@ if Configz.has_key? 'spork'
     watch(%r{features/support/}) { :cucumber }
   end
 end
+rspec_formatter = ''
+rspec_formatter = "--format " << Configz['rspec']['formatter'] if defined?(Configz['rspec']['formatter'])
 
-
-guard 'rspec', :all_on_start => false, :all_after_pass => false do
+guard 'rspec', cli: "--drb --color #{rspec_formatter}", :all_on_start => false, :all_after_pass => false do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
@@ -52,8 +54,10 @@ guard 'rspec', :all_on_start => false, :all_after_pass => false do
   # Capybara features specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/features/#{m[1]}_spec.rb" }
 end
+cucumber_formatter = ''
+cucumber_formatter = "--format " << Configz['rspec']['formatter'] if defined?(Configz['rspec']['formatter'])
 
-guard 'cucumber', :all_on_start => false, :all_after_pass => false do
+guard 'cucumber', cli: "--drb --color #{cucumber_formatter}", :all_on_start => false, :all_after_pass => false do
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$})          { 'features' }
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
