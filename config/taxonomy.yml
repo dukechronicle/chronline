@@ -1,0 +1,94 @@
+taxonomy:
+  - name: News
+    children:
+      - name: University
+        children:
+          - name: Academics
+          - name: Board of Trustees
+          - name: Campus Crime
+          - name: Dining
+          - name: DSG
+          - name: Graduate and Professional Schools
+          - name: Residence Life
+          - name: Student Life
+      - name: Local & National
+        children:
+          - name: City of Durham
+          - name: Durham Crime
+          - name: Higher Education
+          - name: National News and Politics
+          - name: North Carolina
+      - name: Health & Science
+        children:
+          - name: DUHS
+          - name: Environment & Sustainability
+          - name: Pratt
+          - name: Research
+  - name: Sports
+    children:
+      - name: Column
+      - name: Baseball
+      - name: Basketball
+        children:
+          - name: Men
+          - name: Women
+      - name: Cross Country
+        children:
+          - name: Men
+          - name: Women
+      - name: Fencing
+        children:
+          - name: Men
+          - name: Women
+      - name: Field Hockey
+      - name: Football
+      - name: Golf
+        children:
+          - name: Men
+          - name: Women
+      - name: Lacrosse
+        children:
+          - name: Men
+          - name: Women
+      - name: Rowing
+      - name: Soccer
+        children:
+          - name: Men
+          - name: Women
+      - name: Swimming & Diving
+        children:
+          - name: Men
+          - name: Women
+      - name: Tennis
+        children:
+          - name: Men
+          - name: Women
+      - name: Track & Field
+        children:
+          - name: Men
+          - name: Women
+      - name: Volleyball
+      - name: Wrestling
+  - name: Opinion
+    children:
+      - name: Letter to the Editor
+      - name: Editorial Board
+      - name: Column
+      - name: Guest Commentary
+      - name: Editor's Note
+  - name: Recess
+    children:
+      - name: Page Two
+      - name: Arts
+      - name: Music
+      - name: Film
+      - name: Literature
+      - name: Column
+  - name: Towerview
+    children:
+      - name: Savvy
+      - name: Prefix
+      - name: Wisdom
+      - name: Feature
+      - name: Column
+      - name: Editor's Note
