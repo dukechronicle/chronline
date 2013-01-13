@@ -1,15 +1,25 @@
-- provide :title, "Search: #{params[:query]}"
+- provide :title, "Search: #{params[:article_search][:query]}"
+
+- content_for :title_block do
+  %h1
+    = "Search: "
+    %b= params[:article_search][:query]
 
 .span-8
-  - @articles.each do |article|
+  - if @articles.empty?
     .rounded
-      %a.hover{href: site_article_path(article)}
-        .content-container
-          %h3= article.title
-          .subtitle
-            %span.date= article.created_at.strftime("%B %e, %Y")
-            %span.author= byline(article)
-          %p= article.teaser
+      .article-container
+        %h1 No results found
+  - else
+    - @articles.each do |article|
+      .rounded
+        %a.hover{href: site_article_path(article)}
+          .content-container
+            %h3= article.title
+            .subtitle
+              %span.date= article.created_at.strftime("%B %e, %Y")
+              %span.author= byline(article)
+            %p= article.teaser
 
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
