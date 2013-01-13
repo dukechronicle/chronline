@@ -14,9 +14,17 @@ class Disqus
 
   def request(resource, action, options={})
     uri = URI::HTTPS.build(host: DISQUS_HOST,
-                          path: request_path(resource, action),
-                          query: request_query(options))
+                           path: request_path(resource, action),
+                           query: request_query(options))
     HTTParty.get(uri.to_s)
+  end
+
+  def popular_articles(forum, limit)
+    res = request(:threads, :list_hot, limit: limit, forum: forum)['response']
+    p res
+    slugs = res.map do |thread|
+      URI.parse(thread['link']).path.gsub(%r{^/articles/}, '')
+    end
   end
 
   private
