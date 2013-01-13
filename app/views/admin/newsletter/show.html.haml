@@ -5,7 +5,7 @@
       %label.control-label{for: 'newsletter_article'} Article
       .controls
         %input.input-enabler{type: 'checkbox', data: {target: 'newsletter_article'}}
-        = f.text_field :article, disabled: true, class: 'input-xlarge'
+        = f.text_field :article, disabled: true, class: 'input-xlarge', class: 'input-xlarge article-picker'
     .control-group
       %label.control-label{for: 'newsletter_test_email'} Test email
       .controls
