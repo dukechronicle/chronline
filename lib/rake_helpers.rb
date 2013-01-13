@@ -1,7 +1,5 @@
 module RakeHelpers
 
-  ::String.class_eval { include CoreExt::String }
-
   def find_command(cmd)
     exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
     ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
@@ -13,37 +11,21 @@ module RakeHelpers
     return nil
   end
 
-
-
   module CoreExt
     module String
-
       def unindent
-        unindent_base false
+        return dup.unindent! || self
       end
-
       def unindent!
-        unindent_base true
-      end
-
-      private
-
-      def unindent_base(in_place = false)
-        m_first = nil
-        m_min = nil
-        self.scan(/^[ \t]*/) do |m|
-          ms = m.size
-          m_first ||= ms
-          m_min = ms if !m_min || ms < m_min
-          # break if ms == 0 ## only worth if the probability of marginless line above certain threshold
+        margin = 0
+        self.scan(/^[ \t]*/) do |spaces|
+          margin = spaces.size if spaces.size > margin
         end
-        if m_first != m_min && warn_first_not_min
-          puts "warning: margin of the first line differs from minimum margin"
-        end
-        return in_place ? nil : self.dup unless m_min > 0
-        re = Regexp.new('^\s{' + m_min.to_s + '}'  )
-        in_place ? gsub!(re, '') : gsub(re, '')
+        margin === 0 ? nil : gsub!(/^\s{#{margin}}/, '')
       end
     end
   end
+
+  ::String.class_eval { include CoreExt::String }
+
 end
