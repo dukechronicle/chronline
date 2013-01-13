@@ -35,11 +35,18 @@ Writing Tests
 
 ### RSpec
 
-[Built in RSpec matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
+Resources:
 
+ - [Built in RSpec matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
+ - [Better Specs RSpec Guildines](http://betterspecs.org/)
+ - [Shoulda Matchers](http://rubydoc.info/github/thoughtbot/shoulda-matchers/master/frames)
 
 ### Cucumber
 
+Resources:
+
+ - [Official Cucumber Site](http://cukes.info/)
+ - [Gerkin Reference](https://github.com/cucumber/cucumber/wiki/Gherkin)
 
 Running Tests
 -------------
@@ -81,3 +88,11 @@ spork: # See "Available Options"  at https://github.com/guard/guard-spork
   cucumber: false # Default is true
 
 ```
+
+Other Resources
+===============
+
+ - [HAML](http://haml.info/)
+ - [SimpleForm](http://simple-form.plataformatec.com.br/)
+ - [Capybara](http://jnicklas.github.com/capybara/)
+ - [Pry](http://pryrepl.org/)
