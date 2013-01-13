@@ -23,7 +23,7 @@
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      %td= article.created_at
+      %td= article.created_at.strftime('%-m-%-d-%Y')
       %td
         = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
         = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'

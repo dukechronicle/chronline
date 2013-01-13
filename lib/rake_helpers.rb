@@ -1,7 +1,5 @@
 module RakeHelpers
 
-  ::String.class_eval { include CoreExt::String }
-
   def find_command(cmd)
     exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
     ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
@@ -12,8 +10,6 @@ module RakeHelpers
     end
     return nil
   end
-
-
 
   module CoreExt
     module String
@@ -46,4 +42,7 @@ module RakeHelpers
       end
     end
   end
+
+  ::String.class_eval { include CoreExt::String }
+
 end
