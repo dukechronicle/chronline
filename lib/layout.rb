@@ -69,5 +69,8 @@ Layout.add_schema(:article, {"type" => "integer"}) do |article_ids|
 end
 
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
-  [Article.limit(5).all] * invocations.length
+  disqus = Disqus.new(Settings.disqus.api_key)
+  article_slugs = disqus.popular_articles(Settings.disqus.shortname, 7)
+  articles = Article.includes(:authors, :image).find_in_order(article_slugs)
+  [articles] * invocations.length
 end
