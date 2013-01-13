@@ -50,6 +50,8 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'api' do
     namespace :api, path: '/' do
       get 'section/*section' => 'articles#index', as: :article_section
+      get 'search' => 'articles#search'
+
       resources :images, only: :index
       resources :staff, only: :index
       resources :articles, only: :index

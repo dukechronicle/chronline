@@ -64,7 +64,10 @@ Layout.add_schema(:markdown, {
   markdown_strings.map {|str| RDiscount.new(str).to_html}
 end
 
-Layout.add_schema(:article, {"type" => "integer"}) do |article_ids|
+Layout.add_schema(:article, {
+                    "type" => "integer",
+                    "display" => "article-picker"
+                  }) do |article_ids|
   Article.includes(:authors, :image).find_in_order(article_ids)
 end
 

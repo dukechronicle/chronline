@@ -8,4 +8,10 @@ class Api::ArticlesController < ApplicationController
     render json: articles, include: :authors, methods: :thumb_square_s_url
   end
 
+  def search
+    article_search = Article::Search.new(query: params[:query],
+                                         sort: params[:sort])
+    render json: article_search.results
+  end
+
 end
