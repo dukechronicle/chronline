@@ -58,7 +58,7 @@ var onde = (function () {
     };
 })();
 
-onde.PRIMITIVE_TYPES = ['string', 'number', 'integer', 'boolean', 'array', 'object'];
+onde.PRIMITIVE_TYPES = ['string', 'number', 'integer', 'boolean', 'array', 'object', 'null'];
 //onde.simpleTypes = ['string', 'number', 'integer', 'boolean', 'object', 'array', 'null', 'any'];
 
 onde.Onde = function (formElement, schema, documentInst, opts) {
@@ -642,6 +642,25 @@ onde.Onde.prototype.renderFieldValue = function (fieldName, fieldInfo, parentNod
         editBar.append(inner);
         parentNode.append(editBar);
         return;
+    } else if (fieldInfo.type == 'null') {
+        var valueContainer = $('<span></span>').
+            addClass('value');
+        var fieldValueNode = $('<input type="hidden" />').
+            attr('id', fieldValueId).
+            attr('name', fieldName).
+            addClass('value-input');
+        fieldValueNode.attr('value', 'null');
+        if (fieldInfo.title) {
+            fieldValueNode.attr('title', fieldInfo.title);
+        }
+        fieldValueNode.attr('data-type', fieldInfo.type);
+        valueContainer.append(fieldValueNode);
+        if (fieldDesc) {
+            valueContainer.append(' ').append($('<small></small>').
+                addClass('description').
+                append($('<em></em>').text(fieldDesc)));
+        }
+        parentNode.append(valueContainer);
     } else {
         var valueContainer = $('<span></span>').addClass('value').
             append(this.tr("InternalError: Unsupported property type: ")).
@@ -1052,6 +1071,8 @@ onde.Onde.prototype._buildProperty = function (propName, propInfo, path, formDat
                 }
             } else if (dataType == 'string') {
                 result.data = valData;
+            } else if (dataType == 'null') {
+                result.data = "bull";
             } else {
                 console.warn("Unsupported type: " + dataType + " (" + fieldName + ")");
                 result.errorCount += 1;
@@ -1170,6 +1191,8 @@ onde.Onde.prototype._buildObject = function (schema, path, formData) {
                             valData === '1' || valData === 1 || valData === true);
                     } else if (dataType == 'string') {
                         result.data[propName] = valData;
+                    } else if (dataType == 'null') {
+                        result.data[propName] = undefined;
                     } else {
                         console.warn("Unsupported type: " + dataType + " (" + propName + ")");
                         result.errorCount += 1;

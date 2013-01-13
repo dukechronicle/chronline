@@ -39,7 +39,10 @@ class Page::Layouts::Frontpage < Layout
           }
         }
       },
-      'popular' => disqus_popular_schema,
+      'popular' => {
+        'label' => 'Most Commented',
+        'extends' => disqus_popular_schema,
+      },
       'news' => {
         'label' => 'News',
         'type' => 'array',
