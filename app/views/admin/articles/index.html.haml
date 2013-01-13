@@ -1,10 +1,10 @@
 = render 'admin/partials/flash', flash: flash
 
-= simple_form_for(@article_search,
-  url: url_for(controller: 'articles', action: 'index', subdomain: 'admin'),
-  validate: true, html: {method:'get', class: 'form-inline'}) do |f|
-  = f.input :query, label: false, placeholder: "Search"
-  = f.button :submit, class: 'btn', value: "Submit"
+/= simple_form_for(@article_search,
+/url: url_for(controller: 'articles', action: 'index', subdomain: 'admin'),
+/validate: true, html: {method:'get', class: 'form-inline'}) do |f|
+/= f.input :query, label: false, placeholder: "Search"
+/= f.button :submit, class: 'btn', value: "Submit"
 
 %ul.nav.nav-tabs
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
