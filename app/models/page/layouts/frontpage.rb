@@ -9,11 +9,9 @@ class Page::Layouts::Frontpage < Layout
           'article' => {
             'label' => 'Article',
             'extends' => article_schema,
-            'required' => true,
           },
           'breaking' => {
               'label' => 'Breaking?',
-              'required' => true,
               'type' => 'boolean',
           }
         }
@@ -41,6 +39,7 @@ class Page::Layouts::Frontpage < Layout
           }
         }
       },
+      'popular' => disqus_popular_schema,
       'news' => {
         'label' => 'News',
         'type' => 'array',

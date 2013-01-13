@@ -2,7 +2,7 @@
 
 .clearfix
   .span-8
-    - if @model.has_key?('top_headline')
+    - if @model['top_headline'].has_key?('article')
       = render partial: 'site/containers/article-list/single', locals: {article: @model['top_headline']['article'], breaking: @model['top_headline']['breaking']}
     #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model['slideshow']}
     #headlines= render partial: 'site/containers/two-column-article-list', locals: {title: 'Top Stories', articles: @model['headlines']}
