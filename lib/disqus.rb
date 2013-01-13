@@ -12,19 +12,20 @@ class Disqus
     @options.merge!(options)
   end
 
-  def request(resource, options={})
+  def request(resource, action, options={})
     uri = URI::HTTPS.build(host: DISQUS_HOST,
-                           path: request_path(resource),
-                           query: request_query(options))
-    uri.to_s
+                          path: request_path(resource, action),
+                          query: request_query(options))
+    HTTParty.get(uri.to_s)
   end
 
   private
 
-  def request_path(resource)
-    "/%s/%s.%s" % [@options[:api_version],
-                   resource.to_s.camelcase(:lower),
-                   @options[:format]]
+  def request_path(resource, action)
+    "/api/%s/%s/%s.%s" % [@options[:api_version],
+                          resource,
+                          action.to_s.camelcase(:lower),
+                          @options[:format]]
   end
 
   def request_query(params)

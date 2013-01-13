@@ -25,8 +25,6 @@ GEM
       activesupport (>= 3.0.2, < 4.1)
     activemodel (3.2.11)
       activesupport (= 3.2.11)
-    activemodel (3.2.9)
-      activesupport (= 3.2.9)
       builder (~> 3.0.0)
     activerecord (3.2.11)
       activemodel (= 3.2.11)
@@ -107,7 +105,6 @@ GEM
     faye-websocket (0.4.6)
       eventmachine (>= 0.12.0)
     ffaker (1.15.0)
-    ffi (1.3.0)
     ffi (1.3.1)
     friendly_id (4.0.9)
     fssm (0.2.9)
@@ -143,7 +140,6 @@ GEM
     method_source (0.8.1)
     mime-types (1.19)
     multi_json (1.5.0)
-    multi_xml (0.5.1)
     multi_xml (0.5.2)
     nokogiri (1.5.6)
     options (2.3.0)
@@ -189,7 +185,6 @@ GEM
       activesupport (= 3.2.11)
       bundler (~> 1.0)
       railties (= 3.2.11)
-      railties (= 3.2.9)
     rails_config (0.3.2)
       activesupport (>= 3.0)
     railties (3.2.11)
@@ -268,7 +263,6 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
     websocket (1.0.6)
-    will_paginate (3.0.3)
     will_paginate (3.0.4)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -294,6 +288,7 @@ DEPENDENCIES
   gibbon
   haml
   hiredis
+  httparty
   jquery-rails
   json-schema
   paperclip
