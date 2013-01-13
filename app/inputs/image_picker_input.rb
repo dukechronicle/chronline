@@ -1,6 +1,3 @@
-require 'erb'
-
-
 class ImagePickerInput < SimpleForm::Inputs::Base
   include InputValueHelper
 
