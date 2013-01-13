@@ -35,7 +35,8 @@ class Admin::ArticlesController < Admin::BaseController
   def create
     @article = update_article(Article.new)
     if @article.save
-      redirect_to admin_root_path
+      redirect_to admin_articles_path,
+        with: flash[:success] = "Your article was successfully created!"
     else
       render 'new'
     end
