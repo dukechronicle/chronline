@@ -92,7 +92,7 @@ GEM
       launchy
     daemons (1.1.9)
     database_cleaner (0.9.1)
-    devise (2.2.1)
+    devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -295,7 +295,7 @@ DEPENDENCIES
   cucumber-rails
   cucumber-websteps
   database_cleaner
-  devise
+  devise (= 2.1.2)
   devise_invitable
   factory_girl_rails
   ffaker
