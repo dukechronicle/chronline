@@ -3,6 +3,7 @@ class Mobile::ArticlesController < Mobile::BaseController
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
     @articles = Article.includes(:authors, :image)
+      .order('created_at DESC')
       .find_by_section(@taxonomy).limit(7)
   end
 
