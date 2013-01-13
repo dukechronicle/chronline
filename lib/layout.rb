@@ -69,6 +69,5 @@ Layout.add_schema(:article, {"type" => "integer"}) do |article_ids|
 end
 
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
-  puts "SOMETHING"
-  Article.all.limit(5) * invocations.length
+  [Article.limit(5).all] * invocations.length
 end

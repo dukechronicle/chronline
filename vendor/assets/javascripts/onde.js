@@ -1072,7 +1072,7 @@ onde.Onde.prototype._buildProperty = function (propName, propInfo, path, formDat
             } else if (dataType == 'string') {
                 result.data = valData;
             } else if (dataType == 'null') {
-                result.data = "bull";
+                result.data = null;
             } else {
                 console.warn("Unsupported type: " + dataType + " (" + fieldName + ")");
                 result.errorCount += 1;
