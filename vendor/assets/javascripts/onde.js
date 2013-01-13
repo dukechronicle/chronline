@@ -543,6 +543,9 @@ onde.Onde.prototype.renderFieldValue = function (fieldName, fieldInfo, parentNod
             }
         }
         fieldValueNode.attr('data-type', fieldInfo.type);
+        if (fieldInfo.display) {
+            fieldValueNode.addClass(fieldInfo.display);
+        }
         valueContainer.append(fieldValueNode);
         if (fieldDesc) {
             valueContainer.append(' ').append($('<small></small>').
