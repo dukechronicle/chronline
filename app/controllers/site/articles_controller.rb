@@ -1,6 +1,11 @@
 class Site::ArticlesController < Site::BaseController
 
   def index
+    begin
+      custom_page and return
+    rescue ActiveRecord::RecordNotFound
+      nil
+    end
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
     @articles = Article.includes(:authors, :image)
       .order('created_at DESC')
