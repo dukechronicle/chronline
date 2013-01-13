@@ -20,5 +20,5 @@
 
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  // popular
-  // facebook recommendations
+  .title-small= render partial: 'site/containers/article-list/numbered', locals: {title: "Popular in #{@taxonomy.to_a.first}", articles: @popular}
+  = render 'site/partials/facebook-recommended'

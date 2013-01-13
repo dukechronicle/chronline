@@ -5,6 +5,7 @@ class Site::ArticlesController < Site::BaseController
     @articles = Article.includes(:authors, :image)
       .order('created_at DESC')
       .find_by_section(@taxonomy)
+    @popular = @articles[0..5]
   end
 
   def show
