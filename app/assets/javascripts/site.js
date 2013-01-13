@@ -3,6 +3,7 @@
 //= require underscore/underscore.js
 //= require date.format.js
 //= require jquery-galleria/src/galleria.js
+//= require jquery.hoverscroll.js
 
 //= require util
 //= require initialize

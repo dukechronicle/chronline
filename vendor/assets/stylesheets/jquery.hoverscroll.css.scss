@@ -1,0 +1,139 @@
+/**
+ * HoverScroll Style Sheet
+ *
+ * @author RasCarlito <carl.ogren@gmail.com>
+ * @version 0.2.4
+ * @revision 21
+ */
+
+/* Main container */
+div.hoverscroll {
+	position:relative;
+}
+
+
+/* List container */
+div.hoverscroll div.listcontainer {
+	overflow:hidden;
+}
+div.hoverscroll div.fixed-listcontainer {
+    overflow: hidden;
+    float: left;
+}
+
+/* Actual list containing items */
+div.hoverscroll ul.list {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+/* Items contained in the list */
+div.hoverscroll ul.list li.item {
+	display:block;
+	padding:0;
+}
+div.hoverscroll.horizontal ul.list li.item {
+	float:left;
+}
+div.hoverscroll.horizontal.rtl ul.list li.item {
+	float: right;
+}
+
+
+
+/* Arrows */
+div.hoverscroll div.arrow {
+	position:absolute;
+	float:none;
+	background-position:center;
+	background-repeat:no-repeat;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+}
+div.hoverscroll div.fixed-arrow {
+    display: block;
+    float: left;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+div.hoverscroll div.arrow.left,
+div.hoverscroll div.arrow.right,
+div.hoverscroll div.fixed-arrow.left,
+div.hoverscroll div.fixed-arrow.right {
+	top:0px;
+	width:40px;
+	height:100%;
+}
+div.hoverscroll div.arrow.left,
+div.hoverscroll div.fixed-arrow.left {
+	left:-40px;
+	background-image:image-url('gfx/arrow-left-small.png');
+    background-size:40px;
+}
+div.hoverscroll div.arrow.right,
+div.hoverscroll div.fixed-arrow.right {
+	right:-40px;
+	background-image:image-url('gfx/arrow-right-small.png');
+    background-size:40px;
+}
+
+div.hoverscroll div.arrow.top,
+div.hoverscroll div.arrow.bottom,
+div.hoverscroll div.fixed-arrow.top,
+div.hoverscroll div.fixed-arrow.bottom {
+	left:0px;
+	width:100%;
+	height:40px;
+}
+div.hoverscroll div.arrow.top,
+div.hoverscroll div.fixed-arrow.top {
+	top:0px;
+	background-image:image-url('gfx/arrow-up-small.png');
+	
+}
+div.hoverscroll div.arrow.bottom,
+div.hoverscroll div.fixed-arrow.bottom {
+	bottom:0px;
+	background-image:image-url('gfx/arrow-down-small.png');
+}
+
+
+/* Hover Zones */
+/*
+div.hoverscroll div.hoverZoneLeft,
+div.hoverscroll div.hoverZoneRight,
+div.hoverscroll div.hoverZoneTop,
+div.hoverscroll div.hoverZoneBottom {
+	position:absolute;
+}
+div.hoverscroll div.hoverZoneLeft {
+	cursor: image-url('gfx/mouse-arrow-left.cur'), w-resize;
+	top:0px;
+	left:0px;
+	width:40%;
+	height:100%;
+}
+div.hoverscroll div.hoverZoneRight {
+	cursor: image-url('gfx/mouse-arrow-right.cur'), w-resize;
+	top:0px;
+	right:0px;
+	width:40%;
+	height:100%;
+}
+div.hoverscroll div.hoverZoneTop {
+	cursor: image-url('gfx/mouse-arrow-up.cur'), n-resize;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:40%;
+}
+div.hoverscroll div.hoverZoneBottom {
+	cursor: image-url('gfx/mouse-arrow-down.cur'), n-resize;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	height:40%;
+}
+*/
