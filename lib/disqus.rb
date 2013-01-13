@@ -21,7 +21,6 @@ class Disqus
 
   def popular_articles(forum, limit)
     res = request(:threads, :list_hot, limit: limit, forum: forum)['response']
-    p res
     slugs = res.map do |thread|
       URI.parse(thread['link']).path.gsub(%r{^/articles/}, '')
     end
