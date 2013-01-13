@@ -10,6 +10,8 @@
     "jquery": "latest",
     "jquery-file-upload": "latest",
     "jquery-ui": "~1.9.2",
-    "underscore": "~1.4.3"
+    "onde": "git://github.com/exavolt/onde.git",
+    "underscore": "~1.4.3",
+    "jquery-galleria": "~1.2.8"
   }
 }

@@ -8,6 +8,8 @@ Chronline::Application.routes.draw do
         post 'unsubscribe'
       end
 
+      root to: 'base#custom_page'
+      get 'pages/*path' => 'base#custom_page'
       get 'section/*section' => 'articles#index', as: :article_section
 
       resources :articles, only: :show do
@@ -32,6 +34,7 @@ Chronline::Application.routes.draw do
 
       get 'newsletter' => 'newsletter#show'
       post 'newsletter' => 'newsletter#send_newsletter'
+      get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
 
       resources :images, except: :show do
@@ -39,6 +42,7 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
       resources :articles, except: :show
+      resources :pages, except: :show
       resources :staff, except: :show
     end
   end

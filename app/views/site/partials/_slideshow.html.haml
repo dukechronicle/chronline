@@ -1,0 +1,4 @@
+.rounded
+  .galleria
+    - articles.each do |article|
+      = image_tag article.image.original.url(:large_rect), 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_article_path(article)

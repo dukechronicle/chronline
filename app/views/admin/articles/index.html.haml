@@ -6,18 +6,24 @@
   = f.input :query, label: false, placeholder: "Search"
   = f.button :submit, class: 'btn', value: "Submit"
 
+%ul.nav.nav-tabs
+  %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
+  - Taxonomy.main_sections.each do |section|
+    %li{class: ('active' if @taxonomy == section)}= link_to section.name, "/section#{section.to_s}"
+  %form.navbar-search.pull-right
+    %input.search-query{type: 'date', name: 'date'}
+    %input.btn{type: 'submit', value: 'Jump to date'}
+
 %table.table.table-striped
   %thead
     %tr
-      %th ID
       %th Title
-      %th Authors
+      %th Creation Date
       %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
-      %td= article.id
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      %td= article.authors
+      %td= article.created_at.strftime('%-m-%-d-%Y')
       %td
         = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
         = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'

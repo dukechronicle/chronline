@@ -1,0 +1,10 @@
+.story-list
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      - articles.each do |article|
+        %a.list-story.hover.highlight-right{href: site_article_path(article)}
+          - if defined?(:style)
+            = render partial: "site/containers/article-list/#{style}", locals: {article: article}
+          - else
+            %h3.title= article.title

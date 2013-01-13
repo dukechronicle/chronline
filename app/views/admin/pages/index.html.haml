@@ -1,0 +1,8 @@
+= render 'admin/partials/flash', flash: flash
+%table.table.table-striped
+  - @pages.each do |page|
+    %tr{id: "page_#{page.id}"}
+      %td= link_to page.title, page_url(page)
+      %td= link_to "Edit", [:edit, :admin, page]
+      %td= link_to "Delete", [:admin, page], method: :delete, data: {confirm: "Are you sure?"}
+= will_paginate
