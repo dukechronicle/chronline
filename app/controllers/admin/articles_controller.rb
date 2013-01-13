@@ -1,7 +1,21 @@
 class Admin::ArticlesController < Admin::BaseController
 
   def index
+    if params.has_key? :article_search
+      @article_search = Article::Search.new params[:article_search]
+      if @article_search.valid?
+        @articles = @article_search.results
+        Rails.logger.debug(@articles.to_yaml)
+        flash[:error] = "No results found!" if @articles.empty?
+      else
+        @articles = Article.page(params[:page]).order('created_at DESC')
+      end
+      render and return
+    end
+
+    @article_search = Article::Search.new
     @articles = Article.page(params[:page]).order('created_at DESC')
+    #end
   end
 
   def new
@@ -36,8 +50,19 @@ class Admin::ArticlesController < Admin::BaseController
   def destroy
     article = Article.find(params[:id])
     article.destroy
-    flash[:success] = "Article \"#{article.title}\" was deleted."
+    flash[:success] = %Q[Article "#{article.title}" was deleted.]
     redirect_to admin_articles_path
+  end
+
+  def search
+    if params.has_key? :article_search
+      @article_search = Article::Search.new params[:article_search]
+      @article_search.valid?
+      @articles = @article_search.results
+      render 'index' and return
+    else
+      @article_search = Article::Search.new
+    end
   end
 
   private

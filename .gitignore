@@ -10,13 +10,87 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore Redis dumps
+/db/*.rdb
+
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+/log/*
+/tmp/*
 
 # Ignore bower components
 /vendor/assets/components
 
+config/redis.conf
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
+
+solr/
+
+/public/attachments/
+
+# General
+# =======
+
+## Don't Ignore Ignore Files
+!.gitignore
+
+# OS Specific
+# ===========
+
+## OS X
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editors/IDEs
+# ============
+
+## Eclipse
+.project
+
+## Emacs
+*~
+\#*\#
+.emacs.desktop
+.emacs.desktop.lock
+.elc
+.\#*
+.org-id-locations
+
+## Espresso
+*.esproj
+
+## Redcar
+.redcar
+
+## RubyMine
+.idea/
+
+## Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+## Texmtate
+*.tmproj
+*.tmproject
+tmtags
+.tm_properties
+
+## Vim
+.*.sw[a-z]
+*.un~
+Session.vim
+
+# Misc
+# ====
+.powenv
+.powrc
+.rvmrc
