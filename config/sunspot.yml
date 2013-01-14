@@ -1,7 +1,8 @@
 production:
   solr:
-    hostname: localhost
-    port: 8983
+    hostname: <%= Settings.solr.hostname %>
+    path: <%= Settings.solr.path %>
+    port: <%= Settings.solr.port %>
     log_level: WARNING
 
 development:
