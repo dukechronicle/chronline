@@ -22,6 +22,8 @@ namespace :bower do
           matches = embedded_images(contents)
           if matches
             replace_urls(filename, contents, matches)
+            FileUtils.rm(filename)
+            File.open(filename + '.erb', 'w') {|f| f.write(contents)}
           end
         end
       end
@@ -50,7 +52,6 @@ def replace_urls(filename, contents, matches)
   matches.each do |url_tag, image|
     image_path = File.join(File.dirname(filename), image)
     image_path = Pathname.new(image_path).cleanpath
-    puts "#{image} => #{image_path}"
     contents.sub!(url_tag, "url(<%= asset_path '#{image_path}' %>)")
   end
 end
