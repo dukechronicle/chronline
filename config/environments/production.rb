@@ -20,8 +20,11 @@ Chronline::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += ['site.js', 'admin.js', 'mobile.js']
-  config.assets.precompile += ['site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css']
+  config.assets.precompile +=
+    ['site.js', 'admin.js', 'mobile.js',
+     'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
+     'galleria/themes/chronicle/galleria.chronicle.js',
+     'galleria/themes/chronicle/galleria.chronicle.css']
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
