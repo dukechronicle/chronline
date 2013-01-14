@@ -1,0 +1,25 @@
+- provide :title, @staff.name
+
+- content_for :title_block do
+  %h1= @staff.name
+
+.span-12
+  - styles = Image.styles.keys
+  #images-container
+    - @staff.images.each do |image|
+      .item
+        = image_tag image.original.url(styles[0])
+      - styles.rotate!
+
+.span-5.last
+  .author-profile
+    %h2.vertical-label Profile
+    .rounded
+      .content-container
+        .author-info
+          %h2= @staff.name
+          %p.affiliation= @staff.affiliation
+          - if @staff.twitter
+            = link_to "@#{@staff.twitter}", "http://twitter.com/#{@staff.twitter}", class: 'twitter'
+          %p.tagline= @staff.tagline
+        %p.biography= @staff.biography
