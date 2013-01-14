@@ -19,10 +19,11 @@ namespace :bower do
       Dir['**/*.css'].each do |filename|
         File.open(filename) do |file|
           contents = file.read
-          matches = contents.scan()
-          if not matches.empty?
-            puts filename
-            p contents.scan(/url\((('|")?.*\.(png|gif|jpg|jpeg)('|")?)\)/)
+          matches = embedded_images(contents)
+          if matches
+            replace_urls(filename, contents, matches)
+            FileUtils.rm(filename)
+            File.open(filename + '.erb', 'w') {|f| f.write(contents)}
           end
         end
       end
@@ -42,7 +43,17 @@ def in_vendor_assets(options={})
 end
 
 def embedded_images(str)
-  image_url_regex = /url\((('|")?.*\.(png|gif|jpg|jpeg)('|")?)\)/
+  image_url_regex = /(url\(('|")?(.*\.(png|gif|jpg|jpeg))('|")?\))/
+  matches = str.scan(image_url_regex)
+  matches.empty? ? nil : matches.map {|match| [match[0], match[2]]}
+end
+
+def replace_urls(filename, contents, matches)
+  matches.each do |url_tag, image|
+    image_path = File.join(File.dirname(filename), image)
+    image_path = Pathname.new(image_path).cleanpath
+    contents.sub!(url_tag, "url(<%= asset_path '#{image_path}' %>)")
+  end
 end
 
 def bower(arguments)
