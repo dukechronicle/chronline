@@ -25,7 +25,7 @@ $ rake db:test:prepare
 
 You will be able to run tests at this point, but will not be able to run the server in the development environment until you supply the `config/settings/development.local.yml` file. This is not version controlled since it contains sensitive information. You can populate it using the `config/settings/test.yml` file as a template.
 
-Once the development environment is configured it, you may wish to populate your development database with random data using the command `$ rake populate`.
+Once the development environment is configured it, you may wish to populate your development database with random data using the command `$ rake db:populate`.
 
 Running tests
 -------------
