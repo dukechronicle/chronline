@@ -1,8 +1,10 @@
 production:
   solr:
-    hostname: <%= Settings.solr.hostname %>
-    path: <%= Settings.solr.path %>
-    port: <%= Settings.solr.port %>
+    <% if Rails.env.production? %>
+      hostname: <%= Settings.solr.hostname %>
+      path: <%= Settings.solr.path %>
+      port: <%= Settings.solr.port %>
+    <% end %>
     log_level: WARNING
 
 development:
