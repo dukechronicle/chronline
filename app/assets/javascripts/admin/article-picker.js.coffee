@@ -10,4 +10,4 @@ articleTypeahead = ->
 
 # Can't use initialize because article-picker fields may be added dynamically
 $ ->
-  $('body').on('click', '.article-picker', articleTypeahead)
+  $('body').on('focus', '.article-picker', articleTypeahead)
