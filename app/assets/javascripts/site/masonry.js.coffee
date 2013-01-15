@@ -2,4 +2,4 @@ initialize '#images-container', ->
   $(this).imagesLoaded =>
     $(this).masonry
       itemSelector: '.item',
-      columnWidth: (containerWidth) -> containerWidth / 3
+      columnWidth: (containerWidth) -> Math.floor(containerWidth / 5)
