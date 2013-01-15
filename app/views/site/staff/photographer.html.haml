@@ -1,0 +1,17 @@
+- provide :title, @staff.name
+
+- content_for :title_block do
+  %h1= @staff.name
+
+.span-12
+  #images-container
+    .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff}
+
+    - styles = Image.styles.keys.shuffle
+    - @staff.images.shuffle.each do |image|
+      .item
+        .rounded
+          .image-container
+            %a{href: image.original.url}
+              = image_tag image.original.url(styles.first), class: styles.first
+      - styles.rotate!
