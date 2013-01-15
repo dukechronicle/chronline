@@ -82,17 +82,19 @@ module Chronline
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.action_mailer.default_url_options = {
-      :host => "dukechronicle.com"
-    }
+    config.action_mailer.default_url_options = {host: Settings.domain}
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
 
     # TODO Remove Gmail for production!
-    config.action_mailer.smtp_settings = {
+    ActionMailer::Base.smtp_settings = {
       address: "smtp.gmail.com",
       port: 587,
-      domain: "dukechronicle.com",
-      authentication: "plain",
+      authentication: :plain,
       enable_starttls_auto: true,
+      domain: Settings.gmail.domain,
       user_name: Settings.gmail.username,
       password: Settings.gmail.password,
     }
