@@ -20,6 +20,8 @@ Chronline::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  config.action_controller.asset_host = "//#{Settings.content_cdn}"
+
   config.assets.initialize_on_precompile = true
 
   config.assets.precompile +=
