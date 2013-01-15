@@ -2,7 +2,6 @@ Chronline::Application.configure do
   # Make sure we preload the parent and children classes in development
   require_dependency File.join("app", "models", "staff.rb")
   require_dependency File.join("app", "models", "newsletter.rb")
-  require_dependency File.join("lib", "taxonomy")
 
   # Settings specified here will take precedence over those in config/application.rb
 
