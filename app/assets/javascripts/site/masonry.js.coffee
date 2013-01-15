@@ -1,9 +1,5 @@
 initialize '#images-container', ->
-  $container = $('#images-container')
-  $container.imagesLoaded ->
-    $container.masonry({
+  $(this).imagesLoaded =>
+    $(this).masonry
       itemSelector: '.item',
-      columnWidth: (containerWidth) ->
-        return containerWidth / 3
-    })
-    return
+      columnWidth: (containerWidth) -> containerWidth / 3

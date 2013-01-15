@@ -4,22 +4,25 @@
   %h1= @staff.name
 
 .span-12
-  - styles = Image.styles.keys
   #images-container
-    - @staff.images.each do |image|
-      .item
-        = image_tag image.original.url(styles[0])
-      - styles.rotate!
+    .item
+      .author-profile
+        %h2.vertical-label Profile
+        .rounded
+          .content-container
+            .author-info
+              %h2= @staff.name
+              %p.affiliation= @staff.affiliation
+              - if @staff.twitter
+                = link_to "@#{@staff.twitter}", "http://twitter.com/#{@staff.twitter}", class: 'twitter'
+              %p.tagline= @staff.tagline
+            %p.biography= @staff.biography
 
-.span-5.last
-  .author-profile
-    %h2.vertical-label Profile
-    .rounded
-      .content-container
-        .author-info
-          %h2= @staff.name
-          %p.affiliation= @staff.affiliation
-          - if @staff.twitter
-            = link_to "@#{@staff.twitter}", "http://twitter.com/#{@staff.twitter}", class: 'twitter'
-          %p.tagline= @staff.tagline
-        %p.biography= @staff.biography
+    - styles = Image.styles.keys.shuffle
+    - @staff.images.shuffle.each do |image|
+      .item
+        .rounded
+          .image-container
+            %a{href: image.original.url}
+              = image_tag image.original.url(styles.first), class: styles.first
+      - styles.rotate!
