@@ -20,6 +20,7 @@ class Site::ArticlesController < Site::BaseController
     if request.path != site_article_path(@article)
       return redirect_to [:site, @article], status: :moved_permanently
     end
+    @taxonomy = @article.section
     @article.register_view
   end
 
