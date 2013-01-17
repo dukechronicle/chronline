@@ -60,18 +60,40 @@ describe Taxonomy do
     it { @taxonomy.should_not == ['News', 'University'] }
   end
 
-  describe "#<" do
-    it { @taxonomy.should be < Taxonomy.new(['News']) }
-    it { @taxonomy.should_not be < Taxonomy.new(['News', 'University']) }
-    it { @taxonomy.should_not be < Taxonomy.new(['News', 'University', 'Academics']) }
-    it { @taxonomy.should_not be < Taxonomy.new(['Sports']) }
-  end
+  describe "comparators" do
+    subject { @taxonomy }
 
-  describe "#<=" do
-    it { @taxonomy.should be <= Taxonomy.new(['News']) }
-    it { @taxonomy.should be <= Taxonomy.new(['News', 'University']) }
-    it { @taxonomy.should_not be <= Taxonomy.new(['News', 'University', 'Academics']) }
-    it { @taxonomy.should_not be <= Taxonomy.new(['Sports']) }
+    let(:parent) { Taxonomy.new(['News']) }
+    let(:child)  { Taxonomy.new(['News', 'University', 'Academics']) }
+    let(:other)  { Taxonomy.new(['Sports']) }
+
+    describe "#<" do
+      it { should be < parent }
+      it { should_not be < @taxonomy }
+      it { should_not be < child }
+      it { should_not be < other }
+    end
+
+    describe "#<=" do
+      it { should be <= parent }
+      it { should be <= @taxonomy }
+      it { should_not be <= child }
+      it { should_not be <= other }
+    end
+
+    describe "#<" do
+      it { should_not be > parent }
+      it { should_not be > @taxonomy }
+      it { should be > child }
+      it { should_not be > other }
+    end
+
+    describe "#<=" do
+      it { should_not be >= parent }
+      it { should be >= @taxonomy }
+      it { should be >= child }
+      it { should_not be >= other }
+    end
   end
 
   describe "#root?" do
