@@ -60,6 +60,20 @@ describe Taxonomy do
     it { @taxonomy.should_not == ['News', 'University'] }
   end
 
+  describe "#<" do
+    it { @taxonomy.should be < Taxonomy.new(['News']) }
+    it { @taxonomy.should_not be < Taxonomy.new(['News', 'University']) }
+    it { @taxonomy.should_not be < Taxonomy.new(['News', 'University', 'Academics']) }
+    it { @taxonomy.should_not be < Taxonomy.new(['Sports']) }
+  end
+
+  describe "#<=" do
+    it { @taxonomy.should be <= Taxonomy.new(['News']) }
+    it { @taxonomy.should be <= Taxonomy.new(['News', 'University']) }
+    it { @taxonomy.should_not be <= Taxonomy.new(['News', 'University', 'Academics']) }
+    it { @taxonomy.should_not be <= Taxonomy.new(['Sports']) }
+  end
+
   describe "#root?" do
     it { Taxonomy.new.root?.should be_true }
     it { @taxonomy.root?.should_not be_true }
