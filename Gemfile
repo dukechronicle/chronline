@@ -80,6 +80,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
   gem 'vcr'
+  gem 'mock_redis'
 
   platforms :mingw, :mswin do
     gem 'rb-fchange'

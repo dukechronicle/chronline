@@ -43,4 +43,14 @@ Chronline::Application.configure do
 
   config.assets.logger = nil
   config.assets.debug = false
+
+  ActionMailer::Base.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true,
+    domain: Settings.gmail.domain,
+    user_name: Settings.gmail.username,
+    password: Settings.gmail.password,
+  }
 end
