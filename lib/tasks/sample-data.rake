@@ -5,6 +5,18 @@ namespace :db do
 
   desc "Fill database with sample data"
   task populate: :environment do
+
+    # TODO create relevant config variables in development YAML
+    unless User.find_by_name("admin@chron.dev")
+      User.create!(
+          email: "admin@chron.dev",
+          first_name: "Super",
+          last_name: "User",
+          password: "password",
+          password_confirmation: "password"
+        )
+    end
+
     authors = 15.times.map do |n|
       Author.create!(name: Faker::Name.name)
     end
