@@ -53,17 +53,6 @@ class Admin::ArticlesController < Admin::BaseController
     redirect_to admin_articles_path
   end
 
-  def search
-    if params.has_key? :article_search
-      @article_search = Article::Search.new params[:article_search]
-      @article_search.valid?
-      @articles = @article_search.results
-      render 'index' and return
-    else
-      @article_search = Article::Search.new
-    end
-  end
-
   private
 
   def update_article(article)

@@ -36,12 +36,12 @@ class Article < ActiveRecord::Base
   self.per_page = 25  # set will_paginate default to 25 articles
 
   searchable do
-    text :title, :boost => 2.0
-    text :subtitle, :boost => 1.5
-    text :body
+    text :title, stored: true, :boost => 2.0
+    text :subtitle, stored: true, :boost => 1.5
+    text :body, stored: true
+    integer :author_ids, :multiple => true
     string :section
     time :created_at
-    time :updated_at
   end
 
   def disqus(host)
