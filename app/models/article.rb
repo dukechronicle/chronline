@@ -127,33 +127,3 @@ onto per since than the this that to up via with)
     end
   end
 end
-
-class Article::Search
-  include ActiveAttr::Model
-  attribute :query
-  attribute :year
-  attribute :author
-  attribute :sort
-  attribute :order
-
-  attr_accessible :query
-
-  validates :query, :length => {:minimum => 2}, format: {with: /\A[\w]+\z/}
-
-  def execute
-    self.sort = 'relevance' unless['relevance', 'data'].include? self.sort
-    self.order = 'desc' unless ['asc', 'desc'].include? self.order
-    @request = Article.search do
-      fulltext self.query
-    end
-  end
-
-  def results
-    execute if valid? and request.nil?
-    @request.results
-  end
-
-  private
-  attr_accessor :request
-
-end
