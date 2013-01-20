@@ -7,7 +7,7 @@ namespace :db do
   task populate: :environment do
 
     # TODO create relevant config variables in development YAML
-    unless User.find_by_name("admin@chron.dev")
+    unless User.find_by_email("admin@chron.dev")
       User.create!(
           email: "admin@chron.dev",
           first_name: "Super",
