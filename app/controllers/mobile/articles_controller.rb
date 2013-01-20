@@ -16,7 +16,15 @@ class Mobile::ArticlesController < Mobile::BaseController
     @article.register_view
   end
 
+  # Duplicate of site/articles#search
   def search
+    @taxonomy = Taxonomy.new
+    if params[:article_search].present?
+      @articles = Article::Search.new(params[:article_search]).results
+    else
+      params[:article_search] = {}
+      @articles = []
+    end
   end
 
 end

@@ -1,0 +1,19 @@
+- provide :title, 'Search'
+
+- content_for :title_block do
+  = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @taxonomy}
+
+#section-listing{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
+  %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "false", initialized: "true"}}
+    %h3="Results"
+    %ul{data: {role: "listview"}}
+      - if @articles.empty?
+        %li="No results found!"
+      - else
+        - @articles.each do |article|
+          %li
+            %a{href: mobile_article_path(article)}
+              - if article.image
+                = image_tag article.image.original.url(:thumb_square_s)
+              %h2= article.title
+              %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
