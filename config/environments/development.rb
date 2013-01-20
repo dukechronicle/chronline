@@ -53,4 +53,5 @@ Chronline::Application.configure do
     user_name: Settings.gmail.username,
     password: Settings.gmail.password,
   }
+
 end
