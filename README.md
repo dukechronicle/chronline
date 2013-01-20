@@ -15,10 +15,14 @@ $ bundle install --without production
 
 # Install client side vendor assets with bower
 $ rake bower:install
+$ rake bower:resolve
 
 # Rails database initialization
 $ rake db:migrate
 $ rake db:test:prepare
+
+# Start local solr server
+$ rake sunspot:solr:start
 ```
 
 ### Configuration files
