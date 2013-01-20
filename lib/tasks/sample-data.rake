@@ -19,12 +19,12 @@ namespace :db do
     image.save!
 
     30.times do |n|
-      title = Faker::Lorem.words(5).map(&:capitalize).join(' ')
-      subtitle = Faker::Lorem.words(5).map(&:capitalize).join(' ')
+      title = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
+      subtitle = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
       article = Article.new(title: title,
                             subtitle: subtitle,
-                            teaser: Faker::Lorem.sentence(10),
-                            body: Faker::Lorem.paragraph,
+                            teaser: Faker::SamuelJackson.sentence,
+                            body: Faker::SamuelJackson.paragraphs(2),
                             section: random_taxonomy,
                             image_id: image.id)
       article.authors = [authors.sample]
