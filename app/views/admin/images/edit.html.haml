@@ -16,7 +16,7 @@
     = f.input :caption
     = f.input :location
     = f.association :photographer, value_method: :name, as: :string, input_html: {class: 'photographer-picker input-xlarge'}
-    = f.input :created_at, as: :date, native: browser.chrome?, label: 'Date'
+    = f.input :date, as: :date, native: browser.chrome?
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
     = link_to "Delete Image", [:admin, @image], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
