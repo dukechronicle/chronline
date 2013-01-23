@@ -10,12 +10,14 @@
     = csrf_meta_tags
   %body
     #fb-root
-    %div.container{data: {role: "page"}}
+    .container{data: {role: "page"}}
       = render 'mobile/partials/header'
       = image_tag "chapel.svg", id: 'background-image'
       %section{data: {role: "content"}}= yield
       = render 'mobile/partials/footer'
       = render 'mobile/partials/advertisement'
+
+    = render 'mobile/partials/search-dialog'
 
     #scripts
       = javascript_include_tag "mobile"
