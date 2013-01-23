@@ -9,6 +9,7 @@
         = "in "
         / Drop the first and last slash
         %b= params[:article_search][:section][1...-1]
+
 .span-8
   - if @articles.empty?
     .rounded
@@ -27,5 +28,3 @@
 
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  // popular
-  // facebook recommendations

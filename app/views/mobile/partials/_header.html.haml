@@ -1,8 +1,6 @@
 %header{data: {role: "header", theme: "a", 'add-back-btn' => "true"}}
   %h1.brand The Chronicle
-  %a.ui-btn-right#seach-button{href: "#search", data: {role: "button", rel: "dialog", icon: "search", iconpos: "notext", theme: "b"}} Search
-  = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
-    = f.search_field :query, placeholder: 'Search archives', results: '5'
+  %a.ui-btn-right#seach-button{href: "#search-dialog", data: {role: "button", rel: "dialog", icon: "search", iconpos: "notext", theme: "b"}} Search
 - if content_for? :title_block
   %nav{data: {role: "header", theme: "c"}}
     %a{data: {role: "button", rel: "back", icon: "back", iconpos: "notext"}} Back
