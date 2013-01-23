@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113103455) do
+ActiveRecord::Schema.define(:version => 20130122042716) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(:version => 20130113103455) do
     t.string   "section"
     t.string   "teaser"
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "slug"
     t.integer  "image_id"
+    t.string   "previous_id"
   end
 
   create_table "articles_authors", :force => true do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20130113103455) do
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.integer  "photographer_id"
+    t.date     "date"
   end
 
   create_table "pages", :force => true do |t|
