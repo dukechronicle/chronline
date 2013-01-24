@@ -69,9 +69,11 @@ onto per since than the this that to up via with)
   end
 
   def register_view
-    # TODO: expire old keys
-    key = "popularity:#{section[0].downcase}:#{Date.today}"
-    $redis.zincrby(key, 1, id)
+    unless section.root?
+      # TODO: expire old keys
+      key = "popularity:#{section[0].downcase}:#{Date.today}"
+      $redis.zincrby(key, 1, id)
+    end
   end
 
   def render_body
