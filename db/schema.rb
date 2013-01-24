@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124050200) do
+ActiveRecord::Schema.define(:version => 20130124081052) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -50,14 +50,14 @@ ActiveRecord::Schema.define(:version => 20130124050200) do
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "images", :force => true do |t|
-    t.string   "caption"
+    t.string   "caption",               :limit => 500
     t.string   "location"
     t.string   "original_file_name"
     t.string   "original_content_type"
     t.integer  "original_file_size"
     t.datetime "original_updated_at"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "photographer_id"
     t.date     "date"
   end
