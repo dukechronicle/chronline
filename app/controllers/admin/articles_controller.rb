@@ -4,7 +4,7 @@ class Admin::ArticlesController < Admin::BaseController
     taxonomy_string = "/#{params[:section]}/" if params[:section]
     @taxonomy = Taxonomy.new(taxonomy_string)
 
-    if params[:date]
+    if params[:date] and not params[:page]
       date = Date.parse(params[:date]) + 1
       params[:page] = find_article_page_for_date(date, @taxonomy)
     end
