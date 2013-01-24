@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124031515) do
+ActiveRecord::Schema.define(:version => 20130124050200) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(:version => 20130124031515) do
     t.integer  "image_id"
     t.string   "previous_id"
   end
+
+  add_index "articles", ["section", "created_at"], :name => "index_articles_on_section_and_created_at"
+  add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
 
   create_table "articles_authors", :force => true do |t|
     t.integer "article_id"
@@ -59,6 +62,9 @@ ActiveRecord::Schema.define(:version => 20130124031515) do
     t.date     "date"
   end
 
+  add_index "images", ["date"], :name => "index_images_on_date"
+  add_index "images", ["photographer_id"], :name => "index_images_on_photographer_id"
+
   create_table "pages", :force => true do |t|
     t.text     "layout_data"
     t.string   "layout_template"
@@ -82,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20130124031515) do
     t.string   "slug"
   end
 
+  add_index "staff", ["columnist"], :name => "index_staff_on_columnist"
   add_index "staff", ["name"], :name => "index_staff_on_name", :unique => true
   add_index "staff", ["slug"], :name => "index_staff_on_slug", :unique => true
 
