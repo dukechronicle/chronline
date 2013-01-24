@@ -48,6 +48,7 @@ gem 'active_attr'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
+gem 'default_value_for'
 gem 'devise', '2.1.2'  # https://github.com/scambra/devise_invitable/issues/265
 gem 'devise_invitable'
 gem 'friendly_id'
