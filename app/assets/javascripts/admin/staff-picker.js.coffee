@@ -1,10 +1,11 @@
 # Can't use initialize because author-picker fields may be added dynamically
 $ ->
-  $('body').on 'click', '.staff-picker', ->
+  $('body').on 'focus', '.staff-picker', ->
+    $(this).attr('autocomplete', 'off')
     $(this).typeahead
-    source: (query, callback) ->
-      $.get fullUrl('api', '/staff'), {search: query}, (staff) ->
-        callback((member.name for member in staff))
+      source: (query, callback) ->
+        $.get fullUrl('api', '/staff'), {search: query}, (staff) ->
+          callback((member.name for member in staff))
 
 initialize 'form.staff-search', ->
   $(this).submit (e) ->
