@@ -60,7 +60,7 @@ class Admin::ArticlesController < Admin::BaseController
     params[:article][:section].pop if params[:article][:section].last.blank?
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
     article.assign_attributes(params[:article])
-    article.authors = Author.find_or_create_all_by_name(author_names)
+    article.authors = Staff.find_or_create_all_by_name(author_names)
     article
   end
 
