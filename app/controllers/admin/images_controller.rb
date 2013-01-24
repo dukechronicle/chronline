@@ -1,7 +1,7 @@
 class Admin::ImagesController < Admin::BaseController
 
   def index
-    @images = Image.page(params[:page]).order('created_at DESC')
+    @images = Image.page(params[:page]).order('date DESC')
   end
 
   def upload
