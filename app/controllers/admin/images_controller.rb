@@ -53,7 +53,7 @@ class Admin::ImagesController < Admin::BaseController
     if photographer_name.blank?
       image.photographer = nil
     else
-      image.photographer = Photographer.find_or_create_by_name(photographer_name)
+      image.photographer = Staff.find_or_create_by_name(photographer_name)
     end
     image
   end
