@@ -30,7 +30,7 @@ class Article < ActiveRecord::Base
   validates :section, presence: true
   validates :authors, presence: true
 
-  has_and_belongs_to_many :authors
+  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
   belongs_to :image
 
   self.per_page = 25  # set will_paginate default to 25 articles
