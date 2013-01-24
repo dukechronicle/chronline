@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122042716) do
+ActiveRecord::Schema.define(:version => 20130124031515) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(:version => 20130122042716) do
 
   create_table "articles_authors", :force => true do |t|
     t.integer "article_id"
-    t.integer "author_id"
+    t.integer "staff_id"
   end
 
-  add_index "articles_authors", ["article_id", "author_id"], :name => "index_articles_authors_on_article_id_and_author_id", :unique => true
+  add_index "articles_authors", ["article_id", "staff_id"], :name => "index_articles_authors_on_article_id_and_author_id", :unique => true
   add_index "articles_authors", ["article_id"], :name => "index_articles_authors_on_article_id"
-  add_index "articles_authors", ["author_id"], :name => "index_articles_authors_on_author_id"
+  add_index "articles_authors", ["staff_id"], :name => "index_articles_authors_on_author_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(:version => 20130122042716) do
     t.string   "name"
     t.string   "tagline"
     t.string   "twitter"
-    t.string   "type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "slug"

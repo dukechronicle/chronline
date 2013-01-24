@@ -36,7 +36,7 @@ class Image < ActiveRecord::Base
   validates :original, attachment_presence: true
 
   has_many :articles
-  belongs_to :photographer
+  belongs_to :photographer, class_name: "Staff"
 
 
   def to_jq_upload
