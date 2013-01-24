@@ -65,12 +65,8 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def find_article_page_for_date(date, taxonomy)
-    first_article = Article.where(["created_at <= ?", date])
-      .order('created_at DESC').limit(1).first
-    index = Article.order('created_at DESC')
-      .find_by_section(@taxonomy)
-      .index(first_article)
-    index = Article.count if index.nil?
+    index = Article.find_by_section(taxonomy)
+      .where(["created_at > ?", date]).count
     index / Article.per_page + 1
   end
 
