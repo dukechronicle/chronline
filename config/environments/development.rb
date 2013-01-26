@@ -39,8 +39,7 @@ Chronline::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.logger = Le.new(Settings.logentries.token)
-  #config.logger = Logger.new(STDOUT)
+  config.logger = Logger.new(STDOUT)
 
   config.assets.logger = nil
   config.assets.debug = false
