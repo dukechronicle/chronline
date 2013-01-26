@@ -1,3 +1,6 @@
+require 'rss'
+
+
 Layout.add_schema(:markdown, {
                     "type" => "string",
                     # "description" => "Markdown text",
@@ -37,4 +40,13 @@ Layout.add_schema(:section_articles, {
     # TODO: Magic number
     Article.limit(7).order('created_at DESC').find_by_section(section)
   end
+end
+
+Layout.add_schema(:rss, {'type' => 'string'}) do |feeds|
+  x = feeds.map do |feed_url|
+    feed = HTTParty.get(feed_url).body
+    RSS::Parser.parse(feed).items
+  end
+  p x
+  x
 end

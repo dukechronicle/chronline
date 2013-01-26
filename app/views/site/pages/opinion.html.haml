@@ -6,4 +6,7 @@
     #columns= render partial: 'site/containers/article-list', locals: {title: "Today's Columns", articles: @model.featured, style: false}
 
   .span-6.last
+    .clearfix
+      #blog.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list/rss', locals: {title: "Backpages", items: @model.blog}
+      .span-4.last.align-element{data: {alignprimary: true}}= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     #editorial-board= render partial: 'site/containers/article-list', locals: {title: "Editorial Board", articles: @model.editorial_board, style: false}
