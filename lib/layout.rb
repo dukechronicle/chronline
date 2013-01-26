@@ -21,7 +21,7 @@ class Layout
   end
 
   def model
-    @model = generate_model if @model.nil?
+    @model = OpenStruct.new(generate_model) if @model.nil?
     @model
   end
 
