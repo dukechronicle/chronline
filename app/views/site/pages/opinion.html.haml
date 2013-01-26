@@ -1,0 +1,9 @@
+- content_for :title_block do
+  = render 'site/partials/navigation'
+
+.clearfix
+  .span-6
+    #columns= render partial: 'site/containers/article-list', locals: {title: "Today's Columns", articles: @model.featured, style: false}
+
+  .span-6.last
+    #editorial-board= render partial: 'site/containers/article-list', locals: {title: "Editorial Board", articles: @model.editorial_board, style: false}
