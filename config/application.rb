@@ -22,8 +22,6 @@ module Chronline
       Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
     )
 
-    #config.logger = Logger.new(STDOUT)
-
     config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
 
     config.middleware.use Rack::Cors do
