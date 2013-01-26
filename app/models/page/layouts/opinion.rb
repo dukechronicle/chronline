@@ -14,7 +14,11 @@ class Page::Layouts::Opinion < Layout
         'required' => true,
         'default' => '/opinion/editorial board/',
         'extends' => section_articles_schema,
-      }
+      },
+      'blog' => {
+        'extends' => rss_schema,
+        'required' => true,
+      },
     }
   end
 
