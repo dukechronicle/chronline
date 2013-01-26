@@ -19,6 +19,10 @@ class Page::Layouts::Opinion < Layout
         'extends' => rss_schema,
         'required' => true,
       },
+      'cartoon' => {
+        'extends' => image_schema,
+        'required' => true,
+      },
     }
   end
 
