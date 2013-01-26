@@ -5,29 +5,37 @@ namespace :db do
 
   desc "Fill database with sample data"
   task populate: :environment do
-    authors = 15.times.map do |n|
-      Author.create!(name: Faker::Name.name)
+
+    # TODO create relevant config variables in development YAML
+    unless User.find_by_email("admin@chron.dev")
+      User.create!(
+          email: "admin@chron.dev",
+          first_name: "Super",
+          last_name: "User",
+          password: "password",
+          password_confirmation: "password"
+        )
     end
 
-    photographers = 5.times.map do |n|
-      Photographer.create!(name: Faker::Name.name)
+    staff = 15.times.map do |n|
+      Staff.create!(name: Faker::Name.name)
     end
 
     image = Image.new(original: File.new('lib/sample-images/pikachu.png'),
                       caption: Faker::Lorem.sentence)
-    image.photographer = photographers.sample
+    image.photographer = staff.sample
     image.save!
 
     30.times do |n|
-      title = Faker::Lorem.words(5).map(&:capitalize).join(' ')
-      subtitle = Faker::Lorem.words(5).map(&:capitalize).join(' ')
+      title = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
+      subtitle = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
       article = Article.new(title: title,
                             subtitle: subtitle,
-                            teaser: Faker::Lorem.sentence(10),
-                            body: Faker::Lorem.paragraph,
+                            teaser: Faker::SamuelJackson.sentence,
+                            body: Faker::SamuelJackson.paragraphs(2),
                             section: random_taxonomy,
                             image_id: image.id)
-      article.authors = [authors.sample]
+      article.authors = [staff.sample]
       article.save!
     end
   end

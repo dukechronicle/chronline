@@ -12,7 +12,6 @@ def base_configs
   require 'rspec/rails'
   require 'webmock/cucumber'
 
-
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
   # order to ease the transition to Capybara we set the default here. If you'd
   # prefer to use XPath just remove this line and adjust any selectors in your
@@ -72,6 +71,19 @@ def base_configs
   # end
 
   # VCR.cucumber_tags {|t| t.tag '@vcr'}
+
+  SolrTestServer.stub
+
+  Before("@solr") do
+    SolrTestServer.start
+    Sunspot.remove_all!
+    Sunspot.commit
+  end
+
+  AfterStep('@solr') do
+    Sunspot.commit
+    Sunspot.unstub
+  end
 
 end
 def forkable_configs
