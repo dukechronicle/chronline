@@ -1,7 +1,7 @@
 class Api::ImagesController < ApplicationController
 
   def index
-    images = Image.order('created_at DESC')
+    images = Image.order('date DESC')
     render json: images, methods: :thumbnail_url
   end
 

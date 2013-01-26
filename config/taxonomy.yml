@@ -25,6 +25,8 @@ taxonomy:
           - name: Environment & Sustainability
           - name: Pratt
           - name: Research
+          - name: School of Medicine
+          - name: Student Health
   - name: Sports
     children:
       - name: Column

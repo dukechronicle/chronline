@@ -16,6 +16,7 @@ def base_configs
   require 'database_cleaner'
   require 'capybara/rspec'
   require 'capybara/poltergeist'
+  require 'sunspot/rails/spec_helper'
   Capybara.javascript_driver = :poltergeist
 
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -43,8 +44,22 @@ def base_configs
     config.order = "random"
     config.include FactoryGirl::Syntax::Methods
 
+    # Formatting
     config.color = true
     config.formatter = Configz['rspec']['formatter'] if defined?(Configz['rspec']['formatter'])
+
+    # Solr configuration
+    # TODO fix for sporking
+     config.before(:each) do
+    if example.metadata[:solr] # it "...", solr: true do ... to have real SOLR
+      SolrTestServer.start
+      Sunspot.remove_all!
+      Sunspot.commit
+    else
+      SolrTestServer.stub
+    end
+  end
+
   end
 end
 
