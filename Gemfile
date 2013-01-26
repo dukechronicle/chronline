@@ -6,10 +6,11 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
+  gem 'le'
   gem 'pg'
-  gem 'thin'
-  gem 'redis-store'
   gem 'redis-rails'
+  gem 'redis-store'
+  gem 'thin'
 end
 
 group :development, :test do

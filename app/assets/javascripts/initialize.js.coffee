@@ -10,6 +10,6 @@ $ ->
 
 window.initialize = (selector, action) ->
   if not action?
-    selector = undefined
     action = selector
+    selector = undefined
   initializers.push [selector, action]
