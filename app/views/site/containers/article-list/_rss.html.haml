@@ -1,0 +1,7 @@
+.article-list
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      - items.each do |item|
+        %a.list-story.hover.highlight-right{href: item.link}
+          %h3.title= item.title
