@@ -14,7 +14,7 @@ initialize '.g-plusone', ->
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
   })();`
 
-initialize '.twitter-share-button', ->
+initialize '.twitter-share-button, .twitter-timeline', ->
   `(function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
     if(d.getElementById(id)) return;
