@@ -2,7 +2,7 @@ class Page::Layouts::Sports < Layout
 
   def schema
     {
-      'featured' => {
+      'slideshow' => {
         'label' => "Slideshow",
         'type' => 'array',
         'required' => true,
