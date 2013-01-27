@@ -22,7 +22,6 @@ Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
   [articles] * invocations.length
 end
 
-
 Layout.add_schema(:popular, {
                     'type' => 'string',
                     'enum' => Taxonomy.main_sections.map {|t| t.name.downcase},

@@ -1,0 +1,15 @@
+- content_for :title_block do
+  = render 'site/partials/navigation'
+
+.clearfix
+  .span-8
+    #featured= render partial: 'site/containers/block/featured', locals: {article: @model.featured.first}
+    .clearfix
+      .span-4= render partial: 'site/containers/block/square', locals: {article: @model.featured[1]}
+      .span-4.last= render partial: 'site/containers/block/square', locals: {article: @model.featured[2]}
+
+    #savvy= render partial: 'site/containers/article-row', locals: {title: "Savvy", articles: @model.savvy, feature: true}
+    #wisdom= render partial: 'site/containers/article-row', locals: {title: "Wisdom", articles: @model.wisdom, feature: true}
+
+    #issuu.rounded
+      .image-container!= @model.issuu
