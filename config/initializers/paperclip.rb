@@ -1,10 +1,4 @@
-if Settings.aws.nil? # if no aws configuration is provided
-  url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
-  options = {
-    url: "/#{url}",
-    path: ":rails_root/public/#{url}"
-  }
-else
+if Rails.env.production?
   options = {
     storage: :s3,
     s3_credentials: {
@@ -18,6 +12,12 @@ else
     path: 'images/:style/:hash.:extension',
     hash_secret: 'super secret string',  # TODO: do something better
     hash_data: ':class/:attachment/:id/:style',
+  }
+else
+  url = "attachments/#{Rails.env}/:class/:attachment/:id/:style.:extension"
+  options = {
+    url: "/#{url}",
+    path: ":rails_root/public/#{url}"
   }
 end
 
