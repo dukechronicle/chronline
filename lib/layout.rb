@@ -73,12 +73,7 @@ end
 
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
   disqus = Disqus.new(Settings.disqus.api_key)
-  article_slugs = disqus.popular_articles(Settings.disqus.shortname, 7)
-    .map {|url| $1 if url =~ %r{/article/(.*)}}
-  articles = Article.includes(:authors, :image).where(slug: article_slugs)
-  articles = article_slugs.map do |slug|
-    articles.find {|article| article.slug == slug}
-  end.compact  # TODO: shouldn't need this
+  articles = disqus.popular_articles(Settings.disqus.shortname, 7)
   [articles] * invocations.length
 end
 
