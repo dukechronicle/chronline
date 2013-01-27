@@ -13,3 +13,10 @@
 
     #issuu.rounded
       .image-container!= @model.issuu
+
+  .span-4.last
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
+    - @model.prefix.each do |article|
+      = render partial: 'site/containers/block/wide', locals: {article: article}
+
