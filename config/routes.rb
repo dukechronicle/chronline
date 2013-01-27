@@ -26,6 +26,7 @@ Chronline::Application.routes.draw do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
+      get 'search' => 'articles#search', as: :article_search
       resources :articles, only: :show
     end
   end
@@ -43,7 +44,7 @@ Chronline::Application.routes.draw do
       get 'newsletter' => 'newsletter#show'
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
-      get 'search' => 'articles#search'
+      get 'search' => 'articles#search', as: :article_search
 
       resources :images, except: :show do
         put 'crop', on: :member

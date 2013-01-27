@@ -1,9 +1,14 @@
-- provide :title, "Search: #{params[:article_search][:query]}"
+- if params[:article_search][:query].present?
+  - provide :title, "Search: #{params[:article_search][:query]}"
 
-- content_for :title_block do
-  %h1
-    = "Search: "
-    %b= params[:article_search][:query]
+  - content_for :title_block do
+    %h1
+      = "Results for "
+      %b= params[:article_search][:query]
+      - if params[:article_search][:section].present?
+        = "in "
+        / Drop the first and last slash
+        %b= params[:article_search][:section][1...-1]
 
 .span-8
   - if @articles.empty?
@@ -23,5 +28,3 @@
 
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  // popular
-  // facebook recommendations

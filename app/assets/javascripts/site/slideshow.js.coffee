@@ -1,4 +1,5 @@
-GALLERIA_THEME = "<%= asset_path 'galleria/themes/chronicle/galleria.chronicle.js' %>"
+# Do NOT use asset_path -- galleria won't work
+GALLERIA_THEME = '/assets/galleria/themes/chronicle/galleria.chronicle.js'
 
 
 initialize '.galleria', ->

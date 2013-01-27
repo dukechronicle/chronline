@@ -1,7 +1,10 @@
 production:
   solr:
-    hostname: localhost
-    port: 8983
+    <% if Rails.env.production? %>
+      hostname: <%= Settings.solr.hostname %>
+      path: <%= Settings.solr.path %>
+      port: <%= Settings.solr.port %>
+    <% end %>
     log_level: WARNING
 
 development:
