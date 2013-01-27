@@ -7,7 +7,7 @@
 
   .span-4.last.align-element{data: {aligntarget: '#popular .rounded'}}
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    #popular.title-small= render partial: 'site/containers/article-list', locals: {title: "What's Hot", articles: @model['popular'], style: :subhead}
+    #popular.title-small= render partial: 'site/containers/article-list/disqus', locals: {title: "What's Hot", articles: @model['popular'], style: :subhead}
     #opinion.title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model['opinion'], style: :subhead}
 
 .clearfix.align-group

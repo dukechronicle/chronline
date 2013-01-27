@@ -22,8 +22,15 @@ class Disqus
   def popular_articles(forum, limit)
     res = request(:threads, :list_hot, limit: limit, forum: forum)['response']
     slugs = res.map do |thread|
-      URI.parse(thread['link']).path.gsub(%r{^/articles/}, '')
+      slug = URI.parse(thread['link']).path.gsub(%r{^/article/}, '')
+      [slug, thread['posts']]
     end
+    articles = Article.where(slug: slugs.map(&:first))
+    results = slugs.map do |slug, comments|
+      article = articles.find {|article| article.slug == slug}
+      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
+    end.compact
+    results.sort_by! {|slug, comments| -comments}
   end
 
   private
