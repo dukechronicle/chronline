@@ -48,7 +48,7 @@ class Article < ActiveRecord::Base
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
-      identifier: id,  # TODO: should be old unique identifier for backwards compatibility
+      identifier: previous_id || "_#{id}",
       title: title,
       url: site_article_url(self, subdomain: 'www', host: host),
     }
