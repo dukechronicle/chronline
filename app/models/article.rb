@@ -21,33 +21,34 @@ class Article < ActiveRecord::Base
   include FriendlyId
   include Rails.application.routes.url_helpers
 
-  attr_accessible :body, :image_id, :subtitle, :section, :slug, :teaser, :title
+  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
 
   friendly_id :title, use: [:slugged, :history]
 
   validates :body, presence: true
   validates :title, presence: true
   validates :section, presence: true
+  validates :authors, presence: true
 
-  has_and_belongs_to_many :authors
+  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
   belongs_to :image
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
   searchable do
-    text :title, :boost => 2.0
-    text :subtitle, :boost => 1.5
-    text :body
+    text :title, stored: true, :boost => 2.0
+    text :subtitle, stored: true, :boost => 1.5
+    text :body, stored: true
+    integer :author_ids, :multiple => true
     string :section
     time :created_at
-    time :updated_at
   end
 
   def disqus(host)
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
-      identifier: id,  # TODO: should be old unique identifier for backwards compatibility
+      identifier: previous_id || "_#{id}",
       title: title,
       url: site_article_url(self, subdomain: 'www', host: host),
     }
@@ -68,9 +69,11 @@ onto per since than the this that to up via with)
   end
 
   def register_view
-    # TODO: expire old keys
-    key = "popularity:#{section[0].downcase}:#{Date.today}"
-    $redis.zincrby(key, 1, id)
+    unless section.root?
+      # TODO: expire old keys
+      key = "popularity:#{section[0].downcase}:#{Date.today}"
+      $redis.zincrby(key, 1, id)
+    end
   end
 
   def render_body
@@ -125,34 +128,4 @@ onto per since than the this that to up via with)
       end
     end
   end
-end
-
-class Article::Search
-  include ActiveAttr::Model
-  attribute :query
-  attribute :year
-  attribute :author
-  attribute :sort
-  attribute :order
-
-  attr_accessible :query
-
-  validates :query, :length => {:minimum => 2}, format: {with: /\A[\w]+\z/}
-
-  def execute
-    self.sort = 'relevance' if not ['relevance', 'data'].include? self.sort
-    self.order = 'desc' if not ['asc', 'desc'].include? self.order
-    @request = Article.search do
-      fulltext self.query
-    end
-  end
-
-  def results
-    execute if valid? and request.nil?
-    @request.results
-  end
-
-  private
-  attr_accessor :request
-
 end

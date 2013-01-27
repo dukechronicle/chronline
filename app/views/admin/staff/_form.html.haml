@@ -2,7 +2,6 @@
   %legend= yield :form_title
   = f.error_notification
   .form-inputs
-    = f.input :type, required: true, collection: Staff.subclasses.map(&:name), disabled: (not @staff.new_record?)
     = f.input :name
     = f.input :affiliation
     = f.input :tagline

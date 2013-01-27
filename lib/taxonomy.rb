@@ -1,6 +1,7 @@
 class Taxonomy
   include Errors
 
+
   def initialize(taxonomy=[])
     if taxonomy.nil?
       taxonomy = []
@@ -13,8 +14,31 @@ class Taxonomy
     end
   end
 
+  ###
+  # Comparision operators
+  ###
+
   def ==(rhs)
     rhs.is_a? Taxonomy and to_a == rhs.to_a
+  end
+
+  def <=(rhs)
+    if not rhs.is_a? Taxonomy
+      raise TypeError('compared with non Taxonomy object')
+    end
+    self.to_s.start_with?(rhs.to_s)
+  end
+
+  def <(rhs)
+    self <= rhs && self != rhs
+  end
+
+  def >(rhs)
+    rhs < self
+  end
+
+  def >=(rhs)
+    rhs <= self
   end
 
   def [](i)

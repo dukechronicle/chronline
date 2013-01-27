@@ -2,7 +2,6 @@ Chronline::Application.configure do
   # Make sure we preload the parent and children classes in development
   require_dependency File.join("app", "models", "staff.rb")
   require_dependency File.join("app", "models", "newsletter.rb")
-  require_dependency File.join("lib", "taxonomy")
 
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -19,7 +18,7 @@ Chronline::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -45,5 +44,14 @@ Chronline::Application.configure do
   config.assets.logger = nil
   config.assets.debug = false
 
-  config.action_mailer.default_url_options = {host: Settings.domain}
+  ActionMailer::Base.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true,
+    domain: Settings.gmail.domain,
+    user_name: Settings.gmail.username,
+    password: Settings.gmail.password,
+  }
+
 end

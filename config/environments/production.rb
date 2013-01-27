@@ -20,8 +20,15 @@ Chronline::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += ['site.js', 'admin.js', 'mobile.js']
-  config.assets.precompile += ['site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css']
+  config.action_controller.asset_host = "//#{Settings.content_cdn}"
+
+  config.assets.initialize_on_precompile = true
+
+  config.assets.precompile +=
+    ['site.js', 'admin.js', 'mobile.js',
+     'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
+     'galleria/themes/chronicle/galleria.chronicle.js',
+     'galleria/themes/chronicle/galleria.chronicle.css']
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -40,7 +47,7 @@ Chronline::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = Le.new(Settings.logentries.token)
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
@@ -67,4 +74,16 @@ Chronline::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+
+  # TODO Remove Gmail for production!
+  ActionMailer::Base.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true,
+    domain: Settings.gmail.domain,
+    user_name: Settings.gmail.username,
+    password: Settings.gmail.password,
+  }
 end
