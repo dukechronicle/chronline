@@ -55,5 +55,5 @@ initialize '.control-group.image_picker', ->
     $imagePicker = $(this).parents('.control-group.image_picker').first()
     $imageSelect = createModal()
 
-    $.get fullUrl('api', '/images'), (images) ->
+    $.get fullUrl('api', '/images'), {limit: 40}, (images) ->
       addImages($imageSelect, $imagePicker, images)
