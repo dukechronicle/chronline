@@ -17,8 +17,7 @@ Layout.add_schema(:article, {
 end
 
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
-  disqus = Disqus.new(Settings.disqus.api_key)
-  articles = disqus.popular_articles(Settings.disqus.shortname, 7)
+  articles = Article.most_commented(7)
   [articles] * invocations.length
 end
 

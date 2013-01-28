@@ -89,7 +89,7 @@ onto per since than the this that to up via with)
     self[:section] = taxonomy.to_s
   end
 
-  def self.find_by_section(taxonomy)
+  def self.find_by_section(taxonomy)  # TODO: create a 'section' scope instead
     self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
@@ -107,6 +107,22 @@ onto per since than the this that to up via with)
     article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
       .take(limit).map(&:first)
     self.find_in_order(article_ids)
+  end
+
+  def self.most_commented(limit)
+    disqus = Disqus.new(Settings.disqus.api_key)
+    response = disqus.request(:threads, :list_hot, limit: limit,
+                              forum: Settings.disqus.shortname)
+    slugs = response['response'].map do |thread|
+      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
+      [$1, thread['posts']]
+    end
+    articles = self.where(slug: slugs.map(&:first))
+    results = slugs.map do |slug, comments|
+      article = articles.find {|article| article.slug == slug}
+      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
+    end.compact
+    results.sort_by! {|slug, comments| -comments}
   end
 
   ###
