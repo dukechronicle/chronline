@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124081052) do
+ActiveRecord::Schema.define(:version => 20130128001111) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130124081052) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "slug"
+    t.integer  "headshot_id"
   end
 
   add_index "staff", ["columnist"], :name => "index_staff_on_columnist"
