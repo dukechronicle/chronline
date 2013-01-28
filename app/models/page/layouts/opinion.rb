@@ -16,10 +16,16 @@ class Page::Layouts::Opinion < Layout
         'extends' => section_articles_schema,
       },
       'blog' => {
+        'label' => 'Blog RSS Feed',
         'extends' => rss_schema,
         'required' => true,
       },
+      'columnists' => {
+        'label' => 'Columnists',
+        'extends' => columnists_schema,
+      },
       'cartoon' => {
+        'label' => 'Cartoon',
         'extends' => image_schema,
         'required' => true,
       },
