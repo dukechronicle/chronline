@@ -3,7 +3,7 @@
 
 .clearfix
   .span-6
-    #columns= render partial: 'site/containers/article-list', locals: {title: "Today's Columns", articles: @model.featured, style: false}
+    #columns= render partial: 'site/containers/columns', locals: {title: "Today's Columns", articles: @model.featured}
 
   .span-6.last
     .clearfix.align-group
