@@ -6,6 +6,16 @@ window.loadAfterTypekit = (callback) ->
     else
       setTimeout(execute, 300)
 
+truncateArticleLists = ->
+  $('.article-list .rounded').each ->
+    # check for overflow, the +1 is a hack for IE. Oh IE...
+    while $(this)[0].scrollHeight > $(this).outerHeight(false) + 1
+      $story = $(this).find('.list-story:last')
+      if $story.length > 0
+        $story.remove()
+      else
+        break
+
 pageAlign = ->
   # Iterate through groups in reverse order so nested groups get aligned first
   groups = $(this).get().reverse()
@@ -24,6 +34,7 @@ pageAlign = ->
       target = if selector then $(element).find(selector) else element
       delta = $(primary).height() - $(element).height()
       $(target).height((index, height) -> height + delta)
+  truncateArticleLists()  # In case any story lists boxes were made smaller
 
 # This ensures that a container cannot be smaller than its label
 verticalAlign = ->
