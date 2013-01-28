@@ -4,7 +4,7 @@
   .rounded.author-list
     .content-container
       - authors.each_with_index do |author, i|
-        %a.hover.highlight-left{href: site_staff_path(author), data: {index: i}}
+        %a.hover.highlight-left{href: site_staff_path(author)}
           %h2.name= author.name
 
   .rounded.authors
@@ -13,7 +13,7 @@
         .content-container.author-listing
           .author-info
             - if author.headshot
-              = image_tag author.headshot.original.url(:thumb_square_s), class: :headshot
+              = image_tag author.headshot.original.url(:thumb_rect), class: :headshot
             %a.hover.name{href: site_staff_path(author)}
               %h3= author.name
             %p.subtitle
@@ -27,5 +27,5 @@
               %a.hover.list-story.highlight-right{href: site_article_path(article)}
                 %h3.title= article.title
                 %p.subtitle
-                  %span.date= article.created_at.strftime("%B %e, %Y")
+                  %span.date= display_date(article)
                 %p.teaser= article.teaser
