@@ -22,6 +22,13 @@ Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
   [articles] * invocations.length
 end
 
+Layout.add_schema(:columnists, {'type' => 'null'}) do |invocations|
+  invocations.map do |_|
+    # TODO: eager load the most recent n articles
+    Staff.includes(:headshot).where(columnist: true)
+  end
+end
+
 Layout.add_schema(:popular, {
                     'type' => 'string',
                     'enum' => Taxonomy.main_sections.map {|t| t.name.downcase},

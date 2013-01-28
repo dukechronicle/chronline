@@ -1,0 +1,31 @@
+.author-box.align-group
+  %h2.vertical-label= title
+
+  .rounded.author-list.align-element{data: {alignprimary: "true"}}
+    .content-container
+      - authors.each_with_index do |author, i|
+        %a.hover.highlight-left{href: site_staff_path(author), data: {index: i}}
+          %h2= author.name
+
+  .rounded.authors.align-element
+    - authors.each do |author|
+      .author
+        .content-container.author-listing
+          .author-info
+            - if author.headshot
+              = image_tag author.headshot.original.url(:thumb_square_s)
+            %a.hover.name{href: site_staff_path(author)}
+              %h3= author.name
+            %p.subtitle
+              %span.affiliation= author.affiliation
+              - if author.twitter.present?
+                %span.twitter= link_to "@#{author.twitter}", "http://twitter.com/#{staff.twitter}"
+            %p.tagline= author.tagline
+
+          .article-list
+            - author.articles.limit(10).order('created_at DESC').each do |article|
+              %a.hover.list-story.highlight-right{href: site_article_path(article)}
+                %h3.title= article.title
+                %p.subtitle
+                  %span.date= article.created_at.strftime("%B %e, %Y")
+                %p.teaser= article.teaser
