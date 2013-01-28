@@ -24,7 +24,7 @@ class Staff < ActiveRecord::Base
 
   friendly_id :name, use: :slugged
 
-  has_many :images
+  has_many :images, foreign_key: :photographer_id
   has_and_belongs_to_many :articles, join_table: :articles_authors
 
   validates :name, presence: true, uniqueness: true
