@@ -31,6 +31,14 @@ class Staff < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
 
+  def author?
+    articles.present?
+  end
+
+  def photographer?
+    images.present?
+  end
+
   def self.search(name)
     self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")
   end
