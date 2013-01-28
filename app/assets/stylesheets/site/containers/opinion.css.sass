@@ -1,5 +1,35 @@
+@import "compass/layout/stretching"
+
+
 .columns
   img.headshot
     width: 70px
     float: right
     margin-left: 5px
+
+.author-box
+  position: relative
+
+  .author-list
+    width: 150px
+    min-height: 300px
+    .name
+      font-size: 1.1em
+      line-height: 1.3em
+
+  .authors
+    +stretch-y
+    left: 150px
+    width: 324px
+
+  .author
+    display: none
+
+  .author-info
+    +clearfix
+    border-bottom: 1px solid #DDD
+    padding-bottom: 10px
+    margin-bottom: 10px
+
+    img.headshot
+      float: right
