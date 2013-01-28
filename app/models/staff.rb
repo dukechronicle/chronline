@@ -20,7 +20,7 @@ class Staff < ActiveRecord::Base
 
   SEARCH_LIMIT = 10
 
-  attr_accessible :affiliation, :biography, :columnist, :name, :tagline, :twitter
+  attr_accessible :affiliation, :biography, :columnist, :headshot_id, :name, :tagline, :twitter
 
   friendly_id :name, use: :slugged
 
