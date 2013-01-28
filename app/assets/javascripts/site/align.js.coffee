@@ -1,4 +1,4 @@
-loadAfterTypekit = (callback) ->
+window.loadAfterTypekit = (callback) ->
   ->
     execute = () => callback.call(this)
     if $('html').hasClass('wf-active') or $('html').hasClass('wf-inactive')
