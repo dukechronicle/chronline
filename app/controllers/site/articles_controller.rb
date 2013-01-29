@@ -21,6 +21,7 @@ class Site::ArticlesController < Site::BaseController
       return redirect_to [:site, @article], status: :moved_permanently
     end
     @taxonomy = @article.section
+    @related = @article.related(5)
     @article.register_view
   end
 
