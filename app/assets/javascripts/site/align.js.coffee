@@ -18,7 +18,7 @@ truncateArticleLists = ->
 
 truncateTeaser = ->
   $(this).each ->
-    if $(this)[0].scrollHeight > $(this).outerHeight(false) + 1
+    while $(this)[0].scrollHeight > $(this).outerHeight(false) + 1
       console.log $(this)[0]
       console.log $(this)[0].scrollHeight
       console.log $(this).outerHeight(false)

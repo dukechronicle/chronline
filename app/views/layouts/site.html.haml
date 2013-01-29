@@ -16,6 +16,7 @@
     = csrf_meta_tags
   %body
     #fb-root
+    = render 'site/partials/admin-panel'
     .container
       = render 'site/partials/header'
       %section#content.clearfix= yield
