@@ -7,6 +7,9 @@
         &raquo;
       = link_to parent.name, "/section#{parent.to_s}"
 
+- content_for :administrative_links do
+  = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
+
 %article#article
   .span-8
     .rounded
