@@ -36,9 +36,9 @@ class Article < ActiveRecord::Base
   self.per_page = 25  # set will_paginate default to 25 articles
 
   searchable do
-    text :title, stored: true, :boost => 2.0
-    text :subtitle, stored: true, :boost => 1.5
-    text :body, stored: true
+    text :title, stored: true, boost: 2.0, more_like_this: true
+    text :subtitle, stored: true, boost: 1.5, more_like_this: true
+    text :body, stored: true, more_like_this: true
     integer :author_ids, :multiple => true
     string :section
     time :created_at
@@ -74,6 +74,14 @@ onto per since than the this that to up via with)
       key = "popularity:#{section[0].downcase}:#{Date.today}"
       $redis.zincrby(key, 1, id)
     end
+  end
+
+  def related(limit)
+    Sunspot.more_like_this(self) do
+      fields :title, :subtitle, :body
+      minimum_term_frequency 5
+      paginate per_page: limit
+    end.results
   end
 
   def render_body
