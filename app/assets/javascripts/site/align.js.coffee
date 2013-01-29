@@ -16,6 +16,18 @@ truncateArticleLists = ->
       else
         break
 
+truncateTeaser = ->
+  $(this).each ->
+    if $(this)[0].scrollHeight > $(this).outerHeight(false) + 1
+      console.log $(this)[0]
+      console.log $(this)[0].scrollHeight
+      console.log $(this).outerHeight(false)
+      $text = $(this).find('p:last')
+      if $text.length > 0
+        $text.text((index, text) -> text.replace(/\s+\S*\.*$/, '...'))
+      else
+        break
+
 pageAlign = ->
   # Iterate through groups in reverse order so nested groups get aligned first
   groups = $(this).get().reverse()
@@ -45,3 +57,4 @@ verticalAlign = ->
 
 initialize '.vertical-label', loadAfterTypekit(verticalAlign)
 initialize '.align-group', loadAfterTypekit(pageAlign)
+#initialize  '.article-row .row-article, .block .rounded', loadAfterTypekit(truncateTeaser)
