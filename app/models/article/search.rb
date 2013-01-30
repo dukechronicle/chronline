@@ -28,17 +28,16 @@ class Article::Search
   # Returns results for an initialized search object with fields optionally
   # highlighted; highlights with the `<mark />` tag by default
   #
-  # @example Getting search results with custom highlighting
+  # @example Making a search with highlighted fields
   #
   #   @article_search = Article::Search.new(params[:article_search])
   #   @article_search.valid? # validate the search
-  #   @articles = @article_search.results :highlight => {
-  #     title: {prefix: '*', postfix: '*'},
-  #     :subtitle,
-  #     :body
-  #   }
+  #   @articles = @article_search.results :highlight => [:title, :body]
   #
-  # @todo custom prefix/suffix
+  # @note Highlighted contents will currently replace respective attributes value
+  #   with the highlighted content!
+  # @todo Abstract retrieving highlighted contents through decorator methods
+  #   (e.g. `body_highlighted`)
   #
   # @param [Hash] options
   # @option options [<Symbol>] :highlight the attributes to highlight
