@@ -1,45 +1,94 @@
+# @author Faraz <faraz.yashar@gmail.com>
+#
+# A convenience wrapper and presenter for article searching with Solr
+# To interact with Solr directly for article search use the `Article::search`
+# class method as defined by the Sunspot API
+#
 class Article::Search
   include ActiveAttr::Model
+
   attribute :query
-  attribute :year
+
+  attribute :title
+  attribute :teaser
+  attribute :body
+
   attribute :authors
+  attribute :section
+  attribute :year
+
+  attribute :page
   attribute :sort
   attribute :order
-  attribute :page
-  attribute :section
-
-  # TODO is this an appropriate default?
-  @query = ''
 
   attr_accessible :query
 
   validates :query, :length => {:minimum => 2}, format: {with: /\A[\w]+\z/}
 
-  # Executes a query against the database
-  # @return
-  def results
-    Article.search do
-      with(:section, section) unless section.blank?
-      with(:authors).all_of(author.to_i) unless authors.blank?
-
-      fulltext self.query, highlight: true, query_phrase_slop: 1, minimum_match: 2
-      facet :section
-
-      facet :author_ids
-
-      if query.blank?
-        order_by :published_at, :desc
+  # Returns results for an initialized search object with fields optionally
+  # highlighted; highlights with the `<mark />` tag by default
+  #
+  # @example Getting search results with custom highlighting
+  #
+  #   @article_search = Article::Search.new(params[:article_search])
+  #   @article_search.valid? # validate the search
+  #   @articles = @article_search.results :highlight => {
+  #     title: {prefix: '*', postfix: '*'},
+  #     :subtitle,
+  #     :body
+  #   }
+  #
+  # @todo custom prefix/suffix
+  #
+  # @param [Hash] options
+  # @option options [<Symbol>] :highlight the attributes to highlight
+  # @return [<Article>]
+  def results options = {}
+    request = build_request
+    if options.empty?
+      return request.results
+    elsif options.has_key?(:highlight)
+      results = []
+      hits.each do |hit|
+        highlighted = {}
+        for field in options[:highlight]
+          formatted = ['']
+          hit.highlights.each do |hlight|
+            formatted << hlight.format { |q| "<mark>#{q}</mark>" }
+          end
+          formatted << ['']
+         highlighted[field] = formatted.join('...').html_safe
+        end
+        #@note May cause issues with mass assignment protections
+        hit.result.attributes = highlighted
+        results << hit.result
       end
-      paginate page: page, per_page: 10
-    end.results
+      return results
+    end
   end
 
+  # @return [<Sunspot::Search::Hit>]
+  def hits
+    build_request.hits
+  end
 
   private
 
-  def execute
-    self.sort = 'relevance' unless['relevance', 'data'].include? self.sort
-    self.order = 'desc' unless ['asc', 'desc'].include? self.order
+  # @return [Sunspot::Request]
+  def build_request
+    if @request.nil?
+      @request = Article.search do
+        # with(:section, section) unless section.blank?
+        # with(:authors).all_of(author.to_i) unless authors.blank?
+        fulltext self.query, highlight: true, query_phrase_slop: 1, minimum_match: 2
+        # facet :section
+        # facet :author_ids
+        # order_by :published_at, :desc if query.blank?
+        # paginate page: page, per_page: 10
+      end
+      Rails.logger.debug(@request)
+    end
+    @request
   end
 
 end
