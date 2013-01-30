@@ -9,7 +9,6 @@ class Admin::ArticlesController < Admin::BaseController
       params[:page] = find_article_page_for_date(date, @taxonomy)
     end
 
-    @article_search = Article::Search.new
     @articles = Article.includes(:authors, :image)
       .order('created_at DESC')
       .page(params[:page])
@@ -51,6 +50,19 @@ class Admin::ArticlesController < Admin::BaseController
     article.destroy
     flash[:success] = %Q[Article "#{article.title}" was deleted.]
     redirect_to admin_articles_path
+  end
+
+  def search
+    if params.has_key? :article_search
+      @article_search = Article::Search.new(params[:article_search])
+    else
+      @article_search = Article::Search.new and return
+    end
+    if @article_search.valid?
+      @articles = @article_search.results highlight: [:body, :title]
+    else
+      @articles = []
+    end
   end
 
   private
