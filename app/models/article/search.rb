@@ -42,7 +42,9 @@ class Article::Search
   #
   # @param [Hash] options
   # @option options [<Symbol>] :highlight the attributes to highlight
-  # @return [<Article>]
+  # @return [<Article>] This should actually be a
+  #   `Sunspot::Search::PaginatedCollection` of `Article`s however there is an
+  #   [outstanding issue in sunspot](https://github.com/sunspot/sunspot/issues/354)
   def results options = {}
     request = build_request
     if options.empty?
@@ -63,7 +65,8 @@ class Article::Search
         hit.result.attributes = highlighted
         results << hit.result
       end
-      return results
+      request.results.each_with_index{|r,i| r=results[i]}
+      request.results
     end
   end
 
@@ -84,9 +87,8 @@ class Article::Search
         # facet :section
         # facet :author_ids
         # order_by :published_at, :desc if query.blank?
-        # paginate page: page, per_page: 10
+        paginate page: self.page, per_page: 3
       end
-      Rails.logger.debug(@request)
     end
     @request
   end

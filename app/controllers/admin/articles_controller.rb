@@ -53,15 +53,14 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def search
+
     if params.has_key? :article_search
       @article_search = Article::Search.new(params[:article_search])
-    else
-      @article_search = Article::Search.new and return
-    end
-    if @article_search.valid?
+      @article_search.page = params[:page] if params.has_key? :page
       @articles = @article_search.results highlight: [:body, :title]
     else
-      @articles = []
+      @article_search = Article::Search.new
+      @articles = @articles_search.results
     end
   end
 
