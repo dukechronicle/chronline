@@ -11,6 +11,8 @@ class Admin::PagesController < Admin::BaseController
 
   def edit
     @page = Page.find(params[:id])
+    @page.layout.generate_model
+    @embedded = @page.layout.embedded
     render 'form'
   end
 
