@@ -8,7 +8,7 @@
 
 = unless @articles.nil?
   %h1= "Results for #{@article_search.query}"
-  - if params[:article_search][:section].present?
+  - if !params[:article_search].nil? && params[:article_search][:section].present?
     = "in "
     / Drop the first and last slash
     %b= params[:article_search][:section][1...-1]

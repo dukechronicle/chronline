@@ -54,12 +54,13 @@ class Article::Search
       hits.each do |hit|
         highlighted = {}
         for field in options[:highlight]
-          formatted = ['']
-          hit.highlights.each do |hlight|
+          formatted = []
+          hit.highlights(field).each do |hlight|
             formatted << hlight.format { |q| "<mark>#{q}</mark>" }
           end
-          formatted << ['']
-         highlighted[field] = formatted.join('...').html_safe
+          unless formatted.empty?
+            highlighted[field] = "...#{formatted.join('...')}...".html_safe
+          end
         end
         #@note May cause issues with mass assignment protections
         hit.result.attributes = highlighted
