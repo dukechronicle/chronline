@@ -4,6 +4,8 @@ require 'layout/validator'
 class Layout
   require 'layout/schema'
 
+  attr_reader :embedded
+
   @@schemata = {}
   @@transformations = {}
 
@@ -17,7 +19,10 @@ class Layout
   end
 
   def generate_model
-    Layout::Validator.new(json_schema, @data).validate
+    validator = Layout::Validator.new(json_schema, @data)
+    data = validator.validate
+    @embedded = validator.embedded
+    data
   end
 
   def model

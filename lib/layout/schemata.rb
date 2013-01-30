@@ -11,7 +11,8 @@ end
 
 Layout.add_schema(:article, {
                     "type" => "integer",
-                    "display" => "article-picker"
+                    "display" => "article-picker",
+                    "model" => true,
                   }) do |article_ids|
   Article.includes(:authors, :image).find_in_order(article_ids)
 end
