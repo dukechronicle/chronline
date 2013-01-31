@@ -1,6 +1,7 @@
 require_dependency 'admin/users_controller' # contains admin devise controllers
 
 Chronline::Application.routes.draw do
+  get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
