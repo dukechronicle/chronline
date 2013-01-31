@@ -9,9 +9,20 @@ class Page::Layouts::Sports < Layout
         'items' => article_schema,
       },
       'blog' => {
-        'label' => 'Blog RSS Feed',
-        'extends' => rss_schema,
-        'required' => true,
+        'label' => 'Blog',
+        'type' => 'object',
+        'properties' => {
+          'url' => {
+            'label' => 'URL',
+            'type' => 'string',
+            'required' => true,
+          },
+          'feed' => {
+            'label' => 'RSS Feed',
+            'extends' => rss_schema,
+            'required' => true,
+          }
+        }
       },
       'multimedia' => {
         'label' => 'Embedded Multimedia',
