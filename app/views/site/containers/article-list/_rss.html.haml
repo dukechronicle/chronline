@@ -1,6 +1,10 @@
 .article-list
   %h2.vertical-label= title
   .rounded
+    - if image
+      .image-container
+        %a{href: '#'}
+          = image_tag image, class: :banner
     .content-container
       - items.each do |item|
         %a.list-story.hover.highlight-right{href: item.link}
