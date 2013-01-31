@@ -44,12 +44,12 @@ class Page::Layouts::News < Layout
           'url' => {
             'label' => 'URL',
             'type' => 'string',
-            'required' => false,
+            'required' => true,
           },
           'feed' => {
             'label' => 'RSS Feed',
             'extends' => rss_schema,
-            'required' => false,
+            'required' => true,
           }
         }
       },
