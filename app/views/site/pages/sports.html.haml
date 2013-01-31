@@ -8,7 +8,7 @@
 
   .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    #blog.title-medium= render partial: 'site/containers/article-list/rss', locals: {title: "Blue Zone", items: @model.blog}
+    #blog.title-medium= render partial: 'site/containers/article-list/rss', locals: {title: "Blue Zone", items: @model.blog, image: 'blogs/sportsblog-banner.jpg'}
 
 .clearfix
   - @model.bottom_articles.each_with_index do |article, i|
