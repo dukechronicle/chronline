@@ -15,12 +15,6 @@ class Page::Layouts::News < Layout
         'maxLength' => 2,
         'items' => article_schema,
       },
-      'popular' => {
-        'label' => 'Popular in section',
-        'required' => true,
-        'default' => 'news',
-        'extends' => popular_schema,
-      },
       'right_headlines' => {
         'label' => 'Right Headlines',
         'type' => 'array',
@@ -42,6 +36,28 @@ class Page::Layouts::News < Layout
         'required' => true,
         'maxLength' => 6,
         'items' => article_schema,
+      },
+      'blog' => {
+        'label' => 'Blog',
+        'type' => 'object',
+        'properties' => {
+          'url' => {
+            'label' => 'URL',
+            'type' => 'string',
+            'required' => false,
+          },
+          'feed' => {
+            'label' => 'RSS Feed',
+            'extends' => rss_schema,
+            'required' => false,
+          }
+        }
+      },
+      'popular' => {
+        'label' => 'Popular in section',
+        'required' => true,
+        'default' => 'news',
+        'extends' => popular_schema,
       },
     }
   end
