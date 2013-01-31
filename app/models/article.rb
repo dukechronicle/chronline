@@ -114,7 +114,7 @@ onto per since than the this that to up via with)
     end
     article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
       .take(limit).map(&:first)
-    self.find_in_order(article_ids)
+    self.find_in_order(article_ids).compact
   end
 
   def self.most_commented(limit)
