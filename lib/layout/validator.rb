@@ -3,6 +3,7 @@
 
 class Layout
   class Validator < JSON::Validator
+    attr_reader :embedded
 
     def validate
       @validation_options[:apply_transformations] = {}
@@ -16,6 +17,10 @@ class Layout
       transformations.each_pair do |trans, pairs|
         paths, items = pairs.first.zip(*pairs.drop(1))  # Sorry to whoever is reading this
         transformed_items = Layout.transform(trans, items)
+        # Please get rid of this
+        if trans == :article
+          @embedded = transformed_items.map {|model| [model.id, model]}.to_h
+        end
         paths.zip(transformed_items) do |pair|
           assign_path(@data, pair[0], pair[1])
         end

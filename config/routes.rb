@@ -1,6 +1,7 @@
 require_dependency 'admin/users_controller' # contains admin devise controllers
 
 Chronline::Application.routes.draw do
+  get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
@@ -14,9 +15,8 @@ Chronline::Application.routes.draw do
       get 'pages/*path' => 'base#custom_page'
       get 'section/*section' => 'articles#index', as: :article_section
 
-      resources :articles, only: :show do
-        get 'print', on: :member
-      end
+      get 'article/:id' => 'articles#show', as: :article
+      get 'article/:id/print' => 'articles#print', as: :print_article
 
       resources :staff, only: :show
     end
@@ -26,7 +26,8 @@ Chronline::Application.routes.draw do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
-      resources :articles, only: :show
+      get 'search' => 'articles#search', as: :article_search
+      get 'article/:id' => 'articles#show', as: :article
     end
   end
 
@@ -43,7 +44,7 @@ Chronline::Application.routes.draw do
       get 'newsletter' => 'newsletter#show'
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
-      get 'search' => 'articles#search'
+      get 'search' => 'articles#search', as: :article_search
 
       resources :images, except: :show do
         put 'crop', on: :member

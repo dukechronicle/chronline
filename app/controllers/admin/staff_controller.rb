@@ -8,18 +8,9 @@ class Admin::StaffController < Admin::BaseController
   end
 
   def create
-    type = params[:staff].delete(:type)
-    cls = Staff.subclasses.find {|cls| cls.name == type}
-
-    if cls.nil?
-      @staff = Staff.new(params[:staff])
-      @staff.errors.add(:type, "must be selected")
-      return render 'new'
-    end
-
-    @staff = cls.new(params[:staff])
+    @staff = Staff.new(params[:staff])
     if @staff.save
-      redirect_to admin_root_path
+      redirect_to admin_staff_index_path
     else
       render 'new'
     end
@@ -32,7 +23,7 @@ class Admin::StaffController < Admin::BaseController
   def update
     @staff = Staff.find(params[:id])
     if @staff.update_attributes(params[:staff])
-      redirect_to admin_root_path
+      redirect_to admin_staff_index_path
     else
       render 'edit'
     end

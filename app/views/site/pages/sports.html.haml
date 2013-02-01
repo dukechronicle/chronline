@@ -1,0 +1,15 @@
+- content_for :title_block do
+  = render 'site/partials/navigation'
+
+.clearfix.align-group
+  .span-8.align-element{data: {alignprimary: "true"}}
+    #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow}
+    #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+
+  .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    #blog.title-medium= render partial: 'site/containers/article-list/rss', locals: {title: "Blue Zone", items: @model.blog['feed'], image: {src: 'blogs/sportsblog-banner.jpg', href: @model.blog['url']}}
+
+.clearfix
+  - @model.bottom_articles.each_with_index do |article, i|
+    .span-4{class: (i % 3 == 2 ? 'last' : nil)}= render partial: 'site/containers/block/thumbnail', locals: {article: article}

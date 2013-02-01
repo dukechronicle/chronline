@@ -29,14 +29,20 @@ class Image < ActiveRecord::Base
     end.to_h
   end
 
-  attr_accessible :caption, :created_at, :location, :original
+  attr_accessible :caption, :date, :location, :original
   attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles, processors: [:cropper]
 
+  default_value_for :date do
+    Date.today
+  end
+
   validates :original, attachment_presence: true
+  validates :date, presence: true
 
   has_many :articles
-  belongs_to :photographer
+  has_many :staff, foreign_key: :headshot_id
+  belongs_to :photographer, class_name: "Staff"
 
 
   def to_jq_upload

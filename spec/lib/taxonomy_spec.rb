@@ -60,6 +60,42 @@ describe Taxonomy do
     it { @taxonomy.should_not == ['News', 'University'] }
   end
 
+  describe "comparators" do
+    subject { @taxonomy }
+
+    let(:parent) { Taxonomy.new(['News']) }
+    let(:child)  { Taxonomy.new(['News', 'University', 'Academics']) }
+    let(:other)  { Taxonomy.new(['Sports']) }
+
+    describe "#<" do
+      it { should be < parent }
+      it { should_not be < @taxonomy }
+      it { should_not be < child }
+      it { should_not be < other }
+    end
+
+    describe "#<=" do
+      it { should be <= parent }
+      it { should be <= @taxonomy }
+      it { should_not be <= child }
+      it { should_not be <= other }
+    end
+
+    describe "#<" do
+      it { should_not be > parent }
+      it { should_not be > @taxonomy }
+      it { should be > child }
+      it { should_not be > other }
+    end
+
+    describe "#<=" do
+      it { should_not be >= parent }
+      it { should be >= @taxonomy }
+      it { should be >= child }
+      it { should_not be >= other }
+    end
+  end
+
   describe "#root?" do
     it { Taxonomy.new.root?.should be_true }
     it { @taxonomy.root?.should_not be_true }

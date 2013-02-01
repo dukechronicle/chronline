@@ -30,18 +30,16 @@ describe Article do
 
   subject { @article }
 
+  it { should have_and_belong_to_many :authors }
+
   it { should be_valid }
-
-  describe "when body is not present" do
-    before { @article.body = "" }
-    it { should_not be_valid }
+  it { should validate_presence_of :title }
+  it { should validate_presence_of :body }
+  it { should validate_presence_of :section }
+  it { should validate_presence_of :authors }
+  it "should be searchable" do
+    Article.searchable?.should be_true
   end
-
-  describe "when title is not present" do
-    before { @article.title = "" }
-    it { should_not be_valid }
-  end
-
   describe "#section" do
     it { @article.section.should be_a_kind_of(Taxonomy) }
     it do

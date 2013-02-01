@@ -20,49 +20,42 @@ class Staff < ActiveRecord::Base
 
   SEARCH_LIMIT = 10
 
-  attr_accessible :affiliation, :biography, :columnist, :name, :tagline, :twitter
+  attr_accessible :affiliation, :biography, :columnist, :headshot_id, :name, :tagline, :twitter
 
   friendly_id :name, use: :slugged
 
+  has_many :images, foreign_key: :photographer_id
+  belongs_to :headshot, class_name: "Image"
+  has_and_belongs_to_many :articles, join_table: :articles_authors
+
   validates :name, presence: true, uniqueness: true
 
+
+  def author?
+    articles.present?
+  end
+
+  def photographer?
+    images.present?
+  end
 
   def self.search(name)
     self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")
   end
 
-  # Fixes problem with subclass route helpers
-  # http://www.christopherbloom.com/2012/02/01/notes-on-sti-in-rails-3-0/
-  def self.inherited(child)
-    child.instance_eval do
-      alias :original_model_name :model_name
-      def model_name
-        Staff.model_name
-      end
-    end
-    super
-  end
-end
-
-class Author < Staff
-  has_and_belongs_to_many :articles
-
   def self.find_or_create_all_by_name(names)
-    authors = {}
-    Author.where(name: names).each do |author|
-      authors[author.name] = author
+    staff = {}
+    Staff.where(name: names).each do |member|
+      staff[member.name] = member
     end
     names.each do |name|
-      Author.transaction do
-        if not authors.has_key?(name)
-          authors[name] = Author.create(name: name)
+      Staff.transaction do
+        if not staff.has_key?(name)
+          staff[name] = Staff.create!(name: name)
         end
       end
     end
-    authors.values
+    staff.values
   end
-end
 
-class Photographer < Staff
-  has_many :images
 end

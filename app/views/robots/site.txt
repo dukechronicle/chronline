@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /article/student-reports-indecent-exposure-4th-floor-perkins-library
+Disallow: /article/breaking-silence-eating-disorders

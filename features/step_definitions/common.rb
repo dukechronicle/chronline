@@ -2,6 +2,11 @@
 # Given step definitions
 ###
 
+# http://stackoverflow.com/questions/3064078/how-do-you-mark-a-cucumber-scenario-as-pending#answer-5983793
+Given /^PENDING/ do
+  pending
+end
+
 Given /^there exists an? (\w+)$/ do |type|
   instance_variable_set("@#{type}", FactoryGirl.create(type))
 end
@@ -28,7 +33,6 @@ Given /^I am on the (\w+) page for the (\w+)$/ do |action, model|
                   host: 'lvh.me')
   visit @path
 end
-
 
 ###
 # Then step definitions

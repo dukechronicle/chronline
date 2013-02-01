@@ -2,20 +2,23 @@
 %html.ui-mobile-rendering
   %head
     %title #{yield :title} | The Chronicle
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
     :javascript
       try{Typekit.load()}catch(e){}
-
     = stylesheet_link_tag "mobile", :media => "all"
+    = render 'partials/favicon'
     = csrf_meta_tags
   %body
     #fb-root
-    %div.container{data: {role: "page"}}
+    .container{data: {role: "page"}}
       = render 'mobile/partials/header'
       = image_tag "chapel.svg", id: 'background-image'
       %section{data: {role: "content"}}= yield
       = render 'mobile/partials/footer'
       = render 'mobile/partials/advertisement'
+
+    = render 'mobile/partials/search-dialog'
 
     #scripts
       = javascript_include_tag "mobile"
