@@ -10,6 +10,18 @@
 - content_for :administrative_links do
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
+- content_for :open_graph_tags do
+  %meta{property: "og:title", content: @article.title}
+  %meta{property: "og:type", content: "article"}
+  - if @article.image
+    %meta{property: "og:image", content: @article.image.original.url(:thumb_rect_m)}
+  - else
+    %meta{property: "og:image", content: image_path("logo/300x300.png")}
+  %meta{property: "og:url", content: site_article_url(@article)}
+  %meta{property: "og:site_name", content: "The Duke Chronicle"}
+  %meta{property: "og:description", content: @article.teaser}
+
+
 %article#article
   .span-8
     .rounded
