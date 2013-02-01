@@ -1,5 +1,7 @@
+- provide(:title, @title) unless content_for? :title
+
 !!! 5
-%html
+%html{"xmlns:og" => "http://ogp.me/ns#", "xmlns:fb" => "https://www.facebook.com/2008/fbml"}
   %head
     %title #{yield :title} | The Chronicle
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
@@ -10,10 +12,16 @@
       %script{type: "text/javascript", src: "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
       = stylesheet_link_tag "ie", :media => "all"
 
+    = render 'partials/favicon'
     = render 'site/partials/openx'
     = csrf_meta_tags
+    %link{rel: "image_src", href: image_path("logo/300x300.png")}
+
+    - if content_for? :open_graph_tags
+      = yield :open_graph_tags
   %body
     #fb-root
+    = render 'site/partials/admin-panel'
     .container
       = render 'site/partials/header'
       %section#content.clearfix= yield

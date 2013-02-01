@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113103455) do
+ActiveRecord::Schema.define(:version => 20130128001111) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -19,20 +19,24 @@ ActiveRecord::Schema.define(:version => 20130113103455) do
     t.string   "section"
     t.string   "teaser"
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "slug"
     t.integer  "image_id"
+    t.string   "previous_id"
   end
+
+  add_index "articles", ["section", "created_at"], :name => "index_articles_on_section_and_created_at"
+  add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
 
   create_table "articles_authors", :force => true do |t|
     t.integer "article_id"
-    t.integer "author_id"
+    t.integer "staff_id"
   end
 
-  add_index "articles_authors", ["article_id", "author_id"], :name => "index_articles_authors_on_article_id_and_author_id", :unique => true
+  add_index "articles_authors", ["article_id", "staff_id"], :name => "index_articles_authors_on_article_id_and_author_id", :unique => true
   add_index "articles_authors", ["article_id"], :name => "index_articles_authors_on_article_id"
-  add_index "articles_authors", ["author_id"], :name => "index_articles_authors_on_author_id"
+  add_index "articles_authors", ["staff_id"], :name => "index_articles_authors_on_author_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -46,16 +50,20 @@ ActiveRecord::Schema.define(:version => 20130113103455) do
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "images", :force => true do |t|
-    t.string   "caption"
+    t.string   "caption",               :limit => 500
     t.string   "location"
     t.string   "original_file_name"
     t.string   "original_content_type"
     t.integer  "original_file_size"
     t.datetime "original_updated_at"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "photographer_id"
+    t.date     "date"
   end
+
+  add_index "images", ["date"], :name => "index_images_on_date"
+  add_index "images", ["photographer_id"], :name => "index_images_on_photographer_id"
 
   create_table "pages", :force => true do |t|
     t.text     "layout_data"
@@ -75,12 +83,13 @@ ActiveRecord::Schema.define(:version => 20130113103455) do
     t.string   "name"
     t.string   "tagline"
     t.string   "twitter"
-    t.string   "type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "slug"
+    t.integer  "headshot_id"
   end
 
+  add_index "staff", ["columnist"], :name => "index_staff_on_columnist"
   add_index "staff", ["name"], :name => "index_staff_on_name", :unique => true
   add_index "staff", ["slug"], :name => "index_staff_on_slug", :unique => true
 

@@ -9,13 +9,18 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-RailsConfig.setup do |config|
-  config.const_name = "Settings"
-end
 
 module Chronline
   class Application < Rails::Application
-    #config.logger = Logger.new(STDOUT)
+    RailsConfig.load_and_set_settings(
+      Rails.root.join("config", "settings.yml").to_s,
+      Rails.root.join("config", "settings", "#{Rails.env}.yml").to_s,
+      Rails.root.join("config", "environments", "#{Rails.env}.yml").to_s,
+
+      Rails.root.join("config", "settings.local.yml").to_s,
+      Rails.root.join("config", "settings", "#{Rails.env}.local.yml").to_s,
+      Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
+    )
 
     config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
 
@@ -32,7 +37,7 @@ module Chronline
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extensions)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -74,6 +79,12 @@ module Chronline
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.action_mailer.default_url_options = {host: Settings.domain}
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
   end
 end
 

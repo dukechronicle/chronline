@@ -15,19 +15,44 @@ $ bundle install --without production
 
 # Install client side vendor assets with bower
 $ rake bower:install
+$ rake bower:resolve
 
 # Rails database initialization
 $ rake db:migrate
 $ rake db:test:prepare
+
+# Start local solr server
+$ rake sunspot:solr:start
 ```
 
 ### Configuration files
 
 You will be able to run tests at this point, but will not be able to run the server in the development environment until you supply the `config/settings/development.local.yml` file. This is not version controlled since it contains sensitive information. You can populate it using the `config/settings/test.yml` file as a template.
 
-Once the development environment is configured it, you may wish to populate your development database with random data using the command `$ rake populate`.
+Once the development environment is configured it, you may wish to populate your development database with random data using the command `$ rake db:populate`.
 
-Running tests
+Testing
+=============
+
+Writing Tests
+-------------
+
+### RSpec
+
+Resources:
+
+ - [Built in RSpec matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
+ - [Better Specs RSpec Guildines](http://betterspecs.org/)
+ - [Shoulda Matchers](http://rubydoc.info/github/thoughtbot/shoulda-matchers/master/frames)
+
+### Cucumber
+
+Resources:
+
+ - [Official Cucumber Site](http://cukes.info/)
+ - [Gerkin Reference](https://github.com/cucumber/cucumber/wiki/Gherkin)
+
+Running Tests
 -------------
 
 You can run acceptance tests with the following command:
@@ -41,3 +66,37 @@ You can run spec tests with the following command:
 ```bash
 $ rspec spec
 ```
+
+You can run tests continuously during development in a dedicated console.
+
+TODO Continuous testing hasn't been fully vetted; proceed with caution
+
+```bash
+$ guard
+```
+
+
+Test Customizations
+-------------------
+
+Several options may be configured for your development pleasure via `/config/settings/test.local.yaml`
+
+TODO Customizations are rather volatile, so be careful!
+
+```yaml
+growl: true  # OS X Only, requires [Growl](http://growl.info/) to be installed
+rspec:
+  formatter: NyanCatFormatter # Options are NyanCatFormatter, NyanCatMusicFormatter, Fuubar, documentation, progress; defaults to progress
+spork: # See "Available Options"  at https://github.com/guard/guard-spork
+  rspec: true
+  cucumber: false # Default is true
+
+```
+
+Other Resources
+===============
+
+ - [HAML](http://haml.info/)
+ - [SimpleForm](http://simple-form.plataformatec.com.br/)
+ - [Capybara](http://jnicklas.github.com/capybara/)
+ - [Pry](http://pryrepl.org/)

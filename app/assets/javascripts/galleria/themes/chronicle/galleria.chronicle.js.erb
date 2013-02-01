@@ -11,11 +11,12 @@
 Galleria.requires(1.25, 'This version of Classic theme requires Galleria 1.2.5 or later');
 
 (function($) {
+var THEME_CSS = "<%= asset_path 'galleria/themes/chronicle/galleria.chronicle.css' %>";
 
 Galleria.addTheme({
     name: 'chronicle',
     author: 'The Chronicle',
-    css: 'galleria.chronicle.css',
+    css: THEME_CSS.replace(/.*\//, ''),
 
     defaults: {
         autoplay: true,
