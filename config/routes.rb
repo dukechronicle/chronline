@@ -19,7 +19,9 @@ Chronline::Application.routes.draw do
       get 'article/:id/print' => 'articles#print', as: :print_article
 
       resources :staff, only: :show
+
     end
+    match '/404', :to => 'errors#not_found'
   end
 
   constraints subdomain: 'm' do
@@ -28,7 +30,9 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
       get 'article/:id' => 'articles#show', as: :article
+
     end
+    match '/404', :to => 'errors#not_found'
   end
 
   constraints subdomain: 'admin' do
