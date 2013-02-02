@@ -72,6 +72,13 @@ Chronline::Application.routes.draw do
     end
   end
 
+  constraints subdomain: 'rss' do
+    namespace :rss, path: '/' do
+      get 'section/*section' => 'articles#index', as: :article_section
+      resources :articles, only: :index
+    end
+  end
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
