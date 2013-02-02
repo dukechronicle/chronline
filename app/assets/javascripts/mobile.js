@@ -5,7 +5,8 @@
 
 //= require util
 //= require initialize
-//= require site/social-media.js
+//= require common/social-media
+//= require common/analytics
 //= require site/disqus.js
 //= require_tree ./mobile
 
