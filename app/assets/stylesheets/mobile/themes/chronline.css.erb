@@ -420,7 +420,8 @@
 .ui-btn-up-c a.ui-link-inherit {
 	color: #2F3E46 /*{c-bup-color}*/;
 }
-.ui-btn-hover-c {
+.ui-btn-hover-c,
+.ui-body-c .ui-listview .ui-btn-active a.ui-link-inherit {
 	border: 1px solid #bbbbbb /*{c-bhover-border}*/;
 	background: #dfdfdf /*{c-bhover-background-color}*/;
 	font-weight: bold;
@@ -433,9 +434,13 @@
 	background-image:      -o-linear-gradient( #f6f6f6 /*{c-bhover-background-start}*/, #e0e0e0 /*{c-bhover-background-end}*/); /* Opera 11.10+ */
 	background-image:         linear-gradient( #f6f6f6 /*{c-bhover-background-start}*/, #e0e0e0 /*{c-bhover-background-end}*/);
 }
+.ui-body-c .ui-listview .ui-btn-active a.ui-link-inherit {
+	border: none;
+}
 .ui-btn-hover-c:visited,
 .ui-btn-hover-c:hover,
-.ui-btn-hover-c a.ui-link-inherit {
+.ui-btn-hover-c a.ui-link-inherit,
+.ui-btn-hover-c.ui-btn-active a.ui-link-inherit {
 	color: #2F3E46 /*{c-bhover-color}*/;
 }
 .ui-btn-down-c {
