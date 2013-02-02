@@ -4,6 +4,7 @@
 //= require date.format.js
 //= require jquery-galleria/src/galleria.js
 //= require jquery.hoverscroll.js
+//= require jquery.autoellipsis/src/jquery.autoellipsis.js
 
 //= require util
 //= require initialize
