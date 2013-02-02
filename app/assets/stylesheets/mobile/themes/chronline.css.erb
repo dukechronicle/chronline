@@ -370,6 +370,7 @@
 	background-image:      -o-linear-gradient( #f9f9f9 /*{c-body-background-start}*/, #eeeeee /*{c-body-background-end}*/); /* Opera 11.10+ */
 	background-image:         linear-gradient( #f9f9f9 /*{c-body-background-start}*/, #eeeeee /*{c-body-background-end}*/);
 }
+
 .ui-overlay-c {
 	background-image: none;
 	border-width: 0;
@@ -395,7 +396,7 @@
 }
 
 .ui-body-c .ui-link:hover {
-	color: #2489CE /*{c-body-link-hover}*/;
+	coloui-body-cr: #2489CE /*{c-body-link-hover}*/;
 }
 
 .ui-body-c .ui-link:active {
@@ -419,7 +420,8 @@
 .ui-btn-up-c a.ui-link-inherit {
 	color: #2F3E46 /*{c-bup-color}*/;
 }
-.ui-btn-hover-c {
+.ui-btn-hover-c,
+.ui-body-c .ui-listview .ui-btn-active a.ui-link-inherit {
 	border: 1px solid #bbbbbb /*{c-bhover-border}*/;
 	background: #dfdfdf /*{c-bhover-background-color}*/;
 	font-weight: bold;
@@ -432,9 +434,13 @@
 	background-image:      -o-linear-gradient( #f6f6f6 /*{c-bhover-background-start}*/, #e0e0e0 /*{c-bhover-background-end}*/); /* Opera 11.10+ */
 	background-image:         linear-gradient( #f6f6f6 /*{c-bhover-background-start}*/, #e0e0e0 /*{c-bhover-background-end}*/);
 }
+.ui-body-c .ui-listview .ui-btn-active a.ui-link-inherit {
+	border: none;
+}
 .ui-btn-hover-c:visited,
 .ui-btn-hover-c:hover,
-.ui-btn-hover-c a.ui-link-inherit {
+.ui-btn-hover-c a.ui-link-inherit,
+.ui-btn-hover-c.ui-btn-active a.ui-link-inherit {
 	color: #2F3E46 /*{c-bhover-color}*/;
 }
 .ui-btn-down-c {
@@ -454,7 +460,15 @@
 .ui-btn-down-c:hover,
 .ui-btn-down-c a.ui-link-inherit {
 	color: #2F3E46 /*{c-bdown-color}*/;
+	text-shadow: 0 /*{c-bdown-shadow-x}*/ 1px /*{c-bdown-shadow-y}*/ 0 /*{c-bdown-shadow-radius}*/ #ffffff /*{c-bdown-shadow-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #d0d0d0 /*{c-bdown-background-start}*/), to( #dfdfdf /*{c-bdown-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #d0d0d0 /*{c-bdown-background-start}*/, #dfdfdf /*{c-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #d0d0d0 /*{c-bdown-background-start}*/, #dfdfdf /*{c-bdown-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #d0d0d0 /*{c-bdown-background-start}*/, #dfdfdf /*{c-bdown-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #d0d0d0 /*{c-bdown-background-start}*/, #dfdfdf /*{c-bdown-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient( #d0d0d0 /*{c-bdown-background-start}*/, #dfdfdf /*{c-bdown-background-end}*/);
 }
+
 .ui-btn-up-c,
 .ui-btn-hover-c,
 .ui-btn-down-c {
