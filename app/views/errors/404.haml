@@ -2,20 +2,13 @@
   
 - content_for :title_bock do
   %h1 'Page Not Found'
-.span-12
+.span-8
   .rounded
-    Sorry, this page doesn't exist. Please click 
-    %a{href: @back} here
-    to go back to our homepage.
-    %pre{style: 'font-size: 15px; text-align:center;'} 
-      =preserve do
-        :escaped
-           H  R   O    A        
-          C        N  F     I    
-                        '.  L      
-            .-""-._     \ \.--|  
-           /       "-..__) .-'   
-          |     _         /      
-          \'-.__,   .__.,'       
-           `'----'._\--'      
-          VVVVVVVVVVVVVVVVVVVVV
+    .article-container
+      .notfound-text
+        Sorry, this page doesn't exist. Please click 
+        %a{href: site_root_path} here
+        to go back to our homepage.
+      = render 'partials/failwhale'
+.span-4.last
+  = render 'site/partials/facebook-recommended'
