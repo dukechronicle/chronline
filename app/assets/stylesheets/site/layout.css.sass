@@ -5,7 +5,7 @@
 html, body
   width: 100%
   height: 100%
-  +background($background-bottom-color linear-gradient(top, $background-top-color, $background-bottom-color) no-repeat)
+  +background-with-css2-fallback($background-bottom-color linear-gradient(top, $background-top-color, $background-bottom-color) no-repeat)
 
 body
   .container
