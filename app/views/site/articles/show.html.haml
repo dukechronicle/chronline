@@ -37,7 +37,7 @@
               .photo-credit
                 %span= @article.image.photographer.name
                 %span / The Chronicle
-            - if @article.image.photographer.nil? and @article.image.credit
+            - elsif @article.image.credit
               .photo-credit
                 %span= @article.image.credit
             - if not @article.image.caption.blank?
