@@ -16,6 +16,7 @@
     = f.input :caption
     = f.input :location
     = f.association :photographer, value_method: :name, as: :string, input_html: {class: 'staff-picker input-xlarge'}
+    = f.input :credit
     = f.input :date, as: :date, native: browser.chrome?
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'

@@ -5,6 +5,7 @@
 #  id                    :integer          not null, primary key
 #  caption               :string(255)
 #  location              :string(255)
+#  credit                :string(255)
 #  original_file_name    :string(255)
 #  original_content_type :string(255)
 #  original_file_size    :integer
@@ -29,7 +30,7 @@ class Image < ActiveRecord::Base
     end.to_h
   end
 
-  attr_accessible :caption, :date, :location, :original
+  attr_accessible :caption, :date, :location, :original, :credit
   attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles, processors: [:cropper]
 
