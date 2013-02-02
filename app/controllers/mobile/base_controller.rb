@@ -2,6 +2,6 @@ class Mobile::BaseController < ApplicationController
   layout 'mobile'
 
   def not_found
-    render 'errors/404m'
+    render 'mobile/404'
   end
 end
