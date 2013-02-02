@@ -11,9 +11,9 @@
     = csrf_meta_tags
   %body
     #fb-root
-    = image_tag "chapel.svg", id: 'background-image'
     .container{data: {role: "page"}}
       = render 'mobile/partials/header'
+      = image_tag "chapel.svg", id: 'background-image'
       %section{data: {role: "content"}}= yield
       = render 'mobile/partials/footer'
       = render 'mobile/partials/advertisement'
