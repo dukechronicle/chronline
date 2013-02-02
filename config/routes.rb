@@ -20,6 +20,8 @@ Chronline::Application.routes.draw do
       get 'article/:id/print' => 'articles#print', as: :print_article
 
       resources :staff, only: :show
+
+      match '/404', :to => 'base#not_found'
     end
   end
 
@@ -29,6 +31,8 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
       get 'article/:id' => 'articles#show', as: :article
+
+      match '/404', :to => 'base#not_found'
     end
   end
 
