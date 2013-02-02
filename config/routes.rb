@@ -20,8 +20,8 @@ Chronline::Application.routes.draw do
 
       resources :staff, only: :show
 
+      match '/404', :to => 'base#not_found'
     end
-    match '/404', :to => 'errors#not_found'
   end
 
   constraints subdomain: 'm' do
@@ -31,8 +31,8 @@ Chronline::Application.routes.draw do
       get 'search' => 'articles#search', as: :article_search
       get 'article/:id' => 'articles#show', as: :article
 
+      match '/404', :to => 'base#not_found'
     end
-    match '/404', :to => 'errors#not_found'
   end
 
   constraints subdomain: 'admin' do

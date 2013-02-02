@@ -25,4 +25,8 @@ class Site::BaseController < ApplicationController
     render "site/pages/#{@page.layout_template.to_s.underscore}"
   end
 
+  def not_found
+    render 'errors/404'
+  end
+
 end
