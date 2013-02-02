@@ -5,6 +5,7 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
+      match 'rss' => redirect('http://feeds.feedburner.com/thechronicle/all')
       get 'search' => 'articles#search'
       resource :newsletter, only: :show do
         post 'subscribe'
