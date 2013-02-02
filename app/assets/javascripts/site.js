@@ -7,4 +7,6 @@
 
 //= require util
 //= require initialize
+//= require common/social-media
+//= require common/analytics
 //= require_tree ./site
