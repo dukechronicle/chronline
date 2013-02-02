@@ -85,6 +85,8 @@ module Chronline
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
+
+    config.exceptions_app = self.routes
   end
 end
 
