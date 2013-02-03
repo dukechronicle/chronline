@@ -1,6 +1,6 @@
 #facebook-social-share
   height: 22px
-  width: 140px
+  width: auto
   position: relative
   display: none
   vertical-align: text-bottom
@@ -9,7 +9,7 @@
   right: 20px
   z-index: 999
   color: #333
-  border 1px solid rgba(29, 49, 91, .3)
+  border: 1px solid rgba(29, 49, 91, .3)
   border-bottom: none
   border-radius: 1px 1px 0 0
   box-shadow: 0 1px 1px rgba(0, 0, 0, .3)
@@ -17,13 +17,16 @@
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif
   font-size: 11px
   .share-button
+    color: #333
     display: block
     height: 16px
-    width: 104px
+    width: auto
     line-height: 15px
     padding: 3px 5px
     float: left
     border-right: 1px solid rgba(29, 49, 91, 0.30)
+  .share-button:hover
+    color: $link-color
   .activity-button
     float: left
     display: block
