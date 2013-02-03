@@ -4,15 +4,14 @@
   - content_for :title_block do
     %h1
       = "Results for "
-      %b= params[:article_search][:query]
+      %em= params[:article_search][:query]
       - if params[:article_search][:section].present?
         = "in "
-        %b= params[:article_search][:section].titlecase
+        %em= params[:article_search][:section].titlecase
 - else
   - provide :title, "Search"
   - content_for :title_block do
-    %h1
-      = "Search the Archives"
+    %h1= "Search the archives"
   - error = "Please provide a query"
 
 
@@ -30,4 +29,3 @@
                 = image_tag article.image.original.url(:thumb_square_s)
               %h2= article.title
               %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
-              %p= article.teaser
