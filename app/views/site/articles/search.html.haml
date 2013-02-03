@@ -17,7 +17,7 @@
 
 
 .span-8
-  - if @articles.nil? || @articles.empty?
+  - if @articles.blank?
     .rounded
       .article-container
         %h3= error || "No results found"
@@ -34,7 +34,7 @@
     = will_paginate @articles
 
 .span-4.last
-  - unless @article_search.nil? || @articles.nil? || @articles.empty?
+  - unless @article_search.blank? || @articles.blank?
     = render partial: 'site/containers/search',
       locals: {title: "By Author", hits: @article_search.authors, param: 'author' }
     = render partial: 'site/containers/search',
