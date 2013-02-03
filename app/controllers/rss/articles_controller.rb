@@ -6,6 +6,7 @@ class Rss::ArticlesController < ApplicationController
       .find_by_section(@taxonomy)
       .order('created_at DESC')
       .limit(30)
+    render 'index'
   end
 
 end
