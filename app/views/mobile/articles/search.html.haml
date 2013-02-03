@@ -20,3 +20,4 @@
                 = image_tag article.image.original.url(:thumb_square_s)
               %h2= article.title
               %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
+              %p= article.teaser
