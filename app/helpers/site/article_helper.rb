@@ -22,4 +22,12 @@ module Site::ArticleHelper
     end
   end
 
+  def photo_credit(image)
+    if image.photographer
+      image.photographer.name + ' / The Chronicle'
+    elsif image.credit
+      image.credit
+    end
+  end
+
 end
