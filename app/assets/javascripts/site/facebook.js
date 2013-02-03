@@ -1,35 +1,25 @@
 // function initializeFacebook() {
 //   console.log("test")
-  window.fbAsyncInit = function() {
-    FB.init({
-      // appId      : '335954613131615', // App ID
-      appId      : '150954285059117', // DEV ID
-      //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
-      status     : true, // check login status
-      cookie     : true, // enable cookies to allow the server to access the session
-      xfbml      : true  // parse XFBML
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '335954613131615', // App ID
+    // appId      : '150954285059117', // DEV ID
+    //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+    status     : true, // check login status
+    cookie     : true, // enable cookies to allow the server to access the session
+    xfbml      : true  // parse XFBML
+  });
+
+  if ($("#facebook-social-share").length > 0)
+    socialShare();
+
+  if ($("#fb\\:like").length > 0) {
+    // subscribe to like button
+    FB.Event.subscribe('edge.create', function(url) {
+        _gaq.push(['_trackSocial', 'facebook', 'like', url]);
     });
-
-    if ($("#facebook-social-share").length > 0)
-      socialShare();
-
-    if ($("#fb\\:like").length > 0) {
-      // subscribe to like button
-      FB.Event.subscribe('edge.create', function(url) {
-          _gaq.push(['_trackSocial', 'facebook', 'like', url]);
-      });
-    }
-  };
-
-  // Load the SDK Asynchronously
-  // (function(d){
-  //   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-  //   if (d.getElementById(id)) {return;}
-  //   js = d.createElement('script'); js.id = id; js.async = true;
-  //   js.src = "//connect.facebook.net/en_US/all.js";
-  //   ref.parentNode.insertBefore(js, ref);
-  // }(document));
-// }
+  }
+};
 
 function socialShare() {
   var readTrigger = null;
@@ -89,19 +79,20 @@ function markRead(accessToken) {
       updateRecentActivities(accessToken);
     }
   });
-  // $.post(
-  //   "https://graph.facebook.com/me/news.reads",
-  //   {article: url, access_token: accessToken},
-  //   function(data) {
-  //     console.log(data)
-  //     updateRecentActivities(accessToken);
-  //   },
-  //   "json"
-  // )
 }
 
 function updateRecentActivities(accessToken) {
   console.log("updating")
+  FB.api('/me/news.reads', { limit: 5, access_token: accessToken }, function(response) {
+    for (var i=0, l=response.length; i<l; i++) {
+      var post = response[i];
+      if (post.message) {
+        console.log('Message: ' + post.message);
+      } else if (post.attachment && post.attachment.name) {
+        console.log('Attachment: ' + post.attachment.name);
+      }
+    }
+  });
   $.getJSON('https://graph.facebook.com/me/news.reads',
     {limit: 5, access_token: accessToken},
     function(data) {
