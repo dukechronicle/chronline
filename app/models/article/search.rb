@@ -67,7 +67,7 @@ class Article::Search
 
   def sections
     return request.facet(:section).rows.map do |facet|
-      {value: facet.value.titlecase, count: facet.count, lookup: facet.value}
+      {value: facet.value, count: facet.count, lookup: facet.value}
     end
   end
 
@@ -99,11 +99,10 @@ class Article::Search
   def request
     if @request.nil?
       @request = Article.search do
-
-        with(:section, section) if section?
+        with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
         # with(:authors).all_of(author.to_i) unless authors.blank?
-        fulltext self.query, highlight: true, query_phrase_slop: 1, minimum_match: 2
+        fulltext self.query, highlight: true, minimum_match: 2
 
         paginate page: self.page, per_page: self.per_page
 

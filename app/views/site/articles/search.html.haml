@@ -8,12 +8,19 @@
       - if params[:article_search][:section].present?
         = "in "
         %b= params[:article_search][:section].titlecase
+- else
+  - provide :title, "Search"
+  - content_for :title_block do
+    %h1
+      = "Search the Archives"
+  - error = "Please provide a query"
+
 
 .span-8
   - if @articles.nil? || @articles.empty?
     .rounded
       .article-container
-        %h1 No results found
+        %h3= error || "No results found"
   - else
     - @articles.each do |article|
       .rounded
@@ -24,9 +31,10 @@
               %span.date= article.created_at.strftime("%B %e, %Y")
               %span.author= byline(article)
             %p= article.teaser
+    = will_paginate @articles
 
 .span-4.last
-  - unless @article_search.nil? || @articles.empty?
+  - unless @article_search.nil? || @articles.nil? || @articles.empty?
     = render partial: 'site/containers/search',
       locals: {title: "By Author", hits: @article_search.authors, param: 'author' }
     = render partial: 'site/containers/search',
