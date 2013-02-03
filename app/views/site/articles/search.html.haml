@@ -7,11 +7,10 @@
       %b= params[:article_search][:query]
       - if params[:article_search][:section].present?
         = "in "
-        / Drop the first and last slash
-        %b= params[:article_search][:section][1...-1]
+        %b= params[:article_search][:section].titlecase
 
 .span-8
-  - if @articles.empty?
+  - if @articles.nil?
     .rounded
       .article-container
         %h1 No results found
@@ -27,4 +26,11 @@
             %p= article.teaser
 
 .span-4.last
+  - unless @article_search.nil?
+    = render partial: 'site/containers/search',
+      locals: {title: "By Author", hits: @article_search.authors, param: 'author' }
+    = render partial: 'site/containers/search',
+      locals: {title: "By Section", hits: @article_search.sections, param: 'section' }
+    = render partial: 'site/containers/search',
+      locals: {title: "By Year", hits: @article_search.years, param: 'date' }
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

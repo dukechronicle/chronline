@@ -1,0 +1,9 @@
+.search-facet
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      - hits.each do |hit|
+        %h4
+          = link_to "#{hit[:value]} (#{hit[:count]})",
+              params.merge("article_search[#{param}]" => hit[:lookup]),
+              class: 'hover'
