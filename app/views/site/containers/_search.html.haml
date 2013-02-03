@@ -3,7 +3,7 @@
   .rounded
     .content-container
       - hits.each do |hit|
-        %a.hover.right{href: params.merge("article_search[#{param}]" => hit[:lookup])}
-          %h4
-            = "#{hit[:value]} (#{hit[:count]})"
-
+        %h4
+          = link_to "#{hit[:value]} (#{hit[:count]})",
+              params.merge("article_search[#{param}]" => hit[:lookup]),
+              class: 'hover'
