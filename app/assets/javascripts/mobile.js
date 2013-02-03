@@ -14,16 +14,9 @@
 $.mobile.ajaxEnabled = false;
 
 window.fbAsyncInit = function() {
-FB.init({
-  status     : true, // check login status
-  cookie     : true, // enable cookies to allow the server to access the session
-  xfbml      : true  // parse XFBML
-});
-
-// if ($("#fb\\:like").length > 0) {
-//   // subscribe to like button
-//   FB.Event.subscribe('edge.create', function(url) {
-//       _gaq.push(['_trackSocial', 'facebook', 'like', url]);
-//   });
-// }
+  FB.init({
+    status     : true, // check login status
+    cookie     : true, // enable cookies to allow the server to access the session
+    xfbml      : true  // parse XFBML
+  });
 };
