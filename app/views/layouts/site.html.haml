@@ -17,8 +17,8 @@
     = csrf_meta_tags
     %link{rel: "image_src", href: image_path("logo/300x300.png")}
 
-    - if content_for? :open_graph_tags
-      = yield :open_graph_tags
+    = yield :open_graph_tags
+    = yield :twitter_card
   %body
     #fb-root
     = render 'site/partials/admin-panel'

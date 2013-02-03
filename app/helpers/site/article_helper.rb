@@ -14,4 +14,12 @@ module Site::ArticleHelper
     article.created_at.strftime(format)
   end
 
+  def truncate_body(article)
+    if article.teaser.length <= 200
+      article.teaser
+    else
+      article.teaser[0...article.teaser.rindex(' ', 197)] + '...'
+    end
+  end
+
 end
