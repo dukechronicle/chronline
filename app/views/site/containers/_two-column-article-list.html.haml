@@ -12,7 +12,7 @@
           %h4= articles['right'].first.title
           %p= articles['right'].first.teaser
 
-    .bottom.story-list
+    .bottom.article-list
       .span-4.content-container
         - articles['left'].drop(1).each do |article|
           %a.hover.list-story.highlight-left{href: site_article_path(article)}

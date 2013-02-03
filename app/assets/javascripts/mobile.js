@@ -5,9 +5,18 @@
 
 //= require util
 //= require initialize
-//= require site/social-media.js
+//= require common/social-media
+//= require common/analytics
 //= require site/disqus.js
 //= require_tree ./mobile
 
 // TODO: figure out scripting issues with ajax transitions
 $.mobile.ajaxEnabled = false;
+
+window.fbAsyncInit = function() {
+  FB.init({
+    status     : true, // check login status
+    cookie     : true, // enable cookies to allow the server to access the session
+    xfbml      : true  // parse XFBML
+  });
+};

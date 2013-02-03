@@ -6,10 +6,11 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
+  gem 'le'
   gem 'pg'
-  gem 'thin'
-  gem 'redis-store'
   gem 'redis-rails'
+  gem 'redis-store'
+  gem 'thin'
 end
 
 group :development, :test do
@@ -48,6 +49,7 @@ gem 'active_attr'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
+gem 'default_value_for'
 gem 'devise', '2.1.2'  # https://github.com/scambra/devise_invitable/issues/265
 gem 'devise_invitable'
 gem 'friendly_id'
@@ -67,6 +69,9 @@ gem 'simple_form'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'sunspot_rails'
 gem 'will_paginate'
+gem 'sitemap_generator'
+gem 'carrierwave'
+gem 'fog' 
 
 group :test do
   gem 'capybara'

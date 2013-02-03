@@ -93,6 +93,11 @@ spork: # See "Available Options"  at https://github.com/guard/guard-spork
 
 ```
 
+Sitemap
+===============
+To generate the sitemap, run rake
+sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
+
 Other Resources
 ===============
 

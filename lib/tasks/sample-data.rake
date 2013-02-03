@@ -17,17 +17,13 @@ namespace :db do
         )
     end
 
-    authors = 15.times.map do |n|
-      Author.create!(name: Faker::Name.name)
-    end
-
-    photographers = 5.times.map do |n|
-      Photographer.create!(name: Faker::Name.name)
+    staff = 15.times.map do |n|
+      Staff.create!(name: Faker::Name.name)
     end
 
     image = Image.new(original: File.new('lib/sample-images/pikachu.png'),
                       caption: Faker::Lorem.sentence)
-    image.photographer = photographers.sample
+    image.photographer = staff.sample
     image.save!
 
     30.times do |n|
@@ -39,7 +35,7 @@ namespace :db do
                             body: Faker::SamuelJackson.paragraphs(2),
                             section: random_taxonomy,
                             image_id: image.id)
-      article.authors = [authors.sample]
+      article.authors = [staff.sample]
       article.save!
     end
   end

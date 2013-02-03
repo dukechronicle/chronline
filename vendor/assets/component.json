@@ -12,6 +12,8 @@
     "jquery-ui": "~1.9.2",
     "onde": "git://github.com/exavolt/onde.git",
     "underscore": "~1.4.3",
-    "jquery-galleria": "~1.2.8"
+    "jquery-galleria": "~1.2.8",
+    "jquery.cookie": "latest",
+    "jquery.autoellipsis": "git://github.com/pvdspek/jquery.autoellipsis.git"
   }
 }
