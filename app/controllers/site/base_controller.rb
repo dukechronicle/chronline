@@ -26,7 +26,7 @@ class Site::BaseController < ApplicationController
   end
 
   def not_found
-    render 'site/404'
+    render 'site/404', status: :not_found
   end
 
 end
