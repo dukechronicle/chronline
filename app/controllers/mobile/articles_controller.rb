@@ -22,7 +22,7 @@ class Mobile::ArticlesController < Mobile::BaseController
     @taxonomy = Taxonomy.new
     if params[:article_search].present?
       @article_search = Article::Search.new(params[:article_search])
-      @articles = @article_search.results highlight: false
+      @articles = @article_search.results highlight: true
     else
       params[:article_search] = {}
       @articles = []
