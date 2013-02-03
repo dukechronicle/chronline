@@ -20,12 +20,14 @@ window.fbAsyncInit = function() {
 };
 
 function socialShare() {
+  // Check if logged in
   var readTrigger = null;
   var readTriggerTime = 20000;
   FB.Event.subscribe('auth.statusChange', function(response) {
     if (response.authResponse) {
       var accessToken = response.authResponse.accessToken;
       var status = "on";
+      var shareButton = $('#facebook-social-share .share-button').html("Sharing is <u class=\"status\">on</u>");
 
       if ($.cookie("disable-sharing")) {
         status = "off";
@@ -60,26 +62,25 @@ function socialShare() {
         }
         shareButton.children(".status").html(status);
       });
-    } else {
-      var shareButton = $('#facebook-social-share .share-button').html("Share what you're reading on Facebook.");
-      shareButton.click(function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        FB.login(function(response) {
-           if (response.authResponse) {
-             console.log('Welcome!  Fetching your information.... ');
-             FB.api('/me', function(response) {
-               console.log('Good to see you, ' + response.name + '.');
-             });
-           } else {
-             console.log('User cancelled login or did not fully authorize.');
-           }
-         }, {scope: 'publish_actions'});
-      });
-      $('#facebook-social-share').show();
-      $('#facebook-social-share .activities').hide();
     }
   });
+  // Setup Login Button
+  $('#facebook-social-share .share-button').click(function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    FB.login(function(response) {
+       if (response.authResponse) {
+         console.log('Welcome!  Fetching your information.... ');
+         FB.api('/me', function(response) {
+           console.log('Good to see you, ' + response.name + '.');
+         });
+       } else {
+         console.log('User cancelled login or did not fully authorize.');
+       }
+     }, {scope: 'publish_actions'});
+  });
+  $('#facebook-social-share').show();
+  $('#facebook-social-share .activities').hide();
 }
 
 function markRead(accessToken) {
