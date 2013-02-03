@@ -1,0 +1,10 @@
+.article-list
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      - articles.each do |article, comments|
+        %a.list-story.hover.highlight-right{href: site_article_path(article)}
+          %h3.title= article.title
+          %p.subtitle
+            %span.comments #{comments} Comments
+            %span.date= article.created_at.strftime("%B %e, %Y")

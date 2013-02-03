@@ -10,9 +10,10 @@ loadTemplate = ->
   schema = $('#page_layout_template').children('option:selected').data('schema')
   if schema
     $('form#layout-data .onde-panel').show()
+    embedded = $('form#layout-data').data('embedded')
     dataString = $('#page_layout_data').val()
     data = JSON.parse(dataString) if dataString
-    ondeSession.render(schema, data, collapsedCollapsibles: true)
+    ondeSession.render(schema, data, collapsedCollapsibles: true, embedded: embedded)
 
 initialize 'form#page-settings', ->
   ondeSession = new onde.Onde($('form#layout-data'))

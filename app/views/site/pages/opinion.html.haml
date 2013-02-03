@@ -1,0 +1,14 @@
+- content_for :title_block do
+  = render 'site/partials/navigation'
+
+.clearfix
+  .span-6
+    #columns= render partial: 'site/containers/columns', locals: {title: "Today's Columns", articles: @model.featured}
+    #columnists= render partial: 'site/containers/author-box', locals: {title: "Columnists", authors: @model.columnists}
+
+  .span-6.last
+    .clearfix.align-group
+      #blog.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list/rss', locals: {title: "Backpages", items: @model.blog, image: nil}
+      .span-4.last.align-element{data: {alignprimary: "true"}}= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    #editorial-board.title-medium= render partial: 'site/containers/article-list', locals: {title: "Editorial Board", articles: @model.editorial_board, style: :teaser}
+    #cartoon= render partial: 'site/containers/image', locals: {title: "Cartoon", image: @model.cartoon}

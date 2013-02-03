@@ -1,0 +1,9 @@
+- provide :title, 'Page Not Found'
+  
+- content_for :title_bock do
+  %h1 'Page Not Found'
+.center
+  Sorry, this page doesn't exist. Please click 
+  %a{href: mobile_root_path} here
+  to go back to our homepage.
+  =render 'partials/failwhale'

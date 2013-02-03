@@ -1,0 +1,12 @@
+%h2.vertical-label= title
+.rounded
+  .image-container.clearfix
+    %a{href: image.original.url}
+      = image_tag image.original.url(:large_rect)
+    - if image.photographer
+      .photo-credit
+        %span= image.photographer.name
+        %span / The Chronicle
+    - elsif image.credit
+      .photo-credit
+        %span= image.credit

@@ -2,7 +2,7 @@
   +border-radius($corner-radius)
   +black-box-shadow($default-box-shadow-opacity, 0px, 1px, 3px)
   background-color: white
-  +background(linear-gradient(bottom, whiteSmoke 0%, white 33%))
+  +background-with-css2-fallback(linear-gradient(bottom, whiteSmoke 0%, white 33%))
   margin-bottom: $rounded-vertical-spacing
 
   .highlight-left
@@ -20,6 +20,11 @@
   img
     +border-radius($corner-radius)
     width: 100%
+
+  .photo-credit
+    float: right
+    span
+      color: #777
 
 .content-container
   padding: $content-padding

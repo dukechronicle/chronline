@@ -1,0 +1,7 @@
+- if user_signed_in?
+  .admin-panel
+    = link_to "Administrative Interface", admin_root_url(subdomain: :admin)
+    - if @page.present? and @page.is_a? Page
+      = link_to "Edit this page", edit_admin_page_url(@page, subdomain: :admin)
+    - if content_for? :administrative_links
+      = yield :administrative_links

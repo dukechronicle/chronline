@@ -4,7 +4,7 @@
     .content-container
       - articles.each_with_index do |article, i|
         %a.list-story.hover.highlight-right{href: site_article_path(article)}
-          - if defined?(:style)
+          - if style
             = render partial: "site/containers/article-list/#{style}", locals: {article: article, first: (i == 0)}
           - else
             %h3.title= article.title
