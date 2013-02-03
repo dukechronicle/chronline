@@ -104,7 +104,7 @@
     font: italic 12px/1.4 georgia,serif;
     margin: 0;
     color: #bbb;
-    visibility: hidden;
+    display: none !important;
 }
 .galleria-info-close {
     width: 9px;

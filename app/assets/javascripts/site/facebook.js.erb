@@ -68,7 +68,7 @@ function socialShare() {
 
 function markRead(accessToken) {
   console.log("markign read")
-  var url = "http://www.dukechronicle.com" + location.pathname;
+  var url = "http://www.<%= Settings.domain %>" + location.pathname;
   console.log(accessToken)
   FB.api('/me/news.reads', 'post', { article: url, access_token: accessToken }, function(response) {
     console.log(response)
