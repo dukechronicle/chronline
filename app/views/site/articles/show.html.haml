@@ -1,5 +1,8 @@
 - provide :title, @article.title
 
+- content_for :twitter_card do
+  = render 'partials/twitter_cards/article'
+
 - content_for :title_block do
   %h1
     - @article.section.parents.each_with_index do |parent, i|
