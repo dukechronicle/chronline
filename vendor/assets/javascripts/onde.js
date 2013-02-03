@@ -472,6 +472,9 @@ onde.Onde.prototype.renderFieldValue = function (fieldName, fieldInfo, parentNod
         }
     }
     fieldInfo = this._sanitizeFieldInfo(fieldInfo, valueData);
+    if (typeof(fieldInfo) === 'object' && 'extends' in fieldInfo) {
+        this.processSchemaExtends(fieldInfo);
+    }
     var fieldDesc = fieldInfo ? fieldInfo.description || fieldInfo.title : null;
     if (!fieldInfo || !fieldInfo.type || fieldInfo.type == 'any') {
         //TODO: Any!
