@@ -30,15 +30,15 @@ class Article < ActiveRecord::Base
   validates :section, presence: true
   validates :authors, presence: true
 
-  has_and_belongs_to_many :authors
+  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
   belongs_to :image
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
   searchable do
-    text :title, stored: true, :boost => 2.0
-    text :subtitle, stored: true, :boost => 1.5
-    text :body, stored: true
+    text :title, stored: true, boost: 2.0, more_like_this: true
+    text :subtitle, stored: true, boost: 1.5, more_like_this: true
+    text :body, stored: true, more_like_this: true
     integer :author_ids, :multiple => true
     string :section
     time :created_at
@@ -48,7 +48,7 @@ class Article < ActiveRecord::Base
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
-      identifier: id,  # TODO: should be old unique identifier for backwards compatibility
+      identifier: previous_id || "_#{id}",
       title: title,
       url: site_article_url(self, subdomain: 'www', host: host),
     }
@@ -69,9 +69,19 @@ onto per since than the this that to up via with)
   end
 
   def register_view
-    # TODO: expire old keys
-    key = "popularity:#{section[0].downcase}:#{Date.today}"
-    $redis.zincrby(key, 1, id)
+    unless section.root?
+      # TODO: expire old keys
+      key = "popularity:#{section[0].downcase}:#{Date.today}"
+      $redis.zincrby(key, 1, id)
+    end
+  end
+
+  def related(limit)
+    Sunspot.more_like_this(self) do
+      fields :title, :subtitle, :body
+      minimum_term_frequency 5
+      paginate per_page: limit
+    end.results
   end
 
   def render_body
@@ -87,7 +97,7 @@ onto per since than the this that to up via with)
     self[:section] = taxonomy.to_s
   end
 
-  def self.find_by_section(taxonomy)
+  def self.find_by_section(taxonomy)  # TODO: create a 'section' scope instead
     self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
@@ -104,7 +114,23 @@ onto per since than the this that to up via with)
     end
     article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
       .take(limit).map(&:first)
-    self.find_in_order(article_ids)
+    self.find_in_order(article_ids).compact
+  end
+
+  def self.most_commented(limit)
+    disqus = Disqus.new(Settings.disqus.api_key)
+    response = disqus.request(:threads, :list_hot, limit: limit,
+                              forum: Settings.disqus.shortname)
+    slugs = response['response'].map do |thread|
+      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
+      [$1, thread['posts']]
+    end
+    articles = self.where(slug: slugs.map(&:first))
+    results = slugs.map do |slug, comments|
+      article = articles.find {|article| article.slug == slug}
+      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
+    end.compact
+    results.sort_by! {|slug, comments| -comments}
   end
 
   ###

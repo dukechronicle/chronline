@@ -1,7 +1,7 @@
 addImages = ($imageSelect, $imagePicker, images) ->
   for image in images
     $imageTag = $("<img src=\"#{image.thumbnail_url}\" />")
-    $imageSelect.find('.modal-body').append($imageTag)
+    $imageSelect.find('.modal-body .images').append($imageTag)
     do (image) ->
       $imageTag.click ->
         selectImage($imagePicker, image)
@@ -34,6 +34,12 @@ setVisibilities = ($imagePicker) ->
     $imagePicker.find('.image-change').hide()
     $imagePicker.find('.image-display').hide()
 
+loadImages = ($imagePicker, page=1) ->
+  ->
+    data = {limit: 35, page: page++}
+    $.get fullUrl('api', '/images'), data, (images) =>
+      addImages($(this), $imagePicker, images)
+
 initialize '.control-group.image_picker', ->
   $(this).each -> setVisibilities $(this)
 
@@ -54,6 +60,7 @@ initialize '.control-group.image_picker', ->
     e.preventDefault()
     $imagePicker = $(this).parents('.control-group.image_picker').first()
     $imageSelect = createModal()
-
-    $.get fullUrl('api', '/images'), (images) ->
-      addImages($imageSelect, $imagePicker, images)
+    $imageSelect.loadImages = loadImages($imagePicker)
+    $imageSelect.loadImages()
+    $imageSelect.on 'click', '#next', ->
+      $imageSelect.loadImages()

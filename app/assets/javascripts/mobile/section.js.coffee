@@ -3,7 +3,7 @@ listItem = (article) ->
   article.date = -> (new Date(@created_at)).format("mmmm d, yyyy")
   _.template("""
              <li>
-               <a href="/articles/<%= slug %>">
+               <a href="/article/<%= slug %>">
                  <% if (thumb_square_s_url) { %>
                    <img src="<%= thumb_square_s_url %>"/>
                  <% } %>

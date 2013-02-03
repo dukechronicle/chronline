@@ -22,8 +22,6 @@ module Chronline
       Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
     )
 
-    #config.logger = Logger.new(STDOUT)
-
     config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
 
     config.middleware.use Rack::Cors do
@@ -87,6 +85,8 @@ module Chronline
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
+
+    config.exceptions_app = self.routes
   end
 end
 

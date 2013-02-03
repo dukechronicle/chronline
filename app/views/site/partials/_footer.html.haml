@@ -6,16 +6,18 @@
     = link_to "User Guidelines", "/pages/user-guidelines"
     %span.sep= '|'
     = link_to "Privacy Policy", "/pages/privacy-policy"
+    %span.sep= '|'
+    = link_to "AdChoices", "//quantcast.com/adchoices-pub?pub=#{Settings.quantcast.pub}", id: "adChoicesLogo", target: "_blank", style: "display:inline-block; width:75px; height:16px; line-height: 16px; text-align:left; background: transparent url(//aboutads.quantcast.com?icon=#{Settings.quantcast.pub}) right 0 no-repeat; text-decoration:none; font-size:11px; font-family:arial,helvetica,sans-serif;"
 
   .links
-    = link_to "Daily Newsletter", "/pages/newsletter"
-    = link_to "Print Subscription", "/pages/subscribe"
-    = link_to "Classifieds", "http://dukechronicle.campusave.com/"
-    = link_to "Housing Guide", "http://chroniclehousing.com/"
-    = link_to "Alumni", "http://dukechroniclealumni.com/"
     = link_to "About Us", "/pages/about-us"
     = link_to "Advertising", "/pages/advertising"
+    = link_to "Alumni", "http://dukechroniclealumni.com/"
+    = link_to "Classifieds", "http://dukechronicle.campusave.com/"
     = link_to "Contact", "/pages/contact"
-    = link_to "Editorial Board", "/pages/edit-board"
+    = link_to "Daily Newsletter", "/pages/newsletter"
+    = link_to "Editorial Board", "/pages/editorial-board"
+    = link_to "Housing Guide", "http://chroniclehousing.com/"
     = link_to "Letters to the Editor", "/pages/letters"
     = link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
+    = link_to "Print Subscription", "/pages/subscribe"

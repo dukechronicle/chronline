@@ -21,13 +21,14 @@ class Site::ArticlesController < Site::BaseController
       return redirect_to [:site, @article], status: :moved_permanently
     end
     @taxonomy = @article.section
+    @related = @article.related(5)
     @article.register_view
   end
 
   def print
     @article = Article.find(params[:id])
-    if request.path != print_site_article_path(@article)
-      return redirect_to [:print, :site, @article], status: :moved_permanently
+    if request.path != site_print_article_path(@article)
+      return redirect_to site_print_article_path(@article), status: :moved_permanently
     end
     @article.register_view
 
