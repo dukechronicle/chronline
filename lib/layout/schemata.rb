@@ -25,7 +25,7 @@ end
 Layout.add_schema(:columnists, {'type' => 'null'}) do |invocations|
   invocations.map do |_|
     # TODO: eager load the most recent n articles
-    Staff.includes(:headshot).where(columnist: true)
+    Staff.includes(:headshot).where(columnist: true).order(:name)
   end
 end
 
