@@ -69,6 +69,9 @@ gem 'simple_form'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'sunspot_rails'
 gem 'will_paginate'
+gem 'sitemap_generator'
+gem 'carrierwave'
+gem 'fog' 
 
 group :test do
   gem 'capybara'
