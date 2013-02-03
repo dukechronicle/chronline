@@ -1,0 +1,9 @@
+%meta{name: 'twitter:card', content:'summary'}
+%meta{name: 'twitter:site:id', content: Settings.twitter.id}
+%meta{name: 'twitter:title', content: article.title}
+%meta{name: 'twitter:url', content: site_article_url(article, subdomain: 'www')}
+%meta{name: 'twitter:description', content: truncate_body(article)}
+- if article.authors.first.twitter.present?
+  %meta{name: 'twitter:creator', content: article.authors.first.twitter}
+- if article.image
+  %meta{name: 'twitter:image', content: article.image.original.url(:large_rect)}

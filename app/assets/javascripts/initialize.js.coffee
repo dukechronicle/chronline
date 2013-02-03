@@ -3,13 +3,13 @@ initializers = []
 $ ->
   for [selector, action] in initializers
     if not selector? or $(selector).length > 0
-      try
+#      try
         action.call $(selector)
-      catch err
-        console.error(err)
+#      catch err
+#        console.error(err)
 
 window.initialize = (selector, action) ->
   if not action?
-    selector = undefined
     action = selector
+    selector = undefined
   initializers.push [selector, action]

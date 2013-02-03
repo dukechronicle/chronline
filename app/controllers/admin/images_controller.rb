@@ -1,7 +1,7 @@
 class Admin::ImagesController < Admin::BaseController
 
   def index
-    @images = Image.page(params[:page]).order('created_at DESC')
+    @images = Image.page(params[:page]).order('date DESC')
   end
 
   def upload
@@ -53,7 +53,7 @@ class Admin::ImagesController < Admin::BaseController
     if photographer_name.blank?
       image.photographer = nil
     else
-      image.photographer = Photographer.find_or_create_by_name(photographer_name)
+      image.photographer = Staff.find_or_create_by_name(photographer_name)
     end
     image
   end
