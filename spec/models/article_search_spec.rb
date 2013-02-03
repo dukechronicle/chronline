@@ -13,6 +13,10 @@ describe Article::Search do
 
     end
 
+    pending "should not change the title when highlighted" do
+
+    end
+
     pending "should higlight the query in each results' body" do
 
     end

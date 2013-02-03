@@ -67,11 +67,11 @@ gem 'require_all'
 gem 'redis'
 gem 'simple_form'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
-gem 'sunspot_rails'
+gem 'sunspot_rails', '2.0.0.pre.130115'
 gem 'will_paginate'
 gem 'sitemap_generator'
 gem 'carrierwave'
-gem 'fog' 
+gem 'fog'
 
 group :test do
   gem 'capybara'
