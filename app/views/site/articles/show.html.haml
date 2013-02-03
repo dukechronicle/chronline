@@ -14,7 +14,7 @@
   %meta{property: "og:title", content: @article.title}
   %meta{property: "og:type", content: "article"}
   - if @article.image
-    %meta{property: "og:image", content: @article.image.original.url(:thumb_rect_m)}
+    %meta{property: "og:image", content: @article.image.original.url(:thumb_square_m)}
   - else
     %meta{property: "og:image", content: image_path("logo/300x300.png")}
   %meta{property: "og:url", content: site_article_url(@article)}
