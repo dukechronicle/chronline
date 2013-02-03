@@ -31,6 +31,7 @@
               %span.date= article.created_at.strftime("%B %e, %Y")
               %span.author= byline(article)
             %p= article.teaser
+    = will_paginate @articles
 
 .span-4.last
   - unless @article_search.nil? || @articles.nil? || @articles.empty?
