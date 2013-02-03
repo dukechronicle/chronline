@@ -1,7 +1,7 @@
 - provide :title, @article.title
 
 - content_for :twitter_card do
-  = render 'partials/twitter_cards/article'
+  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
 
 - content_for :title_block do
   %h1
@@ -23,7 +23,7 @@
   %meta{property: "og:url", content: site_article_url(@article)}
   %meta{property: "og:site_name", content: "The Duke Chronicle"}
   %meta{property: "og:description", content: @article.teaser}
-
+  %meta{property: "fb:app_id", content: Settings.facebook.app_id}
 
 %article#article
   .span-8

@@ -4,7 +4,6 @@
 %html{"xmlns:og" => "http://ogp.me/ns#", "xmlns:fb" => "https://www.facebook.com/2008/fbml"}
   %head
     %title #{yield :title} | The Chronicle
-    #{yield :twitter_card}
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
     :javascript
       try{Typekit.load()}catch(e){}
@@ -18,8 +17,8 @@
     = csrf_meta_tags
     %link{rel: "image_src", href: image_path("logo/300x300.png")}
 
-    - if content_for? :open_graph_tags
-      = yield :open_graph_tags
+    = yield :open_graph_tags
+    = yield :twitter_card
   %body
     #fb-root
     = render 'site/partials/admin-panel'

@@ -1,11 +1,11 @@
 %meta{name: 'twitter:card', content:'summary'}
-%meta{name: 'twitter:site:id', content: Settings.twitter.twitter_id}
-%meta{name: 'twitter:title', content: @article.title}
-%meta{name: 'twitter:url',
-  content: request.protocol + request.host_with_port + request.fullpath}
-%meta{name: 'twitter:description', content: truncate_body(@article)}
-- if @article.authors.first.twitter
-  %meta{name: 'twitter:creator', content: @article.authors.first.twitter}
-- if @article.image
-  %meta{name: 'twitter:image',
-    content: request.protocol + request.host_with_port + @article.image.original.url(:large_rect)}
+%meta{name: 'twitter:site:id', content: Settings.twitter.id}
+%meta{name: 'twitter:title', content: article.title}
+%meta{name: 'twitter:url', content: site_article_url(article, subdomain: 'www')}
+%meta{name: 'twitter:description', content: truncate_body(article)}
+- if article.authors.first.twitter.present?
+  %meta{name: 'twitter:creator', content: article.authors.first.twitter}
+- if article.image
+  %meta{name: 'twitter:image', content: article.image.original.url(:large_rect)}
+- else
+  %meta{name: 'twitter:image', content: image_path('logo/300x300.png')}

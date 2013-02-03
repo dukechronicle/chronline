@@ -4,7 +4,7 @@
   = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @article.section}
 
 - content_for :twitter_card do
-  = render 'partials/twitter_cards/article'
+  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
 
 %article#article
   .article-container
