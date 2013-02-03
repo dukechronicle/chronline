@@ -1,15 +1,31 @@
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
-    xml.title "The Chronicle"
+    xml.title title(@taxonomy)
     xml.link site_root_url(subdomain: 'www')
     xml.description "The Independent Daily at Duke University"
     xml.language "en-us"
     xml.copyright "Copyright 2012 Duke Student Publishing Company. All rights reserved."
     xml.image do
       xml.url "http:#{image_path('logo/300x300.png')}"
-      xml.title "The Chronicle"
+      xml.title title(@taxonomy)
       xml.link site_root_url(subdomain: 'www')
+    end
+
+    @articles.each do |article|
+      xml.item do
+        xml.title article.title
+        xml.link site_article_url(article, subdomain: 'www')
+        xml.description article.render_body
+        xml.author byline(article)
+        xml.pubDate article.created_at.rfc822
+        xml.comments site_article_url(article, subdomain: 'www') + '#disqus_thread'
+        if article.image
+          xml.enclosure(url: article.image.original.url(:large_rect),
+                        length: article.image.original_file_size,
+                        type: article.image.original_content_type)
+        end
+      end
     end
   end
 end
