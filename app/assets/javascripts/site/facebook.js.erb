@@ -47,7 +47,7 @@ function socialShare() {
         event.preventDefault();
         $('#facebook-social-share .activities').toggle();
       });
-      var shareButton = $('#facebook-social-share .share-button');
+      var shareButton = $('#facebook-social-share .share-button').unbind('click');
       shareButton.click(function(event) {
         event.stopPropagation();
         event.preventDefault();
