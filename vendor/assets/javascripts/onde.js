@@ -137,6 +137,8 @@ onde.Onde.prototype.render = function (schema, data, opts) {
     this.renderObject(this.documentSchema, this.panelElement, this.instanceId, 
         this.documentInstance);
     this.initialRendering = false;
+    var arrays = this.panelElement.find('ol');
+    arrays.sortable({connectWith: arrays});
     if (opts.renderFinished) {
         opts.renderFinished(this.panelElement);
     }
