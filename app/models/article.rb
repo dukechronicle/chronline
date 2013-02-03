@@ -40,8 +40,10 @@ class Article < ActiveRecord::Base
     text :subtitle, stored: true, boost: 1.5, more_like_this: true
     text :body, stored: true, more_like_this: true
     integer :author_ids, :multiple => true
-    string :section
-    time :created_at
+    string :section do
+      self[:section].match(%r{/([^/]+)})[1]
+    end
+    time :created_at, :trie => true
   end
 
   def disqus(host)
@@ -152,4 +154,5 @@ onto per since than the this that to up via with)
       end
     end
   end
+
 end
