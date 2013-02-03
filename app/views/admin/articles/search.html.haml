@@ -22,8 +22,8 @@
       %tr{id: "article_#{article.id}"}
         %td
           = link_to article.title, site_article_url(article, subdomain: 'www')
+          %p= byline(article)
           %p= article.teaser
-          %p= article.body
         %td= article.created_at.strftime('%-m-%-d-%Y')
         %td
           = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
