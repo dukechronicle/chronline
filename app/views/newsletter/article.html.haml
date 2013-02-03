@@ -6,4 +6,11 @@
   %span.sep= "|"
   %span.date= article.created_at.strftime("%B %e, %Y")
 
-%p= article.render_body
+- if article.image
+  %img{src: article.image.original.url(:thumb_rect_l), width: 276, height: 165, alt: "Chronicle Image", style: 'display:block;'}
+
+%p= article.teaser
+
+%p
+  %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}
+    Visit #{Settings.domain} for the full article.
