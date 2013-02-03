@@ -15,7 +15,11 @@ module Site::ArticleHelper
   end
 
   def truncate_body(article)
-    article.body[0...article.body.rindex(' ', 197)] + '...'
+    if article.teaser.length <= 200
+      article.teaser
+    else
+      article.teaser[0...article.teaser.rindex(' ', 197)] + '...'
+    end
   end
 
 end
