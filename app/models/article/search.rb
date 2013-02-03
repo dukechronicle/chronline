@@ -33,30 +33,30 @@ class Article::Search
   # @return [Sunspot::Search::PaginatedCollection] An array of articles
   #   compatable with popular pagination gems
   def results options = { highlight: true }
-    return nil if query.nil? || query.blank?
-    if options[:highlight]
-      prefix = "<mark>"
-      suffix = "</mark>"
-      formatted_results = []
+    return nil if query.nil? or query.blank?
+    return request.results unless options[:highlight]
+    prefix = "<mark>"
+    suffix = "</mark>"
 
-      hits.each do |hit|
-        result = hit.result
-        result.title = highlight(result.title, self.query)
-
-        unless hit.highlights(:body).empty?
-          highlighted_teaser = '...'
-          hit.highlights(:body).each do |h|
-            highlighted_teaser << h.format { |word| "#{prefix}#{word}#{suffix}" }
-            highlighted_teaser << '...'
-          end
-          result.teaser = highlighted_teaser.html_safe
-        end
-        formatted_results << result
+    formatted_results = []
+    request.each_hit_with_result do |hit, result|
+      unless hit.highlights(:title).empty?
+        result.title = hit.highlights(:title).first.format{ |word|
+          "#{prefix}#{word}#{suffix}"}.html_safe
       end
-      return Sunspot::Search::PaginatedCollection.new(formatted_results, self.page.to_i, self.per_page, request.total)
-    else
-      return request.results
+
+      unless hit.highlights(:body).empty?
+        highlighted_teaser = '...'
+        hit.highlights(:body).each do |h|
+          highlighted_teaser << h.format { |word| "#{prefix}#{word}#{suffix}" }
+          Rails.logger.debug(h.to_yaml)
+          highlighted_teaser << '...'
+        end
+        result.teaser = highlighted_teaser.html_safe
+      end
+      formatted_results << result
     end
+    return Sunspot::Search::PaginatedCollection.new(formatted_results, self.page.to_i, self.per_page, request.total)
   end
 
   def authors
@@ -84,25 +84,18 @@ class Article::Search
     request.hits
   end
 
-  # @return [String]
-  def highlight(text, phrases, options = {})
-    if text.blank? || phrases.blank?
-      text
-    else
-      highlighter ='<mark>\1</mark>'
-      match = Array(phrases).map { |p| Regexp.escape(p) }.join('|')
-      text.gsub(/(#{match})(?![^<]*?>)/i, highlighter)
-    end.html_safe
-  end
-
   # @return [Sunspot::Request]
   def request
     if @request.nil?
       @request = Article.search do
         with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
-        # with(:authors).all_of(author.to_i) unless authors.blank?
-        fulltext self.query, highlight: true, minimum_match: 2
+
+        fulltext self.query do
+          highlight :title, fragment_size: 0
+          highlight :body,  :max_snippets => 3, merge_contiguous_fragments: true
+          minimum_match 2
+        end
 
         paginate page: self.page, per_page: self.per_page
 
@@ -116,7 +109,6 @@ class Article::Search
             end
           end
         end
-
 
       end
     end
