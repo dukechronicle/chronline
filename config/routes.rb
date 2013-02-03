@@ -22,6 +22,11 @@ Chronline::Application.routes.draw do
       resources :staff, only: :show
 
       match '/404', :to => 'base#not_found'
+
+      # Legacy routes
+      %w[news sports opinion recess towerview].each do |section|
+        match section => redirect("/section/#{section}")
+      end
     end
   end
 
