@@ -14,4 +14,8 @@ module Site::ArticleHelper
     article.created_at.strftime(format)
   end
 
+  def truncate_body(article)
+    article.body[0...article.body.rindex(' ', 197)] + '...'
+  end
+
 end

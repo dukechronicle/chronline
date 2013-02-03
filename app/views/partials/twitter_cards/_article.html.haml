@@ -1,9 +1,9 @@
 %meta{name: 'twitter:card', content:'summary'}
-%meta{name: 'twitter:site:id', content: '21136788'}
+%meta{name: 'twitter:site:id', content: Settings.twitter.twitter_id}
 %meta{name: 'twitter:title', content: @article.title}
 %meta{name: 'twitter:url',
   content: request.protocol + request.host_with_port + request.fullpath}
-%meta{name: 'twitter:description', content: @article.body[0..200]}
+%meta{name: 'twitter:description', content: truncate_body(@article)}
 - if @article.authors.first.twitter
   %meta{name: 'twitter:creator', content: @article.authors.first.twitter}
 - if @article.image
