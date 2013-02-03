@@ -67,7 +67,7 @@ class Article::Search
 
   def sections
     return request.facet(:section).rows.map do |facet|
-      {value: facet.value, count: facet.count, lookup: facet.value}
+      {value: facet.value.titlecase, count: facet.count, lookup: facet.value}
     end
   end
 
