@@ -38,6 +38,7 @@ class Site::ArticlesController < Site::BaseController
   def search
     if params[:article_search].present?
       @article_search = Article::Search.new(params[:article_search])
+      @article_search.page = params[:page] if params.has_key? :page
       @articles = @article_search.results
     else
       params[:article_search] = {}
