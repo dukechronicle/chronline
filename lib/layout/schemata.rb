@@ -43,7 +43,7 @@ Layout.add_schema(:section_articles, {
                   }) do |sections|
   sections.map do |section|
     # TODO: Magic number
-    Article.limit(7).order('created_at DESC').find_by_section(section)
+    Article.limit(4).order('created_at DESC').find_by_section(section)
   end
 end
 

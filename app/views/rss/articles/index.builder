@@ -1,6 +1,7 @@
 xml.instruct! :xml, version: "1.0"
-xml.rss version: "2.0" do
+xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
   xml.channel do
+    xml.tag! "atom:link", href: url_for(only_path: false), rel: "self", type: "application/rss+xml"
     xml.title title(@taxonomy)
     xml.link site_root_url(subdomain: 'www')
     xml.description "The Independent Daily at Duke University"
