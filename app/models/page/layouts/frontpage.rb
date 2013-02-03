@@ -9,6 +9,7 @@ class Page::Layouts::Frontpage < Layout
           'article' => {
             'label' => 'Article',
             'extends' => article_schema,
+            'required' => false,
           },
           'breaking' => {
               'label' => 'Breaking?',
