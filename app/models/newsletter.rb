@@ -42,7 +42,6 @@ class Newsletter
 
   def create_campaign(gb)
     gb.campaign_create({type: :regular,
-                         # TODO: have editor revise this information
                          options: {
                            list_id: Settings.mailchimp.list_id,
                            subject: subject,
@@ -84,7 +83,7 @@ class ArticleNewsletter < Newsletter
   private
 
   def subject
-    @article.title
+    "Chronicle Alert: #{@article.title}"
   end
 
 end
