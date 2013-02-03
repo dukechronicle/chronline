@@ -10,7 +10,7 @@
         %b= params[:article_search][:section].titlecase
 
 .span-8
-  - if @articles.nil?
+  - if @articles.nil? || @articles.empty?
     .rounded
       .article-container
         %h1 No results found
@@ -26,7 +26,7 @@
             %p= article.teaser
 
 .span-4.last
-  - unless @article_search.nil?
+  - unless @article_search.nil? || @articles.empty?
     = render partial: 'site/containers/search',
       locals: {title: "By Author", hits: @article_search.authors, param: 'author' }
     = render partial: 'site/containers/search',
