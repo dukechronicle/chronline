@@ -41,7 +41,7 @@ class Article < ActiveRecord::Base
     text :body, stored: true, more_like_this: true
     integer :author_ids, :multiple => true
     string :section do
-      self[:section].match(%r{/([^/]+)})[1]
+      section[0]
     end
     time :created_at, :trie => true
   end
