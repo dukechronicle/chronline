@@ -18,5 +18,5 @@
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
     - @model.prefix.each do |article|
-      = render partial: 'site/containers/block/wide', locals: {article: article}
+      = render partial: 'site/containers/block/wide', locals: {title: nil, article: article}
 
