@@ -63,6 +63,7 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'api' do
     namespace :api, path: '/' do
+      get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
 
