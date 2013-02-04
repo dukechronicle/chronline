@@ -8,12 +8,6 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 SitemapGenerator::Sitemap.create do
   Article.includes(:image, :authors).where(["created_at >= ?", 2.days.ago])
     .each do |article|
-    news = {
-      publication_name: "Duke Chronicle",
-      publication_language: "en",
-      title: article.title,
-      publication_date: article.created_at
-    }
 
     images = []
     if article.image
@@ -25,7 +19,12 @@ SitemapGenerator::Sitemap.create do
 
     add(site_article_path(article),
         lastmod: article.updated_at,
-        news: news,
+        news: {
+          publication_name: "Duke Chronicle",
+          publication_language: "en",
+          title: article.title,
+          publication_date: article.created_at.iso8601,
+        },
         images: images,
         )
   end
