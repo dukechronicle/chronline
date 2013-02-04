@@ -6,29 +6,27 @@ SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/news"
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 SitemapGenerator::Sitemap.create do
-  Article.all do |article| #where(["created_at >= ?", 2.days.ago]) do |article|
-    p article.title
+  Article.includes(:image, :authors).where(["created_at >= ?", 2.days.ago])
+    .each do |article|
+    news = {
+      publication_name: "Duke Chronicle",
+      publication_language: "en",
+      title: article.title,
+      publication_date: article.created_at
+    }
+
+    images = []
+    if article.image
+      images << {
+        loc: article.image.original.url(:large_rect),
+        caption: article.image.caption,
+      }
+    end
+
     add(site_article_path(article),
         lastmod: article.updated_at,
-        news: news_information(article),
-        image: image_information(article),
+        news: news,
+        images: images,
         )
   end
-end
-
-def news_information(article)
-  {
-    publication_name: "Duke Chronicle",
-    publication_language: "en",
-    title: article.title,
-    publication_date: article.created_at
-  }
-end
-
-def image_information(article)
-  return [] unless article.image
-  [{
-     loc: article.image.original.url(:large_rect),
-     caption: article.caption,
-  }]
 end
