@@ -1,8 +1,5 @@
 - provide :title, @article.title
 
-- content_for :twitter_card do
-  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
-
 - content_for :title_block do
   %h1
     - @article.section.parents.each_with_index do |parent, i|
@@ -13,17 +10,12 @@
 - content_for :administrative_links do
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
+- content_for :twitter_card do
+  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
+
 - content_for :open_graph_tags do
-  %meta{property: "og:title", content: @article.title}
-  %meta{property: "og:type", content: "article"}
-  - if @article.image
-    %meta{property: "og:image", content: @article.image.original.url(:thumb_square_m)}
-  - else
-    %meta{property: "og:image", content: "http:" + image_path("logo/300x300.png")}
-  %meta{property: "og:url", content: site_article_url(@article)}
-  %meta{property: "og:site_name", content: "The Duke Chronicle"}
-  %meta{property: "og:description", content: @article.teaser}
-  %meta{property: "fb:app_id", content: Settings.facebook.app_id}
+  = render partial: 'partials/open_graph/article', locals: {article: @article}
+
 
 %article#article
   .span-8
