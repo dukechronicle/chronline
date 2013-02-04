@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202211724) do
+ActiveRecord::Schema.define(:version => 20130204222244) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130202211724) do
     t.integer  "photographer_id"
     t.date     "date"
     t.string   "credit"
+    t.string   "attribution"
   end
 
   add_index "images", ["date"], :name => "index_images_on_date"
