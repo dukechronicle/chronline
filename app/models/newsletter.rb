@@ -36,7 +36,7 @@ class Newsletter
 
   def advertisement
     # TODO: make this configurable by non-developers
-    src = "http://#{Settings.content_cdn}/advertisements/#{Settings.mailchimp.ad_image}"
+    src = "http://#{Settings.content_cdn}/advertising/#{Settings.mailchimp.ad_image}"
     %{<a href="#{Settings.mailchimp.ad_href}"><img src="#{src}"/></a>}
   end
 
