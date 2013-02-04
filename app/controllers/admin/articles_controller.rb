@@ -22,8 +22,7 @@ class Admin::ArticlesController < Admin::BaseController
   def create
     @article = update_article(Article.new)
     if @article.save
-      redirect_to admin_articles_path,
-        with: flash[:success] = "Your article was successfully created!"
+      redirect_to site_article_url(@article, subdomain: 'www')
     else
       render 'new'
     end
@@ -39,7 +38,7 @@ class Admin::ArticlesController < Admin::BaseController
   def update
     @article = update_article(Article.find(params[:id]))
     if @article.save
-      redirect_to admin_root_path
+      redirect_to site_article_url(@article, subdomain: 'www')
     else
       render 'edit'
     end
