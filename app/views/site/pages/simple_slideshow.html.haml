@@ -1,8 +1,8 @@
 .clearfix
   .span-8
-    = render partial: 'site/partials/slideshow', locals: {articles: @page.layout.model['slideshow']}
+    = render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow}
   .span-4.last
-    .title-small= render partial: 'site/containers/article-list', locals: {title: @page.layout.model['list_title'], articles: @page.layout.model['top_articles']}
+    .title-medium= render partial: 'site/containers/article-list', locals: {title: @model.list_title, articles: @model.top_articles, style: :featured}
 .clearfix
-  - @page.layout.model['bottom_articles'].each_with_index do |article, i|
+  - @model.bottom_articles.each_with_index do |article, i|
     .span-4{class: (i % 3 == 2 ? 'last' : nil)}= render partial: 'site/containers/block/square', locals: {article: article}
