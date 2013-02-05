@@ -23,47 +23,58 @@ function socialShare() {
   // Check if logged in
   var readTrigger = null;
   var readTriggerTime = 20000;
+
+  // On Status Change
   FB.Event.subscribe('auth.statusChange', function(response) {
     if (response.authResponse) {
       var accessToken = response.authResponse.accessToken;
-      var status = "on";
-      var shareButton = $('#facebook-social-share .share-button').html("Sharing is <u class=\"status\">on</u>");
+      // Check if we have the right permissions
+      FB.api('/me/permissions', function (response) {
+        // Check if we have the correct permissions
+        if (response.data[0].publish_actions != undefined && response.data[0].publish_actions == 1) {
+          // User has enabled publish_actions
+          var status = "on";
+          var shareButton = $('#facebook-social-share .share-button').html("Sharing is <u class=\"status\">on</u>");
 
-      if ($.cookie("disable-sharing")) {
-        status = "off";
-        $('#facebook-social-share .activities').hide();
-      }
+          if ($.cookie("disable-sharing")) {
+            status = "off";
+            $('#facebook-social-share .activities').hide();
+          }
 
-      updateRecentActivities(accessToken);
-      if (status === "on") {
-        readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
-      }
+          updateRecentActivities(accessToken);
+          if (status === "on") {
+            readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
+          }
 
-      $('#facebook-social-share').show();
-      $('#facebook-social-share .status').html(status);
+          $('#facebook-social-share').show();
+          $('#facebook-social-share .status').html(status);
 
-      $('#facebook-social-share .activity-button').click(function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        $('#facebook-social-share .activities').toggle();
-      });
-      var shareButton = $('#facebook-social-share .share-button').unbind('click');
-      shareButton.click(function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        if (status === "on") {
-          status = "off";
-          $.cookie("disable-sharing", true);
-          clearTimeout(readTrigger)
-        } else {
-          status = "on"
-          $.cookie("disable-sharing", null);
-          readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
+          $('#facebook-social-share .activity-button').click(function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            $('#facebook-social-share .activities').toggle();
+          });
+
+          var shareButton = $('#facebook-social-share .share-button').unbind('click');
+          shareButton.click(function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            if (status === "on") {
+              status = "off";
+              $.cookie("disable-sharing", true);
+              clearTimeout(readTrigger)
+            } else {
+              status = "on"
+              $.cookie("disable-sharing", null);
+              readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
+            }
+            shareButton.children(".status").html(status);
+          });
         }
-        shareButton.children(".status").html(status);
-      });
+      });      
     }
   });
+
   // Setup Login Button
   $('#facebook-social-share .share-button').click(function(event) {
     event.stopPropagation();
@@ -126,4 +137,3 @@ function updateRecentActivities(accessToken) {
     }
   );
 }
-
