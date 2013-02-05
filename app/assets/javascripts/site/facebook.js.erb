@@ -75,18 +75,20 @@ function checkPermisions(accessToken) {
 
 function socialShare() {
   // On Status Change, if auto login
-  FB.Event.subscribe('auth.statusChange', function(response) {
+  statusChangeHandle = function(response) {
     if (response.authResponse) {
       console.log("Auto Login"); console.log(response);
       var accessToken = response.authResponse.accessToken;
       checkPermisions(accessToken);
     }
-  });
+  }
+  FB.Event.subscribe('auth.statusChange', statusChangeHandle);
 
   // Setup Login Button
   $('#facebook-social-share .share-button').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
+    FB.Event.unsubscribe('auth.statusChange', statusChangeHandle);
     FB.login(function(response) {
       console.log("Manual Login"); console.log(response);
       if (response.authResponse) {
