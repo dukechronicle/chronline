@@ -4,21 +4,24 @@
   #social-media
     float: right
     margin-left: 10px
-    .comment-link
-      background: image-url("icons/comment.png") no-repeat
-
-    .print-link
-      background: image-url("icons/print.png") no-repeat
-
-    .email-link
-      background: image-url("icons/email.png") no-repeat
 
     .comment-link, .print-link, .email-link
-      padding: 3px 0px 3px 23px
-      color: $dark-text
-      background-position: 2px 5px
+      position: relative
+      a
+        color: $dark-text
+        padding-left: 23px
+        position: relative
+        z-index: 1
+      i
+        display: block
+        position: absolute
+        width: 16px
+        height: 16px
+        top: 3px
+        left: 2px
 
     .fb-like
+      margin-top: 2px
       margin-bottom: 2px
 
     .twitter-share-button
