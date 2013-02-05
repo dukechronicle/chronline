@@ -1,7 +1,7 @@
 - provide(:title, @title) unless content_for? :title
 
 !!! 5
-%html{"xmlns:og" => "http://ogp.me/ns#", "xmlns:fb" => "https://www.facebook.com/2008/fbml"}
+%html{lang: "en", "xmlns:og" => "http://ogp.me/ns#", "xmlns:fb" => "https://www.facebook.com/2008/fbml"}
   %head
     %title #{yield :title} | The Chronicle
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
