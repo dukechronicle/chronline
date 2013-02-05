@@ -22,9 +22,15 @@ module Site::ArticleHelper
     end
   end
 
-  def photo_credit(image)
+  def photo_credit(image, options={})
     if image.photographer
-      image.photographer.name + ' / The Chronicle'
+      name = if options[:include_links]
+               link_to(image.photographer.name,
+                       site_staff_path(image.photographer))
+             else
+               author.name
+             end
+      (name + ' / The Chronicle').html_safe
     elsif image.credit
       image.credit
     end
