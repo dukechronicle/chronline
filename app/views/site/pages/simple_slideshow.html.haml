@@ -1,6 +1,6 @@
 .clearfix
   .span-8
-    = render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow}
+    = render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow, pages: []}
   .span-4.last
     .title-medium= render partial: 'site/containers/article-list', locals: {title: @model.list_title, articles: @model.top_articles, style: :featured}
 .clearfix
