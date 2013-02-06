@@ -23,8 +23,8 @@ class Page::Layouts::SimpleSlideshow < Layout
         'label' => 'Bottom Block Articles',
         'required' => false,
         'items' => {
-          'extends': article_schema,
-          'required': false,
+          'extends' => article_schema,
+          'required' => false,
         }
       }
     }
