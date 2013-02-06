@@ -19,66 +19,89 @@ window.fbAsyncInit = function() {
   }
 };
 
-function socialShare() {
-  // Check if logged in
+function activateSocial(accessToken) {
   var readTrigger = null;
   var readTriggerTime = 20000;
-  FB.Event.subscribe('auth.statusChange', function(response) {
-    if (response.authResponse) {
-      var accessToken = response.authResponse.accessToken;
-      var status = "on";
-      var shareButton = $('#facebook-social-share .share-button').html("Sharing is <u class=\"status\">on</u>");
 
-      if ($.cookie("disable-sharing")) {
-        status = "off";
-        $('#facebook-social-share .activities').hide();
-      }
+  var status = "on";
+  var shareButton = $('#facebook-social-share .share-button').html("Sharing is <u class=\"status\">on</u>");
 
-      updateRecentActivities(accessToken);
-      if (status === "on") {
-        readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
-      }
+  if ($.cookie("disable-sharing")) {
+    status = "off";
+    $('#facebook-social-share .activities').hide();
+  }
 
-      $('#facebook-social-share').show();
-      $('#facebook-social-share .status').html(status);
+  updateRecentActivities(accessToken);
+  if (status === "on") {
+    readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
+  }
 
-      $('#facebook-social-share .activity-button').click(function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        $('#facebook-social-share .activities').toggle();
-      });
-      var shareButton = $('#facebook-social-share .share-button').unbind('click');
-      shareButton.click(function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        if (status === "on") {
-          status = "off";
-          $.cookie("disable-sharing", true);
-          clearTimeout(readTrigger)
-        } else {
-          status = "on"
-          $.cookie("disable-sharing", null);
-          readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
-        }
-        shareButton.children(".status").html(status);
-      });
+  $('#facebook-social-share').show();
+  $('#facebook-social-share .status').html(status);
+
+  $('#facebook-social-share .activity-button').click(function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    $('#facebook-social-share .activities').toggle();
+  });
+
+  var shareButton = $('#facebook-social-share .share-button').unbind('click');
+  shareButton.click(function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (status === "on") {
+      status = "off";
+      $.cookie("disable-sharing", true);
+      clearTimeout(readTrigger)
+    } else {
+      status = "on"
+      $.cookie("disable-sharing", null);
+      readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
+    }
+    shareButton.children(".status").html(status);
+  });
+}
+
+function checkPermisions(accessToken) {
+  // Check if we have the right permissions
+  FB.api('/me/permissions', function (response) {
+    // Check if we have the correct permissions
+    if (response.data[0] != undefined && response.data[0].publish_actions != undefined && response.data[0].publish_actions == 1) {
+      // User has enabled publish_actions
+      activateSocial(accessToken);
     }
   });
+}
+
+function socialShare() {
+  // On Status Change, if auto login
+  statusChangeHandle = function(response) {
+    if (response.authResponse) {
+      console.log("Auto Login"); console.log(response);
+      var accessToken = response.authResponse.accessToken;
+      checkPermisions(accessToken);
+    }
+  }
+  FB.Event.subscribe('auth.statusChange', statusChangeHandle);
+
   // Setup Login Button
   $('#facebook-social-share .share-button').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
+    FB.Event.unsubscribe('auth.statusChange', statusChangeHandle);
     FB.login(function(response) {
-       if (response.authResponse) {
-         console.log('Welcome!  Fetching your information.... ');
-         FB.api('/me', function(response) {
-           console.log('Good to see you, ' + response.name + '.');
-         });
-       } else {
-         console.log('User cancelled login or did not fully authorize.');
-       }
-     }, {scope: 'publish_actions'});
+      console.log("Manual Login"); console.log(response);
+      if (response.authResponse) {
+        console.log('Welcome!  Fetching your information.... ');
+        var accessToken = response.authResponse.accessToken;
+        checkPermisions(accessToken)
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    }, {scope: 'publish_actions'});
   });
+
+
   $('#facebook-social-share').show();
   $('#facebook-social-share .activities').hide();
 }
@@ -126,4 +149,3 @@ function updateRecentActivities(accessToken) {
     }
   );
 }
-
