@@ -11,6 +11,7 @@ group :production do
   gem 'redis-rails'
   gem 'redis-store'
   gem 'thin'
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
