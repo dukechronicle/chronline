@@ -42,6 +42,7 @@ class Image < ActiveRecord::Base
   validates :date, presence: true
 
   has_many :articles
+  has_many :pages
   has_many :staff, foreign_key: :headshot_id
   belongs_to :photographer, class_name: "Staff"
 

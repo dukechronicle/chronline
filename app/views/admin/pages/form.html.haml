@@ -12,7 +12,11 @@
         = f.input :path, label: "URL Path"
         = f.input :layout_template, collection: page_layout_options
         = f.input :layout_data, as: :hidden
+        = f.input :description, as: :text, input_html: {rows: 3}
+        = f.association :image, as: :image_picker
       .form-actions
         = f.button :submit, class: 'btn btn-large btn-primary'
         - if not @page.new_record?
           = link_to "Delete Page", [:admin, @page], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
+
+%script#image-select-template{type: 'text/template'}= render 'admin/templates/image-select'
