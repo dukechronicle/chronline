@@ -14,7 +14,12 @@ class Page::Layouts::Frontpage < Layout
           'breaking' => {
               'label' => 'Breaking?',
               'type' => 'boolean',
-          }
+          },
+          'page' => {
+            'label' => 'Page',
+            'extends' => page_schema,
+            'required' => false,
+          },
         }
       },
       'slideshow' => {

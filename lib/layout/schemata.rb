@@ -18,6 +18,10 @@ Layout.add_schema(:article, {
   Article.includes(:authors, :image).find_in_order(article_ids)
 end
 
+Layout.add_schema(:page, {"type" => "integer"}) do |page_ids|
+  Page.includes(:image).find_in_order(page_ids)
+end
+
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
   articles = Article.most_commented(7)
   [articles] * invocations.length
