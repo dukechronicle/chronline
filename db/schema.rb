@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204222244) do
+ActiveRecord::Schema.define(:version => 20130206032936) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20130204222244) do
     t.string   "title"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "description"
+    t.integer  "image_id"
   end
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
