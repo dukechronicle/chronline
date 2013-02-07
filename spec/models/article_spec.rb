@@ -18,22 +18,13 @@ require 'spec_helper'
 
 describe Article do
 
-  before do
-    @article = Article.new(title: 'Ash defeats Gary in Indigo Plateau',
-                           subtitle: 'Oak arrives just in time',
-                           teaser: 'Ash becomes new Pokemon champion',
-                           body: '**Pikachu** wrecks everyone. The End.',
-                           section: '/news/',
-                           )
-    @article.authors << Author.new(name: 'Trainer Mitch')
-  end
-
+  before { @article = FactoryGirl.create(:article) }
   subject { @article }
 
+  it { should belong_to :image }
   it { should have_and_belong_to_many :authors }
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
-  it { should validate_presence_of :section }
   it { should validate_presence_of :authors }
 
   it { should be_valid }
@@ -43,15 +34,19 @@ describe Article do
   end
 
   describe "#section" do
-    it { @article.section.should be_a_kind_of(Taxonomy) }
-    it do
-      taxonomy = Taxonomy.new(['News', 'University'])
-      @article.section = taxonomy
-      @article.section.should eq taxonomy
+    before { subject.section = Taxonomy.new(['News', 'University']) }
+
+    its(:section) { should be_a_kind_of(Taxonomy) }
+    its(:section) { should eq Taxonomy.new(['News', 'University']) }
+
+    it "should default to root taxonomy" do
+      Article.new.section.should be_root
     end
   end
 
   describe "#render_body" do
+    before { subject.body = '**Pikachu** wrecks everyone. The End.' }
+
     it "should render the article body with markdown" do
       html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
       subject.render_body.rstrip.should == html
@@ -59,7 +54,9 @@ describe Article do
   end
 
   describe "#normalize_friendly_id" do
-    subject { @article.normalize_friendly_id(@article.title) }
+    subject do
+      @article.normalize_friendly_id('Ash defeats Gary in Indigo Plateau')
+    end
 
     it "should be lowercased" do
       should match(/[a-z_\d\-]+/)

@@ -25,15 +25,16 @@ class Article < ActiveRecord::Base
 
   friendly_id :title, use: [:slugged, :history]
 
+  belongs_to :image
+  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
+
   validates :body, presence: true
   validates :title, presence: true
   validates :section, presence: true
   validates :authors, presence: true
 
-  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
-  belongs_to :image
-
   self.per_page = 25  # set will_paginate default to 25 articles
+
 
   searchable do
     text :title, stored: true, boost: 2.0, more_like_this: true
