@@ -81,28 +81,28 @@ describe Article do
     end
   end
 
-  describe "::find_by_section" do
-    before do
-      Article.create(title: 'What? Squirtle is evolving!',
-                     body: 'Squirtle evolved into Wartortle',
-                     section: '/news/')
-      Article.create(title: 'What? Charmander is evolving!',
-                     body: 'Charmander evolved into Charmeleon',
-                     section: '/news/university')
-      Article.create(title: 'What? Bulbasaur is evolving!',
-                     body: 'Bulbasaur evolved into Ivysaur',
-                     section: '/sports/')
+  describe "section scope" do
+    let(:articles) do
+      articles = FactoryGirl.create_list(:article, 3)
+      articles[0].update_attributes(section: '/news/')
+      articles[1].update_attributes(section: '/news/university/')
+      articles[2].update_attributes(section: '/sports/')
+      articles
     end
 
-    subject { Article.find_by_section(Taxonomy.new(['News'])) }
+    subject { Article.section(Taxonomy.new(['News'])) }
 
     it "should return all articles with a subsection of the given section" do
-      should include(Article.find_by_title('What? Squirtle is evolving!'))
-      should include(Article.find_by_title('What? Charmander is evolving!'))
+      should include(articles[0])
+      should include(articles[1])
+    end
+
+    it "should exclude articles in other sections" do
+      should_not include(articles[2])
     end
 
     it "should be chainable with other query methods" do
-      articles = Article.find_by_section(Taxonomy.new(['News'])).limit(1)
+      articles = Article.section(Taxonomy.new(['News'])).limit(1)
       articles.should have(1).article
     end
   end
