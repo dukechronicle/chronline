@@ -16,7 +16,9 @@
 
 require 'spec_helper'
 
+
 describe Article do
+  include Rails.application.routes.url_helpers
 
   before { @article = FactoryGirl.create(:article) }
   subject { @article }
@@ -92,6 +94,28 @@ describe Article do
       @article.section = '/'
       -> {@article.register_view}.should_not raise_error
     end
+  end
+
+  describe "::most_commented" do
+    let(:articles) { FactoryGirl.create_list(:article, 2) }
+    let(:response) do
+      articles.zip([10, 20]).map do |article, posts|
+        {
+          'link' => site_article_url(article, subdomain: 'www',
+                                     host: Settings.domain),
+          'posts' => posts,
+        }
+      end
+    end
+
+    before do
+      Disqus.any_instance.stub(:request)
+        .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+        .and_return({'response' => response})
+    end
+
+    it "should return tuples of articles with comments"
+    it "should sort by number of comments in descending order"
   end
 
   describe "section scope" do
