@@ -1,9 +1,9 @@
 require 'spec_helper'
 
+
 describe Taxonomy do
 
   before { @taxonomy = Taxonomy.new(['news', 'university']) }
-
   subject { @taxonomy }
 
   describe "when constructed with a string taxonomy" do
