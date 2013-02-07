@@ -31,15 +31,17 @@ describe Article do
   subject { @article }
 
   it { should have_and_belong_to_many :authors }
-
-  it { should be_valid }
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
   it { should validate_presence_of :section }
   it { should validate_presence_of :authors }
+
+  it { should be_valid }
+
   it "should be searchable" do
     Article.searchable?.should be_true
   end
+
   describe "#section" do
     it { @article.section.should be_a_kind_of(Taxonomy) }
     it do
@@ -52,7 +54,7 @@ describe Article do
   describe "#render_body" do
     it "should render the article body with markdown" do
       html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
-      @article.render_body.rstrip.should eq html
+      subject.render_body.rstrip.should == html
     end
   end
 
@@ -76,23 +78,9 @@ describe Article do
     end
 
     context "long title" do
-      subject { @article.normalize_friendly_id('a' * 99 + '-' + 'b' * 100) }
-      it { should have_at_most(100).characters }
+      subject { @article.normalize_friendly_id('a' * 49 + '-' + 'b' * 50) }
+      it { should have_at_most(50).characters }
       it { should_not match(/\-$/) }
-    end
-  end
-
-  describe "#disqus" do
-    before { @article.save! }
-    subject { @article.disqus('example.com') }
-
-    it { should be_a_kind_of(Hash) }
-    it do
-      should have_key(:production)
-      should have_key(:shortname)
-      should have_key(:identifier)
-      should have_key(:title)
-      should have_key(:url)
     end
   end
 
