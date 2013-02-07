@@ -3,94 +3,89 @@ require 'spec_helper'
 
 describe Taxonomy do
 
-  before { @taxonomy = Taxonomy.new(['news', 'university']) }
-  subject { @taxonomy }
+  subject { Taxonomy.new(['news', 'university']) }
 
-  describe "when constructed with a string taxonomy" do
-    before { @taxonomy = Taxonomy.new('/news/univerSITY/') }
+  context "when constructed with a string taxonomy" do
+    subject { Taxonomy.new('/news/univerSITY/') }
 
     it "should normalize the taxonomy" do
-      @taxonomy.to_a.should == ['News', 'University']
+      subject.to_a.should == ['News', 'University']
     end
   end
 
-  describe "when constructed with an invalid taxonomy" do
+  context "when constructed with an invalid taxonomy" do
     it "should raise an InvalidTaxonomyError" do
       constructor = lambda { Taxonomy.new(['fake', 'taxonomy']) }
       constructor.should raise_error(Taxonomy::InvalidTaxonomyError)
     end
   end
 
-  describe "when constructed with no taxonomy" do
+  context "when constructed with no taxonomy" do
     it { Taxonomy.new.to_a.should == [] }
   end
 
-  describe "when constructed with nil argument" do
+  context "when constructed with nil argument" do
     it { Taxonomy.new.to_a.should == [] }
   end
 
-  describe "when constructed with root string" do
+  context "when constructed with root string" do
     it { Taxonomy.new('/').to_a.should == [] }
   end
 
   describe "#to_s" do
-    it { @taxonomy.to_s.should == '/news/university/' }
+    it { subject.to_s.should == '/news/university/' }
   end
 
   describe "#to_a" do
-    it { @taxonomy.to_a.should == ['News', 'University'] }
+    it { subject.to_a.should == ['News', 'University'] }
   end
 
   describe "#name" do
-    it { @taxonomy.name.should == 'University' }
+    its(:name) { should == 'University' }
   end
 
   describe "#to_json" do
-    it { @taxonomy.to_json.should == ['News', 'University'].to_json }
+    it "should encode the taxonomy array as JSON" do
+      subject.to_json.should == ['News', 'University'].to_json
+    end
   end
 
   describe "#==" do
-    it { @taxonomy.should == Taxonomy.new(['News', 'University']) }
-    it { @taxonomy.should_not == Taxonomy.new(['News']) }
-
-    it do
-      @taxonomy.should_not == Taxonomy.new(['News', 'University', 'Academics'])
-    end
-
-    it { @taxonomy.should_not == ['News', 'University'] }
+    it { should == Taxonomy.new(['News', 'University']) }
+    it { should_not == Taxonomy.new(['News']) }
+    it { should_not == Taxonomy.new(['News', 'University', 'Academics']) }
+    it { should_not == ['News', 'University'] }
   end
 
   describe "comparators" do
-    subject { @taxonomy }
-
     let(:parent) { Taxonomy.new(['News']) }
     let(:child)  { Taxonomy.new(['News', 'University', 'Academics']) }
     let(:other)  { Taxonomy.new(['Sports']) }
 
     describe "#<" do
       it { should be < parent }
-      it { should_not be < @taxonomy }
+      it { should_not be < subject }
       it { should_not be < child }
       it { should_not be < other }
     end
 
     describe "#<=" do
       it { should be <= parent }
-      it { should be <= @taxonomy }
+      it { should be <= subject }
       it { should_not be <= child }
       it { should_not be <= other }
     end
 
     describe "#<" do
       it { should_not be > parent }
-      it { should_not be > @taxonomy }
+      it { should_not be > subject }
       it { should be > child }
       it { should_not be > other }
     end
 
     describe "#<=" do
       it { should_not be >= parent }
-      it { should be >= @taxonomy }
+      it { should be >= subject }
       it { should be >= child }
       it { should_not be >= other }
     end
@@ -98,42 +93,39 @@ describe Taxonomy do
 
   describe "#root?" do
     it { Taxonomy.new.root?.should be_true }
-    it { @taxonomy.root?.should_not be_true }
+    it { subject.root?.should be_false }
   end
 
   describe "#[]" do
-    it do
-      @taxonomy[0].should == 'News'
-      @taxonomy[1].should == 'University'
-    end
-
-    it { @taxonomy[2].should == nil }
+    it { subject[0].should == 'News' }
+    it { subject[1].should == 'University' }
+    it { subject[2].should == nil }
   end
 
   describe "#children" do
-     it do
+    it "should return child Taxonomy objects" do
       sections = ['Academics', 'Board of Trustees']
       children = sections.map do |section|
-        Taxonomy.new(['News', 'University'] + [section])
+        Taxonomy.new(['News', 'University'] << section)
       end
-      @taxonomy.children.should == children
+      subject.children.should == children
     end
   end
 
   describe "#parent" do
-    it { @taxonomy.parent.should == Taxonomy.new(['News']) }
+    its(:parent) { should == Taxonomy.new(['News']) }
     it { Taxonomy.new.parent.should be_nil }
   end
 
   describe "#parents" do
-    it do
-      @taxonomy.parents.should == [Taxonomy.new(['News']),
-                                   Taxonomy.new(['News', 'University'])]
+    its(:parents) do
+      should == [Taxonomy.new(['News']),
+                 Taxonomy.new(['News', 'University'])]
     end
   end
 
   describe "::main_sections" do
-    it do
+    it "should return top level Taxonomy objects" do
       sections = ['News', 'Sports', 'Opinion', 'Recess', 'Towerview']
       taxonomies = sections.map {|section| Taxonomy.new([section])}
       Taxonomy.main_sections.should == taxonomies
@@ -141,7 +133,7 @@ describe Taxonomy do
   end
 
   describe "::levels" do
-    it do
+    it "should return each level of the taxonomy tree as arrays" do
       levels =
         [
          ['/news/', '/sports/', '/opinion/', '/recess/', '/towerview/'],
@@ -153,4 +145,5 @@ describe Taxonomy do
       end
     end
   end
+
 end
