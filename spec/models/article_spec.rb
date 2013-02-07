@@ -81,6 +81,12 @@ describe Article do
     end
   end
 
+  describe "#register_view" do
+    it "should increment its id in the redis sorted set"
+    it "should select the key for its section and date"
+    it "should not fail if article is in root taxonomy"
+  end
+
   describe "section scope" do
     let(:articles) do
       articles = FactoryGirl.create_list(:article, 3)
