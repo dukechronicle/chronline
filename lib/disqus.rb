@@ -16,7 +16,7 @@ class Disqus
     uri = URI::HTTPS.build(host: DISQUS_HOST,
                            path: request_path(resource, action),
                            query: request_query(options))
-    HTTParty.get(uri.to_s)
+    handle_response(HTTParty.get(uri.to_s))
   end
 
 
@@ -32,6 +32,12 @@ class Disqus
   def request_query(params)
     query = @options[:query].merge(params).merge(api_key: @api_key)
     query.map {|key, value| "#{key}=#{value}"}.join('&')
+  end
+
+  def handle_response(response)
+    if response.code == Rack::Utils.status_code(:ok)
+      ActiveSupport::JSON.decode(response.body)
+    end
   end
 
 end
