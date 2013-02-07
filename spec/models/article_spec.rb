@@ -82,9 +82,16 @@ describe Article do
   end
 
   describe "#register_view" do
-    it "should increment its id in the redis sorted set"
-    it "should select the key for its section and date"
-    it "should not fail if article is in root taxonomy"
+    it "should increment its id in the redis sorted set" do
+      key_pattern = /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/
+      $redis.should_receive(:zincrby).with(key_pattern, 1, @article.id)
+      @article.register_view
+    end
+
+    it "should not fail if article is in root taxonomy" do
+      @article.section = '/'
+      -> {@article.register_view}.should_not raise_error
+    end
   end
 
   describe "section scope" do
