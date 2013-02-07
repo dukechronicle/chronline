@@ -46,16 +46,6 @@ class Article < ActiveRecord::Base
     time :created_at, :trie => true
   end
 
-  def disqus(host)
-    {
-      production: Rails.env.production?,
-      shortname: Settings.disqus.shortname,
-      identifier: previous_id || "_#{id}",
-      title: title,
-      url: site_article_url(self, subdomain: 'www', host: host),
-    }
-  end
-
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=50)
     removelist = %w(a an as at before but by for from is in into like of off on
@@ -123,7 +113,7 @@ onto per since than the this that to up via with)
     disqus = Disqus.new(Settings.disqus.api_key)
     response = disqus.request(:threads, :list_hot, limit: limit,
                               forum: Settings.disqus.shortname)
-    slugs = response.map do |thread|
+    slugs = response['response'].map do |thread|
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
