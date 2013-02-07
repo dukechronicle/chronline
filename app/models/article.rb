@@ -33,8 +33,9 @@ class Article < ActiveRecord::Base
   validates :section, presence: true
   validates :authors, presence: true
 
-  self.per_page = 25  # set will_paginate default to 25 articles
+  scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
 
+  self.per_page = 25  # set will_paginate default to 25 articles
 
   searchable do
     text :title, stored: true, boost: 2.0, more_like_this: true
@@ -49,6 +50,7 @@ class Article < ActiveRecord::Base
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=50)
+    return nil if title.nil?  # record won't save -- title presence is validated
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)
     r = /\b(#{removelist.join('|')})\b/i
@@ -88,10 +90,6 @@ onto per since than the this that to up via with)
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
     self[:section] = taxonomy.to_s
-  end
-
-  def self.find_by_section(taxonomy)  # TODO: create a 'section' scope instead
-    self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
   def self.popular(section, options={})
