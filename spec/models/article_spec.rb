@@ -109,13 +109,14 @@ describe Article do
     end
 
     before do
-      Disqus.any_instance.stub(:request)
+      Disqus.any_instance.should_receive(:request)
         .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
         .and_return({'response' => response})
     end
 
-    it "should return tuples of articles with comments"
-    it "should sort by number of comments in descending order"
+    it "should return tuples of articles with comments in sorted order" do
+      Article.most_commented(5).should == articles.zip([10, 20]).reverse
+    end
   end
 
   describe "section scope" do
