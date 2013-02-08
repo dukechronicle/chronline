@@ -526,7 +526,13 @@ onde.Onde.prototype.renderFieldValue = function (fieldName, fieldInfo, parentNod
                 attr('name', fieldName).
                 addClass('value-input');
             if (typeof valueData == "number") {
-                fieldValueNode.val(valueData);
+                if (fieldInfo.display === 'article-picker') {
+                    var article = this.options.embedded[valueData];
+                    fieldValueNode.val(article.id + ' - ' + article.title);
+                }
+                else {
+                    fieldValueNode.val(valueData);
+                }
             } else if (typeof valueData == "string") {
                 if (fieldInfo.type == 'integer') {
                     fieldValueNode.val(parseInt(valueData, 10));

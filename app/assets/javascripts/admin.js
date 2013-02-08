@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery-ui/ui/jquery-ui.js
 //= require bootstrap/docs/assets/js/bootstrap.js
+//= require bootstrap-typeahead.js
 //= require underscore/underscore.js
 //= require jcrop/js/jquery.Jcrop.js
 //= require onde.js
