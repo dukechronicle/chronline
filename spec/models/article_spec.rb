@@ -135,11 +135,11 @@ describe Article do
     end
 
     it "should return articles in descending number of views" do
-      subject.index(@articles[1]).should be < subject.index(@articles[0])
+      should include_in_order(@articles[1], @articles[0])
     end
 
     it "should rank recent article views more highly than old article views" do
-      subject.index(@articles[0]).should be < subject.index(@articles[2])
+      should include_in_order(@articles[0], @articles[2])
     end
 
     it "should return no more than the specified number of articles" do
