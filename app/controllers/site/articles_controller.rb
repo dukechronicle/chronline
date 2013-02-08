@@ -1,18 +1,24 @@
 class Site::ArticlesController < Site::BaseController
 
   def index
-    @taxonomy = Taxonomy.new("/#{params[:section]}/")
-    begin
-      custom_page and return
-    rescue ActiveRecord::RecordNotFound
-      nil
-    end
-    @articles = Article.includes(:authors, :image)
-      .order('created_at DESC')
-      .page(params[:page])
-      .find_by_section(@taxonomy)
-    unless @taxonomy.root?
-      @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
+    if params[:staff_id]
+      @staff = Staff.find(params[:staff_id])
+      @articles = @staff.articles.page(params[:page]).order('created_at DESC')
+      render 'site/staff/author'
+    else
+      @taxonomy = Taxonomy.new("/#{params[:section]}/")
+      begin
+        custom_page and return
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
+      @articles = Article.includes(:authors, :image)
+        .order('created_at DESC')
+        .page(params[:page])
+        .find_by_section(@taxonomy)
+      unless @taxonomy.root?
+        @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
+      end
     end
   end
 

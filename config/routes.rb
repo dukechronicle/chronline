@@ -19,7 +19,10 @@ Chronline::Application.routes.draw do
       get 'article/:id' => 'articles#show', as: :article
       get 'article/:id/print' => 'articles#print', as: :print_article
 
-      resources :staff, only: :show
+      resources :staff, only: :show do
+        resources :articles, only: :index
+        resources :images, only: :index
+      end
 
       match '/404', :to => 'base#not_found'
 
