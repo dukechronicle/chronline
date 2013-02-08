@@ -75,6 +75,7 @@ gem 'carrierwave'
 gem 'fog'
 
 group :test do
+  gem 'accept_values_for'
   gem 'capybara'
   gem 'poltergeist'
   gem 'cucumber-rails', :require => false
