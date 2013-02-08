@@ -8,10 +8,10 @@
         %h2= staff.name
         .links
           %ul
-            - if staff.is_author?
+            - if staff.author?
               %li
                 = link_to 'Articles', site_staff_articles_path(staff)
-            - if staff.is_photographer?
+            - if staff.photographer?
               %li
                 = link_to 'Photos',  site_staff_images_path(staff)
         %p.affiliation= staff.affiliation
