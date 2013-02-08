@@ -58,12 +58,4 @@ class Staff < ActiveRecord::Base
     staff.values
   end
 
-  def is_photographer?
-    images.count > 0
-  end
-
-  def is_author?
-    articles.count > 0
-  end
-
 end
