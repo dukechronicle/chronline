@@ -28,6 +28,10 @@ describe Article do
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
   it { should validate_presence_of :authors }
+  it { should accept_values_for(:teaser, Faker::Lorem.paragraph(2)) }
+  it "should not allow long teasers" do
+    should_not accept_values_for(:teaser, Faker::Lorem.paragraph(10))
+  end
 
   it { should be_valid }
 

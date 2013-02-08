@@ -32,6 +32,7 @@ class Article < ActiveRecord::Base
   validates :title, presence: true
   validates :section, presence: true
   validates :authors, presence: true
+  validates :teaser, length: {maximum: 200}
 
   scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
 
