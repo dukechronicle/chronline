@@ -12,7 +12,7 @@ class Api::ArticlesController < ApplicationController
   def search
     article_search = Article::Search.new(query: params[:query],
                                          sort: params[:sort])
-    render json: article_search.results
+    render json: article_search.results(highlight: false)
   end
 
 end

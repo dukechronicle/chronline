@@ -1,7 +1,8 @@
 class Site::BaseController < ApplicationController
   layout 'site'
 
-  before_filter :redirect_mobile
+  # TODO: think about how to handle special pages on mobile
+  before_filter :redirect_mobile, except: :custom_page
 
 
   def redirect_mobile
@@ -23,6 +24,10 @@ class Site::BaseController < ApplicationController
     @model = @page.layout.model
     @title = @page.title
     render "site/pages/#{@page.layout_template.to_s.underscore}"
+  end
+
+  def not_found
+    render 'site/404', status: :not_found
   end
 
 end

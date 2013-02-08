@@ -9,7 +9,6 @@ class Admin::ArticlesController < Admin::BaseController
       params[:page] = find_article_page_for_date(date, @taxonomy)
     end
 
-    @article_search = Article::Search.new
     @articles = Article.includes(:authors, :image)
       .order('created_at DESC')
       .page(params[:page])
@@ -23,8 +22,7 @@ class Admin::ArticlesController < Admin::BaseController
   def create
     @article = update_article(Article.new)
     if @article.save
-      redirect_to admin_articles_path,
-        with: flash[:success] = "Your article was successfully created!"
+      redirect_to site_article_url(@article, subdomain: 'www')
     else
       render 'new'
     end
@@ -40,7 +38,7 @@ class Admin::ArticlesController < Admin::BaseController
   def update
     @article = update_article(Article.find(params[:id]))
     if @article.save
-      redirect_to admin_root_path
+      redirect_to site_article_url(@article, subdomain: 'www')
     else
       render 'edit'
     end
@@ -51,6 +49,18 @@ class Admin::ArticlesController < Admin::BaseController
     article.destroy
     flash[:success] = %Q[Article "#{article.title}" was deleted.]
     redirect_to admin_articles_path
+  end
+
+  def search
+
+    if params.has_key? :article_search
+      @article_search = Article::Search.new(params[:article_search])
+      @article_search.page = params[:page] if params.has_key? :page
+      @articles = @article_search.results
+    else
+      @article_search = Article::Search.new
+      @articles = []
+    end
   end
 
   private

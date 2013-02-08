@@ -5,20 +5,28 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
+      match 'rss' => redirect('http://feeds.feedburner.com/thechronicle/all')
       get 'search' => 'articles#search'
       resource :newsletter, only: :show do
         post 'subscribe'
         post 'unsubscribe'
       end
 
-      root to: 'base#custom_page'
-      get 'pages/*path' => 'base#custom_page'
+      root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
+      get 'pages/*path' => 'base#custom_page'
 
       get 'article/:id' => 'articles#show', as: :article
       get 'article/:id/print' => 'articles#print', as: :print_article
 
       resources :staff, only: :show
+
+      match '/404', :to => 'base#not_found'
+
+      # Legacy routes
+      %w[news sports opinion recess towerview].each do |section|
+        match section => redirect("/section/#{section}")
+      end
     end
   end
 
@@ -28,6 +36,8 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
       get 'article/:id' => 'articles#show', as: :article
+
+      match '/404', :to => 'base#not_found'
     end
   end
 
@@ -58,11 +68,19 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'api' do
     namespace :api, path: '/' do
+      get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
 
       resources :images, only: :index
       resources :staff, only: :index
+      resources :articles, only: :index
+    end
+  end
+
+  constraints subdomain: 'rss' do
+    namespace :rss, path: '/' do
+      get 'section/*section' => 'articles#index', as: :article_section
       resources :articles, only: :index
     end
   end

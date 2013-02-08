@@ -4,14 +4,23 @@
   - content_for :title_block do
     %h1
       = "Results for "
-      %i= params[:article_search][:query]
+      %em= params[:article_search][:query]
+      - if params[:article_search][:section].present?
+        = "in "
+        %em= params[:article_search][:section].titlecase
+- else
+  - provide :title, "Search"
+  - content_for :title_block do
+    %h1= "Search the archives"
+  - error = "Please provide a query"
+
 
 #section-listing{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
   %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "false", initialized: "true"}}
     %h3="Results"
     %ul{data: {role: "listview"}}
-      - if @articles.empty?
-        %li="No results found!"
+      - if @articles.blank?
+        %li= error || "No results found"
       - else
         - @articles.each do |article|
           %li

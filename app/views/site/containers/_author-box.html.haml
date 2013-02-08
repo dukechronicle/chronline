@@ -19,7 +19,7 @@
             %p.subtitle
               %span.affiliation= author.affiliation
               - if author.twitter.present?
-                %span.twitter= link_to "@#{author.twitter}", "http://twitter.com/#{staff.twitter}"
+                %span.twitter= link_to "@#{author.twitter}", "http://twitter.com/#{author.twitter}"
             %p.tagline= author.tagline
 
           .article-list

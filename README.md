@@ -75,6 +75,35 @@ TODO Continuous testing hasn't been fully vetted; proceed with caution
 $ guard
 ```
 
+Style Considerations
+====================
+
+To stay consistent with the style of this project, please abide by the following guidelines:
+
+- Use Ruby 1.9 syntax for hashes and lambdas:
+  ```
+  # bad
+  {:a => 1, 'b' => 2}
+  lambda {|x, y| x + y}
+
+  # good
+  {a: 1, 'b' => 2}
+  ->(x, y) {x + y}
+  ```
+- Use Rails ActiveSupport helpers whenever possible:
+  ```
+  # bad
+  x.nil? || x.length == 0
+  !(x.nil? || x.length == 0)
+  JSON.parse(x)
+
+  # good
+  x.blank?
+  x.present?
+  ActiveSupport::JSON.decode(x)
+  ```
+- Use Pokemon references liberally when writing tests. Only the first 151 Pokemon are recognized.
+
 
 Test Customizations
 -------------------
@@ -93,10 +122,24 @@ spork: # See "Available Options"  at https://github.com/guard/guard-spork
 
 ```
 
+Sitemap
+===============
+To generate the sitemap, run rake
+sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
+
 Other Resources
 ===============
 
+In no particular order:
+
+ - [Rails Guides](http://guides.rubyonrails.org/)
+ - [Ruby Toolbox](https://www.ruby-toolbox.com/)
  - [HAML](http://haml.info/)
+ - [CoffeeScript](http://coffeescript.org/)
+ - [Sass](http://sass-lang.com/)
+ - [Pro Git](http://git-scm.com/book)
  - [SimpleForm](http://simple-form.plataformatec.com.br/)
+ - [RSpec Rails](https://www.relishapp.com/rspec/rspec-rails/docs)
+ - [Cucumber](https://www.relishapp.com/cucumber/cucumber/docs)
  - [Capybara](http://jnicklas.github.com/capybara/)
  - [Pry](http://pryrepl.org/)

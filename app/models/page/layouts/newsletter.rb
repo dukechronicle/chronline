@@ -5,27 +5,42 @@ class Page::Layouts::Newsletter < Layout
       'news' => {
         'label' => 'News',
         'type' => 'array',
-        'items' => article_schema,
+        'items' => {
+          'extends' => article_schema,
+          'required' => false,
+        }
       },
       'sports' => {
         'label' => 'Sports',
         'type' => 'array',
-        'items' => article_schema,
+        'items' => {
+          'extends' => article_schema,
+          'required' => false,
+        }
       },
       'opinion' => {
         'label' => 'Opinion',
         'type' => 'array',
-        'items' => article_schema,
+        'items' => {
+          'extends' => article_schema,
+          'required' => false,
+        }
       },
       'recess' => {
         'label' => 'Recess',
         'type' => 'array',
-        'items' => article_schema,
+        'items' => {
+          'extends' => article_schema,
+          'required' => false,
+        }
       },
       'towerview' => {
         'label' => 'Towerview',
         'type' => 'array',
-        'items' => article_schema,
+        'items' => {
+          'extends' => article_schema,
+          'required' => false,
+        }
       }
     }
   end

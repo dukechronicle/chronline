@@ -3,8 +3,30 @@
   = f.error_notification
   .form-inputs
     = f.input :query
-    = f.input :title
-    = f.input :author
-    = f.input :body
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary', value: 'Search'
+
+= unless @articles.nil?
+  %h1= "Results for #{@article_search.query}"
+  - if !params[:article_search].nil? && params[:article_search][:section].present?
+    = "in "
+    / Drop the first and last slash
+    %b= params[:article_search][:section][1...-1]
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Title
+        %th Created
+        %th Actions
+    - @articles.each do |article|
+      %tr{id: "article_#{article.id}"}
+        %td
+          = link_to article.title, site_article_url(article, subdomain: 'www')
+          %p= byline(article)
+          %p= article.teaser
+        %td= article.created_at.strftime('%-m-%-d-%Y')
+        %td
+          = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
+          = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
+
+  = will_paginate @articles

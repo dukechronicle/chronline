@@ -1,7 +1,7 @@
 - Taxonomy.main_sections.each do |section|
-  - if model.has_key? section.name.downcase
+  - if model.send(section.name.downcase).present?
     %h2= section.name
-    - model[section.name.downcase].each do |article|
+    - model.send(section.name.downcase).each do |article|
       %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}
         %h3= article.title
       .article

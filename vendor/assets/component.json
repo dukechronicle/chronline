@@ -14,5 +14,7 @@
     "underscore": "~1.4.3",
     "jquery-galleria": "~1.2.8",
     "jquery-masonry": "latest"
+    "jquery.cookie": "latest",
+    "jquery.autoellipsis": "git://github.com/pvdspek/jquery.autoellipsis.git"
   }
 }
