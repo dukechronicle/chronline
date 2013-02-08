@@ -11,7 +11,9 @@ class Site::ArticlesController < Site::BaseController
       .order('created_at DESC')
       .page(params[:page])
       .find_by_section(@taxonomy)
-    @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
+    unless @taxonomy.root?
+      @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
+    end
   end
 
   def show

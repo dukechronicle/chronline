@@ -1,7 +1,8 @@
 class Site::BaseController < ApplicationController
   layout 'site'
 
-  before_filter :redirect_mobile
+  # TODO: think about how to handle special pages on mobile
+  before_filter :redirect_mobile, except: :custom_page
 
 
   def redirect_mobile
