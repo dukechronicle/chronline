@@ -1,5 +1,15 @@
 module ArticleHelper
 
+  def byline(article, options={})
+    article.authors.map do |author|
+      if options[:link]
+        link_to author.name, site_staff_path(author)
+      else
+        author.name
+      end
+    end.to_sentence.html_safe
+  end
+
   def display_date(article, format="%B %-d, %Y")
     article.created_at.strftime(format)
   end
