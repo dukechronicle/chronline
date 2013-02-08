@@ -53,4 +53,9 @@ describe ArticleHelper do
     end
   end
 
+  describe "mailto helpers" do
+    it { helper.should respond_to(:mailto_subject) }
+    it { helper.should respond_to(:mailto_body) }
+  end
+
 end
