@@ -137,6 +137,24 @@ onde.Onde.prototype.render = function (schema, data, opts) {
     this.renderObject(this.documentSchema, this.panelElement, this.instanceId, 
         this.documentInstance);
     this.initialRendering = false;
+    var arrays = this.panelElement.find('ol');
+    arrays.sortable({
+        connectWith: arrays,
+        update: function () {
+            console.log("SOMETHING");
+            arrays.children('li').each(function () {
+                var pid = $(this).parent().attr('id').replace('fieldvalue-', '');
+                var idx = $(this).index() + 1;
+                console.log($(this)[0]);
+                console.log($(this).index());
+                $(this).attr('id', 'field-' + pid + '_' + idx);
+                $(this).find('label').attr('for', 'fieldvalue-' + pid + '_' + idx);
+                $(this).find('input').attr('id', 'fieldvalue-' + pid + '_' + idx);
+                $(this).find('input').attr('name', pid.replace(/-/g, '.') + '[' + idx + ']');
+                $(this).find('button').attr('data-id', 'field-' + pid + '_' + idx);
+            });
+        },
+    });
     if (opts.renderFinished) {
         opts.renderFinished(this.panelElement);
     }
@@ -454,6 +472,9 @@ onde.Onde.prototype.renderFieldValue = function (fieldName, fieldInfo, parentNod
         }
     }
     fieldInfo = this._sanitizeFieldInfo(fieldInfo, valueData);
+    if (typeof(fieldInfo) === 'object' && 'extends' in fieldInfo) {
+        this.processSchemaExtends(fieldInfo);
+    }
     var fieldDesc = fieldInfo ? fieldInfo.description || fieldInfo.title : null;
     if (!fieldInfo || !fieldInfo.type || fieldInfo.type == 'any') {
         //TODO: Any!

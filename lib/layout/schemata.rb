@@ -12,9 +12,14 @@ end
 Layout.add_schema(:article, {
                     "type" => "integer",
                     "display" => "article-picker",
+                    "required" => true,
                     "model" => true,
                   }) do |article_ids|
   Article.includes(:authors, :image).find_in_order(article_ids)
+end
+
+Layout.add_schema(:page, {"type" => "integer"}) do |page_ids|
+  Page.includes(:image).find_in_order(page_ids)
 end
 
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
@@ -25,7 +30,7 @@ end
 Layout.add_schema(:columnists, {'type' => 'null'}) do |invocations|
   invocations.map do |_|
     # TODO: eager load the most recent n articles
-    Staff.includes(:headshot).where(columnist: true)
+    Staff.includes(:headshot).where(columnist: true).order(:name)
   end
 end
 
@@ -43,7 +48,7 @@ Layout.add_schema(:section_articles, {
                   }) do |sections|
   sections.map do |section|
     # TODO: Magic number
-    Article.limit(7).order('created_at DESC').find_by_section(section)
+    Article.limit(4).order('created_at DESC').find_by_section(section)
   end
 end
 

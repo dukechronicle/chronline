@@ -40,8 +40,10 @@ class Article < ActiveRecord::Base
     text :subtitle, stored: true, boost: 1.5, more_like_this: true
     text :body, stored: true, more_like_this: true
     integer :author_ids, :multiple => true
-    string :section
-    time :created_at
+    string :section do
+      section[0]
+    end
+    time :created_at, :trie => true
   end
 
   def disqus(host)
@@ -55,7 +57,7 @@ class Article < ActiveRecord::Base
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=100)
+  def normalize_friendly_id(title, max_chars=50)
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)
     r = /\b(#{removelist.join('|')})\b/i
@@ -152,4 +154,5 @@ onto per since than the this that to up via with)
       end
     end
   end
+
 end

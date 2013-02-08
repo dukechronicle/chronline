@@ -16,11 +16,13 @@ class Mobile::ArticlesController < Mobile::BaseController
     @article.register_view
   end
 
-  # Duplicate of site/articles#search
+  # Almost a duplicate of site/articles#search (highlighting, but should be
+  # moved to a decorator)
   def search
     @taxonomy = Taxonomy.new
     if params[:article_search].present?
-      @articles = Article::Search.new(params[:article_search]).results
+      @article_search = Article::Search.new(params[:article_search])
+      @articles = @article_search.results highlight: true
     else
       params[:article_search] = {}
       @articles = []

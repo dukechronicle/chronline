@@ -1,4 +1,8 @@
 namespace :bower do
+
+  desc "Refresh all bower packages"
+  task :refresh => [:install, :resolve]
+
   desc "Install Bower packages"
   task :install do
     in_vendor_assets remove_components: true do

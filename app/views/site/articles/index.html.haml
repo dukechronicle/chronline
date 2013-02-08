@@ -16,7 +16,9 @@
 
   = will_paginate
 
+
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  .title-small= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
+  - if @popular.present?
+    .title-small= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
   = render 'site/partials/facebook-recommended'

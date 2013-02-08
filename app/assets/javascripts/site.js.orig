@@ -1,0 +1,18 @@
+//= require jquery/jquery.js
+//= require jquery_ujs
+//= require underscore/underscore.js
+//= require date.format.js
+//= require jquery-galleria/src/galleria.js
+//= require jquery.hoverscroll.js
+<<<<<<< HEAD
+//= require jquery-masonry/jquery.masonry.js
+=======
+//= require jquery.autoellipsis/src/jquery.autoellipsis.js
+//= require jquery.cookie/jquery.cookie.js
+>>>>>>> ea68d637fb71ca7fad601aef3d5401ce9986822c
+
+//= require util
+//= require initialize
+//= require common/social-media
+//= require common/analytics
+//= require_tree ./site

@@ -10,16 +10,11 @@
 - content_for :administrative_links do
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
+- content_for :twitter_card do
+  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
+
 - content_for :open_graph_tags do
-  %meta{property: "og:title", content: @article.title}
-  %meta{property: "og:type", content: "article"}
-  - if @article.image
-    %meta{property: "og:image", content: @article.image.original.url(:thumb_rect_m)}
-  - else
-    %meta{property: "og:image", content: image_path("logo/300x300.png")}
-  %meta{property: "og:url", content: site_article_url(@article)}
-  %meta{property: "og:site_name", content: "The Duke Chronicle"}
-  %meta{property: "og:description", content: @article.teaser}
+  = render partial: 'partials/open-graph/article', locals: {article: @article}
 
 
 %article#article
@@ -33,10 +28,8 @@
         - if @article.image
           = image_tag @article.image.original.url(:large_rect), class: 'main-image'
           .clearfix
-            - if @article.image.photographer
-              .photo-credit
-                %span= @article.image.photographer.name
-                %span / The Chronicle
+            .photo-credit
+              %span= photo_credit(@article.image)
             - if not @article.image.caption.blank?
               %p.photo-caption= @article.image.caption
 
@@ -47,8 +40,15 @@
 
         .article-body
           #social-media
-            %div= link_to "Comments", "#disqus_thread", class: "comment-link"
-            %div= link_to "Print", site_print_article_path(@article), class: "print-link"
+            %div.comment-link
+              %i.icons-comment
+              = link_to "Comments", "#disqus_thread"
+            %div.print-link
+              %i.icons-print
+              = link_to "Print", site_print_article_path(@article)
+            %div.email-link
+              %i.icons-email
+              = link_to "Email", "mailto:?subject=%s&body=%s" % [mailto_subject(@article), mailto_body(@article)]
             %div
               .fb-like{data: {href: site_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
@@ -64,3 +64,5 @@
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @related, style: :subhead}
     = render 'site/partials/facebook-recommended'
+
+= render 'site/partials/facebook-social-share'

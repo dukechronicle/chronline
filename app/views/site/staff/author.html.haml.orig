@@ -1,0 +1,24 @@
+- provide :title, @staff.name
+
+- content_for :title_block do
+  %h1= @staff.name
+
+.span-7
+  - @articles.each do |article|
+    .rounded
+      %a.hover{href: site_article_path(article)}
+        .content-container
+          %h3= article.title
+          .subtitle
+            %span.date= article.created_at.strftime("%B %e, %Y")
+            %span.author= byline(article)
+          %p= article.teaser
+
+<<<<<<< HEAD
+.span-5.last
+  = render partial: 'site/containers/staff-profile', locals: {staff: @staff}
+=======
+  = will_paginate @articles
+
+.span-5.last= render partial: 'site/containers/staff-profile', locals: {staff: @staff}
+>>>>>>> ea68d637fb71ca7fad601aef3d5401ce9986822c

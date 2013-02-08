@@ -10,5 +10,5 @@ $ ->
 initialize 'form.staff-search', ->
   $(this).submit (e) ->
     e.preventDefault()
-    slug = $(this).find('input').val().toLowerCase().replace(/\s/g, '-')
+    slug = $(this).find('input').val().toLowerCase().replace(/[\s\']/g, '-')
     window.location = "/staff/#{slug}/edit"

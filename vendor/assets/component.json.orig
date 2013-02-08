@@ -1,0 +1,23 @@
+{
+  "name": "chronline",
+  "version": "3.0.0",
+  "dependencies": {
+    "blueimp-canvas-to-blob": "latest",
+    "blueimp-load-image": "latest",
+    "blueimp-tmpl": "latest",
+    "bootstrap": "latest",
+    "jcrop": "latest",
+    "jquery": "latest",
+    "jquery-file-upload": "latest",
+    "jquery-ui": "~1.9.2",
+    "onde": "git://github.com/exavolt/onde.git",
+    "underscore": "~1.4.3",
+    "jquery-galleria": "~1.2.8",
+<<<<<<< HEAD
+    "jquery-masonry": "latest"
+=======
+    "jquery.cookie": "latest",
+    "jquery.autoellipsis": "git://github.com/pvdspek/jquery.autoellipsis.git"
+>>>>>>> ea68d637fb71ca7fad601aef3d5401ce9986822c
+  }
+}

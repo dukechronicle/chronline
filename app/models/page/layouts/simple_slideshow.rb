@@ -22,7 +22,10 @@ class Page::Layouts::SimpleSlideshow < Layout
         'type' => 'array',
         'label' => 'Bottom Block Articles',
         'required' => false,
-        'items' => article_schema,
+        'items' => {
+          'extends' => article_schema,
+          'required' => false,
+        }
       }
     }
   end
