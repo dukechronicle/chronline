@@ -1,15 +1,5 @@
 module Site::ArticleHelper
 
-  def truncate_body(article)
-    if article.teaser.blank?
-      article.render_body
-    elsif article.teaser.length <= 200
-      article.teaser
-    else
-      article.teaser[0...article.teaser.rindex(' ', 197)] + '...'
-    end
-  end
-
   def photo_credit(image, options={})
     if image.photographer
       name = if options[:include_link]
@@ -27,4 +17,5 @@ module Site::ArticleHelper
       image.credit
     end
   end
+
 end
