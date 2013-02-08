@@ -1,5 +1,9 @@
 module ArticleHelper
 
+  def display_date(article, format="%B %-d, %Y")
+    article.created_at.strftime(format)
+  end
+
   def disqus_options(article)
     {
       production: Rails.env.production?,
