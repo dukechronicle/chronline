@@ -122,8 +122,8 @@ describe Article do
   describe "::popular" do
     before(:all) do
       @articles = FactoryGirl.create_list(:article, 4)
-      $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[0].id)
-      $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[1].id)
+      $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[0].id)
+      $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[1].id)
       $redis.zincrby("popularity:news:#{Date.today - 1}", 2, @articles[2].id)
       $redis.zincrby("popularity:sports:#{Date.today - 1}", 3, @articles[3].id)
     end
@@ -131,12 +131,20 @@ describe Article do
     subject { Article.popular(:news) }
 
     it "should return articles only articles in the section" do
-      should_not include(@articles[2])
+      should =~ @articles.take(3)
     end
 
-    it "should return articles in descending number of views"
-    it "should rank recent article views more highly than old article views"
-    it "should return no more than the specified number of articles"
+    it "should return articles in descending number of views" do
+      subject.index(@articles[1]).should be < subject.index(@articles[0])
+    end
+
+    it "should rank recent article views more highly than old article views" do
+      subject.index(@articles[0]).should be < subject.index(@articles[2])
+    end
+
+    it "should return no more than the specified number of articles" do
+      Article.popular(:news, limit: 2).should have(2).articles
+    end
   end
 
   describe "section scope" do
