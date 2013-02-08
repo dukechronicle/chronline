@@ -119,6 +119,13 @@ describe Article do
     end
   end
 
+  describe "::popular" do
+    it "should return articles only articles in the section"
+    it "should return articles in descending number of views"
+    it "should rank recent article views more highly than old article views"
+    it "should return no more than the specified number of articles"
+  end
+
   describe "section scope" do
     let(:articles) do
       articles = FactoryGirl.create_list(:article, 3)
