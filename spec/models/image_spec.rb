@@ -36,4 +36,30 @@ describe Image do
     end
   end
 
+  describe "::styles" do
+    it "should be a hash of version dimensions" do
+      Image.styles.each do |version, dimensions|
+        version.should be_a(Symbol)
+        dimensions.should match(/\d+x\d+#/)
+      end
+    end
+  end
+
+  describe "#to_jq_upload" do
+    it "should be an array with one hash" do
+      subject.to_jq_upload.should be_an(Array)
+      subject.to_jq_upload.should have(1).item
+    end
+
+    it "should have required jQuery upload properties" do
+      hash = subject.to_jq_upload.first
+      hash.should have_key(:name)
+      hash.should have_key(:size)
+      hash.should have_key(:url)
+      hash.should have_key(:thumbnail_url)
+      hash.should have_key(:delete_url)
+      hash.should have_key(:delete_type)
+    end
+  end
+
 end
