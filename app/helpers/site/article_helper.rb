@@ -27,28 +27,4 @@ module Site::ArticleHelper
       image.credit
     end
   end
-
-  def mailto_body(article)
-    body = <<EOS
-
-
---------------------------------------------------------------------------------
-
-Duke Chronicle
-
-#{article.title}
-
-#{byline(article)} | #{display_date(article)}
-
-#{article.teaser}
-
-Visit #{site_article_url(article)} for the full story.
-EOS
-    URI.escape(body)
-  end
-
-  def mailto_subject(article)
-    "Duke Chronicle: #{article.title}"
-  end
-
 end
