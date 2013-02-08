@@ -17,5 +17,23 @@
 require 'spec_helper'
 
 describe Image do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  subject { FactoryGirl.create(:image) }
+
+  it "should set default date to today's date" do
+    subject.date.should == Date.today
+  end
+
+  describe "Styles" do
+    it "should be set as a constant" do
+      Image.const_defined?(:Styles).should be_true
+    end
+
+    it "should have version information as values" do
+      Image::Styles.each do |k, v|
+        v.should include('width', 'height', 'description')
+      end
+    end
+  end
+
 end
