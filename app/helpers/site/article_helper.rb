@@ -10,10 +10,6 @@ module Site::ArticleHelper
     end.join(', ').html_safe
   end
 
-  def display_date(article, format="%B %e, %Y")
-    article.created_at.strftime(format)
-  end
-
   def truncate_body(article)
     if article.teaser.blank?
       article.render_body

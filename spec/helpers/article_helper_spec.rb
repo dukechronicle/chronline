@@ -2,9 +2,21 @@ require 'spec_helper'
 
 
 describe ArticleHelper do
+  let(:article) { FactoryGirl.create(:article) }
+
+  describe "#display_date" do
+    before { article.created_at = Date.new(2013, 1, 1) }
+
+    it "should display creation date in specified format" do
+      helper.display_date(article, '%Y').should == '2013'
+    end
+
+    it "should default to readable date format" do
+      helper.display_date(article).should == 'January 1, 2013'
+    end
+  end
 
   describe "#disqus_options" do
-    let(:article) { FactoryGirl.create(:article) }
     subject { ActiveSupport::JSON.decode(helper.disqus_options(article)) }
 
     it "should be valid JSON" do
