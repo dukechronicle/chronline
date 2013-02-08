@@ -120,7 +120,20 @@ describe Article do
   end
 
   describe "::popular" do
-    it "should return articles only articles in the section"
+    before(:all) do
+      @articles = FactoryGirl.create_list(:article, 4)
+      $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[0].id)
+      $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[1].id)
+      $redis.zincrby("popularity:news:#{Date.today - 1}", 2, @articles[2].id)
+      $redis.zincrby("popularity:sports:#{Date.today - 1}", 3, @articles[3].id)
+    end
+
+    subject { Article.popular(:news) }
+
+    it "should return articles only articles in the section" do
+      should_not include(@articles[2])
+    end
+
     it "should return articles in descending number of views"
     it "should rank recent article views more highly than old article views"
     it "should return no more than the specified number of articles"
