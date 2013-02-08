@@ -20,15 +20,24 @@ class Staff < ActiveRecord::Base
 
   SEARCH_LIMIT = 10
 
-  attr_accessible :affiliation, :biography, :columnist, :name, :tagline, :twitter
+  attr_accessible :affiliation, :biography, :columnist, :headshot_id, :name, :tagline, :twitter
 
   friendly_id :name, use: :slugged
 
-  has_many :images
+  has_many :images, foreign_key: :photographer_id
+  belongs_to :headshot, class_name: "Image"
   has_and_belongs_to_many :articles, join_table: :articles_authors
 
   validates :name, presence: true, uniqueness: true
 
+
+  def author?
+    articles.present?
+  end
+
+  def photographer?
+    images.present?
+  end
 
   def self.search(name)
     self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")

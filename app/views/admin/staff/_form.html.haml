@@ -10,7 +10,10 @@
       = f.input_field :twitter
     = f.input :columnist, label: "Current Columnist?"
     = f.input :biography, input_html: {rows: 5, class: 'input-xxlarge'}
+    = f.association :headshot, as: :image_picker
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
     - if not @staff.new_record?
       = link_to "Delete Staff", [:admin, @staff], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
+
+%script#image-select-template{type: 'text/template'}= render 'admin/templates/image-select'

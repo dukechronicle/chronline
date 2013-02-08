@@ -1,20 +1,20 @@
-- provide :title, @page.title
-
 - content_for :title_block do
   = render 'site/partials/navigation'
 
 .clearfix.align-group
   .span-6.align-element{data: {aligntarget: '#featured .rounded'}}
-    #featured= render partial: 'site/containers/block/featured', locals: {article: @model['featured']}
-    - @model['headlines'].each do |article|
+    #featured= render partial: 'site/containers/block/featured', locals: {article: @model.featured}
+    - @model.headlines.each do |article|
       = render partial: 'site/containers/block/horizontal', locals: {article: article}
 
   .span-6.last.align-element{data: {aligntarget: '#headlines .rounded, #blog .rounded'}}
     .clearfix.align-group
-      #popular.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @model['popular']}
-      .span-4.last.align-element{data: {alignprimary: true}}= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+      #popular.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @model.popular}
+      .span-4.last.align-element{data: {alignprimary: "true"}}= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
 
-    #headlines.span-3.title-medium= render partial: 'site/containers/article-list', locals: {title: 'Headlines', articles: @model['right_headlines'], style: :featured}
+    .clearfix.align-group
+      #headlines.span-3.title-medium.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list', locals: {title: 'Headlines', articles: @model.right_headlines, style: :featured}
+      #blog.span-3.last.title-small.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-list/rss', locals: {title: "News Blog", items: @model.blog['feed'], image: {src: 'blogs/newsblog-banner.jpg', href: @model.blog['url']}}
 
-= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model['multimedia']}
-= render partial: 'site/containers/article-row', locals: {title: 'More News', articles: @model['more_news'], feature: false}
+= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+= render partial: 'site/containers/article-row', locals: {title: 'More News', articles: @model.more_news, feature: false}

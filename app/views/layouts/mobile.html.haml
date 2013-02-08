@@ -7,6 +7,7 @@
     :javascript
       try{Typekit.load()}catch(e){}
     = stylesheet_link_tag "mobile", :media => "all"
+    = render 'partials/favicon'
     = csrf_meta_tags
   %body
     #fb-root

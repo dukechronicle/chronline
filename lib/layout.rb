@@ -4,6 +4,8 @@ require 'layout/validator'
 class Layout
   require 'layout/schema'
 
+  attr_reader :embedded
+
   @@schemata = {}
   @@transformations = {}
 
@@ -17,11 +19,14 @@ class Layout
   end
 
   def generate_model
-    Layout::Validator.new(json_schema, @data).validate
+    validator = Layout::Validator.new(json_schema, @data)
+    data = validator.validate
+    @embedded = validator.embedded
+    data
   end
 
   def model
-    @model = generate_model if @model.nil?
+    @model = OpenStruct.new(generate_model) if @model.nil?
     @model
   end
 
@@ -56,33 +61,4 @@ class Layout
 
 end
 
-Layout.add_schema(:markdown, {
-                    "type" => "string",
-                    # "description" => "Markdown text",
-                    "format" => "multiline",  # for onde.js
-                  }) do |markdown_strings|
-  markdown_strings.map {|str| RDiscount.new(str).to_html}
-end
-
-Layout.add_schema(:article, {
-                    "type" => "integer",
-                    "display" => "article-picker"
-                  }) do |article_ids|
-  Article.includes(:authors, :image).find_in_order(article_ids)
-end
-
-Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
-  disqus = Disqus.new(Settings.disqus.api_key)
-  articles = disqus.popular_articles(Settings.disqus.shortname, 7)
-  [articles] * invocations.length
-end
-
-
-Layout.add_schema(:popular, {
-                    'type' => 'string',
-                    'enum' => Taxonomy.main_sections.map {|t| t.name.downcase},
-                  }) do |sections|
-  sections.map do |section|
-    Article.popular(section, limit: 7)
-  end
-end
+require 'layout/schemata'
