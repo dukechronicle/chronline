@@ -6,6 +6,14 @@
         = image_tag staff.headshot.original.url(:thumb_rect), class: :headshot
       .staff-info
         %h2= staff.name
+        .links
+          %ul
+            - if staff.is_author?
+              %li
+                = link_to 'Articles', site_staff_articles_path(staff)
+            - if staff.is_photographer?
+              %li
+                = link_to 'Photos',  site_staff_images_path(staff)
         %p.affiliation= staff.affiliation
         - if staff.twitter.present?
           = link_to "@#{staff.twitter}", "http://twitter.com/#{staff.twitter}", class: 'twitter'
