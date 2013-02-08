@@ -130,7 +130,16 @@ sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
 Other Resources
 ===============
 
+In no particular order:
+
+ - [Rails Guides](http://guides.rubyonrails.org/)
+ - [Ruby Toolbox](https://www.ruby-toolbox.com/)
  - [HAML](http://haml.info/)
+ - [CoffeeScript](http://coffeescript.org/)
+ - [Sass](http://sass-lang.com/)
+ - [Pro Git](http://git-scm.com/book)
  - [SimpleForm](http://simple-form.plataformatec.com.br/)
+ - [RSpec Rails](https://www.relishapp.com/rspec/rspec-rails/docs)
+ - [Cucumber](https://www.relishapp.com/cucumber/cucumber/docs)
  - [Capybara](http://jnicklas.github.com/capybara/)
  - [Pry](http://pryrepl.org/)
