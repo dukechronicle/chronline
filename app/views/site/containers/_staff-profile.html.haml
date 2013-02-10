@@ -2,18 +2,19 @@
   %h2.vertical-label Profile
   .rounded
     .content-container
-      - if staff.headshot
-        = image_tag staff.headshot.original.url(:thumb_rect), class: :headshot
-      .staff-info
-        %h2= staff.name
+      .right-box
+        - if staff.headshot
+          = image_tag staff.headshot.original.url(:thumb_rect), class: :headshot
         .links
           %ul
-            - if staff.author?
+            - if staff.author? and except != :articles
               %li
                 = link_to 'Articles', site_staff_articles_path(staff)
-            - if staff.photographer?
+            - if staff.photographer? and except != :images
               %li
                 = link_to 'Photos',  site_staff_images_path(staff)
+      .staff-info
+        %h2= staff.name
         %p.affiliation= staff.affiliation
         - if staff.twitter.present?
           = link_to "@#{staff.twitter}", "http://twitter.com/#{staff.twitter}", class: 'twitter'

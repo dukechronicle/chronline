@@ -1,5 +1,18 @@
 class Site::StaffController < Site::BaseController
 
+  def index
+    if params[:view] == :images
+      @staff = Staff.find(params[:staff_id])
+      @images = @staff.images.page(params[:page]).order('created_at DESC')
+      @except = params[:view]
+      render 'site/staff/photographer'
+    else
+      @except = params[:view]
+      @staff = Staff.find(params[:staff_id])
+      @articles = @staff.articles.page(params[:page]).order('created_at DESC')
+      render 'site/staff/author'
+    end
+  end
   def show
     @staff = Staff.find(params[:id])
     @articles = @staff.articles.page(params[:page]).order('created_at DESC')

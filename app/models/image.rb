@@ -46,6 +46,7 @@ class Image < ActiveRecord::Base
   has_many :staff, foreign_key: :headshot_id
   belongs_to :photographer, class_name: "Staff"
 
+  self.per_page = 30
 
   def to_jq_upload
     [{
