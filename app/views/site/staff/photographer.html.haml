@@ -5,10 +5,10 @@
 
 .span-12
   #images-container
-    .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff}
+    .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: @except}
 
     - styles = [:thumb_rect, :large_rect, :thumb_rect, :thumb_rect, :thumb_rect, :large_rect, :thumb_rect]
-    - @staff.images.each do |image|
+    - @images.each do |image|
       .item
         .rounded
           .image-container
@@ -16,3 +16,4 @@
               - style = styles.sample
               = image_tag image.original.url(styles.first), class: styles.first
       - styles.rotate!
+  = will_paginate @images
