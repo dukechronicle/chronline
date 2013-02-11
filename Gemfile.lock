@@ -7,6 +7,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    accept_values_for (0.4.3)
+      activemodel (>= 3.0.0)
+      rspec
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
       mail (~> 2.4.4)
@@ -383,6 +386,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  accept_values_for
   active_attr
   annotate
   asset_sync
