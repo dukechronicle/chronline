@@ -1,7 +1,7 @@
 namespace :db do
 
   desc "Refresh the database"
-  task :refresh => [:reset, :populate]
+  task :refresh => [:reset, :populate, 'sunspot:solr:reindex']
 
   desc "Fill database with sample data"
   task populate: :environment do
