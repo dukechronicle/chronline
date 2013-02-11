@@ -24,6 +24,15 @@ describe Image do
     subject.date.should == Date.today
   end
 
+  describe "articles" do
+    let(:article) { FactoryGirl.create(:article, image_id: subject.id) }
+
+    it "should remove image from articles when destroyed" do
+      subject.destroy
+      article.image.should be_nil
+    end
+  end
+
   describe "Styles" do
     it "should be set as a constant" do
       Image.const_defined?(:Styles).should be_true
