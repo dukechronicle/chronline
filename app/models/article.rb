@@ -66,9 +66,12 @@ onto per since than the this that to up via with)
 
   def register_view
     unless section.root?
-      # TODO: expire old keys
       key = "popularity:#{section[0].downcase}:#{Date.today}"
-      $redis.zincrby(key, 1, id)
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.multi do
+        $redis.zincrby(key, 1, id)
+        $redis.expireat(key, timestamp)
+      end
     end
   end
 
