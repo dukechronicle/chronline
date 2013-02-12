@@ -88,9 +88,16 @@ describe Article do
   end
 
   describe "#register_view" do
+    let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
+
     it "should increment its id in the redis sorted set" do
-      key_pattern = /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/
       $redis.should_receive(:zincrby).with(key_pattern, 1, @article.id)
+      @article.register_view
+    end
+
+    it "should expire the key in 5 days" do
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.should_receive(:expireat).with(key_pattern, timestamp)
       @article.register_view
     end
 
