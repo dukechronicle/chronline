@@ -48,7 +48,7 @@
               = link_to "Print", site_print_article_path(@article)
             %div.email-link
               %i.icons-email
-              = link_to "Email", "mailto:?subject=%s&body=%s" % [mailto_subject(@article), mailto_body(@article)]
+              = link_to "Email", mailto_article(@article)
             %div
               .fb-like{data: {href: site_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div

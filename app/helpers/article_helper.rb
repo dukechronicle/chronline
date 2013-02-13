@@ -25,7 +25,8 @@ module ArticleHelper
     }.to_json
   end
 
-  def mailto_body(article)
+  def mailto_article(article)
+    subject = "Duke Chronicle: #{article.title}"
     body = <<EOS
 
 
@@ -41,11 +42,7 @@ Duke Chronicle
 
 Visit #{site_article_url(article)} for the full story.
 EOS
-    URI.escape(body)
-  end
-
-  def mailto_subject(article)
-    "Duke Chronicle: #{article.title}"
+    "mailto:?subject=#{subject}&body=#{URI.escape(body)}"
   end
 
 end
