@@ -35,6 +35,10 @@ class Staff < ActiveRecord::Base
     articles.present?
   end
 
+  def last_name
+    name.split.last
+  end
+
   def photographer?
     images.present?
   end
