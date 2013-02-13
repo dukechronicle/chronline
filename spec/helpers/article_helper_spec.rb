@@ -8,7 +8,7 @@ describe ArticleHelper do
   describe "#byline" do
     before { article.authors = [Staff.create!(name: 'Hiker Mikael')] }
 
-    it "should be the conjunction of the author names" do
+    it "should be the conjunction of the author names sorted by last name" do
       article.authors += [Staff.create!(name: 'Youngster Juan'),
                           Staff.create!(name: 'Swimmer Richard')]
       helper.byline(article)
