@@ -12,7 +12,7 @@ describe ArticleHelper do
       article.authors += [Staff.create!(name: 'Youngster Juan'),
                           Staff.create!(name: 'Swimmer Richard')]
       helper.byline(article)
-        .should == "Hiker Mikael, Youngster Juan, and Swimmer Richard"
+        .should == "Youngster Juan, Hiker Mikael, and Swimmer Richard"
     end
 
     it "should use anchor tags for names if link option is used" do
