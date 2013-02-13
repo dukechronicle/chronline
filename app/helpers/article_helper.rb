@@ -1,7 +1,8 @@
 module ArticleHelper
 
   def byline(article, options={})
-    article.authors.map do |author|
+    authors = article.authors.sort_by(&:last_name)
+    authors.map do |author|
       if options[:link]
         link_to author.name, site_staff_path(author)
       else
