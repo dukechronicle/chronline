@@ -19,7 +19,8 @@ class Admin::PagesController < Admin::BaseController
   def update
     @page = Page.find(params[:id])
     if @page.update_attributes(params[:page])
-      redirect_to admin_pages_path
+      # TODO: refactor this
+      redirect_to (site_root_url(subdomain: :www) + @page.path[1..-1])
     else
       render 'form'
     end
@@ -28,7 +29,7 @@ class Admin::PagesController < Admin::BaseController
   def create
     @page = Page.new(params[:page])
     if @page.save
-      redirect_to admin_pages_path
+      redirect_to (site_root_url(subdomain: :www) + @page.path[1..-1])
     else
       render 'form'
     end
