@@ -1,0 +1,21 @@
+<% content_for :scripts do %>
+<script src="http://www.goduke.com/mediaPortal/scripts/inline.js" language="javascript"></script>
+<% end %>
+
+<% height = width * 9 / 16 + 169 %>
+<div class="rounded video-player">
+  <table width="<%= width + 6 %>" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+        <object width="<%= width %>" height="<%= height %>" id="iptvsyndicated" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+          <param name="movie" value="http://www.goduke.com/mediaPortal/inline.swf" />
+          <param name="flashVars" value="playerId=68212&server=http://www.goduke.com/XML/titanv3/&pageurl=http://www.goduke.com/mediaPortal/&sitename=aff.duke.chronicle&locimage=http://image.cdnllnwnl.xosnetwork.com/mediaPortal/&jtv=4200&skin=4200&gaa=UA-8117835-2&companion=true&htmlid=iptvsyndicated&brandTextColor=0xCCCCCC&brandTextSelectedColor=0xFFFFFF&adpath=N12906217" />
+          <param name="quality" value="high" />
+          <param name="allowFullScreen" value="true" />
+          <param name="allowScriptAccess" value="always" />
+          <embed name="iptvsyndicated" pluginspage="http://www.adobe.com/go/getflashplayer" src="http://www.goduke.com/mediaPortal/inline.swf" type="application/x-shockwave-flash" width="<%= width %>" height="<%= height %>" quality="high" allowFullScreen="true" allowScriptAccess="always" flashVars="playerId=68212&server=http://www.goduke.com/XML/titanv3/&pageurl=http://www.goduke.com/mediaPortal/&sitename=aff.duke.chronicle&locimage=http://image.cdnllnwnl.xosnetwork.com/mediaPortal/&jtv=4200&skin=4200&gaa=UA-8117835-2&companion=true&htmlid=iptvsyndicated&brandTextColor=0xCCCCCC&brandTextSelectedColor=0xFFFFFF&adpath=N12906217"></embed>
+        </object>
+      </td>
+    </tr>
+  </table>
+</div>
