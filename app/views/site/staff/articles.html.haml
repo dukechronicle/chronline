@@ -16,4 +16,4 @@
 
   = will_paginate @articles
 
-.span-5.last= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: @except}
+.span-5.last= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :articles}

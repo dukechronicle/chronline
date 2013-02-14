@@ -9,10 +9,10 @@
           %ul
             - if staff.author? and except != :articles
               %li
-                = link_to 'Articles', site_staff_articles_path(staff)
+                = link_to 'Articles', articles_site_staff_path(staff)
             - if staff.photographer? and except != :images
               %li
-                = link_to 'Photos',  site_staff_images_path(staff)
+                = link_to 'Photos', images_site_staff_path(staff)
       .staff-info
         %h2= staff.name
         %p.affiliation= staff.affiliation
