@@ -20,7 +20,7 @@
       %h3= child.name
       %ul{data: {role: "listview"}}
         %li
-          %a{href: "/section#{child.to_s}"}
+          %a{href: section_path(child)}
             More
             %em= child.to_a.join(', ')
             Articles

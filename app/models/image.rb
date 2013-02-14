@@ -34,9 +34,7 @@ class Image < ActiveRecord::Base
   attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles, processors: [:cropper]
 
-  default_value_for :date do
-    Date.today
-  end
+  default_value_for(:date) { Date.today }
 
   validates :original, attachment_presence: true
   validates :date, presence: true
@@ -58,6 +56,10 @@ class Image < ActiveRecord::Base
       delete_type: 'DELETE',
      }]
   end
+
+  ###
+  # Helper methods for rendering JSON
+  ###
 
   def thumbnail_url
     original.url(:thumb_rect)

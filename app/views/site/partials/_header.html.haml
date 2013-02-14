@@ -26,7 +26,7 @@
         %h1.brand The Chronicle
     %nav#nav
       - Taxonomy.main_sections.each do |taxonomy|
-        %a{href: "/section#{taxonomy.to_s}", class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
+        %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
       %a{href: "http://chronicleblogs.com"}
         %h2 Blogs
