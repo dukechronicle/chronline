@@ -10,9 +10,9 @@ class Admin::ArticlesController < Admin::BaseController
     end
 
     @articles = Article.includes(:authors, :image)
+      .section(@taxonomy)
       .order('created_at DESC')
       .page(params[:page])
-      .find_by_section(@taxonomy)
   end
 
   def new
@@ -75,7 +75,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def find_article_page_for_date(date, taxonomy)
-    index = Article.find_by_section(taxonomy)
+    index = Article.section(taxonomy)
       .where(["created_at > ?", date]).count
     index / Article.per_page + 1
   end

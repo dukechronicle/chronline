@@ -8,9 +8,9 @@ class Site::ArticlesController < Site::BaseController
       nil
     end
     @articles = Article.includes(:authors, :image)
+      .section(@taxonomy)
       .order('created_at DESC')
       .page(params[:page])
-      .find_by_section(@taxonomy)
     unless @taxonomy.root?
       @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
     end

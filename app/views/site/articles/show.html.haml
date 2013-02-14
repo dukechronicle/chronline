@@ -5,7 +5,7 @@
     - @article.section.parents.each_with_index do |parent, i|
       - if i > 0
         &raquo;
-      = link_to parent.name, "/section#{parent.to_s}"
+      = link_to parent.name, section_path(parent)
 
 - content_for :administrative_links do
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
@@ -34,9 +34,9 @@
               %p.photo-caption= @article.image.caption
 
         %p.byline
-          %span.author By #{byline(@article, include_links: true)}
+          %span.author By #{byline(@article, link: true)}
           %span.sep= "|"
-          %span.date= @article.created_at.strftime("%B %e, %Y")
+          %span.date= display_date(@article)
 
         .article-body
           #social-media
@@ -58,11 +58,12 @@
 
           != @article.render_body
 
-    #disqus_thread.rounded{data: {disqus: @article.disqus(current_domain).to_json}}
+    #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @related, style: :subhead}
     = render 'site/partials/facebook-recommended'
+    = render partial: 'site/partials/video-player', locals: {width: 300}
 
 = render 'site/partials/facebook-social-share'
