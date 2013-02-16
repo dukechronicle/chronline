@@ -76,7 +76,7 @@ onto per since than the this that to up via with)
 
   def related(limit)
     Sunspot.more_like_this(self) do
-      fields :title, :subtitle, :body
+      fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
     end.results
