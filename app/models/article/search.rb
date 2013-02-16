@@ -9,7 +9,8 @@ class Article::Search
   attribute :query
   attribute :author, type: Integer
   attribute :section, type: String
-  attribute :date
+  attribute :start_date
+  attribute :end_date
 
   attribute :page, type: Integer, default: 1
   attribute :sort,  default: :score
@@ -48,12 +49,6 @@ class Article::Search
     end
   end
 
-  def years
-    return request.facet(:created_at).rows.map do |facet|
-      {value: facet.value, count: facet.count, lookup: facet.value}
-    end
-  end
-
 
   private
 
@@ -84,6 +79,7 @@ class Article::Search
       @request = Article.search do
         with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
+        with(:created_at).greater_than(start_date) if start_date?
 
         fulltext self.query do
           highlight :title, fragment_size: 0
@@ -97,14 +93,6 @@ class Article::Search
 
         facet :author_ids
         facet :section
-
-        facet :created_at do
-          (1990..Time.now.year).each do |y|
-            row(y) do
-              with :created_at, Time.new(y)..Time.new(y+1)
-            end
-          end
-        end
       end
     end
     @request
