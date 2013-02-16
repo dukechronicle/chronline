@@ -72,7 +72,9 @@ class Article::Search
 
   def highlighted(hit, field)
     hit.highlights(field).map do |highlight|
-      highlight.format {|word| "<mark>#{word}</mark>"}
+      fragment = highlight.format {|word| "<mark>#{word}</mark>"}
+      # Strip out HTML tags from matched fragments
+      fragment.gsub(/<[^>]*>/, '')
     end
   end
 
