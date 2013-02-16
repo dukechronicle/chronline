@@ -12,9 +12,9 @@ Chronline::Application.routes.draw do
         post 'unsubscribe'
       end
 
-      root to: 'base#custom_page'
-      get 'pages/*path' => 'base#custom_page'
+      root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
+      get 'pages/*path' => 'base#custom_page'
 
       get 'article/:id' => 'articles#show', as: :article
       get 'article/:id/print' => 'articles#print', as: :print_article
@@ -22,6 +22,11 @@ Chronline::Application.routes.draw do
       resources :staff, only: :show
 
       match '/404', :to => 'base#not_found'
+
+      # Legacy routes
+      %w[news sports opinion recess towerview].each do |section|
+        match section => redirect("/section/#{section}")
+      end
     end
   end
 

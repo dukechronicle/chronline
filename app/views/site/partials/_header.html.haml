@@ -4,15 +4,12 @@
 
 #super-header
   %span.date.local-time.left(data-format='dddd, mmmm dS, yyyy')
-  .icons.left
-    %a{href: "http://www.facebook.com/dukechronicle"}
-      = image_tag "icons/facebook.png"
-    %a{href: "http://twitter.com/dukechronicle"}
-      = image_tag "icons/twitter.png"
-    %a{href: "http://youtube.com/user/DukeChronicle"}
-      = image_tag "icons/youtube.png"
-    %a{href: "/rss"}
-      = image_tag "icons/rss.png"
+  .icons
+    %a.icons-facebook{href: "http://www.facebook.com/dukechronicle"}
+    %a.icons-twitter{href: "http://twitter.com/dukechronicle"}
+    %a.icons-youtube{href: "http://youtube.com/user/DukeChronicle"}
+    %a.icons-currents{href: "https://www.google.com/producer/editions/CAow2Z66Ag/duke_chronicle"}
+    %a.icons-rss{href: "/rss"}
   .advertising-links.right
     = link_to "Print Subscription", "/pages/subscribe"
     = link_to "Advertising", "/pages/advertising"
@@ -29,7 +26,7 @@
         %h1.brand The Chronicle
     %nav#nav
       - Taxonomy.main_sections.each do |taxonomy|
-        %a{href: "/section#{taxonomy.to_s}", class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
+        %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
       %a{href: "http://chronicleblogs.com"}
         %h2 Blogs
