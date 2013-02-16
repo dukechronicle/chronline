@@ -40,13 +40,12 @@ class Article < ActiveRecord::Base
 
   searchable do
     text :title, stored: true, boost: 2.0, more_like_this: true
-    text :subtitle, stored: true, boost: 1.5, more_like_this: true
     text :body, stored: true, more_like_this: true
-    integer :author_ids, :multiple => true
+    integer :author_ids, multiple: true
     string :section do
       section[0]
     end
-    time :created_at, :trie => true
+    time :created_at, trie: true
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/

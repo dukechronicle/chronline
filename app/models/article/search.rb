@@ -12,10 +12,11 @@ class Article::Search
   attribute :date
 
   attribute :page, type: Integer, default: 1
-  attribute :sort,  :default => :score
-  attribute :order, :default => :desc
+  attribute :sort,  default: :score
+  attribute :order, default: :desc
 
   attribute :per_page, type: Integer, default: 25
+  attribute :highlight, default: true
 
   # Returns results for an initialized search object with the title and body
   # optionally highlighted; highlights with the `<mark />` tag
@@ -27,36 +28,12 @@ class Article::Search
   #
   # @note Highlighted output will replace the title and teaser of an article
   #
-  # @param [Hash] options
-  # @option options [Boolean] :highlight ('true') whether to highlight the
-  #   search results
   # @return [Sunspot::Search::PaginatedCollection] An array of articles
   #   compatable with popular pagination gems
-  def results options = { highlight: true }
-    return nil if query.nil? or query.blank?
-    return request.results unless options[:highlight]
-    prefix = "<mark>"
-    suffix = "</mark>"
-
-    formatted_results = []
-    request.each_hit_with_result do |hit, result|
-      unless hit.highlights(:title).empty?
-        result.title = hit.highlights(:title).first.format{ |word|
-          "#{prefix}#{word}#{suffix}"}.html_safe
-      end
-
-      unless hit.highlights(:body).empty?
-        highlighted_teaser = '...'
-        hit.highlights(:body).each do |h|
-          highlighted_teaser << h.format { |word| "#{prefix}#{word}#{suffix}" }
-          Rails.logger.debug(h.to_yaml)
-          highlighted_teaser << '...'
-        end
-        result.teaser = highlighted_teaser.html_safe
-      end
-      formatted_results << result
-    end
-    return Sunspot::Search::PaginatedCollection.new(formatted_results, self.page.to_i, self.per_page, request.total)
+  def results
+    return nil if query.blank?
+    highlight_results if highlight
+    request.results
   end
 
   def authors
@@ -77,11 +54,26 @@ class Article::Search
     end
   end
 
+
   private
 
-  # @return [<Sunspot::Search::Hit>]
-  def hits
-    request.hits
+  def highlight_results
+    request.results.zip(request.hits) do |result, hit|
+      unless hit.highlights(:title).empty?
+        result.title = highlighted(hit, :title).first.html_safe
+      end
+
+      unless hit.highlights(:body).empty?
+        result.teaser =
+          ("...%s..." % highlighted(hit, :body).join("...")).html_safe
+      end
+    end
+  end
+
+  def highlighted(hit, field)
+    hit.highlights(field).map do |highlight|
+      highlight.format {|word| "<mark>#{word}</mark>"}
+    end
   end
 
   # @return [Sunspot::Request]
