@@ -42,6 +42,10 @@
         %legend Refine your search
         = f.search_field :query, results: '5'
         = f.input :sort, collection: [['Relevance', :score], ['Newest', :created_at]], default: 1, label: "Order by"
+        = f.input :start_date, collection: [['Past 24 Hours', 1.day.ago.to_date],
+                                            ['Past 7 Days', 7.days.ago.to_date],
+                                            ['Past 30 Days', 30.days.ago.to_date],
+                                            ['Past 12 Months', 1.year.ago.to_date]]
         = f.input :section, collection: search_options(@article_search.sections)
         = f.input :author, collection: search_options(@article_search.authors)
         = f.submit "Search"
