@@ -1,9 +1,0 @@
-- unless hits.blank?
-  .search-facet
-    %h2.vertical-label= title
-    .rounded
-      .content-container
-        - hits.each do |hit|
-          = link_to "<h4>#{hit[:value]} (#{hit[:count]})</h4>".html_safe,
-          params.merge("article_search[#{param}]" => hit[:lookup]),
-          class:'hover'
