@@ -72,9 +72,9 @@ class Article::Search
 
   def highlighted(hit, field)
     hit.highlights(field).map do |highlight|
-      fragment = highlight.format {|word| "<mark>#{word}</mark>"}
       # Strip out HTML tags from matched fragments
-      fragment.gsub(/<[^>]*>/, '')
+      highlight.instance_variable_get(:@highlight).gsub!(/<[^>]*>/, '')
+      highlight.format {|word| "<mark>#{word}</mark>"}
     end
   end
 
@@ -87,11 +87,13 @@ class Article::Search
 
         fulltext self.query do
           highlight :title, fragment_size: 0
-          highlight :body,  :max_snippets => 3, merge_contiguous_fragments: true
+          highlight :body, max_snippets: 3, merge_contiguous_fragments: true
           minimum_match 2
         end
 
         paginate page: self.page, per_page: self.per_page
+
+        order_by(self.sort, self.order)
 
         facet :author_ids
         facet :section
@@ -103,7 +105,6 @@ class Article::Search
             end
           end
         end
-
       end
     end
     @request
