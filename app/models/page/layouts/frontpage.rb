@@ -14,14 +14,31 @@ class Page::Layouts::Frontpage < Layout
           'breaking' => {
               'label' => 'Breaking?',
               'type' => 'boolean',
-          }
+          },
+          'page' => {
+            'label' => 'Page',
+            'extends' => page_schema,
+            'required' => false,
+          },
         }
       },
       'slideshow' => {
-        'label' => 'Slideshow Articles',
-        'type'=> 'array',
-        'required'=> true,
-        'items'=> article_schema,
+        'label' => 'Slideshow',
+        'type' => 'object',
+        'required' => true,
+        'properties' => {
+          'articles' => {
+            'label' => 'Articles',
+            'type'=> 'array',
+            'required'=> true,
+            'items'=> article_schema,
+          },
+          'pages' => {
+            'label' => 'Page IDs',
+            'type' => 'array',
+            'items' => page_schema,
+          }
+        }
       },
       'headlines' => {
         'label' => 'Headlines',

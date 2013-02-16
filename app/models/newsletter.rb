@@ -36,13 +36,12 @@ class Newsletter
 
   def advertisement
     # TODO: make this configurable by non-developers
-    src = "http://#{Settings.content_cdn}/advertisements/#{Settings.mailchimp.ad_image}"
+    src = "http://#{Settings.content_cdn}/advertising/#{Settings.mailchimp.ad_image}"
     %{<a href="#{Settings.mailchimp.ad_href}"><img src="#{src}"/></a>}
   end
 
   def create_campaign(gb)
     gb.campaign_create({type: :regular,
-                         # TODO: have editor revise this information
                          options: {
                            list_id: Settings.mailchimp.list_id,
                            subject: subject,
@@ -84,7 +83,7 @@ class ArticleNewsletter < Newsletter
   private
 
   def subject
-    @article.title
+    "Chronicle Alert: #{@article.title}"
   end
 
 end

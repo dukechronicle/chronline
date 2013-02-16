@@ -3,10 +3,22 @@ class Page::Layouts::Sports < Layout
   def schema
     {
       'slideshow' => {
-        'label' => "Slideshow",
-        'type' => 'array',
+        'label' => 'Slideshow',
+        'type' => 'object',
         'required' => true,
-        'items' => article_schema,
+        'properties' => {
+          'articles' => {
+            'label' => 'Articles',
+            'type'=> 'array',
+            'required'=> true,
+            'items'=> article_schema,
+          },
+          'pages' => {
+            'label' => 'Page IDs',
+            'type' => 'array',
+            'items' => page_schema,
+          }
+        }
       },
       'blog' => {
         'label' => 'Blog',

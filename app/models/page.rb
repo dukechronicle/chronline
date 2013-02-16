@@ -18,7 +18,8 @@ require 'has_layout'
 class Page < ActiveRecord::Base
   extend HasLayout
 
-  attr_accessible :path, :title
+  attr_accessible :path, :title, :description, :image_id
+  belongs_to :image
 
   has_layout
 

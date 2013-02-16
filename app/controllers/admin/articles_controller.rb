@@ -10,9 +10,9 @@ class Admin::ArticlesController < Admin::BaseController
     end
 
     @articles = Article.includes(:authors, :image)
+      .section(@taxonomy)
       .order('created_at DESC')
       .page(params[:page])
-      .find_by_section(@taxonomy)
   end
 
   def new
@@ -22,8 +22,7 @@ class Admin::ArticlesController < Admin::BaseController
   def create
     @article = update_article(Article.new)
     if @article.save
-      redirect_to admin_articles_path,
-        with: flash[:success] = "Your article was successfully created!"
+      redirect_to site_article_url(@article, subdomain: 'www')
     else
       render 'new'
     end
@@ -39,7 +38,7 @@ class Admin::ArticlesController < Admin::BaseController
   def update
     @article = update_article(Article.find(params[:id]))
     if @article.save
-      redirect_to admin_root_path
+      redirect_to site_article_url(@article, subdomain: 'www')
     else
       render 'edit'
     end
@@ -76,7 +75,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def find_article_page_for_date(date, taxonomy)
-    index = Article.find_by_section(taxonomy)
+    index = Article.section(taxonomy)
       .where(["created_at > ?", date]).count
     index / Article.per_page + 1
   end
