@@ -20,7 +20,8 @@
   - if @articles.blank?
     .rounded
       .article-container
-        %h3= error || "No results found"
+        .error
+          %h3= error || "No results found"
   - else
     - @articles.each do |article|
       .rounded
@@ -34,11 +35,14 @@
     = will_paginate @articles
 
 .span-4.last
-  - unless @article_search.blank? || @articles.blank?
-    = render partial: 'site/containers/search',
-      locals: {title: "By Author", hits: @article_search.authors, param: 'author' }
-    = render partial: 'site/containers/search',
-      locals: {title: "By Section", hits: @article_search.sections, param: 'section' }
-    = render partial: 'site/containers/search',
-      locals: {title: "By Year", hits: @article_search.years, param: 'date' }
+  %h2.vertical-label Search
+  .rounded
+    .content-container
+      = simple_form_for(@article_search, url: site_search_path, method: :get) do |f|
+        %legend Refine your search
+        = f.search_field :query, results: '5'
+        = f.input :sort, collection: [['Relevance', :score], ['Newest', :created_at]], default: 1, label: "Order by"
+        = f.input :section, collection: search_options(@article_search.sections)
+        = f.input :author, collection: search_options(@article_search.authors)
+        = f.submit "Search"
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

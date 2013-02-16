@@ -48,4 +48,10 @@ EOS
     "Duke Chronicle: #{article.title}"
   end
 
+  def search_options(facets)
+    facets.map do |facet|
+      ["#{facet[:value]} (#{facet[:count]})", facet[:lookup]]
+    end
+  end
+
 end
