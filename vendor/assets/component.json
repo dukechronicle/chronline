@@ -6,7 +6,7 @@
     "blueimp-load-image": "latest",
     "blueimp-tmpl": "latest",
     "bootstrap": "latest",
-    "jcrop": "latest",
+    "jcrop": "0.9.10",
     "jquery": "latest",
     "jquery-file-upload": "latest",
     "jquery-ui": "~1.9.2",
