@@ -15,7 +15,7 @@
       .item
         .rounded
           .image-container
-            %a{href: image.original.url}
+            %a{href: image.associated_url}
               - style = styles.sample
               = image_tag image.original.url(style), class: style
   = will_paginate @images
