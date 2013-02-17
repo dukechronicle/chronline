@@ -17,7 +17,7 @@ describe ArticleHelper do
 
     it "should use anchor tags for names if link option is used" do
       helper.byline(article, link: true)
-        .should == '<a href="/staff/hiker-mikael">Hiker Mikael</a>'
+        .should == '<a href="/staff/hiker-mikael/articles">Hiker Mikael</a>'
     end
 
     it "should be html safe if link option is used" do
