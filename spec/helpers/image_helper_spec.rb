@@ -23,7 +23,7 @@ describe ImageHelper do
         subject { helper.photo_credit(image, link: true) }
 
         it "should use anchor tags" do
-          should == '<a href="/staff/sabrina">Sabrina</a> / Gym Leader'
+          should == '<a href="/staff/sabrina/images">Sabrina</a> / Gym Leader'
         end
 
         it { should be_html_safe }
