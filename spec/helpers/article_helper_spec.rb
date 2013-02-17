@@ -53,9 +53,13 @@ describe ArticleHelper do
     end
   end
 
-  describe "mailto helpers" do
-    it { helper.should respond_to(:mailto_subject) }
-    it { helper.should respond_to(:mailto_body) }
+  describe "#mailto_article" do
+    subject { helper.mailto_article(article) }
+
+    it { should match(/^mailto:\?subject=.*&body=.*$/) }
+    it "should escape characters in the body" do
+      should match(/body=\S+$/)
+    end
   end
 
 end
