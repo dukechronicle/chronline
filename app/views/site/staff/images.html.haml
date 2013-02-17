@@ -7,13 +7,12 @@
   #images-container
     .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :images}
 
-    - styles = [:thumb_rect, :large_rect, :thumb_rect, :thumb_rect, :thumb_rect, :large_rect, :thumb_rect]
-    - @images.each do |image|
+    - styles = [:thumb_rect] * 4 << :large_rect
+    - (@images * 20).each do |image|
       .item
         .rounded
           .image-container
             %a{href: image.original.url}
               - style = styles.sample
-              = image_tag image.original.url(styles.first), class: styles.first
-      - styles.rotate!
+              = image_tag image.original.url(style), class: style
   = will_paginate @images
