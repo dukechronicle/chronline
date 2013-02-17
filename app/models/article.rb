@@ -40,13 +40,15 @@ class Article < ActiveRecord::Base
 
   searchable do
     text :title, stored: true, boost: 2.0, more_like_this: true
-    text :subtitle, stored: true, boost: 1.5, more_like_this: true
     text :body, stored: true, more_like_this: true
-    integer :author_ids, :multiple => true
+    text :author_names do  # Staff names rarely change
+      authors.map(&:name)  # TODO: show staff records if name is searched
+    end
+    integer :author_ids, multiple: true
     string :section do
       section[0]
     end
-    time :created_at, :trie => true
+    time :created_at, trie: true
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
@@ -77,7 +79,7 @@ onto per since than the this that to up via with)
 
   def related(limit)
     Sunspot.more_like_this(self) do
-      fields :title, :subtitle, :body
+      fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
     end.results
