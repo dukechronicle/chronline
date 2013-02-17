@@ -29,7 +29,7 @@
           = image_tag @article.image.original.url(:large_rect), class: 'main-image'
           .clearfix
             .photo-credit
-              %span= photo_credit(@article.image)
+              %span= photo_credit(@article.image, link: true)
             - if not @article.image.caption.blank?
               %p.photo-caption= @article.image.caption
 

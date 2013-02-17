@@ -4,7 +4,7 @@ module ArticleHelper
     authors = article.authors.sort_by(&:last_name)
     authors.map do |author|
       if options[:link]
-        link_to author.name, site_staff_path(author)
+        link_to author.name, articles_site_staff_path(author)
       else
         author.name
       end

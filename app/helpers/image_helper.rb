@@ -4,7 +4,7 @@ module ImageHelper
     if image.photographer
       name = (options[:link] ?
               link_to(image.photographer.name,
-                      site_staff_path(image.photographer)) :
+                      images_site_staff_path(image.photographer)) :
               image.photographer.name)
       if image.attribution.blank?
         name
