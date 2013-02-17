@@ -44,6 +44,7 @@ class Site::ArticlesController < Site::BaseController
       @articles = @article_search.results
     else
       params[:article_search] = {}
+      @article_search = Article::Search.new
       @articles = []
     end
   end

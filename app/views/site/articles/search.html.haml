@@ -17,10 +17,9 @@
 
 
 .span-8
-  - if @articles.nil? || @articles.empty?
-    .rounded
-      .article-container
-        %h3= error || "No results found"
+  - if @articles.blank?
+    .error
+      %h3= error || "No results found"
   - else
     - @articles.each do |article|
       .rounded
@@ -34,11 +33,5 @@
     = will_paginate @articles
 
 .span-4.last
-  - unless @article_search.nil? || @articles.nil? || @articles.empty?
-    = render partial: 'site/containers/search',
-      locals: {title: "By Author", hits: @article_search.authors, param: 'author' }
-    = render partial: 'site/containers/search',
-      locals: {title: "By Section", hits: @article_search.sections, param: 'section' }
-    = render partial: 'site/containers/search',
-      locals: {title: "By Year", hits: @article_search.years, param: 'date' }
+  = render partial: 'site/partials/search', locals: {article_search: @article_search}
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
