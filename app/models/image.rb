@@ -46,6 +46,14 @@ class Image < ActiveRecord::Base
 
   self.per_page = 30
 
+  def associated_url
+    if articles.present?
+      site_article_path articles.order('created_at DESC').first
+    else
+      original.url
+    end
+  end
+
   def to_jq_upload
     [{
       name: original_file_name,
