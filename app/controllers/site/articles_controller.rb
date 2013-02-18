@@ -1,8 +1,8 @@
 class Site::ArticlesController < Site::BaseController
   before_filter :redirect_and_register_view, only: [:show, :print]
-  caches_action :index, layout: false, expires_in: 10.minutes
-  caches_action :show,  layout: false, expires_in: 10.minutes
-  caches_action :print, layout: false, expires_in: 10.minutes
+  caches_action :index, layout: false, expires_in: 1.minute
+  caches_action :show,  layout: false, expires_in: 1.minute
+  caches_action :print, layout: false, expires_in: 1.minute
 
 
   def index
@@ -22,7 +22,6 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    @taxonomy = @article.section
     @related = @article.related(5)
   end
 
@@ -54,6 +53,7 @@ class Site::ArticlesController < Site::BaseController
       return redirect_to expected_path, status: :moved_permanently
     end
     @article.register_view
+    @taxonomy = @article.section
   end
 
 end
