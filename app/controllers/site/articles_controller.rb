@@ -1,6 +1,8 @@
 class Site::ArticlesController < Site::BaseController
   before_filter :redirect_and_register_view, only: [:show, :print]
-  caches_action [:index, :show, :print, :search], layout: false
+  caches_action :index, layout: false, expires_in: 10.minutes
+  caches_action :show,  layout: false, expires_in: 10.minutes
+  caches_action :print, layout: false, expires_in: 10.minutes
 
 
   def index
