@@ -5,6 +5,8 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
+      get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
+
       match 'rss' => redirect('http://feeds.feedburner.com/thechronicle/all')
       get 'search' => 'articles#search'
       resource :newsletter, only: :show do
