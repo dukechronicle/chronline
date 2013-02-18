@@ -3,7 +3,7 @@ class Site::BaseController < ApplicationController
 
   # TODO: think about how to handle special pages on mobile
   before_filter :redirect_mobile, except: :custom_page
-  caches_action :custom_page, layout: false
+  caches_action :custom_page, layout: false, expires_in: 1.day
 
 
   def redirect_mobile
