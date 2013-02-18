@@ -5,7 +5,7 @@ module ActionController
   class Metal
     attr_internal :cached_content_for
   end
-  
+
   module Caching
     module Actions
       def _save_fragment(name, options)
@@ -23,7 +23,7 @@ module ActionController
       def write_fragment_with_content_to_cache(key, content, options = nil)
         # return_content = write_fragment_without_content_to_cache(key, content, options)
         #         return_content.is_a?(Hash) ? return_content[:layout] : return_content
-        
+
         return content unless cache_configured?
 
         key = fragment_cache_key(key)
@@ -47,14 +47,14 @@ module ActionController
 
       alias_method_chain :write_fragment, :content_to_cache
       alias_method_chain :read_fragment, :content_to_cache
-    end 
+    end
   end
 end
 
 module ActionView
-  
+
   class TemplateRenderer < AbstractRenderer
-    
+
     # Added to support implementation of action caching
     def render_template_with_cached_content_for(template, layout_name = nil, locals = {})
       controller = @view.controller
@@ -67,10 +67,10 @@ module ActionView
       end
       return_value
     end
-    
+
     alias_method_chain :render_template, :cached_content_for
   end
-      
+
   module Helpers
     module CaptureHelper
       # Added to support implementation of fragment caching
@@ -100,7 +100,7 @@ module ActionView
         end
       end
     end
-   
+
     module CacheHelper
       def fragment_for(name = {}, options = nil, &block) #:nodoc:
         if fragment = controller.read_fragment(name, options)
@@ -121,6 +121,6 @@ module ActionView
           controller.write_fragment(name, hash_to_cache, options)
         end
       end
-    end 
+    end
   end
 end
