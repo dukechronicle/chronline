@@ -115,7 +115,7 @@ onto per since than the this that to up via with)
   end
 
   def self.most_commented(limit)
-    disqus = Disqus.new('moooo') #Settings.disqus.api_key)
+    disqus = Disqus.new(Settings.disqus.api_key)
     response = disqus.request(:threads, :list_hot, limit: limit,
                               forum: Settings.disqus.shortname)
     return [] if response.nil?
