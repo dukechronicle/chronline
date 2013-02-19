@@ -16,6 +16,7 @@ class Disqus
     uri = URI::HTTPS.build(host: DISQUS_HOST,
                            path: request_path(resource, action),
                            query: request_query(options))
+    Rails.logger.debug(uri.to_s)
     handle_response(HTTParty.get(uri.to_s))
   end
 
