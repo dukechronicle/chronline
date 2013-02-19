@@ -34,19 +34,4 @@ Chronline::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-
-  mock_taxonomy = <<EOS
----
-- name: News
-  children:
-    - name: University
-      children:
-        - name: Academics
-        - name: Board of Trustees
-- name: Sports
-- name: Opinion
-- name: Recess
-- name: Towerview
-EOS
-  Taxonomy::Tree = YAML.load(mock_taxonomy)
 end
