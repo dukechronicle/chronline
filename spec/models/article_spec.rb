@@ -119,14 +119,18 @@ describe Article do
       end
     end
 
-    before do
+    it "should return tuples of articles with comments in sorted order" do
       Disqus.any_instance.should_receive(:request)
         .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
         .and_return({'response' => response})
+      Article.most_commented(5).should == articles.zip([10, 20]).reverse
     end
 
-    it "should return tuples of articles with comments in sorted order" do
-      Article.most_commented(5).should == articles.zip([10, 20]).reverse
+    it "should return an empty array if disqus response is nil" do
+      Disqus.any_instance.should_receive(:request)
+        .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+        .and_return(nil)
+      Article.most_commented(5).should == []
     end
   end
 
