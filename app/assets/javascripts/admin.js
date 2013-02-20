@@ -1,6 +1,6 @@
 //= require jquery/jquery.js
 //= require jquery_ujs
-//= require jquery-ui/ui/jquery-ui.js
+//= require jquery-ui/ui/jquery-ui.custom.js
 //= require bootstrap/docs/assets/js/bootstrap.js
 //= require bootstrap-typeahead.js
 //= require underscore/underscore.js
