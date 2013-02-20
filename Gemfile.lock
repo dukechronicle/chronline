@@ -7,6 +7,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    accept_values_for (0.4.3)
+      activemodel (>= 3.0.0)
+      rspec
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
       mail (~> 2.4.4)
@@ -210,6 +213,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.6.3)
+    newrelic_rpm (3.5.6.46)
     nokogiri (1.5.6)
     nyan-cat-formatter (0.2.0)
     options (2.3.0)
@@ -382,6 +386,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  accept_values_for
   active_attr
   annotate
   asset_sync
@@ -418,6 +423,7 @@ DEPENDENCIES
   libnotify
   meta_request (= 0.2.1)
   mock_redis
+  newrelic_rpm
   nyan-cat-formatter
   paperclip
   pg
@@ -436,7 +442,6 @@ DEPENDENCIES
   rdiscount
   redis
   redis-rails
-  redis-store
   require_all
   rspec-rails (= 2.11.0)
   sass-rails (~> 3.2.3)

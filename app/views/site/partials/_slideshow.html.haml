@@ -1,4 +1,10 @@
 .rounded.large-slideshow
   .galleria
+    - if pages_first
+      - (pages || []).each do |page|
+        = image_tag page.image.original.url(:large_rect), 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
     - articles.each do |article|
       = image_tag article.image.original.url(:large_rect), 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_article_path(article)
+    - if not pages_first
+      - (pages || []).each do |page|
+        = image_tag page.image.original.url(:large_rect), 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path

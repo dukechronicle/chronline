@@ -6,13 +6,14 @@
     "blueimp-load-image": "latest",
     "blueimp-tmpl": "latest",
     "bootstrap": "latest",
-    "jcrop": "latest",
+    "jcrop": "0.9.10",
     "jquery": "latest",
     "jquery-file-upload": "latest",
     "jquery-ui": "~1.9.2",
     "onde": "git://github.com/exavolt/onde.git",
     "underscore": "~1.4.3",
     "jquery-galleria": "~1.2.8",
+    "jquery-masonry": "latest",
     "jquery.cookie": "latest",
     "jquery.autoellipsis": "git://github.com/pvdspek/jquery.autoellipsis.git"
   }

@@ -1,29 +1,21 @@
 - provide :title, @article.title
 
-- content_for :twitter_card do
-  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
-
 - content_for :title_block do
   %h1
     - @article.section.parents.each_with_index do |parent, i|
       - if i > 0
         &raquo;
-      = link_to parent.name, "/section#{parent.to_s}"
+      = link_to parent.name, section_path(parent)
 
 - content_for :administrative_links do
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
+- content_for :twitter_card do
+  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
+
 - content_for :open_graph_tags do
-  %meta{property: "og:title", content: @article.title}
-  %meta{property: "og:type", content: "article"}
-  - if @article.image
-    %meta{property: "og:image", content: @article.image.original.url(:thumb_square_m)}
-  - else
-    %meta{property: "og:image", content: "http:" + image_path("logo/300x300.png")}
-  %meta{property: "og:url", content: site_article_url(@article)}
-  %meta{property: "og:site_name", content: "The Duke Chronicle"}
-  %meta{property: "og:description", content: @article.teaser}
-  %meta{property: "fb:app_id", content: Settings.facebook.app_id}
+  = render partial: 'partials/open-graph/article', locals: {article: @article}
+
 
 %article#article
   .span-8
@@ -37,19 +29,26 @@
           = image_tag @article.image.original.url(:large_rect), class: 'main-image'
           .clearfix
             .photo-credit
-              %span= photo_credit(@article.image)
+              %span= photo_credit(@article.image, link: true)
             - if not @article.image.caption.blank?
               %p.photo-caption= @article.image.caption
 
         %p.byline
-          %span.author By #{byline(@article, include_links: true)}
+          %span.author By #{byline(@article, link: true)}
           %span.sep= "|"
-          %span.date= @article.created_at.strftime("%B %e, %Y")
+          %span.date= display_date(@article)
 
         .article-body
           #social-media
-            %div= link_to "Comments", "#disqus_thread", class: "comment-link"
-            %div= link_to "Print", site_print_article_path(@article), class: "print-link"
+            %div.comment-link
+              %i.icons-comment
+              = link_to "Comments", "#disqus_thread"
+            %div.print-link
+              %i.icons-print
+              = link_to "Print", site_print_article_path(@article)
+            %div.email-link
+              %i.icons-email
+              = link_to "Email", mailto_article(@article)
             %div
               .fb-like{data: {href: site_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
@@ -59,11 +58,12 @@
 
           != @article.render_body
 
-    #disqus_thread.rounded{data: {disqus: @article.disqus(current_domain).to_json}}
+    #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @related, style: :subhead}
+    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
     = render 'site/partials/facebook-recommended'
+    = render partial: 'site/partials/video-player', locals: {width: 300}
 
 = render 'site/partials/facebook-social-share'

@@ -25,39 +25,35 @@ class Article < ActiveRecord::Base
 
   friendly_id :title, use: [:slugged, :history]
 
+  belongs_to :image
+  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
+
   validates :body, presence: true
   validates :title, presence: true
   validates :section, presence: true
   validates :authors, presence: true
+  validates :teaser, length: {maximum: 200}
 
-  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
-  belongs_to :image
+  scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
   searchable do
     text :title, stored: true, boost: 2.0, more_like_this: true
-    text :subtitle, stored: true, boost: 1.5, more_like_this: true
     text :body, stored: true, more_like_this: true
-    integer :author_ids, :multiple => true
+    text :author_names do  # Staff names rarely change
+      authors.map(&:name)  # TODO: show staff records if name is searched
+    end
+    integer :author_ids, multiple: true
     string :section do
       section[0]
     end
-    time :created_at, :trie => true
-  end
-
-  def disqus(host)
-    {
-      production: Rails.env.production?,
-      shortname: Settings.disqus.shortname,
-      identifier: previous_id || "_#{id}",
-      title: title,
-      url: site_article_url(self, subdomain: 'www', host: host),
-    }
+    time :created_at, trie: true
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=100)
+  def normalize_friendly_id(title, max_chars=50)
+    return nil if title.nil?  # record won't save -- title presence is validated
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)
     r = /\b(#{removelist.join('|')})\b/i
@@ -72,15 +68,18 @@ onto per since than the this that to up via with)
 
   def register_view
     unless section.root?
-      # TODO: expire old keys
       key = "popularity:#{section[0].downcase}:#{Date.today}"
-      $redis.zincrby(key, 1, id)
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.multi do
+        $redis.zincrby(key, 1, id)
+        $redis.expireat(key, timestamp)
+      end
     end
   end
 
   def related(limit)
     Sunspot.more_like_this(self) do
-      fields :title, :subtitle, :body
+      fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
     end.results
@@ -97,10 +96,6 @@ onto per since than the this that to up via with)
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
     self[:section] = taxonomy.to_s
-  end
-
-  def self.find_by_section(taxonomy)  # TODO: create a 'section' scope instead
-    self.where('section LIKE ?', "#{taxonomy.to_s}%")
   end
 
   def self.popular(section, options={})
@@ -123,6 +118,7 @@ onto per since than the this that to up via with)
     disqus = Disqus.new(Settings.disqus.api_key)
     response = disqus.request(:threads, :list_hot, limit: limit,
                               forum: Settings.disqus.shortname)
+    return [] if response.nil?
     slugs = response['response'].map do |thread|
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]

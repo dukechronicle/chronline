@@ -2,8 +2,17 @@
   %h2.vertical-label Profile
   .rounded
     .content-container
-      - if staff.headshot
-        = image_tag staff.headshot.original.url(:thumb_rect), class: :headshot
+      .right-box
+        - if staff.headshot
+          = image_tag staff.headshot.original.url(:thumb_rect), class: :headshot
+        .links
+          %ul
+            - if staff.author? and except != :articles
+              %li
+                = link_to 'Articles', articles_site_staff_path(staff)
+            - if staff.photographer? and except != :images
+              %li
+                = link_to 'Photos', images_site_staff_path(staff)
       .staff-info
         %h2= staff.name
         %p.affiliation= staff.affiliation

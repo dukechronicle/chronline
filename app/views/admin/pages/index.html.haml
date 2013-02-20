@@ -1,7 +1,14 @@
 %table.table.table-striped
+  %thead
+    %tr
+      %th ID
+      %th Title
+      %th Actions
   - @pages.each do |page|
     %tr{id: "page_#{page.id}"}
+      %td= page.id
       %td= link_to page.title, page_url(page)
-      %td= link_to "Edit", [:edit, :admin, page]
-      %td= link_to "Delete", [:admin, page], method: :delete, data: {confirm: "Are you sure?"}
+      %td
+        = link_to "Edit", [:edit, :admin, page], class: 'btn btn-mini'
+        = link_to "Delete", [:admin, page], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
 = will_paginate

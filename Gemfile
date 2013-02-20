@@ -9,8 +9,8 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'redis-store'
   gem 'thin'
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
@@ -74,6 +74,7 @@ gem 'carrierwave'
 gem 'fog'
 
 group :test do
+  gem 'accept_values_for'
   gem 'capybara'
   gem 'poltergeist'
   gem 'cucumber-rails', :require => false

@@ -16,14 +16,3 @@ mailchimp:
   from_name: Duke Chronicle
   list_id: list_id
   template_id: 429
-taxonomy:
-  - name: News
-    children:
-      - name: University
-        children:
-          - name: Academics
-          - name: Board of Trustees
-  - name: Sports
-  - name: Opinion
-  - name: Recess
-  - name: Towerview

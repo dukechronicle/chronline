@@ -1,4 +1,9 @@
 class Site::ArticlesController < Site::BaseController
+  before_filter :redirect_and_register_view, only: [:show, :print]
+  #caches_action :index, layout: false, expires_in: 1.minute
+  caches_action :show,  layout: false
+  caches_action :print, layout: false
+
 
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
@@ -8,30 +13,18 @@ class Site::ArticlesController < Site::BaseController
       nil
     end
     @articles = Article.includes(:authors, :image)
+      .section(@taxonomy)
       .order('created_at DESC')
       .page(params[:page])
-      .find_by_section(@taxonomy)
-    @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
+    unless @taxonomy.root?
+      @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
+    end
   end
 
   def show
-    @article = Article.includes(:authors, :image => :photographer)
-      .find(params[:id])
-    if request.path != site_article_path(@article)
-      return redirect_to [:site, @article], status: :moved_permanently
-    end
-    @taxonomy = @article.section
-    @related = @article.related(5)
-    @article.register_view
   end
 
   def print
-    @article = Article.find(params[:id])
-    if request.path != site_print_article_path(@article)
-      return redirect_to site_print_article_path(@article), status: :moved_permanently
-    end
-    @article.register_view
-
     render 'print', layout: 'print'
   end
 
@@ -42,8 +35,23 @@ class Site::ArticlesController < Site::BaseController
       @articles = @article_search.results
     else
       params[:article_search] = {}
+      @article_search = Article::Search.new
       @articles = []
     end
+  end
+
+
+  private
+
+  def redirect_and_register_view
+    @article = Article.find(params[:id])
+    expected_path = url_for(controller: 'site/articles', action: action_name,
+                            id: @article.slug, only_path: true)
+    if request.path != expected_path
+      return redirect_to expected_path, status: :moved_permanently
+    end
+    @article.register_view
+    @taxonomy = @article.section  # TODO: this shouldn't be here
   end
 
 end

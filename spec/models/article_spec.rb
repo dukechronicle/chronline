@@ -16,48 +16,53 @@
 
 require 'spec_helper'
 
+
 describe Article do
+  include Rails.application.routes.url_helpers
 
-  before do
-    @article = Article.new(title: 'Ash defeats Gary in Indigo Plateau',
-                           subtitle: 'Oak arrives just in time',
-                           teaser: 'Ash becomes new Pokemon champion',
-                           body: '**Pikachu** wrecks everyone. The End.',
-                           section: '/news/',
-                           )
-    @article.authors << Author.new(name: 'Trainer Mitch')
-  end
-
+  before { @article = FactoryGirl.create(:article) }
   subject { @article }
 
+  it { should belong_to :image }
   it { should have_and_belong_to_many :authors }
-
-  it { should be_valid }
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
-  it { should validate_presence_of :section }
   it { should validate_presence_of :authors }
+  it { should accept_values_for(:teaser, Faker::Lorem.paragraph(2)) }
+  it "should not allow long teasers" do
+    should_not accept_values_for(:teaser, Faker::Lorem.paragraph(10))
+  end
+
+  it { should be_valid }
+
   it "should be searchable" do
     Article.searchable?.should be_true
   end
+
   describe "#section" do
-    it { @article.section.should be_a_kind_of(Taxonomy) }
-    it do
-      taxonomy = Taxonomy.new(['News', 'University'])
-      @article.section = taxonomy
-      @article.section.should eq taxonomy
+    before { subject.section = Taxonomy.new(['News', 'University']) }
+
+    its(:section) { should be_a_kind_of(Taxonomy) }
+    its(:section) { should eq Taxonomy.new(['News', 'University']) }
+
+    it "should default to root taxonomy" do
+      Article.new.section.should be_root
     end
   end
 
   describe "#render_body" do
+    before { subject.body = '**Pikachu** wrecks everyone. The End.' }
+
     it "should render the article body with markdown" do
       html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
-      @article.render_body.rstrip.should eq html
+      subject.render_body.rstrip.should == html
     end
   end
 
   describe "#normalize_friendly_id" do
-    subject { @article.normalize_friendly_id(@article.title) }
+    subject do
+      @article.normalize_friendly_id('Ash defeats Gary in Indigo Plateau')
+    end
 
     it "should be lowercased" do
       should match(/[a-z_\d\-]+/)
@@ -76,48 +81,109 @@ describe Article do
     end
 
     context "long title" do
-      subject { @article.normalize_friendly_id('a' * 99 + '-' + 'b' * 100) }
-      it { should have_at_most(100).characters }
+      subject { @article.normalize_friendly_id('a' * 49 + '-' + 'b' * 50) }
+      it { should have_at_most(50).characters }
       it { should_not match(/\-$/) }
     end
   end
 
-  describe "#disqus" do
-    before { @article.save! }
-    subject { @article.disqus('example.com') }
+  describe "#register_view" do
+    let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
 
-    it { should be_a_kind_of(Hash) }
-    it do
-      should have_key(:production)
-      should have_key(:shortname)
-      should have_key(:identifier)
-      should have_key(:title)
-      should have_key(:url)
+    it "should increment its id in the redis sorted set" do
+      $redis.should_receive(:zincrby).with(key_pattern, 1, @article.id)
+      @article.register_view
+    end
+
+    it "should expire the key in 5 days" do
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.should_receive(:expireat).with(key_pattern, timestamp)
+      @article.register_view
+    end
+
+    it "should not fail if article is in root taxonomy" do
+      @article.section = '/'
+      -> {@article.register_view}.should_not raise_error
     end
   end
 
-  describe "::find_by_section" do
-    before do
-      Article.create(title: 'What? Squirtle is evolving!',
-                     body: 'Squirtle evolved into Wartortle',
-                     section: '/news/')
-      Article.create(title: 'What? Charmander is evolving!',
-                     body: 'Charmander evolved into Charmeleon',
-                     section: '/news/university')
-      Article.create(title: 'What? Bulbasaur is evolving!',
-                     body: 'Bulbasaur evolved into Ivysaur',
-                     section: '/sports/')
+  describe "::most_commented" do
+    let(:articles) { FactoryGirl.create_list(:article, 2) }
+    let(:response) do
+      articles.zip([10, 20]).map do |article, posts|
+        {
+          'link' => site_article_url(article, subdomain: 'www',
+                                     host: Settings.domain),
+          'posts' => posts,
+        }
+      end
     end
 
-    subject { Article.find_by_section(Taxonomy.new(['News'])) }
+    it "should return tuples of articles with comments in sorted order" do
+      Disqus.any_instance.should_receive(:request)
+        .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+        .and_return({'response' => response})
+      Article.most_commented(5).should == articles.zip([10, 20]).reverse
+    end
+
+    it "should return an empty array if disqus response is nil" do
+      Disqus.any_instance.should_receive(:request)
+        .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+        .and_return(nil)
+      Article.most_commented(5).should == []
+    end
+  end
+
+  describe "::popular" do
+    before(:all) do
+      @articles = FactoryGirl.create_list(:article, 4)
+      $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[0].id)
+      $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[1].id)
+      $redis.zincrby("popularity:news:#{Date.today - 1}", 2, @articles[2].id)
+      $redis.zincrby("popularity:sports:#{Date.today - 1}", 3, @articles[3].id)
+    end
+
+    subject { Article.popular(:news) }
+
+    it "should return articles only articles in the section" do
+      should =~ @articles.take(3)
+    end
+
+    it "should return articles in descending number of views" do
+      should include_in_order(@articles[1], @articles[0])
+    end
+
+    it "should rank recent article views more highly than old article views" do
+      should include_in_order(@articles[0], @articles[2])
+    end
+
+    it "should return no more than the specified number of articles" do
+      Article.popular(:news, limit: 2).should have(2).articles
+    end
+  end
+
+  describe "section scope" do
+    let(:articles) do
+      articles = FactoryGirl.create_list(:article, 3)
+      articles[0].update_attributes(section: '/news/')
+      articles[1].update_attributes(section: '/news/university/')
+      articles[2].update_attributes(section: '/sports/')
+      articles
+    end
+
+    subject { Article.section(Taxonomy.new(['News'])) }
 
     it "should return all articles with a subsection of the given section" do
-      should include(Article.find_by_title('What? Squirtle is evolving!'))
-      should include(Article.find_by_title('What? Charmander is evolving!'))
+      should include(articles[0])
+      should include(articles[1])
+    end
+
+    it "should exclude articles in other sections" do
+      should_not include(articles[2])
     end
 
     it "should be chainable with other query methods" do
-      articles = Article.find_by_section(Taxonomy.new(['News'])).limit(1)
+      articles = Article.section(Taxonomy.new(['News'])).limit(1)
       articles.should have(1).article
     end
   end

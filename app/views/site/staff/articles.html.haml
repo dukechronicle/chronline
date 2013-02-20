@@ -1,10 +1,13 @@
 - provide :title, @staff.name
 
+- content_for :administrative_links do
+  = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
+
 - content_for :title_block do
   %h1= @staff.name
 
 .span-7
-  - @staff.articles.each do |article|
+  - @articles.each do |article|
     .rounded
       %a.hover{href: site_article_path(article)}
         .content-container
@@ -14,4 +17,6 @@
             %span.author= byline(article)
           %p= article.teaser
 
-.span-5.last= render partial: 'site/containers/staff-profile', locals: {staff: @staff}
+  = will_paginate @articles
+
+.span-5.last= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :articles}

@@ -1,0 +1,21 @@
+- provide :title, @staff.name
+
+- content_for :administrative_links do
+  = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
+
+- content_for :title_block do
+  %h1= @staff.name
+
+.span-12
+  #images-container
+    .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :images}
+
+    - styles = [:thumb_rect] * 3 << :large_rect
+    - @images.each do |image|
+      .item.image-item
+        .rounded
+          .image-container
+            %a{href: associated_url(image)}
+              - style = styles.sample
+              = image_tag image.original.url(style), class: style
+  = will_paginate @images

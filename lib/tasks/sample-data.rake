@@ -1,7 +1,7 @@
 namespace :db do
 
   desc "Refresh the database"
-  task :refresh => [:reset, :populate]
+  task :refresh => [:reset, :populate, 'sunspot:solr:reindex']
 
   desc "Fill database with sample data"
   task populate: :environment do
@@ -35,6 +35,7 @@ namespace :db do
                             body: Faker::SamuelJackson.paragraphs(2),
                             section: random_taxonomy,
                             image_id: image.id)
+      article.created_at = (1..365).to_a.sample.days.ago
       article.authors = [staff.sample]
       article.save!
     end

@@ -1,6 +1,11 @@
 class Taxonomy
   include Errors
 
+  # Must initialize Taxonomy::Tree here so that it is present on reload
+  File.open(File.join(Rails.root, "config", "taxonomy.yml")) do |file|
+    Taxonomy::Tree = YAML.load(file)
+  end
+
 
   def initialize(taxonomy=[])
     if taxonomy.nil?
@@ -51,7 +56,7 @@ class Taxonomy
 
   def children
     @node[:children].map do |child|
-      Taxonomy.new(to_a + [child.name])
+      Taxonomy.new(to_a << child['name'])
     end
   end
 
@@ -80,7 +85,7 @@ class Taxonomy
   end
 
   def to_a
-    @node[:taxonomy]
+    Array.new(@node[:taxonomy])
   end
 
   def to_s
@@ -88,7 +93,7 @@ class Taxonomy
   end
 
   def self.main_sections
-    Settings.taxonomy.map {|section| Taxonomy.new([section.name])}
+    Taxonomy::Tree.map {|section| Taxonomy.new([section['name']])}
   end
 
   def self.levels
@@ -104,16 +109,16 @@ class Taxonomy
   private
 
   def find_taxonomy_node(taxonomy)
-    root = {children: Settings.taxonomy}
+    root = {'children' => Taxonomy::Tree}
     full_taxonomy = []
     taxonomy.each do |section|
-      root = (root[:children] or []).select do |child|
-        child.name.downcase == section.downcase
+      root = (root['children'] or []).select do |child|
+        child['name'].downcase == section.downcase
       end.first
       return nil if root.nil?
-      full_taxonomy << root.name
+      full_taxonomy << root['name']
     end
-    {taxonomy: full_taxonomy, children: root[:children] || []}
+    {taxonomy: full_taxonomy, children: root['children'] || []}
   end
 
 end

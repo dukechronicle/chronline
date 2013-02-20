@@ -18,6 +18,10 @@ Layout.add_schema(:article, {
   Article.includes(:authors, :image).find_in_order(article_ids)
 end
 
+Layout.add_schema(:page, {"type" => "integer"}) do |page_ids|
+  Page.includes(:image).find_in_order(page_ids)
+end
+
 Layout.add_schema(:disqus_popular, {"type" => "null"}) do |invocations|
   articles = Article.most_commented(7)
   [articles] * invocations.length
@@ -44,7 +48,7 @@ Layout.add_schema(:section_articles, {
                   }) do |sections|
   sections.map do |section|
     # TODO: Magic number
-    Article.limit(4).order('created_at DESC').find_by_section(section)
+    Article.limit(4).order('created_at DESC').section(section)
   end
 end
 
