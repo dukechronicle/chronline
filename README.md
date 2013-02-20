@@ -14,22 +14,19 @@ $ npm install -g bower phantomjs
 $ bundle install --without production
 
 # Install client side vendor assets with bower
-$ rake bower:install
-$ rake bower:resolve
-
-# Rails database initialization
-$ rake db:migrate
-$ rake db:test:prepare
+$ rake bower:refresh
 
 # Start local solr server
 $ rake sunspot:solr:start
+
+# Rails database initialization
+$ rake db:refresh
+$ rake db:test:prepare
 ```
 
 ### Configuration files
 
 You will be able to run tests at this point, but will not be able to run the server in the development environment until you supply the `config/settings/development.local.yml` file. This is not version controlled since it contains sensitive information. You can populate it using the `config/settings/test.yml` file as a template.
-
-Once the development environment is configured it, you may wish to populate your development database with random data using the command `$ rake db:populate`.
 
 Testing
 =============
