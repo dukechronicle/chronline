@@ -9,7 +9,6 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'redis-store'
   gem 'thin'
   gem 'newrelic_rpm'
 end
