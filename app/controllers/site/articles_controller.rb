@@ -1,8 +1,8 @@
 class Site::ArticlesController < Site::BaseController
   before_filter :redirect_and_register_view, only: [:show, :print]
-  caches_action :index, layout: false, expires_in: 1.minute
-  caches_action :show,  layout: false, expires_in: 1.minute
-  caches_action :print, layout: false, expires_in: 1.minute
+  #caches_action :index, layout: false, expires_in: 1.minute
+  caches_action :show,  layout: false
+  caches_action :print, layout: false
 
 
   def index
@@ -22,7 +22,6 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    @related = @article.related(5)
   end
 
   def print
@@ -45,15 +44,14 @@ class Site::ArticlesController < Site::BaseController
   private
 
   def redirect_and_register_view
-    @article = Article.includes(:authors, :image => :photographer)
-      .find(params[:id])
+    @article = Article.find(params[:id])
     expected_path = url_for(controller: 'site/articles', action: action_name,
                             id: @article.slug, only_path: true)
     if request.path != expected_path
       return redirect_to expected_path, status: :moved_permanently
     end
     @article.register_view
-    @taxonomy = @article.section
+    @taxonomy = @article.section  # TODO: this shouldn't be here
   end
 
 end
