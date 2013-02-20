@@ -50,7 +50,11 @@ Chronline::Application.configure do
   config.logger = Le.new(Settings.logentries.token)
 
   # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_store, {
+    url: Settings.redis.url,
+    expires_in: 10.minutes,
+    race_condition_ttl: 10.seconds
+  }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
