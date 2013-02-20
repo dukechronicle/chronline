@@ -1,23 +1,6 @@
-// function initializeFacebook() {
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '335954613131615', // App ID
-    //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
-    status     : true, // check login status
-    cookie     : true, // enable cookies to allow the server to access the session
-    xfbml      : true  // parse XFBML
-  });
-
-  if ($("#facebook-social-share").length > 0)
-    socialShare();
-
-  if ($("#fb\\:like").length > 0) {
-    // subscribe to like button
-    FB.Event.subscribe('edge.create', function(url) {
-        _gaq.push(['_trackSocial', 'facebook', 'like', url]);
-    });
-  }
-};
+initialize('#facebook-social-share', function () {
+    $('#fb-root').on('fbinit', socialShare);
+});
 
 function activateSocial(accessToken) {
   var readTrigger = null;
@@ -108,7 +91,7 @@ function socialShare() {
 
 function markRead(accessToken) {
   console.log(accessToken)
-  var url = "http://www.<%= Settings.domain %>" + location.pathname;
+  var url = location.href;
   FB.api('/me/news.reads', 'post', { article: url, access_token: accessToken }, function(response) {
     if (!response || response.error) {
       console.log('Error occured when marking article as read: ' + response.error);
