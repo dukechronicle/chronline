@@ -18,6 +18,7 @@ class Article::Search
 
   attribute :per_page, type: Integer, default: 25
   attribute :highlight, default: true
+  attribute :include
 
   # Returns results for an initialized search object with the title and body
   # optionally highlighted; highlights with the `<mark />` tag
@@ -44,7 +45,7 @@ class Article::Search
   end
 
   def sections
-    return request.facet(:section).rows.map do |facet|
+    request.facet(:section).rows.map do |facet|
       {value: facet.value.titlecase, count: facet.count, lookup: facet.value}
     end
   end
@@ -76,7 +77,8 @@ class Article::Search
   # @return [Sunspot::Request]
   def request
     if @request.nil?
-      @request = Article.search do
+      logger.debug(self.include)
+      @request = Article.search(include: self.include) do
         with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
         with(:created_at).greater_than(start_date) if start_date?
