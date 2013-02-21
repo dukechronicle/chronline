@@ -39,8 +39,13 @@ class Article::Search
   end
 
   def authors
-    request.facet(:author_ids).rows.map do |facet|
-      {value: ::Staff.find_by_id(facet.value).name, count: facet.count, lookup: facet.value}
+    author_facets = request.facet(:author_ids).rows
+    author_names = {}
+    Staff.where(id: author_facets.map(&:value)).each do |author|
+      author_names[author.id] = author.name
+    end
+    author_facets.map do |facet|
+      {value: author_names[facet.value], count: facet.count, lookup: facet.value}
     end
   end
 
@@ -77,7 +82,6 @@ class Article::Search
   # @return [Sunspot::Request]
   def request
     if @request.nil?
-      logger.debug(self.include)
       @request = Article.search(include: self.include) do
         with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
