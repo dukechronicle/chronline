@@ -78,11 +78,13 @@ onto per since than the this that to up via with)
   end
 
   def related(limit)
-    Sunspot.more_like_this(self) do
+    search = Sunspot.more_like_this(self) do
       fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
-    end.results
+    end
+    search.data_accessor_for(self.class).include = :authors
+    search.results
   end
 
   def render_body
