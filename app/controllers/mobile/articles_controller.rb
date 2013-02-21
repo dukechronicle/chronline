@@ -1,4 +1,8 @@
 class Mobile::ArticlesController < Mobile::BaseController
+  include ::ArticlesController
+
+  before_filter :redirect_and_register_view, only: :show
+
 
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
@@ -9,25 +13,11 @@ class Mobile::ArticlesController < Mobile::BaseController
   end
 
   def show
-    @article = Article.includes(:authors, :image => :photographer)
-      .find(params[:id])
-    if request.path != mobile_article_path(@article)
-      return redirect_to [:mobile, @article], status: :moved_permanently
-    end
-    @article.register_view
   end
 
-  # Almost a duplicate of site/articles#search (highlighting, but should be
-  # moved to a decorator)
   def search
-    @taxonomy = Taxonomy.new
-    if params[:article_search].present?
-      @article_search = Article::Search.new(params[:article_search])
-      @articles = @article_search.results highlight: true
-    else
-      params[:article_search] = {}
-      @articles = []
-    end
+    params[:article_search][:include] = [:authors, :image]
+    super
   end
 
 end
