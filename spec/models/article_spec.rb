@@ -26,6 +26,10 @@ describe Article do
   it { should belong_to :image }
   it { should have_and_belong_to_many :authors }
   it { should validate_presence_of :title }
+  it { should accept_values_for(:title, Faker::Lorem.sentence(5)) }
+  it "should not allow long titles" do
+    should_not accept_values_for(:title, Faker::Lorem.sentence(20))
+  end
   it { should validate_presence_of :body }
   it { should validate_presence_of :authors }
   it { should accept_values_for(:teaser, Faker::Lorem.paragraph(2)) }
