@@ -8,6 +8,7 @@ initialize ->
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();`
 
-initialize ".fb-like", ->
-  FB.Event.subscribe 'edge.create', (url) ->
-    _gaq.push(['_trackSocial', 'facebook', 'like', url])
+initialize '.fb-like', ->
+  $('#fb-root').on 'fbinit', ->
+    FB.Event.subscribe 'edge.create', (url) ->
+      _gaq.push(['_trackSocial', 'facebook', 'like', url])
