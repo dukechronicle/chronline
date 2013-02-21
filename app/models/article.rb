@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
   validates :body, presence: true
-  validates :title, presence: true
+  validates :title, presence: true, length: {maximum: 90}
   validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
