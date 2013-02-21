@@ -1,8 +1,9 @@
 class Site::ArticlesController < Site::BaseController
+  include ::ArticlesController
+
   before_filter :redirect_and_register_view, only: [:show, :print]
   #caches_action :index, layout: false, expires_in: 1.minute
-  caches_action :show,  layout: false
-  caches_action :print, layout: false
+  caches_action :show, layout: false
 
 
   def index
@@ -29,30 +30,8 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def search
-    if params[:article_search].present?
-      @article_search = Article::Search.new(params[:article_search])
-      @article_search.page = params[:page] if params.has_key? :page
-      @article_search.include = :authors
-      @articles = @article_search.results
-    else
-      params[:article_search] = {}
-      @article_search = Article::Search.new
-      @articles = []
-    end
-  end
-
-
-  private
-
-  def redirect_and_register_view
-    @article = Article.find(params[:id])
-    expected_path = url_for(controller: 'site/articles', action: action_name,
-                            id: @article.slug, only_path: true)
-    if request.path != expected_path
-      return redirect_to expected_path, status: :moved_permanently
-    end
-    @article.register_view
-    @taxonomy = @article.section  # TODO: this shouldn't be here
+    params[:article_search][:include] = :authors
+    super
   end
 
 end
