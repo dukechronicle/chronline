@@ -9,7 +9,7 @@
     "jcrop": "0.9.10",
     "jquery": "latest",
     "jquery-file-upload": "latest",
-    "jquery-ui": "latest",
+    "jquery-ui": "~1.9.2",
     "onde": "git://github.com/exavolt/onde.git",
     "underscore": "latest",
     "jquery-galleria": "~1.2.8",
