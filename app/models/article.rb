@@ -88,7 +88,8 @@ onto per since than the this that to up via with)
   end
 
   def render_body
-    RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
+    html = RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
+    EmbededMedia.new(html).to_s
   end
 
   def section
