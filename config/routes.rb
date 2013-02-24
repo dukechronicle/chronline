@@ -60,6 +60,7 @@ Chronline::Application.routes.draw do
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
+      post 'articles/publish' => 'articles#publish'
 
       resources :images, except: :show do
         put 'crop', on: :member
