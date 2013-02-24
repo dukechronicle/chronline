@@ -4,7 +4,7 @@ class Site::ArticlesController < Site::BaseController
   before_filter :redirect_and_register_view, only: [:show, :print]
   #caches_action :index, layout: false, expires_in: 1.minute
   caches_action :show, layout: false
-
+  caches_action :index, layout: false
 
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
