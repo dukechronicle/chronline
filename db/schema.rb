@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206032936) do
+ActiveRecord::Schema.define(:version => 20130223193409) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(:version => 20130206032936) do
   add_index "articles_authors", ["article_id", "staff_id"], :name => "index_articles_authors_on_article_id_and_author_id", :unique => true
   add_index "articles_authors", ["article_id"], :name => "index_articles_authors_on_article_id"
   add_index "articles_authors", ["staff_id"], :name => "index_articles_authors_on_author_id"
+
+  create_table "blog_posts", :force => true do |t|
+    t.text     "body"
+    t.string   "blog"
+    t.string   "title"
+    t.string   "slug"
+    t.integer  "image_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "blog_posts", ["blog", "created_at"], :name => "index_blog_posts_on_blog_and_created_at", :unique => true
+  add_index "blog_posts", ["slug"], :name => "index_blog_posts_on_slug", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
