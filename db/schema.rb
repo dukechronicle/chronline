@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206032936) do
+ActiveRecord::Schema.define(:version => 20130217210535) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130206032936) do
     t.string   "slug"
     t.integer  "image_id"
     t.string   "previous_id"
+    t.boolean  "published"
   end
 
   add_index "articles", ["section", "created_at"], :name => "index_articles_on_section_and_created_at"

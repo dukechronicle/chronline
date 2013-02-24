@@ -35,6 +35,17 @@ class Admin::ArticlesController < Admin::BaseController
     end
   end
 
+  def publish
+    @article = Article.find(params[:id])
+    @article.published = true
+    if @article.save
+      flash[:sucess] = %Q[Article "#{@article.title} was published."]
+    else 
+      flash[:notice] = %Q[Article "#{@article.title} was not published."]
+    end 
+    redirect_to :back  
+  end
+
   def update
     @article = update_article(Article.find(params[:id]))
     if @article.save
@@ -52,7 +63,6 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def search
-
     if params.has_key? :article_search
       @article_search = Article::Search.new(params[:article_search])
       @article_search.page = params[:page] if params.has_key? :page

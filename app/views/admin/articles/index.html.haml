@@ -20,6 +20,10 @@
       %td= article.created_at.strftime('%-m-%-d-%Y')
       %td
         = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
+        - if !article.published
+          = link_to "Publish", admin_articles_publish_path(id: article.id), method: :post, class: 'btn btn-mini btn-info'
+        - else
+          = link_to "Unpublish", "", class: 'btn btn-mini btn-info disabled'
         = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
 
 = will_paginate

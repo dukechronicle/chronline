@@ -35,6 +35,7 @@ class Article < ActiveRecord::Base
   validates :teaser, length: {maximum: 200}
 
   scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
+  scope :published, where(published: true)
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
@@ -149,5 +150,5 @@ onto per since than the this that to up via with)
       end
     end
   end
-
+  
 end
