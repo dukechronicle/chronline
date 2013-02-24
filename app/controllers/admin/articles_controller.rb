@@ -37,7 +37,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def publish
     @article = Article.find(params[:id])
-    @article.published = true
+    @article.published_at = Time.now
     if @article.save
       flash[:sucess] = %Q[Article "#{@article.title} was published."]
     else 

@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
   include FriendlyId
   include Rails.application.routes.url_helpers
 
-  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
+  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title, :published_at
 
   friendly_id :title, use: [:slugged, :history]
 
@@ -35,7 +35,7 @@ class Article < ActiveRecord::Base
   validates :teaser, length: {maximum: 200}
 
   scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
-  scope :published, where(published: true)
+  scope :published, where('published_at IS NOT NULL')
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
@@ -150,5 +150,5 @@ onto per since than the this that to up via with)
       end
     end
   end
-  
+
 end
