@@ -1,6 +1,6 @@
 require 'set'
 
-class Article::EmbededMedia
+class Article::EmbeddedMedia
 
   def initialize(body)
     @body = body
