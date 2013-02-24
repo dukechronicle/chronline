@@ -18,18 +18,12 @@ require_dependency 'staff'
 
 
 class Article < ActiveRecord::Base
-  include FriendlyId
-  include Rails.application.routes.url_helpers
+  include Postable
 
-  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
+  attr_accessible :previous_id, :subtitle, :section, :teaser
 
-  friendly_id :title, use: [:slugged, :history]
-
-  belongs_to :image
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
-  validates :body, presence: true
-  validates :title, presence: true, length: {maximum: 90}
   validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
@@ -51,21 +45,6 @@ class Article < ActiveRecord::Base
     time :created_at, trie: true
   end
 
-  # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=50)
-    return nil if title.nil?  # record won't save -- title presence is validated
-    removelist = %w(a an as at before but by for from is in into like of off on
-onto per since than the this that to up via with)
-    r = /\b(#{removelist.join('|')})\b/i
-
-    s = title.downcase  # convert to lowercase
-    s.gsub!(r, '')
-    s.strip!
-    s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
-    s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
-    s[0...max_chars].chomp('-')
-  end
-
   def register_view
     unless section.root?
       key = "popularity:#{section[0].downcase}:#{Date.today}"
@@ -85,10 +64,6 @@ onto per since than the this that to up via with)
     end
     search.data_accessor_for(self.class).include = :authors
     search.results
-  end
-
-  def render_body
-    RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
   end
 
   def section
