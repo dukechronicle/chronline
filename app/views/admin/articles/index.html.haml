@@ -1,5 +1,3 @@
-= render 'admin/partials/flash', flash: flash
-
 %ul.nav.nav-tabs
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
   - Taxonomy.main_sections.each do |section|
