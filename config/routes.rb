@@ -68,6 +68,7 @@ Chronline::Application.routes.draw do
       resources :articles, except: :show
       resources :pages, except: :show
       resources :staff, except: :show
+      resources :blog_posts, except: :show
     end
   end
 
