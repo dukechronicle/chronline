@@ -1,10 +1,10 @@
-addImages = ($imageSelect, $imagePicker, images) ->
+addImages = ($imageSelect, $imagePicker, $handler, images) ->
   for image in images
     $imageTag = $("<img src=\"#{image.thumbnail_url}\" />")
     $imageSelect.find('.modal-body .images').append($imageTag)
     do (image) ->
       $imageTag.click ->
-        selectImage($imagePicker, image)
+        $handler($imagePicker, image) # either selectImage or insertImage
 
 removeImage = ($imagePicker) ->
   $imagePicker.find('input').val(undefined)
@@ -16,6 +16,10 @@ selectImage = ($imagePicker, image) ->
   $imagePicker.find('.image-display').attr(
     'data-content', "<img src=\"#{image.thumbnail_url}\" />")
   setVisibilities($imagePicker)
+  $('#image-select').modal('hide')
+
+insertImage = ($articleBody, image) ->
+  $articleBody.val( $articleBody.val() + "{{Image:#{image.id}}}" )
   $('#image-select').modal('hide')
 
 createModal = (version) ->
@@ -34,11 +38,11 @@ setVisibilities = ($imagePicker) ->
     $imagePicker.find('.image-change').hide()
     $imagePicker.find('.image-display').hide()
 
-loadImages = ($imagePicker, page=1) ->
+loadImages = ($imagePicker, $handler,  page=1) ->
   ->
     data = {limit: 35, page: page++}
     $.get fullUrl('api', '/images'), data, (images) =>
-      addImages($(this), $imagePicker, images)
+      addImages($(this), $imagePicker, $handler, images)
 
 initialize '.control-group.image_picker', ->
   $(this).each -> setVisibilities $(this)
@@ -60,7 +64,26 @@ initialize '.control-group.image_picker', ->
     e.preventDefault()
     $imagePicker = $(this).parents('.control-group.image_picker').first()
     $imageSelect = createModal()
-    $imageSelect.loadImages = loadImages($imagePicker)
+    $imageSelect.loadImages = loadImages($imagePicker, selectImage)
+    $imageSelect.loadImages()
+    $imageSelect.on 'click', '#next', ->
+      $imageSelect.loadImages()
+
+initialize '.control-group.body_image', ->
+  $(this).each -> setVisibilities $(this)
+
+  $(this).find('.image-display').each ->
+    url = $(this).data('url')
+    $(this).attr('data-content', "<img src=\"#{url}\" />") if url?
+    $(this).popover(
+      html: true
+      trigger: 'hover'
+    )
+  $(this).on 'click', '.image-insert', (e) ->
+    e.preventDefault()
+    $articleBody = $('textarea#article_body')
+    $imageSelect = createModal()
+    $imageSelect.loadImages = loadImages($articleBody, insertImage)
     $imageSelect.loadImages()
     $imageSelect.on 'click', '#next', ->
       $imageSelect.loadImages()
