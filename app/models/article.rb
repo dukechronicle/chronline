@@ -126,11 +126,10 @@ onto per since than the this that to up via with)
       [$1, thread['posts']]
     end
     articles = self.where(slug: slugs.map(&:first))
-    results = slugs.map do |slug, comments|
+    slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
-    results.sort_by! {|slug, comments| -comments}
   end
 
   ###
