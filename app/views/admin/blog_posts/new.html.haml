@@ -3,7 +3,7 @@
   %legend= yield :form_title
   = f.error_notification
   .form-inputs
-    = f.input :blog, collection: Settings.blogs.marshal_dump.keys
+    = f.input :blog, collection: blog_options
     = f.input :title
     = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}, hint: "Click #{link_to 'here', 'http://daringfireball.net/projects/markdown/syntax', target: '_blank'} for Markdown syntax reference (italics, bold, links, etc.)"
     = f.association :image, as: :image_picker
