@@ -27,10 +27,8 @@ class Page::Layouts::Bracket < Layout
       'label' => 'Rounds Standings',
       'type' => 'array',
       'items' => {
-        'label' => 'Round',
         'type' => 'array',
         'items' => {
-          'label' => 'Match',
           'type' => 'object',
           'properties' => {
             'team1'  => { 
