@@ -1,5 +1,16 @@
 # Facebook
 initialize '#fb-root', ->
+  window.fbAsyncInit = =>
+    # init the FB JS SDK
+    FB.init
+      appId      : <%= Settings.facebook.app_id %>  # App ID from the App Dashboard
+      channelUrl : '//<%= Settings.domain %>/channel.html'  # Channel File for x-domain communication
+      status     : true  # check the login status upon init?
+      cookie     : true  # set sessions cookies to allow your server to access the session?
+      xfbml      : true  # parse XFBML tags on this page?
+
+    $(this).trigger('fbinit')
+
   `(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
