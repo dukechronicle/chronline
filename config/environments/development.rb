@@ -40,9 +40,6 @@ Chronline::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
-  config.assets.logger = nil
-  config.assets.debug = false
-
   ActionMailer::Base.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,

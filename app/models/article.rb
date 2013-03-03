@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
   validates :body, presence: true
-  validates :title, presence: true
+  validates :title, presence: true, length: {maximum: 90}
   validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
@@ -38,7 +38,7 @@ class Article < ActiveRecord::Base
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable do
+  searchable(include: :authors) do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
@@ -78,11 +78,13 @@ onto per since than the this that to up via with)
   end
 
   def related(limit)
-    Sunspot.more_like_this(self) do
+    search = Sunspot.more_like_this(self) do
       fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
-    end.results
+    end
+    search.data_accessor_for(self.class).include = :authors
+    search.results
   end
 
   def render_body
@@ -124,11 +126,10 @@ onto per since than the this that to up via with)
       [$1, thread['posts']]
     end
     articles = self.where(slug: slugs.map(&:first))
-    results = slugs.map do |slug, comments|
+    slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
-    results.sort_by! {|slug, comments| -comments}
   end
 
   ###
