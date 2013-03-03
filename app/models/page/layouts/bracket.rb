@@ -19,8 +19,7 @@ class Page::Layouts::Bracket < Layout
             'label' => 'seed',
             'type' => 'number' 
           }
-      },
-      'required' => ['school', 'image', 'seed']
+        },
       }
     },
     'standings' => {
@@ -48,7 +47,6 @@ class Page::Layouts::Bracket < Layout
               'type' => 'number' 
             }
           },
-          'required' => ['team1', 'team2']
         }
       }
     }
