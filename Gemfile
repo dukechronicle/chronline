@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -9,7 +9,6 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'redis-store'
   gem 'thin'
   gem 'newrelic_rpm'
 end
