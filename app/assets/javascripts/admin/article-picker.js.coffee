@@ -4,7 +4,7 @@ fetchRecent = (callback) ->
 articleSearch = (query, callback) ->
   data =
     query: query
-    sort: 'date'
+    sort: 'created_at'
   $.get(fullUrl('api', '/search'), data, callback)
 
 # Can't use initialize because article-picker fields may be added dynamically
