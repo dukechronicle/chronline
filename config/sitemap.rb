@@ -7,7 +7,7 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 SitemapGenerator::Sitemap.create do
   add '/articles', :changefreq => 'daily'
-  Article.all do |article|
+  Article.for_each do |article|
     images = []
     if article.image
       images << {
