@@ -18,12 +18,6 @@ SitemapGenerator::Sitemap.create do
     
     add(site_article_path(article), 
       lastmod: article.updated_at, 
-      news:{
-        publication_name: "Duke Chronicle",
-        publication_language: "en",
-        title: article.title,
-        publication_date: article.created_at.iso8601,
-      },
       images: images,
       )
   end
