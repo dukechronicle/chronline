@@ -21,7 +21,7 @@ module ArticleHelper
       shortname: Settings.disqus.shortname,
       identifier: article.previous_id || "_#{article.id}",
       title: article.title,
-      url: site_article_url(article, subdomain: 'www'),
+      url: permanent_article_url(article),
     }.to_json
   end
 
