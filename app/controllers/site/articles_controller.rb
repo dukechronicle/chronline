@@ -30,6 +30,7 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def search
+    params[:article_search] ||= {}
     params[:article_search][:include] = :authors
     super
   end
