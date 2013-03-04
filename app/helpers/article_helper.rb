@@ -15,13 +15,17 @@ module ArticleHelper
     article.created_at.strftime(format)
   end
 
+  def disqus_identifier(article)
+    article.previous_id || "_#{article.id}"
+  end
+
   def disqus_options(article)
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
-      identifier: article.previous_id || "_#{article.id}",
+      identifier: disqus_identifier(article),
       title: article.title,
-      url: permanent_article_url(article),
+      url: site_article_url(article),
     }.to_json
   end
 
