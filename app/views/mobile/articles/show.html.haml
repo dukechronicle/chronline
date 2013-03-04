@@ -30,9 +30,9 @@
       %span.date= @article.created_at.strftime("%B %e, %Y")
 
     #social-media
-      .fb-like{data: {href: site_article_url(@article, subdomain: 'www'), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
-      .g-plusone{data: {size: "medium", annotation: "bubble", href: site_article_url(@article, subdomain: 'www')}}
-      %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: site_article_url(@article, subdomain: 'www')}} Tweet
+      .fb-like{data: {href: permanent_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
+      .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_article_url(@article)}}
+      %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: permanent_article_url(@article)}} Tweet
 
     .article-body!= @article.render_body
 

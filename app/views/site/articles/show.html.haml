@@ -50,11 +50,11 @@
               %i.icons-email
               = link_to "Email", mailto_article(@article)
             %div
-              .fb-like{data: {href: site_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
+              .fb-like{data: {href: permanent_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
-              %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: site_article_url(@article)}} Tweet
+              %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: permanent_article_url(@article)}} Tweet
             %div
-              .g-plusone{data: {size: "medium", annotation: "bubble", href: site_article_url(@article)}}
+              .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_article_url(@article)}}
 
           != @article.render_body
 
