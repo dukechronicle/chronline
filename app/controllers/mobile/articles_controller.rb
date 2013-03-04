@@ -16,6 +16,7 @@ class Mobile::ArticlesController < Mobile::BaseController
   end
 
   def search
+    params[:article_search] ||= {}
     params[:article_search][:include] = [:authors, :image]
     super
   end
