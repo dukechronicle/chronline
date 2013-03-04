@@ -3,12 +3,6 @@
 - content_for :title_block do
   = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @article.section}
 
-- content_for :twitter_card do
-  = render partial: 'partials/twitter_cards/article', locals: {article: @article}
-
-- content_for :open_graph_tags do
-  = render partial: 'partials/open-graph/article', locals: {article: @article}
-
 
 %article#article
   .article-container
