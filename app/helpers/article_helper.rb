@@ -31,7 +31,7 @@ module ArticleHelper
 
   def permanent_article_url(article)
     slug = @article.slugs.last
-    if slug.to_s.include?('/')
+    if slug.to_param.include?('/')
       site_article_url(slug, subdomain: :www)
     else
       site_article_deprecated_url(slug, subdomain: :www)
