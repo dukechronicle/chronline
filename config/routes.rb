@@ -16,8 +16,9 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'pages/*path' => 'base#custom_page'
 
-      get 'article/:id' => 'articles#show', as: :article
-      get 'article/:id/print' => 'articles#print', as: :print_article
+      resources :articles, only: :show, path: '/articles/*date' do
+        get :print, on: :member
+      end
 
       resources :staff, only: :show do
         member do
@@ -40,7 +41,7 @@ Chronline::Application.routes.draw do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
-      get 'article/:id' => 'articles#show', as: :article
+      resources :articles, only: :show, path: '/articles/*date'
 
       match '/404', :to => 'base#not_found'
     end
@@ -65,7 +66,10 @@ Chronline::Application.routes.draw do
         put 'crop', on: :member
         get 'upload', on: :collection
       end
-      resources :articles, except: :show
+
+      resources :articles, only: [:new, :create, :index]
+      resources :articles, only: [:edit, :update, :destroy], path: '/articles/*date'
+
       resources :pages, except: :show
       resources :staff, except: :show
     end
