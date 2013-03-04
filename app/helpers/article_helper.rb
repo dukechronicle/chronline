@@ -25,6 +25,15 @@ module ArticleHelper
     }.to_json
   end
 
+  def permanent_article_url(article)
+    slug = @article.slugs.last
+    if slug.to_s.include?('/')
+      site_article_url(slug, subdomain: :www)
+    else
+      site_article_deprecated_url(slug, subdomain: :www)
+    end
+  end
+
   def mailto_article(article)
     subject = "Duke Chronicle: #{article.title}"
     body = <<EOS
