@@ -42,7 +42,7 @@
           #social-media
             %div.comment-link
               %i.icons-comment
-              = link_to "Comments", "#disqus_thread"
+              = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@article)
             %div.print-link
               %i.icons-print
               = link_to "Print", print_site_article_path(@article)
