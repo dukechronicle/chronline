@@ -33,6 +33,10 @@ Chronline::Application.routes.draw do
       %w[news sports opinion recess towerview].each do |section|
         match section => redirect("/section/#{section}")
       end
+
+      # The controller methods redirect to the most current route
+      get 'article/:id' => 'articles#show', as: :article_deprecated
+      get 'article/:id/print' => 'articles#print', as: :print_article_deprecated
     end
   end
 
@@ -44,6 +48,10 @@ Chronline::Application.routes.draw do
       resources :articles, only: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
 
       match '/404', :to => 'base#not_found'
+
+      # Legacy routes
+      # The controller method redirects to the most current route
+      get 'article/:id' => 'articles#show', as: :article_deprecated
     end
   end
 
