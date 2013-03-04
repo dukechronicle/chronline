@@ -18,7 +18,7 @@ module ArticlesController
     @article = Article.includes(:authors, :image => :photographer)
       .find(params[:id])
     expected_path = url_for(controller: controller_path, action: action_name,
-                            id: @article.slug, only_path: true)
+                            id: @article, only_path: true)
     if request.path != expected_path
       return redirect_to expected_path, status: :moved_permanently
     end
