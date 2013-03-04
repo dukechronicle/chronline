@@ -16,7 +16,7 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'pages/*path' => 'base#custom_page'
 
-      resources :articles, only: :show, path: '/articles/*date' do
+      resources :articles, only: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
         get :print, on: :member
       end
 
@@ -41,7 +41,7 @@ Chronline::Application.routes.draw do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
-      resources :articles, only: :show, path: '/articles/*date'
+      resources :articles, only: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
 
       match '/404', :to => 'base#not_found'
     end
@@ -67,9 +67,7 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :articles, only: [:new, :create, :index]
-      resources :articles, only: [:edit, :update, :destroy], path: '/articles/*date'
-
+      resources :articles, except: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
       resources :pages, except: :show
       resources :staff, except: :show
     end
@@ -94,57 +92,4 @@ Chronline::Application.routes.draw do
     end
   end
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end
