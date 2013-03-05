@@ -11,6 +11,7 @@ First you need [git](http://git-scm.com/book/en/Getting-Started-Installing-Git) 
 $ npm install -g bower phantomjs
 
 # Install required gems
+$ gem install bundler
 $ bundle install --without production
 
 # Install client side vendor assets with bower
