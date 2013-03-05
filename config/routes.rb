@@ -5,7 +5,6 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
-      match 'rss' => redirect('http://feeds.feedburner.com/thechronicle/all')
       get 'search' => 'articles#search'
       resource :newsletter, only: :show do
         post 'subscribe'
@@ -33,6 +32,8 @@ Chronline::Application.routes.draw do
       %w[news sports opinion recess towerview].each do |section|
         match section => redirect("/section/#{section}")
       end
+
+      match 'rss' => redirect("http://rss.#{Settings.domain}/articles")
 
       # The controller methods redirect to the most current route
       get 'article/:id' => 'articles#show', as: :article_deprecated
