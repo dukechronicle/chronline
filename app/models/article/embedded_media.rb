@@ -22,7 +22,10 @@ class Article::EmbeddedMedia
       # chomps space after tag
       @body.gsub!(/{{Image:([0-9]*)}} ?/) do |id|
         if images_by_id.has_key? $1.to_i
-          "<img src=\"#{images_by_id[$1.to_i].original.url(:thumb_rect)}\" />"
+          %Q(<span class="embedded-image">
+              <img src="#{images_by_id[$1.to_i].original.url(:thumb_rect)}" />
+            </span>
+          )
         else
           ""
         end
