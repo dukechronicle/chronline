@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+Blog::Data['pokedex'] = {
+  'name' => 'The Pokedex'
+}
+
 
 describe Blog do
 

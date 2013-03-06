@@ -3,6 +3,11 @@ class Blog
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
+  # Must initialize Blog::Data here so that it is present on reload
+  File.open(File.join(Rails.root, "config", "blogs.yml")) do |file|
+    Blog::Data = YAML.load(file)
+  end
+
   attr_accessor :id, :name
 
 
@@ -18,7 +23,7 @@ class Blog
   end
 
   def self.find(id)
-    if Settings.blogs[id]
+    if Blog::Data[id]
       attributes = Hash[Settings.blogs[id]]
       attributes['id'] = id
       self.new(attributes)
