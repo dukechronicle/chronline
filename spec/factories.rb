@@ -27,4 +27,10 @@ FactoryGirl.define do
     photographer { Staff.find_or_create_by_name(Faker::Name.name) }
     original { fixture_file_upload('lib/sample-images/pikachu.png') }
   end
+
+  factory :blog_post, class: Blog::Post do
+    title "Ash Catches a Pokemon"
+    body "It was a Caterpie."
+    blog "bluezone"
+  end
 end

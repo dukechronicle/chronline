@@ -20,4 +20,6 @@ describe Blog do
   # Required to comply with ActiveModel interface
   it { should be_persisted }
 
+  it { subject.to_param.should == 'pokedex' }
+
 end
