@@ -31,7 +31,7 @@ class Blog
 
   def self.find(id)
     if Blog::Data[id]
-      attributes = Hash[Settings.blogs[id]]
+      attributes = Hash[Blog::Data[id]]
       attributes['id'] = id
       self.send(:new, attributes)
     end
