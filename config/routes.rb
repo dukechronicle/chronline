@@ -79,9 +79,13 @@ Chronline::Application.routes.draw do
       resources :articles, except: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
       resources :pages, except: :show
       resources :staff, except: :show
-      resources :blog_posts, only: [:new, :create], path: '/blogs/posts'
-      resources :blog_posts, only: [:index, :edit, :update, :destroy],
-        path: '/blogs/:blog/posts/'
+
+      resources :blog_posts, only: [:new, :create], path: 'blogs/posts',
+        controller: 'blogs'
+      resources :blogs, only: :index do
+        resources :posts, only: [:index, :edit, :update, :destroy],
+          controller: 'blogs'
+      end
     end
   end
 
