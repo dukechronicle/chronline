@@ -11,7 +11,7 @@ module Postable
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=50)
+  def normalize_friendly_id(title, max_chars=100)
     return nil if title.nil?  # record won't save -- title presence is validated
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)
@@ -23,6 +23,8 @@ onto per since than the this that to up via with)
     s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
     s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
     s[0...max_chars].chomp('-')
+
+    (created_at || Date.today).strftime('%Y/%m/%d/') + s
   end
 
   def render_body

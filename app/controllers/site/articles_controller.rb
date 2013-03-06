@@ -7,12 +7,18 @@ class Site::ArticlesController < Site::BaseController
 
 
   def index
-    @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    begin
+      @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    rescue Taxonomy::InvalidTaxonomyError
+      return not_found
+    end
+
     begin
       custom_page and return
     rescue ActiveRecord::RecordNotFound
       nil
     end
+
     @articles = Article.includes(:authors, :image)
       .section(@taxonomy)
       .order('created_at DESC')
@@ -30,6 +36,7 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def search
+    params[:article_search] ||= {}
     params[:article_search][:include] = :authors
     super
   end
