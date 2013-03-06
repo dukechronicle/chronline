@@ -25,6 +25,10 @@ class Blog
     true
   end
 
+  def to_param
+    id
+  end
+
   def self.find(id)
     if Blog::Data[id]
       attributes = Hash[Settings.blogs[id]]
