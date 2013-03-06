@@ -9,22 +9,41 @@
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
               %li= link_to "Manage", admin_articles_path
               %li= link_to "Create", new_admin_article_path
+
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Blogs
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li.dropdown-submenu
+                = link_to "Manage", "#", tabindex: -1
+                %ul.dropdown-menu
+                  - Blog.each do |blog|
+                    %li= link_to blog.name, admin_blog_posts_path(blog)
+              %li.dropdown-submenu
+                = link_to "Create", "#", tabindex: -1
+                %ul.dropdown-menu
+                  - Blog.each do |blog|
+                    %li= link_to blog.name, new_admin_blog_post_path(blog)
+
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Images
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
               %li= link_to "Manage", admin_images_path
               %li= link_to "Upload", upload_admin_images_path
+
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Pages
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
               %li= link_to "Manage", admin_pages_path
               %li= link_to "Create", new_admin_page_path
+
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Staff
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
               %li= link_to "Search", admin_staff_index_path
               %li= link_to "Create", new_admin_staff_path
+
           %li= link_to "Newsletter", admin_newsletter_path
           %li= link_to "Invite", new_user_invitation_path
+
         %ul.nav.pull-right
           %li= link_to "Logout", destroy_user_session_path, method: :delete

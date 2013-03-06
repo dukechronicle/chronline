@@ -1,5 +1,5 @@
 class Blog
-  class Encoder
+  class Serializer
     def load(blog_id)
       Blog.find(blog_id)
     end
@@ -15,8 +15,14 @@ class Blog
     self.table_name = :blog_posts
 
     attr_accessible :blog
-    serialize :blog, Blog::Encoder.new
+    serialize :blog, Blog::Serializer.new
 
     validates :blog, presence: true
+
+    def blog=(blog)
+      blog = Blog.find(blog) unless blog.is_a?(Blog)
+      super(blog)
+    end
+
   end
 end
