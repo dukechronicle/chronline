@@ -14,8 +14,6 @@ $ npm install -g bower phantomjs
 $ rvm requirements
 
 # More require packages for nokogiri
-$ sudo apt-get install ruby1.8-dev ruby1.8 ri1.8 rdoc1.8 irb1.8
-$ sudo apt-get install libreadline-ruby1.8 libruby1.8 libopenssl-ruby
 $ sudo apt-get install libxslt-dev libxml2-dev
 
 # Install required gems
@@ -25,10 +23,10 @@ $ bundle install --without production
 # Install client side vendor assets with bower
 $ rake bower:refresh
 
-# Start local solr server
+# Start local solr server (also must be done after every reboot)
 $ rake sunspot:solr:start
 
-# Rails database initialization
+# Rails database initialization (or also to update corrupt db)
 $ rake db:refresh
 $ rake db:test:prepare
 ```
