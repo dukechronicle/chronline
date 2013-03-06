@@ -8,6 +8,9 @@ class Blog
     Blog::Data = YAML.load(file)
   end
 
+  # Blog class is not publicly instantiable
+  private_class_method :new
+
   attr_accessor :id, :name
 
 
@@ -26,7 +29,7 @@ class Blog
     if Blog::Data[id]
       attributes = Hash[Settings.blogs[id]]
       attributes['id'] = id
-      self.new(attributes)
+      self.send(:new, attributes)
     end
   end
 
