@@ -1,11 +1,4 @@
 ---
-blogs:
-  bluezone:
-    name: Blue Zone
-  playground:
-    name: Playground
-  backpages:
-    name: Backpages
 image_attributions:
   - '? / The Chronicle'
   - '? / Chronicle File Photo'
