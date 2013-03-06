@@ -21,6 +21,7 @@ class Article < ActiveRecord::Base
   include Postable
 
   attr_accessible :previous_id, :subtitle, :section, :teaser
+  serialize :section, Taxonomy::Serializer.new
 
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
@@ -66,13 +67,9 @@ class Article < ActiveRecord::Base
     search.results
   end
 
-  def section
-    Taxonomy.new(self[:section])
-  end
-
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    self[:section] = taxonomy.to_s
+    super(taxonomy)
   end
 
   def self.popular(section, options={})
