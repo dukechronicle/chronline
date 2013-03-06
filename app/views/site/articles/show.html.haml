@@ -16,6 +16,9 @@
 - content_for :open_graph_tags do
   = render partial: 'site/partials/open-graph/article', locals: {article: @article}
 
+- content_for :scripts do
+  %script{src: 'http://www.readrboard.com/static/engage.js', defer: true}
+
 
 %article#article
   .span-8
