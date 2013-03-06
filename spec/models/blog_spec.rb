@@ -7,6 +7,10 @@ Blog::Data['pokedex'] = {
 
 describe Blog do
 
+  it "should not be directly instantiable" do
+    ->{Blog.new}.should raise_error
+  end
+
   subject { Blog.find('pokedex') }
 
   # Attributes for 'pokedex' blog are in config/settings/test.yml
