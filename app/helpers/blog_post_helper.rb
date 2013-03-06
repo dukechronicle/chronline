@@ -1,7 +1,7 @@
 module BlogPostHelper
 
   def blog_options
-    Settings.blogs.marshal_dump.map {|id, blog| [blog.name, id]}
+    Blog.all.map {|blog| [blog.name, blog.id]}
   end
 
 end

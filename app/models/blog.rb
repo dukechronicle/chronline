@@ -37,4 +37,12 @@ class Blog
     end
   end
 
+  def self.all
+    Blog::Data.map {|key, _| self.find(key)}
+  end
+
+  def self.each(&block)
+    self.all.each(&block)
+  end
+
 end

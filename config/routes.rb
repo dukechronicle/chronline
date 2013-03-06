@@ -80,11 +80,8 @@ Chronline::Application.routes.draw do
       resources :pages, except: :show
       resources :staff, except: :show
 
-      resources :blog_posts, only: [:new, :create], path: 'blogs/posts',
-        controller: 'blogs'
-      resources :blogs, only: :index do
-        resources :posts, only: [:index, :edit, :update, :destroy],
-          controller: 'blogs'
+      resources :blogs, only: :index, controller: 'blog_posts' do
+        resources :posts, except: :show, controller: 'blog_posts'
       end
     end
   end

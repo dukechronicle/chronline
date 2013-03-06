@@ -68,7 +68,7 @@ class Article < ActiveRecord::Base
   end
 
   def section=(taxonomy)
-    taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
+    taxonomy = Taxonomy.new(taxonomy) unless taxonomy.is_a?(Taxonomy)
     super(taxonomy)
   end
 
