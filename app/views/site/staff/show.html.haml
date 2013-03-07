@@ -9,4 +9,4 @@
 - content_for :title_block do
   %h1= @staff.name
 
-= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :articles}
+= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: nil}
