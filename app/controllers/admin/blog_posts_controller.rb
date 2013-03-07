@@ -1,6 +1,10 @@
 class Admin::BlogPostsController < Admin::BaseController
 
   def index
+    if params[:blog_id]
+      @blog = Blog.find(params[:blog_id])
+      @blog_posts = Blog::Post.where(blog: @blog.id)
+    end
   end
 
   def new
