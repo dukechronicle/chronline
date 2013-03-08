@@ -16,9 +16,11 @@ class PageSweeper < ActionController::Caching::Sweeper
   private
 
   def expire_cache_for(page)
-    section = page.path.split "/"
-    section = section[section.length-1]
-    expire_action controller: 'site/articles', action: :index, subdomain: :www, section: section
+    frontpage = ''
+    if page.path[0..5] == '/'
+      frontpage = 'index'
+    end
+    expire_fragment site_root_url(subdomain: :www)[7..-1] + page.path[1..-1] + frontpage
   end
 
 end
