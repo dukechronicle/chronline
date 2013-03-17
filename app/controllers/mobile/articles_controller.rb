@@ -5,7 +5,12 @@ class Mobile::ArticlesController < Mobile::BaseController
 
 
   def index
-    @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    begin
+      @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    rescue Taxonomy::InvalidTaxonomyError
+      return not_found
+    end
+
     @articles = Article.includes(:authors, :image)
       .section(@taxonomy)
       .order('created_at DESC')
@@ -16,6 +21,7 @@ class Mobile::ArticlesController < Mobile::BaseController
   end
 
   def search
+    params[:article_search] ||= {}
     params[:article_search][:include] = [:authors, :image]
     super
   end
