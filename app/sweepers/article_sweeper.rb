@@ -4,22 +4,15 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
 
   def after_create(article)
-    expire_cache_for(article)
+    expire_article_cache(article)
   end
 
   def after_update(article)
-    expire_cache_for(article)
+    expire_article_cache(article)
   end
 
   def after_destroy(article)
-    expire_cache_for(article)
-  end
-
-
-  private
-
-  def expire_cache_for(article)
-    expire_all article
+    expire_article_cache(article)
   end
 
 end
