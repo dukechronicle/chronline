@@ -1,0 +1,13 @@
+= simple_form_for([:admin, @blog_post], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+  %legend= yield :form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :blog, disabled: true, input_html: {value: @blog_post.blog.name}
+    = f.input :blog, as: :hidden, input_html: {value: @blog_post.blog.id}
+    = f.input :title
+    = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}, hint: "Click #{link_to 'here', 'http://daringfireball.net/projects/markdown/syntax', target: '_blank'} for Markdown syntax reference (italics, bold, links, etc.)"
+    = f.association :image, as: :image_picker
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary'
+
+%script#image-select-template{type: 'text/template'}= render 'admin/templates/image-select'
