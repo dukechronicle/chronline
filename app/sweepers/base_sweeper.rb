@@ -1,8 +1,6 @@
 module BaseSweeper
 
-  protected
-
-  def expire_all(article)
+  def expire_article_cache(article)
     expire_action controller: 'site/articles', action: :index, subdomain: :www
     article.section.parents.each do |taxonomy|
       expire_action(controller: 'site/articles', subdomain: :www,
