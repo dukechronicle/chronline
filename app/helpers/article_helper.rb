@@ -15,14 +15,27 @@ module ArticleHelper
     article.created_at.strftime(format)
   end
 
+  def disqus_identifier(article)
+    article.previous_id || "_#{article.id}"
+  end
+
   def disqus_options(article)
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
-      identifier: article.previous_id || "_#{article.id}",
+      identifier: disqus_identifier(article),
       title: article.title,
-      url: site_article_url(article, subdomain: 'www'),
+      url: site_article_url(article),
     }.to_json
+  end
+
+  def permanent_article_url(article)
+    slug = @article.slugs.last
+    if slug.to_param.include?('/')
+      site_article_url(slug, subdomain: :www)
+    else
+      site_article_deprecated_url(slug, subdomain: :www)
+    end
   end
 
   def mailto_article(article)
