@@ -44,10 +44,12 @@ ActiveRecord::Schema.define(:version => 20130223193409) do
     t.string   "title"
     t.string   "slug"
     t.integer  "image_id"
+    t.integer  "author_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "blog_posts", ["author_id"], :name => "index_blog_posts_on_author_id"
   add_index "blog_posts", ["blog", "created_at"], :name => "index_blog_posts_on_blog_and_created_at", :unique => true
   add_index "blog_posts", ["slug"], :name => "index_blog_posts_on_slug", :unique => true
 

@@ -6,11 +6,13 @@ class CreateBlogPosts < ActiveRecord::Migration
       t.string :title
       t.string :slug
       t.integer :image_id
+      t.integer :author_id
 
       t.timestamps
     end
 
     add_index :blog_posts, :slug, unique: true
     add_index :blog_posts, [:blog, :created_at], unique: true
+    add_index :blog_posts, :author_id
   end
 end
