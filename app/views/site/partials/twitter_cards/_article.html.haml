@@ -2,7 +2,7 @@
   %meta{name: 'twitter:card', content: :summary}
   %meta{name: 'twitter:site:id', content: Settings.twitter.id}
   %meta{name: 'twitter:title', content: article.title}
-  %meta{name: 'twitter:url', content: site_article_url(article, subdomain: 'www')}
+  %meta{name: 'twitter:url', content: permanent_article_url(article)}
   %meta{name: 'twitter:description', content: article.teaser}
   - if article.authors.first.twitter.present?
     %meta{name: 'twitter:creator', content: article.authors.first.twitter}

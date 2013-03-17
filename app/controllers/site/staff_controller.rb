@@ -12,7 +12,9 @@ class Site::StaffController < Site::BaseController
 
   def show
     @staff = Staff.find(params[:id])
-    if @staff.photographer? and not @staff.author?
+    if social_crawler?
+      nil # Render "show" view
+    elsif @staff.photographer? and not @staff.author?
       redirect_to images_site_staff_path(@staff)
     else
       redirect_to articles_site_staff_path(@staff)
