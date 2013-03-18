@@ -12,9 +12,9 @@ class Admin::BlogPostsController < Admin::BaseController
   end
 
   def create
-    @blog_post = Blog::Post.new(params[:blog_post])
+    @blog_post = update_blog_post(Blog::Post.new)
     if @blog_post.save
-      admin_blog_posts_path(params[:blog_id])
+      redirect_to admin_blog_posts_path(params[:blog_id])
     else
       render 'new'
     end
@@ -25,9 +25,9 @@ class Admin::BlogPostsController < Admin::BaseController
   end
 
   def update
-    @blog_post = Blog::Post.find(params[:id])
+    @blog_post = update_blog_post(Blog::Post.find(params[:id]))
     if @blog_post.update_attributes(params[:blog_post])
-      admin_blog_posts_path(params[:blog_id])
+      redirect_to admin_blog_posts_path(params[:blog_id])
     else
       render 'edit'
     end
@@ -38,6 +38,19 @@ class Admin::BlogPostsController < Admin::BaseController
     blog_post.destroy
     flash[:success] = %Q[Blog post "#{blog_post.title}" was deleted.]
     redirect_to admin_blog_posts_path(params[:blog_id])
+  end
+
+
+  private
+
+  def update_blog_post(blog_post)
+    # Last element of taxonomy array may be an empty string
+    author_name = params[:blog_post].delete(:author_id)
+    blog_post.assign_attributes(params[:blog_post])
+    unless author_name.blank?
+      blog_post.author = Staff.find_or_create_by_name(author_name)
+    end
+    blog_post
   end
 
 end
