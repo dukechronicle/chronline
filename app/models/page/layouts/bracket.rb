@@ -9,18 +9,20 @@ class Page::Layouts::Bracket < Layout
         'properties' => {
           'school' => { 
             'label' => 'school',
-            'type' => 'string' 
+            'type' => 'string',
+            'required' => true
           },
           'image'  => { 
             'label' => 'image',
-            'type' => 'string' 
+            'type' => 'string', 
+            'required' => true
           },
           'seed'   => { 
             'label' => 'seed',
-            'type' => 'number' 
+            'type' => 'number', 
+            'required' => true
           }
-      },
-      'required' => ['school', 'image', 'seed']
+        },
       }
     },
     'standings' => {
@@ -35,11 +37,13 @@ class Page::Layouts::Bracket < Layout
           'properties' => {
             'team1'  => { 
               'label' => 'team1',
-              'type' => 'number' 
+              'type' => 'number',
+              'required' => true
             },
             'team2'  => { 
               'label' => 'team2',
-              'type' => 'number' 
+              'type' => 'number', 
+              'required' => true
             },
             'score1' => { 
               'label' => 'score1',
@@ -50,7 +54,6 @@ class Page::Layouts::Bracket < Layout
               'type' => 'number' 
             }
           },
-          'required' => ['team1', 'team2']
         }
       }
     }
