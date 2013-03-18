@@ -4,5 +4,6 @@
     %title #{yield(:title)} | The Chronicle
     = stylesheet_link_tag "print", :media => "all"
     = render 'partials/favicon'
+    = yield :head
   %body
     .container= yield
