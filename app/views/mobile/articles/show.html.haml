@@ -3,6 +3,9 @@
 - content_for :title_block do
   = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @article.section}
 
+- content_for :head do
+  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
+
 
 %article#article
   .article-container
