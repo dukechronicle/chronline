@@ -25,6 +25,7 @@ class Staff < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   has_many :images, foreign_key: :photographer_id
+  has_many :blog_posts, foreign_key: :author_id
   belongs_to :headshot, class_name: "Image"
   has_and_belongs_to_many :articles, join_table: :articles_authors
 

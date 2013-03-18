@@ -81,7 +81,8 @@ Chronline::Application.routes.draw do
       resources :staff, except: :show
 
       resources :blogs, only: :index, controller: 'blog_posts' do
-        resources :posts, except: :show, controller: 'blog_posts'
+        resources :posts, except: :show, controller: 'blog_posts',
+          id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
       end
     end
   end
