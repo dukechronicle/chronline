@@ -10,12 +10,14 @@
 - content_for :administrative_links do
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
-- content_for :twitter_card do
+- content_for :head do
   = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
 
-- content_for :open_graph_tags do
+- content_for :head do
   = render partial: 'site/partials/open-graph/article', locals: {article: @article}
 
+- content_for :head do
+  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
 
 %article#article
   .span-8
