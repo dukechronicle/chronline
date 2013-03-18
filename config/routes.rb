@@ -15,8 +15,13 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'pages/*path' => 'base#custom_page'
 
-      resources :articles, only: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
+      resources :articles, only: :show, id: Postable::SLUG_PATTERN do
         get :print, on: :member
+      end
+
+      resources :blogs, only: :index, controller: 'blog_posts' do
+        resources :posts, only: [:index, :show], controller: 'blog_posts',
+          id: Postable::SLUG_PATTERN
       end
 
       resources :staff, only: :show do
@@ -46,7 +51,7 @@ Chronline::Application.routes.draw do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
-      resources :articles, only: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+      resources :articles, only: :show, id: Postable::SLUG_PATTERN
 
       match '/404', :to => 'base#not_found'
 
@@ -76,13 +81,13 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :articles, except: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+      resources :articles, except: :show, id: Postable::SLUG_PATTERN
       resources :pages, except: :show
       resources :staff, except: :show
 
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',
-          id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+          id: Postable::SLUG_PATTERN
       end
     end
   end
