@@ -1,14 +1,4 @@
 class Blog
-  class Serializer
-    def load(blog_id)
-      Blog.find(blog_id)
-    end
-
-    def dump(blog)
-      blog.id
-    end
-  end
-
   class Post < ActiveRecord::Base
     include Postable
 
@@ -20,6 +10,8 @@ class Blog
 
     attr_accessible :blog
     serialize :blog, Blog::Serializer.new
+
+    acts_as_taggable
 
     belongs_to :author, class_name: "Staff"
 
