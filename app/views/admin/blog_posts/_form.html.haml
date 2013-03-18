@@ -7,6 +7,7 @@
     = f.input :title
     = f.association :author, value_method: :name, as: :string, input_html: {class: 'staff-picker input-xlarge'}
     = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}, hint: "Click #{link_to 'here', 'http://daringfireball.net/projects/markdown/syntax', target: '_blank'} for Markdown syntax reference (italics, bold, links, etc.)"
+    = f.input :tag_list, label: "Tags", hint: 'Comma separated list of tags. All lowercase, no "and", and no pound signs.'
     = f.association :image, as: :image_picker
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
