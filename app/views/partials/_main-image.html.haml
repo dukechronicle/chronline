@@ -1,0 +1,6 @@
+= image_tag image.original.url(:large_rect), class: 'main-image'
+.clearfix
+  .photo-credit
+    %span= photo_credit(image, link: true)
+  - if not image.caption.blank?
+    %p.photo-caption= image.caption
