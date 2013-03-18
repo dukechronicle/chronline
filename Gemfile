@@ -46,6 +46,7 @@ group :assets do
 end
 
 gem 'active_attr'
+gem 'acts-as-taggable-on'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
