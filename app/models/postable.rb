@@ -1,4 +1,6 @@
 module Postable
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+
 
   def self.included(base)
     base.send(:include, FriendlyId)
