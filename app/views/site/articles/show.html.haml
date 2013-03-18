@@ -28,12 +28,7 @@
           %h2.subtitle= @article.subtitle
 
         - if @article.image
-          = image_tag @article.image.original.url(:large_rect), class: 'main-image'
-          .clearfix
-            .photo-credit
-              %span= photo_credit(@article.image, link: true)
-            - if not @article.image.caption.blank?
-              %p.photo-caption= @article.image.caption
+          = render partial: 'partials/main-image', locals: {image: @article.image}
 
         %p.byline
           %span.author By #{byline(@article, link: true)}

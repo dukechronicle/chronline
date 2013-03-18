@@ -11,10 +11,6 @@ module ArticleHelper
     end.to_sentence.html_safe
   end
 
-  def display_date(article, format="%B %-d, %Y")
-    article.created_at.strftime(format)
-  end
-
   def disqus_identifier(article)
     article.previous_id || "_#{article.id}"
   end
