@@ -1,28 +1,88 @@
 class Page::Layouts::Bracket < Layout
   def schema
    {
+
     'teams' => {
       'label' => 'Teams',
-      'type' => 'array',
-      'items' => {
-        'type' => 'object',
-        'properties' => {
-          'school' => { 
-            'label' => 'school',
-            'type' => 'string',
-            'required' => true
-          },
-          'image'  => { 
-            'label' => 'image',
-            'type' => 'string', 
-            'required' => true
-          },
-          'seed'   => { 
-            'label' => 'seed',
-            'type' => 'number', 
-            'required' => true
+      'type' => 'object',
+      'properties' => {
+        'midwest' => {
+          'label' => 'Midwest',
+          'type' => 'array',
+          'items' => {
+            'type' => 'object',
+            'properties' => {
+              'school' => { 
+                'label' => 'school',
+                'type' => 'string',
+                'required' => true
+              },
+              'image'  => { 
+                'label' => 'image',
+                'type' => 'string', 
+                'required' => true
+              }
+            }
           }
         },
+        'west' => {
+          'label' => 'West',
+          'type' => 'array',
+          'items' => {
+            'type' => 'object',
+            'properties' => {
+              'school' => { 
+                'label' => 'school',
+                'type' => 'string',
+                'required' => true
+              },
+              'image'  => { 
+                'label' => 'image',
+                'type' => 'string', 
+                'required' => true
+              }
+            }
+          }
+        },
+        'south' => {
+          'label' => 'South',
+          'type' => 'array',
+          'items' => {
+            'type' => 'object',
+            'properties' => {
+              'school' => { 
+                'label' => 'school',
+                'type' => 'string',
+                'required' => true
+              },
+              'image'  => { 
+                'label' => 'image',
+                'type' => 'string', 
+                'required' => true
+              }
+            }
+          }
+        },
+        'east' => {
+          'label' => 'East',
+          'type' => 'array',
+          'items' => {
+            'type' => 'object',
+            'properties' => {
+              'school' => { 
+                'label' => 'school',
+                'type' => 'string',
+                'required' => true
+              },
+              'image'  => { 
+                'label' => 'image',
+                'type' => 'string', 
+                'required' => true
+              }
+            }
+          }
+        }
+
       }
     },
     'standings' => {
