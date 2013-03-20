@@ -3,38 +3,13 @@
 - content_for :title_block do
   %h1= link_to @blog.name, site_blog_posts_path(@blog)
 
-%article#article
-  .span-8
-    .rounded
-      .article-container
-        %h3= @blog.name
-        %h1.title= @blog_post.title
+- content_for :head do
+  %link{rel: "canonical", href: site_blog_post_url(@blog, @blog_post, subdomain: :www)}
 
-        %p.byline
-          %span.author
-            By
-            = link_to @blog_post.author.name, site_staff_path(@blog_post.author)
-          %span.sep= "|"
-          %span.date= display_date(@blog_post)
 
-        - if @blog_post.image
-          = render partial: 'partials/main-image', locals: {image: @blog_post.image}
+.span-8
+  = render partial: 'site/blog_posts/blog', locals: {blog_post: @blog_post}
+  #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
 
-        .article-body
-          #social-media
-            %div.comment-link
-              %i.icons-comment
-              = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@blog_post)
-            %div
-              .fb-like{data: {href: permanent_blog_post_url(@blog_post), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
-            %div
-              %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: permanent_blog_post_url(@blog_post)}} Tweet
-            %div
-              .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_blog_post_url(@blog_post)}}
-
-          != @blog_post.render_body
-
-    #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
-
-  .span-4.last
-    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+%aside.span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
