@@ -12,12 +12,9 @@
 
 - content_for :head do
   = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
-
-- content_for :head do
   = render partial: 'site/partials/open-graph/article', locals: {article: @article}
-
-- content_for :head do
   %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
+
 
 .span-8
   .rounded
