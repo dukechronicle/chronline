@@ -10,8 +10,9 @@ var data;
 var coords = []
 
 initialize("#bracket", function() {
-    bracketData = $("#bracket-data").data("bracket");
+    bracketData = $("#bracket_data").data("bracket");
     data = bracketData.table;
+    console.log(data.teams)
     $(this).click(function (e) {
         if (team = teamFromLocation(e.offsetX, e.offsetY)) {
             alert(team);
@@ -57,7 +58,8 @@ function drawRound(ctx, x, y, round, left){
   }
 }
 
-function writeTeams(ctx, x, y, round, left){
+function writeTeams(ctx, x, y, round, left, count){
+    if(count < data.teams.length){
     ctx.font = "normal 6.3pt Arial"
     l=1;
     if(!left){
@@ -66,7 +68,6 @@ function writeTeams(ctx, x, y, round, left){
     var j = 4 - round;
     var teams = data.teams;
     firstseed = teams[0].school;
-    var count =0;
     for(var i=0;i<Math.pow(2,j);i++){
       player = teams[count];
       player2 = teams[count+1];
@@ -89,6 +90,7 @@ function writeTeams(ctx, x, y, round, left){
       count = count +2;
     }
   }
+  }
 
 function draw(){
   var canvas = document.getElementById("bracket");
@@ -97,23 +99,23 @@ function draw(){
   var y = orig_y;
   //Midwest
   for(var i=1; i<5;i++){
-    drawRound(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true)
+    drawRound(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true);
   }
 
   //text for first round
   for(var i=1; i<2;i++){
     //top left
-    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true)
+    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true,0);
     //bottom left
     y=8*(depth*2)+regionspace;      
-    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true)
+    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true,16);
     //top right
     x+= 6*teamWidth+finalspace+6*teamWidth;
     y= orig_y;
-    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, false)
+    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, false,32);
     //bottom right
     y=8*(depth*2)+regionspace;
-    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, false)
+    writeTeams(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, false,48);
   }
   var x = orig_x;
   var y = orig_y;
