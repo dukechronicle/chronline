@@ -4,6 +4,8 @@ aws:
   secret_access_key: AWS_SECRET_KEY
   bucket: AWS_BUCKET_NAME
 domain: lvh.me
+facebook:
+  app_id: FACEBOOK_APP_ID
 gmail:
   domain: gmail.com
   username: GOOGLE_ACCOUNT_EMAIL
@@ -16,5 +18,10 @@ mailchimp:
   from_name: Elite Four
   list_id: MAILCHIMP_LIST_ID
   template_id: 429
+quantcast:
+  qacct: QUANTCAST_QACCT
+  pub: QUANTCAST_PUB
 redis:
+twitter:
+  id: TWITTER_HANDLE
   url:
