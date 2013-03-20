@@ -17,7 +17,7 @@ initialize("#bracket", function() {
             $dialog = $("<div>")
             $dialog.attr('title', team.school);
             $dialog.html(team.description);
-            $dialog.dialog();
+            $dialog.dialog({width : 650});
         }
     });
     draw();
