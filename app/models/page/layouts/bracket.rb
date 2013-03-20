@@ -1,6 +1,7 @@
 class Page::Layouts::Bracket < Layout
   def schema
    {
+
     'teams' => {
       'label' => 'Teams',
       'type' => 'array',
@@ -9,37 +10,42 @@ class Page::Layouts::Bracket < Layout
         'properties' => {
           'school' => { 
             'label' => 'school',
-            'type' => 'string' 
-          },
+            'type' => 'string',
+            'required' => true
+            },
           'image'  => { 
             'label' => 'image',
-            'type' => 'string' 
+            'type' => 'string', 
+            #'required' => true
           },
-          'seed'   => { 
+          'description' => {
+            'label' => 'description',
+            'extends' => markdown_schema
+          },
+          'seed' => {
             'label' => 'seed',
-            'type' => 'number' 
+            'type' => 'number'
           }
-      },
-      'required' => ['school', 'image', 'seed']
+        }
       }
     },
     'standings' => {
       'label' => 'Rounds Standings',
       'type' => 'array',
       'items' => {
-        'label' => 'Round',
         'type' => 'array',
         'items' => {
-          'label' => 'Match',
           'type' => 'object',
           'properties' => {
             'team1'  => { 
               'label' => 'team1',
-              'type' => 'number' 
+              'type' => 'number',
+              'required' => true
             },
             'team2'  => { 
               'label' => 'team2',
-              'type' => 'number' 
+              'type' => 'number', 
+              'required' => true
             },
             'score1' => { 
               'label' => 'score1',
@@ -50,7 +56,6 @@ class Page::Layouts::Bracket < Layout
               'type' => 'number' 
             }
           },
-          'required' => ['team1', 'team2']
         }
       }
     }
