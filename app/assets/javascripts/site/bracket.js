@@ -12,6 +12,10 @@ var coords = []
 initialize("#bracket", function() {
     data = $("#bracket_data").data("bracket").table;
     $(this).click(function (e) {
+        if (e.offsetX === undefined && e.offsetY === undefined) {
+            e.offsetX = e.pageX - e.target.offsetLeft;
+            e.offsetY = e.pageY - e.target.offsetTop;
+        }
         if (index = teamFromLocation(e.offsetX, e.offsetY)) {
             team = data.teams[index];
             $dialog = $("<div>")
