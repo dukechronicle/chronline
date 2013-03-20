@@ -22,7 +22,9 @@
 
         .article-body
           #social-media
-            = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@blog_post)
+            %div.comment-link
+              %i.icons-comment
+              = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@blog_post)
             %div
               .fb-like{data: {href: permanent_blog_post_url(@blog_post), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
