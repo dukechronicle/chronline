@@ -11,17 +11,27 @@ module ArticleHelper
     end.to_sentence.html_safe
   end
 
-  def disqus_identifier(article)
-    article.previous_id || "_#{article.id}"
+  def disqus_identifier(model)
+    if model.is_a? Blog::Post
+      # B is for blog post to differentiate identifiers from those of articles
+      "B#{model.id}"
+    else
+      model.previous_id || "_#{model.id}"
+    end
   end
 
-  def disqus_options(article)
+  def disqus_options(model)
+    url = if model.is_a? Blog::Post
+            site_blog_post_url(model.blog, model, subdomain: :www)
+          else
+            site_article_url(model, subdomain: :www)
+          end
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
-      identifier: disqus_identifier(article),
-      title: article.title,
-      url: site_article_url(article),
+      identifier: disqus_identifier(model),
+      title: model.title,
+      url: url,
     }.to_json
   end
 
