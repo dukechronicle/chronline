@@ -185,5 +185,14 @@ function draw(){
   ctx.moveTo(x-5*teamWidth, left_mid);
   ctx.lineTo(x-6*teamWidth, left_mid);
   ctx.stroke();
+
+  var img = new Image();
+  img.onload = function(){
+    img_width = 200;
+    img_height = 200;
+    ctx.drawImage(img, x-6*teamWidth- finalspace/2 - img_width/2, orig_y+ .8*depth, img_width ,img_height);
+  }
+  img.src = "http://upload.wikimedia.org/wikipedia/en/4/47/2013NCAAMensFinalFourLogo.jpeg";
+
   
   }
