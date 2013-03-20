@@ -7,6 +7,7 @@ var img_height  = 25;
 var orig_x      = 25;
 var orig_y      = 40;
 var data;
+var $dialog = $([]);
 var coords = []
 
 initialize("#bracket", function() {
@@ -18,6 +19,7 @@ initialize("#bracket", function() {
         }
         if (index = teamFromLocation(e.offsetX, e.offsetY)) {
             team = data.teams[index];
+            $dialog.remove();
             $dialog = $("<div>")
             $dialog.attr('title', team.school);
             $dialog.html(team.description);
