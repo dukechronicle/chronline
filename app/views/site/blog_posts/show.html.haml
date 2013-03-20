@@ -9,14 +9,14 @@
 
 .span-8
   .rounded
-    %article.article-container
-      %h3= @blog.name
+    %article.article-container.blog-post
+      %h3.blog-name= @blog.name
       %h1.title= @blog_post.title
 
       %p.byline
         %span.author
           By
-          = link_to blog_post.author.name, site_staff_path(@blog_post.author)
+          = link_to @blog_post.author.name, site_staff_path(@blog_post.author)
         %span.sep= "|"
         %span.date= display_date(@blog_post)
 
