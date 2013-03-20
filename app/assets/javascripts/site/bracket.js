@@ -10,16 +10,14 @@ var data;
 var coords = []
 
 initialize("#bracket", function() {
-    bracketData = $("#bracket_data").data("bracket");
-    data = bracketData.table;
-
-    $("#dialog").dialog({autoOpen: false});
+    data = $("#bracket_data").data("bracket").table;
     $(this).click(function (e) {
         if (index = teamFromLocation(e.offsetX, e.offsetY)) {
-            team = bracketData.teams[index];
-            $("#dialog").attr('title', team.school);
-            $("#dialog").html(team.description);
-            $("#dialog").dialog('open');
+            team = data.teams[index];
+            $dialog = $("<div>")
+            $dialog.attr('title', team.school);
+            $dialog.html(team.description);
+            $dialog.dialog();
         }
     });
     draw();
@@ -63,7 +61,6 @@ function drawRound(ctx, x, y, round, left){
 }
 
 function writeTeams(ctx, x, y, round, left, count){
-    if(count < data.teams.length){
     ctx.font = "normal 6.3pt Arial"
     l=1;
     if(!left){
@@ -73,6 +70,7 @@ function writeTeams(ctx, x, y, round, left, count){
     var teams = data.teams;
     firstseed = teams[0].school;
     for(var i=0;i<Math.pow(2,j);i++){
+      if(count+1 < teams.length){
       player = teams[count];
       player2 = teams[count+1];
       if(left == true){
@@ -92,8 +90,8 @@ function writeTeams(ctx, x, y, round, left, count){
       }
       y+=2*depth*Math.pow(2,round-1)
       count = count +2;
+      }
     }
-  }
   }
 
 function draw(){
