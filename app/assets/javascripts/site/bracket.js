@@ -10,11 +10,15 @@ var data;
 var coords = []
 
 initialize("#bracket", function() {
-    bracketData = $("#bracket-data").data("bracket");
+    bracketData = $("#bracket_data").data("bracket");
     data = bracketData.table;
+    $("#dialog").dialog({autoOpen: false});
     $(this).click(function (e) {
-        if (team = teamFromLocation(e.offsetX, e.offsetY)) {
-            alert(team);
+        if (index = teamFromLocation(e.offsetX, e.offsetY)) {
+            team = bracketData.teams[index];
+            $("#dialog").attr('title', team.school);
+            $("#dialog").html(team.description);
+            $("#dialog").dialog('open');
         }
     });
     draw();
