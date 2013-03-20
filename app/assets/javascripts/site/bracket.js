@@ -1,4 +1,3 @@
-window.onload   = draw;
 var depth       = 35;
 var teamWidth   = 70
 var regionspace = 90;
@@ -12,9 +11,27 @@ var coords = []
 
 initialize("#bracket_data", function(){
   data = $(this).data("bracket").table;
+  draw();
 });
 
+function teamFromLocation(x,y){
+  for(i in coords){
+    var team = coords[i];
+    var t_x = team[1];
+    var t_y = team[2];
 
+    var x_dist = Math.abs(x-t_x);
+    var y_dist = Math.abs(y-t_y);
+
+    if(x_dist <= teamWidth){
+      if(y_dist<=depth/3){
+        return i
+      }
+    }
+
+  }
+  return undefined;
+}
 
 function drawRound(ctx, x, y, round, left){
   l=1;
@@ -49,14 +66,17 @@ function writeTeams(ctx, x, y, round, left){
       player2 = teams[count+1];
       if(left == true){
       ctx.fillText(player.school + "  ("+(player.seed)+")", x, y-5);
-      coords.push[player.school, x, y-5];
+      coords.push([player.school, x, y-5]);
       ctx.fillText(player2.school + "  ("+(player2.seed)+")", x, y+depth*Math.pow(2,round-1)-5);
-      coords.push[player.school, x, y+depth*Math.pow(2,round-1)-5];
+      coords.push([player2.school, x, y+depth*Math.pow(2,round-1)-5]);
       }
       else{ 
       ctx.textAlign = 'right';  
       ctx.fillText("("+(player.seed)+")  " + player.school, x, y-5);  
+      coords.push([player.school, x, y-5]);
+
       ctx.fillText("("+(player2.seed)+")  " + player2.school, x, y+depth*Math.pow(2,round-1)-5);
+      coords.push([player2.school, x, y+depth*Math.pow(2,round-1)-5]);
       ctx.textAlign = 'left';
       }
       y+=2*depth*Math.pow(2,round-1)
