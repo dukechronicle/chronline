@@ -1,0 +1,29 @@
+- provide :title, @blog.name
+
+- content_for :title_block do
+  %h1= @blog.name
+
+.span-8
+  - @blog_posts.each do |blog_post|
+    .rounded
+      %article.article-container.blog-post
+        %a.hover{href: site_blog_post_path(@blog, blog_post)}
+          %h1.title= blog_post.title
+
+        %p.byline
+          %span.author By #{blog_post.author.name}
+          %span.sep= "|"
+          %span.date= display_date(blog_post)
+
+        - if blog_post.image
+          = render partial: 'partials/main-image', locals: {image: blog_post.image}
+
+        .article-body
+          != blog_post.render_body
+
+  = will_paginate
+
+
+%aside.span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+  = render 'site/partials/facebook-recommended'
