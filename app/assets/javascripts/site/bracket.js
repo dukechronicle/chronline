@@ -12,10 +12,14 @@ var coords = []
 initialize("#bracket", function() {
     bracketData = $("#bracket_data").data("bracket");
     data = bracketData.table;
-    console.log(data.teams)
+
+    $("#dialog").dialog({autoOpen: false});
     $(this).click(function (e) {
-        if (team = teamFromLocation(e.offsetX, e.offsetY)) {
-            alert(team);
+        if (index = teamFromLocation(e.offsetX, e.offsetY)) {
+            team = bracketData.teams[index];
+            $("#dialog").attr('title', team.school);
+            $("#dialog").html(team.description);
+            $("#dialog").dialog('open');
         }
     });
     draw();
@@ -27,8 +31,8 @@ function teamFromLocation(x,y){
     var t_x = team[1];
     var t_y = team[2];
 
-    var x_dist = Math.abs(x-t_x);
-    var y_dist = Math.abs(y-t_y);
+    var x_dist = Math.abs(x - t_x);
+    var y_dist = Math.abs(y - t_y);
 
     if(x_dist <= teamWidth){
       if(y_dist<=depth/3){
