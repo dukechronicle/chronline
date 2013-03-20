@@ -1,15 +1,19 @@
+- except ||= []
+
 .share-box
   .comment-link
     %i.icons-comment
     = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(postable)
 
-  .print-link
-    %i.icons-print
-    = link_to "Print", print_site_article_path(postable)
+  - if not except.include? :print
+    .print-link
+      %i.icons-print
+      = link_to "Print", print_site_article_path(postable)
 
-  .email-link
-    %i.icons-email
-    = link_to "Email", mailto_article(postable)
+  - if not except.include? :print
+    .email-link
+      %i.icons-email
+      = link_to "Email", mailto_article(postable)
 
   %div
     .fb-like{data: {href: permanent_article_url(postable), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
