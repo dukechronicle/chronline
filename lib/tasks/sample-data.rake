@@ -39,6 +39,17 @@ namespace :db do
       article.authors = [staff.sample]
       article.save!
     end
+
+    30.times do |n|
+      title = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
+      blog_post = Blog::Post.new(title: title,
+                                 body: Faker::SamuelJackson.paragraphs(4),
+                                 blog: Blog.all.sample,
+                                 image_id: image.id)
+      blog_post.created_at = (1..365).to_a.sample.days.ago
+      blog_post.author = staff.sample
+      blog_post.save!
+    end
   end
 end
 
