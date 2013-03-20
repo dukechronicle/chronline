@@ -1,4 +1,3 @@
-window.onload   = draw;
 var depth       = 35;
 var teamWidth   = 70
 var regionspace = 90;
@@ -10,11 +9,16 @@ var orig_y      = 40;
 var data;
 var coords = []
 
-initialize("#bracket_data", function(){
-  data = $(this).data("bracket").table;
+initialize("#bracket", function() {
+    bracketData = $("#bracket-data").data("bracket");
+    data = bracketData.table;
+    $(this).click(function (e) {
+        if (team = teamFromLocation(e.offsetX, e.offsetY)) {
+            alert(team);
+        }
+    });
+    draw();
 });
-
-
 
 function drawRound(ctx, x, y, round, left){
   l=1;
