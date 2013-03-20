@@ -22,6 +22,7 @@
 
         .article-body
           #social-media
+            = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@blog_post)
             %div
               .fb-like{data: {href: permanent_blog_post_url(@blog_post), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
             %div
@@ -30,6 +31,8 @@
               .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_blog_post_url(@blog_post)}}
 
           != @blog_post.render_body
+
+    #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
