@@ -16,11 +16,15 @@ class Page::Layouts::Bracket < Layout
           'image'  => { 
             'label' => 'image',
             'type' => 'string', 
-            'required' => true
+            #'required' => true
           },
           'description' => {
             'label' => 'description',
-            'type' => 'string'
+            'extends' => markdown_schema
+          },
+          'seed' => {
+            'label' => 'seed',
+            'type' => 'number'
           }
         }
       }
