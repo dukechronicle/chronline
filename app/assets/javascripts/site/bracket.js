@@ -7,76 +7,15 @@ var img_width   = 25;
 var img_height  = 25;
 var orig_x      = 25;
 var orig_y      = 40;
+var data;
+var coords = []
+
+initialize("#bracket_data", function(){
+  data = $(this).data("bracket").table;
+});
 
 
 
-var data = {"teams": [
-    {"image":"", "school":"Duke", "seed": "1"},
-    {"image":"", "school":"sucky school", "seed": "16"},
-    {"image":"", "school":"pitt", "seed": "8"},
-    {"image":"", "school":"missouri", "seed": "9"},
-    {"image":"", "school":"nc state", "seed": "12"},
-    {"image":"", "school":"cal", "seed": "5"},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    {"image":"", "school":"", "seed": ""},
-    ]   
-}
 function drawRound(ctx, x, y, round, left){
   l=1;
   if(!left){
@@ -110,7 +49,9 @@ function writeTeams(ctx, x, y, round, left){
       player2 = teams[count+1];
       if(left == true){
       ctx.fillText(player.school + "  ("+(player.seed)+")", x, y-5);
+      coords.push[player.school, x, y-5];
       ctx.fillText(player2.school + "  ("+(player2.seed)+")", x, y+depth*Math.pow(2,round-1)-5);
+      coords.push[player.school, x, y+depth*Math.pow(2,round-1)-5];
       }
       else{ 
       ctx.textAlign = 'right';  
