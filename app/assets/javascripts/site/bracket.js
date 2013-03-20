@@ -2,14 +2,21 @@ var depth       = 35;
 var teamWidth   = 70
 var regionspace = 90;
 var finalspace  = 100;
-var img_width   = 25;
-var img_height  = 25;
+var img_width   = 20;
+var img_height  = 20;
 var orig_x      = 25;
 var orig_y      = 40;
 var data;
 var $dialog = $([]);
 var coords = []
 
+
+
+var drawCanvasImage = function(ctx, image,x,y) {
+  return function() {
+    ctx.drawImage(image, x,y,img_width,img_height);
+  }
+}
 initialize("#bracket", function() {
     data = $("#bracket_data").data("bracket").table;
     $(this).click(function (e) {
@@ -29,6 +36,19 @@ initialize("#bracket", function() {
     draw();
 });
 
+function drawImages(ctx, canvas){
+  var team_data = data.teams;
+  for(i in coords){
+    var pic = new Image();
+    console.log(data.teams[i]);
+    pic.src = team_data[i].image;
+    if(i<32) {
+      pic.onload = drawCanvasImage(ctx, pic, 0, coords[i][2]-(img_height/2));
+    } else{
+      pic.onload = drawCanvasImage(ctx, pic, canvas.width-img_width, coords[i][2]-(img_height/2));
+    }
+  }
+}
 function teamFromLocation(x,y){
   for(i in coords){
     var team = coords[i];
@@ -80,10 +100,10 @@ function writeTeams(ctx, x, y, round, left, count){
       player = teams[count];
       player2 = teams[count+1];
       if(left == true){
-      ctx.fillText(player.school + "  ("+(player.seed)+")", x, y-5);
-      coords.push([player.school, x, y-5]);
-      ctx.fillText(player2.school + "  ("+(player2.seed)+")", x, y+depth*Math.pow(2,round-1)-5);
-      coords.push([player2.school, x, y+depth*Math.pow(2,round-1)-5]);
+        ctx.fillText(player.school + "  ("+(player.seed)+")", x, y-5);
+        coords.push([player.school, x, y-5]);
+        ctx.fillText(player2.school + "  ("+(player2.seed)+")", x, y+depth*Math.pow(2,round-1)-5);
+        coords.push([player2.school, x, y+depth*Math.pow(2,round-1)-5]);
       }
       else{ 
       ctx.textAlign = 'right';  
@@ -191,12 +211,13 @@ function draw(){
   ctx.moveTo(x-5*teamWidth, left_mid);
   ctx.lineTo(x-6*teamWidth, left_mid);
   ctx.stroke();
-
+  
+  drawImages(ctx, canvas);
   var img = new Image();
   img.onload = function(){
-    img_width = 200;
-    img_height = 200;
-    ctx.drawImage(img, x-6*teamWidth- finalspace/2 - img_width/2, orig_y+ .8*depth, img_width ,img_height);
+    logo_img_width = 200;
+    logo_img_height = 200;
+    ctx.drawImage(img, x-6*teamWidth- finalspace/2 - logo_img_width/2, orig_y+ .8*depth, logo_img_width ,logo_img_height);
   }
   img.src = "http://upload.wikimedia.org/wikipedia/en/4/47/2013NCAAMensFinalFourLogo.jpeg";
 
