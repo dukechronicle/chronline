@@ -42,16 +42,26 @@ initialize("#bracket", function() {
 function updateRound(ctx, round, info){
   nextCoords = [];
   for(i in info){
-    ctx.textAlign = 'right';  
+    ctx.textAlign = 'center';  
     var updates = info[i];
+    console.log(updates);
+    
+    if( !updates.team1 && !updates.team2){
+      continue;
+    }
+
     var xy      = score_coords[i];
     var score   = "(" + updates.score1 + "-" + updates.score2 + ")";
-
+     
+    var y_offset = 0;
+    if(round == 0){
+      y_offset = -3
+    }
     if(i < 32/(Math.pow(2, round+1))){
-      ctx.fillText(score, xy[0] + teamWidth/2, xy[1]);
+      ctx.fillText(score, xy[0] + teamWidth/2, xy[1]+y_offset);
     } else {
       ctx.textAlign = 'left';
-      ctx.fillText(score, xy[0] - teamWidth/2,xy[1]);
+      ctx.fillText(score, xy[0] - teamWidth/2,xy[1] + y_offset);
     }
 
     var index;
