@@ -1,6 +1,11 @@
 class Taxonomy
   include Errors
 
+  # Must initialize Taxonomy::Tree here so that it is present on reload
+  File.open(File.join(Rails.root, "config", "taxonomy.yml")) do |file|
+    Taxonomy::Tree = YAML.load(file)
+  end
+
 
   def initialize(taxonomy=[])
     if taxonomy.nil?

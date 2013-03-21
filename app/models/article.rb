@@ -22,6 +22,7 @@ class Article < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title, :published_at
+  serialize :section, Taxonomy::Serializer.new
 
   friendly_id :title, use: [:slugged, :history]
 
@@ -29,7 +30,7 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
   validates :body, presence: true
-  validates :title, presence: true
+  validates :title, presence: true, length: {maximum: 90}
   validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
@@ -39,7 +40,7 @@ class Article < ActiveRecord::Base
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable do
+  searchable(include: :authors) do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
@@ -53,7 +54,7 @@ class Article < ActiveRecord::Base
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=50)
+  def normalize_friendly_id(title, max_chars=100)
     return nil if title.nil?  # record won't save -- title presence is validated
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)
@@ -65,6 +66,8 @@ onto per since than the this that to up via with)
     s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
     s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
     s[0...max_chars].chomp('-')
+
+    (created_at || Date.today).strftime('%Y/%m/%d') + '/' + s
   end
 
   def register_view
@@ -79,24 +82,22 @@ onto per since than the this that to up via with)
   end
 
   def related(limit)
-    Sunspot.more_like_this(self) do
+    search = Sunspot.more_like_this(self) do
       fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
-    end.results
+    end
+    search.data_accessor_for(self.class).include = :authors
+    search.results
   end
 
   def render_body
     RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
   end
 
-  def section
-    Taxonomy.new(self[:section])
-  end
-
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    self[:section] = taxonomy.to_s
+    super(taxonomy)
   end
 
   def self.popular(section, options={})
@@ -119,16 +120,16 @@ onto per since than the this that to up via with)
     disqus = Disqus.new(Settings.disqus.api_key)
     response = disqus.request(:threads, :list_hot, limit: limit,
                               forum: Settings.disqus.shortname)
+    return [] if response.nil?
     slugs = response['response'].map do |thread|
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
     articles = self.where(slug: slugs.map(&:first))
-    results = slugs.map do |slug, comments|
+    slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
-    results.sort_by! {|slug, comments| -comments}
   end
 
   ###

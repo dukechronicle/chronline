@@ -1,4 +1,8 @@
 class Admin::ArticlesController < Admin::BaseController
+  include ::ArticlesController
+
+  before_filter :redirect_article, only: :edit
+
 
   def index
     taxonomy_string = "/#{params[:section]}/" if params[:section]
@@ -29,10 +33,6 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def edit
-    @article = Article.find(params[:id])
-    if request.path != edit_admin_article_path(@article)
-      redirect_to [:edit, :admin, @article], status: :moved_permanently
-    end
   end
 
   def publish

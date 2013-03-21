@@ -3,6 +3,9 @@
 - content_for :administrative_links do
   = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
 
+- content_for :head do
+  = render partial: 'site/partials/open-graph/staff', locals: {staff: @staff}
+
 - content_for :title_block do
   %h1= @staff.name
 
@@ -12,10 +15,10 @@
 
     - styles = [:thumb_rect] * 3 << :large_rect
     - @images.each do |image|
-      .item
+      .item.image-item
         .rounded
           .image-container
-            %a{href: image.original.url}
+            %a{href: associated_url(image)}
               - style = styles.sample
               = image_tag image.original.url(style), class: style
   = will_paginate @images

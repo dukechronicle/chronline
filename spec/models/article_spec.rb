@@ -26,6 +26,10 @@ describe Article do
   it { should belong_to :image }
   it { should have_and_belong_to_many :authors }
   it { should validate_presence_of :title }
+  it { should accept_values_for(:title, Faker::Lorem.sentence(5)) }
+  it "should not allow long titles" do
+    should_not accept_values_for(:title, Faker::Lorem.sentence(20))
+  end
   it { should validate_presence_of :body }
   it { should validate_presence_of :authors }
   it { should accept_values_for(:teaser, Faker::Lorem.paragraph(2)) }
@@ -119,14 +123,18 @@ describe Article do
       end
     end
 
-    before do
+    it "should return tuples of articles with comments in sorted order" do
       Disqus.any_instance.should_receive(:request)
         .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
         .and_return({'response' => response})
+      Article.most_commented(5).should == articles.zip([10, 20]).reverse
     end
 
-    it "should return tuples of articles with comments in sorted order" do
-      Article.most_commented(5).should == articles.zip([10, 20]).reverse
+    it "should return an empty array if disqus response is nil" do
+      Disqus.any_instance.should_receive(:request)
+        .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+        .and_return(nil)
+      Article.most_commented(5).should == []
     end
   end
 
