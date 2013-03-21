@@ -1,12 +1,24 @@
 class Site::ArticlesController < Site::BaseController
+  include ::ArticlesController
+
+  before_filter :redirect_and_register_view, only: [:show, :print]
+  #caches_action :index, layout: false, expires_in: 1.minute
+  caches_action :show, layout: false
+
 
   def index
-    @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    begin
+      @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    rescue Taxonomy::InvalidTaxonomyError
+      return not_found
+    end
+
     begin
       custom_page and return
     rescue ActiveRecord::RecordNotFound
       nil
     end
+
     @articles = Article.includes(:authors, :image)
       .section(@taxonomy)
       .order('created_at DESC')
@@ -17,36 +29,16 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    @article = Article.includes(:authors, :image => :photographer)
-      .find(params[:id])
-    if request.path != site_article_path(@article)
-      return redirect_to [:site, @article], status: :moved_permanently
-    end
-    @taxonomy = @article.section
-    @related = @article.related(5)
-    @article.register_view
   end
 
   def print
-    @article = Article.find(params[:id])
-    if request.path != site_print_article_path(@article)
-      return redirect_to site_print_article_path(@article), status: :moved_permanently
-    end
-    @article.register_view
-
     render 'print', layout: 'print'
   end
 
   def search
-    if params[:article_search].present?
-      @article_search = Article::Search.new(params[:article_search])
-      @article_search.page = params[:page] if params.has_key? :page
-      @articles = @article_search.results
-    else
-      params[:article_search] = {}
-      @article_search = Article::Search.new
-      @articles = []
-    end
+    params[:article_search] ||= {}
+    params[:article_search][:include] = :authors
+    super
   end
 
 end

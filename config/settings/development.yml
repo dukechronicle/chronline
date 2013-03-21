@@ -1,0 +1,27 @@
+---
+aws:
+  access_key_id: AWS_ACCESS_KEY_ID
+  secret_access_key: AWS_SECRET_KEY
+  bucket: AWS_BUCKET_NAME
+domain: lvh.me
+facebook:
+  app_id: FACEBOOK_APP_ID
+gmail:
+  domain: gmail.com
+  username: GOOGLE_ACCOUNT_EMAIL
+  password: GOOGLE_ACCOUNT_PASSWORD
+mailchimp:
+  ad_image: MAILCHIMP_AD_IMAGE_NAME
+  ad_href: MAILCHIMP_AD_HREF
+  api_key: MAILCHIMP_API_KEY
+  from_email: no-reply@indigoplateau.com
+  from_name: Elite Four
+  list_id: MAILCHIMP_LIST_ID
+  template_id: 429
+quantcast:
+  qacct: QUANTCAST_QACCT
+  pub: QUANTCAST_PUB
+redis:
+twitter:
+  id: TWITTER_HANDLE
+  url:
