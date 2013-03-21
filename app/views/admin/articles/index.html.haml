@@ -13,14 +13,19 @@
     %tr
       %th Title
       %th Creation Date
+      %th Publish Date
       %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
       %td= article.created_at.strftime('%-m-%-d-%Y')
+      - if !article.published_at
+        %td= "Not published"
+      - else
+        %td= article.published_at.strftime('%-m-%-d-%Y')
       %td
         = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
-        - if !article.published
+        - if !article.published_at
           = link_to "Publish", admin_articles_publish_path(id: article.id), method: :post, class: 'btn btn-mini btn-info'
         - else
           = link_to "Unpublish", "", class: 'btn btn-mini btn-info disabled'
