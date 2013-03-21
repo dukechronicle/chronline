@@ -153,7 +153,7 @@ function writeTeams(ctx, x, y, round, left, count){
       score_coords.push([x, y+(depth/2)]);
       var next_y = y+depth*Math.pow(2,round-1)-5;
       ctx.fillText("("+(player2.seed)+")  " + player2.school, x, next_y); 
-      coords.push([player2.school, x, next_y+5 +(depth/2)]);
+      coords.push([player2.school, x, next_y]);
       ctx.textAlign = 'left';
       }
       y+=2*depth*Math.pow(2,round-1)
@@ -201,7 +201,7 @@ function draw(){
   //West
   y=8*(depth*2)+regionspace;
   for(var i=1; i<5;i++){
-    drawRound(ctx,x+teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i, true)
+    drawRound(ctx,x+teamWidth*(i-1), (y-(depth/2))+(depth/2)*Math.pow(2,i-1),i, true)
   }
   
   //draw final dash for west and connect to midwest
@@ -224,7 +224,7 @@ function draw(){
   x+= 6*teamWidth+finalspace+6*teamWidth;
   y=orig_y;
   for(var i=1; i<5;i++){
-    drawRound(ctx,x-teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i,false)
+    drawRound(ctx,x-teamWidth*(i-1), (y-(depth/2))+(depth/2)*Math.pow(2,i-1),i,false)
   }
 
   //draw final dash for south
@@ -237,7 +237,7 @@ function draw(){
   //East
   y=8*(depth*2)+regionspace;
   for(var i=1; i<5;i++){
-    drawRound(ctx,x-teamWidth*(i-1), (y-20)+20*Math.pow(2,i-1),i,false)
+    drawRound(ctx,x-teamWidth*(i-1), (y-(depth/2))+(depth/2)*Math.pow(2,i-1),i,false)
   }
 
   //draw final dash for east and connect to south
