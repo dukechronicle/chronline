@@ -4,13 +4,13 @@
   = render 'site/partials/navigation'
 
 .span-8
-  - @articles.each do |article|
+  - @articles.published.each do |article|
     .rounded
       %a.hover{href: site_article_path(article)}
         .content-container
           %h3= article.title
           .subtitle
-            %span.date= article.created_at.strftime("%B %e, %Y")
+            %span.date= article.published_at.strftime("%B %e, %Y")
             %span.author= byline(article)
           %p= article.teaser
 
