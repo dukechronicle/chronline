@@ -18,6 +18,7 @@ class Article::Search
 
   attribute :per_page, type: Integer, default: 25
   attribute :highlight, default: true
+  attribute :include
 
   # Returns results for an initialized search object with the title and body
   # optionally highlighted; highlights with the `<mark />` tag
@@ -38,13 +39,18 @@ class Article::Search
   end
 
   def authors
-    request.facet(:author_ids).rows.map do |facet|
-      {value: ::Staff.find_by_id(facet.value).name, count: facet.count, lookup: facet.value}
+    author_facets = request.facet(:author_ids).rows
+    author_names = {}
+    Staff.where(id: author_facets.map(&:value)).each do |author|
+      author_names[author.id] = author.name
+    end
+    author_facets.map do |facet|
+      {value: author_names[facet.value], count: facet.count, lookup: facet.value}
     end
   end
 
   def sections
-    return request.facet(:section).rows.map do |facet|
+    request.facet(:section).rows.map do |facet|
       {value: facet.value.titlecase, count: facet.count, lookup: facet.value}
     end
   end
@@ -76,7 +82,7 @@ class Article::Search
   # @return [Sunspot::Request]
   def request
     if @request.nil?
-      @request = Article.search do
+      @request = Article.search(include: self.include) do
         with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
         with(:created_at).greater_than(start_date) if start_date?

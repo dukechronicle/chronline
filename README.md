@@ -10,26 +10,30 @@ First you need [git](http://git-scm.com/book/en/Getting-Started-Installing-Git) 
 # Globally install Node.js utility binaries
 $ npm install -g bower phantomjs
 
+# Run below command, and install the recommended packages
+$ rvm requirements
+
+# More require packages for nokogiri
+$ sudo apt-get install libxslt-dev libxml2-dev
+
 # Install required gems
+$ gem install bundler
 $ bundle install --without production
 
 # Install client side vendor assets with bower
-$ rake bower:install
-$ rake bower:resolve
+$ rake bower:refresh
 
-# Rails database initialization
-$ rake db:migrate
-$ rake db:test:prepare
-
-# Start local solr server
+# Start local solr server (also must be done after every reboot)
 $ rake sunspot:solr:start
+
+# Rails database initialization (or also to update corrupt db)
+$ rake db:refresh
+$ rake db:test:prepare
 ```
 
 ### Configuration files
 
 You will be able to run tests at this point, but will not be able to run the server in the development environment until you supply the `config/settings/development.local.yml` file. This is not version controlled since it contains sensitive information. You can populate it using the `config/settings/test.yml` file as a template.
-
-Once the development environment is configured it, you may wish to populate your development database with random data using the command `$ rake db:populate`.
 
 Testing
 =============
@@ -124,7 +128,11 @@ spork: # See "Available Options"  at https://github.com/guard/guard-spork
 
 Sitemap
 ===============
-To generate the sitemap, run rake
+To generate the full sitemap, run rake
+sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
+
+
+To generate the news sitemap, run rake
 sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
 
 Other Resources
