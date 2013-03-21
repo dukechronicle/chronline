@@ -27,7 +27,7 @@
           .content-container
             %h3= article.title
             .subtitle
-              %span.date= article.created_at.strftime("%B %e, %Y")
+              %span.date= article.published_at.strftime("%B %e, %Y")
               %span.author= byline(article)
             %p= article.teaser
     = will_paginate @articles

@@ -9,6 +9,6 @@
   %p.byline
     %span.author By #{byline(@article)}
     %span.sep= "|"
-    %span.date= @article.created_at.strftime("%B %e, %Y")
+    %span.date= @article.published_at.strftime("%B %e, %Y")
 
   != @article.render_body
