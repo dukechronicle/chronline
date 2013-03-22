@@ -4,8 +4,27 @@ class Article::EmbeddedMedia
 
   def initialize(body)
     @body = body
-    self.protected_methods.each do |op|
-      send op
+  end
+
+  def render_media()
+    tag_list = @body.scan(/{{([a-zA-z]*):([0-9]*)}} ?/).to_set.to_a
+    tags = []
+    unless tag_list.empty?
+      tag_list.each do |tag_data|
+        case tag_data[0]
+        when 'Image'
+          tags.push EmbeddedImageTag.new(tag_data[1])
+        end
+      end
+    end
+
+    class_ids_hash = map_class_to_ids(tags)
+
+    class_objects = get_class_objects(class_ids_hash)
+
+    @body.gsub!(/{{([a-zA-z]*):([0-9]*)}} ?/) do |t|
+      tag = tags.shift
+      tag.to_html(class_objects)
     end
   end
 
@@ -13,24 +32,33 @@ class Article::EmbeddedMedia
     @body
   end
 
-  protected
+  private
 
-  def render_images()
-    ids = @body.scan(/{{Image:([0-9]*)}} ?/).to_set.to_a
-    unless ids.empty?
-      images_by_id = Hash[ Image.find_all_by_id(ids).map{ |img| [img.id, img] } ]
-      # chomps space after tag
-      @body.gsub!(/{{Image:([0-9]*)}} ?/) do |id|
-        if images_by_id.has_key? $1.to_i
-          %Q(<span class="embedded-image">
-              <img src="#{images_by_id[$1.to_i].original.url(:thumb_rect)}" />
-            </span>
-          )
-        else
-          ""
+  def map_class_to_ids(tags)
+    class_ids_hash = {}
+    tags.each do |tag|
+      tag.ids.each do |id|
+        unless class_ids_hash.has_key? id[:class]
+          class_ids_hash[id[:class]] = []
         end
+        class_ids_hash[id[:class]].push id[:id]
       end
     end
+    class_ids_hash
+  end
+
+  def get_class_objects(class_ids_hash)
+    class_objects = {}
+    class_ids_hash.keys.each do |class_sym|
+      objs = class_sym.to_s.constantize.find_all_by_id(class_ids_hash[class_sym])
+      objs.each do |obj|
+        unless class_objects.has_key? class_sym
+          class_objects[class_sym] = {}
+        end
+        class_objects[class_sym][obj.id] = obj
+      end
+    end
+    class_objects
   end
 
 end
