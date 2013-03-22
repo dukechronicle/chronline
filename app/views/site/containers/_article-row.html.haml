@@ -1,7 +1,7 @@
 .article-row
   %h2.vertical-label= title
   .rounded.clearfix
-    - articles.published.each_with_index do |article, i|
+    - articles.each_with_index do |article, i|
       .content-container.row-article{class: ('feature' if feature && i == 0)}
         %a.row-story.hover.highlight-bottom{href: site_article_path(article)}
           %h3.title= article.title
