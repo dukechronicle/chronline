@@ -2,7 +2,7 @@
   %h2.vertical-label= title
   .rounded.clearfix
     .span-3.article-list.content-container
-      - articles.published.each_with_index do |article, i|
+      - articles.each_with_index do |article, i|
         - if i.even?
           %a.hover.list-story.highlight-left{href: site_article_path(article)}
             .subtitle
@@ -15,7 +15,7 @@
             %p.teaser= article.teaser
 
     .span-3.article-list.content-container.last
-      - articles.published.each_with_index do |article, i|
+      - articles.each_with_index do |article, i|
         - if i.odd?
           %a.hover.list-story.highlight-right{href: site_article_path(article)}
             .subtitle
