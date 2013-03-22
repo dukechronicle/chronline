@@ -132,6 +132,14 @@ onto per since than the this that to up via with)
     end.compact
   end
 
+  def published?
+    if !self.published_at
+      return false
+    end
+    true
+  end
+
+
   ###
   # Helper methods for rendering JSON
   ###
