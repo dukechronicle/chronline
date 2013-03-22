@@ -26,6 +26,4 @@ class Article::EmbeddedMedia::EmbeddedImageTag
     )
   end
 
-  def populate(retrieved_models)
-  end
 end
