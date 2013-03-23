@@ -76,10 +76,12 @@ function updateRound(ctx, round, info){
 
     if(i < 32/(Math.pow(2, round+1))){
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
+      coords[i][1].push([xy[0]+teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(i+1))]);
     } else{
       ctx.textAlign = "right";
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] - teamWidth-3, xy[1]-3);
+      coords[i][1].push([xy[0]-teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]-teamWidth,xy[1]+(depth*(i+1))]);
     }
   }
@@ -91,28 +93,40 @@ function drawImages(ctx, canvas){
   for(i in coords){
     var pic = new Image();
     pic.src = team_data[i].image;
+    var team = coords[i];
+    var listOfCoords = team[1];
+    var orig_coords = listOfCoords[0];
     if(i<32) {
-      pic.onload = drawCanvasImage(ctx, pic, 0, coords[i][2]-(img_height/2));
+      pic.onload = drawCanvasImage(ctx, pic, 0, orig_coords[1]-(img_height/2));
     } else{
-      pic.onload = drawCanvasImage(ctx, pic, canvas.width-img_width, coords[i][2]-(img_height/2));
+      pic.onload = drawCanvasImage(ctx, pic, canvas.width-img_width, orig_coords[1]-(img_height/2));
     }
   }
 }
 function teamFromLocation(x,y){
   for(i in coords){
     var team = coords[i];
-    var t_x = team[1];
-    var t_y = team[2];
+    var listOfCoords = team[1];
+    console.log("list");
+    console.log(listOfCoords);
+    for( j in listOfCoords){
+      possibleCoords = listOfCoords[j]
+      console.log("poss");
+      console.log(possibleCoords);
+      var t_x = possibleCoords[0];
+      var t_y = possibleCoords[1];
 
-    var x_dist = Math.abs(x - t_x);
-    var y_dist = Math.abs(y - t_y);
+      var x_dist = Math.abs(x - t_x);
+      var y_dist = Math.abs(y - t_y);
 
-    if(x_dist <= teamWidth){
-      if(y_dist<=depth/3){
-        return i
+      if(x_dist <= teamWidth){
+        if(y_dist<=depth/3){
+          console.log("returning");
+          return i
+        }
       }
-    }
 
+    }
   }
   return undefined;
 }
@@ -150,20 +164,20 @@ function writeTeams(ctx, x, y, round, left, count){
       player2 = teams[count+1];
       if(left == true){
         ctx.fillText(player.school + "  ("+(player.seed)+")", x, y-5);
-        coords.push([player.school, x, y-5]);
+        coords.push([player.school, [[x, y-5]]]);
         score_coords.push([x,y+(depth/2)]);
         var next_y = y+depth*Math.pow(2,round-1)-5;
         ctx.fillText(player2.school + "  ("+(player2.seed)+")", x, next_y);
-        coords.push([player.school, x, next_y]);
+        coords.push([player.school, [[x, next_y]]]);
       }
       else{ 
       ctx.textAlign = 'right';  
       ctx.fillText("("+(player.seed)+")  " + player.school, x, y-5);  
-      coords.push([player.school, x, y-5]);
+      coords.push([player.school, [[x, y-5]]]);
       score_coords.push([x, y+(depth/2)]);
       var next_y = y+depth*Math.pow(2,round-1)-5;
       ctx.fillText("("+(player2.seed)+")  " + player2.school, x, next_y); 
-      coords.push([player2.school, x, next_y]);
+      coords.push([player2.school, [[x, next_y]]]);
       ctx.textAlign = 'left';
       }
       y+=2*depth*Math.pow(2,round-1)
