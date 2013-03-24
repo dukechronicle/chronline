@@ -37,7 +37,13 @@ initialize("#bracket", function() {
     draw();
 });
 
-
+function findIndex(school){
+  for(i in coords){
+    team = coords[i];
+    if(team[0] == school)
+      return i;
+  }
+}
 
 function updateRound(ctx, round, info){
   nextCoords = [];
@@ -73,15 +79,16 @@ function updateRound(ctx, round, info){
     var winner = data.teams[index];
     
     ctx.textAlign = "left";
-
+    
+    var index = findIndex(winner.school);
     if(i < 32/(Math.pow(2, round+1))){
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
-      coords[i][1].push([xy[0]+teamWidth+3, xy[1]-3]);
+      coords[index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(i+1))]);
     } else{
       ctx.textAlign = "right";
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] - teamWidth-3, xy[1]-3);
-      coords[i][1].push([xy[0]-teamWidth+3, xy[1]-3]);
+      coords[index][1].push([xy[0]-teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]-teamWidth,xy[1]+(depth*(i+1))]);
     }
   }
