@@ -84,7 +84,7 @@ function updateRound(ctx, round, info){
     console.log(winner.school);
     console.log(index);
     if(i < 32/(Math.pow(2, round+1))){
-      ctx.fillText(winner.school + "("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
+      ctx.fillText(winner.school + " ("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
       coords[index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(i+1))]);
     } else{
