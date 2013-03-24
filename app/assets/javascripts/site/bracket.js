@@ -40,6 +40,7 @@ initialize("#bracket", function() {
 function findIndex(school){
   for(i in coords){
     team = coords[i];
+    console.log(team[0]);
     if(team[0] == school)
       return i;
   }
@@ -50,7 +51,6 @@ function updateRound(ctx, round, info){
   for(i in info){
     ctx.textAlign = 'center';  
     var updates = info[i];
-    console.log(updates);
     
     if( !updates.team1 && !updates.team2){
       continue;
@@ -81,6 +81,8 @@ function updateRound(ctx, round, info){
     ctx.textAlign = "left";
     
     var index = findIndex(winner.school);
+    console.log(winner.school);
+    console.log(index);
     if(i < 32/(Math.pow(2, round+1))){
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
       coords[index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
@@ -114,12 +116,8 @@ function teamFromLocation(x,y){
   for(i in coords){
     var team = coords[i];
     var listOfCoords = team[1];
-    console.log("list");
-    console.log(listOfCoords);
     for( j in listOfCoords){
       possibleCoords = listOfCoords[j]
-      console.log("poss");
-      console.log(possibleCoords);
       var t_x = possibleCoords[0];
       var t_y = possibleCoords[1];
 
@@ -175,7 +173,7 @@ function writeTeams(ctx, x, y, round, left, count){
         score_coords.push([x,y+(depth/2)]);
         var next_y = y+depth*Math.pow(2,round-1)-5;
         ctx.fillText(player2.school + "  ("+(player2.seed)+")", x, next_y);
-        coords.push([player.school, [[x, next_y]]]);
+        coords.push([player2.school, [[x, next_y]]]);
       }
       else{ 
       ctx.textAlign = 'right';  
