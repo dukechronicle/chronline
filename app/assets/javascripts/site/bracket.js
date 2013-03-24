@@ -38,9 +38,8 @@ initialize("#bracket", function() {
 });
 
 function findIndex(school){
-  for(i in coords){
+  for(var i in coords){
     team = coords[i];
-    console.log(team[0]);
     if(team[0] == school)
       return i;
   }
@@ -48,7 +47,7 @@ function findIndex(school){
 
 function updateRound(ctx, round, info){
   nextCoords = [];
-  for(i in info){
+  for(var i in info){
     ctx.textAlign = 'center';  
     var updates = info[i];
     
@@ -63,7 +62,7 @@ function updateRound(ctx, round, info){
     if(round == 0){
       y_offset = -3
     }
-    if(i < 32/(Math.pow(2, round+1))){
+    if(i <= 32/(Math.pow(2, round+1))){
       ctx.fillText(score, xy[0] + teamWidth/2, xy[1]+y_offset);
     } else {
       ctx.textAlign = 'left';
@@ -80,17 +79,16 @@ function updateRound(ctx, round, info){
     
     ctx.textAlign = "left";
     
-    var index = findIndex(winner.school);
-    console.log(winner.school);
-    console.log(index);
+    var coord_index = findIndex(winner.school);
     if(i < 32/(Math.pow(2, round+1))){
-      ctx.fillText(winner.school + "("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
-      coords[index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
+      ctx.fillText(winner.school + " ("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
+      coords[coord_index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(i+1))]);
     } else{
+
       ctx.textAlign = "right";
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] - teamWidth-3, xy[1]-3);
-      coords[index][1].push([xy[0]-teamWidth+3, xy[1]-3]);
+      coords[coord_index][1].push([xy[0]-teamWidth+3, xy[1]-3]);
       nextCoords.push([xy[0]-teamWidth,xy[1]+(depth*(i+1))]);
     }
   }
@@ -99,7 +97,7 @@ function updateRound(ctx, round, info){
 
 function drawImages(ctx, canvas){
   var team_data = data.teams;
-  for(i in coords){
+  for(var i in coords){
     var pic = new Image();
     pic.src = team_data[i].image;
     var team = coords[i];
@@ -113,10 +111,10 @@ function drawImages(ctx, canvas){
   }
 }
 function teamFromLocation(x,y){
-  for(i in coords){
+  for(var i in coords){
     var team = coords[i];
     var listOfCoords = team[1];
-    for( j in listOfCoords){
+    for(var j in listOfCoords){
       possibleCoords = listOfCoords[j]
       var t_x = possibleCoords[0];
       var t_y = possibleCoords[1];
@@ -126,7 +124,6 @@ function teamFromLocation(x,y){
 
       if(x_dist <= teamWidth){
         if(y_dist<=depth/3){
-          console.log("returning");
           return i
         }
       }
@@ -286,7 +283,7 @@ function draw(){
   drawImages(ctx, canvas);
 
   var standings = data.standings;
-  for( i in standings){
+  for(var i in standings){
     updateRound(ctx, i, standings[i]);
   }
 
