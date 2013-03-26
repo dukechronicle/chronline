@@ -46,6 +46,8 @@ function findIndex(school){
 }
 
 function updateRound(ctx, round, info){
+  
+  round = parseInt(round);
   nextCoords = [];
   for(var i in info){
     ctx.textAlign = 'center';  
@@ -62,8 +64,8 @@ function updateRound(ctx, round, info){
     if(round == 0){
       y_offset = -3
     }
-    if(i <= 32/(Math.pow(2, round+1))){
-      ctx.fillText(score, xy[0] + teamWidth/2, xy[1]+y_offset);
+    if(i < 32/(Math.pow(2,(round)+1))){
+      ctx.fillText(score, xy[0] + teamWidth/2, xy[1]+(round+1)*y_offset);
     } else {
       ctx.textAlign = 'left';
       ctx.fillText(score, xy[0] - teamWidth/2,xy[1] + y_offset);
@@ -83,13 +85,17 @@ function updateRound(ctx, round, info){
     if(i < 32/(Math.pow(2, round+1))){
       ctx.fillText(winner.school + " ("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
       coords[coord_index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
-      nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(i+1))]);
+      if(i%2==0){
+        nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(round+1))]);
+      }
     } else{
 
       ctx.textAlign = "right";
       ctx.fillText(winner.school + "("+winner.seed+")", xy[0] - teamWidth-3, xy[1]-3);
       coords[coord_index][1].push([xy[0]-teamWidth+3, xy[1]-3]);
-      nextCoords.push([xy[0]-teamWidth,xy[1]+(depth*(i+1))]);
+      if(i%2==0){
+      nextCoords.push([xy[0]-teamWidth,xy[1]+(depth*(round+1))]);
+      }
     }
   }
   score_coords = nextCoords;
