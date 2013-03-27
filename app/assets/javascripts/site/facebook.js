@@ -34,11 +34,11 @@ function activateSocial(accessToken) {
     event.preventDefault();
     if (status === "on") {
       status = "off";
-      $.cookie("disable-sharing", true);
+      $.cookie("disable-sharing", true, {expires: 365 * 50});
       clearTimeout(readTrigger)
     } else {
       status = "on"
-      $.cookie("disable-sharing", null);
+      $.cookie("disable-sharing", null, {expires: 365 * 50});
       readTrigger = setTimeout(function(){markRead(accessToken)}, readTriggerTime);
     }
     shareButton.children(".status").html(status);

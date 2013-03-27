@@ -1,5 +1,9 @@
 - provide :title, @article.title
 
+- content_for :head do
+  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
+
+
 %h1#mast The Chronicle
 %article#article
   %h1.title= @article.title

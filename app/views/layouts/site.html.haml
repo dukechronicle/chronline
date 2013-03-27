@@ -4,22 +4,23 @@
 %html{lang: "en", "xmlns:og" => "http://ogp.me/ns#", "xmlns:fb" => "https://www.facebook.com/2008/fbml"}
   %head
     %title #{yield :title} | The Chronicle
+
+    = stylesheet_link_tag "site", :media => "all"
+    /[if lt IE 9]
+      = stylesheet_link_tag "ie", :media => "all"
+      %script{type: "text/javascript", src: "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
+
     %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
     :javascript
       try{Typekit.load()}catch(e){}
-    = stylesheet_link_tag "site", :media => "all"
-    /[if lt IE 9]
-      %script{type: "text/javascript", src: "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
-      = stylesheet_link_tag "ie", :media => "all"
 
     = render 'partials/favicon'
     = render 'site/partials/openx'
     = csrf_meta_tags
     %link{rel: "image_src", href: image_path("logo/300x300.png")}
 
-    = yield :open_graph_tags
-    = yield :twitter_card
-    = render 'partials/open-graph/facebook-app'
+    = yield :head
+    = render 'site/partials/open-graph/facebook-app'
   %body
     #fb-root
     = render 'site/partials/admin-panel'
