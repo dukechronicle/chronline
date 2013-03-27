@@ -9,7 +9,7 @@
     %a.icons-twitter{href: "http://twitter.com/dukechronicle"}
     %a.icons-youtube{href: "http://youtube.com/user/DukeChronicle"}
     %a.icons-currents{href: "https://www.google.com/producer/editions/CAow2Z66Ag/duke_chronicle"}
-    %a.icons-rss{href: "/rss"}
+    %a.icons-rss{href: rss_articles_url(subdomain: :rss)}
   .advertising-links.right
     = link_to "Print Subscription", "/pages/subscribe"
     = link_to "Advertising", "/pages/advertising"
@@ -28,8 +28,12 @@
       - Taxonomy.main_sections.each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
-      %a{href: "http://chronicleblogs.com"}
-        %h2 Blogs
+      - if frontpage?
+        %a{href: "/pages/2013-ncaa-mens-basketball-tournament-bracket"}
+          %h2 March Madness
+      - else
+        %a{href: "http://chronicleblogs.com"}
+          %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com"}
         %h2 Photos
     = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|

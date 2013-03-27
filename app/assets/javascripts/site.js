@@ -1,5 +1,6 @@
 //= require jquery/jquery.js
 //= require jquery_ujs
+//= require jquery-ui/ui/jquery-ui.js
 //= require underscore/underscore.js
 //= require date.format.js
 //= require jquery-galleria/src/galleria.js
