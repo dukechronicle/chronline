@@ -1,0 +1,6 @@
+%div#bracket_data{:data => {:bracket => @model.to_json} }
+%div.rounded
+  .content-container
+    %h1{:style =>'text-align: center'}NCAA Bracket
+    %h3{:style =>'text-align: center'} Click on a team to see their description.
+  %canvas#bracket{:width => 978, :height => 1200}

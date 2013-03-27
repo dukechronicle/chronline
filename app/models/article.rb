@@ -22,6 +22,7 @@ class Article < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
+  serialize :section, Taxonomy::Serializer.new
 
   friendly_id :title, use: [:slugged, :history]
 
@@ -93,13 +94,9 @@ onto per since than the this that to up via with)
     RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
   end
 
-  def section
-    Taxonomy.new(self[:section])
-  end
-
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    self[:section] = taxonomy.to_s
+    super(taxonomy)
   end
 
   def self.popular(section, options={})
