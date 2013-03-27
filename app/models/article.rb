@@ -22,6 +22,7 @@ class Article < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
+  serialize :section, Taxonomy::Serializer.new
 
   friendly_id :title, use: [:slugged, :history]
 
@@ -52,7 +53,7 @@ class Article < ActiveRecord::Base
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=50)
+  def normalize_friendly_id(title, max_chars=100)
     return nil if title.nil?  # record won't save -- title presence is validated
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)
@@ -64,6 +65,8 @@ onto per since than the this that to up via with)
     s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
     s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
     s[0...max_chars].chomp('-')
+
+    (created_at || Date.today).strftime('%Y/%m/%d') + '/' + s
   end
 
   def register_view
@@ -92,13 +95,9 @@ onto per since than the this that to up via with)
     EmbeddedMedia.new(html).render_media.to_s
   end
 
-  def section
-    Taxonomy.new(self[:section])
-  end
-
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    self[:section] = taxonomy.to_s
+    super(taxonomy)
   end
 
   def self.popular(section, options={})
@@ -127,11 +126,10 @@ onto per since than the this that to up via with)
       [$1, thread['posts']]
     end
     articles = self.where(slug: slugs.map(&:first))
-    results = slugs.map do |slug, comments|
+    slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
-    results.sort_by! {|slug, comments| -comments}
   end
 
   ###

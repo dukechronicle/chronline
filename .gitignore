@@ -29,6 +29,8 @@ solr/
 
 /public/attachments/
 
+#/ignore sitemaps
+/public/sitemap
 # General
 # =======
 

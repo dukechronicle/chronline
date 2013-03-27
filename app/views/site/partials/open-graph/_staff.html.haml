@@ -1,0 +1,7 @@
+%meta{property: "og:type", content: "profile"}
+%meta{property: "og:url", content: site_staff_url(staff, subdomain: 'www')}
+- if staff.headshot
+  %meta{property: "og:image", content: staff.headshot.original.url(:thumb_square_m)}
+%meta{property: "og:title", content: staff.name}
+- if staff.tagline
+  %meta{property: "og:description", content: staff.tagline}
