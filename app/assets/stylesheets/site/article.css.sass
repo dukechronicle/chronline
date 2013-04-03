@@ -66,3 +66,51 @@
 
 #disqus_thread
   padding: 5px
+
+$dark-red: #780000
+$light-red: #FF8080
+
+.admin-notification
+  margin-bottom: 1em
+  border-style: solid
+  border-width: 0.2em
+  border-color: $dark-red
+  border-radius: 1em
+  background-color: white
+ 
+  .admin-notification-header
+    font-size: 1.2em
+    border-bottom-width: 0.1em
+    border-bottom-style: solid
+    background-color: $light-red
+    padding: 0.4em
+
+  .toggle-link
+    float: right
+    cursor: pointer
+
+  &.showing
+    .admin-notification-header
+      border-top-right-radius: 0.7em
+      border-top-left-radius: 0.7em
+
+    .admin-notification-body
+      font-size: 1.2em
+      h1 
+        padding-top: 0.4em
+        padding-left: 0.4em
+        color: $dark-red
+      h2 
+        padding-left: 0.6em
+        padding-bottom: 0.4em
+        color: $dark-red
+ 
+  &.hiding
+    .admin-notification-header
+      border-radius: 0.7em
+
+    .admin-notification-body
+      opacity: 0.0
+      display: none  
+
+        

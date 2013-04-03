@@ -12,7 +12,11 @@ module ArticleHelper
   end
 
   def display_date(article, format="%B %-d, %Y")
-    article.published_at.strftime(format)
+    begin
+      return article.published_at.strftime(format)
+    rescue
+      article.created_at.strftime(format)
+    end
   end
 
   def disqus_identifier(article)
