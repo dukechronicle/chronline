@@ -77,7 +77,7 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :articles, except: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+      resources :articles, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
       resources :pages, except: :show
       resources :staff, except: :show
     end
