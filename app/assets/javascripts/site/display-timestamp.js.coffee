@@ -1,6 +1,6 @@
 initialize 'span[data-timestamp]', ->
   $(this).each ->
-    date = new Date($(this).data('timestamp'))
+    date = new Date($(this).data('timestamp') * 1000)
     format = $(this).data('format')
     if not format?
       today = new Date()
