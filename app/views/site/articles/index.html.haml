@@ -10,7 +10,7 @@
         .content-container
           %h3= article.title
           .subtitle
-            %span.date= article.created_at.strftime("%B %e, %Y")
+            = display_date(article)
             %span.author= byline(article)
           %p= article.teaser
 
