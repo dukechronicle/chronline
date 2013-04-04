@@ -1,5 +1,16 @@
 initialize '.local-time', ->
   $(this).each ->
-    date = $(this).data('date')
-    date = if date then new Date(date) else new Date
-    $(this).text date.format($(this).data('format'))
+    timestamp = $(this).data('timestamp')
+    date = if timestamp then new Date(timestamp * 1000) else new Date
+    format = $(this).data('format')
+    $(this).text(date.format(format ? 'mmmm d, yyyy'))
+
+    if not format?
+      today = new Date()
+      today.setHours(0, 0, 0, 0)
+      if date > today
+        $time = $('<span>')
+        $time.addClass('timestamp')
+        $time.text(date.format('h:MM TT'))
+        console.log($time)
+        $(this).append(' ').append($time)

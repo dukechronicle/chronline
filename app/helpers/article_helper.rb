@@ -14,7 +14,7 @@ module ArticleHelper
   def display_date(article, format=nil)
     data = {timestamp: article.created_at.to_time.to_i}
     data[:format] = format unless format.nil?
-    content_tag(:span, nil, data: data)
+    content_tag(:span, nil, class: 'local-time', data: data)
   end
 
   def disqus_identifier(article)
