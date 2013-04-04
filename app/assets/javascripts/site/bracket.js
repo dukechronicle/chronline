@@ -83,7 +83,11 @@ function updateRound(ctx, round, info){
     
     var coord_index = findIndex(winner.school);
     if(i < 32/(Math.pow(2, round+1))){
-      ctx.fillText(winner.school + " ("+winner.seed+")", xy[0] + teamWidth+3, xy[1]-3);
+      var team_offset = -3;
+      if(round==3){
+       team_offset = team_offset+depth; 
+      }
+      ctx.fillText(winner.school + " ("+winner.seed+")", xy[0] + teamWidth+3, xy[1]+team_offset);
       coords[coord_index][1].push([xy[0]+teamWidth+3, xy[1]-3]);
       if(i%2==0){
         nextCoords.push([xy[0]+teamWidth,xy[1]+(depth*(round+1))]);
@@ -91,7 +95,7 @@ function updateRound(ctx, round, info){
     } else{
 
       ctx.textAlign = "right";
-      ctx.fillText(winner.school + "("+winner.seed+")", xy[0] - teamWidth-3, xy[1]-3);
+      ctx.fillText(winner.school + "("+winner.seed+")", xy[0] - teamWidth-3, xy[1]+team_offset);
       coords[coord_index][1].push([xy[0]-teamWidth+3, xy[1]-3]);
       if(i%2==0){
       nextCoords.push([xy[0]-teamWidth,xy[1]+(depth*(round+1))]);
@@ -152,8 +156,7 @@ function drawRound(ctx, x, y, round, left){
     ctx.lineTo(x+l*teamWidth, y+depth*Math.pow(2,round-1));
     ctx.lineTo(x, y+depth*Math.pow(2,round-1));
     ctx.stroke();
-    y+=2*depth*Math.pow(2,round-1)
-    
+    y+=2*depth*Math.pow(2,round-1) 
   }
 }
 
