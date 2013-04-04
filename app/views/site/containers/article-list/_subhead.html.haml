@@ -1,4 +1,2 @@
 %h3.title= article.title
-%p.subtitle
-  %span.author= byline(article)
-  %span.date= article.created_at.strftime("%B %e, %Y")
+= render partial: 'site/articles/subtitle', locals: {article: article}
