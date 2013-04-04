@@ -11,8 +11,10 @@ module ArticleHelper
     end.to_sentence.html_safe
   end
 
-  def display_date(article, format="%B %-d, %Y")
-    article.created_at.strftime(format)
+  def display_date(article, format=nil)
+    data = {timestamp: article.created_at.to_time.to_i}
+    data[:format] = format unless format.nil?
+    content_tag(:span, nil, data: data)
   end
 
   def disqus_identifier(article)
