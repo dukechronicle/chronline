@@ -238,3 +238,6 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 end
+
+# Force SSL for login page
+Devise::SessionsController.before_filter :force_ssl if Rails.env.production?
