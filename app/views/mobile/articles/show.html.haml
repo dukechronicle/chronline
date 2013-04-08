@@ -4,7 +4,7 @@
   = render partial: 'mobile/partials/section-navigation', locals: {taxonomy: @article.section}
 
 - content_for :head do
-  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
+  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
 
 
 %article#article
@@ -27,9 +27,9 @@
       %span.date= @article.created_at.strftime("%B %e, %Y")
 
     #social-media
-      .fb-like{data: {href: site_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
-      .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_article_url(@article)}}
-      %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: permanent_article_url(@article)}} Tweet
+      = facebook_recommend_article(@article)
+      = google_plusone_article(@article)
+      = twitter_share_article(@article)
 
     .article-body!= @article.render_body
 
