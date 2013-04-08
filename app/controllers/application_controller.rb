@@ -18,9 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_ssl
-    if user_signed_in? and request.protocol != "https://"
-      redirect_to protocol: "https://"
-    end
+    redirect_to protocol: "https://" if request.protocol != "https://"
   end
 
 end
