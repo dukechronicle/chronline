@@ -40,10 +40,10 @@ class Admin::ArticlesController < Admin::BaseController
     @article.published_at = DateTime.now
     if @article.save
       flash[:sucess] = %Q[Article "#{@article.title} was published."]
-    else 
+    else
       flash[:notice] = %Q[Article "#{@article.title} was not published."]
-    end 
-    redirect_to :back  
+    end
+    redirect_to :back
   end
 
   def update
