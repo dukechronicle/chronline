@@ -12,7 +12,7 @@ SitemapGenerator::Sitemap.create do
   frontpage = Page.find_by_path('/')
   add(site_root_path,
       priority: 1.0,
-      changefreq: :daily,
+      changefreq: 'daily',
       lastmod: frontpage && frontpage.updated_at
       )
 
@@ -20,7 +20,7 @@ SitemapGenerator::Sitemap.create do
   Taxonomy.levels.each_with_index do |level, i|
     level.each do |taxonomy|
       add(site_article_section_path(section: taxonomy.to_s[1..-1]),
-          changefreq: :daily,
+          changefreq: 'daily',
           priority: 0.8 - 0.2 * i,  # Pretty arbitrary
           )
     end
@@ -40,7 +40,7 @@ SitemapGenerator::Sitemap.create do
 
     add(site_article_path(article),
         lastmod: article.updated_at,
-        changefreq: :never,
+        changefreq: 'never',
         priority: 0.5,
         images: images,
         )
@@ -67,6 +67,6 @@ SitemapGenerator::Sitemap.create do
   end
 
   # Newsletter subscribe url
-  add site_newsletter_path, changefreq: :never
+  add site_newsletter_path, changefreq: 'never'
 
 end
