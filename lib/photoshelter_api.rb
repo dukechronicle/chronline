@@ -1,14 +1,12 @@
-require 'yaml'
+require "yaml"
 require "net/https"
 require "uri"
 
 class PhotoShelterAPI
-  config_file = '/Users/prithvi/Documents/Aptana Studio 3 Workspace/chronline/config/settings/development.local.yml';
-  Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
-  def initialize
-    @email = Settings['photoshelter']['username']
-    @password = Settings['photoshelter']['password']
+  def initialize(email, password)
+    @email = email
+    @password = password
   end
 
   def authenticate
@@ -21,18 +19,14 @@ class PhotoShelterAPI
 
     request = Net::HTTP::Get.new(uri.request_uri)
     response = http.request(request)
-    #response.header.each_header {|key,value| puts "#{key} = #{value}" }
-    all_cookies = response.get_fields('set-cookie')
+    all_cookies = response.get_fields("set-cookie")
     cookies_array = Array.new
     all_cookies.each { | cookie |
-        if cookie.include?("deleted") then
-          # puts cookie
-        else
-          cookies_array.push(cookie.split('; ')[0])
+        if !cookie.include?("deleted") then
+          cookies_array.push(cookie.split("; ")[0])
         end
     }
     @cookie = cookies_array.join('; ')
-    # puts @cookie
   end
 
   def getGalleries
@@ -45,16 +39,7 @@ class PhotoShelterAPI
     
     request = Net::HTTP::Get.new(uri.request_uri)
     request.initialize_http_header({})
-    # request['Accept'] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-    # request['Accept-Charset'] = 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
-    # request['Accept-Encoding'] = 'gzip,deflate,sdch'
-    # request['Accept-Language'] = 'en-US,en;q=0.8'
-    # request['Cache-Control'] = 'max-age=0'
-    # request['Connection'] = 'keep-alive'
     request['Cookie'] = @cookie
-    # request['Host'] = 'www.photoshelter.com'
-    # request['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.43 Safari/537.31'
-    #request.header.each_header {|key,value| puts "#{key} = #{value}" }
     response = http.request(request)
     puts response.body
   end
@@ -66,7 +51,10 @@ class PhotoShelterAPI
 
 end
 
-api = PhotoShelterAPI.new
+config_file = '/Users/prithvi/Documents/Aptana Studio 3 Workspace/chronline/config/settings/development.local.yml';
+Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
+
+api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
 api.authenticate
 api.getGalleries
 #api.logout
