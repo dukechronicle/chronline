@@ -10,13 +10,11 @@
   %thead
     %tr
       %th Title
-      %th Creation Date
-      %th Publish Date
+      %th Publication Date
       %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      %td= article.created_at.strftime('%-m-%-d-%Y')
       - if article.published?
         %td= article.published_at.strftime('%-m-%-d-%Y')
       - else

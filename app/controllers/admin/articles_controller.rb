@@ -15,7 +15,7 @@ class Admin::ArticlesController < Admin::BaseController
 
     @articles = Article.includes(:authors, :image)
       .section(@taxonomy)
-      .order('created_at DESC')
+      .order('published_at IS NOT NULL, published_at DESC')
       .page(params[:page])
   end
 
@@ -63,14 +63,8 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def search
-    if params.has_key? :article_search
-      @article_search = Article::Search.new(params[:article_search])
-      @article_search.page = params[:page] if params.has_key? :page
-      @articles = @article_search.results
-    else
-      @article_search = Article::Search.new
-      @articles = []
-    end
+    params[:article_search] ||= {}
+    super
   end
 
   private
@@ -86,7 +80,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def find_article_page_for_date(date, taxonomy)
     index = Article.section(taxonomy)
-      .where(["created_at > ?", date]).count
+      .where(["published_at > ?", date]).count
     index / Article.per_page + 1
   end
 
