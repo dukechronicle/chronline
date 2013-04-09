@@ -11,8 +11,11 @@ module ArticleHelper
     end.to_sentence.html_safe
   end
 
-  def display_date(article, format="%B %-d, %Y")
-    article.created_at.strftime(format)
+  def display_date(article, format=nil, options={})
+    data = {timestamp: article.created_at.to_time.to_i}
+    data[:format] = format unless format.nil?
+    data[:notime] = "true" if options[:notime]
+    content_tag(:span, nil, class: 'local-time', data: data)
   end
 
   def disqus_identifier(article)
@@ -32,9 +35,9 @@ module ArticleHelper
   def permanent_article_url(article)
     slug = @article.slugs.last
     if slug.to_param.include?('/')
-      site_article_url(slug, subdomain: :www)
+      site_article_url(slug, subdomain: :www, protocol: 'http')
     else
-      site_article_deprecated_url(slug, subdomain: :www)
+      site_article_deprecated_url(slug, subdomain: :www, protocol: 'http')
     end
   end
 

@@ -6,4 +6,5 @@
           = article.title
           - if breaking
             %span.breaking-label Breaking
+        = render partial: 'site/articles/subtitle', locals: {article: article}
         %p.teaser= article.teaser

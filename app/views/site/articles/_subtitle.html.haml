@@ -1,0 +1,5 @@
+- notime ||= false
+
+%p.subtitle
+  %span.author= byline(article)
+  = display_date(article, nil, notime: notime)
