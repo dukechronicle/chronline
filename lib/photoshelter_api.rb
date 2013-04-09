@@ -1,4 +1,5 @@
 require "yaml"
+require "json"
 require "net/https"
 require "uri"
 
@@ -12,31 +13,17 @@ class PhotoShelterAPI
     authenticate
   end
 
-  def authenticate
-    path = "/authenticate"
-    args = {email: @email, password: @password, format: "json"}
-    headers = {}
-
-    response = get_response path, args, headers
-
-    all_cookies = response.get_fields("set-cookie")
-    cookies_array = Array.new
-    all_cookies.each { | cookie |
-        if !cookie.include?("deleted") then
-          cookies_array.push(cookie.split("; ")[0])
-        end
-    }
-    @cookie = cookies_array.join('; ')
-  end
-
-  def get_galleries
+  def get_all_galleries
     path = "/gallery/query"
     args = {format: "json"}
     headers = {"Cookie" => @cookie}
 
     response = get_response path, args, headers
     
-    # puts response.body
+    json = JSON.parse response.body
+    galleries = json["data"]["gallery"]
+
+    return galleries
   end
 
   def logout
@@ -51,7 +38,24 @@ class PhotoShelterAPI
     end
   end
 
+
   private
+    def authenticate
+      path = "/authenticate"
+      args = {email: @email, password: @password, format: "json"}
+      headers = {}
+
+      response = get_response path, args, headers
+
+      all_cookies = response.get_fields("set-cookie")
+      cookies_array = Array.new
+      all_cookies.each { | cookie |
+          if !cookie.include?("deleted") then
+            cookies_array.push(cookie.split("; ")[0])
+          end
+      }
+      @cookie = cookies_array.join('; ')
+    end
 
     def get_response(path, args, headers)
       uri = URI.parse(BaseUri + path)
@@ -70,12 +74,11 @@ class PhotoShelterAPI
       
       return http.request(request)
     end
-
 end
 
 config_file = '/Users/prithvi/Documents/Aptana Studio 3 Workspace/chronline/config/settings/development.local.yml';
 Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
 api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
-api.get_galleries
+galleries = api.get_all_galleries
 api.logout
