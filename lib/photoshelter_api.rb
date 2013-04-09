@@ -7,6 +7,7 @@ class PhotoShelterAPI
   def initialize(email, password)
     @email = email
     @password = password
+    authenticate
   end
 
   def authenticate
@@ -29,7 +30,7 @@ class PhotoShelterAPI
     @cookie = cookies_array.join('; ')
   end
 
-  def getGalleries
+  def get_galleries
     uri = URI.parse("https://www.photoshelter.com/psapi/v1/gallery/query")
     args = {format: "json"}
     uri.query = URI.encode_www_form(args)
@@ -55,6 +56,5 @@ config_file = '/Users/prithvi/Documents/Aptana Studio 3 Workspace/chronline/conf
 Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
 api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
-api.authenticate
-api.getGalleries
+api.get_galleries
 #api.logout
