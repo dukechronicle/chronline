@@ -67,7 +67,7 @@ onto per since than the this that to up via with)
     s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
     s[0...max_chars].chomp('-')
 
-    (created_at || Date.today).strftime('%Y/%m/%d') + '/' + s
+    (published_at || Date.today).strftime('%Y/%m/%d') + '/' + s
   end
 
   def register_view
