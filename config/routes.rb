@@ -70,14 +70,16 @@ Chronline::Application.routes.draw do
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search', as: :article_search
-      post 'articles/publish' => 'articles#publish'
 
       resources :images, except: :show do
         put 'crop', on: :member
         get 'upload', on: :collection
       end
 
-      resources :articles, except: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+      resources :articles, except: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
+        post :publish, on: :member
+      end
+
       resources :pages, except: :show
       resources :staff, except: :show
     end

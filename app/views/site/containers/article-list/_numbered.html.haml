@@ -3,7 +3,7 @@
   .rounded
     .content-container
       %ol
-        - articles.published.each do |article|
+        - articles.each do |article|
           %a.list-story.hover.highlight-right{href: site_article_path(article)}
             %li
               %h3.title= article.title

@@ -125,7 +125,7 @@ onto per since than the this that to up via with)
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.where(slug: slugs.map(&:first))
+    articles = self.published.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
@@ -133,10 +133,7 @@ onto per since than the this that to up via with)
   end
 
   def published?
-    if !self.published_at
-      return false
-    end
-    true
+    not published_at.nil?
   end
 
 
