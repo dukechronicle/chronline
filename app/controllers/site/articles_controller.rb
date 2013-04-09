@@ -29,6 +29,9 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
+    if !@article.published? and !user_signed_in?
+      render 'site/404' 
+    end
   end
 
   def print
