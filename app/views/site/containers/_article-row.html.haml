@@ -1,14 +1,17 @@
 .article-row
   %h2.vertical-label= title
-  .rounded.clearfix
+  .rounded.clearfix.align-group
     - articles.each_with_index do |article, i|
-      .content-container.row-article{class: ('feature' if feature && i == 0)}
+      .content-container.align-element.row-article{class: ('feature' if feature && i == 0)}
         %a.row-story.hover.highlight-bottom{href: site_article_path(article)}
-          %h3.title= article.title
           - if article.image
             - if feature and i == 0
               = image_tag article.image.original.url(:thumb_rect_l)
             - else
               = image_tag article.image.original.url(:thumb_rect)
-          - if not (feature and i == 0)
-            %p.teaser= article.teaser
+          .title-block
+            %h3.title= article.title
+            %p.subtitle
+              %span.author= byline(article)
+            - if not (feature and i == 0)
+              %p.teaser= article.teaser
