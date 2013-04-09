@@ -15,3 +15,58 @@
 
 
 
+- content_for :head do
+  = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
+  = render partial: 'site/partials/open-graph/article', locals: {article: @article}
+  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
+
+- content_for :scripts do
+  %script{src: '//www.readrboard.com/static/engage.js', defer: true}
+
+%article#article
+  .span-8
+    .rounded
+      .article-container
+        %h1.title= @article.title
+        - if not @article.subtitle.blank?
+          %h2.subtitle= @article.subtitle
+
+        - if @article.image
+          = image_tag @article.image.original.url(:large_rect), class: 'main-image'
+          .clearfix
+            .photo-credit
+              %span= photo_credit(@article.image, link: true)
+            - if not @article.image.caption.blank?
+              %p.photo-caption= @article.image.caption
+
+        %p.byline
+          %span.author By #{byline(@article, link: true)}
+          %span.sep= "|"
+          = display_date(@article)
+
+        .article-body
+          #social-media
+            %div.comment-link
+              %i.icons-comment
+              = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@article)
+            %div.print-link
+              %i.icons-print
+              = link_to "Print", print_site_article_path(@article)
+            %div.email-link
+              %i.icons-email
+              = link_to "Email", mailto_article(@article)
+            %div= facebook_recommend_article(@article)
+            %div= twitter_share_article(@article)
+            %div= google_plusone_article(@article)
+
+          != @article.render_body
+
+    #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
+
+  .span-4.last
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
+    = render 'site/partials/facebook-recommended'
+    = render partial: 'site/partials/video-player', locals: {width: 300}
+
+= render 'site/partials/facebook-social-share'
