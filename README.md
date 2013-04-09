@@ -30,6 +30,7 @@ $ rake bower:refresh
 $ rake sunspot:solr:start
 
 # Rails database initialization (or also to update corrupt db)
+$ rake db:migrate
 $ rake db:refresh
 $ rake db:test:prepare
 ```

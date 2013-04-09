@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318012915) do
+ActiveRecord::Schema.define(:version => 20130409050936) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20130318012915) do
     t.datetime "published_at"
   end
 
-  add_index "articles", ["section", "created_at"], :name => "index_articles_on_section_and_created_at"
+  add_index "articles", ["section", "published_at"], :name => "index_articles_on_section_and_published_at"
   add_index "articles", ["slug"], :name => "index_articles_on_slug", :unique => true
 
   create_table "articles_authors", :force => true do |t|
@@ -38,21 +38,6 @@ ActiveRecord::Schema.define(:version => 20130318012915) do
   add_index "articles_authors", ["article_id", "staff_id"], :name => "index_articles_authors_on_article_id_and_author_id", :unique => true
   add_index "articles_authors", ["article_id"], :name => "index_articles_authors_on_article_id"
   add_index "articles_authors", ["staff_id"], :name => "index_articles_authors_on_author_id"
-
-  create_table "blog_posts", :force => true do |t|
-    t.text     "body"
-    t.string   "blog"
-    t.string   "title"
-    t.string   "slug"
-    t.integer  "image_id"
-    t.integer  "author_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "blog_posts", ["author_id"], :name => "index_blog_posts_on_author_id"
-  add_index "blog_posts", ["blog", "created_at"], :name => "index_blog_posts_on_blog_and_created_at", :unique => true
-  add_index "blog_posts", ["slug"], :name => "index_blog_posts_on_slug", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -112,23 +97,6 @@ ActiveRecord::Schema.define(:version => 20130318012915) do
   add_index "staff", ["columnist"], :name => "index_staff_on_columnist"
   add_index "staff", ["name"], :name => "index_staff_on_name", :unique => true
   add_index "staff", ["slug"], :name => "index_staff_on_slug", :unique => true
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       :limit => 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", :force => true do |t|
-    t.string "name"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
