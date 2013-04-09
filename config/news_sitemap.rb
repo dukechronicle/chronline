@@ -6,9 +6,8 @@ SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/news"
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 SitemapGenerator::Sitemap.create do
-  Article.includes(:image, :authors).where(["created_at >= ?", 2.days.ago])
-    .each do |article|
-
+  Article.includes(:image, :authors).published
+    .where(["published_at >= ?", 2.days.ago]).each do |article|
     images = []
     if article.image
       images << {

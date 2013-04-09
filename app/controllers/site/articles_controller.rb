@@ -21,7 +21,7 @@ class Site::ArticlesController < Site::BaseController
 
     @articles = Article.includes(:authors, :image)
       .published.section(@taxonomy)
-      .order('created_at DESC')
+      .order('published_at DESC')
       .page(params[:page])
     unless @taxonomy.root?
       @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
