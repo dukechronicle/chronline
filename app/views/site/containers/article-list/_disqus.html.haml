@@ -7,4 +7,4 @@
           %h3.title= article.title
           %p.subtitle
             %span.comments #{comments} Comments
-            %span.date= article.published_at.strftime("%B %e, %Y")
+            = display_date(article)

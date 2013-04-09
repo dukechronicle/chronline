@@ -2,7 +2,7 @@ loadDisqus = (path='embed.js') ->
   dsq = document.createElement('script')
   dsq.type = 'text/javascript'
   dsq.async = true
-  dsq.src = "http://#{disqus_shortname}.disqus.com/#{path}"
+  dsq.src = "//#{disqus_shortname}.disqus.com/#{path}"
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
 
 configureDisqus = (options) ->
