@@ -1,5 +1,5 @@
 var depth       = 35;
-var teamWidth   = 70
+var teamWidth   = 70;
 var regionspace = 90;
 var finalspace  = 90;
 var img_width   = 20;
@@ -43,6 +43,31 @@ function findIndex(school){
     if(team[0] == school)
       return i;
   }
+}
+function updateWinner(ctx, info){
+  var x = orig_x + 6*teamWidth+finalspace/2;
+  var y = 8*(depth*2)+regionspace/2;
+    
+  var updates = info[0]
+  var score   = "(" + updates.score1 + "-" + updates.score2 + ")";
+     
+  ctx.textAlign = 'center'
+  ctx.font = "normal 7pt Arial"
+  ctx.fillText(score, x , 8*depth*2 +regionspace);
+
+  var index;
+  if(updates.score1 > updates.score2){ 
+    index = updates.team1;
+  } else {
+    index = updates.team2;
+  }
+  var winner = data.teams[index];
+  ctx.textAlign = 'center'
+
+  ctx.font = "normal 8pt Arial"
+  ctx.fillText(winner.school + " ("+winner.seed+")", x, y);
+  ctx.font = "normal 6.3pt Arial"
+
 }
 function updateFinalTwo(ctx, info){
   //left
@@ -333,7 +358,11 @@ function draw(){
     if(i==4){
       updateFinalTwo(ctx, standings[i]);
     } else{
-      updateRound(ctx, i, standings[i]);
+      if(i==5){
+        updateWinner(ctx, standings[i]);
+      }else{
+        updateRound(ctx, i, standings[i]);
+      }
     }
   }
 
