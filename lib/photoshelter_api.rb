@@ -36,12 +36,19 @@ class PhotoShelterAPI
 
     response = get_response path, args, headers
     
-    puts response.body
+    # puts response.body
   end
 
   def logout
-    uri = URI.parse("http://www.photoshelter.com/psapi/v1/authenticate/logout?fomat=json")
-    response = Net::HTTP.get_response(uri)
+    path = "/authenticate/logout"
+    args = {format: "json"}
+    headers = {"Cookie" => @cookie}
+
+    response = get_response path, args, headers
+
+    unless response.code != 200
+      raise "Error logging out. Code: #{response.code}"
+    end
   end
 
   private
@@ -71,4 +78,4 @@ Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
 api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
 api.get_galleries
-#api.logout
+api.logout
