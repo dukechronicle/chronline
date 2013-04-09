@@ -4,6 +4,8 @@ require "uri"
 
 class PhotoShelterAPI
 
+  BaseUri = 'https://www.photoshelter.com/psapi/v1'
+
   def initialize(email, password)
     @email = email
     @password = password
@@ -11,15 +13,12 @@ class PhotoShelterAPI
   end
 
   def authenticate
-    uri = URI.parse("https://www.photoshelter.com/psapi/v1/authenticate")
+    path = "/authenticate"
     args = {email: @email, password: @password, format: "json"}
-    uri.query = URI.encode_www_form(args)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    headers = {}
 
-    request = Net::HTTP::Get.new(uri.request_uri)
-    response = http.request(request)
+    response = get_response path, args, headers
+
     all_cookies = response.get_fields("set-cookie")
     cookies_array = Array.new
     all_cookies.each { | cookie |
@@ -31,17 +30,12 @@ class PhotoShelterAPI
   end
 
   def get_galleries
-    uri = URI.parse("https://www.photoshelter.com/psapi/v1/gallery/query")
+    path = "/gallery/query"
     args = {format: "json"}
-    uri.query = URI.encode_www_form(args)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    headers = {"Cookie" => @cookie}
+
+    response = get_response path, args, headers
     
-    request = Net::HTTP::Get.new(uri.request_uri)
-    request.initialize_http_header({})
-    request['Cookie'] = @cookie
-    response = http.request(request)
     puts response.body
   end
 
@@ -49,6 +43,26 @@ class PhotoShelterAPI
     uri = URI.parse("http://www.photoshelter.com/psapi/v1/authenticate/logout?fomat=json")
     response = Net::HTTP.get_response(uri)
   end
+
+  private
+
+    def get_response(path, args, headers)
+      uri = URI.parse(BaseUri + path)
+      uri.query = URI.encode_www_form(args)
+      
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+      request = Net::HTTP::Get.new(uri.request_uri)
+      
+      request.initialize_http_header({})
+      headers.each_key do |key|
+        request[key] = headers[key]
+      end
+      
+      return http.request(request)
+    end
 
 end
 
