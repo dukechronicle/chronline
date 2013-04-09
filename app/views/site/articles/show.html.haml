@@ -1,14 +1,17 @@
-- provide :title, @article.title
+- if user_signed_in? and !@article.published?
+  .admin-notification.showing
+    .admin-notification-header
+      Admin Notification
+      .toggle-link
+        [ Hide ]
+    .admin-notification-body
+      %h1 This is a sample view!
+      %h2 Your article has not been published yet.
+  = render partial: 'site/partials/article-show'
+- elsif @article.published?
+  = render partial: 'site/partials/article-show'
 
-- content_for :title_block do
-  %h1
-    - @article.section.parents.each_with_index do |parent, i|
-      - if i > 0
-        &raquo;
-      = link_to parent.name, section_path(parent)
 
-- content_for :administrative_links do
-  = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
 - content_for :head do
   = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
