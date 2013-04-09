@@ -2,7 +2,7 @@
   %h2.vertical-label= title
   .rounded
     .content-container
-      - articles.published.each do |article, comments|
+      - articles.each do |article, comments|
         %a.list-story.hover.highlight-right{href: site_article_path(article)}
           %h3.title= article.title
           %p.subtitle

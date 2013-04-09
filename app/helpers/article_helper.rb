@@ -12,11 +12,8 @@ module ArticleHelper
   end
 
   def display_date(article, format=nil, options={})
-    timestamp = article.created_at.to_time.to_i
-    if article.published?
-      timestamp = article.published_at.to_time.to_i
-    end
-    data = {timestamp: timestamp}
+    publish_date = article.published_at || article.created_at
+    data = {timestamp: publish_date.to_time.to_i}
     data[:format] = format unless format.nil?
     data[:notime] = "true" if options[:notime]
     content_tag(:span, nil, class: 'local-time', data: data)

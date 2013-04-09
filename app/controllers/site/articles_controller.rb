@@ -20,7 +20,7 @@ class Site::ArticlesController < Site::BaseController
     end
 
     @articles = Article.includes(:authors, :image)
-      .section(@taxonomy)
+      .published.section(@taxonomy)
       .order('created_at DESC')
       .page(params[:page])
     unless @taxonomy.root?
@@ -30,7 +30,7 @@ class Site::ArticlesController < Site::BaseController
 
   def show
     if !@article.published? and !user_signed_in?
-      render 'site/404' 
+      return not_found
     end
   end
 
