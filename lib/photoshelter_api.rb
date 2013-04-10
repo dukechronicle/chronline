@@ -65,7 +65,8 @@ class PhotoShelterAPI
     end
 
     def get_session_response(path)
-      return get_response path, {}, {"Cookie" => @cookie}
+      response = get_response path, {}, {"Cookie" => @cookie}
+      return JSON.parse response.body
     end
 
     def get_response(path, args, headers)
@@ -91,7 +92,7 @@ class PhotoShelterAPI
         raise "Bad response code: #{response.code}"
       end
 
-      return JSON.parse response.body
+      return response
     end
 end
 
