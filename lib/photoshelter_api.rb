@@ -95,12 +95,3 @@ class PhotoShelterAPI
       return response
     end
 end
-
-config_file = '/Users/prithvi/Documents/Aptana Studio 3 Workspace/chronline/config/settings/development.local.yml';
-Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
-
-api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
-galleries = api.get_all_galleries
-images = api.get_gallery_images galleries.first["id"]
-puts api.get_image_info images.first["id"]
-api.logout
