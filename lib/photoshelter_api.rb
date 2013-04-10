@@ -16,9 +16,8 @@ class PhotoShelterAPI
   def get_all_galleries
     path = "/gallery/query"
     args = {}
-    headers = {"Cookie" => @cookie}
 
-    response = get_response path, args, headers
+    response = get_session_response path, args
 
     json = JSON.parse response.body
     galleries = json["data"]["gallery"]
@@ -29,9 +28,8 @@ class PhotoShelterAPI
   def get_gallery_images(gallery_id)
     path = "/gallery/#{gallery_id}/images"
     args = {}
-    headers = {"Cookie" => @cookie}
 
-    response = get_response path, args, headers
+    response = get_session_response path, args
 
     json = JSON.parse response.body
     images = json["data"]["images"]
@@ -44,7 +42,7 @@ class PhotoShelterAPI
     args = {}
     headers = {"Cookie" => @cookie}
 
-    response = get_response path, args, headers
+    response = get_session_response path, args
 
     json = JSON.parse response.body
     image_info = json["data"]
@@ -55,9 +53,8 @@ class PhotoShelterAPI
   def logout
     path = "/authenticate/logout"
     args = {}
-    headers = {"Cookie" => @cookie}
 
-    response = get_response path, args, headers
+    response = get_session_response path, args
   end
 
 
@@ -77,6 +74,10 @@ class PhotoShelterAPI
           end
       }
       @cookie = cookies_array.join('; ')
+    end
+
+    def get_session_response(path, args)
+      return get_response path, args, {"Cookie" => @cookie}
     end
 
     def get_response(path, args, headers)
