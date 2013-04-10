@@ -5,7 +5,7 @@ require "uri"
 
 class PhotoShelterAPI
 
-  BaseUri = 'https://www.photoshelter.com/psapi/v1'
+  BaseUri = "https://www.photoshelter.com/psapi/v1"
 
   def initialize(email, password)
     @email = email
@@ -19,11 +19,24 @@ class PhotoShelterAPI
     headers = {"Cookie" => @cookie}
 
     response = get_response path, args, headers
-    
+
     json = JSON.parse response.body
     galleries = json["data"]["gallery"]
 
     return galleries
+  end
+
+  def get_gallery_images(gallery_id)
+    path = "/gallery/#{gallery_id}/images"
+    args = {format: "json"}
+    headers = {"Cookie" => @cookie}
+
+    response = get_response path, args, headers
+
+    json = JSON.parse response.body
+    images = json["data"]["images"]
+
+    return images
   end
 
   def logout
@@ -33,9 +46,6 @@ class PhotoShelterAPI
 
     response = get_response path, args, headers
 
-    unless response.code != 200
-      raise "Error logging out. Code: #{response.code}"
-    end
   end
 
 
@@ -60,19 +70,25 @@ class PhotoShelterAPI
     def get_response(path, args, headers)
       uri = URI.parse(BaseUri + path)
       uri.query = URI.encode_www_form(args)
-      
+
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       request = Net::HTTP::Get.new(uri.request_uri)
-      
+
       request.initialize_http_header({})
       headers.each_key do |key|
         request[key] = headers[key]
       end
-      
-      return http.request(request)
+
+      response = http.request(request) 
+
+      unless response.code != 200
+        raise "Bad response code: #{response.code}"
+      end
+
+      return response
     end
 end
 
@@ -81,4 +97,5 @@ Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
 api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
 galleries = api.get_all_galleries
+images = api.get_gallery_images galleries.first["id"]
 api.logout
