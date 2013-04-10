@@ -39,13 +39,25 @@ class PhotoShelterAPI
     return images
   end
 
+  def get_image_info(image_id)
+    path = "/image/#{image_id}/iptc"
+    args = {}
+    headers = {"Cookie" => @cookie}
+
+    response = get_response path, args, headers
+
+    json = JSON.parse response.body
+    image_info = json["data"]
+
+    return image_info
+  end
+
   def logout
     path = "/authenticate/logout"
     args = {}
     headers = {"Cookie" => @cookie}
 
     response = get_response path, args, headers
-
   end
 
 
@@ -100,4 +112,5 @@ Settings = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 api = PhotoShelterAPI.new(Settings['photoshelter']['username'], Settings['photoshelter']['password'])
 galleries = api.get_all_galleries
 images = api.get_gallery_images galleries.first["id"]
+puts api.get_image_info images.first["id"]
 api.logout
