@@ -43,28 +43,29 @@ class PhotoshelterAPI
   private
     def authenticate
       path = "/authenticate"
-      args = {:email => @email, :password => @password}
+      args = {email: @email, password: @password}
       headers = {}
 
       response = get_response path, args, headers
 
       all_cookies = response.get_fields("set-cookie")
       cookies_array = Array.new
-      all_cookies.each { | cookie |
-          if !cookie.include?("deleted") then
-            cookies_array.push(cookie.split("; ")[0])
-          end
-      }
+      all_cookies.each do | cookie |
+        # Remove unnecessary cookies from set-cookie header
+        if !cookie.include?("deleted")
+          cookies_array.push(cookie.split("; ")[0])
+        end
+      end
       @cookie = cookies_array.join('; ')
     end
 
     def get_session_response(path)
       response = get_response path, {}, {"Cookie" => @cookie}
-      JSON.parse response.body
+      ActiveSupport::JSON.decode response.body
     end
 
     def get_response(path, args, headers)
-      args.merge!({:format => "json"})
+      args.merge!({format: "json"})
 
       uri = URI.parse(BaseUri + path)
       uri.query = URI.encode_www_form(args)
