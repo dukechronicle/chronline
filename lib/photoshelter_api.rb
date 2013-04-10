@@ -16,9 +16,7 @@ class PhotoShelterAPI
   def get_all_galleries
     path = "/gallery/query"
 
-    response = get_session_response path
-
-    json = JSON.parse response.body
+    json = get_session_response path
     galleries = json["data"]["gallery"]
 
     return galleries
@@ -27,9 +25,7 @@ class PhotoShelterAPI
   def get_gallery_images(gallery_id)
     path = "/gallery/#{gallery_id}/images"
 
-    response = get_session_response path
-
-    json = JSON.parse response.body
+    json = get_session_response path
     images = json["data"]["images"]
 
     return images
@@ -38,9 +34,7 @@ class PhotoShelterAPI
   def get_image_info(image_id)
     path = "/image/#{image_id}/iptc"
 
-    response = get_session_response path
-
-    json = JSON.parse response.body
+    json = get_session_response path
     image_info = json["data"]
 
     return image_info
@@ -48,15 +42,14 @@ class PhotoShelterAPI
 
   def logout
     path = "/authenticate/logout"
-
-    response = get_session_response path
+    json = get_session_response path
   end
 
 
   private
     def authenticate
       path = "/authenticate"
-      args = {email: @email, password: @password}
+      args = {:email => @email, :password => @password}
       headers = {}
 
       response = get_response path, args, headers
@@ -98,7 +91,7 @@ class PhotoShelterAPI
         raise "Bad response code: #{response.code}"
       end
 
-      return response
+      return JSON.parse response.body
     end
 end
 
