@@ -15,7 +15,7 @@ class PhotoShelterAPI
 
   def get_all_galleries
     path = "/gallery/query"
-    args = {format: "json"}
+    args = {}
     headers = {"Cookie" => @cookie}
 
     response = get_response path, args, headers
@@ -28,7 +28,7 @@ class PhotoShelterAPI
 
   def get_gallery_images(gallery_id)
     path = "/gallery/#{gallery_id}/images"
-    args = {format: "json"}
+    args = {}
     headers = {"Cookie" => @cookie}
 
     response = get_response path, args, headers
@@ -41,7 +41,7 @@ class PhotoShelterAPI
 
   def logout
     path = "/authenticate/logout"
-    args = {format: "json"}
+    args = {}
     headers = {"Cookie" => @cookie}
 
     response = get_response path, args, headers
@@ -52,7 +52,7 @@ class PhotoShelterAPI
   private
     def authenticate
       path = "/authenticate"
-      args = {email: @email, password: @password, format: "json"}
+      args = {email: @email, password: @password}
       headers = {}
 
       response = get_response path, args, headers
@@ -68,6 +68,8 @@ class PhotoShelterAPI
     end
 
     def get_response(path, args, headers)
+      args.merge!({:format => "json"})
+
       uri = URI.parse(BaseUri + path)
       uri.query = URI.encode_www_form(args)
 
