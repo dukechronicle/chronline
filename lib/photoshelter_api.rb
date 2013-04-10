@@ -3,7 +3,7 @@ require "json"
 require "net/https"
 require "uri"
 
-class PhotoShelterAPI
+class PhotoshelterAPI
 
   BaseUri = "https://www.photoshelter.com/psapi/v1"
 
@@ -18,8 +18,6 @@ class PhotoShelterAPI
 
     json = get_session_response path
     galleries = json["data"]["gallery"]
-
-    return galleries
   end
 
   def get_gallery_images(gallery_id)
@@ -27,8 +25,6 @@ class PhotoShelterAPI
 
     json = get_session_response path
     images = json["data"]["images"]
-
-    return images
   end
 
   def get_image_info(image_id)
@@ -36,8 +32,6 @@ class PhotoShelterAPI
 
     json = get_session_response path
     image_info = json["data"]
-
-    return image_info
   end
 
   def logout
@@ -66,7 +60,7 @@ class PhotoShelterAPI
 
     def get_session_response(path)
       response = get_response path, {}, {"Cookie" => @cookie}
-      return JSON.parse response.body
+      JSON.parse response.body
     end
 
     def get_response(path, args, headers)
@@ -88,10 +82,6 @@ class PhotoShelterAPI
 
       response = http.request(request) 
 
-      unless response.code != 200
-        raise "Bad response code: #{response.code}"
-      end
-
-      return response
+      raise StandardError, "Bad response code: #{response.code}" unless response.code == 200
     end
 end
