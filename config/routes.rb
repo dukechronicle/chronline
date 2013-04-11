@@ -53,6 +53,11 @@ Chronline::Application.routes.draw do
       get 'search' => 'articles#search', as: :article_search
       resources :articles, only: :show, id: Postable::SLUG_PATTERN
 
+      resources :blogs, only: :index, controller: 'blog_posts' do
+        resources :posts, only: [:index, :show], controller: 'blog_posts',
+          id: Postable::SLUG_PATTERN
+      end
+
       match '/404', :to => 'base#not_found'
 
       # Legacy routes
