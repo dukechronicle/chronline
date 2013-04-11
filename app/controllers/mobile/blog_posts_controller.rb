@@ -1,4 +1,4 @@
-class Site::BlogPostsController < Site::BaseController
+class Mobile::BlogPostsController < Mobile::BaseController
 
   def index
     if params[:blog_id]
@@ -6,8 +6,7 @@ class Site::BlogPostsController < Site::BaseController
       @blog_posts = Blog::Post.includes(:author, :image)
         .where(blog: @blog.id).page(params[:page])
     else
-      @blog = true  # Sets blog nav tab active
-      render 'site/blogs/index'
+      render 'mobile/blogs/index'
     end
   end
 

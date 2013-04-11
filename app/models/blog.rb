@@ -34,6 +34,8 @@ class Blog
       attributes = Hash[Blog::Data[id]]
       attributes['id'] = id
       self.send(:new, attributes)
+    else
+      raise ActiveRecord::RecordNotFound.new  # TODO: not an ActiveRecord error?
     end
   end
 
