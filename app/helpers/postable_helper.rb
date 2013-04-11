@@ -1,5 +1,12 @@
 module PostableHelper
 
+  def display_date(postable, format=nil, options={})
+    data = {timestamp: postable.created_at.to_time.to_i}
+    data[:format] = format unless format.nil?
+    data[:notime] = "true" if options[:notime]
+    content_tag(:span, nil, class: 'local-time', data: data)
+  end
+
   def disqus_identifier(postable)
     if postable.is_a? Blog::Post
       # B is for blog post to differentiate identifiers from those of articles

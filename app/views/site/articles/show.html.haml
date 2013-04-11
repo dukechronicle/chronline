@@ -13,7 +13,10 @@
 - content_for :head do
   = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
   = render partial: 'site/partials/open-graph/article', locals: {article: @article}
-  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
+  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
+
+- content_for :scripts do
+  %script{src: '//www.readrboard.com/static/engage.js', defer: true}
 
 
 .span-8
@@ -29,7 +32,7 @@
       %p.byline
         %span.author By #{byline(@article, link: true)}
         %span.sep= "|"
-        %span.date= display_date(@article)
+        = display_date(@article)
 
       .article-body
         = render partial: 'site/partials/share-box', locals: {postable: @article}
