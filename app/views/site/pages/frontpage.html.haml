@@ -11,7 +11,7 @@
   .span-4.last.align-element{data: {aligntarget: '#popular .rounded'}}
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     #popular.title-small= render partial: 'site/containers/article-list/disqus', locals: {title: "What's Hot", articles: @model.popular, style: :subhead}
-    #opinion.title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model.opinion, style: :subhead}
+    #opinion.title-small= render partial: 'site/containers/article-list', locals: {title: 'Opinion', articles: @model.opinion, style: :subhead, notime: true}
 
 .clearfix.align-group
   #news.span-6.align-element{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/article-box', locals: {title: 'News', articles: @model.news}
