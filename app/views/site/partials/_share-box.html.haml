@@ -10,16 +10,11 @@
       %i.icons-print
       = link_to "Print", print_site_article_path(postable)
 
-  - if not except.include? :print
+  - if not except.include? :email
     .email-link
       %i.icons-email
       = link_to "Email", mailto_article(postable)
 
-  %div
-    .fb-like{data: {href: permanent_article_url(postable), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
-
-  %div
-    %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: permanent_article_url(postable)}} Tweet
-
-  %div
-    .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_post_url(postable)}}
+  %div= facebook_recommend_post(postable)
+  %div= twitter_share_post(postable)
+  %div= google_plusone_post(postable)

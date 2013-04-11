@@ -40,12 +40,10 @@ class Page::Layouts::Bracket < Layout
             'team1'  => { 
               'label' => 'team1',
               'type' => 'number',
-              'required' => true
             },
             'team2'  => { 
               'label' => 'team2',
               'type' => 'number', 
-              'required' => true
             },
             'score1' => { 
               'label' => 'score1',
