@@ -9,9 +9,7 @@
       %a.hover{href: site_article_path(article)}
         .content-container
           %h3= article.title
-          .subtitle
-            %span.date= display_date(article)
-            %span.author= byline(article)
+          = render partial: 'site/articles/subtitle', locals: {article: article}
           %p= article.teaser
 
   = will_paginate
