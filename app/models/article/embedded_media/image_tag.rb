@@ -1,4 +1,6 @@
-class Article::EmbeddedMedia::EmbeddedImageTag
+class Article::EmbeddedMedia::ImageTag
+
+  attr_reader :ids
 
   def initialize(id_csv)
     ids = id_csv.split(',') # order matters, so know id => class
@@ -7,14 +9,10 @@ class Article::EmbeddedMedia::EmbeddedImageTag
     # if not?
     @ids = []
     if class_order.length == ids.length
-      for i in 0...class_order.length
-        @ids.push({id: ids[i].to_i, class: class_order[i]})
+      class_order.zip(ids) do |klass, id|
+        @ids.push({id: id.to_i, class: klass})
       end
     end
-  end
-
-  def ids()
-    return @ids
   end
 
   def to_html(class_objects)

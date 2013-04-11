@@ -1,4 +1,4 @@
 initialize '.embedded-image', ->
-  $(this).each( (i) ->
+  $(this).each( ->
     $(this).parent().prepend($(this).remove())
   )
