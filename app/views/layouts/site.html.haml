@@ -10,7 +10,7 @@
       = stylesheet_link_tag "ie", :media => "all"
       %script{type: "text/javascript", src: "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
 
-    %script{type: "text/javascript", src: "http://use.typekit.com/dwv2bjy.js"}
+    %script{type: "text/javascript", src: "//use.typekit.com/dwv2bjy.js"}
     :javascript
       try{Typekit.load()}catch(e){}
 
@@ -31,3 +31,4 @@
     #scripts
       = javascript_include_tag "site"
       = render 'partials/quantcast'
+      = yield :scripts
