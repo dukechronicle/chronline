@@ -1,7 +1,10 @@
 ---
 bluezone:
   name: Blue Zone
+  image: blogs/sportsblog-banner.jpg
 playground:
   name: Playground
+  image: blogs/newsblog-banner.jpg
 backpages:
   name: Backpages
+  image: blogs/newsblog-banner.jpg
