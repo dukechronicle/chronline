@@ -1,0 +1,13 @@
+- provide :title, "Blogs"
+
+- provide :title_block do
+  %h2
+    = link_to "Home", mobile_root_path
+    &raquo;
+    = link_to "Blogs", mobile_blogs_path
+
+#blog-listing{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
+  - Blog.each do |blog|
+    %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true"}}
+      %h3= blog.name
+      %p= link_to "Visit the #{blog.name}", mobile_blog_posts_path(blog)
