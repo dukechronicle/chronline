@@ -29,7 +29,7 @@
       - Taxonomy.main_sections.each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
-      %a{href: "http://chronicleblogs.com"}
+      %a{href: site_blogs_path, class: ("active" if @blog)}
         %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com"}
         %h2 Photos

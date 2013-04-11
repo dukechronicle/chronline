@@ -18,7 +18,7 @@
           By
           = link_to @blog_post.author.name, site_staff_path(@blog_post.author)
         %span.sep= "|"
-        %span.date= display_date(@blog_post)
+        = display_date(@blog_post)
 
       - if @blog_post.image
         = render partial: 'partials/main-image', locals: {image: @blog_post.image}
