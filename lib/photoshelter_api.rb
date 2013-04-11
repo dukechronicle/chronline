@@ -86,4 +86,3 @@ class PhotoshelterAPI
       raise StandardError, "Bad response code: #{response.code}" unless response.code == 200
     end
 end
->>>>>>> d6b0a2fd7533ed53864ba1371531ce0d759c3324
