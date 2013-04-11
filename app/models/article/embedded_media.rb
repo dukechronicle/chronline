@@ -9,12 +9,10 @@ class Article::EmbeddedMedia
   def render_media()
     tag_list = @body.scan(/{{([a-zA-z]*):([0-9]*)}} ?/).to_a
     tags = []
-    unless tag_list.empty?
-      tag_list.each do |tag_data|
-        case tag_data[0]
-        when 'Image'
-          tags.push EmbeddedImageTag.new(tag_data[1])
-        end
+    tag_list.each do |tag_data|
+      case tag_data[0]
+      when 'Image'
+        tags.push ImageTag.new(tag_data[1])
       end
     end
 
