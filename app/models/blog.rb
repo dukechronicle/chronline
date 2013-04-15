@@ -29,6 +29,10 @@ class Blog
     id
   end
 
+  def ==(other)
+    other.is_a? Blog and self.id == other.id
+  end
+
   def self.find(id)
     if Blog::Data[id]
       attributes = Hash[Blog::Data[id]]
