@@ -1,6 +1,8 @@
+require 'yaml'
+
 # TODO replace Configz with more robust configuration scheme and replace
 # `has_key?` with something definite
-config_file = File.join(Dir.pwd, 'config', 'settings', 'test.local.yml')
+config_file = File.join(Dir.pwd, 'config', 'settings', 'test.yml')
 Configz = File.exists?(config_file) ? YAML.load_file(config_file) : {}
 
 def base_configs
