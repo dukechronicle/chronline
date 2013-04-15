@@ -40,7 +40,7 @@ class Article < ActiveRecord::Base
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable(include: :authors) do
+  searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
