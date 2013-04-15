@@ -54,43 +54,6 @@ describe Article do
     end
   end
 
-  describe "#render_body" do
-    before { subject.body = '**Pikachu** wrecks everyone. The End.' }
-
-    it "should render the article body with markdown" do
-      html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
-      subject.render_body.rstrip.should == html
-    end
-  end
-
-  describe "#normalize_friendly_id" do
-    subject do
-      @article.normalize_friendly_id('Ash defeats Gary in Indigo Plateau')
-    end
-
-    it "should be lowercased" do
-      should match(/[a-z_\d\-]+/)
-    end
-
-    it "should contain key words of title" do
-      should include('ash')
-      should include('defeats')
-      should include('gary')
-      should include('indigo')
-      should include('plateau')
-    end
-
-    it "should not have unnecessary words" do
-      should_not include('-in-')
-    end
-
-    context "long title" do
-      subject { @article.normalize_friendly_id('a' * 49 + '-' + 'b' * 50) }
-      it { should have_at_most(50).characters }
-      it { should_not match(/\-$/) }
-    end
-  end
-
   describe "#register_view" do
     let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
 
@@ -166,7 +129,7 @@ describe Article do
     end
   end
 
-  describe "section scope" do
+  describe "::section" do
     let(:articles) do
       articles = FactoryGirl.create_list(:article, 3)
       articles[0].update_attributes(section: '/news/')
