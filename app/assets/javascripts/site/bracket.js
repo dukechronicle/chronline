@@ -1,5 +1,5 @@
 var depth       = 35;
-var teamWidth   = 70
+var teamWidth   = 70;
 var regionspace = 90;
 var finalspace  = 90;
 var img_width   = 20;
@@ -44,7 +44,69 @@ function findIndex(school){
       return i;
   }
 }
+function updateWinner(ctx, info){
+  var x = orig_x + 6*teamWidth+finalspace/2;
+  var y = 8*(depth*2)+regionspace/2;
+    
+  var updates = info[0]
+  var score   = "(" + updates.score1 + "-" + updates.score2 + ")";
+     
+  ctx.textAlign = 'center'
+  ctx.font = "normal 7pt Arial"
+  ctx.fillText(score, x , 8*depth*2 +regionspace);
 
+  var index;
+  if(updates.score1 > updates.score2){ 
+    index = updates.team1;
+  } else {
+    index = updates.team2;
+  }
+  var winner = data.teams[index];
+  ctx.textAlign = 'center'
+
+  ctx.font = "normal 8pt Arial"
+  ctx.fillText(winner.school + " ("+winner.seed+")", x, y);
+  ctx.font = "normal 6.3pt Arial"
+
+}
+function updateFinalTwo(ctx, info){
+  //left
+  var x = orig_x + 5*teamWidth+3;
+  var y = 8*(depth*2)+regionspace/2;
+    
+  var updates = info[0]
+  var score   = "(" + updates.score1 + "-" + updates.score2 + ")";
+     
+  ctx.textAlign = 'center'
+  ctx.fillText(score, x - teamWidth/2 , 8*depth*2 +regionspace/2);
+
+  var index;
+  if(updates.score1 > updates.score2){ 
+    index = updates.team1;
+  } else {
+    index = updates.team2;
+  }
+  var winner = data.teams[index];
+  ctx.textAlign = 'left'
+  ctx.fillText(winner.school + " ("+winner.seed+")", x, y);
+  x = x + finalspace + 2*teamWidth;
+    
+  updates = info[1];
+  score   = "(" + updates.score1 + "-" + updates.score2 + ")";
+     
+  ctx.textAlign = 'center'
+  ctx.fillText(score, x + teamWidth/2 , 8*depth*2 +regionspace/2);
+
+  if(updates.score1 > updates.score2){ 
+    index = updates.team1;
+  } else {
+    index = updates.team2;
+  }
+  winner = data.teams[index];
+  ctx.textAlign = 'right'
+  ctx.fillText(winner.school + " ("+winner.seed+")", x-5, y);
+
+}
 function updateRound(ctx, round, info){
   
   round = parseInt(round);
@@ -293,7 +355,15 @@ function draw(){
 
   var standings = data.standings;
   for(var i in standings){
-    updateRound(ctx, i, standings[i]);
+    if(i==4){
+      updateFinalTwo(ctx, standings[i]);
+    } else{
+      if(i==5){
+        updateWinner(ctx, standings[i]);
+      }else{
+        updateRound(ctx, i, standings[i]);
+      }
+    }
   }
 
 

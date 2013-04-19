@@ -42,6 +42,9 @@ class Newsletter
 
   def create_campaign(gb)
     gb.campaign_create({type: :regular,
+                         analytics: {
+                           google: subject,
+                         },
                          options: {
                            list_id: Settings.mailchimp.list_id,
                            subject: subject,
