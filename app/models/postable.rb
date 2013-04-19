@@ -7,7 +7,7 @@ module Postable
     base.friendly_id(:title, use: [:slugged, :history])
 
     base.send(:include, InstanceMethods)
-    base.attr_accessible :body, :image_id, :title
+    base.attr_accessible :body, :image_id, :title, :published_at
     base.belongs_to :image
 
     base.validates :body, presence: true
@@ -36,7 +36,7 @@ onto per since than the this that to up via with)
       s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
       s[0...max_chars].chomp('-')
 
-      (created_at || Date.today).strftime('%Y/%m/%d/') + s
+      (published_at || Date.today).strftime('%Y/%m/%d/') + s
     end
 
   end

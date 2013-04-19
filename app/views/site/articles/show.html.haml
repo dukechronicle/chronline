@@ -18,6 +18,15 @@
 - content_for :scripts do
   %script{src: '//www.readrboard.com/static/engage.js', defer: true}
 
+- if user_signed_in? and !@article.published?
+  .admin-notification.showing
+    .admin-notification-header
+      Admin Notification
+      .toggle-link
+        [ Hide ]
+    .admin-notification-body
+      %h1 This is a sample view!
+      %h2 Your article has not been published yet.
 
 .span-8
   .rounded

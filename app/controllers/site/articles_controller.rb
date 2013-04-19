@@ -19,8 +19,8 @@ class Site::ArticlesController < Site::BaseController
     end
 
     @articles = Article.includes(:authors, :image)
-      .section(@taxonomy)
-      .order('created_at DESC')
+      .published.section(@taxonomy)
+      .order('published_at DESC')
       .page(params[:page])
     unless @taxonomy.root?
       @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
@@ -28,6 +28,9 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
+    if !@article.published? and !user_signed_in?
+      return not_found
+    end
   end
 
   def print
