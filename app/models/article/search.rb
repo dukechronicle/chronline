@@ -85,7 +85,7 @@ class Article::Search
       @request = Article.search(include: self.include) do
         with(:section, section.titlecase) if section?
         with(:author_ids, author) if author?
-        with(:created_at).greater_than(start_date) if start_date?
+        with(:published_at).greater_than(start_date) if start_date?
 
         fulltext self.query do
           highlight :title, fragment_size: 0
