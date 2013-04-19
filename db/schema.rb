@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409050936) do
+ActiveRecord::Schema.define(:version => 20130419063641) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -46,12 +46,13 @@ ActiveRecord::Schema.define(:version => 20130409050936) do
     t.string   "slug"
     t.integer  "image_id"
     t.integer  "author_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.datetime "published_at"
   end
 
   add_index "blog_posts", ["author_id"], :name => "index_blog_posts_on_author_id"
-  add_index "blog_posts", ["blog", "created_at"], :name => "index_blog_posts_on_blog_and_created_at", :unique => true
+  add_index "blog_posts", ["blog", "published_at"], :name => "index_blog_posts_on_blog_and_published_at"
   add_index "blog_posts", ["slug"], :name => "index_blog_posts_on_slug", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
