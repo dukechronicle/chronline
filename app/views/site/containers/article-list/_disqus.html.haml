@@ -7,4 +7,4 @@
           %h3.title= article.title
           %p.subtitle
             %span.comments #{comments} Comments
-            = display_date(article)
+            = display_date(article, nil, notime: true)
