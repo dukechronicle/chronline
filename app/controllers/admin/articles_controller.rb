@@ -75,7 +75,7 @@ class Admin::ArticlesController < Admin::BaseController
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
     article.assign_attributes(params[:article])
     article.authors = Staff.find_or_create_all_by_name(author_names)
-    article.published_at = DateTime.now if params[:article][:published_at]
+    article.published_at = DateTime.now if params[:article][:published_at].to_i == 1
     article
   end
 
