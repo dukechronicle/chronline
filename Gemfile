@@ -73,6 +73,7 @@ gem 'will_paginate'
 gem 'sitemap_generator'
 gem 'carrierwave'
 gem 'fog'
+gem 'rmagick'
 
 group :test do
   gem 'accept_values_for'

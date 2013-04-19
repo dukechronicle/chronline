@@ -13,6 +13,9 @@ $ npm install -g bower phantomjs
 # Run below command, and install the recommended packages
 $ rvm requirements
 
+# Install ImageMagick
+$ sudo apt-get install libmagickwand-dev imagemagick
+
 # More require packages for nokogiri
 $ sudo apt-get install libxslt-dev libxml2-dev
 
@@ -27,6 +30,7 @@ $ rake bower:refresh
 $ rake sunspot:solr:start
 
 # Rails database initialization (or also to update corrupt db)
+$ rake db:migrate
 $ rake db:refresh
 $ rake db:test:prepare
 ```
