@@ -50,7 +50,7 @@ class Article < ActiveRecord::Base
     string :section do
       section[0]
     end
-    time :created_at, trie: true
+    time :published_at, trie: true
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
