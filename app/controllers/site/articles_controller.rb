@@ -2,7 +2,6 @@ class Site::ArticlesController < Site::BaseController
   include ::ArticlesController
 
   before_filter :redirect_and_register_view, only: [:show, :print]
-  #caches_action :index, layout: false, expires_in: 1.minute
   caches_action :show, layout: false
 
 
