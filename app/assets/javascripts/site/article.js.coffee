@@ -1,10 +1,8 @@
 initialize '.embedded-image', ->
-  console.log 'init with'
-  console.log $(this)
+  right = true
   $(this).each( ->
-    $(this).addClass('img-right')
+    $(this).addClass(if right then 'img-right' else 'img-left')
     $(this).parent().prepend($(this).remove())
-    console.log 'this'
-    console.log $(this)
+    right = !right
+    return
   )
-  console.log $(this)
