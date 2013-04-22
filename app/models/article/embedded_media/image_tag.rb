@@ -20,6 +20,11 @@ class Article::EmbeddedMedia::ImageTag
     img = class_objects[id[:class]][id[:id]]
     %Q(<span class="embedded-image">
         <img src="#{img.original.url(:thumb_rect)}" />
+        <span class="photo-credit">
+          <a href="#{Rails.application.routes.url_helpers.site_staff_path(img.photographer)}">
+            #{img.photographer.name}
+          </a>
+        </span>
       </span>
     )
   end
