@@ -93,7 +93,6 @@ onto per since than the this that to up via with)
 
   def render_body
     body
-    # RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
   end
 
   def section=(taxonomy)
