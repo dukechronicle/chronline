@@ -397,7 +397,7 @@ DEPENDENCIES
   capybara
   carrierwave
   coffee-rails (~> 3.2.1)
-  compass-rails
+  compass-rails (~> 1.0.3)
   cucumber-rails
   cucumber-websteps
   database_cleaner
