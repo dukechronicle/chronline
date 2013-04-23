@@ -1,5 +1,3 @@
-= render 'admin/partials/flash', flash: flash
-
 %ul.nav.nav-tabs
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
   - Taxonomy.main_sections.each do |section|
@@ -12,14 +10,19 @@
   %thead
     %tr
       %th Title
-      %th Creation Date
+      %th Publication Date
       %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      %td= article.created_at.strftime('%-m-%-d-%Y')
+      - if article.published?
+        %td= article.published_at.strftime('%-m-%-d-%Y')
+      - else
+        %td Not published
       %td
         = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
         = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
+        - if article.published_at.nil?
+          = link_to "Publish", [:publish, :admin, article], method: :post, class: 'btn btn-mini btn-info'
 
 = will_paginate

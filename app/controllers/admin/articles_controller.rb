@@ -15,7 +15,7 @@ class Admin::ArticlesController < Admin::BaseController
 
     @articles = Article.includes(:authors, :image)
       .section(@taxonomy)
-      .order('created_at DESC')
+      .order('published_at IS NOT NULL, published_at DESC')
       .page(params[:page])
   end
 
@@ -35,6 +35,17 @@ class Admin::ArticlesController < Admin::BaseController
   def edit
   end
 
+  def publish
+    @article = Article.find(params[:id])
+    @article.published_at = DateTime.now
+    if @article.save
+      flash[:sucess] = %Q[Article "#{@article.title} was published."]
+    else
+      flash[:notice] = %Q[Article "#{@article.title} was not published."]
+    end
+    redirect_to :back
+  end
+
   def update
     @article = update_article(Article.find(params[:id]))
     if @article.save
@@ -51,6 +62,10 @@ class Admin::ArticlesController < Admin::BaseController
     redirect_to admin_articles_path
   end
 
+  def search
+    params[:article_search] ||= {}
+    super
+  end
 
   private
 
@@ -60,12 +75,13 @@ class Admin::ArticlesController < Admin::BaseController
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
     article.assign_attributes(params[:article])
     article.authors = Staff.find_or_create_all_by_name(author_names)
+    article.published_at = DateTime.now if params[:article][:published_at].to_i == 1
     article
   end
 
   def find_article_page_for_date(date, taxonomy)
     index = Article.section(taxonomy)
-      .where(["created_at > ?", date]).count
+      .where(["published_at > ?", date]).count
     index / Article.per_page + 1
   end
 
