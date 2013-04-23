@@ -28,4 +28,4 @@
               - if article.image
                 = image_tag article.image.original.url(:thumb_square_s)
               %h2= article.title
-              %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
+              %p #{byline(article)} | #{article.published_at.strftime("%B %e, %Y")}
