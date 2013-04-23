@@ -1,0 +1,6 @@
+initialize '.wysiwyg', ->
+  $(this).tinymce
+    script_url: "<%= asset_path 'tinymce/js/tinymce/tinymce.min.js' %>"
+    theme: 'modern'
+    plugins: 'link image media'
+    skin: false  # Skin is bundled into CSS
