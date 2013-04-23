@@ -92,7 +92,7 @@ onto per since than the this that to up via with)
 
   def render_body
     html = RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
-    EmbeddedMedia.new(html).render_media.to_s
+    EmbeddedMedia.new(html).to_s
   end
 
   def section=(taxonomy)

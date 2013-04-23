@@ -58,6 +58,9 @@ def base_configs
     else
       SolrTestServer.stub
     end
+
+    # Path helpers
+    config.include Rails.application.routes.url_helpers
   end
 
   end
