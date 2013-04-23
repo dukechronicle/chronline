@@ -19,8 +19,9 @@ selectImage = ($imagePicker, image) ->
   $('#image-select').modal('hide')
 
 insertImage = ($articleBody, image) ->
-  $articleBody.val( $articleBody.val() + "{{Image:#{image.id}}}" )
+  tag = "{{Image:#{image.id}}}"
   $('#image-select').modal('hide')
+  alert("Copy and paste this into a paragraph:\n" + tag)
 
 createModal = (version) ->
   template = $('#image-select-template').text()
