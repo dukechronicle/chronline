@@ -2,9 +2,15 @@ class Page::Layouts::StaffHighlight < Layout
 
   def schema
     {
-      'articles' => {
+      'senior_columns' => {
         'type' => 'array',
-        'label' => 'Staff Articles',
+        'label' => 'Staff Columns',
+        'required' => true,
+        'items' => article_schema,
+      },
+      'editor_columns' => {
+        'type' => 'array',
+        'label' => 'Editor Columns',
         'required' => true,
         'items' => article_schema,
       },
