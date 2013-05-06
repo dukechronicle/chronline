@@ -4,7 +4,7 @@ class Article::EmbeddedMedia
 
   def initialize(body)
     @body = body
-    render_media
+    @rendered = nil
   end
 
   def render_media()
@@ -21,14 +21,15 @@ class Article::EmbeddedMedia
 
     class_objects = get_class_objects(class_ids_hash)
 
-    @body.gsub!(/{{([a-zA-z]*):([0-9]*)}} ?/) do |t|
+    @rendered = @body.gsub(/{{([a-zA-z]*):([0-9]*)}} ?/) do |t|
       tag = tags.shift
       tag.to_html(class_objects)
     end
   end
 
   def to_s
-    @body
+    render_media if @rendered.nil?
+    @rendered
   end
 
   private
