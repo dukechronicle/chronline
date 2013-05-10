@@ -19,4 +19,4 @@
 
 .clearfix
   - @model.articles.each_with_index do |article, i|
-    .span-3{class: (i % 4 == 3 ? 'last' : nil)}= render partial: 'site/containers/block/wide', locals: {article: article}
+    .span-3{class: (i % 4 == 3 ? 'last' : nil)}= render partial: 'site/containers/block/wide', locals: {article: article, show_image: false}
