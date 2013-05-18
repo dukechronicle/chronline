@@ -7,7 +7,7 @@
   %span.date= article.published_at.strftime("%B %e, %Y")
 
 - if article.image
-  %img{src: article.image.original.url(:thumb_rect_l), width: 276, height: 165, alt: "Chronicle Image", style: 'display:block;'}
+  %img{src: 'https:' + article.image.original.url(:thumb_rect_l), width: 276, height: 165, alt: "Chronicle Image", style: 'display:block;'}
 
 %p= article.teaser
 

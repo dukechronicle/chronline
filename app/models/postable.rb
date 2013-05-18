@@ -15,7 +15,7 @@ module Postable
   end
 
   def render_body
-    RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
+    body
   end
 
   # Can't define them directly, as this must be included after FriendlyId

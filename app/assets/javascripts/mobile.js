@@ -1,5 +1,5 @@
 //= require jquery/jquery.js
-//= require jquery.mobile-1.2.0.min.js
+//= require jquery.mobile-1.2.1.js
 //= require underscore/underscore.js
 //= require date.format.js
 
