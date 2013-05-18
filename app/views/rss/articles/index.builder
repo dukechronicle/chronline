@@ -19,7 +19,7 @@ xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
         xml.link site_article_url(article, subdomain: 'www')
         xml.description article.render_body
         xml.author byline(article)
-        xml.pubDate article.created_at.rfc822
+        xml.pubDate article.published_at.rfc822
         xml.comments site_article_url(article, subdomain: 'www') + '#disqus_thread'
         if article.image
           xml.enclosure(url: article.image.original.url(:large_rect),
