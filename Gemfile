@@ -82,6 +82,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'cucumber-websteps'
   gem 'database_cleaner'
+  gem 'fabrication'
   gem 'factory_girl_rails'
   gem 'guard-cucumber'
   gem 'guard-spork'
