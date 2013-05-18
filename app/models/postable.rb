@@ -1,5 +1,5 @@
 module Postable
-  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
 
 
   def self.included(base)
