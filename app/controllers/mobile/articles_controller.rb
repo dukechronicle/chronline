@@ -12,8 +12,9 @@ class Mobile::ArticlesController < Mobile::BaseController
     end
 
     @articles = Article.includes(:authors, :image)
+      .published
       .section(@taxonomy)
-      .order('created_at DESC')
+      .order('published_at DESC')
       .limit(7)
   end
 

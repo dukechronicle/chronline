@@ -30,10 +30,11 @@ class Article < ActiveRecord::Base
   validates :teaser, length: {maximum: 200}
 
   scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
+  scope :published, where('published_at IS NOT NULL')
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable(include: :authors) do
+  searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
@@ -43,7 +44,7 @@ class Article < ActiveRecord::Base
     string :section do
       section[0]
     end
-    time :created_at, trie: true
+    time :published_at, trie: true
   end
 
   def register_view
@@ -97,12 +98,17 @@ class Article < ActiveRecord::Base
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.where(slug: slugs.map(&:first))
+    articles = self.published.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
   end
+
+  def published?
+    not published_at.nil?
+  end
+
 
   ###
   # Helper methods for rendering JSON

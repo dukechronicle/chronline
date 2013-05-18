@@ -2,7 +2,8 @@ class Site::StaffController < Site::BaseController
 
   def articles
     @staff = Staff.find(params[:id])
-    @articles = @staff.articles.page(params[:page]).order('created_at DESC')
+    @articles = @staff.articles
+      .published.order('published_at DESC').page(params[:page])
   end
 
   def images
