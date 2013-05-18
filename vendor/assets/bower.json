@@ -7,14 +7,13 @@
     "blueimp-tmpl": "latest",
     "bootstrap": "~2.3.1",
     "jcrop": "~0.9.12",
-    "jquery": "latest",
-    "jquery-file-upload": "latest",
-    "jquery-ui": "~1.9.2",
+    "jquery": "~1.9.1",
+    "jquery-file-upload": "~8.1.0",
+    "jquery-ui": "~1.10.3",
     "onde": "git://github.com/exavolt/onde.git",
     "underscore": "latest",
-    "jquery-galleria": "~1.2.8",
+    "jquery-galleria": "~1.2.9",
     "jquery-masonry": "latest",
-    "jquery.cookie": "latest",
-    "jquery.autoellipsis": "git://github.com/pvdspek/jquery.autoellipsis.git"
+    "jquery.cookie": "latest"
   }
 }

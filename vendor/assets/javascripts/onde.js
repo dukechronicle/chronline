@@ -73,17 +73,17 @@ onde.Onde = function (formElement, schema, documentInst, opts) {
     this.documentSchema = schema;
     this.documentInstance = documentInst;
     // Object property adder
-    this.panelElement.find('.property-add').live('click', function (evt) {
+    this.panelElement.on('click', '.property-add', function (evt) {
         evt.preventDefault();
         _inst.onAddObjectProperty($(this));
     });
     // Array item adder
-    this.panelElement.find('.item-add').live('click', function (evt) {
+    this.panelElement.on('click', '.item-add', function (evt) {
         evt.preventDefault();
         _inst.onAddListItem($(this));
     });
     // Collapsible field (object and array)
-    this.panelElement.find('.collapser').live('click', function (evt) {
+    this.panelElement.on('click', '.collapser', function (evt) {
         var collapser = $(this);
         var fieldId = collapser.attr('data-fieldvalue-container-id');
         //TODO: Check the field. It must not be inline.
@@ -101,7 +101,7 @@ onde.Onde = function (formElement, schema, documentInst, opts) {
         }
     });
     // Field deleter (property and item)
-    this.panelElement.find('.field-delete').live('click', function (evt) {
+    this.panelElement.on('click', '.field-delete', function (evt) {
         evt.preventDefault();
         evt.stopPropagation(); //CHECK: Only if collapsible
         $('#' + $(this).attr('data-id')).fadeOut('fast', function () {
@@ -117,7 +117,7 @@ onde.Onde = function (formElement, schema, documentInst, opts) {
         });
     });
     // Type selector
-    this.panelElement.find('.field-type-select').live('change', function (evt) {
+    this.panelElement.on('click', '.field-type-select', function (evt) {
         evt.preventDefault();
         _inst.onFieldTypeChanged($(this));
     });
