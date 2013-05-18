@@ -1,5 +1,5 @@
 module Postable
-  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
 
 
   def self.included(base)
@@ -7,7 +7,7 @@ module Postable
     base.friendly_id(:title, use: [:slugged, :history])
 
     base.send(:include, InstanceMethods)
-    base.attr_accessible :body, :image_id, :title
+    base.attr_accessible :body, :image_id, :title, :published_at
     base.belongs_to :image
 
     base.validates :body, presence: true
@@ -15,7 +15,7 @@ module Postable
   end
 
   def render_body
-    RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
+    body
   end
 
   # Can't define them directly, as this must be included after FriendlyId
@@ -36,7 +36,7 @@ onto per since than the this that to up via with)
       s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
       s = s[0...max_chars].chomp('-')
 
-      (created_at || Date.today).strftime('%Y/%m/%d/') + s
+      (published_at || Date.today).strftime('%Y/%m/%d/') + s
     end
 
   end

@@ -14,7 +14,7 @@
             - if article.image
               = image_tag article.image.original.url(:thumb_square_s)
             %h2= article.title
-            %p #{byline(article)} | #{article.created_at.strftime("%B %e, %Y")}
+            %p #{byline(article)} | #{article.published_at.strftime("%B %e, %Y")}
   - @taxonomy.children.each do |child|
     %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true", section: child.to_s}}
       %h3= child.name
