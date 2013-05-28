@@ -9,9 +9,9 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-
 module Chronline
   class Application < Rails::Application
+    # Load application settings into Settings global constant
     RailsConfig.load_and_set_settings(
       Rails.root.join("config", "settings.yml").to_s,
       Rails.root.join("config", "settings", "#{Rails.env}.yml").to_s,
@@ -22,22 +22,12 @@ module Chronline
       Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
     )
 
-    config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
-
-    config.middleware.use Rack::Cors do
-      allow do
-        origins %r{https?://\w+\.#{Settings.domain}}
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
-      end
-    end
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extensions)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -79,19 +69,34 @@ module Chronline
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Don't connect to database on precompile
+    # https://devcenter.heroku.com/articles/rails-asset-pipeline
     config.assets.initialize_on_precompile = false
 
-    config.action_mailer.default_url_options = {host: Settings.domain}
+    # Add Bower components to asset search path
+    config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
 
+    # Action mailer configuration
+    config.action_mailer.default_url_options = { host: Settings.domain }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
 
+    # Allow HTTP response access to all subdomains
+    config.middleware.use Rack::Cors do
+      allow do
+        origins %r{https?://\w+\.#{Settings.domain}}
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
+
+    # Use routes to handle exceptions (https://coderwall.com/p/w3ghqq)
     config.exceptions_app = self.routes
   end
 end
 
-# Load core extensions
-Dir[File.join(Rails.root, "lib", "extensions", "core", "*.rb")].each do |file|
+# Load extensions
+Dir[File.join(Rails.root, "lib", "extensions", "**", "*.rb")].each do |file|
   require file
 end

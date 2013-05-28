@@ -1,7 +1,4 @@
 Chronline::Application.configure do
-  # Make sure we preload the parent and children classes in development
-  require_dependency File.join("app", "models", "newsletter.rb")
-
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -16,7 +13,7 @@ Chronline::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send
+  # Alert if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
@@ -38,8 +35,13 @@ Chronline::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Send logs to standard output
   config.logger = Logger.new(STDOUT)
 
+  # Make sure we preload the parent and children classes in development
+  require_dependency File.join("app", "models", "newsletter.rb")
+
+  # Configure ActionMailer to use Gmail
   ActionMailer::Base.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
@@ -49,5 +51,4 @@ Chronline::Application.configure do
     user_name: Settings.gmail.username,
     password: Settings.gmail.password,
   }
-
 end
