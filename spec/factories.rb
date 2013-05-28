@@ -24,7 +24,7 @@ FactoryGirl.define do
     attribution "? / Gym Leader"
     caption "Ash battles Gary to become the Pokemon champion."
     location "Pokemon Stadium"
-    photographer { Staff.find_or_create_by_name(Faker::Name.name) }
+    association :photographer, factory: :staff, strategy: :build
     original { fixture_file_upload('lib/sample-images/pikachu.png') }
   end
 
