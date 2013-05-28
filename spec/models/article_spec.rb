@@ -41,6 +41,32 @@ describe Article do
     end
   end
 
+  describe "::section" do
+    let(:articles) do
+      articles = FactoryGirl.create_list(:article, 3)
+      articles[0].update_attributes(section: '/news/')
+      articles[1].update_attributes(section: '/news/university/')
+      articles[2].update_attributes(section: '/sports/')
+      articles
+    end
+
+    subject { Article.section(Taxonomy.new(['News'])) }
+
+    it "should return all articles with a subsection of the given section" do
+      should include(articles[0])
+      should include(articles[1])
+    end
+
+    it "should exclude articles in other sections" do
+      should_not include(articles[2])
+    end
+
+    it "should be chainable with other query methods" do
+      articles = Article.section(Taxonomy.new(['News'])).limit(1)
+      articles.should have(1).article
+    end
+  end
+
   describe "#register_view" do
     let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
     let(:article) { FactoryGirl.create(:article) }
@@ -126,32 +152,6 @@ describe Article do
 
     it "should return no more than the specified number of articles" do
       Article.popular(:news, limit: 2).should have(2).articles
-    end
-  end
-
-  describe "::section" do
-    let(:articles) do
-      articles = FactoryGirl.create_list(:article, 3)
-      articles[0].update_attributes(section: '/news/')
-      articles[1].update_attributes(section: '/news/university/')
-      articles[2].update_attributes(section: '/sports/')
-      articles
-    end
-
-    subject { Article.section(Taxonomy.new(['News'])) }
-
-    it "should return all articles with a subsection of the given section" do
-      should include(articles[0])
-      should include(articles[1])
-    end
-
-    it "should exclude articles in other sections" do
-      should_not include(articles[2])
-    end
-
-    it "should be chainable with other query methods" do
-      articles = Article.section(Taxonomy.new(['News'])).limit(1)
-      articles.should have(1).article
     end
   end
 
