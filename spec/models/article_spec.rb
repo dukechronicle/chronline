@@ -140,7 +140,7 @@ describe Article do
 
     it "should not fail if article is in root taxonomy" do
       article.section = '/'
-      ->{article.register_view}.should_not raise_error
+      ->{ article.register_view }.should_not raise_error
     end
   end
 
