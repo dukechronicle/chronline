@@ -30,64 +30,6 @@ describe Article do
 
   it { Article.should be_searchable }
 
-  describe "#section" do
-    before { article.section = Taxonomy.new(['News', 'University']) }
-
-    its(:section) { should be_a_kind_of(Taxonomy) }
-    its(:section) { should == Taxonomy.new(['News', 'University']) }
-
-    it "should default to root taxonomy" do
-      Article.new.section.should be_root
-    end
-  end
-
-  describe "::section" do
-    let(:articles) do
-      articles = FactoryGirl.create_list(:article, 3)
-      articles[0].update_attributes(section: '/news/')
-      articles[1].update_attributes(section: '/news/university/')
-      articles[2].update_attributes(section: '/sports/')
-      articles
-    end
-
-    subject { Article.section(Taxonomy.new(['News'])) }
-
-    it "should return all articles with a subsection of the given section" do
-      should include(articles[0])
-      should include(articles[1])
-    end
-
-    it "should exclude articles in other sections" do
-      should_not include(articles[2])
-    end
-
-    it "should be chainable with other query methods" do
-      articles = Article.section(Taxonomy.new(['News'])).limit(1)
-      articles.should have(1).article
-    end
-  end
-
-  describe "#register_view" do
-    let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
-    let(:article) { FactoryGirl.create(:article) }
-
-    it "should increment its id in the redis sorted set" do
-      $redis.should_receive(:zincrby).with(key_pattern, 1, article.id)
-      article.register_view
-    end
-
-    it "should expire the key in 5 days" do
-      timestamp = 5.days.from_now.to_date.to_time.to_i
-      $redis.should_receive(:expireat).with(key_pattern, timestamp)
-      article.register_view
-    end
-
-    it "should not fail if article is in root taxonomy" do
-      article.section = '/'
-      ->{article.register_view}.should_not raise_error
-    end
-  end
-
   describe "::most_commented" do
     include Rails.application.routes.url_helpers
 
@@ -152,6 +94,64 @@ describe Article do
 
     it "should return no more than the specified number of articles" do
       Article.popular(:news, limit: 2).should have(2).articles
+    end
+  end
+
+  describe "::section" do
+    let(:articles) do
+      [
+       FactoryGirl.create(:article, section: '/news/'),
+       FactoryGirl.create(:article, section: '/news/university/'),
+       FactoryGirl.create(:article, section: '/sports/'),
+      ]
+    end
+
+    subject { Article.section(Taxonomy.new(['News'])) }
+
+    it "should return all articles with a subsection of the given section" do
+      should include(articles[0])
+      should include(articles[1])
+    end
+
+    it "should exclude articles in other sections" do
+      should_not include(articles[2])
+    end
+
+    it "should be chainable with other query methods" do
+      articles = Article.section(Taxonomy.new(['News'])).limit(1)
+      articles.should have(1).article
+    end
+  end
+
+  describe "#register_view" do
+    let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
+    let(:article) { FactoryGirl.create(:article) }
+
+    it "should increment its id in the redis sorted set" do
+      $redis.should_receive(:zincrby).with(key_pattern, 1, article.id)
+      article.register_view
+    end
+
+    it "should expire the key in 5 days" do
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.should_receive(:expireat).with(key_pattern, timestamp)
+      article.register_view
+    end
+
+    it "should not fail if article is in root taxonomy" do
+      article.section = '/'
+      ->{article.register_view}.should_not raise_error
+    end
+  end
+
+  describe "#section" do
+    before { article.section = Taxonomy.new(['News', 'University']) }
+
+    its(:section) { should be_a_kind_of(Taxonomy) }
+    its(:section) { should == Taxonomy.new(['News', 'University']) }
+
+    it "should default to root taxonomy" do
+      Article.new.section.should be_root
     end
   end
 
