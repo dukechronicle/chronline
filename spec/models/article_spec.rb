@@ -23,9 +23,9 @@ describe Article do
 
   it { should have_and_belong_to_many :authors }
   it { should validate_presence_of :authors }
-  it { should accept_values_for(:teaser, Faker::Lorem.paragraph(2)) }
+  it { should allow_value(Faker::Lorem.paragraph(2)).for(:teaser) }
   it "should not allow long teasers" do
-    should_not accept_values_for(:teaser, Faker::Lorem.paragraph(10))
+    should_not allow_value(Faker::Lorem.paragraph(10)).for(:teaser)
   end
 
   it { Article.should be_searchable }
