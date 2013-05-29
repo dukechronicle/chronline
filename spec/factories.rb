@@ -9,6 +9,7 @@ FactoryGirl.define do
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
     authors { [Staff.find_or_create_by_name(Faker::Name.name)] }
+    published_at 1.day.ago
   end
 
   factory :staff do
