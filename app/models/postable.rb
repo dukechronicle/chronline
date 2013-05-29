@@ -12,10 +12,11 @@ module Postable
 
     base.validates :body, presence: true
     base.validates :title, presence: true, length: {maximum: 90}
-  end
 
-  def render_body
-    body
+    base.scope :published, ->{
+      base.where('published_at IS NOT NULL')
+        .where(['published_at < ?', DateTime.now])
+    }
   end
 
   # Can't define them directly, as this must be included after FriendlyId
@@ -37,6 +38,14 @@ onto per since than the this that to up via with)
       s = s[0...max_chars].chomp('-')
 
       (published_at || Date.today).strftime('%Y/%m/%d/') + s
+    end
+
+    def published?
+      not published_at.nil? and published_at < DateTime.now
+    end
+
+    def render_body
+      body
     end
 
   end

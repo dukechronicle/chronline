@@ -29,8 +29,7 @@ class Article < ActiveRecord::Base
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
 
-  scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
-  scope :published, where('published_at IS NOT NULL')
+  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
@@ -103,10 +102,6 @@ class Article < ActiveRecord::Base
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
-  end
-
-  def published?
-    not published_at.nil?
   end
 
 
