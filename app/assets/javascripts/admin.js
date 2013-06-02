@@ -27,4 +27,5 @@
 
 //= require util
 //= require initialize
+//= require admin/image-selector
 //= require_tree ./admin
