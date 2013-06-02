@@ -16,10 +16,6 @@ truncateArticleLists = ->
       else
         break
 
-truncateTeaser = ->
-  $(this).each ->
-    $(".teaser", $(this)).ellipsis();
-
 pageAlign = ->
   # Iterate through groups in reverse order so nested groups get aligned first
   groups = $(this).get().reverse()
@@ -49,4 +45,3 @@ verticalAlign = ->
 
 initialize '.vertical-label', loadAfterTypekit(verticalAlign)
 initialize '.align-group', loadAfterTypekit(pageAlign)
-initialize  '.article-row .row-article', loadAfterTypekit(truncateTeaser)

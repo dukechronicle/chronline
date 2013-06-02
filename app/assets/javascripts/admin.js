@@ -20,7 +20,9 @@
 //= require blueimp-canvas-to-blob/canvas-to-blob.min.js
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload.js
-//= require jquery-file-upload/js/jquery.fileupload-fp.js
+//= require jquery-file-upload/js/jquery.fileupload-process.js
+//= require jquery-file-upload/js/jquery.fileupload-resize.js
+//= require jquery-file-upload/js/jquery.fileupload-validate.js
 //= require jquery-file-upload/js/jquery.fileupload-ui.js
 
 //= require util
