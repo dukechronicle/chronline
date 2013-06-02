@@ -1,3 +1,18 @@
+IMAGE_SELECT_TEMPLATE = """
+<div id="image-select" class="modal hide fade">
+  <div class="modal-header">
+    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">
+      &times;
+    </button>
+    <h3 class="title">Select Image</h3>
+  </div>
+  <div class="modal-body">
+    <div class="images clearfix" />
+    <a id="next" href="#">More Images</a>
+  </div>
+</div>
+"""
+
 addImages = ($imageSelect, $imagePicker, $handler, images) ->
   for image in images
     $imageTag = $("<img src=\"#{image.thumbnail_url}\" />")
@@ -24,8 +39,7 @@ insertImage = ($articleBody, image) ->
   alert("Copy and paste this into a paragraph:\n" + tag)
 
 createModal = (version) ->
-  template = $('#image-select-template').text()
-  html = _.template(template, {})
+  html = _.template(IMAGE_SELECT_TEMPLATE, {})
   $imageSelect = $(html)
   $imageSelect.modal('show').on('hidden', -> $(this).remove())
 
