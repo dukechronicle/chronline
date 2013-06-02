@@ -46,6 +46,12 @@ class Article < ActiveRecord::Base
     time :published_at, trie: true
   end
 
+  ##
+  # Record temporarily that this article was viewed by a user. This data is
+  # stored in Redis for five days. The data is used to determine popularity of
+  # articles in each section. This should be called each time an article is
+  # viewed on the main site or on mobile.
+
   def register_view
     unless section.root?
       key = "popularity:#{section[0].downcase}:#{Date.today}"
@@ -57,15 +63,23 @@ class Article < ActiveRecord::Base
     end
   end
 
+  ##
+  # Search for articles with related content. Uses Solr to query for relevance.
+  # Returns the top +limit+ articles.
+
   def related(limit)
     search = Sunspot.more_like_this(self) do
       fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
     end
+    # Eager load authors
     search.data_accessor_for(self.class).include = :authors
     search.results
   end
+
+  ##
+  # Set article section. Creates a Taxonomy object if given a string argument.
 
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) unless taxonomy.is_a?(Taxonomy)
