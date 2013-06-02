@@ -33,5 +33,6 @@ FactoryGirl.define do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
     blog "bluezone"
+    association :author, factory: :staff
   end
 end

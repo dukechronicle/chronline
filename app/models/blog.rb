@@ -25,6 +25,10 @@ class Blog
     true
   end
 
+  def posts
+    Blog::Post.where(blog: id)
+  end
+
   def to_param
     id
   end

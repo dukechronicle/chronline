@@ -1,15 +1,20 @@
 require 'spec_helper'
 
-Blog.const_set(:Data, 'pokedex' => {
+Blog.const_set('Data',
+               'pokedex' => {
                  'name' => "The Pokedex",
                  'description' => "Gotta catch em all",
+               },
+               'kanto_news' => {
+                 'name' => "Kanto News",
+                 'description' => "Everything about Kanto",
                })
 
 
 describe Blog do
 
   it "should not be directly instantiable" do
-    ->{Blog.new}.should raise_error
+    ->{ Blog.new }.should raise_error
   end
 
   let(:blog) { Blog.find('pokedex') }
@@ -19,7 +24,6 @@ describe Blog do
   it { should be_persisted }
 
   describe "::find" do
-    # Attributes for 'pokedex' blog are in config/settings/test.yml
     its(:id) { should == 'pokedex' }
     its(:name) { should == 'The Pokedex' }
     its(:description) { should == "Gotta catch em all" }
@@ -38,12 +42,20 @@ describe Blog do
   describe "::all" do
     subject { Blog.all }
 
-    it { should have(1).blog }
+    it { should have(2).blogs }
     it { should include(blog) }
   end
 
   describe "::each" do
-    it { expect {|b| Blog.each(&b) }.to yield_successive_args(subject) }
+    it { expect {|b| Blog.each(&b) }.to yield_successive_args(*Blog.all) }
   end
 
+  describe "#posts" do
+    before do
+      FactoryGirl.create(:blog_post, blog: 'kanto_news')
+      FactoryGirl.create(:blog_post, blog: 'pokedex')
+    end
+
+    its(:posts) { should have(1).item }
+  end
 end
