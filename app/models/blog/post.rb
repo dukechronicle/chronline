@@ -4,7 +4,7 @@ class Blog
 
     self.table_name = :blog_posts
 
-    # Hacks so that url_for works correctly for blog posts
+    # HAX: needed so that url_for works correctly for blog posts
     self.model_name.instance_variable_set(:@singular_route_key, "post")
     self.model_name.instance_variable_set(:@route_key, "posts")
 
