@@ -20,7 +20,7 @@ module Faker
     alias_method :phrase, :sentence
 
     def sentences(num = 3)
-      SENTENCES.sample(num).join(' ')
+      SENTENCES.sample(num)
     end
 
     alias_method :phrases, :sentences
@@ -30,7 +30,7 @@ module Faker
     end
 
     def paragraphs(num = 3)
-      PARAGRAPHS.sample(num).join(' ')
+      PARAGRAPHS.sample(num)
     end
 
     WORDS = k %w{

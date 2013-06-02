@@ -1,5 +1,4 @@
 namespace :db do
-
   desc "Refresh the database"
   task :refresh => [:reset, :populate, 'sunspot:solr:reindex']
 
