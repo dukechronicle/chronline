@@ -1,4 +1,19 @@
-tinymce.PluginManager.add('image', (editor) ->
+IMAGE_SELECT_TEMPLATE = """
+<div id="image-select" class="modal hide fade">
+  <div class="modal-header">
+    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">
+      &times;
+    </button>
+    <h3 class="title">Select Image</h3>
+  </div>
+  <div class="modal-body">
+    <div class="images clearfix" />
+    <a id="next" href="#">More Images</a>
+  </div>
+</div>
+"""
+
+tinymce.PluginManager.add 'image', (editor) ->
   addImages = ($imageSelect, $imagePicker, $handler, images) ->
     for image in images
       $imageTag = $("<img src=\"#{image.thumbnail_url}\" />")
@@ -14,8 +29,7 @@ tinymce.PluginManager.add('image', (editor) ->
     $('#image-select').modal('hide')
 
   createModal = (version) ->
-    template = $('#image-select-template').text()
-    html = _.template(template, {})
+    html = _.template(IMAGE_SELECT_TEMPLATE, {})
     $imageSelect = $(html)
     $imageSelect.modal('show').on('hidden', -> $(this).remove())
 
@@ -41,17 +55,17 @@ tinymce.PluginManager.add('image', (editor) ->
     imageSelect.loadImages = loadImages(articleBody, insertImage)
     imageSelect.loadImages()
 
-  editor.addButton('image', {
+  editor.addButton('image',
     icon: 'image',
     tooltip: 'Insert image',
     onclick: openMenu,
     stateSelector: 'img:not([data-mce-object])'
-  })
-  editor.addMenuItem('image', {
+  )
+
+  editor.addMenuItem('image',
     icon: 'image',
     text: 'Insert image',
     onclick: openMenu,
     context: 'insert',
     prependToContext: true
-  })
-)
+  )
