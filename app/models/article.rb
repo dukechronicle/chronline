@@ -29,11 +29,11 @@ class Article < ActiveRecord::Base
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
 
-  scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
+  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable(include: :authors) do
+  searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
@@ -43,8 +43,14 @@ class Article < ActiveRecord::Base
     string :section do
       section[0]
     end
-    time :created_at, trie: true
+    time :published_at, trie: true
   end
+
+  ##
+  # Record temporarily that this article was viewed by a user. This data is
+  # stored in Redis for five days. The data is used to determine popularity of
+  # articles in each section. This should be called each time an article is
+  # viewed on the main site or on mobile.
 
   def register_view
     unless section.root?
@@ -57,15 +63,23 @@ class Article < ActiveRecord::Base
     end
   end
 
+  ##
+  # Search for articles with related content. Uses Solr to query for relevance.
+  # Returns the top +limit+ articles.
+
   def related(limit)
     search = Sunspot.more_like_this(self) do
       fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
     end
+    # Eager load authors
     search.data_accessor_for(self.class).include = :authors
     search.results
   end
+
+  ##
+  # Set article section. Creates a Taxonomy object if given a string argument.
 
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) unless taxonomy.is_a?(Taxonomy)
@@ -97,12 +111,13 @@ class Article < ActiveRecord::Base
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.where(slug: slugs.map(&:first))
+    articles = self.published.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
   end
+
 
   ###
   # Helper methods for rendering JSON

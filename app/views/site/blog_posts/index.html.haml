@@ -21,6 +21,8 @@
         .article-body
           != blog_post.render_body
 
+        = render partial: 'site/blog_posts/tags', locals: {blog_post: blog_post}
+
   = will_paginate
 
 

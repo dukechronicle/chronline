@@ -36,7 +36,7 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'compass-rails'
+  gem 'compass-rails', '~> 1.0.3'
   gem 'asset_sync'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -73,9 +73,9 @@ gem 'will_paginate'
 gem 'sitemap_generator'
 gem 'carrierwave'
 gem 'fog'
+gem 'rmagick'
 
 group :test do
-  gem 'accept_values_for'
   gem 'capybara'
   gem 'poltergeist'
   gem 'cucumber-rails', :require => false
@@ -88,33 +88,6 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'mock_redis'
-
-  platforms :mingw, :mswin do
-    gem 'rb-fchange'
-    gem 'rb-notifu'
-    gem 'win32console'
-  end
-
-  platforms :ruby do
-    gem 'rb-inotify',
-      require: RbConfig::CONFIG['host_os'].include?('linux') && 'rb-inotify'
-    gem 'libnotify',
-      require: RbConfig::CONFIG['host_os'].include?('linux') && 'libnotify'
-    gem 'rb-fsevent',
-      require: RbConfig::CONFIG['host_os'].include?('darwin') && 'rb-fsevent'
-  end
-
-end
-
-# Installed but manually required; equivalent of ":require => false"
-group :install do
-  gem 'spork'
-  # Test Progress Bars
-  gem 'nyan-cat-formatter'
-  gem 'fuubar'
-  gem 'fuubar-cucumber'
-  gem 'simplecov'
-  gem 'growl'
 end
 
 # To use ActiveModel has_secure_password

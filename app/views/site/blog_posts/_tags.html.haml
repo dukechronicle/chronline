@@ -1,0 +1,5 @@
+- if blog_post.tags.present?
+  .tags-row
+    %ul.tags
+      - blog_post.tags.each do |tag|
+        %li= tag

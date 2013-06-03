@@ -3,9 +3,6 @@ aws:
   access_key_id: access_key
   secret_access_key: secret_key
   bucket: chrondev
-blogs:
-  pokedex:
-    name: The Pokedex
 content_cdn: cdn.example.com
 disqus:
   api_key: disqus_key
@@ -19,3 +16,5 @@ mailchimp:
   from_name: Duke Chronicle
   list_id: list_id
   template_id: 429
+rspec:
+  formatter: :documentation

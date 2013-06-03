@@ -11,7 +11,7 @@ class Blog
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :name, :image
+  attr_accessor :id, :name, :image, :description
 
 
   def initialize(attributes={})
@@ -25,8 +25,16 @@ class Blog
     true
   end
 
+  def posts
+    Blog::Post.where(blog: id)
+  end
+
   def to_param
     id
+  end
+
+  def ==(other)
+    other.is_a? Blog and self.id == other.id
   end
 
   def self.find(id)
