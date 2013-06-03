@@ -5,6 +5,8 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'www' do
     namespace :site, path: '/'  do
+      get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
+
       get 'search' => 'articles#search'
       resource :newsletter, only: :show do
         post 'subscribe'
@@ -86,7 +88,10 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :articles, except: :show, id: Postable::SLUG_PATTERN
+      resources :articles, except: :show, id: Postable::SLUG_PATTERN do
+        post :publish, on: :member
+      end
+
       resources :pages, except: :show
       resources :staff, except: :show
 

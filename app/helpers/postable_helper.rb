@@ -1,7 +1,7 @@
 module PostableHelper
 
   def display_date(postable, format=nil, options={})
-    data = {timestamp: postable.created_at.to_time.to_i}
+    data = {timestamp: postable.published_at.to_time.to_i}
     data[:format] = format unless format.nil?
     data[:notime] = "true" if options[:notime]
     content_tag(:span, nil, class: 'local-time', data: data)

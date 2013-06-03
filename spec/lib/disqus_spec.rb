@@ -28,7 +28,6 @@ describe Disqus do
     end
 
     context "unsuccessful response" do
-
       it "should return nil" do
         stub_request(:get, "https://disqus.com/api/3.0/pokemon/" +
                      "fireTypes.json?api_key=#{API_KEY}&name=charmander")
@@ -36,9 +35,6 @@ describe Disqus do
         disqus.request(:pokemon, :fire_types, name: :charmander)
           .should be_nil
       end
-
     end
-
   end
-
 end

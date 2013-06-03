@@ -4,8 +4,8 @@ module ActiveRecordExtensions
   module ClassMethods
 
     def find_in_order(ids)
-      models = self.where(id: ids).map {|model| [model.id, model]}.to_h
-      ids.map {|id| models[id]}
+      models = Hash[self.where(id: ids).map { |model| [model.id, model] }]
+      ids.map { |id| models[id] }
     end
 
   end

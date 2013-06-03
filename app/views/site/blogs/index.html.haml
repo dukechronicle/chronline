@@ -5,9 +5,4 @@
 .align-group.clearfix
   - Blog.all.each_with_index do |blog, i|
     .span-4.align-element{data: {aligntarget: '.rounded'}, class: ("last" if i % 3 == 2)}
-      .rounded
-        %a.hover{href: site_blog_posts_path(blog)}
-          .image-container
-            = image_tag blog.image
-          .content-container
-            %h1= blog.name
+      = render 'site/partials/blog-info', {blog: blog, show_label: false}
