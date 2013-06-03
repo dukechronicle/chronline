@@ -6,14 +6,14 @@ namespace :bower do
   desc "Install Bower packages"
   task :install do
     in_vendor_assets remove_components: true do
-      bower 'install'
+      system 'bower install'
     end
   end
 
   desc "Update Bower packages"
   task :update do
     in_vendor_assets do
-      bower 'update'
+      system 'bower update'
     end
   end
 
@@ -59,12 +59,4 @@ def replace_urls(filename, contents, matches)
     puts "#{url_tag} => #{image_path}"
     contents.sub!(url_tag, "url(<%= asset_path '#{image_path}' %>)")
   end
-end
-
-def bower(arguments)
-  bower = find_command('bower') or
-    raise "Bower not found! You can install Bower using Node and npm:
-    `npm install bower -g`
-For more info see http://twitter.github.com/bower/"
-  system("#{bower} #{arguments}")
 end
