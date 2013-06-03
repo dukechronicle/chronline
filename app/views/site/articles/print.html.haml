@@ -1,4 +1,5 @@
 - provide :title, @article.title
+- provide(:title, @description) unless content_for? :description
 
 - content_for :head do
   %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
