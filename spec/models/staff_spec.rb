@@ -18,49 +18,75 @@
 require 'spec_helper'
 
 describe Staff do
+
+  it { should have_many(:images).with_foreign_key(:photographer_id) }
+  it do
+    should have_many(:blog_posts)
+      .with_foreign_key(:author_id)
+      .class_name("Blog::Post")
+  end
+  it { should have_and_belong_to_many(:articles) }
+  it { should belong_to(:headshot).class_name("Image") }
+
+  it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
+
+
   describe Staff do
-    before do
-      @staff = [Author.create(name: 'Joe Smith'),
-                Author.create(name: 'John Smith'),
-                Photographer.create(name: 'Jordan Smith'),
-                Author.create(name: 'Will Smith')]
+    let!(:staff) do
+      [
+       FactoryGirl.create(:staff, name: 'Joe Smith'),
+       FactoryGirl.create(:staff, name: 'John Smith'),
+       FactoryGirl.create(:staff, name: 'Will Smith'),
+      ]
     end
 
     describe "::search" do
       it "should return staff with matching names" do
-        Staff.search('Jo').should have(3).members
+        Staff.search('Jo').should have(2).members
       end
 
       it "should return all when given nil" do
-        Staff.search(nil).should have(4).members
-      end
-
-      it "should search by staff type" do
-        Photographer.search(nil).should have(1).members
+        Staff.search(nil).should have(3).members
       end
     end
   end
 
-  describe Author do
-    describe "::find_or_create_all_by_name" do
-      before(:each) do
-        @author = Author.create(name: 'Ash Ketchum')
-      end
+  describe "#author?" do
+    subject { FactoryGirl.build(:staff) }
 
-      it "should return authors if they exist" do
-        authors = Author.find_or_create_all_by_name(['Ash Ketchum'])
-        authors.should == [@author]
-      end
+    context "when staff has no articles" do
+      it { should_not be_author }
+    end
 
-      it "should create authors if they don't exist" do
-        expect { Author.find_or_create_all_by_name(['Hiker Martin']) }
-          .to change(Author, :count).by(1)
-      end
+    context "when staff has an article" do
+      before { subject.articles << FactoryGirl.build(:article) }
+      it { should be_author }
+    end
+  end
 
-      it "should return new authors when they don't exist" do
-        Author.find_or_create_all_by_name(['Ash Ketchum', 'Hiker Martin'])
-          .should == [@author, Author.find_by_name('Hiker Martin')]
-      end
+  describe "#last_name" do
+    context "when name has two words" do
+      subject { FactoryGirl.build(:staff, name: 'Ash Ketchum') }
+      its(:last_name) { should == 'Ketchum' }
+    end
+
+    context "when name has more than two words" do
+      subject { FactoryGirl.build(:staff, name: 'Champion Ash Ketchum') }
+      its(:last_name) { should == 'Ketchum' }
+    end
+  end
+
+  describe "#photographer?" do
+    subject { FactoryGirl.build(:staff) }
+
+    context "when staff has no images" do
+      it { should_not be_photographer }
+    end
+
+    context "when staff has an image" do
+      before { subject.images << FactoryGirl.build(:image) }
+      it { should be_photographer }
     end
   end
 end

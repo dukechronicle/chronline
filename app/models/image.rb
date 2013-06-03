@@ -25,9 +25,10 @@ class Image < ActiveRecord::Base
   end
 
   def self.styles
-    Image::Styles.map do |type, info|
+    styles = Image::Styles.map do |type, info|
       [type.underscore.to_sym, "#{info['width']}x#{info['height']}#"]
-    end.to_h
+    end
+    Hash[styles]
   end
 
   attr_accessible :attribution, :caption, :date, :location, :original, :credit

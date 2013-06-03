@@ -6,7 +6,7 @@
         %legend Refine your search
         = f.search_field :query, results: '5'
         .facets
-          = f.input :sort, collection: [['Relevance', :score], ['Newest', :created_at]], default: 1, label: "Order by"
+          = f.input :sort, collection: [['Relevance', :score], ['Newest', :published_at]], default: 1, label: "Order by"
           = f.input :start_date, collection: [['Past 24 Hours', 1.day.ago.to_date],
                                               ['Past 7 Days', 7.days.ago.to_date],
                                               ['Past 30 Days', 30.days.ago.to_date],

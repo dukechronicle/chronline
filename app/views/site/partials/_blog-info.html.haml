@@ -1,7 +1,16 @@
-.blog-info
-  %h2.vertical-label Blog
+- unless defined? show_label then show_label = true end
+
+.blog-info.title-small
+  - if show_label
+    %h2.vertical-label Blog
   .rounded
-    .image-container
+    %a.banner{href: site_blog_posts_path(blog)}
       = image_tag blog.image
     .content-container
-      %h2= blog.name
+      %p.description= blog.description
+      %h3 Recent Posts
+      %ul.article-list
+        - recent_blog_posts(blog).each do |blog_post|
+          %li
+            %a.list-story.hover{href: site_blog_post_path(blog, blog_post)}
+              %h3.title= blog_post.title
