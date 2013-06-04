@@ -41,23 +41,24 @@ class Newsletter
   end
 
   def create_campaign(gb)
-    gb.campaign_create({type: :regular,
-                         analytics: {
-                           google: subject,
-                         },
-                         options: {
-                           list_id: Settings.mailchimp.list_id,
-                           subject: subject,
-                           from_email: Settings.mailchimp.from_email,
-                           from_name: Settings.mailchimp.from_name,
-                           template_id: Settings.mailchimp.template_id,
-                         },
-                         content: {
-                           html_MAIN: content,
-                           html_ADIMAGE: advertisement,
-                           html_ISSUEDATE: issue_date,
-                         },
-                       })
+    gb.campaign_create({
+      type: :regular,
+      options: {
+        list_id: Settings.mailchimp.list_id,
+        subject: subject,
+        from_email: Settings.mailchimp.from_email,
+        from_name: Settings.mailchimp.from_name,
+        template_id: Settings.mailchimp.template_id,
+        analytics: {
+          google: subject,
+        },
+      },
+      content: {
+        html_MAIN: content,
+        html_ADIMAGE: advertisement,
+        html_ISSUEDATE: issue_date,
+      },
+    })
   end
 
 end
