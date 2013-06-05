@@ -3,7 +3,7 @@ class Newsletter
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :test_email
+  attr_accessor :test_email, :scheduled_time, :scheduled_timezone
 
 
   def initialize(attributes)
