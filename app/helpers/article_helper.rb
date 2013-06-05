@@ -13,10 +13,7 @@ module ArticleHelper
 
   def display_date(article, format=nil, options={})
     publish_date = article.published_at || article.created_at
-    data = {timestamp: publish_date.to_time.to_i}
-    data[:format] = format unless format.nil?
-    data[:notime] = "true" if options[:notime]
-    content_tag(:span, nil, class: 'local-time', data: data)
+    datetime_tag(publish_date, format || 'mmmm d, yyyy', timestamp: !options[:notime])
   end
 
   def disqus_identifier(article)
