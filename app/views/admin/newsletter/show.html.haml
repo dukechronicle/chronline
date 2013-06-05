@@ -4,13 +4,20 @@
     .control-group
       %label.control-label{for: 'newsletter_article'} Article
       .controls
-        %input.input-enabler{type: 'checkbox', data: {target: 'newsletter_article'}}
+        %input.input-enabler{type: 'checkbox'}
         = f.text_field :article, disabled: true, class: 'input-xlarge', class: 'input-xlarge article-picker'
         %span.help-block= link_to "Lay out the newsletter here", edit_admin_page_path(@newsletter_page)
     .control-group
       %label.control-label{for: 'newsletter_test_email'} Test email
       .controls
-        %input.input-enabler{type: 'checkbox', data: {target: 'newsletter_test_email'}}
+        %input.input-enabler{type: 'checkbox'}
         = f.text_field :test_email, disabled: true, class: 'input-xlarge'
+    .control-group
+      %label.control-label{for: 'newsletter_scheduled_time'} Schedule
+      .controls
+        %input.input-enabler{type: 'checkbox'}
+        = f.time_select :scheduled_time, {ampm: true, disabled: true, default: ActiveSupport::TimeZone["Eastern Time (US & Canada)"].now}, class: 'input-small'
+        = f.time_zone_select :scheduled_timezone, ActiveSupport::TimeZone.us_zones, {default: "Eastern Time (US & Canada)"}, disabled: true, class: 'input-xxlarge'
+        %span.help-block If this is active, the newsletter will be sent at this time. Otherwise, it will be sent immediately.
   .form-actions
     = f.submit 'Send', class: 'btn btn-large btn-primary'
