@@ -11,8 +11,8 @@ initialize 'time:empty', ->
       # Only show timestamp if the date refers to a time earlier today
       today = new Date()
       today.setHours(0, 0, 0, 0)
-      if date > today
+      if datetime > today
         $time = $('<span>')
         $time.addClass('timestamp')
-        $time.text(date.format('h:MM TT'))
+        $time.text(datetime.format('h:MM TT'))
         $(this).append(' ').append($time)
