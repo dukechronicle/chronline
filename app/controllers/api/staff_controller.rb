@@ -1,7 +1,7 @@
-class Api::StaffController < ApplicationController
+class Api::StaffController < Api::BaseController
 
   def index
-    render json: Staff.search(params[:search])
+    respond_with Staff.search(params[:search])
   end
 
 end
