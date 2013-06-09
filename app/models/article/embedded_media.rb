@@ -4,7 +4,6 @@ class Article::EmbeddedMedia
 
   def initialize(body)
     @body = body
-    @rendered = nil
   end
 
   def render_media()
