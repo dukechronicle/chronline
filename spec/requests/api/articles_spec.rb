@@ -1,37 +1,46 @@
 require 'spec_helper'
 
-describe "Articles API" do
+describe Api::ArticlesController do
 
   describe "GET /section/*" do
-    before { @article = FactoryGirl.create(:article_with_authors) }
-
+    let!(:original_articles) do
+      [
+       FactoryGirl.create(:article, section: '/news/'),
+       FactoryGirl.create(:article, section: '/news/', published_at: nil),
+      ]
+    end
     let(:success) { 200 }
-    let(:articles) { JSON.parse(response.body) }
+    let(:articles) { ActiveSupport::JSON.decode(response.body) }
+    subject { response }
 
-    describe "incorrect section" do
+    context "incorrect section" do
       before { get api_article_section_url(subdomain: :api, section: 'sports') }
 
-      it { response.status.should be(success) }
+      its(:status) { should == success }
       it { articles.should be_empty }
     end
 
     describe "correct section" do
+      let(:article) { original_articles[0] }
+
       before { get api_article_section_url(subdomain: :api, section: 'news') }
 
-      it { response.status.should be(success) }
-
+      its(:status) { should == success }
       it { articles.should have(1).articles }
 
+      it "should not include unpublished articles" do
+        articles.first['published_at'].should be_present
+      end
+
       it "should have article properties" do
-        attrs = json_attributes(@article)
-        attrs['section'] = @article.section.to_a
+        attrs = json_attributes(article)
+        attrs['section'] = article.section.to_a
         articles.first.should include(attrs)
       end
 
-      it "should have the authors" do
-        @article.authors.each_with_index do |author, i|
+      it "should include the authors" do
+        article.authors.each_with_index do |author, i|
           attrs = json_attributes(author)
-          attrs.delete('type')
           articles.first['authors'][i].should include(attrs)
         end
       end
