@@ -7,6 +7,7 @@ imageSelector =
     $imageSelect.on 'click', '#next', ->
       $imageSelect.loadImages(page++)
     $imageSelect.find('.modal-body .images').on 'click', 'img', ->
+      $imageSelect.modal('hide')
       callback($(this).data('image'))
 
     $imageSelect.modal('show').on('hidden', -> $(this).remove())
