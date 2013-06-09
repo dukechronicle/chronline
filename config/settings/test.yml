@@ -16,3 +16,4 @@ mailchimp:
   from_name: Duke Chronicle
   list_id: list_id
   template_id: 429
+secret_token: "I'll make you my dirty little secret"

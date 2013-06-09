@@ -8,6 +8,7 @@ FactoryGirl.define do
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
+    published_at Date.new(2008, 9, 30)
     authors { [Staff.find_or_create_by_name(Faker::Name.name)] }
   end
 
