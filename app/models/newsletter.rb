@@ -3,53 +3,22 @@ class Newsletter
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :test_email, :scheduled_time
+  attr_accessor :campaign_id, :scheduled_time, :test_email
 
 
-  def initialize(attributes)
-    @test_email = attributes[:test_email] if attributes
-    @scheduled_time = attributes[:scheduled_time] if attributes
+  def initialize(attributes = {})
+    attributes.each do |key, value|
+      send("#{key}=", value)
+    end
+    @gb = Gibbon.new(Settings.mailchimp.api_key)
   end
 
   def persisted?
     false
   end
 
-  def send_campaign
-    gb = Gibbon.new(Settings.mailchimp.api_key)
-    cid = create_campaign(gb)
-    if test_email.present?
-      gb.campaign_send_test(cid: cid, test_emails: [test_email])
-      "Campaign draft sent to #{test_email}"
-    elsif scheduled_time.present?
-      time_repr = scheduled_time.utc.strftime("%F %T")
-      gb.campaign_schedule(cid: cid, schedule_time: time_repr)
-      "Campaign scheduled to be sent at " +
-        scheduled_time.strftime('%r on %D %Z')
-    else
-      gb.campaign_send_now(cid: cid)
-      "Campaign was sent"
-    end
-  end
-
-
-  protected
-
-  def issue_date
-    Date.today.to_s
-  end
-
-
-  private
-
-  def advertisement
-    # TODO: make this configurable by non-developers
-    src = "http://#{Settings.content_cdn}/advertisements/#{Settings.mailchimp.ad_image}"
-    %{<a href="#{Settings.mailchimp.ad_href}"><img src="#{src}"/></a>}
-  end
-
-  def create_campaign(gb)
-    gb.campaign_create({
+  def create_campaign
+    @campaign_id = @gb.campaign_create({
       type: :regular,
       options: {
         list_id: Settings.mailchimp.list_id,
@@ -67,6 +36,33 @@ class Newsletter
         html_ISSUEDATE: issue_date,
       },
     })
+  end
+
+  def send_campaign!
+    if test_email.present?
+      @gb.campaign_send_test(cid: @campaign_id, test_emails: [test_email])
+      "Campaign draft sent to #{test_email}"
+    elsif scheduled_time.present?
+      time_repr = scheduled_time.utc.strftime("%F %T")
+      @gb.campaign_schedule(cid: @campaign_id, schedule_time: time_repr)
+      "Campaign scheduled to be sent at " +
+        scheduled_time.strftime('%r on %D %Z')
+    else
+      @gb.campaign_send_now(cid: @campaign_id)
+      "Campaign was sent"
+    end
+  end
+
+  protected
+  def issue_date
+    Date.today.to_s
+  end
+
+  private
+  def advertisement
+    # TODO: make this configurable by non-developers
+    src = "http://#{Settings.content_cdn}/advertisements/#{Settings.mailchimp.ad_image}"
+    %{<a href="#{Settings.mailchimp.ad_href}"><img src="#{src}"/></a>}
   end
 
 end
