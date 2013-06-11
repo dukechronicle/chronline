@@ -14,7 +14,8 @@ class Admin::NewsletterController < Admin::BaseController
       newsletter = DailyNewsletter.new(params[:newsletter])
     end
 
-    message = newsletter.send_campaign
+    newsletter.create_campaign
+    message = newsletter.send_campaign!
     flash[:success] = message
     redirect_to admin_newsletter_path
   end
