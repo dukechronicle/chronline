@@ -3,11 +3,12 @@ class Newsletter
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :test_email, :scheduled_time, :scheduled_timezone
+  attr_accessor :test_email, :scheduled_time
 
 
   def initialize(attributes)
     @test_email = attributes[:test_email] if attributes
+    @scheduled_time = attributes[:scheduled_time] if attributes
   end
 
   def persisted?
