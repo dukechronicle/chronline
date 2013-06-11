@@ -16,8 +16,8 @@
       %label.control-label{for: 'newsletter_scheduled_time'} Schedule
       .controls
         %input.input-enabler{type: 'checkbox'}
-        = f.time_select :scheduled_time, {ampm: true, disabled: true, default: ActiveSupport::TimeZone["Eastern Time (US & Canada)"].now}, class: 'input-small'
-        = f.time_zone_select :scheduled_timezone, ActiveSupport::TimeZone.us_zones, {default: "Eastern Time (US & Canada)"}, disabled: true, class: 'input-xxlarge'
+        = f.time_select :scheduled_time, {ampm: true, disabled: true, default: ActiveSupport::TimeZone[@timezone].now + 5.minutes}, class: 'input-small'
+        = time_zone_select :newsletter, :scheduled_timezone, ActiveSupport::TimeZone.us_zones, {default: @timezone}, disabled: true, class: 'input-xxlarge'
         %span.help-block If this is active, the newsletter will be sent at this time. Otherwise, it will be sent immediately.
   .form-actions
     = f.submit 'Send', class: 'btn btn-large btn-primary'
