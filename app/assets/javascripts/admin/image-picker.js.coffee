@@ -7,7 +7,6 @@ selectImage = ($imagePicker, image) ->
   $imagePicker.find('input').val(image.id)
   $imagePicker.find('.image-display').data('url', image.thumbnail_url)
   setVisibilities($imagePicker)
-  $('#image-select').modal('hide')
 
 setVisibilities = ($imagePicker) ->
   if $imagePicker.find('input').val()
