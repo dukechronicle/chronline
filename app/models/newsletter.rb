@@ -18,10 +18,17 @@ class Newsletter
   def send_campaign
     gb = Gibbon.new(Settings.mailchimp.api_key)
     cid = create_campaign(gb)
-    if test_email.nil?
-      gb.campaign_send_now(cid: cid)
-    else
+    if test_email.present?
       gb.campaign_send_test(cid: cid, test_emails: [test_email])
+      "Campaign draft sent to #{test_email}"
+    elsif scheduled_time.present?
+      time_repr = scheduled_time.utc.strftime("%F %T")
+      gb.campaign_schedule(cid: cid, schedule_time: time_repr)
+      "Campaign scheduled to be sent at " +
+        scheduled_time.strftime('%r on %D %Z')
+    else
+      gb.campaign_send_now(cid: cid)
+      "Campaign was sent"
     end
   end
 
@@ -51,7 +58,7 @@ class Newsletter
         from_name: Settings.mailchimp.from_name,
         template_id: Settings.mailchimp.template_id,
         analytics: {
-          google: subject,
+          google: subject[0...50]  # 50 character maximum,
         },
       },
       content: {
