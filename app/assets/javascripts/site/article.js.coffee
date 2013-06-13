@@ -1,8 +1,5 @@
 initialize '.embedded-image', ->
-  right = false
-  $(this).each( ->
-    $(this).addClass(if right then 'img-right' else 'img-left')
+  $(this).each (i) ->
+    $(this).addClass(if i % 2 == 0 then 'img-right' else 'img-left')
+    # Move to beginning of paragraph
     $(this).parent().prepend($(this).remove())
-    right = !right
-    return
-  )
