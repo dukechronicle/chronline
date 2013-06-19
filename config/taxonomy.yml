@@ -9,6 +9,8 @@
         - name: Dining
         - name: DSG
         - name: Graduate and Professional Schools
+        - name: Kunshan
+        - name: Renovations
         - name: Residence Life
         - name: Student Life
     - name: Local & National
@@ -16,6 +18,7 @@
         - name: City of Durham
         - name: Durham Crime
         - name: Higher Education
+        - name: International
         - name: National News and Politics
         - name: North Carolina
     - name: Health & Science
@@ -28,12 +31,13 @@
         - name: Student Health
 - name: Sports
   children:
-    - name: Column
-    - name: Baseball
     - name: Basketball
       children:
         - name: Men
         - name: Women
+    - name: Football
+    - name: Column
+    - name: Baseball
     - name: Cross Country
       children:
         - name: Men
@@ -43,7 +47,6 @@
         - name: Men
         - name: Women
     - name: Field Hockey
-    - name: Football
     - name: Golf
       children:
         - name: Men
@@ -88,9 +91,7 @@
     - name: Column
 - name: Towerview
   children:
-    - name: Savvy
-    - name: Prefix
-    - name: Wisdom
-    - name: Feature
-    - name: Column
+    - name: Bus Stop
+    - name: Plaza
+    - name: Inquisitor
     - name: Editor's Note

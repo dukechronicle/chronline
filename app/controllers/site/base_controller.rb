@@ -29,6 +29,7 @@ class Site::BaseController < ApplicationController
     @page = Page.find_by_path!(request.path)
     @model = @page.layout.model
     @title = @page.title
+    @description = @page.description
     render "site/pages/#{@page.layout_template.to_s.underscore}"
   end
 
