@@ -91,7 +91,6 @@
     - name: Column
 - name: Towerview
   children:
-    - name: Feature
     - name: Bus Stop
     - name: Plaza
     - name: Inquisitor
