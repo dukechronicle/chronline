@@ -4,7 +4,7 @@
 .clearfix
   .span-8
     #featured= render partial: 'site/partials/slideshow', locals: {articles: @model.featured, pages: [], pages_first: true}
-    #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+    #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: "Shutter", multimedia: @model.multimedia}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
