@@ -91,9 +91,8 @@
     - name: Column
 - name: Towerview
   children:
-    - name: Savvy
-    - name: Prefix
-    - name: Wisdom
     - name: Feature
-    - name: Column
+    - name: Bus Stop
+    - name: Plaza
+    - name: Inquisitor
     - name: Editor's Note
