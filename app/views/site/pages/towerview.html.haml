@@ -3,20 +3,15 @@
 
 .clearfix
   .span-8
-    #featured= render partial: 'site/containers/block/featured', locals: {article: @model.featured.first}
-    .clearfix
-      .span-4= render partial: 'site/containers/block/square', locals: {article: @model.featured[1]}
-      .span-4.last= render partial: 'site/containers/block/square', locals: {article: @model.featured[2]}
-
-    #savvy= render partial: 'site/containers/article-row', locals: {title: "Savvy", articles: @model.savvy, feature: true}
-    #wisdom= render partial: 'site/containers/article-row', locals: {title: "Wisdom", articles: @model.wisdom, feature: true}
-
-    #issuu.rounded
-      .image-container!= @model.issuu
+    #featured= render partial: 'site/partials/slideshow', locals: {articles: @model.featured, pages: [], pages_first: true}
+    #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: "Shutter", multimedia: @model.multimedia}
 
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
-    - @model.prefix.each do |article|
-      = render partial: 'site/containers/block/wide', locals: {title: nil, article: article}
+    #inquisitor= render partial: 'site/containers/block/wide', locals: {title: "The Inquisitor", article: @model.inquisitor}
 
+#bus-stop= render partial: 'site/containers/article-row', locals: {title: "The Bus Stop", articles: @model.bus_stop, feature: true}
+#plaza= render partial: 'site/containers/article-row', locals: {title: "The Plaza", articles: @model.plaza, feature: true}
+#issuu.rounded
+  .image-container!= @model.issuu
