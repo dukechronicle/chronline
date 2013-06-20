@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
+ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 
@@ -10,7 +10,8 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'thin'
+  gem 'thin', '~> 1.5.1'
+  gem 'eventmachine', '~> 1.0.3'
   gem 'newrelic_rpm'
 end
 
