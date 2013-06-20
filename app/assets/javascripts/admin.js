@@ -13,7 +13,7 @@
 //= require tinymce/js/tinymce/themes/modern/theme.min.js
 //= require tinymce/js/tinymce/plugins/link/plugin.min.js
 //= require tinymce/js/tinymce/plugins/media/plugin.min.js
-//= require tinymce/js/tinymce/plugins/image/plugin.min.js
+//= require admin/tinymce-image
 
 //= require blueimp-tmpl/tmpl.min.js
 //= require blueimp-load-image/load-image.min.js
@@ -29,4 +29,5 @@
 
 //= require util
 //= require initialize
+//= require admin/image-selector
 //= require_tree ./admin

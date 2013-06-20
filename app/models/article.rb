@@ -92,7 +92,7 @@ onto per since than the this that to up via with)
   end
 
   def render_body
-    body
+    EmbeddedMedia.new(body).to_s
   end
 
   def section=(taxonomy)
