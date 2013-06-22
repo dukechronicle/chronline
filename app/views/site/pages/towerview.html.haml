@@ -2,12 +2,12 @@
   = render 'site/partials/navigation'
 
 - cache do
-  .clearfix
-    .span-8
+  .clearfix.align-group
+    .span-8.align-element{data: {alignprimary: "true"}}
       #featured= render partial: 'site/partials/slideshow', locals: {articles: @model.featured, pages: [], pages_first: true}
       #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: "Shutter", multimedia: @model.multimedia}
 
-    .span-4.last
+    .span-4.last.align-element{data: {aligntarget: "#inquisitor .rounded"}}
       = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
       #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
       #inquisitor= render partial: 'site/containers/block/wide', locals: {title: "The Inquisitor", article: @model.inquisitor}
