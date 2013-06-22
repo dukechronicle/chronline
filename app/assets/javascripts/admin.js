@@ -13,7 +13,7 @@
 //= require tinymce/js/tinymce/themes/modern/theme.min.js
 //= require tinymce/js/tinymce/plugins/link/plugin.min.js
 //= require tinymce/js/tinymce/plugins/media/plugin.min.js
-//= require tinymce/js/tinymce/plugins/image/plugin.min.js
+//= require admin/tinymce-image
 
 //= require blueimp-tmpl/tmpl.min.js
 //= require blueimp-load-image/load-image.min.js
@@ -21,10 +21,13 @@
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
-//= require jquery-file-upload/js/jquery.fileupload-resize.js
+//= require jquery-file-upload/js/jquery.fileupload-image.js
+//= require jquery-file-upload/js/jquery.fileupload-audio.js
+//= require jquery-file-upload/js/jquery.fileupload-video.js
 //= require jquery-file-upload/js/jquery.fileupload-validate.js
 //= require jquery-file-upload/js/jquery.fileupload-ui.js
 
 //= require util
 //= require initialize
+//= require admin/image-selector
 //= require_tree ./admin
