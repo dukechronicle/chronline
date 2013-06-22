@@ -237,6 +237,7 @@ GEM
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
+    promise (0.3.0)
     pry (0.9.10)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -431,6 +432,7 @@ DEPENDENCIES
   pg
   poltergeist
   progress_bar
+  promise
   pry-doc
   pry-rails
   rack-cors
