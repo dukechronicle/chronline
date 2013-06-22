@@ -61,6 +61,16 @@ describe Article do
       html = '<p><strong>Pikachu</strong> wrecks everyone. The End.</p>'
       subject.render_body.rstrip.should == html
     end
+    describe "with embeded image" do
+      before do
+        @embed_image = FactoryGirl.create(:image)
+        subject.body = "**Pikachu** wrecks everyone. {{Image:#{@embed_image.id}}}"
+      end
+      it "should render the article body with markdown and embed image" do
+        html = "<p><strong>Pikachu</strong> wrecks everyone. <span class=\"embedded-image\"> <img src=\"#{@embed_image.original.url(:thumb_rect)}\" /> <span class=\"photo-credit\"> <a href=\"#{site_staff_path(@embed_image.photographer)}\"> #{@embed_image.photographer.name} </a> </span> </span> </p>"
+        subject.render_body.rstrip.gsub(/\s+/, ' ').should == html
+      end
+    end
   end
 
   describe "#normalize_friendly_id" do

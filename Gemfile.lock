@@ -115,7 +115,7 @@ GEM
       railties (~> 3.0)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    eventmachine (1.0.0)
+    eventmachine (1.0.3)
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -213,7 +213,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.6.3)
-    newrelic_rpm (3.5.6.46)
+    newrelic_rpm (3.6.4.122)
     nokogiri (1.5.6)
     nyan-cat-formatter (0.2.0)
     options (2.3.0)
@@ -357,7 +357,7 @@ GEM
       nokogiri
       sunspot (= 2.0.0.pre.130115)
     sunspot_solr (1.3.3)
-    thin (1.5.0)
+    thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
@@ -404,6 +404,7 @@ DEPENDENCIES
   default_value_for
   devise (= 2.1.2)
   devise_invitable
+  eventmachine (~> 1.0.3)
   factory_girl_rails
   ffaker
   fog
@@ -456,7 +457,7 @@ DEPENDENCIES
   subdomain-fu!
   sunspot_rails (= 2.0.0.pre.130115)
   sunspot_solr
-  thin
+  thin (~> 1.5.1)
   uglifier (>= 1.0.3)
   vcr
   webmock
