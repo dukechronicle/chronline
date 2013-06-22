@@ -30,5 +30,4 @@ class Mobile::ArticlesController < Mobile::BaseController
     params[:article_search][:include] = [:authors, :image]
     super
   end
-
 end
