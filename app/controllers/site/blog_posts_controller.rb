@@ -3,7 +3,12 @@ class Site::BlogPostsController < Site::BaseController
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
-      @blog_posts = Blog::Post.where(blog: @blog.id).page(params[:page])
+      @blog_posts = Blog::Post
+        .published
+        .where(blog: @blog.id)
+        .order('published_at DESC')
+        .page(params[:page])
+        .per_page(10)
     else
       @blog = true  # Sets blog nav tab active
       render 'site/blogs/index'
