@@ -103,7 +103,7 @@ GEM
       launchy
     daemons (1.1.9)
     database_cleaner (0.9.1)
-    default_value_for (2.0.1)
+    default_value_for (2.0.3)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
