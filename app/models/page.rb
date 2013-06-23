@@ -11,20 +11,15 @@
 #  updated_at      :datetime         not null
 #
 
-require 'layout'
-require 'has_layout'
-
-
 class Page < ActiveRecord::Base
   extend StructuredData
+
+  has_layout :layout
 
   attr_accessible :path, :title, :description, :image_id
   belongs_to :image
 
-  has_layout
-
   validates :title, presence: true
-  validates :path, presence: true, uniqueness: true, format: {with: /^\/[a-z0-9\_\.\-\/]*$/, message: 'Must be a URL path'}
-  validates_with LayoutValidator
-
+  validates :path, presence: true, uniqueness: true,
+    format: {with: /^\/[a-z0-9\_\.\-\/]*$/, message: 'Must be a URL path'}
 end
