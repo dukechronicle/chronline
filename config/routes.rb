@@ -24,6 +24,7 @@ Chronline::Application.routes.draw do
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
           id: Postable::SLUG_PATTERN
+        get 'tags/:tag' => 'blog_posts#tags'
       end
 
       resources :staff, only: :show do
