@@ -2,4 +2,4 @@
   .tags-row
     %ul.tags
       - blog_post.tags.each do |tag|
-        %li= tag
+        %li= link_to tag, site_blog_tagged_path(tag: tag.name)
