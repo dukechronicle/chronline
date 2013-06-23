@@ -16,7 +16,7 @@ require 'has_layout'
 
 
 class Page < ActiveRecord::Base
-  extend HasLayout
+  extend StructuredData
 
   attr_accessible :path, :title, :description, :image_id
   belongs_to :image
