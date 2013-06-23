@@ -18,6 +18,8 @@ class Blog
     validates :blog, presence: true
     validates :author, presence: true
 
+    self.per_page = 10  # set will_paginate default to 10 articles
+
 
     def blog=(blog)
       blog = Blog.find(blog) unless blog.is_a?(Blog)
