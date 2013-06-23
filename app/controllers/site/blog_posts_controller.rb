@@ -8,7 +8,6 @@ class Site::BlogPostsController < Site::BaseController
         .where(blog: @blog.id)
         .order('published_at DESC')
         .page(params[:page])
-        .per_page(10)
     else
       @blog = true  # Sets blog nav tab active
       render 'site/blogs/index'
@@ -18,6 +17,16 @@ class Site::BlogPostsController < Site::BaseController
   def show
     @blog_post = Blog::Post.find(params[:id])
     @blog = @blog_post.blog
+  end
+
+  def tags
+    @blog = Blog.find(params[:blog_id])
+    @blog_posts = Blog::Post
+      .published
+      .where(blog: @blog.id)
+      .tagged_with(params[:tag])
+      .order('published_at DESC')
+      .page(params[:page])
   end
 
 end
