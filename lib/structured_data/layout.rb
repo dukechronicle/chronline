@@ -7,11 +7,14 @@ module StructuredData
     end
 
     def generate!
-      @model
+      validator = StructuredData::JSONValidator.new(@schema.json_schema, @data)
+      @model = validator.struct
     end
 
     def validate
-      JSON::Validator.fully_validate(@schema.json_schema, @data)
+      validator = StructuredData::JSONValidator.new(
+        @schema.json_schema, @data, record_errors: true)
+      validator.validate
     end
 
     def method_missing(method)

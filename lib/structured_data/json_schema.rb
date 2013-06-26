@@ -5,7 +5,7 @@ module StructuredData
     def initialize
       super
       extend_schema_definition("http://json-schema.org/draft-04/schema#")
-#      @attributes[''] = TypeAttribute
+      @attributes['type'] = TypeAttribute
       @uri = URI.parse(SCHEMA_URI)
     end
 

@@ -8,6 +8,8 @@ module StructuredData
     validates "#{@@layout_attr}_data", presence: true
     validates "#{@@layout_attr}_schema", presence: true
 
+    serialize "#{@@layout_attr}_data", JSON
+
     define_method @@layout_attr do
       if self.instance_variable_get("@#{@@layout_attr}").nil?
         data = self.send("#{@@layout_attr}_data")
