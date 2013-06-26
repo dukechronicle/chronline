@@ -23,6 +23,8 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/dish_cassettes'
   c.hook_into :webmock
   c.default_cassette_options = { :record => :new_episodes }
+  c.filter_sensitive_data('<EMAIL>') { Settings.photoshelter.email }
+  c.filter_sensitive_data('<PASSWORD>') { Settings.photoshelter.password }
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
