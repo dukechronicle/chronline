@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# TODO: remove additional authentication in each test
+
 describe PhotoshelterAPI do
 
   subject { PhotoshelterAPI.new(Settings.photoshelter.email, Settings.photoshelter.password) }
@@ -30,21 +32,35 @@ describe PhotoshelterAPI do
     use_vcr_cassette "galleries"
 
     it "should return list of galleries" do
-      # TODO: remove additional authentication here
       subject.authenticate
       subject.get_all_galleries.should be_a Array
     end
   end
 
   describe "GET gallery images" do
-    it "should return a list of images for a gallery"
+    use_vcr_cassette "images"
+
+    it "should return a list of images for a gallery" do
+      subject.authenticate
+      subject.get_gallery_images "G0000W3g4oBchl8c"
+    end
   end
 
   describe "GET image info" do
-    it "should return information for an image"
+    use_vcr_cassette "info"
+
+    it "should return information for an image" do
+      subject.authenticate
+      subject.get_image_info "I0000P1V4eGUln18"
+    end
   end
 
   describe "GET logout" do
-    it "should logout and destroy the session"
+    use_vcr_cassette "logout"
+
+    it "should logout and destroy the session" do
+      subject.authenticate
+      subject.logout
+    end
   end
 end
