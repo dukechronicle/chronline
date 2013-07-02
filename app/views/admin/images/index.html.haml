@@ -2,6 +2,6 @@
   - @images.each do |image|
     %tr{id: "image_#{image.id}"}
       %td= link_to image.original_file_name, [:edit, :admin, image]
-      %td= image_tag image.original.url(:thumb_rect)
+      %td= image_tag image.original.url(:rectangle_186x)
       %td= link_to "Delete", [:admin, image], method: :delete, data: {confirm: "Are you sure?"}
 = will_paginate
