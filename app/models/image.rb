@@ -20,14 +20,23 @@ require_dependency 'staff'
 class Image < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
-  File.open(File.join("app", "models", "image", "styles.yml")) do |file|
+  File.open(Rails.root.join("config", "image_styles.yml")) do |file|
     Image::Styles = YAML::load(file)
   end
 
   def self.styles
+    sizes = []
     Image::Styles.map do |type, info|
-      [type.underscore.to_sym, "#{info['width']}x#{info['height']}#"]
-    end.to_h
+      sizes << [type, info['width'], info['height']]
+      info['sizes'].each do |width|
+        height = (width * info['height'] / info['width'].to_f).round
+        sizes << [type, width, height]
+      end
+    end
+    styles = sizes.map do |type, width, height|
+      ["#{type}_#{width}x".to_sym, "#{width}x#{height}#"]
+    end
+    styles.to_h
   end
 
   attr_accessible :attribution, :caption, :date, :location, :original, :credit
