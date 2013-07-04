@@ -34,13 +34,14 @@ class Image < ActiveRecord::Base
       end
     end
     styles = sizes.map do |type, width, height|
-      ["#{type}_#{width}x".to_sym, "#{width}x#{height}#"]
+      ["#{type}_#{width}x", "#{width}x#{height}#"]
     end
     styles.to_h
   end
 
   attr_accessible :attribution, :caption, :date, :location, :original, :credit
-  attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
+  # Used in crop! method
+  attr_reader :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles, processors: [:cropper]
 
   default_value_for(:date) { Date.today }
@@ -54,6 +55,15 @@ class Image < ActiveRecord::Base
   belongs_to :photographer, class_name: "Staff"
 
   self.per_page = 30
+
+  def crop!(style, x, y, w, h)
+    @crop_style, @crop_x, @crop_y, @crop_w, @crop_h = style, x, y, w, h
+    info = Image::Styles[crop_style]
+    styles = ([info['width']] + info['sizes']).map do |width|
+      "#{style}_#{width}x"
+    end
+    original.reprocess!(*styles)
+  end
 
   def to_jq_upload
     [{
