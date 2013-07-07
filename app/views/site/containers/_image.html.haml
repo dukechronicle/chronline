@@ -2,6 +2,6 @@
 .rounded
   .image-container.clearfix
     %a{href: image.original.url}
-      = image_tag image.original.url(:large_rect)
+      = cropped_image_tag image, :rectangle_636x
     .photo-credit
       %span= photo_credit(image)

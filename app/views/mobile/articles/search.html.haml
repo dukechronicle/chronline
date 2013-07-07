@@ -26,6 +26,6 @@
           %li
             %a{href: mobile_article_path(article)}
               - if article.image
-                = image_tag article.image.original.url(:thumb_square_s)
+                = cropped_image_tag article.image, :square_80x
               %h2= article.title
               %p #{byline(article)} | #{article.published_at.strftime("%B %e, %Y")}

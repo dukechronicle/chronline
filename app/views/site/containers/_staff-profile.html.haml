@@ -1,10 +1,10 @@
 .staff-profile
   %h2.vertical-label Profile
   .rounded
-    .content-container
+n    .content-container
       .right-box
         - if staff.headshot
-          = image_tag staff.headshot.original.url(:thumb_rect), class: :headshot
+          = cropped_image_tag staff.headshot, :rectangle_183x, class: 'headshot'
         .links
           %ul
             - if staff.author? and except != :articles
