@@ -1,7 +1,7 @@
 .staff-profile
   %h2.vertical-label Profile
   .rounded
-n    .content-container
+    .content-container
       .right-box
         - if staff.headshot
           = cropped_image_tag staff.headshot, :rectangle_183x, class: 'headshot'
