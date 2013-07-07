@@ -1,0 +1,22 @@
+.sports-event-info
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      .teams
+        = image_tag info['main_team']['logo'], class: 'logo'
+        %span.separator= info['home_game'] ? 'vs' : '@'
+        = image_tag info['opposing_team']['logo'], class: 'logo'
+
+      .event-info
+        %p
+          %span.label Where
+          %span= info['location']
+        %p
+          %span.label Date
+          %span= datetime_tag info['date'], 'dddd, mmmm d, yyyy'
+        %p
+          %span.label Time
+          %span= datetime_tag info['date'], 'h:MM Z'
+        %p
+          %span.label TV Channel/Radio
+          %span= info['channel']
