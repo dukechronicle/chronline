@@ -18,6 +18,7 @@ banner:
   height: 120
   sizes:
     - 300
+    - 216
 vertical:
   width: 243
   height: 393
