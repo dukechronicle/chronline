@@ -23,4 +23,13 @@ module ImageHelper
       image.original.url
     end
   end
+
+  def cropped_image_tag(image, style, options = {})
+    options[:alt] = image.caption
+    if (match = image.original.styles[style].geometry.match(/\d+x\d+/))
+      options[:size] = match[0]
+    end
+    image_tag image.original.url(style), options
+  end
+
 end

@@ -26,7 +26,7 @@ class Image < ActiveRecord::Base
 
   def self.styles
     sizes = []
-    Image::Styles.map do |type, info|
+    Image::Styles.each do |type, info|
       sizes << [type, info['width'], info['height']]
       info['sizes'].each do |width|
         height = (width * info['height'] / info['width'].to_f).round

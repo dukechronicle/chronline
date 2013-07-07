@@ -3,6 +3,7 @@ rectangle:
   width: 636
   height: 393
   sizes:
+    - 606
     - 186
 square:
   width: 200
