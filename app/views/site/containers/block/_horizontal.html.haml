@@ -3,7 +3,7 @@
     %a.hover.highlight-right{href: site_article_path(article)}
       - if article.image
         .image-container
-          = image_tag article.image.original.url(:thumb_rect)
+          = cropped_image_tag article.image, :rectangle_183x
       .content-container
         %h4.title= article.title
         %p.teaser= article.teaser

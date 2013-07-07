@@ -14,7 +14,7 @@
 
     - if @article.image
       .image-container
-        = image_tag @article.image.original.url(:large_rect), class: 'main-image'
+        = cropped_image_tag @article.image, :rectangle_636x, class: 'main-image'
         .clearfix
           .photo-credit
             %span= photo_credit(@article.image)
