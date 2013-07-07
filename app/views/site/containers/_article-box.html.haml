@@ -5,7 +5,7 @@
       %a.hover.highlight-left{href: site_article_path(articles.first)}
         .content-container
           - if articles.first.image
-            = image_tag articles.first.image.original.url(:thumb_rect), class: 'thumb-rect'
+            = cropped_image_tag articles.first.image, :rectangle_186x
           %h4.title= articles.first.title
           %p.subtitle
             %span.author= byline(articles.first)
