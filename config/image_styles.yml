@@ -4,7 +4,10 @@ rectangle:
   height: 393
   sizes:
     - 606
-    - 186
+    - 378
+    - 314
+    - 183
+    - 152
 square:
   width: 200
   height: 200
@@ -19,4 +22,4 @@ vertical:
   width: 243
   height: 393
   sizes:
-    - 186
+    - 183

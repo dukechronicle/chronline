@@ -74,7 +74,7 @@ class Image < ActiveRecord::Base
       name: original_file_name,
       size: original_file_size,
       url: edit_admin_image_path(self),
-      thumbnail_url: original.url(:thumb_rect),
+      thumbnail_url: thumbnail_url,
       delete_url: admin_image_path(self),
       delete_type: 'DELETE',
      }]
@@ -85,7 +85,7 @@ class Image < ActiveRecord::Base
   ###
 
   def thumbnail_url
-    original.url(:thumb_rect)
+    original.url(:rectangle_183x)
   end
 
 end

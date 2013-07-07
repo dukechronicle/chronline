@@ -10,7 +10,7 @@ if Rails.env.production?
     s3_host_alias: Settings.content_cdn,
     s3_headers: {'Cache-Control' => 'public,max-age=315576000'},
     url: ':s3_alias_url',
-    path: 'images/:style/:hash.:extension',
+    path: 'image/:style/:hash.:extension',
     hash_secret: 'super secret string',  # TODO: do something better
     hash_data: ':class/:attachment/:id/:style',
   }
