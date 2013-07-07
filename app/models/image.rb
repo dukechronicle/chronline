@@ -34,7 +34,7 @@ class Image < ActiveRecord::Base
       end
     end
     styles = sizes.map do |type, width, height|
-      ["#{type}_#{width}x", "#{width}x#{height}#"]
+      ["#{type}_#{width}x".to_sym, "#{width}x#{height}#"]
     end
     styles.to_h
   end
@@ -58,7 +58,11 @@ class Image < ActiveRecord::Base
 
   def crop!(style, x, y, w, h)
     @crop_style, @crop_x, @crop_y, @crop_w, @crop_h = style, x, y, w, h
-    info = Image::Styles[crop_style]
+    reprocess_style!(style)
+  end
+
+  def reprocess_style!(style)
+    info = Image::Styles[style]
     styles = ([info['width']] + info['sizes']).map do |width|
       "#{style}_#{width}x"
     end
