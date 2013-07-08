@@ -16,7 +16,7 @@ module StructuredData
     end
 
     def self.[](schema_name)
-      self.new(@@schemata[schema_name])
+      self.new(@@schemata[schema_name.to_s])
     end
 
     def self.load_schemata!(*path)
