@@ -19,7 +19,7 @@ namespace :bower do
 
   desc "Resolve assets paths in bower packages"
   task :resolve do
-    Dir.chdir("#{Rails.root}/vendor/assets/components") do
+    Dir.chdir("#{Rails.root}/vendor/assets/bower_components") do
       Dir['**/*.css'].each do |filename|
         File.open(filename) do |file|
           contents = file.read
@@ -39,8 +39,8 @@ def in_vendor_assets(options={})
   Dir.chdir("#{Rails.root}/vendor/assets") do
     puts "Working in #{Dir.pwd}..."
     if options[:remove_components]
-      puts "Removing components..."
-      FileUtils.rm_rf('components')
+      puts "Removing bower_components..."
+      FileUtils.rm_rf('bower_components')
     end
     yield
   end
