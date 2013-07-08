@@ -10,10 +10,9 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'thin', '~> 1.5.1'
-  gem 'eventmachine', '~> 1.0.3'
   gem 'newrelic_rpm'
   gem 'asset_sync'
+  gem 'unicorn'
 end
 
 group :development, :test do
