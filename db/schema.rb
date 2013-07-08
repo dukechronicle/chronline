@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419063641) do
+ActiveRecord::Schema.define(:version => 20130708010122) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130419063641) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.datetime "published_at"
+    t.string   "previous_url"
   end
 
   add_index "blog_posts", ["author_id"], :name => "index_blog_posts_on_author_id"
