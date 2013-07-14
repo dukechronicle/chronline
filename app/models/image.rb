@@ -36,7 +36,7 @@ class Image < ActiveRecord::Base
     styles = sizes.map do |type, width, height|
       ["#{type}_#{width}x".to_sym, "#{width}x#{height}#"]
     end
-    styles.to_h
+    Hash[styles]
   end
 
   attr_accessible :attribution, :caption, :date, :location, :original, :credit
