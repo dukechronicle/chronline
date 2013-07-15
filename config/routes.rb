@@ -94,7 +94,7 @@ Chronline::Application.routes.draw do
       get 'search' => 'articles#search'
 
       resources :images, only: :index
-      resources :staff, only: :index
+      resources :staff, only: [:index, :show, :create, :update, :destroy]
       resources :articles, only: :index
     end
   end
