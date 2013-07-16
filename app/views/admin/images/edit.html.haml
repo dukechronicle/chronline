@@ -5,9 +5,8 @@
   = f.hidden_field :crop_y
   = f.hidden_field :crop_w
   = f.hidden_field :crop_h
-  = f.select :crop_style, Image::Styles.map {|type, info| [type, type, 'data-dimensions' => info.to_json]}
+  = f.select :crop_style, Image::Styles.map {|type, info| [type.capitalize, type, 'data-dimensions' => info.to_json]}
   = f.submit 'Crop Version', class: 'btn'
-  %i.icon-question-sign.image-help
 
 = simple_form_for [:admin, @image], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|
   %legend Photo Information
@@ -27,7 +26,7 @@
   %tr
     %th Type
     %th Image Version
-  - Image.styles.keys.each do |style|
+  - Image::Styles.each do |style, info|
     %tr
-      %td= style.to_s.camelcase
-      %td= image_tag @image.original.url(style)
+      %td= style.capitalize
+      %td= image_tag @image.original.url("#{style}_#{info['width']}x")
