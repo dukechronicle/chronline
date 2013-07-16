@@ -1,8 +1,12 @@
 class Api::StaffController < Api::BaseController
 
   def index
-    staff = Staff.paginate page: params[:page], per_page: params[:limit]
+    staff = Staff.paginate(page: params[:page], per_page: params[:limit])
     respond_with staff
+  end
+
+  def search
+    respond_with Staff.search(params[:search])
   end
 
   def show
@@ -13,7 +17,7 @@ class Api::StaffController < Api::BaseController
   def create
     staff = Staff.new params[:staff]
     if staff.save
-      respond_with staff, status: :created, location: api_staff_index_url
+      respond_with staff, status: :created, location: api_staff_url(staff.id)
     else
       head :bad_request, location: api_staff_index_url
     end
