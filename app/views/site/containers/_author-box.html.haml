@@ -13,7 +13,7 @@
         .content-container.author-listing
           .author-info
             - if author.headshot
-              = image_tag author.headshot.original.url(:thumb_rect), class: :headshot
+              = cropped_image_tag author.headshot, :rectangle_152x, class: 'headshot'
             %a.hover.name{href: site_staff_path(author)}
               %h3= author.name
             %p.subtitle
