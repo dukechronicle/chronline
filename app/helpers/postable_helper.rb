@@ -15,18 +15,22 @@ module PostableHelper
   end
 
   def disqus_options(postable)
-    url = if postable.is_a? Blog::Post
-            site_blog_post_url(postable.blog, postable, subdomain: :www)
-          else
-            site_article_url(postable, subdomain: :www)
-          end
     {
       production: Rails.env.production?,
       shortname: Settings.disqus.shortname,
       identifier: disqus_identifier(postable),
       title: postable.title,
-      url: url,
+      url: permanent_post_url(postable),
     }.to_json
+  end
+
+  def site_post_url(postable)
+    if postable.is_a? Blog::Post
+      site_blog_post_url(
+        postable.blog, postable, subdomain: :www, protocol: 'http')
+    else
+      site_article_url(postable, subdomain: :www, protocol: 'http')
+    end
   end
 
   def permanent_post_url(postable)
