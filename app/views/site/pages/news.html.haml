@@ -6,7 +6,7 @@
     .span-6.align-element{data: {aligntarget: '#featured .rounded'}}
       #featured= render partial: 'site/containers/block/featured', locals: {article: @model.featured}
       - @model.headlines.each do |article|
-        = render partial: 'site/containers/block/horizontal', locals: {article: article}
+        = render partial: 'site/containers/block/square', locals: {article: article}
 
     .span-6.last.align-element{data: {aligntarget: '#headlines .rounded, #blog .rounded'}}
       .clearfix.align-group
