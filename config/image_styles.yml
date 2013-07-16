@@ -4,6 +4,7 @@ rectangle:
   height: 393
   sizes:
     - 606
+    - 468
     - 378
     - 314
     - 183
@@ -12,7 +13,9 @@ square:
   width: 200
   height: 200
   sizes:
+    - 150
     - 80
+    - 70
 banner:
   width: 360
   height: 120
