@@ -73,6 +73,7 @@ describe Api::StaffController do
         staff.reload
         staff.name.should eq(updated_attrs[:name])
       end
+      it { change(Staff, :count).by(0) }
     end
 
     describe "update staff with invalid data" do
@@ -80,6 +81,13 @@ describe Api::StaffController do
       before { put api_staff_url subdomain: :api, id: staff.id, staff: invalid_attrs }
       its(:status) { should == bad_request }
     end
+  end
+
+  describe "DELETE /staff/*" do
+    let(:res) { ActiveSupport::JSON.decode(response.body) }
+    subject { response }
+    let!(:staff) { FactoryGirl.create :staff }
+    it { change(Staff, :count).by(1) }
   end
 end
 
