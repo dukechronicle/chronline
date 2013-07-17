@@ -1,67 +1,50 @@
-require 'set'
-
 module Postable
   class EmbeddedMedia
 
     def initialize(body)
       @body = body
+      @queries = {}
     end
 
-    def render_media()
-      tag_list = @body.scan(/{{([a-zA-z]*):([0-9]*)}} ?/).to_a
-      tags = []
-      tag_list.each do |tag_data|
-        case tag_data[0]
+    def render
+      tag_list = @body.scan(/{{([a-zA-z]*):([\w\,]*)}} ?/)
+      tags = tag_list.map do |tag, data|
+        case tag
         when 'Image'
-          tags.push ImageTag.new(tag_data[1])
+          ImageTag.new(self, *data.split(','))
         end
       end
 
-      class_ids_hash = map_class_to_ids(tags)
+      execute_queries
 
-      class_objects = get_class_objects(class_ids_hash)
-
-      @rendered = @body.gsub(/{{([a-zA-z]*):([0-9]*)}} ?/) do |t|
-        tag = tags.shift
-        tag.to_html(class_objects)
+      @rendered = @body.gsub(/{{([a-zA-z]*):([\w\,]*)}} ?/) do |t|
+        tags.shift.to_html
       end
+    end
+
+    def find(cls, id, options = {})
+      @queries[cls] ||= { models: {}, options: {} }
+      @queries[cls][:models][id.to_i] = nil
+      merge_options(@queries[cls][:options], options)
+      promise { @queries[cls][:models][id.to_i] }
     end
 
     def to_s
-      render_media if @rendered.nil?
-      @rendered
+      @rendered ||= render
     end
 
     private
-
-    def map_class_to_ids(tags)
-      class_ids_hash = {}
-      tags.each do |tag|
-        tag.ids.each do |id|
-          unless class_ids_hash.has_key? id[:class]
-            class_ids_hash[id[:class]] = Set.new
-          end
-          class_ids_hash[id[:class]].add id[:id]
+    def execute_queries
+      @queries.each do |cls, query|
+        models = cls.find(query[:models].keys, query[:options])
+        models.each do |model|
+          query[:models][model.id] = model
         end
       end
-      class_ids_hash.keys.each do |key|
-        class_ids_hash[key] = class_ids_hash[key].to_a
-      end
-      class_ids_hash
     end
 
-    def get_class_objects(class_ids_hash)
-      class_objects = {}
-      class_ids_hash.keys.each do |class_sym|
-        objs = class_sym.to_s.constantize.find_all_by_id(class_ids_hash[class_sym])
-        objs.each do |obj|
-          unless class_objects.has_key? class_sym
-            class_objects[class_sym] = {}
-          end
-          class_objects[class_sym][obj.id] = obj
-        end
-      end
-      class_objects
+    def merge_options(original, new_options)
+      original.merge!(new_options)
     end
 
   end
