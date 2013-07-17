@@ -1,4 +1,5 @@
 - provide :title, @staff.name
+- provide :description, "Recent and archived images by #{@staff.name} of The Chronicle at Duke University."
 
 - content_for :administrative_links do
   = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
