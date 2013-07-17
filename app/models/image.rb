@@ -42,7 +42,8 @@ class Image < ActiveRecord::Base
   attr_accessible :attribution, :caption, :date, :location, :original, :credit
   # Used in crop! method
   attr_reader :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
-  has_attached_file :original, styles: self.styles, processors: [:cropper]
+  has_attached_file :original, styles: self.styles,
+    processors: [:cropper, :paperclip_optimizer]
 
   default_value_for(:date) { Date.today }
 
