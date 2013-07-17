@@ -1,6 +1,6 @@
 %h2= t "devise.invitations.new.header"
 
-= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
+= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f|
   = devise_error_messages!
 
   .form-inputs
@@ -8,4 +8,4 @@
       = f.input field, label: false, placeholder: field.to_s.capitalize
 
   .form-actions
-    = f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-large btn-primary'
+    = f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-primary'

@@ -106,11 +106,11 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.0.1)
     default_value_for (2.0.3)
-    devise (3.0.0)
+    devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      warden (~> 1.2.3)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
     devise_invitable (1.1.8)
       actionmailer (~> 3.0)
       devise (>= 2.1.2)
@@ -345,12 +345,12 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.5)
-    sunspot (2.0.0.pre.130115)
+    sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.0.0.pre.130115)
+    sunspot_rails (2.0.0)
       nokogiri
-      sunspot (= 2.0.0.pre.130115)
+      sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
     thin (1.5.1)
       daemons (>= 1.0.9)
@@ -396,7 +396,7 @@ DEPENDENCIES
   cucumber-websteps
   database_cleaner
   default_value_for
-  devise
+  devise (~> 2.2.4)
   devise_invitable
   eventmachine (~> 1.0.3)
   factory_girl_rails
@@ -441,7 +441,7 @@ DEPENDENCIES
   sitemap_generator
   sqlite3 (= 1.3.5)
   subdomain-fu!
-  sunspot_rails (= 2.0.0.pre.130115)
+  sunspot_rails (~> 2.0.0)
   sunspot_solr
   thin (~> 1.5.1)
   uglifier (>= 1.0.3)
