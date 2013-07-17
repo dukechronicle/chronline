@@ -6,9 +6,9 @@
         %a.row-story.hover.highlight-bottom{href: site_article_path(article)}
           - if article.image
             - if feature and i == 0
-              = image_tag article.image.original.url(:thumb_rect_l)
+              = cropped_image_tag article.image, :rectangle_314x
             - else
-              = image_tag article.image.original.url(:thumb_rect)
+              = cropped_image_tag article.image, :rectangle_152x
           .title-block
             %h3.title= article.title
             %p.subtitle

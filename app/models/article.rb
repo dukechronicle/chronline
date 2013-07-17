@@ -124,7 +124,7 @@ class Article < ActiveRecord::Base
   ###
 
   def thumb_square_s_url
-    image.original.url(:thumb_square_s) if image
+    image.original.url(:square_80x) if image
   end
 
   private

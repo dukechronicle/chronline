@@ -1,0 +1,29 @@
+---
+rectangle:
+  width: 636
+  height: 393
+  sizes:
+    - 606
+    - 468
+    - 378
+    - 314
+    - 183
+    - 152
+square:
+  width: 200
+  height: 200
+  sizes:
+    - 150
+    - 80
+    - 70
+banner:
+  width: 360
+  height: 120
+  sizes:
+    - 300
+    - 216
+vertical:
+  width: 243
+  height: 393
+  sizes:
+    - 183
