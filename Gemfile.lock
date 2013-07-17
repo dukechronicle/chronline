@@ -143,6 +143,7 @@ GEM
       ruby-hmac
     formatador (0.2.4)
     friendly_id (4.0.9)
+    fspath (2.0.4)
     fssm (0.2.9)
     fuubar (1.1.0)
       rspec (~> 2.0)
@@ -181,6 +182,14 @@ GEM
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     i18n (0.6.1)
+    image_optim (0.8.1)
+      fspath (~> 2.0.3)
+      image_size (~> 1.1.2)
+      in_threads (~> 1.1.1)
+      progress (~> 2.4.0)
+    image_optim_bin (0.0.2)
+    image_size (1.1.2)
+    in_threads (1.1.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -227,6 +236,10 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
+    paperclip-optimizer (0.2.0)
+      image_optim (~> 0.8)
+      paperclip
+      paperclip (~> 3.4.1)
     pg (0.14.1)
     poltergeist (1.0.2)
       capybara (~> 1.1)
@@ -236,6 +249,7 @@ GEM
       multi_json (~> 1.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
+    progress (2.4.0)
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
@@ -422,6 +436,7 @@ DEPENDENCIES
   haml
   hiredis
   httparty
+  image_optim_bin
   jquery-rails
   json-schema
   le
@@ -431,6 +446,7 @@ DEPENDENCIES
   newrelic_rpm
   nyan-cat-formatter
   paperclip
+  paperclip-optimizer
   pg
   poltergeist
   progress_bar
