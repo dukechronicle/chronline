@@ -1,13 +1,16 @@
 ---
+bigblog:
+  name: Big Blog
+  logo: blogs/bigblog-logo.jpg
+  banner: blogs/bigblog-banner.jpg
+  description: Aliquid tempore corporis est aliquam nesciunt et aut quasi illum iusto ab officia voluptas cupiditate in.
 bluezone:
   name: Blue Zone
-  image: blogs/sportsblog-banner.jpg
+  logo: blogs/bluezone-logo.jpg
+  banner: blogs/bluezone-banner.jpg
   description: Eligendi enim ducimus hic similique autem ea aliquam assumenda id et ut dolor accusantium.
 playground:
   name: Playground
-  image: blogs/newsblog-banner.jpg
+  logo: blogs/playground-logo.jpg
+  banner: blogs/playground-banner.jpg
   description: Ullam qui dignissimos atque optio aut voluptatum consectetur enim consequatur officia fugiat.
-backpages:
-  name: Backpages
-  image: blogs/newsblog-banner.jpg
-  description: Aliquid tempore corporis est aliquam nesciunt et aut quasi illum iusto ab officia voluptas cupiditate in.
