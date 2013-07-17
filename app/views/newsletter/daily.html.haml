@@ -7,7 +7,7 @@
       .article
         - if article.image
           %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}
-            %img{align: :left, src: 'https:' + article.image.original.url(:thumb_rect), width: 124, height: 89, alt: "Chronicle Image", style: 'margin-right:10px;'}
+            %img{align: :left, src: 'https:' + article.image.original.url(:rectangle_152x), width: 152, height: 94, alt: "Chronicle Image", style: 'margin-right:10px;'}
         %p= article.teaser
         %br{style: 'clear:both;'}
     %br
