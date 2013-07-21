@@ -16,9 +16,9 @@ group :production do
 end
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
-  gem 'rspec-rails', '2.11.0'
-  gem 'rb-readline'
+  gem 'sqlite3', '~> 1.3.7'
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
   gem 'sunspot_solr'
   gem 'guard-rspec'
@@ -30,14 +30,13 @@ group :development do
   gem 'pry-doc'
   gem 'progress_bar'
   gem 'guard-spork'
-  gem 'meta_request', '0.2.1'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails',   '~> 3.2.6'
+  gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
   gem 'asset_sync'
 
