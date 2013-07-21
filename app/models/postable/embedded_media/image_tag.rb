@@ -11,8 +11,9 @@ module Postable
         @style = style
       end
 
-      def to_html
-        content_tag(:span, nil, class: 'embedded-image') do
+      def to_html(float: :right)
+        classes = "embedded-image embedded-#{float}"
+        content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
           concat content_tag(:img, nil, src: @image.original.url(@style))
           concat content_tag(:span, photo_credit, class: 'photo-credit')
