@@ -17,8 +17,10 @@ module Postable
 
       execute_queries
 
+      float_left = true
       @rendered = @body.gsub(/{{([a-zA-z]*):([\w\,]*)}} ?/) do |t|
-        tags.shift.to_html
+        float_left = !float_left
+        tags.shift.to_html(float: float_left ? :left : :right)
       end
     end
 
