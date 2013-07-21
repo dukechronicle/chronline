@@ -1,6 +1,6 @@
 class Transformation < JSON::Schema::Attribute
 
-  def self.validate(current_schema, data, fragments, validator, options = {})
+  def self.validate(current_schema, data, fragments, processor, validator, options = {})
     if options[:apply_transformations]
       trans = current_schema.schema[:transformation]
       if not options[:apply_transformations].has_key?(trans)
