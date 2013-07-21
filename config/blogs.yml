@@ -3,14 +3,14 @@ bigblog:
   name: Big Blog
   logo: blogs/bigblog-logo.jpg
   banner: blogs/bigblog-banner.jpg
-  description: Aliquid tempore corporis est aliquam nesciunt et aut quasi illum iusto ab officia voluptas cupiditate in.
+  description: "Features and multimedia that that a closer look at Duke from students' perspective."
 bluezone:
   name: Blue Zone
   logo: blogs/bluezone-logo.jpg
   banner: blogs/bluezone-banner.jpg
-  description: Eligendi enim ducimus hic similique autem ea aliquam assumenda id et ut dolor accusantium.
+  description: Your one-stop shop for all the latest in Duke basketball, football, and more.
 playground:
   name: Playground
   logo: blogs/playground-logo.jpg
   banner: blogs/playground-banner.jpg
-  description: Ullam qui dignissimos atque optio aut voluptatum consectetur enim consequatur officia fugiat.
+  description: Arts and culture at Duke, Durham and beyond.
