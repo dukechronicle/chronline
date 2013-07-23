@@ -41,7 +41,7 @@ Chronline::Application.configure do
 
   # Use a different cache store in production
   config.cache_store = :redis_store, {
-    url: Settings.redis.url,
+    url: Settings.redis,
     expires_in: 10.minutes,
     race_condition_ttl: 10.seconds
   }
