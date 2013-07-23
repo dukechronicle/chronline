@@ -5,7 +5,7 @@
     %h2.vertical-label Blog
   .rounded
     %a.banner{href: site_blog_posts_path(blog)}
-      = image_tag blog.logo
+      = image_tag blog.logo, class: 'blog-logo'
     .content-container
       %p.description= blog.description
       %h3 Recent Posts
