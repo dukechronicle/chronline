@@ -13,6 +13,7 @@ group :production do
   gem 'thin', '~> 1.5.1'
   gem 'eventmachine', '~> 1.0.3'
   gem 'newrelic_rpm'
+  gem 'asset_sync'
 end
 
 group :development, :test do
@@ -38,12 +39,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.6'
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
-  gem 'asset_sync'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '~> 2.1.2'
 end
 
 gem 'active_attr'
