@@ -7,13 +7,17 @@
     "blueimp-tmpl": "~2.2.1",
     "bootstrap": "~2.3.1",
     "jcrop": "~0.9.12",
-    "jquery": "~1.9.1",
+    "jquery": "~1.10.2",
     "jquery-file-upload": "~8.4.2",
     "jquery-ui": "~1.10.3",
     "onde": "git://github.com/exavolt/onde.git",
     "underscore": "latest",
     "jquery-galleria": "~1.2.9",
     "jquery-masonry": "~2.1.0",
-    "jquery.cookie": "latest"
+    "jquery.cookie": "latest",
+    "tinymce-release": "~4.0.2"
+  },
+  "resolutions": {
+    "jquery": "~1.10.2"
   }
 }
