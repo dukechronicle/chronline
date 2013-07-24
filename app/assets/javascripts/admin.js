@@ -8,11 +8,10 @@
 //= require onde.js
 //= require jquery.chained.js
 
-//= require tinymce/js/tinymce/tinymce.min.js
-//= require tinymce/js/tinymce/jquery.tinymce.min.js
-//= require tinymce/js/tinymce/themes/modern/theme.min.js
-//= require tinymce/js/tinymce/plugins/link/plugin.min.js
-//= require tinymce/js/tinymce/plugins/media/plugin.min.js
+//= require tinymce-release/tinymce.min.js
+//= require tinymce-release/themes/modern/theme.min.js
+//= require tinymce-release/plugins/link/plugin.min.js
+//= require tinymce-release/plugins/media/plugin.min.js
 //= require admin/tinymce-image
 
 //= require blueimp-tmpl/js/tmpl
