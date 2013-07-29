@@ -15,9 +15,9 @@
 //= require tinymce/js/tinymce/plugins/media/plugin.min.js
 //= require admin/tinymce-image
 
-//= require blueimp-tmpl/tmpl.min.js
-//= require blueimp-load-image/load-image.min.js
-//= require blueimp-canvas-to-blob/canvas-to-blob.min.js
+//= require blueimp-tmpl/js/tmpl
+//= require blueimp-load-image/js/load-image.min
+//= require blueimp-canvas-to-blob/js/canvas-to-blob.min
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js

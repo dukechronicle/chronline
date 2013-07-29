@@ -2,18 +2,18 @@
   "name": "chronline",
   "version": "3.0.0",
   "dependencies": {
-    "blueimp-canvas-to-blob": "latest",
-    "blueimp-load-image": "latest",
-    "blueimp-tmpl": "latest",
+    "blueimp-canvas-to-blob": "~2.0.6",
+    "blueimp-load-image": "~1.7.3",
+    "blueimp-tmpl": "~2.2.1",
     "bootstrap": "~2.3.1",
     "jcrop": "~0.9.12",
     "jquery": "~1.9.1",
-    "jquery-file-upload": "~8.3.2",
+    "jquery-file-upload": "~8.4.2",
     "jquery-ui": "~1.10.3",
     "onde": "git://github.com/exavolt/onde.git",
     "underscore": "latest",
     "jquery-galleria": "~1.2.9",
-    "jquery-masonry": "~2.1.08",
+    "jquery-masonry": "~2.1.0",
     "jquery.cookie": "latest"
   }
 }
