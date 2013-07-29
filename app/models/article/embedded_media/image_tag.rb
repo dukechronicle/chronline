@@ -24,7 +24,7 @@ class Article::EmbeddedMedia::ImageTag < ActionView::Base
     img = class_objects[id[:class]][id[:id]]
     content_tag(:span, nil, class: 'embedded-image') do
       photo_credit = photo_credit(img, link: true)
-      concat content_tag(:img, nil, src: img.original.url(:thumb_rect))
+      concat content_tag(:img, nil, src: img.original.url(:rectangle_183x))
       concat content_tag(:span, photo_credit, class: 'photo-credit')
     end
   end
