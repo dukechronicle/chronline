@@ -36,3 +36,5 @@
 %aside.span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
   = render partial: 'site/partials/blog-info', locals: {blog: @blog}
+  - if @blog.twitter_widget.present?
+    = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @blog.twitter_widget}
