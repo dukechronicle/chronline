@@ -8,12 +8,6 @@
 //= require onde.js
 //= require jquery.chained.js
 
-//= require tinymce-release/tinymce.min.js
-//= require tinymce-release/themes/modern/theme.min.js
-//= require tinymce-release/plugins/link/plugin.min.js
-//= require tinymce-release/plugins/media/plugin.min.js
-//= require admin/tinymce-image
-
 //= require blueimp-tmpl/js/tmpl
 //= require blueimp-load-image/js/load-image.min
 //= require blueimp-canvas-to-blob/js/canvas-to-blob.min
