@@ -11,3 +11,6 @@
     = f.association :image, as: :image_picker
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
+
+- content_for :scripts do
+  %script{src: "/assets/tinymce.min.js"}
