@@ -7,12 +7,16 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 
 SitemapGenerator::Sitemap.create do
-  articles = Article.includes(:image).where(["published_at >= ?", 2.days.ago])
-  articles.each do |article|
+  articles = Article
+    .published
+    .where(["published_at >= ?", 2.days.ago])
+    .where(block_bots: false)
+    .includes(:image)
+  articles.find_each do |article|
     images = []
     if article.image
       images << {
-        loc: article.image.original.url(:large_rect),
+        loc: article.image.original.url(:rectangle_636x),
         caption: article.image.caption,
       }
     end
@@ -24,7 +28,7 @@ SitemapGenerator::Sitemap.create do
           publication_name: "Duke Chronicle",
           publication_language: "en",
           title: article.title,
-          publication_date: article.published_at.iso8601,
+          publication_date: article.published_at,
         },
         images: images,
         )

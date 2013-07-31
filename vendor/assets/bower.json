@@ -16,8 +16,5 @@
     "jquery-masonry": "~2.1.0",
     "jquery.cookie": "latest",
     "tinymce-release": "~4.0.2"
-  },
-  "resolutions": {
-    "jquery": "~1.10.2"
   }
 }

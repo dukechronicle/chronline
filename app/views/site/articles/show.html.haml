@@ -17,6 +17,8 @@
       - article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
       = render partial: 'site/partials/twitter_cards/article', locals: {article: article}
       = render partial: 'site/partials/open-graph/article', locals: {article: article}
+    - if @article.block_bots
+      %meta{name: 'robots', content: 'noindex'}
     %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
 
 - content_for :scripts do
