@@ -3,7 +3,12 @@ SitemapGenerator::Sitemap.sitemaps_host = "http://#{Settings.aws.bucket}.s3.amaz
 SitemapGenerator::Sitemap.public_path = "tmp/"
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/site"
 SitemapGenerator::Sitemap.create_index = true
-SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
+  fog_provider: 'AWS',
+  fog_directory: Settings.aws.bucket,
+  aws_access_key_id: Settings.aws.access_key_id,
+  aws_secret_access_key: Settings.aws.secret_access_key,
+)
 
 
 SitemapGenerator::Sitemap.create do
