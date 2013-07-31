@@ -27,11 +27,15 @@ SitemapGenerator::Sitemap.create do
   end
 
   # Article URLs
-  Article.includes(:image).find_each do |article|
+  articles = Article
+    .published
+    .where(block_bots: false)
+    .includes(:image)
+  articles.find_each do |article|
     images =
       if article.image
         [{
-        loc: article.image.original.url(:large_rect),
+        loc: article.image.original.url(:rectangle_636x),
         caption: article.image.caption,
          }]
       else
@@ -50,7 +54,7 @@ SitemapGenerator::Sitemap.create do
   Staff.includes(:headshot).find_each do |staff|
     images =
       if staff.headshot
-        [{loc: staff.headshot.original.url(:thumb_square_m)}]
+        [{loc: staff.headshot.original.url(:square_200x)}]
       else
         []
       end

@@ -4,6 +4,8 @@
   %h1= link_to @blog.name, site_blog_posts_path(@blog)
 
 - content_for :head do
+  - if @blog_post.block_bots
+    %meta{name: 'robots', content: 'noindex'}
   %link{rel: "canonical", href: site_blog_post_url(@blog, @blog_post, subdomain: :www)}
 
 
