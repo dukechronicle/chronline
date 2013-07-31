@@ -11,7 +11,7 @@ class Blog
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :name, :logo, :banner, :description
+  attr_accessor :id, :name, :logo, :banner, :description, :twitter_widget
 
 
   def initialize(attributes={})
