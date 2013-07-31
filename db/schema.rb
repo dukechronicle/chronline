@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708010122) do
+ActiveRecord::Schema.define(:version => 20130731022212) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -19,12 +19,13 @@ ActiveRecord::Schema.define(:version => 20130708010122) do
     t.string   "section"
     t.string   "teaser"
     t.string   "title"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "slug"
     t.integer  "image_id"
     t.string   "previous_id"
     t.datetime "published_at"
+    t.boolean  "block_bots",   :default => false
   end
 
   add_index "articles", ["section", "published_at"], :name => "index_articles_on_section_and_published_at"
@@ -46,10 +47,11 @@ ActiveRecord::Schema.define(:version => 20130708010122) do
     t.string   "slug"
     t.integer  "image_id"
     t.integer  "author_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.datetime "published_at"
     t.string   "previous_url"
+    t.boolean  "block_bots",   :default => false
   end
 
   add_index "blog_posts", ["author_id"], :name => "index_blog_posts_on_author_id"
