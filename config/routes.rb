@@ -7,7 +7,8 @@ Chronline::Application.routes.draw do
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
-      get 'search' => 'articles#search'
+      resource :search, only: :show
+
       resource :newsletter, only: :show do
         post 'subscribe'
         post 'unsubscribe'
