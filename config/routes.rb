@@ -93,9 +93,11 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
 
-      resources :images, only: :index
-      resources :staff, only: [:index, :show, :create, :update, :destroy]
-      resources :articles, only: :index
+      resources :images, except: [:new, :edit]
+      resources :staff, except: [:new, :edit] do
+        get :search, on: :collection
+      end
+      resources :articles, except: [:new, :edit]
     end
   end
 

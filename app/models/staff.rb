@@ -30,6 +30,7 @@ class Staff < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
+  self.per_page = 25
 
   def author?
     articles.present?
