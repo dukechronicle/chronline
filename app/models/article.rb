@@ -14,10 +14,8 @@
 #  image_id   :integer
 #
 
-require_dependency 'staff'
-
-
 class Article < ActiveRecord::Base
+  require_dependency 'article/search'
   include Postable
 
   attr_accessible :previous_id, :subtitle, :section, :teaser
@@ -33,18 +31,6 @@ class Article < ActiveRecord::Base
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable if: :published_at, include: :authors do
-    text :title, stored: true, boost: 2.0, more_like_this: true
-    text :body, stored: true, more_like_this: true
-    text :author_names do  # Staff names rarely change
-      authors.map(&:name)  # TODO: show staff records if name is searched
-    end
-    integer :author_ids, multiple: true
-    string :section do
-      section[0]
-    end
-    time :published_at, trie: true
-  end
 
   ##
   # Record temporarily that this article was viewed by a user. This data is
