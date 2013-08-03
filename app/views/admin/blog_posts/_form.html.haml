@@ -6,10 +6,11 @@
     = f.input :blog, as: :hidden, input_html: {value: @blog_post.blog.id}
     = f.input :title
     = f.association :author, value_method: :name, as: :string, input_html: {class: 'staff-picker input-xlarge'}
-    = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}, hint: "Click #{link_to 'here', 'http://daringfireball.net/projects/markdown/syntax', target: '_blank'} for Markdown syntax reference (italics, bold, links, etc.)"
-    = f.input :tag_list, label: "Tags", hint: 'Comma separated list of tags. All lowercase, no "and", and no pound signs.'
+    = f.input :body, input_html: {rows: 5, class: 'wysiwyg'}
+    = f.input :tag_list, label: "Tags", hint: 'Comma separated list of tags, no "and", and no pound signs.'
     = f.association :image, as: :image_picker
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
 
-%script#image-select-template{type: 'text/template'}= render 'admin/templates/image-select'
+- content_for :scripts do
+  %script{src: "/assets/tinymce.min.js"}

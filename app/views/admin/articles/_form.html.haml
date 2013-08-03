@@ -15,4 +15,5 @@
     - if not @article.new_record?
       = link_to "Delete Article", [:admin, @article], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
 
-%script#image-select-template{type: 'text/template'}= render 'admin/templates/image-select'
+- content_for :scripts do
+  %script{src: "/assets/tinymce.min.js"}

@@ -1,6 +1,9 @@
 - provide :title, @article.title
+- provide(:title, @description) unless content_for? :description
 
 - content_for :head do
+  - if @article.block_bots
+    %meta{name: 'robots', content: 'noindex'}
   %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
 
 

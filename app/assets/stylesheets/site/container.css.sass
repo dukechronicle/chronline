@@ -2,7 +2,6 @@
   +border-radius($corner-radius)
   +black-box-shadow($default-box-shadow-opacity, 0px, 1px, 3px)
   background-color: white
-  +background-with-css2-fallback(linear-gradient(bottom, whiteSmoke 0%, white 33%))
   margin-bottom: $rounded-vertical-spacing
 
   .highlight-left
@@ -18,9 +17,8 @@
   +box-sizing(border-box)
 
   img
-    +border-radius($corner-radius)
     display: block
-    width: 100%
+    +border-radius($corner-radius)
 
   .photo-credit
     float: right
@@ -54,12 +52,12 @@
     text-transform: uppercase
     margin-bottom: 2px
 
-    > span
+    > span, time
       padding-left: 5px
       margin-left: 5px
       border-left: 1px solid #888
 
-    > span:first-child
+    > span:first-child, time:first-child
       padding-left: 0px
       margin-left: 0px
       border-left: 0px

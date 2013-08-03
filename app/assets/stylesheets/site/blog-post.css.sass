@@ -15,6 +15,11 @@
       list-style-type: none
       li
         display: inline
+        a
+          color: $light-text
+          +single-transition(color, .25s, linear)
+        a:hover
+          color: $link-color
       li:after
         content: "\2022"
         padding: 0px 2px 0px 4px
