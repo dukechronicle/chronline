@@ -17,6 +17,7 @@ class Article
   end
 
   class Search < ::Search
+    require_dependency 'search/facet_decorator'
 
     attr_reader :author_ids, :section
     attr_accessible :author_ids, :section
@@ -28,7 +29,7 @@ class Article
     protected
     def facet_names
       [
-       [:author_ids, "Author"],
+       [:author_ids, "Author", ::Search::StaffFacetDecorator],
        [:section, "Section"]
       ]
     end
