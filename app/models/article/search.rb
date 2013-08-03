@@ -15,12 +15,16 @@ class Article
 
   class Search < ::Search
 
-    attribute :author_id, type: Integer
-    attribute :section, type: String
+    attr_reader :author_ids, :section
+    attr_accessible :author_ids, :section
+
+    def self.model_name
+      ::Search.model_name
+    end
 
     protected
     def facet_names
-      process_facets(:author_id, :section)
+      [:author_ids, :section]
     end
 
   end

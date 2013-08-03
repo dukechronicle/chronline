@@ -42,7 +42,6 @@ group :assets do
   gem 'uglifier', '~> 2.1.2'
 end
 
-gem 'active_attr'
 gem 'acts-as-taggable-on'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
