@@ -38,10 +38,11 @@ class Blog
   end
 
   def self.find(id)
-    if Blog::Data[id]
-      attributes = Hash[Blog::Data[id]]
-      attributes['id'] = id
-      self.send(:new, attributes)
+    if id.is_a? Array
+      ids = id
+      ids.map { |id| lookup(id) }.compact
+    else
+      lookup(id)
     end
   end
 
@@ -51,6 +52,15 @@ class Blog
 
   def self.each(&block)
     self.all.each(&block)
+  end
+
+  private
+  def self.lookup(id)
+    if Blog::Data[id]
+      attributes = Hash[Blog::Data[id]]
+      attributes['id'] = id
+      self.send(:new, attributes)
+    end
   end
 
 end
