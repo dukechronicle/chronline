@@ -41,9 +41,9 @@ class Search
   end
 
   def facets
-    facet_names.map do |facet_name, label|
+    facet_names.map do |facet_name, label, decorator|
       rows = request.facet(facet_name).rows.map do |row|
-        FacetDecorator.new(row)
+        (decorator || FacetDecorator).new(row)
       end
       [facet_name, label, rows]
     end
@@ -72,8 +72,8 @@ class Search
         paginate page: self.page, per_page: self.per_page
         order_by self.sort, self.order
 
-        with(:date).greater_than(self.start_date) if start_date.present?
-        with(:date).less_than(self.end_date) if end_date.present?
+        with(:date).greater_than(self.start_date) unless start_date.blank?
+        with(:date).less_than(self.end_date) unless end_date.blank?
 
         fulltext self.query do
           if highlight
@@ -83,7 +83,7 @@ class Search
           end
         end
 
-        facet_names.each do |facet_name, _|
+        facet_names.each do |facet_name, _, _|
           value = self.send facet_name
           with(facet_name, value) unless value.blank?
           facet facet_name
