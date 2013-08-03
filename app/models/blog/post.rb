@@ -1,5 +1,6 @@
 class Blog
   class Post < ActiveRecord::Base
+    require_dependency 'blog/post/search'
     include Postable
 
     self.table_name = :blog_posts
@@ -24,6 +25,10 @@ class Blog
     def blog=(blog)
       blog = Blog.find(blog) unless blog.is_a?(Blog)
       super(blog)
+    end
+
+    def blog_id
+      blog.id
     end
 
   end
