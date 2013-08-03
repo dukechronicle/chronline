@@ -42,9 +42,8 @@ class Search
 
   def facets
     facet_names.map do |facet_name, label, decorator|
-      rows = request.facet(facet_name).rows.map do |row|
-        (decorator || FacetDecorator).new(row)
-      end
+      decorator ||= FacetDecorator
+      rows = decorator.wrap_rows(request.facet(facet_name).rows)
       [facet_name, label, rows]
     end
   end

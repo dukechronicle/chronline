@@ -5,6 +5,12 @@ class Search
       @row = row
     end
 
+    def self.wrap_rows(rows)
+      rows.map do |row|
+        self.new(row)
+      end
+    end
+
     def name
       @row.value.titlecase
     end
@@ -15,17 +21,40 @@ class Search
 
   end
 
-  class ActiveRecordFacetDecorator < FacetDecorator
+  class AssociationFacetDecorator < FacetDecorator
 
-    def name
-      model.find(@row.value).send method
+    def self.wrap_rows(rows)
+      ids = rows.map(&:value)
+      models = model_class.find(ids)
+      id_map = {}
+      models.each { |model| id_map[model.id] = model }
+
+      rows.map do |row|
+        self.new(row, id_map[row.value])
+      end
     end
 
-  end
+    def initialize(row, model = nil)
+      @row = row
+      @model = model
+    end
 
-  class StaffFacetDecorator < ActiveRecordFacetDecorator
-    protected
-    def model; Staff; end
-    def method; :name; end
+    def name
+      model.send self.class.method
+    end
+
+    private
+    def model
+      @model ||= self.class.model_class.find(@row.value)
+    end
+
+    def self.model_class
+      @model_class
+    end
+
+    def self.method
+      @method
+    end
+
   end
 end
