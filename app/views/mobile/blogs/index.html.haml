@@ -8,6 +8,7 @@
 
 #blog-listing{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
   - Blog.each do |blog|
-    %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true"}}
+    %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "true", blog: blog.id}}
       %h3= blog.name
-      %p= link_to "Visit the #{blog.name}", mobile_blog_posts_path(blog)
+      %ul{data: {role: "listview"}}
+        %li= link_to "Visit the #{blog.name}", mobile_blog_posts_path(blog)
