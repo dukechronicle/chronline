@@ -6,7 +6,7 @@ class Site::SearchesController < Site::BaseController
       @search = Search.new(params[:search])
       @results = @search.results
     else
-      @search = Search.new
+      @search = Search.new(highlight: true)
       @results = []
     end
   end
