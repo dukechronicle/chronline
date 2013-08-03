@@ -29,9 +29,14 @@ class Article
     protected
     def facet_names
       [
-       [:author_ids, "Author", ::Search::StaffFacetDecorator],
+       [:author_ids, "Author", StaffFacetDecorator],
        [:section, "Section"]
       ]
+    end
+
+    class StaffFacetDecorator < ::Search::AssociationFacetDecorator
+      @model_class = Staff
+      @method = :name
     end
 
   end
