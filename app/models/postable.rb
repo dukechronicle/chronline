@@ -48,5 +48,12 @@ onto per since than the this that to up via with)
       EmbeddedMedia.new(body).to_s
     end
 
+    ###
+    # Helper method for rendering JSON
+    #
+    def square_80x_url
+      image.original.url(:square_80x) if image
+    end
+
   end
 end
