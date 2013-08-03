@@ -37,7 +37,7 @@ class Article < ActiveRecord::Base
   # stored in Redis for five days. The data is used to determine popularity of
   # articles in each section. This should be called each time an article is
   # viewed on the main site or on mobile.
-
+  #
   def register_view
     unless section.root?
       key = "popularity:#{section[0].downcase}:#{Date.today}"
@@ -52,7 +52,7 @@ class Article < ActiveRecord::Base
   ##
   # Search for articles with related content. Uses Solr to query for relevance.
   # Returns the top +limit+ articles.
-
+  #
   def related(limit)
     search = Sunspot.more_like_this(self) do
       fields :title, :body
@@ -66,7 +66,7 @@ class Article < ActiveRecord::Base
 
   ##
   # Set article section. Creates a Taxonomy object if given a string argument.
-
+  #
   def section=(taxonomy)
     taxonomy = Taxonomy.new(taxonomy) unless taxonomy.is_a?(Taxonomy)
     super(taxonomy)
@@ -104,17 +104,7 @@ class Article < ActiveRecord::Base
     end.compact
   end
 
-
-  ###
-  # Helper methods for rendering JSON
-  ###
-
-  def thumb_square_s_url
-    image.original.url(:square_80x) if image
-  end
-
   private
-
   def self.fetch_popular_from_redis(section, limit)
     $redis.multi do
       5.times do |i|

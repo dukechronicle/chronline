@@ -7,7 +7,7 @@ class Api::ArticlesController < ApplicationController
       .section(taxonomy)
       .order('published_at DESC')
       .paginate(page: 1, per_page: params[:limit])
-    render json: articles, include: :authors, methods: :thumb_square_s_url
+    render json: articles, include: :authors, methods: :square_80x_url
   end
 
   def search

@@ -113,6 +113,9 @@ Chronline::Application.routes.draw do
       resources :images, only: :index
       resources :staff, only: :index
       resources :articles, only: :index
+      resources :blogs, only: [], controller: 'blog_posts' do
+        resources :posts, only: :index, controller: 'blog_posts'
+      end
     end
   end
 
