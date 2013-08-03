@@ -4,7 +4,6 @@
     = simple_form_for(search, url: site_search_path, method: :get) do |f|
       %fieldset
         %legend Refine your search
-        = f.input :highlight, as: :hidden
         = f.search_field :query, results: '5'
         .facets
           = f.input :sort, collection: [['Relevance', :score], ['Newest', :published_at]], default: 1, label: "Order by"

@@ -13,8 +13,8 @@ class Search
   # http://ola-bini.blogspot.com/2007/12/code-size-and-dynamic-languages.html
   def self.new(attrs = {})
     type = self
-    if (model = attrs[:model])
-      attrs[:model] = model = model.constantize if model.is_a? String
+    if (model = attrs[:model]).present?
+      model = attrs[:model] = model.constantize if model.is_a? String
       type = model.const_get(:Search)
     end
     object = type.allocate
@@ -31,6 +31,7 @@ class Search
     @sort      ||= :score
     @order     ||= :desc
     @highlight ||= false
+    @end_date  ||= DateTime.now
   end
 
   def results
@@ -60,13 +61,13 @@ class Search
   private
   def request
     if @request.nil?
-      # TODO: include models
       types =
-        if @model.nil?
-          [Article]
+        if @model.blank?
+          Sunspot.searchable
         else
           [@model]
         end
+      # TODO: include models
       @request = Sunspot.search(*types) do
         paginate page: self.page, per_page: self.per_page
         order_by self.sort, self.order
