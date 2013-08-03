@@ -78,7 +78,7 @@ class Search
           if highlight
             # Fragment size 0 means return whole field
             highlight :title, fragment_size: 0
-            highlight :body, max_snippets: 3, merge_contiguous_fragments: true
+            highlight :content, max_snippets: 3, merge_contiguous_fragments: true
           end
         end
 
@@ -98,9 +98,9 @@ class Search
         result.title = highlighted(hit, :title).first.html_safe
       end
 
-      unless hit.highlights(:body).empty?
+      unless hit.highlights(:content).empty?
         result.teaser =
-          ("...%s..." % highlighted(hit, :body).join("...")).html_safe
+          ("...%s..." % highlighted(hit, :content).join("...")).html_safe
       end
     end
   end
@@ -108,7 +108,7 @@ class Search
   def highlighted(hit, field)
     hit.highlights(field).map do |highlight|
       # Strip out HTML tags from matched fragments
-      highlight.instance_variable_get(:@highlight).gsub!(/<[^>]*>/, '')
+      # highlight.instance_variable_get(:@highlight)
       highlight.format { |word| "<mark>#{word}</mark>" }
     end
   end
