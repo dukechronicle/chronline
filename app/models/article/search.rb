@@ -24,7 +24,10 @@ class Article
 
     protected
     def facet_names
-      [:author_ids, :section]
+      [
+       [:author_ids, "Author"],
+       [:section, "Section"]
+      ]
     end
 
   end
