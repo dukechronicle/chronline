@@ -1,3 +1,2 @@
 - if result.is_a? Article
-  = render 'site/search/_article', locals: {article: result}
-
+  = render partial: 'site/searches/article', locals: {article: result}

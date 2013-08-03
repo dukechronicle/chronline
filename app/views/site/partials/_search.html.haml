@@ -7,13 +7,13 @@
         = f.search_field :query, results: '5'
         .facets
           = f.input :sort, collection: [['Relevance', :score], ['Newest', :published_at]], default: 1, label: "Order by"
-          = f.input :model, label: "Result Type", collection: [["Articles", Article],
-                                                               ["Blog Posts", Blog::Post]]
+          = f.input :model, label: "Result Type", value_method: :to_s,
+            collection: [["Articles", Article],
+                         ["Blog Posts", Blog::Post]]
           = f.input :start_date, collection: [['Past 24 Hours', 1.day.ago.to_date],
                                               ['Past 7 Days', 7.days.ago.to_date],
                                               ['Past 30 Days', 30.days.ago.to_date],
                                               ['Past 12 Months', 1.year.ago.to_date]]
-          - f.facets.each do |facet|
-          /= f.input :section, collection: search_options(article_search.sections)
-          /= f.input :author, collection: search_options(article_search.authors)
+          - search.facets.each do |field, rows|
+            = f.input field, collection: search_options(rows)
         = f.submit "Search", class: 'btn'

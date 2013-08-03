@@ -18,7 +18,7 @@
       %h3 No results found
   - else
     - @results.each do |result|
-      = render 'site/search/result', locals: {result: result}
+      = render partial: 'site/searches/result', locals: {result: result}
     = will_paginate @results
 
 .span-4.last
