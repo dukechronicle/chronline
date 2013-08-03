@@ -1,9 +1,19 @@
-listItem = (article) ->
+listArticle = (article) ->
   article.byline = -> (author.name for author in @authors).join(', ')
   article.date = -> (new Date(@published_at)).format("mmmm d, yyyy")
+  article.url = -> "/articles/#{@slug}"
+  listItem(article)
+
+listBlogPost = (blogPost) ->
+  blogPost.byline = -> @author.name
+  blogPost.date = -> (new Date(@published_at)).format("mmmm d, yyyy")
+  blogPost.url = -> "/blogs/#{@blog.id}/posts/#{@slug}"
+  listItem(blogPost)
+
+listItem = (postable) ->
   _.template("""
              <li>
-               <a href="/articles/<%= slug %>">
+               <a href="<%= url() %>">
                  <% if (square_80x_url) { %>
                    <img src="<%= square_80x_url %>"/>
                  <% } %>
@@ -12,16 +22,16 @@ listItem = (article) ->
                </a>
              </li>
              """,
-             article
+             postable
   )
 
-fetchMore = (url) ->
+fetchMore = (url, listFunction) ->
   ->
     $(this).on 'expand', 'div[data-role=collapsible]', ->
       if not $(this).data('initialized')
         $listview = $(this).find('ul[data-role=listview]')
-        $.get url.call(this), {limit: 7}, (articles) =>
-          $listview.children().last().before(_.map(articles, listItem))
+        $.get url.call(this), {limit: 7}, (posts) =>
+          $listview.children().last().before(_.map(posts, listFunction))
           $listview.listview('refresh')
           $(this).data('initialized', true)
 
@@ -32,5 +42,5 @@ blogUrl = ->
   blog = $(this).data('blog')
   fullUrl('api', "/blogs/#{blog}/posts")
 
-initialize '#section-listing', fetchMore(sectionUrl)
-initialize '#blog-listing', fetchMore(blogUrl)
+initialize '#section-listing', fetchMore(sectionUrl, listArticle)
+initialize '#blog-listing', fetchMore(blogUrl, listBlogPost)
