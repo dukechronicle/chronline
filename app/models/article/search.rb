@@ -2,7 +2,9 @@ class Article
 
   searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
-    text :body, stored: true, more_like_this: true
+    text :content, stored: true, more_like_this: true do
+      body.gsub(/<[^>]*>/, '')
+    end
     time :date, trie: true do
       published_at
     end
