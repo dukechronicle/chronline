@@ -1,0 +1,8 @@
+.rounded
+  %a.hover{href: site_blog_post_path(blog_post.blog, blog_post)}
+    .content-container
+      %h3= blog_post.title
+      %p.subtitle
+        %span.author= blog_post.author.name
+        = display_date(blog_post, nil)
+      %p= blog_post.teaser

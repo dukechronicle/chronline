@@ -3,7 +3,7 @@
   .leaderboard= advertisement :leaderboard
 
 #super-header
-  %span.date.local-time(data-format='dddd, mmmm dS, yyyy')
+  %time.date{data: {format: 'dddd, mmmm dS, yyyy'}}
   .icons
     %a.icons-facebook{href: "http://www.facebook.com/dukechronicle"}
     %a.icons-twitter{href: "http://twitter.com/dukechronicle"}
@@ -15,7 +15,7 @@
     = link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
     = link_to "Advertising", "/pages/advertising"
     = link_to "Classifieds", "http://dukechronicle.campusave.com"
-    = link_to "Housing", "http://chroniclehousing.com"
+    = link_to "Housing", "http://www.nearduke.com/housing"
 
 %header{id: (frontpage? ? 'header-frontpage' : 'header')}
   #header-top

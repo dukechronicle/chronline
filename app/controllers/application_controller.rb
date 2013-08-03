@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   cache_sweeper :article_sweeper
   cache_sweeper :image_sweeper
   cache_sweeper :staff_sweeper
+  cache_sweeper :page_sweeper
 
   before_filter :force_ssl if Rails.env.production?
 

@@ -1,4 +1,4 @@
-= image_tag image.original.url(:large_rect), class: 'main-image'
+= cropped_image_tag image, :rectangle_606x, class: 'main-image'
 .clearfix
   .photo-credit
     %span= photo_credit(image, link: true)
