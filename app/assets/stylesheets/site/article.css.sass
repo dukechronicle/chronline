@@ -4,6 +4,7 @@
   .share-box
     float: right
     margin-left: 10px
+    min-width: 145px
 
     .comment-link, .print-link, .email-link
       position: relative
@@ -40,7 +41,6 @@
     font-style: italic
 
   .main-image
-    width: 100%
     +border-radius($corner-radius)
 
   .photo-credit
@@ -60,6 +60,20 @@
     font-size: 1.2em
     line-height: 1.6em
     color: $dark-text
+    img
+      max-width: 100%
 
 #disqus_thread
   padding: 1.5em 1.5em 0
+
+.embedded-image
+  img
+    display: block
+
+.embedded-right
+  float: right
+  margin-left: 10px
+
+.embedded-left
+  float: left
+  margin-right: 10px

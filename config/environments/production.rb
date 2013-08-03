@@ -37,11 +37,11 @@ Chronline::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  config.logger = Le.new(Settings.logentries.token)
+  config.logger = Le.new(Settings.logentries.token, local: true)
 
   # Use a different cache store in production
   config.cache_store = :redis_store, {
-    url: Settings.redis.url,
+    url: Settings.redis,
     expires_in: 10.minutes,
     race_condition_ttl: 10.seconds
   }
@@ -55,8 +55,8 @@ Chronline::Application.configure do
      'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
      'galleria/themes/chronicle/galleria.chronicle.js',
      'galleria/themes/chronicle/galleria.chronicle.css',
-     'tinymce/js/tinymce/skins/lightgray/skin.min.css',
-     'tinymce/js/tinymce/skins/lightgray/content.min.css']
+     'tinymce-release/skins/lightgray/skin.min.css',
+     'tinymce-release/skins/lightgray/content.min.css']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

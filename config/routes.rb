@@ -7,7 +7,8 @@ Chronline::Application.routes.draw do
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
-      get 'search' => 'articles#search'
+      resource :search, only: :show
+
       resource :newsletter, only: :show do
         post 'subscribe'
         post 'unsubscribe'
@@ -24,6 +25,7 @@ Chronline::Application.routes.draw do
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
           id: Postable::SLUG_PATTERN
+        get 'tags/:tag' => 'blog_posts#tags', as: :tagged
       end
 
       resources :staff, only: :show do

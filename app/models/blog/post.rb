@@ -1,5 +1,6 @@
 class Blog
   class Post < ActiveRecord::Base
+    require_dependency 'blog/post/search'
     include Postable
 
     self.table_name = :blog_posts
@@ -18,10 +19,16 @@ class Blog
     validates :blog, presence: true
     validates :author, presence: true
 
+    self.per_page = 10  # set will_paginate default to 10 articles
+
 
     def blog=(blog)
       blog = Blog.find(blog) unless blog.is_a?(Blog)
       super(blog)
+    end
+
+    def blog_id
+      blog.id
     end
 
   end

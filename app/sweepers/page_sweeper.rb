@@ -14,14 +14,11 @@ class PageSweeper < ActionController::Caching::Sweeper
     expire_cache_for(page)
   end
 
-
   private
-
   def expire_cache_for(page)
     fragment = site_root_url(subdomain: :www, protocol: false)
       .gsub(%r[(^/*)|(/*$)], '')  # Remove leading and trailing slashes
-    # Frontpage is stored as /index since it's an article index page
-    fragment += page.path == '/' ? '/index' : page.path
+    fragment += page.path
     expire_fragment fragment
   end
 

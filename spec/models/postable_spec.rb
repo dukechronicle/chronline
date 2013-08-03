@@ -114,10 +114,18 @@ describe Postable do
 
   describe "#render_body" do
     subject { article.render_body }
+    let(:rendered_content) { "Pikachu won't enter his Pokeball." }
+    before do
+      double = double('EmbeddedMedia')
+      double.stub(to_s: rendered_content)
+      Postable::EmbeddedMedia
+        .should_receive(:new)
+        .with(article.body)
+        .and_return(double)
+    end
 
-    it "should be the article body" do
-      should == article.body
+    it "should use EmbeddedMedia to render the body" do
+      should == rendered_content
     end
   end
-
 end

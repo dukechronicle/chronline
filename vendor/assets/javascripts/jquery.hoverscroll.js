@@ -95,7 +95,7 @@ $.fn.hoverscroll = function(params) {
 		var listctnr = $this.parent();
 		
 		// wrap listcontainer with a div.hoverscroll
-		listctnr.wrap('<div class="ui-widget-content hoverscroll' +
+		listctnr.wrap('<div class="hoverscroll' +
 			(params.rtl && !params.vertical ? " rtl" : "") + '"></div>');
 		//listctnr.wrap('<div class="hoverscroll"></div>');
 		

@@ -11,7 +11,7 @@ class Blog
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :name, :image, :description
+  attr_accessor :id, :name, :logo, :banner, :description, :twitter_widget
 
 
   def initialize(attributes={})
@@ -38,12 +38,14 @@ class Blog
   end
 
   def self.find(id)
-    if Blog::Data[id]
-      attributes = Hash[Blog::Data[id]]
-      attributes['id'] = id
-      self.send(:new, attributes)
+    if id.is_a? Array
+      ids = id
+      ids.map { |id| lookup(id) }.compact
     else
-      raise ActiveRecord::RecordNotFound.new  # TODO: not an ActiveRecord error?
+      blog = lookup(id)
+      # TODO: not an ActiveRecord error?
+      raise ActiveRecord::RecordNotFound.new if blog.nil?
+      blog
     end
   end
 
@@ -53,6 +55,15 @@ class Blog
 
   def self.each(&block)
     self.all.each(&block)
+  end
+
+  private
+  def self.lookup(id)
+    if Blog::Data[id]
+      attributes = Hash[Blog::Data[id]]
+      attributes['id'] = id
+      self.send(:new, attributes)
+    end
   end
 
 end

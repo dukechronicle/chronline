@@ -1,4 +1,5 @@
 - provide :title, @staff.name
+- provide :description, "Recent and archived images by #{@staff.name} of The Chronicle at Duke University."
 
 - content_for :administrative_links do
   = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
@@ -13,12 +14,12 @@
   #images-container
     .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :images}
 
-    - styles = [:thumb_rect] * 3 << :large_rect
+    - styles = [:rectangle_183x] * 3 << :rectangle_378x
     - @images.each do |image|
       .item.image-item
         .rounded
           .image-container
             %a{href: associated_url(image)}
               - style = styles.sample
-              = image_tag image.original.url(style), class: style
+              = cropped_image_tag image, style
   = will_paginate @images

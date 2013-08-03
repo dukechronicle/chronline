@@ -1,4 +1,5 @@
 - provide :title, @article.title
+- provide :description, @article.teaser
 
 - content_for :title_block do
   %h1
@@ -11,10 +12,14 @@
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
 - content_for :head do
-  - if @article.published?
-    = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
-    = render partial: 'site/partials/open-graph/article', locals: {article: @article}
-  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
+  - cache(action_suffix: :head) do
+    - if @article.published?
+      - article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+      = render partial: 'site/partials/twitter_cards/article', locals: {article: article}
+      = render partial: 'site/partials/open-graph/article', locals: {article: article}
+    - if @article.block_bots
+      %meta{name: 'robots', content: 'noindex'}
+    %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
 
 - content_for :scripts do
   %script{src: '//www.readrboard.com/static/engage.js', defer: true}
@@ -29,31 +34,33 @@
       %h1 This is a sample view!
       %h2 Your article has not been published yet.
 
-.span-8
-  .rounded
-    %article.article-container
-      %h1.title= @article.title
-      - if not @article.subtitle.blank?
-        %h2.subtitle= @article.subtitle
+- cache do
+  - @article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+  .span-8
+    .rounded
+      %article.article-container
+        %h1.title= @article.title
+        - if not @article.subtitle.blank?
+          %h2.subtitle= @article.subtitle
 
-      - if @article.image
-        = render partial: 'partials/main-image', locals: {image: @article.image}
+        - if @article.image
+          = render partial: 'partials/main-image', locals: {image: @article.image}
 
-      %p.byline
-        %span.author By #{byline(@article, link: true)}
-        %span.sep= "|"
-        = display_date(@article)
+        %p.byline
+          %span.author By #{byline(@article, link: true)}
+          %span.sep= "|"
+          = display_date(@article)
 
-      .article-body
-        = render partial: 'site/partials/share-box', locals: {postable: @article}
-        != @article.render_body
+        .article-body
+          = render partial: 'site/partials/share-box', locals: {postable: @article}
+          != @article.render_body
 
-  #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
+    #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
 
-%aside.span-4.last
-  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
-  = render 'site/partials/facebook-recommended'
-  = render partial: 'site/partials/video-player', locals: {width: 300}
+  %aside.span-4.last
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
+    = render 'site/partials/facebook-recommended'
+    = render partial: 'site/partials/video-player', locals: {width: 300}
 
-= render 'site/partials/facebook-social-share'
+  = render 'site/partials/facebook-social-share'

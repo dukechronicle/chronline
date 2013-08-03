@@ -65,3 +65,10 @@ Layout.add_schema(:image, {
                   }) do |image_ids|
   Image.includes(:photographer).find_in_order(image_ids)
 end
+
+Layout.add_schema(:datetime, {
+                    'type' => 'string',
+                    'format' => 'date-time',
+                  }) do |datetimes|
+  datetimes.map { |str| DateTime.iso8601(str) }
+end

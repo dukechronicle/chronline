@@ -42,7 +42,7 @@ EOS
 
   def search_options(facets)
     facets.map do |facet|
-      ["#{facet[:value]} (#{facet[:count]})", facet[:lookup]]
+      ["#{facet.name} (#{facet.count})", facet.value]
     end
   end
 
