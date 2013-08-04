@@ -41,10 +41,4 @@ class Site::ArticlesController < Site::BaseController
     render 'print', layout: 'print'
   end
 
-  def search
-    params[:article_search] ||= {}
-    params[:article_search][:include] = :authors
-    super
-  end
-
 end
