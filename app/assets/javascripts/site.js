@@ -12,4 +12,5 @@
 //= require initialize
 //= require common/social-media
 //= require common/analytics
+//= require common/local-time
 //= require_tree ./site
