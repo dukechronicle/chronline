@@ -1,0 +1,4 @@
+- if result.is_a? Article
+  = render partial: 'mobile/searches/article', locals: {article: result}
+- if result.is_a? Blog::Post
+  = render partial: 'mobile/searches/blog_post', locals: {blog_post: result}
