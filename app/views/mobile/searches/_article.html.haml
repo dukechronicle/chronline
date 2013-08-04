@@ -1,0 +1,5 @@
+%a{href: mobile_article_path(article)}
+  - if article.image
+    = cropped_image_tag article.image, :square_80x
+  %h2= article.title
+  %p #{byline(article)} | #{display_date(article)}

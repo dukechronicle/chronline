@@ -54,8 +54,9 @@ Chronline::Application.routes.draw do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
-      get 'search' => 'articles#search', as: :article_search
       resources :articles, only: :show, id: Postable::SLUG_PATTERN
+
+      resource :search, only: :show
 
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',

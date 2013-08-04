@@ -1,0 +1,23 @@
+- if @search.query.present?
+  - provide :title, "Search: #{@search.query}"
+
+  - content_for :title_block do
+    %h1
+      = "Results for "
+      %em= @search.query
+- else
+  - provide :title, "Search"
+  - content_for :title_block do
+    %h1 Search the archives
+
+#section-listing{data: {role: "collapsible-set", 'collapsed-icon' => "arrow-r", 'expanded-icon' => "arrow-d"}}
+  %div{data: {role: "collapsible", theme: "a", 'content-theme' => "c", collapsed: "false", initialized: "true"}}
+    %h3="Results"
+    - if @search.query.blank?
+      %p.error Please enter a query
+    - elsif @results.blank?
+      %p.error No results found
+    - else
+      %ul{data: {role: "listview"}}
+        - @results.each do |result|
+          %li= render partial: 'mobile/searches/result', locals: {result: result}
