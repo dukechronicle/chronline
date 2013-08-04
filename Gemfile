@@ -73,6 +73,7 @@ gem 'simple_form'
 gem 'sitemap_generator'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'sunspot_rails', '~> 2.0.0'
+gem 'tinymce-rails', '~> 4.0.2'
 gem 'will_paginate'
 
 group :test do
