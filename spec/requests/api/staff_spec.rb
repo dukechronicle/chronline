@@ -6,20 +6,20 @@ describe "/staff/*" do
   subject { ActiveSupport::JSON.decode(response.body) }
 
   describe "GET /staff" do
-    let!(:orig_staff) { FactoryGirl.create_list :staff, 30 }
+    let!(:orig_staff) { FactoryGirl.create_list :staff, 5 }
 
     context "when page 1 is fetched" do
-      before { get api_staff_index_url(subdomain: :api, page: 1) }
+      before { get api_staff_index_url(subdomain: :api, page: 1, limit: 3) }
 
       it { response.status.should == Rack::Utils.status_code(:ok) }
-      it { should have(25).staff }
+      it { should have(3).staff }
     end
 
     context "when page 2 is fetched" do
-      before { get api_staff_index_url(subdomain: :api, page: 2) }
+      before { get api_staff_index_url(subdomain: :api, page: 2, limit: 3) }
 
       it { response.status.should == Rack::Utils.status_code(:ok) }
-      it { should have(5).staff }
+      it { should have(2).staff }
     end
   end
 
