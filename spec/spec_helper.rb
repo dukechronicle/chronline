@@ -50,19 +50,20 @@ def base_configs
 
     # Solr configuration
     # TODO fix for sporking
-     config.before(:each) do
-    if example.metadata[:solr] # it "...", solr: true do ... to have real SOLR
-      SolrTestServer.start
-      Sunspot.remove_all!
-      Sunspot.commit
-    else
-      SolrTestServer.stub
+    config.before(:each) do
+      if example.metadata[:solr] # it "...", solr: true do ... to have real SOLR
+        SolrTestServer.start
+        Sunspot.remove_all!
+        Sunspot.commit
+      else
+        SolrTestServer.stub
+      end
+
+      # Path helpers
+      config.include Rails.application.routes.url_helpers
     end
 
-    # Path helpers
-    config.include Rails.application.routes.url_helpers
-  end
-
+    config.include AuthHelper, type: :request
   end
 end
 

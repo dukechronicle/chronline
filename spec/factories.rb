@@ -28,4 +28,11 @@ FactoryGirl.define do
     photographer { Staff.find_or_create_by_name(Faker::Name.name) }
     original { fixture_file_upload('lib/sample-images/pikachu.png') }
   end
+
+  factory :user do
+    first_name "Ash"
+    last_name "Ketchum"
+    email "ash@ketch.um"
+    password "charizard"
+  end
 end
