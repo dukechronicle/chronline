@@ -110,6 +110,10 @@ class Taxonomy
     levels
   end
 
+  def self.nodes
+    list_nodes({ 'children' => Taxonomy::Tree })
+  end
+
   private
   def find_taxonomy_node(taxonomy)
     root = {'children' => Taxonomy::Tree}
@@ -126,6 +130,20 @@ class Taxonomy
       taxonomy: full_taxonomy,
       children: root['children'] || [],
     }
+  end
+
+  def self.list_nodes(root)
+    return [] if root['children'].nil?
+    root['children'].map do |child|
+      child_node =  {
+        id: child['id'],
+        name: child['name'],
+        taxonomy: 'sections',
+        parent_id: root['id'],
+      }
+      child_node[:new_id] = child['new_id'] unless child['new_id'].nil?
+      list_nodes(child).insert(0, child_node)
+    end.flatten
   end
 
 end
