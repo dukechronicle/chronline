@@ -216,12 +216,6 @@ describe Taxonomy do
       end
 
       it { nodes.each { |node| node.should have_key(:name) } }
-
-      it 'should assign the "taxonomy" property to "sections"' do
-        nodes.each do |node|
-          node[:taxonomy].should == 'sections'
-        end
-      end
     end
   end
 
