@@ -162,9 +162,9 @@ describe Taxonomy do
   end
 
   describe "#parents" do
-    its(:parents) do
-      should == [Taxonomy.new(['News']),
-                 Taxonomy.new(['News', 'University'])]
+    it "should be an array of parent taxonomy nodes" do
+      subject.parents.should ==
+        [Taxonomy.new(['News']), Taxonomy.new(['News', 'University'])]
     end
   end
 
@@ -186,6 +186,41 @@ describe Taxonomy do
         ]
       Taxonomy.levels.should == levels.map do |level|
         level.map {|taxonomy| Taxonomy.new(taxonomy)}
+      end
+    end
+  end
+
+  describe "::nodes" do
+    let(:nodes) { Taxonomy.nodes }
+    subject { nodes }
+
+    it { should have(9).nodes }
+
+    describe "taxonomy nodes" do
+      it 'should assign the "taxonomy" property to "sections"' do
+        nodes.each do |node|
+          node[:taxonomy].should == 'sections'
+        end
+      end
+
+      it "should have a numeric id" do
+        nodes.each do |node|
+          node[:id].should be_an(Integer)
+        end
+      end
+
+      it "should have the correct parent_id" do
+        nodes.each do |node|
+          node[:parent_id].should be_an(Integer) unless node[:parent_id].nil?
+        end
+      end
+
+      it { nodes.each { |node| node.should have_key(:name) } }
+
+      it 'should assign the "taxonomy" property to "sections"' do
+        nodes.each do |node|
+          node[:taxonomy].should == 'sections'
+        end
       end
     end
   end
