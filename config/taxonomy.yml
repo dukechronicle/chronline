@@ -1,97 +1,176 @@
 ---
 - name: News
+  id: 1
   children:
     - name: University
+      id: 2
       children:
         - name: Academics
+          id: 3
         - name: Board of Trustees
+          id: 4
         - name: Campus Crime
+          id: 5
         - name: Dining
+          id: 6
         - name: DSG
+          id: 7
         - name: Graduate and Professional Schools
+          id: 8
         - name: Kunshan
+          id: 9
         - name: Renovations
+          id: 10
         - name: Residence Life
+          id: 11
         - name: Student Life
+          id: 12
     - name: Local & National
+      id: 13
       children:
         - name: City of Durham
+          id: 14
         - name: Durham Crime
+          id: 15
         - name: Higher Education
+          id: 16
         - name: International
+          id: 17
         - name: National News and Politics
+          id: 18
         - name: North Carolina
+          id: 19
     - name: Health & Science
+      id: 20
       children:
         - name: DUHS
+          id: 21
         - name: Environment & Sustainability
+          id: 22
         - name: Pratt
+          id: 23
         - name: Research
+          id: 24
         - name: School of Medicine
+          id: 25
         - name: Student Health
+          id: 26
 - name: Sports
+  id: 27
   children:
     - name: Basketball
+      id: 28
       children:
         - name: Men
+          id: 29
         - name: Women
+          id: 30
     - name: Football
+      id: 31
     - name: Column
+      id: 32
     - name: Baseball
+      id: 33
     - name: Cross Country
+      id: 34
       children:
         - name: Men
+          id: 35
         - name: Women
+          id: 36
     - name: Fencing
+      id: 37
       children:
         - name: Men
+          id: 38
         - name: Women
+          id: 39
     - name: Field Hockey
+      id: 40
     - name: Golf
+      id: 41
       children:
         - name: Men
+          id: 42
         - name: Women
+          id: 43
     - name: Lacrosse
+      id: 44
       children:
         - name: Men
+          id: 45
         - name: Women
+          id: 46
     - name: Rowing
+      id: 47
     - name: Soccer
+      id: 48
       children:
         - name: Men
+          id: 49
         - name: Women
+          id: 50
     - name: Swimming & Diving
+      id: 51
       children:
         - name: Men
+          id: 52
         - name: Women
+          id: 53
     - name: Tennis
+      id: 54
       children:
         - name: Men
+          id: 55
         - name: Women
+          id: 56
     - name: Track & Field
+      id: 57
       children:
         - name: Men
+          id: 58
         - name: Women
+          id: 59
     - name: Volleyball
+      id: 60
     - name: Wrestling
+      id: 61
 - name: Opinion
+  id: 62
   children:
     - name: Letter to the Editor
+      id: 63
     - name: Editorial Board
+      id: 64
     - name: Column
+      id: 65
     - name: Guest Commentary
-    - name: Editor's Note
+      id: 66
+    - name: "Editor's Note"
+      id: 67
 - name: Recess
+  id: 68
   children:
     - name: Page Two
+      id: 69
     - name: Arts
+      id: 70
     - name: Music
+      id: 71
     - name: Film
+      id: 72
     - name: Literature
+      id: 73
     - name: Column
+      id: 74
 - name: Towerview
+  id: 75
   children:
     - name: Bus Stop
+      id: 76
     - name: Plaza
+      id: 77
     - name: Inquisitor
-    - name: Editor's Note
+      id: 78
+    - name: "Editor's Note"
+      id: 79
