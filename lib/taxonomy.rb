@@ -55,9 +55,13 @@ class Taxonomy
   end
 
   def children
-    @node[:children].map do |child|
-      Taxonomy.new(to_a << child['name'])
-    end
+    @node[:children]
+      .select { |child| child['new_id'].nil? }
+      .map { |child| Taxonomy.new(to_a << child['name']) }
+  end
+
+  def id
+    @node[:id]
   end
 
   def name
@@ -107,18 +111,21 @@ class Taxonomy
   end
 
   private
-
   def find_taxonomy_node(taxonomy)
     root = {'children' => Taxonomy::Tree}
     full_taxonomy = []
     taxonomy.each do |section|
       root = (root['children'] or []).select do |child|
-        child['name'].downcase == section.downcase
+        child['new_id'].nil? && child['name'].downcase == section.downcase
       end.first
       return nil if root.nil?
       full_taxonomy << root['name']
     end
-    {taxonomy: full_taxonomy, children: root['children'] || []}
+    {
+      id: root['id'],
+      taxonomy: full_taxonomy,
+      children: root['children'] || [],
+    }
   end
 
 end
