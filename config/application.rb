@@ -88,6 +88,8 @@ module Chronline
     config.action_mailer.raise_delivery_errors = true
 
     config.exceptions_app = self.routes
+
+    config.action_dispatch.tld_length = Settings.domain.count('.')
   end
 end
 
