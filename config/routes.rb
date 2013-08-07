@@ -89,6 +89,8 @@ Chronline::Application.routes.draw do
 
   constraints subdomain: 'api', format: :json do
     namespace :api, path: '/', defaults: {format: :json} do
+      get 'sections' => 'taxonomy#index'
+
       get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
