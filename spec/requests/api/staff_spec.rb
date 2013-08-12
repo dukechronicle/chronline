@@ -40,7 +40,7 @@ describe "/staff/*" do
 
     describe "when user is not authenticated" do
       before do
-        post api_staff_index_url(subdomain: :api), staff: new_staff_attrs
+        post api_staff_index_url(subdomain: :api), new_staff_attrs
       end
 
       it { response.status.should == Rack::Utils.status_code(:unauthorized) }
@@ -48,8 +48,8 @@ describe "/staff/*" do
 
     describe "when staff is valid" do
       before do
-        post api_staff_index_url(subdomain: :api), { staff: new_staff_attrs },
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        post api_staff_index_url(subdomain: :api), new_staff_attrs,
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       it { response.status.should == Rack::Utils.status_code(:created) }
@@ -69,8 +69,8 @@ describe "/staff/*" do
     describe "when staff is invalid" do
       before do
         new_staff_attrs.delete(:name)
-        post api_staff_index_url(subdomain: :api), { staff: new_staff_attrs },
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        post api_staff_index_url(subdomain: :api), new_staff_attrs,
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       it { response.status.should == Rack::Utils.status_code(:bad_request) }
@@ -85,7 +85,7 @@ describe "/staff/*" do
     let!(:staff) { FactoryGirl.create :staff, staff_attrs }
 
     describe "when user is not authenticated" do
-      before { delete api_staff_url(staff, subdomain: :api) }
+      before { put api_staff_url(staff, subdomain: :api) }
       it { response.status.should == Rack::Utils.status_code(:unauthorized) }
     end
 
@@ -93,8 +93,8 @@ describe "/staff/*" do
       let(:updated_attrs) { { name: 'Pokefan Harold' } }
 
       before do
-        put api_staff_url(subdomain: :api, id: staff.id),
-          { staff: updated_attrs }, { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        put api_staff_url(staff, subdomain: :api), updated_attrs,
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       it { response.status.should == Rack::Utils.status_code(:no_content) }
@@ -112,13 +112,13 @@ describe "/staff/*" do
       let(:invalid_attrs) { { name: '' } }
 
       before do
-        put api_staff_url(subdomain: :api, id: staff.id),
-          { staff: invalid_attrs }, { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        put api_staff_url(staff, subdomain: :api), invalid_attrs,
+          'HTTP_AUTHORIZATION' => http_auth(@user)
+      end
 
-        it { response.status.should == Rack::Utils.status_code(:bad_request) }
-        it "should respond with validation errors" do
-          should include('name')
-        end
+      it { response.status.should == Rack::Utils.status_code(:bad_request) }
+      it "should respond with validation errors" do
+        should include('name')
       end
     end
   end
@@ -134,7 +134,7 @@ describe "/staff/*" do
     describe "when user is authenticated" do
       before do
         delete api_staff_url(staff, subdomain: :api), nil,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       it { response.status.should == Rack::Utils.status_code(:no_content) }

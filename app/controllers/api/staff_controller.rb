@@ -17,7 +17,7 @@ class Api::StaffController < Api::BaseController
   end
 
   def create
-    staff = Staff.new(params[:staff])
+    staff = Staff.new(request.POST)
     if staff.save
       respond_with staff, status: :created, location: api_staff_url(staff)
     else
@@ -27,10 +27,10 @@ class Api::StaffController < Api::BaseController
 
   def update
     staff = Staff.find(params[:id])
-    if staff.update_attributes(params[:staff])
+    if staff.update_attributes(request.POST)
       head :no_content
     else
-      respond_with staff.errors, status: :bad_request
+      render json: staff.errors, status: :bad_request
     end
   end
 
