@@ -1,7 +1,7 @@
 class Blog
   class Serializer
-    def load(blog_id)
-      Blog.find(blog_id)
+    def load(blog)
+      Blog.find(blog) unless blog.nil?
     end
 
     def dump(blog)
