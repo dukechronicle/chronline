@@ -35,6 +35,16 @@ class Api::ArticlesController < Api::BaseController
     end
   end
 
+  def unpublish
+    article = Article.find(params[:id])
+    article.published_at = nil
+    if article.save
+      respond_with article, status: :ok, location: unpublish_api_article_url
+    else
+      head :internal_server_error
+    end
+  end
+
   def update
     article = Article.find(params[:id])
     article.update_attributes(request.POST)
