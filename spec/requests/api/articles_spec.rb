@@ -98,6 +98,10 @@ describe Api::ArticlesController do
         res.except('slug').should include(new_article_data)
       end
 
+      it "should not include previous_id" do
+        res.should_not include(:previous_id)
+      end
+
       it "should have a slug" do
         res.should include('slug')
       end
@@ -120,8 +124,13 @@ describe Api::ArticlesController do
       article.reload.published?.should be_false
     end
     its(:status) { should == Rack::Utils.status_code(:ok) }
+
     it "should include the data posted" do
       res.except('slug').should include(article_attrs)
+    end
+
+    it "should not include previous_id" do
+      res.should_not include(:previous_id)
     end
   end
 
