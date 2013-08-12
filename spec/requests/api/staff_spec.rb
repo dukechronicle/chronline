@@ -64,6 +64,11 @@ describe "/staff/*" do
 
       it { should include('updated_at', 'created_at') }
       it { Staff.should have(1).record }
+
+      it "should set correct location header" do
+        response.location.should ==
+          api_staff_url(subject['slug'], subdomain: :api)
+      end
     end
 
     describe "when staff is invalid" do
