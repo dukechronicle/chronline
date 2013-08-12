@@ -95,11 +95,15 @@ describe Api::ArticlesController do
 
       its(:status) { should == created }
       it "should include the data posted" do
-        puts "res"
-        res.sort.each { |k, v| puts "#{k} #{v}" }
-        puts "new_article_data"
-        new_article_data.sort.each { |k, v| puts "#{k} #{v}" }
-        res.should include(new_article_data)
+        res.except('slug').should include(new_article_data)
+      end
+
+      it "should have a slug" do
+        res.should include('slug')
+      end
+
+      it "should have a well-formed slug" do
+        res['slug'].should match(%r[(\d{4}/\d{2}/\d{2}/)?[^/]+])
       end
     end
   end
@@ -119,7 +123,7 @@ describe Api::ArticlesController do
           new_article_attrs = article_attrs.clone
           new_article_attrs[:body] = "**Agumon** wrecks everyone. The End."
           new_article_attrs = convert_objs_to_ids(
-            :new_article_attrs, authors, :author_ids)
+            new_article_attrs, :authors, :author_ids)
           new_article_attrs
         end
         before { put api_article_url(subdomain: :api, id: article.id, article: updated_attrs) }

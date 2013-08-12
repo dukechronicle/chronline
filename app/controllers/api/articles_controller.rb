@@ -23,7 +23,7 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    article = update_article(Article.new)
+    article = Article.new(params[:article])
     if article.valid?
       if article.save
         respond_with article, status: :created, location: api_articles_url
@@ -36,7 +36,8 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def update
-    article = update_article(Article.find(params[:id]))
+    article = Article.find(params[:id])
+    article.update_attributes(params[:article])
     if article.valid?
       if article.save
         head :no_content
@@ -51,15 +52,6 @@ class Api::ArticlesController < Api::BaseController
   def destroy
     article = Article.find(params[:id])
     article.destroy
-  end
-
-  private
-
-  def update_article(article)
-    author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
-    article.assign_attributes(params[:article])
-    article.published_at = params[:article][:published_at]
-    article
   end
 
 end

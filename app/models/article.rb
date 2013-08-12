@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
   include FriendlyId
   include Rails.application.routes.url_helpers
 
-  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title, :published_at
+  attr_accessible :author_ids, :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title, :published_at
   serialize :section, Taxonomy::Serializer.new
 
   friendly_id :title, use: [:slugged, :history]
