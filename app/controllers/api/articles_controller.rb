@@ -18,42 +18,47 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def show
-    article = Article.find params[:id]
+    article = Article.find(params[:id])
     respond_with article
   end
 
   def create
     article = update_article(Article.new)
-    if article.save
-      respond_with article, status: :created, location: api_articles_url
+    if article.valid?
+      if article.save
+        respond_with article, status: :created, location: api_articles_url
+      else
+        head :internal_server_error
+      end
     else
       head :bad_request
     end
   end
 
   def update
-    @article = update_article(Article.find(params[:id]))
-    if @article.save
-      head :no_content
+    article = update_article(Article.find(params[:id]))
+    if article.valid?
+      if article.save
+        head :no_content
+      else
+        head :internal_server_error
+      end
     else
-      head :bad_request
+        head :bad_request
     end
   end
 
   def destroy
-    article = Article.find params[:id]
+    article = Article.find(params[:id])
     article.destroy
   end
 
   private
 
   def update_article(article)
-    # Last element of taxonomy array may be an empty string
-    params[:article][:section].pop if params[:article][:section].last.blank?
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
     article.assign_attributes(params[:article])
-    article.authors = Staff.find_or_create_all_by_name(author_names)
-    article.published_at = DateTime.now if params[:article][:published_at].to_i == 1
+    article.published_at = params[:article][:published_at]
     article
   end
 
