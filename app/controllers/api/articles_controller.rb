@@ -52,6 +52,7 @@ class Api::ArticlesController < Api::BaseController
   def destroy
     article = Article.find(params[:id])
     article.destroy
+    head :no_content
   end
 
 end
