@@ -26,7 +26,9 @@ class Api::ArticlesController < Api::BaseController
     article = Article.new(request.POST)
     if article.valid?
       if article.save
-        respond_with article, status: :created, location: api_articles_url
+        respond_with(
+          article, status: :created, location: api_articles_url,
+          except: :previous_id)
       else
         head :internal_server_error
       end
@@ -39,7 +41,9 @@ class Api::ArticlesController < Api::BaseController
     article = Article.find(params[:id])
     article.published_at = nil
     if article.save
-      respond_with article, status: :ok, location: unpublish_api_article_url
+      respond_with(
+        article, status: :ok, location: unpublish_api_article_url,
+        except: :previous_id)
     else
       head :internal_server_error
     end
