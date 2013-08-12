@@ -108,6 +108,23 @@ describe Api::ArticlesController do
     end
   end
 
+  describe "POST /articles/:id/unpublish" do
+    let(:article_attrs) { FactoryGirl.attributes_for :article }
+    let(:article) { FactoryGirl.create :article, article_attrs }
+    let(:res) { ActiveSupport::JSON.decode(response.body) }
+    subject { response }
+
+    before { post unpublish_api_article_url(article.id, subdomain: :api) }
+
+    it "should be unpublished" do
+      article.reload.published?.should be_false
+    end
+    its(:status) { should == Rack::Utils.status_code(:ok) }
+    it "should include the data posted" do
+      res.except('slug').should include(article_attrs)
+    end
+  end
+
   describe "PUT /articles/*" do
     let(:original_article) { FactoryGirl.build :article }
     let(:no_response) { 204 }
