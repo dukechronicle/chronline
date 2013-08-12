@@ -91,7 +91,7 @@ describe Api::ArticlesController do
         convert_objs_to_ids(
           FactoryGirl.attributes_for(:article), :authors, :author_ids)
       end
-      before { post api_articles_url(subdomain: :api), article: new_article_data}
+      before { post api_articles_url(subdomain: :api), new_article_data}
 
       its(:status) { should == created }
       it "should include the data posted" do
@@ -118,19 +118,21 @@ describe Api::ArticlesController do
       let(:article_attrs) { FactoryGirl.attributes_for :article }
       let(:article) { FactoryGirl.create :article, article_attrs }
 
-      describe "update article with valid data" do
-        let(:updated_attrs) do
-          new_article_attrs = article_attrs.clone
-          new_article_attrs[:body] = "**Agumon** wrecks everyone. The End."
-          new_article_attrs = convert_objs_to_ids(
-            new_article_attrs, :authors, :author_ids)
-          new_article_attrs
+      describe "with valid data" do
+        let(:valid_attrs) { {title: "Magikarp: Underrated?" } }
+        before { put api_article_url(article.id, subdomain: :api), valid_attrs }
+        its(:status) { should == Rack::Utils.status_code(:no_content) }
+        it "should have a changed title" do
+          article.reload.title.should == valid_attrs[:title]
         end
-        before { put api_article_url(subdomain: :api, id: article.id, article: updated_attrs) }
-        its(:status) { should == no_response }
-        it "should have a changed body" do
-          article.reload
-          article.body.should == updated_attrs[:body]
+      end
+
+      describe "with invalid data" do
+        let(:invalid_attrs) { {title: "" } }
+        before { put api_article_url(article.id, subdomain: :api), invalid_attrs }
+        it { response.status.should == Rack::Utils.status_code(:bad_request) }
+        it "should respond with validation errors" do
+          res.should include('title')
         end
       end
     end
