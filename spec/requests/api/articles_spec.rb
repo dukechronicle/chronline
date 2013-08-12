@@ -140,19 +140,14 @@ describe Api::ArticlesController do
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
     let!(:article) { FactoryGirl.create :article }
-    it { change(Article, :count).by(1) }
-  end
-end
+    before { delete api_article_url(article.id, subdomain: :api) }
 
-def json_attributes(model)
-  attrs = model.attributes
-  # Timestamps are in different format for JSON
-  attrs.each do |key, value|
-    if value.respond_to?(:iso8601)
-      attrs[key] = value.iso8601
+    it { response.status.should == Rack::Utils.status_code(:no_content) }
+
+    it "should remove the article" do
+      Article.should have(:no).records
     end
   end
-  attrs
 end
 
 def convert_objs_to_ids(hash, key, new_key)
