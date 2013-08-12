@@ -23,7 +23,7 @@ class Blog
 
 
     def blog=(blog)
-      blog = Blog.find(blog) unless blog.is_a?(Blog)
+      blog = Blog.find(blog) unless blog.nil? || blog.is_a?(Blog)
       super(blog)
     end
 

@@ -50,7 +50,7 @@ class Blog
   end
 
   def self.all
-    Blog::Data.map {|key, _| self.find(key)}
+    self.find(Blog::Data.keys)
   end
 
   def self.each(&block)
