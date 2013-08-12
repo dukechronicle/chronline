@@ -23,7 +23,7 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    article = Article.new(params[:article])
+    article = Article.new(request.POST)
     if article.valid?
       if article.save
         respond_with article, status: :created, location: api_articles_url
@@ -37,7 +37,7 @@ class Api::ArticlesController < Api::BaseController
 
   def update
     article = Article.find(params[:id])
-    article.update_attributes(params[:article])
+    article.update_attributes(request.POST)
     if article.valid?
       if article.save
         head :no_content
@@ -45,7 +45,7 @@ class Api::ArticlesController < Api::BaseController
         head :internal_server_error
       end
     else
-        head :bad_request
+      render json: article.errors, status: :bad_request
     end
   end
 
