@@ -17,6 +17,7 @@ def base_configs
   require 'capybara/rspec'
   require 'capybara/poltergeist'
   require 'sunspot/rails/spec_helper'
+  require './spec/support/helpers'
   Capybara.javascript_driver = :poltergeist
 
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -64,6 +65,8 @@ def base_configs
     end
 
     config.include AuthHelper, type: :request
+
+    config.include Helpers
   end
 end
 
