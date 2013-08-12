@@ -21,8 +21,8 @@ class Api::ImagesController < Api::BaseController
   end
 
   def update
-    @image = update_image(Image.find(params[:id]))
-    if @image.save
+    image = update_image(Image.find(params[:id]))
+    if image.save
       head :no_content
     else
       head :bad_request
@@ -32,5 +32,18 @@ class Api::ImagesController < Api::BaseController
   def destroy
     image = Image.find(params[:id])
     image.destroy
+  end
+
+  private
+
+  def update_image(image)
+    photographer_name = params[:image].delete(:photographer_id)
+    image.assign_attributes(params[:image])
+    if photographer_name.blank?
+      image.photographer = nil
+    else
+      image.photographer = Staff.find_or_create_by_name(photographer_name)
+    end
+    image
   end
 end

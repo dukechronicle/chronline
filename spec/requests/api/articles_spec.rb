@@ -88,7 +88,8 @@ describe Api::ArticlesController do
 
     describe "create article" do
       let(:new_article_data) do
-        FactoryGirl.attributes_for(:article).convert_objs_to_ids(:authors, :author_ids)
+        convert_objs_to_ids(
+          FactoryGirl.attributes_for(:article), :authors, :author_ids)
       end
       before { post api_articles_url(subdomain: :api), article: new_article_data}
 
@@ -117,7 +118,8 @@ describe Api::ArticlesController do
         let(:updated_attrs) do
           new_article_attrs = article_attrs.clone
           new_article_attrs[:body] = "**Agumon** wrecks everyone. The End."
-          new_article_attrs.convert_objs_to_ids :authors, :author_ids
+          new_article_attrs = convert_objs_to_ids(
+            :new_article_attrs, authors, :author_ids)
           new_article_attrs
         end
         before { put api_article_url(subdomain: :api, id: article.id, article: updated_attrs) }
@@ -149,9 +151,7 @@ def json_attributes(model)
   attrs
 end
 
-class Hash
-  def convert_objs_to_ids(key, new_key)
-    self[new_key] = self.delete(key).map { |obj| obj.id }
-    self
-  end
+def convert_objs_to_ids(hash, key, new_key)
+  hash[new_key] = hash.delete(key).map { |obj| obj.id }
+  hash
 end

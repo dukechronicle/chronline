@@ -23,16 +23,4 @@ module ArticlesController
       @articles = []
     end
   end
-
-  def update_image(image)
-    photographer_name = params[:image].delete(:photographer_id)
-    image.assign_attributes(params[:image])
-    if photographer_name.blank?
-      image.photographer = nil
-    else
-      image.photographer = Staff.find_or_create_by_name(photographer_name)
-    end
-    image
-  end
-
 end

@@ -23,19 +23,13 @@ describe "Images API" do
       it { images.should have(1).images }
 
       it "should have image properties" do
-        attrs = @image.attributes
-        # Timestamps are in different format for JSON
-        attrs.each do |key, value|
-          if value.respond_to?(:iso8601)
-            attrs[key] = value.iso8601
-          end
-        end
+        attrs = json_attributes(@image)
         images.first.should include(attrs)
       end
 
-      it "should have original url" do
+      it "should have thumbnail url" do
         images.first.should include(
-          "thumbnail_url" => @image.original.url(:thumb_rect))
+          "thumbnail_url" => @image.thumbnail_url)
       end
     end
 
@@ -45,13 +39,7 @@ describe "Images API" do
 
       its(:status) { should == success }
       it "should have have image properties" do
-        attrs = @image.attributes
-        # Timestamps are in different format for JSON
-        attrs.each do |key, value|
-          if value.respond_to?(:iso8601)
-            attrs[key] = value.iso8601
-          end
-        end
+        attrs = json_attributes(@image)
         image.should include(attrs)
       end
     end
