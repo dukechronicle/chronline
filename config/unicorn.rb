@@ -8,8 +8,8 @@ before_fork do |server, worker|
     Process.kill 'QUIT', Process.pid
   end
 
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.connection.disconnect!
+  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+  $redis.quit
 end
 
 after_fork do |server, worker|
@@ -17,6 +17,12 @@ after_fork do |server, worker|
     puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to send QUIT'
   end
 
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.establish_connection
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+
+  # HAX: Reset all redis connections
+  ObjectSpace.each_object(ActionDispatch::Session::RedisStore) do |store|
+    store.pool.reconnect
+  end
+  Rails.cache.reconnect
+  Resque.redis = $redis = Redis.new(url: Settings.redis, driver: :hiredis)
 end
