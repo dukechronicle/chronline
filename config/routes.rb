@@ -96,9 +96,7 @@ Chronline::Application.routes.draw do
       get 'search' => 'articles#search'
 
       resources :images, except: [:new, :edit]
-      resources :staff, except: [:new, :edit] do
-        get :search, on: :collection
-      end
+      resources :staff, except: [:new, :edit]
       resources :articles, except: [:new, :edit] do
         post :unpublish, on: :member
       end
