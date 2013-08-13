@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Newsletter do
   let(:newsletter) { Newsletter.new }
-  let(:mock_gb) { double('Gibbon') }
+  let(:mock_gb) { double('Gibbon::API') }
   subject { newsletter }
 
   before do

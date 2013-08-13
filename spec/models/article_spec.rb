@@ -23,7 +23,7 @@ describe Article do
 
   it { should have_and_belong_to_many :authors }
   it { should validate_presence_of :authors }
-  it { should allow_value(Faker::Lorem.paragraph(2)).for(:teaser) }
+  it { should allow_value(Faker::Lorem.paragraph(1)).for(:teaser) }
   it "should not allow long teasers" do
     should_not allow_value(Faker::Lorem.paragraph(10)).for(:teaser)
   end
