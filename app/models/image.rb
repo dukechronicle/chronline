@@ -18,7 +18,6 @@
 require_dependency 'staff'
 
 class Image < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
 
   File.open(Rails.root.join("config", "image_styles.yml")) do |file|
     Image::Styles = YAML::load(file)
@@ -68,17 +67,6 @@ class Image < ActiveRecord::Base
       "#{style}_#{width}x"
     end
     original.reprocess!(*styles)
-  end
-
-  def to_jq_upload
-    [{
-      name: original_file_name,
-      size: original_file_size,
-      url: edit_admin_image_path(self),
-      thumbnail_url: thumbnail_url,
-      delete_url: admin_image_path(self),
-      delete_type: 'DELETE',
-     }]
   end
 
   ###

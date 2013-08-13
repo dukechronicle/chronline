@@ -10,7 +10,7 @@ class Admin::ImagesController < Admin::BaseController
   def create
     @image = Image.new(params[:image])
     if @image.save
-      render json: {files: @image.to_jq_upload}
+      render json: { files: [jq_upload_data(@image)] }
     else
       render json: @image.errors, status: :unprocessable_entity
     end
@@ -52,7 +52,6 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   private
-
   def update_image(image)
     photographer_name = params[:image].delete(:photographer_id)
     image.assign_attributes(params[:image])
@@ -62,6 +61,17 @@ class Admin::ImagesController < Admin::BaseController
       image.photographer = Staff.find_or_create_by_name(photographer_name)
     end
     image
+  end
+
+  def jq_upload_data(image)
+    {
+      name: image.original_file_name,
+      size: image.original_file_size,
+      url: edit_admin_image_path(image),
+      thumbnail_url: image.original.url(:rectangle_183x),
+      delete_url: admin_image_path(image),
+      delete_type: 'DELETE',
+     }
   end
 
 end
