@@ -6,7 +6,7 @@ class Api::ArticlesController < Api::BaseController
       .published
       .section(taxonomy)
       .order('published_at DESC')
-      .paginate(page: 1, per_page: params[:limit])
+      .paginate(page: params[:page], per_page: params[:limit])
     respond_with articles, include: :authors, methods: :thumb_square_s_url
   end
 
