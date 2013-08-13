@@ -44,10 +44,16 @@ describe "Images API" do
       end
     end
   end
-  describe "DELETE /image/*" do
+
+  describe "DELETE /image/:id" do
     let(:res) { JSON.decode(response.body) }
     subject { response }
-    let!(:staff) { FactoryGirl.create :staff }
-    it { change(Staff, :count).by(1) }
+    let!(:image) { FactoryGirl.create :image }
+    before { delete api_image_url(image.id, subdomain: :api) }
+
+    it "should remove the image record" do
+      Image.should have(:no).records
+    end
+    its(:status) { should == Rack::Utils.status_code(:no_content) }
   end
 end

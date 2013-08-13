@@ -99,7 +99,9 @@ Chronline::Application.routes.draw do
       resources :staff, except: [:new, :edit] do
         get :search, on: :collection
       end
-      resources :articles, except: [:new, :edit]
+      resources :articles, except: [:new, :edit] do
+        post :unpublish, on: :member
+      end
     end
   end
 
