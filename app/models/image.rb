@@ -43,6 +43,7 @@ class Image < ActiveRecord::Base
   attr_reader :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles,
     processors: [:cropper, :paperclip_optimizer]
+  process_in_background :original
 
   default_value_for(:date) { Date.today }
 
