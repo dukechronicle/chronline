@@ -6,20 +6,50 @@ describe "/staff/*" do
   subject { ActiveSupport::JSON.decode(response.body) }
 
   describe "GET /staff" do
-    let!(:staff) { FactoryGirl.create_list :staff, 5 }
-
-    context "when page 1 is fetched" do
-      before { get api_staff_index_url(subdomain: :api, page: 1, limit: 3) }
-
-      it { response.status.should == Rack::Utils.status_code(:ok) }
-      it { should have(3).staff }
+    let!(:staff) do
+      [
+       FactoryGirl.create(:staff, name: 'Joe Smith'),
+       FactoryGirl.create(:staff, name: 'John Smith'),
+       FactoryGirl.create(:staff, name: 'Will Smith', columnist: true),
+      ]
     end
 
-    context "when page 2 is fetched" do
-      before { get api_staff_index_url(subdomain: :api, page: 2, limit: 3) }
+    context "when page 1 is fetched" do
+      before { get api_staff_index_url(subdomain: :api), page: 1, limit: 2 }
 
       it { response.status.should == Rack::Utils.status_code(:ok) }
       it { should have(2).staff }
+    end
+
+    context "when page 2 is fetched" do
+      before { get api_staff_index_url(subdomain: :api), page: 2, limit: 2 }
+
+      it { response.status.should == Rack::Utils.status_code(:ok) }
+      it { should have(1).staff }
+    end
+
+    context "when search parameter is specified" do
+      before { get api_staff_index_url(subdomain: :api), search: 'Jo' }
+
+      it "should respond with staff with names matching search prefix" do
+        subject.each { |result| result['name'].should start_with('Jo') }
+      end
+    end
+
+    context "when columnist filter is true" do
+      before { get api_staff_index_url(subdomain: :api), columnist: true }
+
+      it "should return only columnists" do
+        subject.each { |result| result['columnist'].should be_true }
+      end
+    end
+
+    context "when columnist filter is false" do
+      before { get api_staff_index_url(subdomain: :api), columnist: false }
+
+      it "should return only columnists" do
+        subject.each { |result| result['columnist'].should be_false }
+      end
     end
   end
 
