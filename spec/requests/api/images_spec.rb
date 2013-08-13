@@ -36,13 +36,44 @@ describe "Images API" do
     describe "get single image" do
       before { get api_image_url(subdomain: :api, id: @image.id) }
       let(:image) { JSON.parse(response.body) }
+      let(:res) { ActiveSupport::JSON.decode(response.body) }
 
       its(:status) { should == success }
       it "should have have image properties" do
         attrs = json_attributes(@image)
         image.should include(attrs)
       end
+      it "should match Camayak spec" do
+        res.should include(
+          'caption' => @image.caption,
+          'location' => @image.location,
+          'credit' => @image.credit,
+          'original_file_name' => @image.original_file_name,
+          'original_content_type' => @image.original_content_type,
+          'original_file_size' => @image.original_file_size,
+          'original_updated_at' => @image.original_updated_at.iso8601,
+          'created_at' => @image.created_at.iso8601,
+          'updated_at' => @image.updated_at.iso8601,
+          'photographer_id' => @image.photographer_id,
+          'published_url' => @image.original.url
+        )
+      end
     end
+  end
+
+  describe "POST /images/" do
+    let(:new_image) do
+      convert_objs_to_ids(
+        FactoryGirl.attributes_for(:image), :photographer, :photographer_id)
+    end
+    let(:original) { Rack::Test::UploadedFile.new("./lib/sample-images/pikachu.png", "text/jpg") }
+    let(:res) { ActiveSupport::JSON.decode(response.body) }
+    subject { response }
+
+    before { post api_images_url(subdomain: :api), new_image.merge({original: original}) }
+
+    its(:status) { should == Rack::Utils.status_code(:created) }
+
   end
 
   describe "DELETE /image/:id" do
@@ -56,4 +87,13 @@ describe "Images API" do
     end
     its(:status) { should == Rack::Utils.status_code(:no_content) }
   end
+end
+
+def convert_objs_to_ids(hash, key, new_key)
+  if hash[key].respond_to? :each
+    hash[new_key] = hash.delete(key).map { |obj| obj.id }
+  else
+    hash[new_key] = hash.delete(key).id
+  end
+  hash
 end
