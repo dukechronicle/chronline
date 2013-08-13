@@ -9,7 +9,7 @@ describe "/staff/*" do
     let!(:staff) do
       [
        FactoryGirl.create(:staff, name: 'Joe Smith'),
-       FactoryGirl.create(:staff, name: 'John Smith'),
+       FactoryGirl.create(:staff_with_image, name: 'John Smith'),
        FactoryGirl.create(:staff, name: 'Will Smith', columnist: true),
       ]
     end
@@ -49,6 +49,22 @@ describe "/staff/*" do
 
       it "should return only columnists" do
         subject.each { |result| result['columnist'].should be_false }
+      end
+    end
+
+    context "when photographer filter is true" do
+      before { get api_staff_index_url(subdomain: :api), photographer: true }
+
+      it "should return only photographers" do
+        subject.each { |result| result['photographer'].should be_true }
+      end
+    end
+
+    context "when photographer filter is false" do
+      before { get api_staff_index_url(subdomain: :api), photographer: false }
+
+      it "should return only photographers" do
+        subject.each { |result| result['photographer'].should be_false }
       end
     end
   end
