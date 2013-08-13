@@ -10,7 +10,7 @@ class Newsletter
     attributes.each do |key, value|
       send("#{key}=", value)
     end
-    @gb = Gibbon.new(Settings.mailchimp.api_key)
+    @gb = Gibbon::API.new(Settings.mailchimp.api_key)
   end
 
   def persisted?
@@ -18,7 +18,7 @@ class Newsletter
   end
 
   def create_campaign
-    @campaign_id = @gb.campaign_create({
+    response = @gb.campaigns.create({
       type: :regular,
       options: {
         list_id: Settings.mailchimp.list_id,
@@ -36,19 +36,20 @@ class Newsletter
         html_ISSUEDATE: issue_date,
       },
     })
+    @campaign_id = response['id']
   end
 
   def send_campaign!
     if test_email.present?
-      @gb.campaign_send_test(cid: @campaign_id, test_emails: [test_email])
+      @gb.campaigns.send_test(cid: @campaign_id, test_emails: [test_email])
       "Campaign draft sent to #{test_email}"
     elsif scheduled_time.present?
       time_repr = scheduled_time.utc.strftime("%F %T")
-      @gb.campaign_schedule(cid: @campaign_id, schedule_time: time_repr)
+      @gb.campaigns.schedule(cid: @campaign_id, schedule_time: time_repr)
       "Campaign scheduled to be sent at " +
         scheduled_time.strftime('%r on %D %Z')
     else
-      @gb.campaign_send_now(cid: @campaign_id)
+      @gb.campaigns.send_now(cid: @campaign_id)
       "Campaign was sent"
     end
   end
