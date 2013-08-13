@@ -1,4 +1,5 @@
 require_dependency 'admin/users_controller' # contains admin devise controllers
+require 'resque/server'
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
@@ -102,6 +103,8 @@ Chronline::Application.routes.draw do
         resources :posts, except: :show, controller: 'blog_posts',
           id: Postable::SLUG_PATTERN
       end
+
+      mount Resque::Server.new, at: '/resque'
     end
   end
 
