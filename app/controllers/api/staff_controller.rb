@@ -4,6 +4,13 @@ class Api::StaffController < Api::BaseController
 
   def index
     staff = Staff.paginate(page: params[:page], per_page: params[:limit])
+    if params.include? :search
+      staff = staff.search(params[:search])
+    end
+    if params.include? :columnist
+      value = params[:columnist] != 'false' ? true : [false, nil]
+      staff = staff.where(columnist: value)
+    end
     respond_with staff,
       properties: { photographer: ->(staff) { staff.photographer? } }
   end
