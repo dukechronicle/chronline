@@ -4,16 +4,14 @@ class Api::StaffController < Api::BaseController
 
   def index
     staff = Staff.paginate(page: params[:page], per_page: params[:limit])
-    respond_with staff
-  end
-
-  def search
-    respond_with Staff.search(params[:search])
+    respond_with staff,
+      properties: { photographer: ->(staff) { staff.photographer? } }
   end
 
   def show
     staff = Staff.find(params[:id])
-    respond_with staff
+    respond_with staff,
+      properties: { photographer: ->(staff) { staff.photographer? } }
   end
 
   def create
@@ -21,7 +19,7 @@ class Api::StaffController < Api::BaseController
     if staff.save
       respond_with staff, status: :created, location: api_staff_url(staff)
     else
-      render json: staff.errors, status: :bad_request
+      render json: staff.errors, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +28,7 @@ class Api::StaffController < Api::BaseController
     if staff.update_attributes(request.POST)
       head :no_content
     else
-      render json: staff.errors, status: :bad_request
+      render json: staff.errors, status: :unprocessable_entity
     end
   end
 
