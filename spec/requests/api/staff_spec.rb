@@ -6,7 +6,7 @@ describe "/staff/*" do
   subject { ActiveSupport::JSON.decode(response.body) }
 
   describe "GET /staff" do
-    let!(:orig_staff) { FactoryGirl.create_list :staff, 5 }
+    let!(:staff) { FactoryGirl.create_list :staff, 5 }
 
     context "when page 1 is fetched" do
       before { get api_staff_index_url(subdomain: :api, page: 1, limit: 3) }
@@ -24,14 +24,27 @@ describe "/staff/*" do
   end
 
   describe "GET /staff/:id" do
-    before { get api_staff_url(orig_staff, subdomain: :api) }
-    let!(:orig_staff) { FactoryGirl.create :staff }
+    before { get api_staff_url(staff, subdomain: :api) }
+    let!(:staff) { FactoryGirl.create :staff }
 
     it { response.status.should == Rack::Utils.status_code(:ok) }
 
     it "should have staff attributes" do
-      attrs = ActiveSupport::JSON.decode(orig_staff.to_json)
+      attrs = ActiveSupport::JSON.decode(staff.to_json)
       should include(attrs)
+    end
+
+    it "should match Camayak spec" do
+      should include(
+        'affiliation' => staff.affiliation,
+        'biography' => staff.biography,
+        'columnist' => staff.columnist,
+        'photographer' => staff.photographer?,
+        'name' => staff.name,
+        'tagline' => staff.tagline,
+        'twitter' => staff.twitter,
+        'slug' => staff.slug,
+      )
     end
   end
 
@@ -78,7 +91,10 @@ describe "/staff/*" do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:bad_request) }
+      it do
+        response.status.should == Rack::Utils.status_code(:unprocessable_entity)
+      end
+
       it "should respond with validation errors" do
         should include('name')
       end
@@ -121,7 +137,10 @@ describe "/staff/*" do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:bad_request) }
+      it do
+        response.status.should == Rack::Utils.status_code(:unprocessable_entity)
+      end
+
       it "should respond with validation errors" do
         should include('name')
       end
