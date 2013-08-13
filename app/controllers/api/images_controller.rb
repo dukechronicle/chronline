@@ -3,18 +3,21 @@ class Api::ImagesController < Api::BaseController
   def index
     images = Image.order('date DESC')
       .paginate(page: params[:page], per_page: params[:limit])
-    respond_with images, methods: :thumbnail_url
+    respond_with images, methods: :thumbnail_url,
+      properties: { published_url: ->(image) { image.original.url } }
   end
 
   def show
     image = Image.find(params[:id])
-    respond_with image, methods: :thumbnail_url
+    respond_with image, methods: :thumbnail_url,
+      properties: { published_url: ->(image) { image.original.url } }
   end
 
   def create
-    image = Image.new(params[:image])
+    image = Image.new(request.POST)
     if image.save
-      respond_with image, status: :created
+      respond_with image, status: :created, location: api_images_url,
+        properties: { published_url: ->(image) { image.original.url } }
     else
       head :bad_request
     end
@@ -38,8 +41,8 @@ class Api::ImagesController < Api::BaseController
   private
 
   def update_image(image)
-    photographer_name = params[:image].delete(:photographer_id)
-    image.assign_attributes(params[:image])
+    photographer_name = request.POST.delete(:photographer_id)
+    image.assign_attributes(request.POST)
     if photographer_name.blank?
       image.photographer = nil
     else
