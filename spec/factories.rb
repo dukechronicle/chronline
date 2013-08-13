@@ -19,6 +19,12 @@ FactoryGirl.define do
     twitter "pokefan"
     columnist false
     biography "The best Pokemon trainer ever."
+
+    factory :staff_with_image do
+      after(:create) do |staff|
+        FactoryGirl.create(:image, photographer: staff)
+      end
+    end
   end
 
   factory :image do
