@@ -32,6 +32,7 @@ class Api::ImagesController < Api::BaseController
   def destroy
     image = Image.find(params[:id])
     image.destroy
+    head :no_content
   end
 
   private

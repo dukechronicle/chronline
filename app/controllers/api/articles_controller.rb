@@ -23,10 +23,12 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    article = Article.new(params[:article])
+    article = Article.new(request.POST)
     if article.valid?
       if article.save
-        respond_with article, status: :created, location: api_articles_url
+        respond_with(
+          article, status: :created, location: api_articles_url,
+          except: :previous_id)
       else
         head :internal_server_error
       end
@@ -35,9 +37,21 @@ class Api::ArticlesController < Api::BaseController
     end
   end
 
+  def unpublish
+    article = Article.find(params[:id])
+    article.published_at = nil
+    if article.save
+      respond_with(
+        article, status: :ok, location: unpublish_api_article_url,
+        except: :previous_id)
+    else
+      head :internal_server_error
+    end
+  end
+
   def update
     article = Article.find(params[:id])
-    article.update_attributes(params[:article])
+    article.update_attributes(request.POST)
     if article.valid?
       if article.save
         head :no_content
@@ -45,13 +59,14 @@ class Api::ArticlesController < Api::BaseController
         head :internal_server_error
       end
     else
-        head :bad_request
+      render json: article.errors, status: :bad_request
     end
   end
 
   def destroy
     article = Article.find(params[:id])
     article.destroy
+    head :no_content
   end
 
 end
