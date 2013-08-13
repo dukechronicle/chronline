@@ -91,11 +91,15 @@ describe Api::ArticlesController do
         convert_objs_to_ids(
           FactoryGirl.attributes_for(:article), :authors, :author_ids)
       end
-      before { post api_articles_url(subdomain: :api), article: new_article_data}
+      before { post api_articles_url(subdomain: :api), new_article_data}
 
       its(:status) { should == created }
       it "should include the data posted" do
         res.except('slug').should include(new_article_data)
+      end
+
+      it "should not include previous_id" do
+        res.should_not include(:previous_id)
       end
 
       it "should have a slug" do
@@ -105,6 +109,28 @@ describe Api::ArticlesController do
       it "should have a well-formed slug" do
         res['slug'].should match(%r[(\d{4}/\d{2}/\d{2}/)?[^/]+])
       end
+    end
+  end
+
+  describe "POST /articles/:id/unpublish" do
+    let(:article_attrs) { FactoryGirl.attributes_for :article }
+    let(:article) { FactoryGirl.create :article, article_attrs }
+    let(:res) { ActiveSupport::JSON.decode(response.body) }
+    subject { response }
+
+    before { post unpublish_api_article_url(article.id, subdomain: :api) }
+
+    it "should be unpublished" do
+      article.reload.published?.should be_false
+    end
+    its(:status) { should == Rack::Utils.status_code(:ok) }
+
+    it "should include the data posted" do
+      res.except('slug').should include(article_attrs)
+    end
+
+    it "should not include previous_id" do
+      res.should_not include(:previous_id)
     end
   end
 
@@ -118,19 +144,21 @@ describe Api::ArticlesController do
       let(:article_attrs) { FactoryGirl.attributes_for :article }
       let(:article) { FactoryGirl.create :article, article_attrs }
 
-      describe "update article with valid data" do
-        let(:updated_attrs) do
-          new_article_attrs = article_attrs.clone
-          new_article_attrs[:body] = "**Agumon** wrecks everyone. The End."
-          new_article_attrs = convert_objs_to_ids(
-            new_article_attrs, :authors, :author_ids)
-          new_article_attrs
+      describe "with valid data" do
+        let(:valid_attrs) { {title: "Magikarp: Underrated?" } }
+        before { put api_article_url(article.id, subdomain: :api), valid_attrs }
+        its(:status) { should == Rack::Utils.status_code(:no_content) }
+        it "should have a changed title" do
+          article.reload.title.should == valid_attrs[:title]
         end
-        before { put api_article_url(subdomain: :api, id: article.id, article: updated_attrs) }
-        its(:status) { should == no_response }
-        it "should have a changed body" do
-          article.reload
-          article.body.should == updated_attrs[:body]
+      end
+
+      describe "with invalid data" do
+        let(:invalid_attrs) { {title: "" } }
+        before { put api_article_url(article.id, subdomain: :api), invalid_attrs }
+        it { response.status.should == Rack::Utils.status_code(:bad_request) }
+        it "should respond with validation errors" do
+          res.should include('title')
         end
       end
     end
@@ -140,19 +168,14 @@ describe Api::ArticlesController do
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
     let!(:article) { FactoryGirl.create :article }
-    it { change(Article, :count).by(1) }
-  end
-end
+    before { delete api_article_url(article.id, subdomain: :api) }
 
-def json_attributes(model)
-  attrs = model.attributes
-  # Timestamps are in different format for JSON
-  attrs.each do |key, value|
-    if value.respond_to?(:iso8601)
-      attrs[key] = value.iso8601
+    it { response.status.should == Rack::Utils.status_code(:no_content) }
+
+    it "should remove the article" do
+      Article.should have(:no).records
     end
   end
-  attrs
 end
 
 def convert_objs_to_ids(hash, key, new_key)
