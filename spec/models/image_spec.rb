@@ -16,9 +16,10 @@
 
 require 'spec_helper'
 
-describe Image do
 
-  subject { FactoryGirl.create(:image) }
+describe Image do
+  let(:image) { FactoryGirl.create(:image) }
+  subject { image }
 
   it { should have_many(:articles) }
   it { should have_many(:pages) }
@@ -41,8 +42,8 @@ describe Image do
     end
 
     it "should have version information as values" do
-      Image::Styles.each do |k, v|
-        v.should include('width', 'height', 'description')
+      Image::Styles.each do |type, info|
+        info.should include('width', 'height', 'sizes')
       end
     end
   end
@@ -56,7 +57,7 @@ describe Image do
     end
   end
 
-  describe "articles" do
+  describe "#articles" do
     let(:article) { FactoryGirl.create(:article, image_id: subject.id) }
 
     it "should remove image from articles when destroyed" do
@@ -65,20 +66,35 @@ describe Image do
     end
   end
 
-  describe "#to_jq_upload" do
-    it "should be an array with one hash" do
-      subject.to_jq_upload.should be_an(Array)
-      subject.to_jq_upload.should have(1).item
+  describe "#reprocess_style!" do
+    before do
+      image.original.stub(:reprocess!)
+      image.reprocess_style!('vertical')
     end
 
-    it "should have required jQuery upload properties" do
-      hash = subject.to_jq_upload.first
-      hash.should have_key(:name)
-      hash.should have_key(:size)
-      hash.should have_key(:url)
-      hash.should have_key(:thumbnail_url)
-      hash.should have_key(:delete_url)
-      hash.should have_key(:delete_type)
+    it "should reprocess all styles for a type" do
+      image.original.should
+        have_received(:reprocess!).with('vertical_243x', 'vertical_183x')
+    end
+  end
+
+  describe "#crop!" do
+    before do
+      image.original.stub(:reprocess!)
+      image.crop!('vertical', 1, 2, 3, 4)
+    end
+
+    it "should assign crop instance variables" do
+      image.crop_style.should == 'vertical'
+      image.crop_x.should == 1
+      image.crop_y.should == 2
+      image.crop_w.should == 3
+      image.crop_h.should == 4
+    end
+
+    it "should reprocess all styles for a type" do
+      image.original.should
+        have_received(:reprocess!).with('vertical_243x', 'vertical_183x')
     end
   end
 
