@@ -1,23 +1,7 @@
 require 'spec_helper'
 
-MOCK_TAXONOMY = <<EOS
----
-- name: News
-  children:
-    - name: University
-      children:
-        - name: Academics
-        - name: Board of Trustees
-- name: Sports
-- name: Opinion
-- name: Recess
-- name: Towerview
-EOS
-Taxonomy.const_set('Tree', YAML.load(MOCK_TAXONOMY))
-
 
 describe Taxonomy do
-
   subject { Taxonomy.new(['news', 'university']) }
 
   context "when constructed with a string taxonomy" do

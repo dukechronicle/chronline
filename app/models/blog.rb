@@ -4,7 +4,7 @@ class Blog
   extend ActiveModel::Naming
 
   # Must initialize Blog::Data here so that it is present on reload
-  File.open(File.join(Rails.root, "config", "blogs.yml")) do |file|
+  File.open(Rails.root.join('config', 'blogs.yml')) do |file|
     Blog::Data = YAML.load(file)
   end
 
