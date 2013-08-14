@@ -1,4 +1,5 @@
 class Api::ArticlesController < Api::BaseController
+  before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
 
   def index
     taxonomy = Taxonomy.new("/#{params[:section]}/")
@@ -41,9 +42,7 @@ class Api::ArticlesController < Api::BaseController
     article = Article.find(params[:id])
     article.published_at = nil
     if article.save
-      respond_with(
-        article, status: :ok, location: unpublish_api_article_url,
-        except: :previous_id)
+      respond_with(:api, article, status: :ok, except: :previous_id)
     else
       head :internal_server_error
     end

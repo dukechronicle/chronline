@@ -1,4 +1,5 @@
 class Api::ImagesController < Api::BaseController
+  before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
     images = Image.order('date DESC')
