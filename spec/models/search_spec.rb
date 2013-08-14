@@ -56,7 +56,15 @@ describe Search do
     end
 
     context "when highlight option is on" do
-      it "should wrap highlighted elements with <mark> tags"
+      context "when matched query is in title" do
+        before { FactoryGirl.create(:article, title: 'Ash goes to Jhoto') }
+        it "should set wrap highlighted elements of title with <mark> tags"
+      end
+
+      context "when matched query is in body" do
+        before { FactoryGirl.create(:article, body: 'Ash goes to Jhoto') }
+        it "should set wrap highlighted elements of body with <mark> tags"
+      end
     end
   end
 end
