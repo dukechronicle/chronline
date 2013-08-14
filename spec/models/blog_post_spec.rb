@@ -30,7 +30,7 @@ describe Blog::Post do
   end
 
   describe "#blog" do
-    before { subject.blog = 'playground' }
+    before { subject.blog = 'kanto_news' }
 
     it { should validate_presence_of(:blog) }
     its(:blog) { should be_a_kind_of(Blog) }

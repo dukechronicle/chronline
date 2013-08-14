@@ -32,7 +32,7 @@ FactoryGirl.define do
   factory :blog_post, class: Blog::Post do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
-    blog "bluezone"
+    blog "pokedex"
     association :author, factory: :staff
   end
 end
