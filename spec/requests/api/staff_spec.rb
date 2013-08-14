@@ -97,12 +97,10 @@ describe "/staff/*" do
   describe "POST /staff" do
     let(:new_staff_attrs) { FactoryGirl.attributes_for :staff }
 
-    describe "when user is not authenticated" do
-      before do
-        post api_staff_index_url(subdomain: :api), new_staff_attrs
-      end
 
-      it { response.status.should == Rack::Utils.status_code(:unauthorized) }
+    it "should require authentication" do
+      expect{ post api_staff_index_url(subdomain: :api), new_staff_attrs }.
+        to require_authorization
     end
 
     describe "when staff is valid" do
@@ -151,9 +149,9 @@ describe "/staff/*" do
     let(:staff_attrs) { FactoryGirl.attributes_for :staff }
     let!(:staff) { FactoryGirl.create :staff, staff_attrs }
 
-    describe "when user is not authenticated" do
-      before { put api_staff_url(staff, subdomain: :api) }
-      it { response.status.should == Rack::Utils.status_code(:unauthorized) }
+    it "should require authentication" do
+      expect{ put api_staff_url(staff, subdomain: :api) }.
+        to require_authorization
     end
 
     describe "when update data is valid" do
@@ -196,22 +194,20 @@ describe "/staff/*" do
   describe "DELETE /staff/:id" do
     let!(:staff) { FactoryGirl.create :staff }
 
-    describe "when user is not authenticated" do
-      before { delete api_staff_url(staff, subdomain: :api) }
-      it { response.status.should == Rack::Utils.status_code(:unauthorized) }
+    it "should require authentication" do
+      expect{ delete api_staff_url(staff, subdomain: :api) }.
+        to require_authorization
     end
 
-    describe "when user is authenticated" do
-      before do
-        delete api_staff_url(staff, subdomain: :api), nil,
-          'HTTP_AUTHORIZATION' => http_auth(@user)
-      end
+    before do
+      delete api_staff_url(staff, subdomain: :api), nil,
+        'HTTP_AUTHORIZATION' => http_auth(@user)
+    end
 
-      it { response.status.should == Rack::Utils.status_code(:no_content) }
+    it { response.status.should == Rack::Utils.status_code(:no_content) }
 
-      it "should remove the staff record" do
-        Staff.should have(:no).records
-      end
+    it "should remove the staff record" do
+      Staff.should have(:no).records
     end
   end
 end

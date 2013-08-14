@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Api::ArticlesController do
-
+  before(:all) { @user = FactoryGirl.create(:user) }
+  after(:all) { @user.destroy }
   describe "GET /section/*" do
     let!(:original_articles) do
       [
@@ -81,19 +82,25 @@ describe Api::ArticlesController do
   end
 
   describe "POST /articles/" do
-    let(:success) { 200 }
-    let(:created) { 201 }
+    let(:new_article_data) do
+      convert_objs_to_ids(
+        FactoryGirl.attributes_for(:article), :authors, :author_ids)
+    end
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
-    describe "create article" do
-      let(:new_article_data) do
-        convert_objs_to_ids(
-          FactoryGirl.attributes_for(:article), :authors, :author_ids)
-      end
-      before { post api_articles_url(subdomain: :api), new_article_data}
+    it "should require authentication" do
+      expect{ post api_articles_url(subdomain: :api), new_article_data }.
+        to require_authorization
+    end
 
-      its(:status) { should == created }
+    describe "create article" do
+      before do
+        post api_articles_url(subdomain: :api), new_article_data,
+          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+      end
+
+      its(:status) { should == Rack::Utils.status_code(:created) }
       it "should include the data posted" do
         res.except('slug').should include(new_article_data)
       end
@@ -118,7 +125,15 @@ describe Api::ArticlesController do
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
-    before { post unpublish_api_article_url(article.id, subdomain: :api) }
+    before do
+      post unpublish_api_article_url(article.id, subdomain: :api), nil,
+          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+    end
+
+    it "should require authentication" do
+      expect{ post unpublish_api_article_url(article.id, subdomain: :api) }.
+        to require_authorization
+    end
 
     it "should be unpublished" do
       article.reload.published?.should be_false
@@ -136,17 +151,24 @@ describe Api::ArticlesController do
 
   describe "PUT /articles/*" do
     let(:original_article) { FactoryGirl.build :article }
-    let(:no_response) { 204 }
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
     describe "update article" do
       let(:article_attrs) { FactoryGirl.attributes_for :article }
       let(:article) { FactoryGirl.create :article, article_attrs }
+      let(:valid_attrs) { {title: "Magikarp: Underrated?" } }
+
+      it "should require authentication" do
+        expect{ put api_article_url(article.id, subdomain: :api), valid_attrs }.
+          to require_authorization
+      end
 
       describe "with valid data" do
-        let(:valid_attrs) { {title: "Magikarp: Underrated?" } }
-        before { put api_article_url(article.id, subdomain: :api), valid_attrs }
+        before do
+          put api_article_url(article.id, subdomain: :api), valid_attrs,
+            { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        end
         its(:status) { should == Rack::Utils.status_code(:no_content) }
         it "should have a changed title" do
           article.reload.title.should == valid_attrs[:title]
@@ -155,7 +177,10 @@ describe Api::ArticlesController do
 
       describe "with invalid data" do
         let(:invalid_attrs) { {title: "" } }
-        before { put api_article_url(article.id, subdomain: :api), invalid_attrs }
+        before do
+          put api_article_url(article.id, subdomain: :api), invalid_attrs,
+            { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        end
         it { response.status.should == Rack::Utils.status_code(:bad_request) }
         it "should respond with validation errors" do
           res.should include('title')
@@ -168,7 +193,15 @@ describe Api::ArticlesController do
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
     let!(:article) { FactoryGirl.create :article }
-    before { delete api_article_url(article.id, subdomain: :api) }
+    before do
+      delete api_article_url(article.id, subdomain: :api), nil,
+        { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+    end
+
+    it "should require authentication" do
+      expect{ delete api_article_url(article.id, subdomain: :api) }.
+        to require_authorization
+    end
 
     it { response.status.should == Rack::Utils.status_code(:no_content) }
 
