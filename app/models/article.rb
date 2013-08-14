@@ -31,9 +31,9 @@ class Article < ActiveRecord::Base
 
   validates :body, presence: true
   validates :title, presence: true, length: {maximum: 90}
-  validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
+  validates_with Taxonomy::Validator, attr: :section
 
   scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
   scope :published, where('published_at IS NOT NULL')
@@ -95,9 +95,11 @@ onto per since than the this that to up via with)
     EmbeddedMedia.new(body).to_s
   end
 
-  def section=(taxonomy)
-    taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    super(taxonomy)
+  def section
+    unless self[:section].is_a?(Taxonomy)
+      self[:section] = Taxonomy.new(self[:section])
+    end
+    self[:section]
   end
 
   def self.popular(section, options={})
