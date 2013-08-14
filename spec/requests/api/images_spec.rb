@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "Images API" do
-
+  before(:all) { @user = FactoryGirl.create(:user) }
+  after(:all) { @user.destroy }
   describe "GET /images/*" do
     let(:success) { 200 }
     let(:no_response) { 204 }
@@ -70,7 +71,15 @@ describe "Images API" do
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
-    before { post api_images_url(subdomain: :api), new_image.merge({original: original}) }
+    it "should require authentication" do
+      expect{ post api_images_url(subdomain: :api), new_image }.
+        to require_authorization
+    end
+
+    before do
+      post api_images_url(subdomain: :api), new_image.merge({original: original}),
+        { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+    end
 
     its(:status) { should == Rack::Utils.status_code(:created) }
 
@@ -80,7 +89,15 @@ describe "Images API" do
     let(:res) { JSON.decode(response.body) }
     subject { response }
     let!(:image) { FactoryGirl.create :image }
-    before { delete api_image_url(image.id, subdomain: :api) }
+    before do
+      delete api_image_url(image.id, subdomain: :api), nil,
+        { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+    end
+
+    it "should require authentication" do
+      expect{ delete api_image_url(image.id, subdomain: :api) }.
+        to require_authorization
+    end
 
     it "should remove the image record" do
       Image.should have(:no).records
