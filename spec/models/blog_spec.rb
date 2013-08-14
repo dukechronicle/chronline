@@ -1,18 +1,7 @@
 require 'spec_helper'
 
-Blog.const_set('Data',
-               'pokedex' => {
-                 'name' => "The Pokedex",
-                 'description' => "Gotta catch em all",
-               },
-               'kanto_news' => {
-                 'name' => "Kanto News",
-                 'description' => "Everything about Kanto",
-               })
-
 
 describe Blog do
-
   it "should not be directly instantiable" do
     ->{ Blog.new }.should raise_error
   end

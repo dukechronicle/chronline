@@ -97,7 +97,7 @@ describe Article do
   end
 
   describe "::section" do
-    let(:articles) do
+    let!(:articles) do
       [
        FactoryGirl.create(:article, section: '/news/'),
        FactoryGirl.create(:article, section: '/news/university/'),
