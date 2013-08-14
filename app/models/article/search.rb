@@ -1,4 +1,5 @@
 class Article
+  attr_accessor :matched_title, :matched_content
 
   searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
@@ -40,7 +41,5 @@ class Article
       @model_class = Staff
       @method = :name
     end
-
   end
-
 end

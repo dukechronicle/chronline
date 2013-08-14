@@ -95,11 +95,11 @@ class Search
   def highlight_results
     request.each_hit_with_result do |hit, result|
       unless hit.highlights(:title).empty?
-        result.title = highlighted(hit, :title).first.html_safe
+        result.matched_title = highlighted(hit, :title).first.html_safe
       end
 
       unless hit.highlights(:content).empty?
-        result.teaser =
+        result.matched_content =
           ("...%s..." % highlighted(hit, :content).join("...")).html_safe
       end
     end
