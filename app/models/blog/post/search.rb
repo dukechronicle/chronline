@@ -1,6 +1,5 @@
 class Blog::Post
-
-  attr_accessor :teaser
+  attr_accessor :matched_title, :matched_content
 
   searchable if: :published_at, include: [:author, :tags] do
     text :title, stored: true, boost: 2.0, more_like_this: true
@@ -52,5 +51,4 @@ class Blog::Post
       @method = :name
     end
   end
-
 end
