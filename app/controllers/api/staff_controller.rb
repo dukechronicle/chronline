@@ -1,7 +1,6 @@
 class Api::StaffController < Api::BaseController
   before_filter :authenticate_user!, only: [:create, :update, :destroy]
 
-
   def index
     staff = Staff.paginate(page: params[:page], per_page: params[:limit])
     if params.include? :search
@@ -18,20 +17,18 @@ class Api::StaffController < Api::BaseController
         .group('staff.id')
         .having("COUNT(images.id) #{comparison} 0")
     end
-    respond_with staff,
-      properties: { photographer: ->(staff) { staff.photographer? } }
+    respond_with_staff staff
   end
 
   def show
     staff = Staff.find(params[:id])
-    respond_with staff,
-      properties: { photographer: ->(staff) { staff.photographer? } }
+    respond_with_staff staff
   end
 
   def create
     staff = Staff.new(request.POST)
     if staff.save
-      respond_with staff, status: :created, location: api_staff_url(staff)
+      respond_with_staff staff, status: :created, location: api_staff_url(staff)
     else
       render json: staff.errors, status: :unprocessable_entity
     end
@@ -52,4 +49,11 @@ class Api::StaffController < Api::BaseController
     head :no_content
   end
 
+  private
+  def respond_with_staff(staff, options = {})
+    options.merge!(
+      properties: { photographer: ->(staff) { staff.photographer? } }
+    )
+    respond_with staff, options
+  end
 end
