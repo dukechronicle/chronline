@@ -1,0 +1,15 @@
+.multiplexer.wide
+  %h2.vertical-label= title
+
+  .rounded.selectors
+    .content-container
+      - selections.each do |selector, _|
+        %a.hover.highlight-left{href: "#"}
+          %h2.label= selector
+
+  .rounded.selections
+    - selections.each do |_, selection|
+      .selection
+        .article-container
+          .article-body
+            != selection
