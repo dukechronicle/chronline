@@ -20,7 +20,7 @@ class Api::ArticlesController < Api::BaseController
 
   def show
     article = Article.find(params[:id])
-    respond_with article
+    respond_with(article, methods: :author_ids)
   end
 
   def create
@@ -29,7 +29,7 @@ class Api::ArticlesController < Api::BaseController
       if article.save
         respond_with(
           article, status: :created, location: api_articles_url,
-          except: :previous_id)
+          except: :previous_id, methods: :author_ids)
       else
         head :internal_server_error
       end
@@ -40,7 +40,7 @@ class Api::ArticlesController < Api::BaseController
 
   def unpublish
     article = Article.find(params[:id])
-    article.published_at = nil
+    article.update_attributes(published_at: nil)
     if article.save
       respond_with(:api, article, status: :ok, except: :previous_id)
     else
