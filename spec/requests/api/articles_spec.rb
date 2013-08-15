@@ -116,6 +116,10 @@ describe Api::ArticlesController do
       it "should have a well-formed slug" do
         res['slug'].should match(%r[(\d{4}/\d{2}/\d{2}/)?[^/]+])
       end
+
+      it "should have author_ids" do
+        res.should include('author_ids')
+      end
     end
   end
 
