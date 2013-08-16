@@ -28,7 +28,9 @@ Chronline::Application.configure do
     ['site.js', 'admin.js', 'mobile.js',
      'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
      'galleria/themes/chronicle/galleria.chronicle.js',
-     'galleria/themes/chronicle/galleria.chronicle.css']
+     'galleria/themes/chronicle/galleria.chronicle.css',
+     'tinymce/js/tinymce/skins/lightgray/skin.min.css',
+     'tinymce/js/tinymce/skins/lightgray/content.min.css']
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

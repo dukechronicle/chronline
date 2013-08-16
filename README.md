@@ -8,10 +8,13 @@ First you need [git](http://git-scm.com/book/en/Getting-Started-Installing-Git) 
 
 ```bash
 # Globally install Node.js utility binaries
-$ npm install -g bower phantomjs
+$ sudo npm install -g bower phantomjs
 
 # Run below command, and install the recommended packages
 $ rvm requirements
+
+# Install ImageMagick
+$ sudo apt-get install libmagickwand-dev imagemagick
 
 # More require packages for nokogiri
 $ sudo apt-get install libxslt-dev libxml2-dev
@@ -20,6 +23,8 @@ $ sudo apt-get install libxslt-dev libxml2-dev
 $ gem install bundler
 $ bundle install --without production
 
+# Make sure you set up your development.local.yml (see below) before continuing. 
+
 # Install client side vendor assets with bower
 $ rake bower:refresh
 
@@ -27,8 +32,15 @@ $ rake bower:refresh
 $ rake sunspot:solr:start
 
 # Rails database initialization (or also to update corrupt db)
+$ rake db:migrate
 $ rake db:refresh
 $ rake db:test:prepare
+
+# Add the following line to your /etc/hosts file
+127.0.0.1 www.lvh.me admin.lvh.me api.lvh.me rss.lvh.me m.lvh.me
+
+# Then, from the project directory
+$ rails server
 ```
 
 ### Configuration files
@@ -128,12 +140,12 @@ spork: # See "Available Options"  at https://github.com/guard/guard-spork
 
 Sitemap
 ===============
-To generate the full sitemap, run rake
-sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
+To generate the full sitemap, run:
+`$ rake sitemap:refresh CONFIG_FILE="config/sitemaps/site.rb"`
 
 
-To generate the news sitemap, run rake
-sitemap:refresh CONFIG_FILE="config/news_sitemap.rb"
+To generate the news sitemap, run:
+`$ rake sitemap:refresh CONFIG_FILE="config/sitemaps/news.rb"`
 
 Other Resources
 ===============

@@ -13,7 +13,7 @@
         .content-container.author-listing
           .author-info
             - if author.headshot
-              = image_tag author.headshot.original.url(:thumb_rect), class: :headshot
+              = cropped_image_tag author.headshot, :rectangle_152x, class: 'headshot'
             %a.hover.name{href: site_staff_path(author)}
               %h3= author.name
             %p.subtitle
@@ -23,9 +23,8 @@
             %p.tagline= author.tagline
 
           .article-list
-            - author.articles.limit(10).order('created_at DESC').each do |article|
+            - author.articles.published.limit(10).order('published_at DESC').each do |article|
               %a.hover.list-story.highlight-right{href: site_article_path(article)}
                 %h3.title= article.title
-                %p.subtitle
-                  %span.date= display_date(article)
+                %p.subtitle= display_date(article)
                 %p.teaser= article.teaser

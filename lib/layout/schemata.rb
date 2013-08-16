@@ -48,7 +48,7 @@ Layout.add_schema(:section_articles, {
                   }) do |sections|
   sections.map do |section|
     # TODO: Magic number
-    Article.limit(4).order('created_at DESC').section(section)
+    Article.limit(4).order('published_at DESC').section(section)
   end
 end
 
@@ -64,4 +64,11 @@ Layout.add_schema(:image, {
                     "display" => "image-picker"
                   }) do |image_ids|
   Image.includes(:photographer).find_in_order(image_ids)
+end
+
+Layout.add_schema(:datetime, {
+                    'type' => 'string',
+                    'format' => 'date-time',
+                  }) do |datetimes|
+  datetimes.map { |str| DateTime.iso8601(str) }
 end

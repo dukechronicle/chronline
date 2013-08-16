@@ -6,8 +6,9 @@ if Rails.env.production?
       :access_key_id => Settings.aws.access_key_id,
       :secret_access_key => Settings.aws.secret_access_key,
     },
+    s3_protocol: '',
     s3_host_alias: Settings.content_cdn,
-    s3_headers: {'Cache-Control' => 'public,max-age=315576000'},
+    s3_headers: { 'Cache-Control' => 'public,max-age=315576000' },
     url: ':s3_alias_url',
     path: 'images/:style/:hash.:extension',
     hash_secret: 'super secret string',  # TODO: do something better

@@ -30,10 +30,16 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def crop
+    image_params = params[:image]
     image = Image.find(params[:id])
-    image.assign_attributes(params[:image], without_protection: true)
-    image.original.reprocess!(image.crop_style.underscore.to_sym)
-    flash[:success] = "#{image.crop_style} version was cropped."
+    image.crop!(
+      image_params[:crop_style],
+      image_params[:crop_x].to_i,
+      image_params[:crop_y].to_i,
+      image_params[:crop_w].to_i,
+      image_params[:crop_h].to_i
+    )
+    flash[:success] = "#{image.crop_style.capitalize} version was cropped."
     redirect_to [:edit, :admin, image]
   end
 
