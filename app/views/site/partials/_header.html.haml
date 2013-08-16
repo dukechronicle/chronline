@@ -3,7 +3,7 @@
   .leaderboard= advertisement :leaderboard
 
 #super-header
-  %span.date.local-time.left(data-format='dddd, mmmm dS, yyyy')
+  %time.date{data: {format: 'dddd, mmmm dS, yyyy'}}
   .icons
     %a.icons-facebook{href: "http://www.facebook.com/dukechronicle"}
     %a.icons-twitter{href: "http://twitter.com/dukechronicle"}
@@ -15,7 +15,7 @@
     = link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
     = link_to "Advertising", "/pages/advertising"
     = link_to "Classifieds", "http://dukechronicle.campusave.com"
-    = link_to "Housing", "http://chroniclehousing.com"
+    = link_to "Housing", "http://www.nearduke.com/housing"
 
 %header{id: (frontpage? ? 'header-frontpage' : 'header')}
   #header-top
@@ -29,12 +29,8 @@
       - Taxonomy.main_sections.each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
-      - if frontpage?
-        %a{href: "/pages/2013-ncaa-mens-basketball-tournament-bracket"}
-          %h2 March Madness
-      - else
-        %a{href: "http://chronicleblogs.com"}
-          %h2 Blogs
+      %a{href: "http://chronicleblogs.com"}
+        %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com"}
         %h2 Photos
     = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|

@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
   include FriendlyId
   include Rails.application.routes.url_helpers
 
-  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
+  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title, :published_at
   serialize :section, Taxonomy::Serializer.new
 
   friendly_id :title, use: [:slugged, :history]
@@ -31,15 +31,16 @@ class Article < ActiveRecord::Base
 
   validates :body, presence: true
   validates :title, presence: true, length: {maximum: 90}
-  validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
+  validates_with Taxonomy::Validator, attr: :section
 
   scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
+  scope :published, where('published_at IS NOT NULL')
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable(include: :authors) do
+  searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
@@ -49,7 +50,7 @@ class Article < ActiveRecord::Base
     string :section do
       section[0]
     end
-    time :created_at, trie: true
+    time :published_at, trie: true
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
@@ -66,7 +67,7 @@ onto per since than the this that to up via with)
     s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
     s[0...max_chars].chomp('-')
 
-    (created_at || Date.today).strftime('%Y/%m/%d') + '/' + s
+    (published_at || Date.today).strftime('%Y/%m/%d') + '/' + s
   end
 
   def register_view
@@ -91,12 +92,14 @@ onto per since than the this that to up via with)
   end
 
   def render_body
-    RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
+    EmbeddedMedia.new(body).to_s
   end
 
-  def section=(taxonomy)
-    taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
-    super(taxonomy)
+  def section
+    unless self[:section].is_a?(Taxonomy)
+      self[:section] = Taxonomy.new(self[:section])
+    end
+    self[:section]
   end
 
   def self.popular(section, options={})
@@ -124,19 +127,24 @@ onto per since than the this that to up via with)
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.where(slug: slugs.map(&:first))
+    articles = self.published.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
   end
 
+  def published?
+    not published_at.nil?
+  end
+
+
   ###
   # Helper methods for rendering JSON
   ###
 
   def thumb_square_s_url
-    image.original.url(:thumb_square_s) if image
+    image.original.url(:square_80x) if image
   end
 
   private

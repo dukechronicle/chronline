@@ -1,6 +1,6 @@
 listItem = (article) ->
   article.byline = -> (author.name for author in @authors).join(', ')
-  article.date = -> (new Date(@created_at)).format("mmmm d, yyyy")
+  article.date = -> (new Date(@published_at)).format("mmmm d, yyyy")
   _.template("""
              <li>
                <a href="/articles/<%= slug %>">
