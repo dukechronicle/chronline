@@ -9,6 +9,7 @@ FactoryGirl.define do
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
     authors { [Staff.find_or_create_by_name(Faker::Name.name)] }
+    published_at 1.day.ago
   end
 
   factory :staff do
@@ -24,7 +25,14 @@ FactoryGirl.define do
     attribution "? / Gym Leader"
     caption "Ash battles Gary to become the Pokemon champion."
     location "Pokemon Stadium"
-    photographer { Staff.find_or_create_by_name(Faker::Name.name) }
+    association :photographer, factory: :staff, strategy: :build
     original { fixture_file_upload('lib/sample-images/pikachu.png') }
+  end
+
+  factory :blog_post, class: Blog::Post do
+    title "Ash Catches a Pokemon"
+    body "It was a Caterpie."
+    blog "bluezone"
+    association :author, factory: :staff
   end
 end

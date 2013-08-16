@@ -1,5 +1,18 @@
-initialize '.local-time', ->
+initialize 'time:empty', ->
   $(this).each ->
-    date = $(this).data('date')
-    date = if date then new Date(date) else new Date
-    $(this).text date.format($(this).data('format'))
+    $(this).attr 'datetime', (__, datetime) ->
+      datetime ? (new Date).toISOString()
+    datetime = new Date($(this).attr('datetime'))
+    format = $(this).data('format')
+
+    $(this).text(datetime.format(format))
+
+    if $(this).data('timestamp')
+      # Only show timestamp if the date refers to a time earlier today
+      today = new Date()
+      today.setHours(0, 0, 0, 0)
+      if datetime > today
+        $time = $('<span>')
+        $time.addClass('timestamp')
+        $time.text(datetime.format('h:MM TT'))
+        $(this).append(' ').append($time)

@@ -20,16 +20,6 @@ Chronline::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.action_controller.asset_host = "//#{Settings.content_cdn}"
-
-  config.assets.initialize_on_precompile = true
-
-  config.assets.precompile +=
-    ['site.js', 'admin.js', 'mobile.js',
-     'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
-     'galleria/themes/chronicle/galleria.chronicle.js',
-     'galleria/themes/chronicle/galleria.chronicle.css']
-
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
@@ -57,10 +47,16 @@ Chronline::Application.configure do
   }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "//#{Settings.content_cdn}"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile +=
+    ['site.js', 'admin.js', 'mobile.js',
+     'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
+     'galleria/themes/chronicle/galleria.chronicle.js',
+     'galleria/themes/chronicle/galleria.chronicle.css',
+     'tinymce/js/tinymce/skins/lightgray/skin.min.css',
+     'tinymce/js/tinymce/skins/lightgray/content.min.css']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -79,8 +75,7 @@ Chronline::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-
-  # TODO Remove Gmail for production!
+  # Configure ActionMailer to use Gmail
   ActionMailer::Base.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,

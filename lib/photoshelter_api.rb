@@ -10,7 +10,25 @@ class PhotoshelterAPI
   def initialize(email, password)
     @email = email
     @password = password
-    authenticate
+  end
+
+  def authenticate
+    path = "/authenticate"
+    args = {email: @email, password: @password}
+    headers = {}
+
+    response = get_response path, args, headers
+
+    all_cookies = response.get_fields("set-cookie")
+    cookies_array = Array.new
+    all_cookies.each do | cookie |
+      # Remove unnecessary cookies from set-cookie header
+      if !cookie.include?("deleted")
+        cookies_array.push(cookie.split("; ")[0])
+      end
+    end
+    @cookie = cookies_array.join('; ')
+    return true
   end
 
   def get_all_galleries
@@ -41,23 +59,6 @@ class PhotoshelterAPI
 
 
   private
-    def authenticate
-      path = "/authenticate"
-      args = {email: @email, password: @password}
-      headers = {}
-
-      response = get_response path, args, headers
-
-      all_cookies = response.get_fields("set-cookie")
-      cookies_array = Array.new
-      all_cookies.each do | cookie |
-        # Remove unnecessary cookies from set-cookie header
-        if !cookie.include?("deleted")
-          cookies_array.push(cookie.split("; ")[0])
-        end
-      end
-      @cookie = cookies_array.join('; ')
-    end
 
     def get_session_response(path)
       response = get_response path, {}, {"Cookie" => @cookie}
@@ -83,6 +84,8 @@ class PhotoshelterAPI
 
       response = http.request(request) 
 
-      raise StandardError, "Bad response code: #{response.code}" unless response.code == 200
+      raise StandardError, "Bad response code: #{response.code}" unless response.code == "200"
+
+      return response
     end
 end

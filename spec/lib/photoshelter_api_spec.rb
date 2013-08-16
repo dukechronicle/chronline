@@ -1,35 +1,66 @@
 require 'spec_helper'
 
+# TODO: remove additional authentication in each test
+
 describe PhotoshelterAPI do
+
   subject { PhotoshelterAPI.new(Settings.photoshelter.email, Settings.photoshelter.password) }
 
-  context "when constructed with an invalid email" do
+  context "when authenticated with an invalid email" do
     it "should raise an error" do
-      constructor = -> { PhotoshelterAPI.new("fail", Settings.photoshelter.password) }
+      constructor = -> { PhotoshelterAPI.new("fail", Settings.photoshelter.password).authenticate }
       constructor.should raise_error(StandardError)
     end
   end
 
-  context "when constructed with an invalid password" do
+  context "when authenticated with an invalid password" do
     it "should raise an error" do
-      constructor = -> { PhotoshelterAPI.new(Settings.photoshelter.email, "fail") }
+      constructor = -> { PhotoshelterAPI.new(Settings.photoshelter.email, "fail").authenticate }
       constructor.should raise_error(StandardError)
     end
   end
 
-  describe "#get_all_galleries" do
-    it "should return list of galleries"
+  describe "Authentication" do
+    use_vcr_cassette "authentication"
+
+    it "should authenticate properly" do
+      subject.authenticate.should == true
+    end
   end
 
-  describe "#get_gallery_images" do
-    it "should return a list of images for a gallery"
+  describe "GET galleries" do
+    use_vcr_cassette "galleries"
+
+    it "should return list of galleries" do
+      subject.authenticate
+      subject.get_all_galleries.should be_a Array
+    end
   end
 
-  describe "#get_image_info" do
-    it "should return information for an image"
+  describe "GET gallery images" do
+    use_vcr_cassette "images"
+
+    it "should return a list of images for a gallery" do
+      subject.authenticate
+      subject.get_gallery_images "G0000W3g4oBchl8c"
+    end
   end
 
-  describe "#logout" do
-    it "should logout and destroy the session"
+  describe "GET image info" do
+    use_vcr_cassette "info"
+
+    it "should return information for an image" do
+      subject.authenticate
+      subject.get_image_info "I0000P1V4eGUln18"
+    end
+  end
+
+  describe "GET logout" do
+    use_vcr_cassette "logout"
+
+    it "should logout and destroy the session" do
+      subject.authenticate
+      subject.logout
+    end
   end
 end

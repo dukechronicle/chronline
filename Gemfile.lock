@@ -7,9 +7,6 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    accept_values_for (0.4.3)
-      activemodel (>= 3.0.0)
-      rspec
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -40,9 +37,12 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    acts-as-taggable-on (2.3.3)
+      rails (~> 3.0)
     addressable (2.3.2)
     annotate (2.5.0)
       rake
+    ansi (1.4.3)
     arel (3.0.2)
     asset_sync (0.5.3)
       activemodel
@@ -142,19 +142,11 @@ GEM
     formatador (0.2.4)
     friendly_id (4.0.9)
     fssm (0.2.9)
-    fuubar (1.1.0)
-      rspec (~> 2.0)
-      rspec-instafail (~> 0.2.0)
-      ruby-progressbar (~> 1.0.0)
-    fuubar-cucumber (0.0.18)
-      cucumber (~> 1.2.0)
-      ruby-progressbar (~> 1.0.0)
     gherkin (2.11.5)
       json (>= 1.4.6)
     gibbon (0.4.2)
       httparty
       json
-    growl (1.0.3)
     guard (1.6.1)
       listen (>= 0.6.0)
       lumberjack (>= 1.0.2)
@@ -188,8 +180,6 @@ GEM
     launchy (2.1.2)
       addressable (~> 2.3)
     le (2.1.3)
-    libnotify (0.8.0)
-      ffi (>= 1.0.11)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -215,7 +205,6 @@ GEM
     net-ssh (2.6.3)
     newrelic_rpm (3.5.6.46)
     nokogiri (1.5.6)
-    nyan-cat-formatter (0.2.0)
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
@@ -275,9 +264,6 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
-    rb-fsevent (0.9.3)
-    rb-inotify (0.9.0)
-      ffi (>= 0.5.0)
     rb-readline (0.4.2)
     rdiscount (1.6.8)
     rdoc (3.12.2)
@@ -300,6 +286,7 @@ GEM
     redis-store (1.1.3)
       redis (>= 2.2.0)
     require_all (1.2.1)
+    rmagick (2.13.2)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     rspec (2.11.0)
@@ -309,7 +296,6 @@ GEM
     rspec-core (2.11.1)
     rspec-expectations (2.11.3)
       diff-lcs (~> 1.1.3)
-    rspec-instafail (0.2.4)
     rspec-mocks (2.11.3)
     rspec-rails (2.11.0)
       actionpack (>= 3.0)
@@ -317,7 +303,6 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.11.0)
     ruby-hmac (0.4.0)
-    ruby-progressbar (1.0.2)
     rubyzip (0.9.9)
     sass (3.2.5)
     sass-rails (3.2.5)
@@ -335,10 +320,6 @@ GEM
     simple_form (2.0.4)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    simplecov (0.7.1)
-      multi_json (~> 1.0)
-      simplecov-html (~> 0.7.1)
-    simplecov-html (0.7.1)
     sitemap_generator (3.4)
       builder
     slop (3.3.3)
@@ -365,6 +346,8 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    turn (0.9.6)
+      ansi
     tzinfo (0.3.37)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -386,8 +369,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  accept_values_for
   active_attr
+  acts-as-taggable-on
   annotate
   asset_sync
   aws-sdk
@@ -396,7 +379,7 @@ DEPENDENCIES
   capybara
   carrierwave
   coffee-rails (~> 3.2.1)
-  compass-rails
+  compass-rails (~> 1.0.3)
   cucumber-rails
   cucumber-websteps
   database_cleaner
@@ -407,10 +390,7 @@ DEPENDENCIES
   ffaker
   fog
   friendly_id
-  fuubar
-  fuubar-cucumber
   gibbon
-  growl
   guard-cucumber
   guard-rspec
   guard-spork
@@ -420,11 +400,9 @@ DEPENDENCIES
   jquery-rails
   json-schema
   le
-  libnotify
   meta_request (= 0.2.1)
   mock_redis
   newrelic_rpm
-  nyan-cat-formatter
   paperclip
   pg
   poltergeist
@@ -434,29 +412,25 @@ DEPENDENCIES
   rack-cors
   rails (= 3.2.13)
   rails_config
-  rb-fchange
-  rb-fsevent
-  rb-inotify
-  rb-notifu
+  rake
   rb-readline
   rdiscount
   redis
   redis-rails
   require_all
+  rmagick
   rspec-rails (= 2.11.0)
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simple_form
-  simplecov
   sitemap_generator
-  spork
   sqlite3 (= 1.3.5)
   subdomain-fu!
   sunspot_rails (= 2.0.0.pre.130115)
   sunspot_solr
   thin
+  turn
   uglifier (>= 1.0.3)
   vcr
   webmock
   will_paginate
-  win32console

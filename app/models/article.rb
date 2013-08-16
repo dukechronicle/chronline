@@ -18,28 +18,22 @@ require_dependency 'staff'
 
 
 class Article < ActiveRecord::Base
-  include FriendlyId
-  include Rails.application.routes.url_helpers
+  include Postable
 
-  attr_accessible :body, :image_id, :previous_id, :subtitle, :section, :slug, :teaser, :title
+  attr_accessible :previous_id, :subtitle, :section, :teaser
   serialize :section, Taxonomy::Serializer.new
 
-  friendly_id :title, use: [:slugged, :history]
-
-  belongs_to :image
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
-  validates :body, presence: true
-  validates :title, presence: true, length: {maximum: 90}
   validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
 
-  scope :section, ->(taxonomy) {where('section LIKE ?', "#{taxonomy.to_s}%")}
+  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
-  searchable(include: :authors) do
+  searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :body, stored: true, more_like_this: true
     text :author_names do  # Staff names rarely change
@@ -49,25 +43,14 @@ class Article < ActiveRecord::Base
     string :section do
       section[0]
     end
-    time :created_at, trie: true
+    time :published_at, trie: true
   end
 
-  # Stolen from http://snipt.net/jpartogi/slugify-javascript/
-  def normalize_friendly_id(title, max_chars=100)
-    return nil if title.nil?  # record won't save -- title presence is validated
-    removelist = %w(a an as at before but by for from is in into like of off on
-onto per since than the this that to up via with)
-    r = /\b(#{removelist.join('|')})\b/i
-
-    s = title.downcase  # convert to lowercase
-    s.gsub!(r, '')
-    s.strip!
-    s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
-    s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
-    s[0...max_chars].chomp('-')
-
-    (created_at || Date.today).strftime('%Y/%m/%d') + '/' + s
-  end
+  ##
+  # Record temporarily that this article was viewed by a user. This data is
+  # stored in Redis for five days. The data is used to determine popularity of
+  # articles in each section. This should be called each time an article is
+  # viewed on the main site or on mobile.
 
   def register_view
     unless section.root?
@@ -80,22 +63,26 @@ onto per since than the this that to up via with)
     end
   end
 
+  ##
+  # Search for articles with related content. Uses Solr to query for relevance.
+  # Returns the top +limit+ articles.
+
   def related(limit)
     search = Sunspot.more_like_this(self) do
       fields :title, :body
       minimum_term_frequency 5
       paginate per_page: limit
     end
+    # Eager load authors
     search.data_accessor_for(self.class).include = :authors
     search.results
   end
 
-  def render_body
-    RDiscount.new(body).to_html  # Uses RDiscount markdown renderer
-  end
+  ##
+  # Set article section. Creates a Taxonomy object if given a string argument.
 
   def section=(taxonomy)
-    taxonomy = Taxonomy.new(taxonomy) if not taxonomy.is_a?(Taxonomy)
+    taxonomy = Taxonomy.new(taxonomy) unless taxonomy.is_a?(Taxonomy)
     super(taxonomy)
   end
 
@@ -124,12 +111,13 @@ onto per since than the this that to up via with)
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.where(slug: slugs.map(&:first))
+    articles = self.published.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find {|article| article.slug == slug}
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
   end
+
 
   ###
   # Helper methods for rendering JSON

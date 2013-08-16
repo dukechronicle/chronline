@@ -18,17 +18,18 @@
 class Staff < ActiveRecord::Base
   include FriendlyId
 
-  SEARCH_LIMIT = 10
-
   attr_accessible :affiliation, :biography, :columnist, :headshot_id, :name, :tagline, :twitter
 
   friendly_id :name, use: :slugged
 
   has_many :images, foreign_key: :photographer_id
+  has_many :blog_posts, foreign_key: :author_id, class_name: "Blog::Post"
   belongs_to :headshot, class_name: "Image"
   has_and_belongs_to_many :articles, join_table: :articles_authors
 
   validates :name, presence: true, uniqueness: true
+
+  scope :search, ->(name) { where('name LIKE ?', "#{name}%") }
 
 
   def author?
@@ -41,10 +42,6 @@ class Staff < ActiveRecord::Base
 
   def photographer?
     images.present?
-  end
-
-  def self.search(name)
-    self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")
   end
 
   def self.find_or_create_all_by_name(names)

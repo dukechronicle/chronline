@@ -20,16 +20,18 @@ describe Image do
 
   subject { FactoryGirl.create(:image) }
 
-  it "should set default date to today's date" do
-    subject.date.should == Date.today
-  end
+  it { should have_many(:articles) }
+  it { should have_many(:pages) }
+  it { should have_many(:staff).with_foreign_key(:headshot_id) }
+  it { should belong_to(:photographer).class_name("Staff") }
+  it { should have_attached_file(:original) }
+  it { should validate_attachment_presence(:original) }
 
-  describe "articles" do
-    let(:article) { FactoryGirl.create(:article, image_id: subject.id) }
+  describe "#date" do
+    it { should validate_presence_of(:date) }
 
-    it "should remove image from articles when destroyed" do
-      subject.destroy
-      article.image.should be_nil
+    it "should set default date to today's date" do
+      subject.date.should == Date.today
     end
   end
 
@@ -51,6 +53,15 @@ describe Image do
         version.should be_a(Symbol)
         dimensions.should match(/\d+x\d+#/)
       end
+    end
+  end
+
+  describe "articles" do
+    let(:article) { FactoryGirl.create(:article, image_id: subject.id) }
+
+    it "should remove image from articles when destroyed" do
+      subject.destroy
+      article.image.should be_nil
     end
   end
 

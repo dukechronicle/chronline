@@ -19,12 +19,13 @@
 
   img
     +border-radius($corner-radius)
+    display: block
     width: 100%
 
   .photo-credit
     float: right
     span
-      color: #777
+      color: $light-text
 
 .content-container
   padding: $content-padding
@@ -53,15 +54,19 @@
     text-transform: uppercase
     margin-bottom: 2px
 
-    span
+    > span, time
       padding-left: 5px
       margin-left: 5px
       border-left: 1px solid #888
 
-    span:first-child
+    > span:first-child, time:first-child
       padding-left: 0px
       margin-left: 0px
       border-left: 0px
+
+    .timestamp
+      color: $timestamp-color
+      font-size: 1em
 
   mark
     background: none
