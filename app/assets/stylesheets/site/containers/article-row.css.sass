@@ -9,11 +9,12 @@
     float: left
     margin-right: 10px
     width: 152px
-    height: 241px
 
     img
-      width: 100%
+      margin-bottom: 5px
+      display: block
       +black-box-shadow($default-box-shadow-opacity, 0px, 0px, 4px)
+      +border-radius($corner-radius)
 
     a.hover
       height: 100%
@@ -21,25 +22,16 @@
       padding-bottom: 9px
 
     .title
-      height: 50px
       font-size: 1.1em
       line-height: 1.2em
 
     .teaser
       line-height: 1.2em
-      height: 68px
 
   .row-article:last-child
     margin-right: 0px
 
   .row-article.feature
     width: 314px
-
     .title
       font-size: 1.6em
-
-.span-8 .article-row
-  .row-article
-    height: 235px
-  .row-article.feature
-    width: 302px

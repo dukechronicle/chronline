@@ -22,7 +22,7 @@ module Chronline
       Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
     )
 
-    config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
+    config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'bower_components')
 
     config.middleware.use Rack::Cors do
       allow do
@@ -88,6 +88,8 @@ module Chronline
     config.action_mailer.raise_delivery_errors = true
 
     config.exceptions_app = self.routes
+
+    config.action_dispatch.tld_length = Settings.domain.count('.')
   end
 end
 

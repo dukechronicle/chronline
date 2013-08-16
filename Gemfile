@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 
@@ -9,7 +10,8 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'thin'
+  gem 'thin', '~> 1.5.1'
+  gem 'eventmachine', '~> 1.0.3'
   gem 'newrelic_rpm'
 end
 
@@ -36,7 +38,7 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'compass-rails'
+  gem 'compass-rails', '~> 1.0.3'
   gem 'asset_sync'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -49,29 +51,33 @@ gem 'active_attr'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
+gem 'carrierwave'
 gem 'default_value_for'
 gem 'devise', '2.1.2'  # https://github.com/scambra/devise_invitable/issues/265
 gem 'devise_invitable'
+gem 'fog'
 gem 'friendly_id'
 gem 'gibbon'
 gem 'haml'
 gem 'hiredis'
 gem 'httparty'
+gem 'image_optim_bin'
 gem 'jquery-rails'
 gem 'json-schema'
 gem 'paperclip'
+gem 'paperclip-optimizer'
+gem 'promise'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rails_config'
 gem 'rdiscount'
 gem 'require_all'
 gem 'redis'
+gem 'rmagick'
 gem 'simple_form'
+gem 'sitemap_generator'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'sunspot_rails', '2.0.0.pre.130115'
 gem 'will_paginate'
-gem 'sitemap_generator'
-gem 'carrierwave'
-gem 'fog'
 
 group :test do
   gem 'accept_values_for'

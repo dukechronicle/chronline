@@ -19,10 +19,17 @@ class Site::BaseController < ApplicationController
     end
   end
 
+  def sitemap_proxy
+    res = HTTParty.get("http://#{Settings.aws.bucket}.s3.amazonaws.com" +
+                       "/sitemaps/news/sitemap1.xml.gz")
+    send_data res.body
+  end
+
   def custom_page
     @page = Page.find_by_path!(request.path)
-    @model = @page.layout.model
+    @model = promise { @page.layout.model }
     @title = @page.title
+    @description = @page.description
     render "site/pages/#{@page.layout_template.to_s.underscore}"
   end
 

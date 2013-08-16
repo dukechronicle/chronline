@@ -1,4 +1,5 @@
 - provide :title, @article.title
+- provide(:title, @description) unless content_for? :description
 
 - content_for :head do
   %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
@@ -13,6 +14,6 @@
   %p.byline
     %span.author By #{byline(@article)}
     %span.sep= "|"
-    %span.date= @article.created_at.strftime("%B %e, %Y")
+    %span.date= @article.published_at.strftime("%B %e, %Y")
 
   != @article.render_body

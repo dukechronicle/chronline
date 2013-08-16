@@ -10,28 +10,36 @@ class Page::Layouts::Towerview < Layout
         'maxLength' => 3,
         'items' => article_schema,
       },
-      'savvy' => {
-        'label' => "Savvy",
+      'bus_stop' => {
+        'label' => "The Bus Stop",
         'type' => 'array',
         'required' => true,
         'items' => article_schema,
       },
-      'wisdom' => {
-        'label' => "Wisdom",
+      'plaza' => {
+        'label' => "The Plaza",
         'type' => 'array',
         'required' => true,
         'items' => article_schema,
       },
-      'prefix' => {
-        'label' => "Prefix",
-        'type' => 'array',
+      'inquisitor' => {
+        'label' => "The Inquisitor",
+        'extends' => article_schema,
         'required' => true,
-        'items' => article_schema,
       },
       'editors_note' => {
         'label' => "Editor's Note",
         'extends' => article_schema,
         'required' => true,
+      },
+      'multimedia' => {
+        'label' => 'Multimedia',
+        'type' => 'array',
+        'required' => true,
+        'items' => {
+          'type' => 'string',
+          'format' => 'multiline',
+        }
       },
       'issuu' => {
         'label' => "Issuu Embed",

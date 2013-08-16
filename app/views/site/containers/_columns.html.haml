@@ -11,7 +11,7 @@
             .subtitle
               %span By #{byline(article)}
             - if article.authors.first.headshot
-              = image_tag article.authors.first.headshot.original.url(:thumb_square_s), class: :headshot
+              = cropped_image_tag article.authors.first.headshot, :square_70x, class: 'headshot'
             %p.teaser= article.teaser
 
     .span-3.article-list.content-container.last
@@ -24,5 +24,5 @@
             .subtitle
               %span By #{byline(article)}
             - if article.authors.first.headshot
-              = image_tag article.authors.first.headshot.original.url(:thumb_square_s)
+              = cropped_image_tag article.authors.first.headshot, :square_70x, class: 'headshot'
             %p.teaser= article.teaser

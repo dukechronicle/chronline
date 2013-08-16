@@ -17,29 +17,18 @@ updateCropSize = ->
     trueSize: [target.naturalWidth, target.naturalHeight]
   $('#crop-target').Jcrop(options)
 
-helpContent = ->
-  descriptions = $('#image_crop_style option').map ->
-    info = $(this).data('dimensions')
-    "<p><b>#{$(this).val()}</b>: #{info.description}</p>"
-  descriptions.get().join("<br>")
-
 disableOptions = ->
   options = $('#image_crop_style option').filter(->
     info = $(this).data('dimensions')
     $('#crop-target').width() < info.width or
       $('#crop-target').height() < info.height
   ).prop('disabled', true)
-  $('#image_crop_style option').filter(-> not $(this).attr('disabled')).first().prop('selected', true)
+  $('#image_crop_style option')
+    .filter(-> not $(this).attr('disabled'))
+    .first()
+    .prop('selected', true)
 
 initialize '#crop-target', ->
   $('#image_crop_style').change(updateCropSize)
   disableOptions()
   updateCropSize()
-
-initialize '.image-help', ->
-  $('.image-help').popover(
-    title: 'Image Versions'
-    trigger: 'hover'
-    html: true
-    content: helpContent()
-  )

@@ -1,9 +1,7 @@
 class Site::ArticlesController < Site::BaseController
   include ::ArticlesController
 
-  before_filter :redirect_and_register_view, only: [:show, :print]
-  #caches_action :index, layout: false, expires_in: 1.minute
-  caches_action :show, layout: false
+  before_filter :redirect_article, only: [:show, :print]
 
 
   def index
@@ -19,9 +17,10 @@ class Site::ArticlesController < Site::BaseController
       nil
     end
 
-    @articles = Article.includes(:authors, :image)
-      .section(@taxonomy)
-      .order('created_at DESC')
+    @articles = Article
+      .includes(:authors, :image)
+      .published.section(@taxonomy)
+      .order('published_at DESC')
       .page(params[:page])
     unless @taxonomy.root?
       @popular = Article.popular(@taxonomy[0].downcase, limit: 5)
@@ -29,9 +28,16 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
+    if !@article.published? and !user_signed_in?
+      return not_found
+    end
+    @article.register_view
+    @taxonomy = @article.section
   end
 
   def print
+    @article = Article.includes(:authors, image: :photographer).find(@article)
+    @article.register_view
     render 'print', layout: 'print'
   end
 

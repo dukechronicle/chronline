@@ -1,4 +1,5 @@
 - provide :title, @article.title
+- provide :description, @article.teaser
 
 - content_for :title_block do
   %h1
@@ -11,60 +12,72 @@
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
 - content_for :head do
-  = render partial: 'site/partials/twitter_cards/article', locals: {article: @article}
-  = render partial: 'site/partials/open-graph/article', locals: {article: @article}
-  %link{rel: "canonical", href: site_article_url(@article, subdomain: :www)}
+  - cache(action_suffix: :head) do
+    - if @article.published?
+      - article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+      = render partial: 'site/partials/twitter_cards/article', locals: {article: article}
+      = render partial: 'site/partials/open-graph/article', locals: {article: article}
+    %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
 
 - content_for :scripts do
-  %script{src: 'http://www.readrboard.com/static/engage.js', defer: true}
+  %script{src: '//www.readrboard.com/static/engage.js', defer: true}
 
-%article#article
-  .span-8
-    .rounded
-      .article-container
-        %h1.title= @article.title
-        - if not @article.subtitle.blank?
-          %h2.subtitle= @article.subtitle
+- if user_signed_in? and !@article.published?
+  .admin-notification.showing
+    .admin-notification-header
+      Admin Notification
+      .toggle-link
+        [ Hide ]
+    .admin-notification-body
+      %h1 This is a sample view!
+      %h2 Your article has not been published yet.
 
-        - if @article.image
-          = image_tag @article.image.original.url(:large_rect), class: 'main-image'
-          .clearfix
-            .photo-credit
-              %span= photo_credit(@article.image, link: true)
-            - if not @article.image.caption.blank?
-              %p.photo-caption= @article.image.caption
+- cache do
+  - @article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+  %article#article
+    .span-8
+      .rounded
+        .article-container
+          %h1.title= @article.title
+          - if not @article.subtitle.blank?
+            %h2.subtitle= @article.subtitle
 
-        %p.byline
-          %span.author By #{byline(@article, link: true)}
-          %span.sep= "|"
-          %span.date= display_date(@article)
+          - if @article.image
+            = cropped_image_tag @article.image, :rectangle_606x, class: 'main-image'
+            .clearfix
+              .photo-credit
+                %span= photo_credit(@article.image, link: true)
+              - if not @article.image.caption.blank?
+                %p.photo-caption= @article.image.caption
 
-        .article-body
-          #social-media
-            %div.comment-link
-              %i.icons-comment
-              = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@article)
-            %div.print-link
-              %i.icons-print
-              = link_to "Print", print_site_article_path(@article)
-            %div.email-link
-              %i.icons-email
-              = link_to "Email", mailto_article(@article)
-            %div
-              .fb-like{data: {href: permanent_article_url(@article), send: "false", layout: "button_count", width: "130", 'show-faces' => "false", font: "lucida grande", action: "recommend"}}
-            %div
-              %a.twitter-share-button{href: "https://twitter.com/share", data: {via: "dukechronicle", url: permanent_article_url(@article)}} Tweet
-            %div
-              .g-plusone{data: {size: "medium", annotation: "bubble", href: permanent_article_url(@article)}}
+          %p.byline
+            %span.author By #{byline(@article, link: true)}
+            %span.sep= "|"
+            = display_date(@article)
 
-          != @article.render_body
+          .article-body
+            #social-media
+              %div.comment-link
+                %i.icons-comment
+                = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(@article)
+              %div.print-link
+                %i.icons-print
+                = link_to "Print", print_site_article_path(@article)
+              %div.email-link
+                %i.icons-email
+                = link_to "Email", mailto_article(@article)
+              %div= facebook_recommend_article(@article)
+              %div= twitter_share_article(@article)
+              %div= google_plusone_article(@article)
 
-    #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
+            != @article.render_body
 
-  .span-4.last
-    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
-    = render 'site/partials/facebook-recommended'
-    = render partial: 'site/partials/video-player', locals: {width: 300}
+      #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
 
-= render 'site/partials/facebook-social-share'
+    .span-4.last
+      = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+      .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
+      = render 'site/partials/facebook-recommended'
+      = render partial: 'site/partials/video-player', locals: {width: 300}
+
+  = render 'site/partials/facebook-social-share'
