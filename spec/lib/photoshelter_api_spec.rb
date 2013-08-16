@@ -42,7 +42,8 @@ describe PhotoshelterAPI do
 
     it "should return a list of images for a gallery" do
       subject.authenticate
-      subject.get_gallery_images "G0000W3g4oBchl8c"
+      images = subject.get_gallery_images "G0000W3g4oBchl8c"
+      images.should be_a Array
     end
   end
 
@@ -51,7 +52,13 @@ describe PhotoshelterAPI do
 
     it "should return information for an image" do
       subject.authenticate
-      subject.get_image_info "I0000P1V4eGUln18"
+      info = subject.get_image_info "I0000P1V4eGUln18"
+      info.should be_a Hash
+
+      keys = info.keys
+      keys.should include "title"
+      keys.should include "author"
+      keys.should include "caption"
     end
   end
 
@@ -61,6 +68,7 @@ describe PhotoshelterAPI do
     it "should logout and destroy the session" do
       subject.authenticate
       subject.logout
+      expect { subject.get_image_info}.to raise_error
     end
   end
 end
