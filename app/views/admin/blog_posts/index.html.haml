@@ -1,0 +1,19 @@
+%ul.nav.nav-pills
+  - Blog.all.each do |blog|
+    %li{class: ('active' if not @blog.nil? and @blog.id == blog.id)}
+      = link_to blog.name, admin_blog_posts_path(blog)
+
+- if not @blog.nil?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Title
+        %th Creation Date
+        %th Actions
+    - @blog_posts.each do |blog_post|
+      %tr{id: "blog_post_#{blog_post.id}"}
+        %td= link_to blog_post.title, site_blog_post_url(@blog, blog_post, subdomain: :www)
+        %td= blog_post.created_at.strftime('%-m-%-d-%Y')
+        %td
+          = link_to "Edit", edit_admin_blog_post_path(@blog, blog_post), class: 'btn btn-mini'
+          = link_to "Delete", admin_blog_post_path(@blog, blog_post), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'

@@ -11,30 +11,12 @@ module ArticleHelper
     end.to_sentence.html_safe
   end
 
-  def display_date(article, format="%B %-d, %Y")
-    article.created_at.strftime(format)
-  end
-
-  def disqus_identifier(article)
-    article.previous_id || "_#{article.id}"
-  end
-
-  def disqus_options(article)
-    {
-      production: Rails.env.production?,
-      shortname: Settings.disqus.shortname,
-      identifier: disqus_identifier(article),
-      title: article.title,
-      url: site_article_url(article),
-    }.to_json
-  end
-
   def permanent_article_url(article)
-    slug = @article.slugs.last
+    slug = article.slugs.last
     if slug.to_param.include?('/')
-      site_article_url(slug, subdomain: :www)
+      site_article_url(slug, subdomain: :www, protocol: 'http')
     else
-      site_article_deprecated_url(slug, subdomain: :www)
+      site_article_deprecated_url(slug, subdomain: :www, protocol: 'http')
     end
   end
 

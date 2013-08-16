@@ -1,5 +1,4 @@
 namespace :db do
-
   desc "Refresh the database"
   task :refresh => [:reset, :populate, 'sunspot:solr:reindex']
 
@@ -35,9 +34,20 @@ namespace :db do
                             body: Faker::SamuelJackson.paragraphs(2),
                             section: random_taxonomy,
                             image_id: image.id)
-      article.created_at = (1..365).to_a.sample.days.ago
+      article.published_at = (1..365).to_a.sample.days.ago
       article.authors = [staff.sample]
       article.save!
+    end
+
+    30.times do |n|
+      title = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
+      blog_post = Blog::Post.new(title: title,
+                                 body: Faker::SamuelJackson.paragraphs(4),
+                                 blog: Blog.all.sample,
+                                 image_id: image.id)
+      blog_post.published_at = (1..365).to_a.sample.days.ago
+      blog_post.author = staff.sample
+      blog_post.save!
     end
   end
 end
