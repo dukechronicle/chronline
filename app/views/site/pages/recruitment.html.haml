@@ -1,30 +1,15 @@
-.clearfix.align-group
-  .span-6.align-element{data: {aligntarget: '.rounded'}}
-    .rounded
-      .content-container
-        %h2 Join the Chronicle
-        != @model.pitch
-  .span-6.last.align-element{data: {aligntarget: '.rounded'}}
-    %h2.vertical-label Schedule
-    .rounded
-      .article-container!= @model.schedule
+.rounded
+  .article-container
+    .article-body.clearfix
+      = cropped_image_tag @model.main_image, :rectangle_606x, class: 'img-right'
+      != @model.pitch
 
 .clearfix
   .span-8
-    .span-4
-      - @model.departments.each_with_index do |department, i|
-        - if i.even?
-          .rounded
-            .content-container
-              %h3= department['name']
-              != department['description']
-    .span-4.last
-      - @model.departments.each_with_index do |department, i|
-        - if i.odd?
-          .rounded
-            .content-container
-              %h3= department['name']
-              != department['description']
+    - selections = @model.sections.map { |section| [section['name'], section['description']] }
+    = render partial: 'site/containers/multiplexer', locals: { title: "Information", selections: selections }
+
   .span-4.last
+    %h2.vertical-label Sign Up
     .rounded
       .content-container!= @model.form_embed
