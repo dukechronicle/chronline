@@ -9,7 +9,7 @@ class Blog
     self.model_name.instance_variable_set(:@singular_route_key, "post")
     self.model_name.instance_variable_set(:@route_key, "posts")
 
-    attr_accessible :blog, :tag_list
+    attr_accessible :author_id, :blog, :tag_list
     serialize :blog, Blog::Serializer.new
 
     acts_as_taggable

@@ -4,50 +4,50 @@ namespace :db do
 
   desc "Fill database with sample data"
   task populate: :environment do
-
-    # TODO create relevant config variables in development YAML
-    unless User.find_by_email("admin@chron.dev")
+    if User.find_by_email("admin@chron.dev").nil?
       User.create!(
-          email: "admin@chron.dev",
-          first_name: "Super",
-          last_name: "User",
-          password: "password",
-          password_confirmation: "password"
-        )
+        email: "admin@chron.dev",
+        first_name: "Super",
+        last_name: "User",
+        password: "password",
+        password_confirmation: "password",
+      )
     end
 
     staff = 15.times.map do |n|
       Staff.create!(name: Faker::Name.name)
     end
 
-    image = Image.new(original: File.new('lib/sample-images/pikachu.png'),
-                      caption: Faker::Lorem.sentence)
-    image.photographer = staff.sample
-    image.save!
+    image = Image.create!(
+      original: File.new('lib/sample-images/pikachu.png'),
+      caption: Faker::Lorem.sentence,
+      photographer_id: staff.sample.id,
+    )
 
     30.times do |n|
-      title = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
-      subtitle = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
-      article = Article.new(title: title,
-                            subtitle: subtitle,
-                            teaser: Faker::SamuelJackson.sentence,
-                            body: Faker::SamuelJackson.paragraphs(2),
-                            section: random_taxonomy,
-                            image_id: image.id)
-      article.published_at = (1..365).to_a.sample.days.ago
-      article.authors = [staff.sample]
+      article = Article.new(
+        title: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
+        subtitle: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
+        teaser: Faker::SamuelJackson.sentence,
+        body: Faker::SamuelJackson.paragraphs(2).join("\n"),
+        section: random_taxonomy,
+        image_id: image.id,
+        published_at: (1..365).to_a.sample.days.ago,
+        author_ids: [staff.sample.id],
+      )
+      p article.body
       article.save!
     end
 
     30.times do |n|
-      title = Faker::SamuelJackson.words(5).map(&:capitalize).join(' ')
-      blog_post = Blog::Post.new(title: title,
-                                 body: Faker::SamuelJackson.paragraphs(4),
-                                 blog: Blog.all.sample,
-                                 image_id: image.id)
-      blog_post.published_at = (1..365).to_a.sample.days.ago
-      blog_post.author = staff.sample
-      blog_post.save!
+      blog_post = Blog::Post.create!(
+        title: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
+        body: Faker::SamuelJackson.paragraphs(4).join("\n"),
+        blog: Blog.all.sample,
+        image_id: image.id,
+        author_id: staff.sample.id,
+        published_at: (1..365).to_a.sample.days.ago,
+      )
     end
   end
 end

@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
   require_dependency 'article/search'
   include Postable
 
-  attr_accessible :previous_id, :subtitle, :section, :teaser
+  attr_accessible :previous_id, :subtitle, :section, :teaser, :author_ids
   serialize :section, Taxonomy::Serializer.new
 
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
