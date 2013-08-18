@@ -2,26 +2,22 @@ selected = $([])
 selectedNav = $([])
 
 
-showAuthor = (index) ->
+showSelection = (index) ->
   selectedNav.removeClass('selected')
   selected.hide()
 
-  selectedNav = $('.author-list a').eq(index)
-  selected = $('.author').eq(index)
+  selectedNav = $('.selectors a').eq(index)
+  selected = $('.selection').eq(index)
 
   selectedNav.addClass('selected')
   selected.show()
-  truncateArticleList()
+  selected.closest('.multiplexer').height(selected.height())
 
-truncateArticleList = loadAfterTypekit ->
-  while selected.height() > selected.parent().height()
-    selected.find('.list-story:last-child').remove()
-
-initialize '.author-box', ->
-  $('.author-list').on 'click', 'a', (e) ->
+initialize '.multiplexer', ->
+  $('.selectors').on 'click', 'a', (e) ->
     e.preventDefault()
-    showAuthor($(this).index())
+    showSelection($(this).index())
 
   # randomly select a columnist
-  randomIndex = Math.floor(Math.random() * $('.author-list a').size())
-  showAuthor(randomIndex)
+  randomIndex = Math.floor(Math.random() * $('.selectors a').size())
+  showSelection(randomIndex)
