@@ -1,15 +1,15 @@
-.author-box
+.multiplexer.author-box
   %h2.vertical-label= title
 
-  .rounded.author-list
+  .rounded.selectors
     .content-container
-      - authors.each_with_index do |author, i|
+      - authors.each do |author|
         %a.hover.highlight-left{href: site_staff_path(author)}
-          %h2.name= author.name
+          %h2.label= author.name
 
-  .rounded.authors
+  .rounded.selections
     - authors.each do |author|
-      .author
+      .selection
         .content-container.author-listing
           .author-info
             - if author.headshot
@@ -23,7 +23,7 @@
             %p.tagline= author.tagline
 
           .article-list
-            - author.articles.published.limit(10).order('published_at DESC').each do |article|
+            - author.articles.published.limit(5).order('published_at DESC').each do |article|
               %a.hover.list-story.highlight-right{href: site_article_path(article)}
                 %h3.title= article.title
                 %p.subtitle= display_date(article)

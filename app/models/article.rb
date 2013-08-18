@@ -23,9 +23,9 @@ class Article < ActiveRecord::Base
 
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
-  validates :section, presence: true
   validates :authors, presence: true
   validates :teaser, length: {maximum: 200}
+  validates_with Taxonomy::Validator, attr: :section
 
   scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
@@ -65,11 +65,14 @@ class Article < ActiveRecord::Base
   end
 
   ##
-  # Set article section. Creates a Taxonomy object if given a string argument.
+  # Reader for section attribute. Creates a Taxonomy object if section is a
+  # string.
   #
-  def section=(taxonomy)
-    taxonomy = Taxonomy.new(taxonomy) unless taxonomy.is_a?(Taxonomy)
-    super(taxonomy)
+  def section
+    unless self[:section].is_a?(Taxonomy)
+      self[:section] = Taxonomy.new(self[:section])
+    end
+    self[:section]
   end
 
   def self.popular(section, options={})

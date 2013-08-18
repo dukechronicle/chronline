@@ -33,6 +33,9 @@
         %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com"}
         %h2 Photos
+      - if frontpage?
+        %a{href: "/pages/join"}
+          %h2 Join
     = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
       = f.search_field :query, placeholder: 'Search archives', results: '5'
 
