@@ -90,7 +90,6 @@ group :test do
   gem 'vcr'
   gem 'mock_redis'
   gem 'turn'
-  gem 'rake'
 end
 
 # To use ActiveModel has_secure_password

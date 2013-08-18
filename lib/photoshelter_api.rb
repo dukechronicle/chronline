@@ -2,6 +2,7 @@ require "yaml"
 require "json"
 require "net/https"
 require "uri"
+require "httparty"
 
 class PhotoshelterAPI
 
