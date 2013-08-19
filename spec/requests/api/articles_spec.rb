@@ -1,4 +1,5 @@
 require 'spec_helper'
+include ArticleHelper
 
 describe Api::ArticlesController do
   before(:all) { @user = FactoryGirl.create(:user) }
@@ -77,6 +78,24 @@ describe Api::ArticlesController do
         attrs = json_attributes(article)
         attrs['section'] = article.section.to_a
         res.should include(attrs)
+      end
+
+      it "should match Camayak spec" do
+        res.should include(
+          'id' => article.id,
+          'published_url' => permanent_article_url(article),
+          'author_ids' => article.author_ids,
+          'slug' => article.slug,
+          'title' => article.title,
+          'subtitle' => article.subtitle,
+          'teaser' => article.teaser,
+          'body' => article.body,
+          'created_at' => article.created_at.iso8601,
+          'updated_at' => article.updated_at.iso8601,
+          'section' => article.section.to_a,
+          'published_at' => article.published_at.iso8601,
+          'image_id' => article.image_id,
+        )
       end
     end
   end
