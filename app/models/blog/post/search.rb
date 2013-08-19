@@ -4,7 +4,7 @@ class Blog::Post
   searchable if: :published_at, include: [:author, :tags] do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :content, stored: true, more_like_this: true do
-      body.gsub(/<[^>]*>/, '')
+      Nokogiri::HTML(body).text
     end
     time :date, trie: true do
       published_at
@@ -18,37 +18,37 @@ class Blog::Post
     integer :tag_ids, multiple: true
   end
 
-  class Search < ::Search
+  # class Search < ::Search
 
-    attr_reader :author_id, :blog_id, :tag_ids
-    attr_accessible :author_id, :blog_id, :tag_ids
+  #   attr_reader :author_id, :blog_id, :tag_ids
+  #   attr_accessible :author_id, :blog_id, :tag_ids
 
-    def self.model_name
-      ::Search.model_name
-    end
+  #   def self.model_name
+  #     ::Search.model_name
+  #   end
 
-    protected
-    def facet_names
-      [
-       [:author_id, "Author", StaffFacetDecorator],
-       [:blog_id, "Blog", BlogFacetDecorator],
-       [:tag_ids, "Tags", TagFacetDecorator],
-      ]
-    end
+  #   protected
+  #   def facet_names
+  #     [
+  #      [:author_id, "Author", StaffFacetDecorator],
+  #      [:blog_id, "Blog", BlogFacetDecorator],
+  #      [:tag_ids, "Tags", TagFacetDecorator],
+  #     ]
+  #   end
 
-    class StaffFacetDecorator < ::Search::AssociationFacetDecorator
-      @model_class = Staff
-      @method = :name
-    end
+  #   class StaffFacetDecorator < ::Search::AssociationFacetDecorator
+  #     @model_class = Staff
+  #     @method = :name
+  #   end
 
-    class BlogFacetDecorator < ::Search::AssociationFacetDecorator
-      @model_class = Blog
-      @method = :name
-    end
+  #   class BlogFacetDecorator < ::Search::AssociationFacetDecorator
+  #     @model_class = Blog
+  #     @method = :name
+  #   end
 
-    class TagFacetDecorator < ::Search::AssociationFacetDecorator
-      @model_class = ActsAsTaggableOn::Tag
-      @method = :name
-    end
-  end
+  #   class TagFacetDecorator < ::Search::AssociationFacetDecorator
+  #     @model_class = ActsAsTaggableOn::Tag
+  #     @method = :name
+  #   end
+  # end
 end
