@@ -6,26 +6,34 @@ describe PhotoshelterAPI do
 
   subject { PhotoshelterAPI.new(Settings.photoshelter.email, Settings.photoshelter.password) }
 
-  context "when authenticated with an invalid email" do
-    it "should raise an error" do
-      constructor = -> { PhotoshelterAPI.new("fail", Settings.photoshelter.password).authenticate }
-      constructor.should raise_error(StandardError)
-    end
-  end
+  describe "#authenticate" do
 
-  context "when authenticated with an invalid password" do
-    it "should raise an error" do
-      constructor = -> { PhotoshelterAPI.new(Settings.photoshelter.email, "fail").authenticate }
-      constructor.should raise_error(StandardError)
-    end
-  end
+    context "when authenticated with an invalid email" do
+      use_vcr_cassette "bad_username"
 
-  describe "Authentication" do
-    use_vcr_cassette "authentication"
-
-    it "should authenticate properly" do
-      subject.authenticate.should == true
+      it "should raise PhotoshelterError" do
+        constructor = -> { PhotoshelterAPI.new("fail", Settings.photoshelter.password).authenticate }
+        constructor.should raise_error(PhotoshelterAPI::PhotoshelterError)
+      end
     end
+
+    context "when authenticated with an invalid password" do
+      use_vcr_cassette "bad_password"
+
+      it "should raise PhotoshelterError" do
+        constructor = -> { PhotoshelterAPI.new(Settings.photoshelter.email, "fail").authenticate }
+        constructor.should raise_error(PhotoshelterAPI::PhotoshelterError)
+      end
+    end
+
+    describe "when authenticated with correct credentials" do
+      use_vcr_cassette "authentication"
+
+      it "should authenticate properly" do
+        subject.authenticate.should == true
+      end
+    end
+
   end
 
   describe "GET galleries" do
