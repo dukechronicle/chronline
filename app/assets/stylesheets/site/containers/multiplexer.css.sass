@@ -1,0 +1,23 @@
+@import "compass/layout/stretching"
+
+.multiplexer
+  position: relative
+  min-height: 300px !important
+
+  .selectors
+    +stretch-y
+    width: 150px
+    .label
+      font-size: 1.1em
+      line-height: 1.3em
+
+  .selections
+    +stretch-y
+    left: 150px
+    width: 324px
+
+    .selection
+      display: none
+
+.multiplexer.wide .selections
+  width: 492px

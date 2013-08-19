@@ -6,12 +6,12 @@ class Page::Layouts::Recruitment < Layout
         'extends' => markdown_schema,
         'required' => true,
       },
-      'schedule' => {
-        'label' => "Schedule",
-        'extends' => markdown_schema,
+      'main_image' => {
+        'label' => "Main Image",
         'required' => true,
+        'extends' => image_schema,
       },
-      'departments' => {
+      'sections' => {
         'label' => 'Departments',
         'type' => 'array',
         'items' => {
