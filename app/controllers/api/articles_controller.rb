@@ -1,5 +1,5 @@
-include ArticleHelper
 class Api::ArticlesController < Api::BaseController
+  include ArticleHelper
   before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
 
   def index
