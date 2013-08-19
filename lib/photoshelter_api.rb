@@ -1,4 +1,3 @@
-require "yaml"
 require "json"
 require "net/https"
 require "uri"
