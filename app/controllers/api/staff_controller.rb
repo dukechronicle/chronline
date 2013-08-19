@@ -7,15 +7,10 @@ class Api::StaffController < Api::BaseController
       staff = staff.search(params[:search])
     end
     if params.include? :columnist
-      value = params[:columnist] != 'false' ? true : [false, nil]
-      staff = staff.where(columnist: value)
+      staff = staff.columnist(!params[:columnist].inquiry.false?)
     end
     if params.include? :photographer
-      comparison = params[:photographer] != 'false' ? '>' : '='
-      staff = staff
-        .joins('LEFT OUTER JOIN images ON staff.id = images.photographer_id')
-        .group('staff.id')
-        .having("COUNT(images.id) #{comparison} 0")
+      staff = staff.photographer(!params[:photographer].inquiry.false?)
     end
     respond_with_staff staff
   end
