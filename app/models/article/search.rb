@@ -1,10 +1,12 @@
 class Article
+  include Searchable
+  require_dependency 'search/facet_decorator'
   attr_accessor :matched_title, :matched_content
 
   searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :content, stored: true, more_like_this: true do
-      body.gsub(/<[^>]*>/, '')
+      Nokogiri::HTML(body).text
     end
     time :date, trie: true do
       published_at
@@ -19,27 +21,11 @@ class Article
     end
   end
 
-  class Search < ::Search
-    require_dependency 'search/facet_decorator'
-
-    attr_reader :author_ids, :section
-    attr_accessible :author_ids, :section
-
-    def self.model_name
-      ::Search.model_name
-    end
-
-    protected
-    def facet_names
-      [
-       [:author_ids, "Author", StaffFacetDecorator],
-       [:section, "Section"]
-      ]
-    end
-
-    class StaffFacetDecorator < ::Search::AssociationFacetDecorator
-      @model_class = Staff
-      @method = :name
-    end
+  class StaffFacetDecorator < ::Search::AssociationFacetDecorator
+    @model_class = Staff
+    @method = :name
   end
+
+  # search_facet :author_ids, label: 'Author', decorator: StaffFacetDecorator
+  # search_facet :section
 end

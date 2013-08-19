@@ -440,6 +440,7 @@ DEPENDENCIES
   le
   mock_redis
   newrelic_rpm
+  nokogiri
   paperclip
   paperclip-optimizer
   pg
