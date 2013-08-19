@@ -1,4 +1,5 @@
 class PhotoshelterAPI
+  include Errors
 
   BaseUri = "https://www.photoshelter.com/psapi/v1"
 
@@ -79,7 +80,9 @@ class PhotoshelterAPI
 
       response = http.request(request) 
 
-      raise StandardError, "Bad response code: #{response.code}" unless response.code == "200"
+      if response.code != "200"
+        raise PhotoshelterError.new(response.code)
+      end
 
       return response
     end
