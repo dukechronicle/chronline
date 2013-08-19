@@ -5,8 +5,28 @@ describe "/staff/*" do
   after(:all) { @user.destroy }
   subject { ActiveSupport::JSON.decode(response.body) }
 
+  shared_examples_for "an image response" do
+    it "should have staff attributes" do
+      attrs = ActiveSupport::JSON.decode(staff.to_json)
+      should include(attrs)
+    end
+
+    it "should match Camayak spec" do
+      should include(
+        'affiliation' => staff.affiliation,
+        'biography' => staff.biography,
+        'columnist' => staff.columnist,
+        'photographer' => staff.photographer?,
+        'name' => staff.name,
+        'tagline' => staff.tagline,
+        'twitter' => staff.twitter,
+        'slug' => staff.slug,
+      )
+    end
+  end
+
   describe "GET /staff" do
-    let!(:staff) do
+    let!(:records) do
       [
        FactoryGirl.create(:staff, name: 'Joe Smith'),
        FactoryGirl.create(:staff_with_image, name: 'John Smith'),
@@ -19,6 +39,11 @@ describe "/staff/*" do
 
       it { response.status.should == Rack::Utils.status_code(:ok) }
       it { should have(2).staff }
+
+      it_should_behave_like "an image response" do
+        subject { ActiveSupport::JSON.decode(response.body).first }
+        let(:staff) { records.first }
+      end
     end
 
     context "when page 2 is fetched" do
@@ -74,24 +99,7 @@ describe "/staff/*" do
     let!(:staff) { FactoryGirl.create :staff }
 
     it { response.status.should == Rack::Utils.status_code(:ok) }
-
-    it "should have staff attributes" do
-      attrs = ActiveSupport::JSON.decode(staff.to_json)
-      should include(attrs)
-    end
-
-    it "should match Camayak spec" do
-      should include(
-        'affiliation' => staff.affiliation,
-        'biography' => staff.biography,
-        'columnist' => staff.columnist,
-        'photographer' => staff.photographer?,
-        'name' => staff.name,
-        'tagline' => staff.tagline,
-        'twitter' => staff.twitter,
-        'slug' => staff.slug,
-      )
-    end
+    it_should_behave_like "an image response"
   end
 
   describe "POST /staff" do
@@ -121,6 +129,10 @@ describe "/staff/*" do
 
       it { should include('updated_at', 'created_at') }
       it { Staff.should have(1).record }
+
+      it_should_behave_like "an image response" do
+        let(:staff) { Staff.find(subject['id']) }
+      end
 
       it "should set correct location header" do
         response.location.should ==
