@@ -1,4 +1,4 @@
-class Search
+class Searchy
   include ActiveModel::Conversion
   include ActiveModel::MassAssignmentSecurity
   include ActiveModel::Validations
@@ -9,23 +9,13 @@ class Search
   attr_accessible :model, :query, :start_date, :end_date, :page, :per_page,
     :sort, :order, :highlight
 
-  # HAX: Factory method
-  # http://ola-bini.blogspot.com/2007/12/code-size-and-dynamic-languages.html
-  def self.new(attrs = {})
-    type = self
-    if (model = attrs[:model]).present?
-      model = attrs[:model] = model.constantize if model.is_a? String
-      type = model.const_get(:Search)
-    end
-    object = type.allocate
-    object.send :initialize, attrs
-    object
-  end
-
-  def initialize(attrs)
+  def initialize(attrs = {})
+    p "ELSE"
+    attrs.stringify_keys!
     self.class.accessible_attributes.each do |attr|
-      instance_variable_set "@#{attr}", attrs[attr] || attrs[attr.to_sym]
+      instance_variable_set "@#{attr}", attrs[attr]
     end
+    @model = model.constantize if model.is_a? String
     @page      ||= 1
     @per_page  ||= 25
     @sort      ||= :score
@@ -54,7 +44,11 @@ class Search
 
   protected
   def facet_names
-    []
+    if @model.nil?
+      []
+    else
+      @model.search_facets
+    end
   end
 
   private
