@@ -13,15 +13,4 @@ module ArticlesController
     end
   end
 
-  def search
-    if params[:article_search]
-      @article_search = Article::Search.new(params[:article_search])
-      @article_search.page = params[:page] if params.has_key?(:page)
-      @articles = @article_search.results
-    else
-      @article_search = Article::Search.new
-      @articles = []
-    end
-  end
-
 end

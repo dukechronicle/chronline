@@ -1,4 +1,4 @@
-class Searchy
+class Search
   include ActiveModel::Conversion
   include ActiveModel::MassAssignmentSecurity
   include ActiveModel::Validations
@@ -10,7 +10,6 @@ class Searchy
     :sort, :order, :highlight
 
   def initialize(attrs = {})
-    p "ELSE"
     attrs.stringify_keys!
     self.class.accessible_attributes.each do |attr|
       instance_variable_set "@#{attr}", attrs[attr]

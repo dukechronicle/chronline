@@ -62,13 +62,7 @@ class Admin::ArticlesController < Admin::BaseController
     redirect_to admin_articles_path
   end
 
-  def search
-    params[:article_search] ||= {}
-    super
-  end
-
   private
-
   def update_article(article)
     # Last element of taxonomy array may be an empty string
     params[:article][:section].pop if params[:article][:section].last.blank?
