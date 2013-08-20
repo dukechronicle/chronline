@@ -41,7 +41,7 @@ class Api::ArticlesController < Api::BaseController
         head :internal_server_error
       end
     else
-      head :bad_request
+      head :unproccessable_entity
     end
   end
 
@@ -68,7 +68,7 @@ class Api::ArticlesController < Api::BaseController
         head :internal_server_error
       end
     else
-      render json: article.errors, status: :bad_request
+      render json: article.errors, status: :unproccessable_entity
     end
   end
 
