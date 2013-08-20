@@ -9,10 +9,7 @@ class Api::ArticlesController < Api::BaseController
       .section(taxonomy)
       .order('published_at DESC')
       .paginate(page: params[:page], per_page: params[:limit])
-    respond_with(
-      articles, include: :authors, methods: [:thumb_square_s_url, :author_ids],
-      properties:
-        { published_url: ->(article) { permanent_article_url(article) } } )
+    respond_with_article(articles, include: :authors, methods: :thumb_square_s_url)
   end
 
   def search
@@ -24,19 +21,14 @@ class Api::ArticlesController < Api::BaseController
 
   def show
     article = Article.find(params[:id])
-    respond_with(
-      article, methods: :author_ids, properties:
-        { published_url: ->(article) { permanent_article_url(article) } } )
+    respond_with_article(article)
   end
 
   def create
     article = Article.new(request.POST)
     if article.valid?
       if article.save
-        respond_with(
-          article, status: :created, location: api_articles_url,
-          except: :previous_id, methods: :author_ids, properties:
-            { published_url: ->(article) { permanent_article_url(article) } } )
+        respond_with_article(article, status: :created, location: api_articles_url)
       else
         head :internal_server_error
       end
@@ -49,10 +41,7 @@ class Api::ArticlesController < Api::BaseController
     article = Article.find(params[:id])
     article.update_attributes(published_at: nil)
     if article.save
-      respond_with(
-        :api, article, status: :ok, except: :previous_id, methods: :author_ids,
-        properties:
-          { published_url: ->(article) { permanent_article_url(article) } } )
+      respond_with_article(article, status: :ok)
     else
       head :internal_server_error
     end
@@ -78,4 +67,15 @@ class Api::ArticlesController < Api::BaseController
     head :no_content
   end
 
+  private
+
+  def respond_with_article(article, options = {})
+    defaults = {
+      methods: :author_ids,
+      except: :previous_id,
+      properties:
+        { published_url: ->(article) { permanent_article_url(article) } } }
+    options.merge!(defaults) { |k, a, b| Array(a) + Array(b) }
+    respond_with(:api, article, options)
+  end
 end
