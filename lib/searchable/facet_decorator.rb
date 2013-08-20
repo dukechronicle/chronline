@@ -1,4 +1,4 @@
-class Search
+module Searchable
 
   ##
   # Decorator around Sunspot::Search::FacetRow. Adds a name property to rows

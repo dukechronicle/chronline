@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 
-describe Search::Searchable do
+describe Searchable do
   subject { searchable_class }
 
   let(:searchable_class) do
     Class.new do
-      include Search::Searchable
+      include Searchable
     end
   end
 
@@ -27,21 +27,21 @@ describe Search::Searchable do
     context "when called with just an id" do
       before { searchable_class.search_facet :trainer }
       it "should have default label and decorator" do
-        should == [[:trainer, 'Trainer', Search::FacetDecorator]]
+        should == [[:trainer, 'Trainer', Searchable::FacetDecorator]]
       end
     end
 
     context "when called with just an id" do
       before { searchable_class.search_facet :trainer_id }
       it "should have default label and decorator" do
-        should == [[:trainer_id, 'Trainer', Search::FacetDecorator]]
+        should == [[:trainer_id, 'Trainer', Searchable::FacetDecorator]]
       end
     end
 
     context "when called with a label" do
       before { searchable_class.search_facet :trainer, label: 'PokeTrainer' }
       it "should have the label" do
-        should == [[:trainer, 'PokeTrainer', Search::FacetDecorator]]
+        should == [[:trainer, 'PokeTrainer', Searchable::FacetDecorator]]
       end
     end
 
@@ -59,7 +59,7 @@ describe Search::Searchable do
         facet = searchable_class.search_facets.first
         decorator = facet[2]
         # be_a_kind_of doesn't work for anonymous classes
-        decorator.superclass.should == Search::AssociationFacetDecorator
+        decorator.superclass.should == Searchable::AssociationFacetDecorator
         decorator.send(:model).should == Staff
         decorator.send(:model_method).should == :name
       end

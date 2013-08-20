@@ -1,7 +1,7 @@
 class Blog
   class Post < ActiveRecord::Base
     include Postable
-    include Search::Searchable
+    include Searchable
 
     self.table_name = :blog_posts
 
