@@ -10,11 +10,4 @@ class Api::ArticlesController < ApplicationController
     render json: articles, include: :authors, methods: :square_80x_url
   end
 
-  def search
-    article_search = Article::Search.new(query: params[:query],
-                                         sort: params[:sort],
-                                         highlight: false)
-    render json: article_search.results
-  end
-
 end

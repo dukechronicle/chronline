@@ -1,7 +1,7 @@
 class Blog
   class Post < ActiveRecord::Base
-    require_dependency 'blog/post/search'
     include Postable
+    include Search::Searchable
 
     self.table_name = :blog_posts
 
@@ -21,6 +21,29 @@ class Blog
 
     self.per_page = 10  # set will_paginate default to 10 articles
 
+    ##
+    # Configure blog posts to be indexed by Solr
+    #
+    search_facet :author_id, model: Staff
+    search_facet :blog_id, model: Blog
+    search_facet :tag_ids, model: ActsAsTaggableOn::Tag
+
+    searchable if: :published_at, include: [:author, :tags] do
+      text :title, stored: true, boost: 2.0, more_like_this: true
+      text :content, stored: true, more_like_this: true do
+        Nokogiri::HTML(body).text
+      end
+      time :date, trie: true do
+        published_at
+      end
+
+      text :author_name do  # Staff names rarely change
+        author.name
+      end
+      integer :author_id
+      string :blog_id
+      integer :tag_ids, multiple: true
+    end
 
     def blog=(blog)
       blog = Blog.find(blog) unless blog.nil? || blog.is_a?(Blog)

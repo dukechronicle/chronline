@@ -25,36 +25,34 @@ class Search
 
     def self.wrap_rows(rows)
       ids = rows.map(&:value)
-      models = model_class.find(ids)
-      id_map = {}
-      models.each { |model| id_map[model.id] = model }
+      records = model.select([:id, method]).find(ids)
+      id_map = Hash[records.map { |record| [record.id, record] }]
 
       rows.map do |row|
         self.new(row, id_map[row.value])
       end
     end
 
-    def initialize(row, model = nil)
+    def initialize(row, record = nil)
       @row = row
-      @model = model
+      @record = record
     end
 
     def name
-      model.send self.class.method
+      record.send self.class.method
     end
 
     private
-    def model
-      @model ||= self.class.model_class.find(@row.value)
+    def record
+      @record ||= self.class.model.select(method).find(@row.value)
     end
 
-    def self.model_class
-      @model_class
+    def self.model
+      @model
     end
 
     def self.method
       @method
     end
-
   end
 end

@@ -85,7 +85,6 @@ Chronline::Application.routes.draw do
       get 'newsletter' => 'newsletter#show'
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
-      get 'search' => 'articles#search', as: :article_search
 
       resources :images, except: :show do
         put 'crop', on: :member
@@ -112,7 +111,6 @@ Chronline::Application.routes.draw do
     namespace :api, path: '/' do
       get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
-      get 'search' => 'articles#search'
 
       resources :images, only: :index
       resources :staff, only: :index

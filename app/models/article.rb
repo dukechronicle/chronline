@@ -15,8 +15,8 @@
 #
 
 class Article < ActiveRecord::Base
-  require_dependency 'article/search'
   include Postable
+  include Search::Searchable
 
   attr_accessible :previous_id, :subtitle, :section, :teaser, :author_ids
   serialize :section, Taxonomy::Serializer.new
@@ -24,13 +24,36 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
 
   validates :authors, presence: true
-  validates :teaser, length: {maximum: 200}
+  validates :teaser, length: { maximum: 200 }
   validates_with Taxonomy::Validator, attr: :section
 
   scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   self.per_page = 25  # set will_paginate default to 25 articles
 
+  ##
+  # Configure articles to be indexed by Solr
+  #
+  search_facet :author_ids, model: Staff
+  search_facet :section
+
+  searchable if: :published_at, include: :authors do
+    text :title, stored: true, boost: 2.0, more_like_this: true
+    text :content, stored: true, more_like_this: true do
+      Nokogiri::HTML(body).text
+    end
+    time :date, trie: true do
+      published_at
+    end
+
+    text :author_names do  # Staff names rarely change
+      authors.map(&:name)
+    end
+    integer :author_ids, multiple: true
+    string :section do
+      section[0]
+    end
+  end
 
   ##
   # Record temporarily that this article was viewed by a user. This data is
