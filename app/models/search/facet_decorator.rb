@@ -1,4 +1,9 @@
 class Search
+
+  ##
+  # Decorator around Sunspot::Search::FacetRow. Adds a name property to rows
+  # so that they can be displayed.
+  #
   class FacetDecorator
 
     def initialize(row)
@@ -21,6 +26,11 @@ class Search
 
   end
 
+  ##
+  # FacetDecorator for rows that represent association ids. wrap_rows will fetch
+  # all facet associations in one query and row names are a selected property of
+  # the models.
+  #
   class AssociationFacetDecorator < FacetDecorator
 
     def self.wrap_rows(rows)
