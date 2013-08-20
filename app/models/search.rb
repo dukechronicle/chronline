@@ -9,6 +9,9 @@ class Search
   attr_accessible :model, :query, :start_date, :end_date, :page, :per_page,
     :sort, :order, :highlight
 
+  validates :query, presence: true
+
+
   def initialize(attrs = {})
     attrs.stringify_keys!
     self.class.accessible_attributes.each do |attr|
@@ -24,16 +27,14 @@ class Search
   end
 
   def results
-    return nil if query.blank?
+    return nil unless valid?
     highlight_results if highlight
     request.results
   end
 
-  def facets
-    facet_names.map do |facet_name, label, decorator|
-      decorator ||= FacetDecorator
-      rows = decorator.wrap_rows(request.facet(facet_name).rows)
-      [facet_name, label, rows]
+  def facet_results
+    facets.map do |name, label, decorator|
+      [name, label, decorator.wrap_rows(request.facet(name).rows)]
     end
   end
 
@@ -42,7 +43,7 @@ class Search
   end
 
   protected
-  def facet_names
+  def facets
     if @model.nil?
       []
     else
@@ -75,7 +76,7 @@ class Search
           end
         end
 
-        facet_names.each do |facet_name, _, _|
+        facets.each do |facet_name, _, _|
           value = self.send facet_name
           with(facet_name, value) unless value.blank?
           facet facet_name

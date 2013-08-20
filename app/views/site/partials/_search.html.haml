@@ -13,6 +13,6 @@
                                               ['Past 7 Days', 7.days.ago.to_date],
                                               ['Past 30 Days', 30.days.ago.to_date],
                                               ['Past 12 Months', 1.year.ago.to_date]]
-          - search.facets.each do |field, label, rows|
+          - search.facet_results.each do |field, label, rows|
             = f.input field, collection: search_options(rows), label: label
         = f.submit "Search", class: 'btn'
