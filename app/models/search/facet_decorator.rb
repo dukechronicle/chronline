@@ -25,7 +25,7 @@ class Search
 
     def self.wrap_rows(rows)
       ids = rows.map(&:value)
-      records = model.select([:id, method]).find(ids)
+      records = model.select([:id, model_method]).find(ids)
       id_map = Hash[records.map { |record| [record.id, record] }]
 
       rows.map do |row|
@@ -39,20 +39,20 @@ class Search
     end
 
     def name
-      record.send self.class.method
+      record.send self.class.model_method
     end
 
     private
     def record
-      @record ||= self.class.model.select(method).find(@row.value)
+      @record ||= self.class.model.select(model_method).find(@row.value)
     end
 
     def self.model
       @model
     end
 
-    def self.method
-      @method
+    def self.model_method
+      @model_method
     end
   end
 end

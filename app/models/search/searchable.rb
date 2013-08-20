@@ -4,6 +4,7 @@ class Search
     extend ActiveSupport::Concern
 
     included do
+      include ActiveModel::MassAssignmentSecurity
       attr_accessor :matched_title, :matched_content
     end
 
@@ -15,7 +16,7 @@ class Search
         if decorator.nil? && model.present? && method.present?
           decorator = Class.new(AssociationFacetDecorator) do
             @model = model
-            @method = method
+            @model_method = method
           end
         end
         if label.blank?
