@@ -16,7 +16,7 @@
 
 class Article < ActiveRecord::Base
   include Postable
-  include Search::Searchable
+  include Searchable
 
   attr_accessible :previous_id, :subtitle, :section, :teaser, :author_ids
   serialize :section, Taxonomy::Serializer.new
