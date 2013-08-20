@@ -53,7 +53,7 @@ describe Search::Searchable do
       end
     end
 
-    context "when called with a model and method" do
+    context "when called with a model" do
       before { searchable_class.search_facet :trainer, model: Staff }
       it "should have an association decorator for the model" do
         facet = searchable_class.search_facets.first
