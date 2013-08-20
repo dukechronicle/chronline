@@ -11,14 +11,13 @@ describe Api::ArticlesController do
        FactoryGirl.create(:article, section: '/news/', published_at: nil),
       ]
     end
-    let(:success) { 200 }
     let(:articles) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
     context "incorrect section" do
       before { get api_article_section_url(subdomain: :api, section: 'sports') }
 
-      its(:status) { should == success }
+      its(:status) { should == Rack::Utils.status_code(:ok) }
       it { articles.should be_empty }
     end
 
@@ -27,7 +26,7 @@ describe Api::ArticlesController do
 
       before { get api_article_section_url(subdomain: :api, section: 'news') }
 
-      its(:status) { should == success }
+      its(:status) { should == Rack::Utils.status_code(:ok) }
       it { articles.should have(1).articles }
 
       it "should not include unpublished articles" do
@@ -57,14 +56,13 @@ describe Api::ArticlesController do
        FactoryGirl.create(:article, section: '/sports/'),
       ]
     end
-    let(:success) { 200 }
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
     describe "list articles" do
       before { get api_articles_url(subdomain: :api, section: 'news') }
 
-      its(:status) { should == success }
+      its(:status) { should == Rack::Utils.status_code(:ok) }
       it { res.should have(1).articles }
     end
 
@@ -72,7 +70,7 @@ describe Api::ArticlesController do
       let(:article) { original_articles[0] }
       before { get api_article_url(subdomain: :api, id: article.id) }
 
-      its(:status) { should == success }
+      its(:status) { should == Rack::Utils.status_code(:ok)}
 
       it "should have article properties" do
         attrs = json_attributes(article)
@@ -204,7 +202,7 @@ describe Api::ArticlesController do
           put api_article_url(article.id, subdomain: :api), invalid_attrs,
             { 'HTTP_AUTHORIZATION' => http_auth(@user) }
         end
-        it { response.status.should == Rack::Utils.status_code(:bad_request) }
+        it { response.status.should == Rack::Utils.status_code(:unproccessable_entity) }
         it "should respond with validation errors" do
           res.should include('title')
         end

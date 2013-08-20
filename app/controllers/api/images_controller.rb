@@ -20,7 +20,7 @@ class Api::ImagesController < Api::BaseController
       respond_with image, status: :created, location: api_images_url,
         properties: { published_url: ->(image) { image.original.url } }
     else
-      head :bad_request
+      head :unproccessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class Api::ImagesController < Api::BaseController
     if image.save
       head :no_content
     else
-      render json: image.errors, status: :bad_request
+      render json: image.errors, status: :unproccessable_entity
     end
   end
 

@@ -4,8 +4,6 @@ describe "Images API" do
   before(:all) { @user = FactoryGirl.create(:user) }
   after(:all) { @user.destroy }
   describe "GET /images/*" do
-    let(:success) { 200 }
-    let(:no_response) { 204 }
     subject { response }
 
     before do
@@ -19,7 +17,7 @@ describe "Images API" do
       end
       let(:images) { JSON.parse(response.body) }
 
-      it { response.status.should be(success) }
+      it { response.status.should be(Rack::Utils.status_code(:ok)) }
       it { images.should be_an(Array) }
       it { images.should have(1).images }
 
@@ -39,7 +37,7 @@ describe "Images API" do
       let(:image) { JSON.parse(response.body) }
       let(:res) { ActiveSupport::JSON.decode(response.body) }
 
-      its(:status) { should == success }
+      its(:status) { should == Rack::Utils.status_code(:ok) }
       it "should have have image properties" do
         attrs = json_attributes(@image)
         image.should include(attrs)
@@ -113,7 +111,7 @@ describe "Images API" do
         put api_image_url(image.id, subdomain: :api), invalid_attrs,
           { 'HTTP_AUTHORIZATION' => http_auth(@user) }
       end
-      it { response.status.should == Rack::Utils.status_code(:bad_request) }
+      it { response.status.should == Rack::Utils.status_code(:unproccessable_entity) }
       it "should respond with validation errors" do
         res.should include('date')
       end
