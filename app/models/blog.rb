@@ -26,7 +26,7 @@ class Blog
   end
 
   def posts
-    Blog::Post.where(blog: id)
+    Blog::Post.where(section: "/blog/#{id}/")
   end
 
   def to_param

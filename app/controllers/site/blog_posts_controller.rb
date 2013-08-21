@@ -3,10 +3,9 @@ class Site::BlogPostsController < Site::BaseController
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
-      @blog_posts = Blog::Post
+      @blog_posts = @blog.posts
         .published
         .includes(:author, :image)
-        .where(blog: @blog.id)
         .order('published_at DESC')
         .page(params[:page])
     else
@@ -22,9 +21,8 @@ class Site::BlogPostsController < Site::BaseController
 
   def tags
     @blog = Blog.find(params[:blog_id])
-    @blog_posts = Blog::Post
+    @blog_posts = @blog.posts
       .published
-      .where(blog: @blog.id)
       .tagged_with(params[:tag])
       .order('published_at DESC')
       .page(params[:page])

@@ -25,6 +25,21 @@ class Post < ActiveRecord::Base
       .where(['published_at < ?', DateTime.now])
   end
 
+  ##
+  # Search for posts with related content. Uses Solr to query for relevance.
+  # Returns the top +limit+ articles.
+  #
+  def related(limit)
+    search = Sunspot.more_like_this(self) do
+      fields :title, :content
+      minimum_term_frequency 5
+      paginate per_page: limit
+    end
+    # HAX: Eager load authors
+    search.data_accessor_for(self.class).include = :authors
+    search.results
+  end
+
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)
     return nil if title.nil?  # record won't save -- title presence is validated

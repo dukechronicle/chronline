@@ -13,7 +13,7 @@ module BlogPostHelper
   end
 
   def recent_blog_posts(blog, limit=5)
-    Blog::Post.where(blog: blog.id).order('published_at DESC').limit(limit)
+    blog.posts.order('published_at DESC').limit(limit)
   end
 
 end

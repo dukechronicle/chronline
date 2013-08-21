@@ -46,6 +46,7 @@ class Article < Post
       authors.map(&:name)
     end
     integer :author_ids, multiple: true
+
     string :section do
       section[0]
     end
@@ -66,21 +67,6 @@ class Article < Post
         $redis.expireat(key, timestamp)
       end
     end
-  end
-
-  ##
-  # Search for articles with related content. Uses Solr to query for relevance.
-  # Returns the top +limit+ articles.
-  #
-  def related(limit)
-    search = Sunspot.more_like_this(self) do
-      fields :title, :content
-      minimum_term_frequency 5
-      paginate per_page: limit
-    end
-    # HAX: Eager load authors
-    search.data_accessor_for(self.class).include = :authors
-    search.results
   end
 
   def self.popular(section, options={})
