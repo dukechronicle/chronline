@@ -1,4 +1,4 @@
-module Postable
+module Post
   class EmbeddedMedia
     class ImageTag < ActionView::Base
       # HAX: there must be a better way to generate HTML
