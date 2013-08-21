@@ -4,6 +4,29 @@ describe "Images API" do
   before(:all) { @user = FactoryGirl.create(:user) }
   after(:all) { @user.destroy }
 
+  shared_examples_for "an image response" do
+    it "should have image properties" do
+      attrs = ActiveSupport::JSON.decode(image.to_json)
+      should include(attrs)
+    end
+
+    it "should match Camayak spec" do
+      should include(
+        'caption' => image.caption,
+        'location' => image.location,
+        'credit' => image.credit,
+        'original_file_name' => image.original_file_name,
+        'original_content_type' => image.original_content_type,
+        'original_file_size' => image.original_file_size,
+        'original_updated_at' => image.original_updated_at.iso8601,
+        'created_at' => image.created_at.iso8601,
+        'updated_at' => image.updated_at.iso8601,
+        'photographer_id' => image.photographer_id,
+        'published_url' => image.original.url
+      )
+    end
+  end
+
   describe "GET /images" do
     subject { response }
 
@@ -12,20 +35,20 @@ describe "Images API" do
       @image = FactoryGirl.create(:image)
       get api_images_url(subdomain: :api)
     end
-    let(:images) { JSON.parse(response.body) }
+    let(:images) { ActiveSupport::JSON.decode(response.body) }
 
     its(:status) { should be(Rack::Utils.status_code(:ok)) }
     it { images.should be_an(Array) }
     it { images.should have(1).images }
 
-    it "should have image properties" do
-      attrs = json_attributes(@image)
-      images.first.should include(attrs)
-    end
-
     it "should have thumbnail url" do
       images.first.should include(
         "thumbnail_url" => @image.thumbnail_url)
+    end
+
+    it_should_behave_like "an image response" do
+      subject { images.first }
+      let(:image) { @image }
     end
   end
 
@@ -37,27 +60,11 @@ describe "Images API" do
     end
     subject { response }
 
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
-
     its(:status) { should == Rack::Utils.status_code(:ok) }
-    it "should have have image properties" do
-      attrs = json_attributes(@image)
-      res.should include(attrs)
-    end
-    it "should match Camayak spec" do
-      res.should include(
-        'caption' => @image.caption,
-        'location' => @image.location,
-        'credit' => @image.credit,
-        'original_file_name' => @image.original_file_name,
-        'original_content_type' => @image.original_content_type,
-        'original_file_size' => @image.original_file_size,
-        'original_updated_at' => @image.original_updated_at.iso8601,
-        'created_at' => @image.created_at.iso8601,
-        'updated_at' => @image.updated_at.iso8601,
-        'photographer_id' => @image.photographer_id,
-        'published_url' => @image.original.url
-      )
+
+    it_should_behave_like "an image response" do
+      subject { ActiveSupport::JSON.decode(response.body) }
+      let(:image) { @image }
     end
   end
 
@@ -66,7 +73,6 @@ describe "Images API" do
       convert_objs_to_ids(
         FactoryGirl.attributes_for(:image), :photographer, :photographer_id)
     end
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
     it "should require authentication" do
@@ -81,6 +87,10 @@ describe "Images API" do
 
     its(:status) { should == Rack::Utils.status_code(:created) }
 
+    it_should_behave_like "an image response" do
+      subject { ActiveSupport::JSON.decode(response.body) }
+      let(:image) { Image.find(subject['id']) }
+    end
   end
 
   describe "PUT /image/:id" do
