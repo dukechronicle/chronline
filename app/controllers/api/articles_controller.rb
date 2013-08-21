@@ -74,7 +74,7 @@ class Api::ArticlesController < Api::BaseController
       methods: :author_ids,
       except: :previous_id,
       properties:
-        { published_url: ->(article) { permanent_article_url(article) } } }
+        { published_url: ->(article) { site_article_url(article, subdomain: :www) } } }
     options.merge!(defaults) { |k, a, b| Array(a) + Array(b) }
     respond_with(:api, article, options)
   end

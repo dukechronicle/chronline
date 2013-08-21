@@ -4,6 +4,37 @@ include ArticleHelper
 describe Api::ArticlesController do
   before(:all) { @user = FactoryGirl.create(:user) }
   after(:all) { @user.destroy }
+
+  shared_examples_for "an article response" do
+    it "should have article properties" do
+      attrs = ActiveSupport::JSON.decode(article.to_json)
+      should include(attrs)
+    end
+
+    it "should match Camayak spec" do
+      should include(
+        'id' => article.id,
+        'published_url' => site_article_url(article, subdomain: :www),
+        'author_ids' => article.author_ids,
+        'slug' => article.slug,
+        'title' => article.title,
+        'subtitle' => article.subtitle,
+        'teaser' => article.teaser,
+        'body' => article.body,
+        'created_at' => article.created_at.iso8601,
+        'updated_at' => article.updated_at.iso8601,
+        'section' => article.section.to_a,
+        'published_at' => (article.published_at.iso8601 if article.published_at),
+        'image_id' => article.image_id,
+      )
+    end
+
+    it "should not include previous_id" do
+      should_not include(:previous_id)
+    end
+
+    its(['slug']) { should match(%r[(\d{4}/\d{2}/\d{2}/)?[^/]+]) }
+  end
   describe "GET /section/*" do
     let!(:original_articles) do
       [
@@ -33,17 +64,15 @@ describe Api::ArticlesController do
         articles.first['published_at'].should be_present
       end
 
-      it "should have article properties" do
-        attrs = json_attributes(article)
-        attrs['section'] = article.section.to_a
-        articles.first.should include(attrs)
-      end
-
       it "should include the authors" do
         article.authors.each_with_index do |author, i|
           attrs = json_attributes(author)
           articles.first['authors'][i].should include(attrs)
         end
+      end
+
+      it_should_behave_like "an article response" do
+        subject { articles.first }
       end
     end
   end
@@ -64,6 +93,11 @@ describe Api::ArticlesController do
 
       its(:status) { should == Rack::Utils.status_code(:ok) }
       it { res.should have(1).articles }
+
+      it_should_behave_like "an article response" do
+        subject { res.first }
+        let(:article) { original_articles[0] }
+      end
     end
 
     describe "get article" do
@@ -72,28 +106,8 @@ describe Api::ArticlesController do
 
       its(:status) { should == Rack::Utils.status_code(:ok)}
 
-      it "should have article properties" do
-        attrs = json_attributes(article)
-        attrs['section'] = article.section.to_a
-        res.should include(attrs)
-      end
-
-      it "should match Camayak spec" do
-        res.should include(
-          'id' => article.id,
-          'published_url' => permanent_article_url(article),
-          'author_ids' => article.author_ids,
-          'slug' => article.slug,
-          'title' => article.title,
-          'subtitle' => article.subtitle,
-          'teaser' => article.teaser,
-          'body' => article.body,
-          'created_at' => article.created_at.iso8601,
-          'updated_at' => article.updated_at.iso8601,
-          'section' => article.section.to_a,
-          'published_at' => article.published_at.iso8601,
-          'image_id' => article.image_id,
-        )
+      it_should_behave_like "an article response" do
+        subject { res }
       end
     end
   end
@@ -103,7 +117,6 @@ describe Api::ArticlesController do
       convert_objs_to_ids(
         FactoryGirl.attributes_for(:article), :authors, :author_ids)
     end
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
     it "should require authentication" do
@@ -118,37 +131,22 @@ describe Api::ArticlesController do
       end
 
       its(:status) { should == Rack::Utils.status_code(:created) }
-      it "should include the data posted" do
-        res.except('slug').should include(new_article_data)
-      end
 
-      it "should not include previous_id" do
-        res.should_not include(:previous_id)
-      end
-
-      it "should have a slug" do
-        res.should include('slug')
-      end
-
-      it "should have a well-formed slug" do
-        res['slug'].should match(%r[(\d{4}/\d{2}/\d{2}/)?[^/]+])
-      end
-
-      it "should have author_ids" do
-        res.should include('author_ids')
+      it_should_behave_like "an article response" do
+        subject { ActiveSupport::JSON.decode(response.body) }
+        let(:article) { Article.find(subject['id']) }
       end
     end
   end
 
   describe "POST /articles/:id/unpublish" do
-    let(:article_attrs) { FactoryGirl.attributes_for :article }
-    let(:article) { FactoryGirl.create :article, article_attrs }
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
+    let(:article) { FactoryGirl.create :article }
     subject { response }
 
     before do
       post unpublish_api_article_url(article.id, subdomain: :api), nil,
           { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+      article.reload
     end
 
     it "should require authentication" do
@@ -157,16 +155,12 @@ describe Api::ArticlesController do
     end
 
     it "should be unpublished" do
-      article.reload.published?.should be_false
+      article.published?.should be_false
     end
     its(:status) { should == Rack::Utils.status_code(:ok) }
 
-    it "should include the data posted" do
-      res.except('slug').should include(article_attrs)
-    end
-
-    it "should not include previous_id" do
-      res.should_not include(:previous_id)
+    it_should_behave_like "an article response" do
+      subject { ActiveSupport::JSON.decode(response.body) }
     end
   end
 

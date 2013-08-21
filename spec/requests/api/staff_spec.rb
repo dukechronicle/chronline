@@ -5,7 +5,7 @@ describe "/staff/*" do
   after(:all) { @user.destroy }
   subject { ActiveSupport::JSON.decode(response.body) }
 
-  shared_examples_for "an image response" do
+  shared_examples_for "a staff response" do
     it "should have staff attributes" do
       attrs = ActiveSupport::JSON.decode(staff.to_json)
       should include(attrs)
@@ -40,7 +40,7 @@ describe "/staff/*" do
       it { response.status.should == Rack::Utils.status_code(:ok) }
       it { should have(2).staff }
 
-      it_should_behave_like "an image response" do
+      it_should_behave_like "a staff response" do
         subject { ActiveSupport::JSON.decode(response.body).first }
         let(:staff) { records.first }
       end
@@ -99,7 +99,7 @@ describe "/staff/*" do
     let!(:staff) { FactoryGirl.create :staff }
 
     it { response.status.should == Rack::Utils.status_code(:ok) }
-    it_should_behave_like "an image response"
+    it_should_behave_like "a staff response"
   end
 
   describe "POST /staff" do
@@ -130,7 +130,7 @@ describe "/staff/*" do
       it { should include('updated_at', 'created_at') }
       it { Staff.should have(1).record }
 
-      it_should_behave_like "an image response" do
+      it_should_behave_like "a staff response" do
         let(:staff) { Staff.find(subject['id']) }
       end
 
