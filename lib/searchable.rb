@@ -11,8 +11,8 @@ module Searchable
     def search_facet(id, label: nil, decorator: nil, model: nil, method: :name)
       if decorator.nil? && model.present? && method.present?
         decorator = Class.new(AssociationFacetDecorator) do
-          @model = model
-          @model_method = method
+          self.model = model
+          self.model_method = method
         end
       end
       if label.blank?

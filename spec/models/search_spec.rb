@@ -1,11 +1,5 @@
 require 'spec_helper'
 
-class Sunspot::Rails::StubSessionProxy::Search
-  def each_hit_with_result(&proc)
-    hits.each { |hit| yield hit, hit.result }
-  end
-end
-
 describe Search do
   describe "#initialize" do
     it "should use default values for options" do
@@ -30,6 +24,11 @@ describe Search do
       it "should accept model class name as string" do
         search = Search.new(model: 'Article')
         search.model.should == Article
+      end
+
+      it "should have accessors for model facets" do
+        search = Search.new(model: 'Article', section: '/pokedex/')
+        search.section.should == '/pokedex/'
       end
     end
 
