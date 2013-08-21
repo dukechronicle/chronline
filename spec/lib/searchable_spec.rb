@@ -60,8 +60,8 @@ describe Searchable do
         decorator = facet[2]
         # be_a_kind_of doesn't work for anonymous classes
         decorator.superclass.should == Searchable::AssociationFacetDecorator
-        decorator.send(:model).should == Staff
-        decorator.send(:model_method).should == :name
+        decorator.model.should == Staff
+        decorator.model_method.should == :name
       end
     end
   end
