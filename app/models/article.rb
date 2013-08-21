@@ -14,22 +14,15 @@
 #  image_id   :integer
 #
 
-class Article < ActiveRecord::Base
-  include Postable
+class Article < POST
   include Searchable
 
-  attr_accessible :previous_id, :subtitle, :section, :teaser, :author_ids
-  serialize :section, Taxonomy::Serializer.new
-
-  has_and_belongs_to_many :authors, class_name: "Staff", join_table: :articles_authors
-
-  validates :authors, presence: true
-  validates :teaser, length: { maximum: 200 }
-  validates_with Taxonomy::Validator, attr: :section
+  validates_with Taxonomy::Validator, attr: :section, blog: false
 
   scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   self.per_page = 25  # set will_paginate default to 25 articles
+
 
   ##
   # Configure articles to be indexed by Solr
@@ -78,24 +71,13 @@ class Article < ActiveRecord::Base
   #
   def related(limit)
     search = Sunspot.more_like_this(self) do
-      fields :title, :body
+      fields :title, :content
       minimum_term_frequency 5
       paginate per_page: limit
     end
-    # Eager load authors
+    # HAX: Eager load authors
     search.data_accessor_for(self.class).include = :authors
     search.results
-  end
-
-  ##
-  # Reader for section attribute. Creates a Taxonomy object if section is a
-  # string.
-  #
-  def section
-    unless self[:section].is_a?(Taxonomy)
-      self[:section] = Taxonomy.new(self[:section])
-    end
-    self[:section]
   end
 
   def self.popular(section, options={})
@@ -116,8 +98,8 @@ class Article < ActiveRecord::Base
 
   def self.most_commented(limit)
     disqus = Disqus.new(Settings.disqus.api_key)
-    response = disqus.request(:threads, :list_hot, limit: limit,
-                              forum: Settings.disqus.shortname)
+    response = disqus.request(
+      :threads, :list_hot, limit: limit, forum: Settings.disqus.shortname)
     return [] if response.nil?
     slugs = response['response'].map do |thread|
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
@@ -125,7 +107,7 @@ class Article < ActiveRecord::Base
     end
     articles = self.published.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
-      article = articles.find {|article| article.slug == slug}
+      article = articles.find { |article| article.slug == slug }
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
   end
@@ -135,10 +117,9 @@ class Article < ActiveRecord::Base
     $redis.multi do
       5.times do |i|
         key = "popularity:#{section}:#{Date.today - i}"
-        $redis.zrevrangebyscore(key, "+inf", 0, with_scores: true,
-                                limit: [0, limit])
+        $redis.zrevrangebyscore(
+          key, "+inf", 0, with_scores: true, limit: [0, limit])
       end
     end
   end
-
 end

@@ -1,25 +1,17 @@
 class Blog
-  class Post < ActiveRecord::Base
-    include Postable
+  class Post < ::Post
     include Searchable
 
-    self.table_name = :blog_posts
+    self.per_page = 10  # set will_paginate default to 10 articles
 
     # HAX: needed so that url_for works correctly for blog posts
     self.model_name.instance_variable_set(:@singular_route_key, "post")
     self.model_name.instance_variable_set(:@route_key, "posts")
 
-    attr_accessible :author_id, :blog, :tag_list
-    serialize :blog, Blog::Serializer.new
-
     acts_as_taggable
 
-    belongs_to :author, class_name: "Staff"
+    attr_accessible :tag_list
 
-    validates :blog, presence: true
-    validates :author, presence: true
-
-    self.per_page = 10  # set will_paginate default to 10 articles
 
     ##
     # Configure blog posts to be indexed by Solr
@@ -45,14 +37,13 @@ class Blog
       integer :tag_ids, multiple: true
     end
 
+    def blog
+      n
+    end
+
     def blog=(blog)
-      blog = Blog.find(blog) unless blog.nil? || blog.is_a?(Blog)
-      super(blog)
+      blog = blog.id if blog.respond_to? :id
+      self.section = "/blog/#{section}/"
     end
-
-    def blog_id
-      blog.id
-    end
-
   end
 end
