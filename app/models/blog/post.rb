@@ -11,7 +11,6 @@ class Blog::Post < ::Post
 
   attr_accessible :blog, :tag_list
 
-  validates_with Taxonomy::Validator, attr: :section, blog: true
 
   ##
   # Configure blog posts to be indexed by Solr
@@ -38,11 +37,15 @@ class Blog::Post < ::Post
   end
 
   def blog
-    section
+    if @blog.nil? && section && section =~ %r[/blog/(\w+)/]
+      @blog = Blog.find($1)
+    end
+    @blog
   end
 
   def blog=(blog)
+    @blog = nil
     blog = blog.id if blog.is_a? Blog
-    self.section = "/blog/#{section}/"
+    self.section = "/blog/#{blog}/"
   end
 end
