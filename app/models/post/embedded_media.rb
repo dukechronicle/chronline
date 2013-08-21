@@ -1,4 +1,4 @@
-module Postable
+class Post
   class EmbeddedMedia
 
     def initialize(body)

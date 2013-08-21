@@ -15,11 +15,11 @@ class Blog::Post < ::Post
   ##
   # Configure blog posts to be indexed by Solr
   #
-  search_facet :author_id, model: Staff
+  search_facet :author_ids, model: Staff
   search_facet :blog_id, model: Blog
   search_facet :tag_ids, model: ActsAsTaggableOn::Tag
 
-  searchable if: :published_at, include: [:author, :tags] do
+  searchable if: :published_at, include: [:authors, :tags] do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :content, stored: true, more_like_this: true do
       Nokogiri::HTML(body).text
@@ -28,10 +28,11 @@ class Blog::Post < ::Post
       published_at
     end
 
-    text :author_name do  # Staff names rarely change
-      author.name
+    text :author_names do  # Staff names rarely change
+      authors.map(&:name)
     end
-    integer :author_id
+    integer :author_ids, multiple: true
+
     string :blog_id
     integer :tag_ids, multiple: true
   end
@@ -47,5 +48,9 @@ class Blog::Post < ::Post
     @blog = nil
     blog = blog.id if blog.is_a? Blog
     self.section = "/blog/#{blog}/"
+  end
+
+  def blog_id
+    blog.id
   end
 end
