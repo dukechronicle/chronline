@@ -65,5 +65,4 @@ class Blog
       self.send(:new, attributes)
     end
   end
-
 end
