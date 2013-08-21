@@ -112,6 +112,8 @@ Chronline::Application.routes.draw do
       get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
 
+      resource :search, only: :show
+
       resources :images, only: :index
       resources :staff, only: :index
       resources :articles, only: :index
