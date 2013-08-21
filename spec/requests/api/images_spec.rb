@@ -28,27 +28,49 @@ describe "Images API" do
   end
 
   describe "GET /images" do
-    subject { response }
-
     before do
       stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
-      @image = FactoryGirl.create(:image)
-      get api_images_url(subdomain: :api)
+      @images = FactoryGirl.create_list(:image, 3)
     end
-    let(:images) { ActiveSupport::JSON.decode(response.body) }
+    subject { response }
+    let(:res) { ActiveSupport::JSON.decode(response.body) }
+    let(:image) { Image.find(res.first['id']) }
 
-    its(:status) { should be(Rack::Utils.status_code(:ok)) }
-    it { images.should be_an(Array) }
-    it { images.should have(1).images }
+    context "when page 1 is fetched" do
+      before do
+        get api_images_url(subdomain: :api, page: 1, limit: 2)
+      end
+      its(:status) { should be(Rack::Utils.status_code(:ok)) }
+      it { res.should be_an(Array) }
+      it { res.should have(2).images }
 
-    it "should have thumbnail url" do
-      images.first.should include(
-        "thumbnail_url" => @image.thumbnail_url)
+      it "should have thumbnail url" do
+        res.first.should include(
+          "thumbnail_url" => image.thumbnail_url)
+      end
+
+      it_should_behave_like "an image response" do
+        subject { res.first }
+      end
     end
 
-    it_should_behave_like "an image response" do
-      subject { images.first }
-      let(:image) { @image }
+    context "when page 2 is fetched" do
+      before do
+        get api_images_url(subdomain: :api, page: 2, limit: 2)
+      end
+
+      its(:status) { should be(Rack::Utils.status_code(:ok)) }
+      it { res.should be_an(Array) }
+      it { res.should have(1).images }
+
+      it "should have thumbnail url" do
+        res.first.should include(
+          "thumbnail_url" => image.thumbnail_url)
+      end
+
+      it_should_behave_like "an image response" do
+        subject { res.first }
+      end
     end
   end
 
