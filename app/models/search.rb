@@ -6,7 +6,7 @@ class Search
 
   attr_reader :model, :query, :start_date, :end_date, :page, :per_page, :sort,
     :order, :highlight
-  attr_accessible :model, :query, :start_date, :end_date, :page, :per_page,
+  attr_accessible :query, :start_date, :end_date, :page, :per_page,
     :sort, :order, :highlight
 
   validates :query, presence: true
@@ -14,10 +14,10 @@ class Search
 
   def initialize(attrs = {})
     attrs.stringify_keys!
-    self.class.accessible_attributes.each do |attr|
+    initialize_model(attrs['model'])
+    eigenclass.accessible_attributes.each do |attr|
       instance_variable_set "@#{attr}", attrs[attr]
     end
-    @model = model.constantize if model.is_a? String
     @page      ||= 1
     @per_page  ||= 25
     @sort      ||= :score
@@ -52,6 +52,10 @@ class Search
   end
 
   private
+  def eigenclass
+    class << self; self; end
+  end
+
   def request
     if @request.nil?
       types =
@@ -107,4 +111,18 @@ class Search
     end
   end
 
+  def initialize_model(model)
+    if model
+      @model =
+        if model.is_a? String
+          model.constantize
+        else
+          model
+        end
+      @model.search_facets.each do |facet, _, _|
+        eigenclass.send(:attr_accessor, facet)
+        eigenclass.send(:attr_accessible, facet)
+      end
+    end
+  end
 end
