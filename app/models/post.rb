@@ -7,13 +7,11 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
-   :section, :subtitle, :teaser, :title
+    :subtitle, :teaser, :title
 
   belongs_to :image
   has_and_belongs_to_many :authors, class_name: 'Staff',
     join_table: :posts_authors
-
-  serialize :section, Taxonomy::Serializer.new
 
   validates :body, presence: true
   validates :title, presence: true, length: { maximum: 90 }
@@ -50,17 +48,6 @@ onto per since than the this that to up via with)
 
   def render_body
     EmbeddedMedia.new(body).to_s
-  end
-
-  ##
-  # Reader for section attribute. Creates a Taxonomy object if section is a
-  # string.
-  #
-  def section
-    unless self[:section].is_a?(Taxonomy)
-      self[:section] = Taxonomy.new(self[:section])
-    end
-    self[:section]
   end
 end
 
