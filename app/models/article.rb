@@ -17,7 +17,10 @@
 class Article < Post
   include Searchable
 
-  validates_with Taxonomy::Validator, attr: :section, blog: false
+  attr_accessible :section
+
+  serialize :section, Taxonomy::Serializer.new
+  validates_with Taxonomy::Validator, attr: :section
 
   scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
@@ -110,6 +113,18 @@ class Article < Post
       article = articles.find { |article| article.slug == slug }
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed
     end.compact
+  end
+
+  ##
+  # Reader for section attribute. Creates a Taxonomy object if section is a
+  # string.
+  #
+  def section
+    unless self[:section].is_a?(Taxonomy)
+      p self[:section]
+      self[:section] = Taxonomy.new(self[:section])
+    end
+    self[:section]
   end
 
   private
