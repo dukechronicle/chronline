@@ -43,6 +43,7 @@ class Api::ArticlesController < Api::BaseController
     if article.save
       respond_with_article(article, status: :ok)
     else
+      logger.error "Unpublishing Article #{params[:id]} failed"
       head :internal_server_error
     end
   end
