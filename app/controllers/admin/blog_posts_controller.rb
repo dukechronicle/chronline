@@ -3,7 +3,7 @@ class Admin::BlogPostsController < Admin::BaseController
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
-      @blog_posts = Blog::Post.where(blog: @blog.id).page(params[:page])
+      @blog_posts = @blog.posts.page(params[:page])
     end
   end
 
