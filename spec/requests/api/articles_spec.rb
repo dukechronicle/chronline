@@ -77,18 +77,19 @@ describe Api::ArticlesController do
     end
   end
 
-  describe "GET /articles/*" do
+  describe "GET /articles" do
     let!(:original_articles) do
       [
        FactoryGirl.create(:article, section: '/news/'),
        FactoryGirl.create(:article, section: '/news/', published_at: nil),
+       FactoryGirl.create(:article, section: '/sports/'),
        FactoryGirl.create(:article, section: '/sports/'),
       ]
     end
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
 
-    describe "list articles" do
+    context "when filtering by section" do
       before { get api_articles_url(subdomain: :api, section: 'news') }
 
       its(:status) { should == Rack::Utils.status_code(:ok) }
@@ -100,15 +101,41 @@ describe Api::ArticlesController do
       end
     end
 
-    describe "get article" do
-      let(:article) { original_articles[0] }
-      before { get api_article_url(subdomain: :api, id: article.id) }
+    context "when page 1 is fetched" do
+      before { get api_articles_url(subdomain: :api, page: 1, limit: 2) }
 
-      its(:status) { should == Rack::Utils.status_code(:ok)}
+      its(:status) { should == Rack::Utils.status_code(:ok) }
+      it { res.should have(2).articles }
 
       it_should_behave_like "an article response" do
-        subject { res }
+        subject { res.first }
+        let(:article) { Article.find(res.first['id']) }
       end
+    end
+
+    context "when page 2 is fetched" do
+      before { get api_articles_url(subdomain: :api, page: 2, limit: 2) }
+
+      its(:status) { should == Rack::Utils.status_code(:ok) }
+      it { res.should have(1).articles }
+
+      it_should_behave_like "an article response" do
+        subject { res.first }
+        let(:article) { Article.find(res.first['id']) }
+      end
+    end
+  end
+
+
+  describe "GET /articles/:id" do
+    let(:article) { FactoryGirl.create :article }
+    before { get api_article_url(subdomain: :api, id: article.id) }
+    subject { response }
+
+    its(:status) { should == Rack::Utils.status_code(:ok) }
+
+    it_should_behave_like "an article response" do
+      subject { ActiveSupport::JSON.decode(response.body) }
     end
   end
 
