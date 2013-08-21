@@ -32,6 +32,7 @@ module Searchable
   # the models.
   #
   class AssociationFacetDecorator < FacetDecorator
+    cattr_accessor :model, :model_method
 
     def self.wrap_rows(rows)
       ids = rows.map(&:value)
@@ -49,20 +50,12 @@ module Searchable
     end
 
     def name
-      record.send self.class.model_method
+      record.send model_method
     end
 
     private
     def record
-      @record ||= self.class.model.select(model_method).find(@row.value)
-    end
-
-    def self.model
-      @model
-    end
-
-    def self.model_method
-      @model_method
+      @record ||= model.select(model_method).find(@row.value)
     end
   end
 end
