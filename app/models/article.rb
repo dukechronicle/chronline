@@ -14,7 +14,7 @@
 #  image_id   :integer
 #
 
-class Article < POST
+class Article < Post
   include Searchable
 
   validates_with Taxonomy::Validator, attr: :section, blog: false

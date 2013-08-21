@@ -19,13 +19,13 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'pages/*path' => 'base#custom_page'
 
-      resources :articles, only: :show, id: Postable::SLUG_PATTERN do
+      resources :articles, only: :show, id: Post::SLUG_PATTERN do
         get :print, on: :member
       end
 
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
-          id: Postable::SLUG_PATTERN
+          id: Post::SLUG_PATTERN
         get 'tags/:tag' => 'blog_posts#tags', as: :tagged
       end
 
@@ -55,13 +55,13 @@ Chronline::Application.routes.draw do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
-      resources :articles, only: :show, id: Postable::SLUG_PATTERN
+      resources :articles, only: :show, id: Post::SLUG_PATTERN
 
       resource :search, only: :show
 
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
-          id: Postable::SLUG_PATTERN
+          id: Post::SLUG_PATTERN
       end
 
       match '/404', :to => 'base#not_found'
@@ -91,7 +91,7 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :articles, except: :show, id: Postable::SLUG_PATTERN do
+      resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
       end
 
@@ -100,7 +100,7 @@ Chronline::Application.routes.draw do
 
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',
-          id: Postable::SLUG_PATTERN
+          id: Post::SLUG_PATTERN
       end
 
       mount Resque::Server.new, at: '/resque'
