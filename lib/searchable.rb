@@ -9,9 +9,6 @@ module Searchable
 
   module ClassMethods
     def search_facet(id, label: nil, decorator: nil, model: nil, method: :name)
-      attr_reader id
-      attr_accessible id
-
       if decorator.nil? && model.present? && method.present?
         decorator = Class.new(AssociationFacetDecorator) do
           @model = model

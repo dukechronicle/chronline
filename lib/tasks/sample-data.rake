@@ -25,7 +25,7 @@ namespace :db do
     )
 
     30.times do |n|
-      article = Article.new(
+      article = Article.create!(
         title: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
         subtitle: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
         teaser: Faker::SamuelJackson.sentence,
@@ -35,8 +35,6 @@ namespace :db do
         published_at: (1..365).to_a.sample.days.ago,
         author_ids: [staff.sample.id],
       )
-      p article.body
-      article.save!
     end
 
     30.times do |n|
@@ -45,7 +43,7 @@ namespace :db do
         body: Faker::SamuelJackson.paragraphs(4).join("\n"),
         blog: Blog.all.sample,
         image_id: image.id,
-        author_id: staff.sample.id,
+        author_ids: [staff.sample.id],
         published_at: (1..365).to_a.sample.days.ago,
       )
     end
