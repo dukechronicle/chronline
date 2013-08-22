@@ -1,11 +1,7 @@
-//= require jquery/jquery.js
+//= require jquery/jquery
 //= require jquery_ujs
-//= require jquery-ui/ui/jquery-ui.js
-//= require underscore/underscore.js
-//= require date.format.js
-//= require jquery-galleria/src/galleria.js
-//= require jquery.hoverscroll.js
-//= require jquery.cookie/jquery.cookie.js
+//= require jquery-ui/ui/jquery-ui
+//= require underscore/underscore
 
 //= require util
 //= require initialize
