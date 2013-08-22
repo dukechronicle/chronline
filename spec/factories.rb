@@ -8,7 +8,7 @@ FactoryGirl.define do
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
-    authors { [Staff.find_or_create_by_name(Faker::Name.name)] }
+    authors { [FactoryGirl.create(:staff)] }
     published_at 1.day.ago
   end
 
@@ -33,6 +33,6 @@ FactoryGirl.define do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
     blog "pokedex"
-    association :author, factory: :staff
+    authors { [FactoryGirl.create(:staff)] }
   end
 end
