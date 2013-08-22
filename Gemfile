@@ -57,7 +57,7 @@ gem 'devise', '2.1.2'  # https://github.com/scambra/devise_invitable/issues/265
 gem 'devise_invitable'
 gem 'fog'
 gem 'friendly_id'
-gem 'gibbon'
+gem 'gibbon', '~> 0.4.6'
 gem 'haml'
 gem 'hiredis'
 gem 'httparty'
