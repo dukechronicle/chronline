@@ -1,3 +1,5 @@
+#= require jquery.hoverscroll
+
 initialize '.subnav', ->
   if $(this)[0].scrollWidth > $(this).width()
     $(this).hoverscroll

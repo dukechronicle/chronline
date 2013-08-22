@@ -1,3 +1,5 @@
+#= require jcrop/js/jquery.Jcrop
+
 setCoordinates = (c) ->
   $('#image_crop_x').val(c.x)
   $('#image_crop_y').val(c.y)
