@@ -5,8 +5,7 @@ describe Blog::Post do
 
   subject { FactoryGirl.build(:blog_post) }
 
-  it { should belong_to(:author).class_name("Staff") }
-  it { should validate_presence_of(:author) }
+  it { should be_a_kind_of(Post) }
 
   describe "::tagged_with" do
     let(:blog_posts) do
@@ -31,8 +30,6 @@ describe Blog::Post do
 
   describe "#blog" do
     before { subject.blog = 'kanto_news' }
-
-    it { should validate_presence_of(:blog) }
     its(:blog) { should be_a_kind_of(Blog) }
   end
 

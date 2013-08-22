@@ -107,7 +107,6 @@ class Article < Post
   #
   def section
     unless self[:section].is_a?(Taxonomy)
-      p self[:section]
       self[:section] = Taxonomy.new(self[:section])
     end
     self[:section]
