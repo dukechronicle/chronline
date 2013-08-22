@@ -68,7 +68,7 @@ class Image < ActiveRecord::Base
     styles = ([info['width']] + info['sizes']).map do |width|
       "#{style}_#{width}x"
     end
-    original.reprocess!(*styles)
+    original.reprocess_without_delay!(*styles)
   end
 
   ###
