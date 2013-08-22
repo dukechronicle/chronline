@@ -5,7 +5,7 @@ class Site::BlogPostsController < Site::BaseController
       @blog = Blog.find(params[:blog_id])
       @blog_posts = @blog.posts
         .published
-        .includes(:author, :image)
+        .includes(:authors, :image)
         .order('published_at DESC')
         .page(params[:page])
     else
@@ -15,7 +15,7 @@ class Site::BlogPostsController < Site::BaseController
   end
 
   def show
-    @blog_post = Blog::Post.includes(:author, :image).find(params[:id])
+    @blog_post = Blog::Post.includes(:authors, :image).find(params[:id])
     @blog = @blog_post.blog
   end
 
