@@ -64,6 +64,10 @@ onto per since than the this that to up via with)
   def render_body
     EmbeddedMedia.new(body).to_s
   end
+
+  def square_80x_url
+    image.original.url(:square_80x) if image
+  end
 end
 
 # Necessary to avoid autoload namespacing conflict

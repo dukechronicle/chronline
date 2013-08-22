@@ -13,6 +13,6 @@
     %li
       %a{href: mobile_blog_post_path(@blog, blog_post)}
         - if blog_post.image
-          = image_tag blog_post.image.original.url(:thumb_square_s)
+          = image_tag blog_post.image.original.url(:square_80x)
         %h2= blog_post.title
-        %p #{blog_post.author.name} | #{blog_post.created_at.strftime("%B %e, %Y")}
+        %p #{byline(blog_post)} | #{blog_post.created_at.strftime("%B %e, %Y")}

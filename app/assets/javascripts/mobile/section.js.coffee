@@ -1,16 +1,14 @@
 listArticle = (article) ->
-  article.byline = -> (author.name for author in @authors).join(', ')
-  article.date = -> (new Date(@published_at)).format("mmmm d, yyyy")
   article.url = -> "/articles/#{@slug}"
   listItem(article)
 
 listBlogPost = (blogPost) ->
-  blogPost.byline = -> @author.name
-  blogPost.date = -> (new Date(@published_at)).format("mmmm d, yyyy")
   blogPost.url = -> "/blogs/#{@blog.id}/posts/#{@slug}"
   listItem(blogPost)
 
-listItem = (postable) ->
+listItem = (post) ->
+  post.byline = -> (author.name for author in @authors).join(', ')
+  post.date = -> (new Date(@published_at)).format("mmmm d, yyyy")
   _.template("""
              <li>
                <a href="<%= url() %>">
@@ -22,7 +20,7 @@ listItem = (postable) ->
                </a>
              </li>
              """,
-             postable
+             post
   )
 
 fetchMore = (url, listFunction) ->
