@@ -17,9 +17,10 @@ square:
     - 80
     - 70
 banner:
-  width: 360
-  height: 120
+  width: 636
+  height: 212
   sizes:
+    - 606
     - 300
     - 216
 vertical:
