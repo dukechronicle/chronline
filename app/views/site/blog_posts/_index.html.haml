@@ -14,7 +14,7 @@
           %span.date= display_date(blog_post)
 
         - if blog_post.image
-          = render partial: 'partials/main-image', locals: {image: blog_post.image}
+          = render partial: 'partials/main-image', locals: {image: blog_post.image, banner: true}
 
         .article-body
           != blog_post.render_body
