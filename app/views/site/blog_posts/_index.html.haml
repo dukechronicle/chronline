@@ -9,7 +9,7 @@
           %h1.title= blog_post.title
 
         %p.byline
-          %span.author By #{blog_post.author.name}
+          %span.author By #{byline(blog_post, link: true)}
           %span.sep= "|"
           %span.date= display_date(blog_post)
 

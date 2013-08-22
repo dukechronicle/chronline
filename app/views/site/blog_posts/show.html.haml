@@ -16,9 +16,7 @@
       %h1.title= @blog_post.title
 
       %p.byline
-        %span.author
-          By
-          = link_to @blog_post.author.name, site_staff_path(@blog_post.author)
+        %span.author By #{byline(@blog_post, link: true)}
         %span.sep= "|"
         = display_date(@blog_post)
 
