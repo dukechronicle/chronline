@@ -18,8 +18,6 @@
 class Staff < ActiveRecord::Base
   include FriendlyId
 
-  SEARCH_LIMIT = 10
-
   attr_accessible :affiliation, :biography, :columnist, :headshot_id, :name, :tagline, :twitter
 
   friendly_id :name, use: :slugged
@@ -30,6 +28,20 @@ class Staff < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
+  scope :search, ->(prefix) { where('name LIKE ?', "#{prefix}%") }
+  scope :columnist, ->(bool) { where(columnist: (bool ? true : [false, nil])) }
+
+  self.per_page = 25
+
+  ###
+  # Query scope for staff records who are photographers
+  #
+  def self.photographer(bool)
+    self
+      .joins('LEFT OUTER JOIN images ON staff.id = images.photographer_id')
+      .group('staff.id')
+      .having("COUNT(images.id) #{bool ? '>' : '='} 0")
+  end
 
   def author?
     articles.present?
@@ -41,10 +53,6 @@ class Staff < ActiveRecord::Base
 
   def photographer?
     images.present?
-  end
-
-  def self.search(name)
-    self.limit(SEARCH_LIMIT).where('name LIKE ?', "#{name}%")
   end
 
   def self.find_or_create_all_by_name(names)

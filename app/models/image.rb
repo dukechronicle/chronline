@@ -39,11 +39,12 @@ class Image < ActiveRecord::Base
     Hash[styles]
   end
 
-  attr_accessible :attribution, :caption, :date, :location, :original, :credit
+  attr_accessible :attribution, :caption, :date, :location, :original, :credit, :photographer_id
   # Used in crop! method
   attr_reader :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
   has_attached_file :original, styles: self.styles,
     processors: [:cropper, :paperclip_optimizer]
+  process_in_background :original
 
   default_value_for(:date) { Date.today }
 

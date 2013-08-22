@@ -23,5 +23,4 @@ module ArticlesController
       @articles = []
     end
   end
-
 end

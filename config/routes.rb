@@ -91,15 +91,19 @@ Chronline::Application.routes.draw do
     end
   end
 
-  constraints subdomain: 'api' do
-    namespace :api, path: '/' do
+  constraints subdomain: 'api', format: :json do
+    namespace :api, path: '/', defaults: {format: :json} do
+      get 'sections' => 'taxonomy#index'
+
       get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
 
-      resources :images, only: :index
-      resources :staff, only: :index
-      resources :articles, only: :index
+      resources :images, except: [:new, :edit]
+      resources :staff, except: [:new, :edit]
+      resources :articles, except: [:new, :edit] do
+        post :unpublish, on: :member
+      end
     end
   end
 

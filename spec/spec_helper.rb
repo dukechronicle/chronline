@@ -17,6 +17,7 @@ def base_configs
   require 'capybara/rspec'
   require 'capybara/poltergeist'
   require 'sunspot/rails/spec_helper'
+  require './spec/support/helpers'
   Capybara.javascript_driver = :poltergeist
 
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -50,19 +51,22 @@ def base_configs
 
     # Solr configuration
     # TODO fix for sporking
-     config.before(:each) do
-    if example.metadata[:solr] # it "...", solr: true do ... to have real SOLR
-      SolrTestServer.start
-      Sunspot.remove_all!
-      Sunspot.commit
-    else
-      SolrTestServer.stub
+    config.before(:each) do
+      if example.metadata[:solr] # it "...", solr: true do ... to have real SOLR
+        SolrTestServer.start
+        Sunspot.remove_all!
+        Sunspot.commit
+      else
+        SolrTestServer.stub
+      end
+
+      # Path helpers
+      config.include Rails.application.routes.url_helpers
     end
 
-    # Path helpers
-    config.include Rails.application.routes.url_helpers
-  end
+    config.include AuthHelper, type: :request
 
+    config.include Helpers
   end
 end
 
