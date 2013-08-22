@@ -211,15 +211,17 @@ describe "/staff/*" do
         to require_authorization
     end
 
-    before do
-      delete api_staff_url(staff, subdomain: :api), nil,
-        'HTTP_AUTHORIZATION' => http_auth(@user)
-    end
+    context "when properly authenticated" do
+      before do
+        delete api_staff_url(staff, subdomain: :api), nil,
+          'HTTP_AUTHORIZATION' => http_auth(@user)
+      end
 
-    it { response.status.should == Rack::Utils.status_code(:no_content) }
+      it { response.status.should == Rack::Utils.status_code(:no_content) }
 
-    it "should remove the staff record" do
-      Staff.should have(:no).records
+      it "should remove the staff record" do
+        Staff.should have(:no).records
+      end
     end
   end
 end
