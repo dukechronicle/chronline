@@ -1,3 +1,5 @@
+//= require jquery.cookie/jquery.cookie
+
 initialize('#facebook-social-share', function () {
     $('#fb-root').on('fbinit', socialShare);
 });

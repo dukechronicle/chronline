@@ -1,3 +1,5 @@
+#= require date.format.js
+
 initialize 'time:empty', ->
   $(this).each ->
     $(this).attr 'datetime', (__, datetime) ->
