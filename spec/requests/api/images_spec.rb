@@ -102,16 +102,18 @@ describe "Images API" do
         to require_authorization
     end
 
-    before do
-      post api_images_url(subdomain: :api), new_image,
-        { 'HTTP_AUTHORIZATION' => http_auth(@user) }
-    end
+    context "when properly authenticated" do
+      before do
+        post api_images_url(subdomain: :api), new_image,
+          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+      end
 
-    its(:status) { should == Rack::Utils.status_code(:created) }
+      its(:status) { should == Rack::Utils.status_code(:created) }
 
-    it_should_behave_like "an image response" do
-      subject { ActiveSupport::JSON.decode(response.body) }
-      let(:image) { Image.find(subject['id']) }
+      it_should_behave_like "an image response" do
+        subject { ActiveSupport::JSON.decode(response.body) }
+        let(:image) { Image.find(subject['id']) }
+      end
     end
   end
 
@@ -155,20 +157,23 @@ describe "Images API" do
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
     let!(:image) { FactoryGirl.create :image }
-    before do
-      delete api_image_url(image.id, subdomain: :api), nil,
-        { 'HTTP_AUTHORIZATION' => http_auth(@user) }
-    end
 
     it "should require authentication" do
       expect{ delete api_image_url(image.id, subdomain: :api) }.
         to require_authorization
     end
 
-    it "should remove the image record" do
-      Image.should have(:no).records
+    context "when properly authenticated" do
+      before do
+        delete api_image_url(image.id, subdomain: :api), nil,
+          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+      end
+
+      it "should remove the image record" do
+        Image.should have(:no).records
+      end
+      its(:status) { should == Rack::Utils.status_code(:no_content) }
     end
-    its(:status) { should == Rack::Utils.status_code(:no_content) }
   end
 end
 
