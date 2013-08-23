@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe Taxonomy do
   subject { Taxonomy.new(['news', 'university']) }
 
@@ -19,6 +18,13 @@ describe Taxonomy do
     end
   end
 
+  context "when constructed with an inactive taxonomy" do
+    it "should raise an InvalidTaxonomyError" do
+      constructor = lambda { Taxonomy.new(['News', 'Merged']) }
+      constructor.should raise_error(Taxonomy::InvalidTaxonomyError)
+    end
+  end
+
   context "when constructed with no taxonomy" do
     it { Taxonomy.new.to_a.should == [] }
   end
@@ -29,6 +35,12 @@ describe Taxonomy do
 
   context "when constructed with root string" do
     it { Taxonomy.new('/').to_a.should == [] }
+  end
+
+  describe "#id" do
+    it "should be a unique numeric id" do
+      subject.id.should == 2
+    end
   end
 
   describe "#to_s" do
@@ -109,6 +121,11 @@ describe Taxonomy do
       end
       subject.children.should == children
     end
+
+    it "should not return inactive children" do
+      section = Taxonomy.new(['News'])
+      section.children.should == [Taxonomy.new(['News', 'University'])]
+    end
   end
 
   describe "#parent" do
@@ -117,9 +134,9 @@ describe Taxonomy do
   end
 
   describe "#parents" do
-    its(:parents) do
-      should == [Taxonomy.new(['News']),
-                 Taxonomy.new(['News', 'University'])]
+    it "should be an array of parent taxonomy nodes" do
+      subject.parents.should ==
+        [Taxonomy.new(['News']), Taxonomy.new(['News', 'University'])]
     end
   end
 
@@ -142,6 +159,35 @@ describe Taxonomy do
       Taxonomy.levels.should == levels.map do |level|
         level.map {|taxonomy| Taxonomy.new(taxonomy)}
       end
+    end
+  end
+
+  describe "::nodes" do
+    let(:nodes) { Taxonomy.nodes }
+    subject { nodes }
+
+    it { should have(9).nodes }
+
+    describe "taxonomy nodes" do
+      it 'should assign the "taxonomy" property to "sections"' do
+        nodes.each do |node|
+          node[:taxonomy].should == 'sections'
+        end
+      end
+
+      it "should have a numeric id" do
+        nodes.each do |node|
+          node[:id].should be_an(Integer)
+        end
+      end
+
+      it "should have the correct parent_id" do
+        nodes.each do |node|
+          node[:parent_id].should be_an(Integer) unless node[:parent_id].nil?
+        end
+      end
+
+      it { nodes.each { |node| node.should have_key(:name) } }
     end
   end
 

@@ -9,7 +9,7 @@ FactoryGirl.define do
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
     authors { [FactoryGirl.create(:staff)] }
-    published_at 1.day.ago
+    published_at Date.new(2008, 9, 30)
   end
 
   factory :staff do
@@ -19,6 +19,12 @@ FactoryGirl.define do
     twitter "pokefan"
     columnist false
     biography "The best Pokemon trainer ever."
+
+    factory :photographer do
+      after(:create) do |staff|
+        FactoryGirl.create(:image, photographer: staff)
+      end
+    end
   end
 
   factory :image do
@@ -34,5 +40,12 @@ FactoryGirl.define do
     body "It was a Caterpie."
     blog "pokedex"
     authors { [FactoryGirl.create(:staff)] }
+  end
+
+  factory :user do
+    first_name "Ash"
+    last_name "Ketchum"
+    email "ash@ketch.um"
+    password "charizard"
   end
 end

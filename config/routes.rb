@@ -1,5 +1,5 @@
-require_dependency 'admin/users_controller' # contains admin devise controllers
 require 'resque/server'
+require_dependency 'admin/users_controller' # contains admin devise controllers
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
@@ -38,6 +38,8 @@ Chronline::Application.routes.draw do
 
       match '/404', :to => 'base#not_found'
 
+      match 'join' => redirect('/pages/join')
+
       # Legacy routes
       %w[news sports opinion recess towerview].each do |section|
         match section => redirect("/section/#{section}")
@@ -65,6 +67,8 @@ Chronline::Application.routes.draw do
       end
 
       match '/404', :to => 'base#not_found'
+
+      match 'join' => redirect("http://www.#{Settings.domain}/pages/join?force_full_site=true")
 
       # Legacy routes
       # The controller method redirects to the most current route
@@ -107,16 +111,20 @@ Chronline::Application.routes.draw do
     end
   end
 
-  constraints subdomain: 'api' do
-    namespace :api, path: '/' do
+  constraints subdomain: 'api', format: :json do
+    namespace :api, path: '/', defaults: {format: :json} do
+      get 'sections' => 'taxonomy#index'
+
       get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
 
       resource :search, only: :show
 
-      resources :images, only: :index
-      resources :staff, only: :index
-      resources :articles, only: :index
+      resources :images, except: [:new, :edit]
+      resources :staff, except: [:new, :edit]
+      resources :articles, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
+        post :unpublish, on: :member
+      end
       resources :blogs, only: [], controller: 'blog_posts' do
         resources :posts, only: :index, controller: 'blog_posts'
       end
