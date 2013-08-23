@@ -90,21 +90,22 @@ describe "Images API" do
     end
   end
 
-  describe "POST /images/" do
-    let(:new_image) do
-      convert_objs_to_ids(
-        FactoryGirl.attributes_for(:image), :photographer, :photographer_id)
+  describe "POST /images" do
+    let(:image_attrs) do
+      attrs = FactoryGirl.attributes_for(:image)
+      attrs[:photographer_id] = FactoryGirl.create(:staff).id
+      attrs
     end
     subject { response }
 
     it "should require authentication" do
-      expect{ post api_images_url(subdomain: :api), new_image }.
+      expect{ post api_images_url(subdomain: :api), image_attrs }.
         to require_authorization
     end
 
     context "when properly authenticated" do
       before do
-        post api_images_url(subdomain: :api), new_image,
+        post api_images_url(subdomain: :api), image_attrs,
           { 'HTTP_AUTHORIZATION' => http_auth(@user) }
       end
 
@@ -175,13 +176,4 @@ describe "Images API" do
       its(:status) { should == Rack::Utils.status_code(:no_content) }
     end
   end
-end
-
-def convert_objs_to_ids(hash, key, new_key)
-  if hash[key].respond_to? :each
-    hash[new_key] = hash.delete(key).map { |obj| obj.id }
-  else
-    hash[new_key] = hash.delete(key).id
-  end
-  hash
 end

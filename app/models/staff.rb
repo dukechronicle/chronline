@@ -27,7 +27,7 @@ class Staff < ActiveRecord::Base
   has_and_belongs_to_many :articles, join_table: :posts_authors,
     association_foreign_key: :post_id
   has_and_belongs_to_many :blog_posts, join_table: :posts_authors,
-    association_foreign_key: :post_id
+    association_foreign_key: :post_id, class_name: 'Blog::Post'
 
   validates :name, presence: true, uniqueness: true
 
