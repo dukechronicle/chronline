@@ -148,7 +148,6 @@ onto per since than the this that to up via with)
   end
 
   private
-
   def self.fetch_popular_from_redis(section, limit)
     $redis.multi do
       5.times do |i|

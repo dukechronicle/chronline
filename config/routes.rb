@@ -101,7 +101,7 @@ Chronline::Application.routes.draw do
 
       resources :images, except: [:new, :edit]
       resources :staff, except: [:new, :edit]
-      resources :articles, except: [:new, :edit] do
+      resources :articles, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
         post :unpublish, on: :member
       end
     end

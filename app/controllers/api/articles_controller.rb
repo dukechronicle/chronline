@@ -1,15 +1,15 @@
 class Api::ArticlesController < Api::BaseController
-  include ArticleHelper
   before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
 
   def index
     taxonomy = Taxonomy.new("/#{params[:section]}/")
-    articles = Article.includes(:authors, :image)
+    articles = Article
+      .includes(:authors, :image)
       .published
       .section(taxonomy)
       .order('published_at DESC')
       .paginate(page: params[:page], per_page: params[:limit])
-    respond_with_article(articles, include: :authors, methods: :thumb_square_s_url)
+    respond_with_article articles
   end
 
   def search
@@ -21,44 +21,31 @@ class Api::ArticlesController < Api::BaseController
 
   def show
     article = Article.find(params[:id])
-    respond_with_article(article)
+    respond_with_article article
   end
 
   def create
     article = Article.new(request.POST)
-    if article.valid?
-      if article.save
-        respond_with_article(article, status: :created, location: api_articles_url)
-      else
-        head :internal_server_error
-      end
+    if article.save
+      respond_with_article article, status: :created,
+        location: api_article_url(article)
     else
-      head :unproccessable_entity
+      render json: article.errors, status: :unprocessable_entity
     end
   end
 
   def unpublish
     article = Article.find(params[:id])
-    article.update_attributes(published_at: nil)
-    if article.save
-      respond_with_article(article, status: :ok)
-    else
-      logger.error "Unpublishing Article #{params[:id]} failed"
-      head :internal_server_error
-    end
+    article.update_attributes!(published_at: nil)
+    respond_with_article article, status: :ok
   end
 
   def update
     article = Article.find(params[:id])
-    article.update_attributes(request.POST)
-    if article.valid?
-      if article.save
-        head :no_content
-      else
-        head :internal_server_error
-      end
+    if article.update_attributes(request.POST)
+      head :no_content
     else
-      render json: article.errors, status: :unproccessable_entity
+      render json: article.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,14 +56,17 @@ class Api::ArticlesController < Api::BaseController
   end
 
   private
-
   def respond_with_article(article, options = {})
-    defaults = {
-      methods: :author_ids,
-      except: :previous_id,
-      properties:
-        { published_url: ->(article) { site_article_url(article, subdomain: :www) } } }
-    options.merge!(defaults) { |k, a, b| Array(a) + Array(b) }
-    respond_with(:api, article, options)
+    published_url = ->(article) { site_article_url(article, subdomain: :www) }
+    options.merge!(
+      include: :authors,
+      methods: [:author_ids, :thumb_square_s_url],
+      except: [:previous_id, :block_bots],
+      properties: {
+        published_url: published_url,
+        section_id: ->(article) { article.section.id },
+      },
+    )
+    respond_with :api, article, options
   end
 end
