@@ -18,3 +18,4 @@ mailchimp:
   template_id: 429
 rspec:
   formatter: :documentation
+secret_token: "I'll make you my dirty little secret"

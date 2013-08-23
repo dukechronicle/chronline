@@ -7,7 +7,8 @@ describe Api::ArticlesController do
 
   shared_examples_for "an article response" do
     it "should have article properties" do
-      attrs = ActiveSupport::JSON.decode(article.to_json)
+      attrs = ActiveSupport::JSON.decode(
+        article.to_json(except: [:previous_id, :block_bots]))
       should include(attrs)
     end
 
