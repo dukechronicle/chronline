@@ -92,6 +92,10 @@ class Taxonomy
     Array.new(@node[:taxonomy])
   end
 
+  def to_param
+    to_a
+  end
+
   def to_s
     '/' + @node[:taxonomy].map { |section| section.downcase + '/' }.join
   end

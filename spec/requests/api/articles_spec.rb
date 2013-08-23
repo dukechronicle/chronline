@@ -33,8 +33,13 @@ describe Api::ArticlesController do
       should_not include(:previous_id)
     end
 
+    it "should not include block_bots" do
+      should_not include(:block_bots)
+    end
+
     its(['slug']) { should match(%r[(\d{4}/\d{2}/\d{2}/)?[^/]+]) }
   end
+
   describe "GET /section/*" do
     let!(:original_articles) do
       [
@@ -183,8 +188,9 @@ describe Api::ArticlesController do
       end
 
       it "should be unpublished" do
-        article.published?.should be_false
+        article.should_not be_published
       end
+
       its(:status) { should == Rack::Utils.status_code(:ok) }
 
       it_should_behave_like "an article response" do
@@ -193,7 +199,7 @@ describe Api::ArticlesController do
     end
   end
 
-  describe "PUT /articles/*" do
+  describe "PUT /articles/:id" do
     let(:original_article) { FactoryGirl.build :article }
     let(:res) { ActiveSupport::JSON.decode(response.body) }
     subject { response }
@@ -225,7 +231,7 @@ describe Api::ArticlesController do
           put api_article_url(article.id, subdomain: :api), invalid_attrs,
             { 'HTTP_AUTHORIZATION' => http_auth(@user) }
         end
-        it { response.status.should == Rack::Utils.status_code(:unproccessable_entity) }
+        it { response.status.should == Rack::Utils.status_code(:unprocessable_entity) }
         it "should respond with validation errors" do
           res.should include('title')
         end

@@ -1,7 +1,13 @@
+require 'will_paginate/array'
+
 class Api::TaxonomyController < Api::BaseController
 
   def index
-    render json: Taxonomy.nodes
+    sections = Taxonomy.nodes.paginate(
+      page: params[:page],
+      per_page: params[:limit]
+    )
+    render json: sections
   end
 
 end
