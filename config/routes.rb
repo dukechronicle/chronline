@@ -30,6 +30,8 @@ Chronline::Application.routes.draw do
 
       match '/404', :to => 'base#not_found'
 
+      match 'join' => redirect('/pages/join')
+
       # Legacy routes
       %w[news sports opinion recess towerview].each do |section|
         match section => redirect("/section/#{section}")
@@ -51,6 +53,8 @@ Chronline::Application.routes.draw do
       resources :articles, only: :show, id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+]
 
       match '/404', :to => 'base#not_found'
+
+      match 'join' => redirect("http://www.#{Settings.domain}/pages/join?force_full_site=true")
 
       # Legacy routes
       # The controller method redirects to the most current route
