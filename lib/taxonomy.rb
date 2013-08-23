@@ -55,9 +55,13 @@ class Taxonomy
   end
 
   def children
-    @node[:children].map do |child|
-      Taxonomy.new(to_a << child['name'])
-    end
+    @node[:children]
+      .select { |child| child['new_id'].nil? }
+      .map { |child| Taxonomy.new(to_a << child['name']) }
+  end
+
+  def id
+    @node[:id]
   end
 
   def name
@@ -88,6 +92,10 @@ class Taxonomy
     Array.new(@node[:taxonomy])
   end
 
+  def to_param
+    to_a
+  end
+
   def to_s
     '/' + @node[:taxonomy].map { |section| section.downcase + '/' }.join
   end
@@ -106,19 +114,40 @@ class Taxonomy
     levels
   end
 
-  private
+  def self.nodes
+    list_nodes({ 'children' => Taxonomy::Tree })
+  end
 
+  private
   def find_taxonomy_node(taxonomy)
     root = {'children' => Taxonomy::Tree}
     full_taxonomy = []
     taxonomy.each do |section|
       root = (root['children'] or []).select do |child|
-        child['name'].downcase == section.downcase
+        child['new_id'].nil? && child['name'].downcase == section.downcase
       end.first
       return nil if root.nil?
       full_taxonomy << root['name']
     end
-    {taxonomy: full_taxonomy, children: root['children'] || []}
+    {
+      id: root['id'],
+      taxonomy: full_taxonomy,
+      children: root['children'] || [],
+    }
+  end
+
+  def self.list_nodes(root)
+    return [] if root['children'].nil?
+    root['children'].map do |child|
+      child_node =  {
+        id: child['id'],
+        name: child['name'],
+        taxonomy: 'sections',
+        parent_id: root['id'],
+      }
+      child_node[:new_id] = child['new_id'] unless child['new_id'].nil?
+      list_nodes(child).insert(0, child_node)
+    end.flatten
   end
 
 end
