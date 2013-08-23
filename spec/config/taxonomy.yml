@@ -1,11 +1,22 @@
 ---
-- name: News
+- id: 1
+  name: News
   children:
-    - name: University
+    - id: 2
+      name: University
       children:
-        - name: Academics
-        - name: Board of Trustees
-- name: Sports
-- name: Opinion
-- name: Recess
-- name: Towerview
+        - id: 3
+          name: Academics
+        - id: 4
+          name: Board of Trustees
+    - id: 5
+      new_id: 3
+      name: Merged
+- id: 6
+  name: Sports
+- id: 7
+  name: Opinion
+- id: 8
+  name: Recess
+- id: 9
+  name: Towerview
