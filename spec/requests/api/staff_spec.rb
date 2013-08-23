@@ -29,7 +29,7 @@ describe "/staff/*" do
     let!(:records) do
       [
        FactoryGirl.create(:staff, name: 'Joe Smith'),
-       FactoryGirl.create(:staff_with_image, name: 'John Smith'),
+       FactoryGirl.create(:photographer, name: 'John Smith'),
        FactoryGirl.create(:staff, name: 'Will Smith', columnist: true),
       ]
     end
