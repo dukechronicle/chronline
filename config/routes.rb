@@ -1,3 +1,4 @@
+require 'resque/server'
 require_dependency 'admin/users_controller' # contains admin devise controllers
 
 Chronline::Application.routes.draw do
@@ -88,6 +89,8 @@ Chronline::Application.routes.draw do
 
       resources :pages, except: :show
       resources :staff, except: :show
+
+      mount Resque::Server.new, at: '/resque'
     end
   end
 
