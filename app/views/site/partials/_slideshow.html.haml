@@ -4,7 +4,7 @@
       - (pages || []).each do |page|
         = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
     - articles.each do |article|
-      = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_article_path(article)
+      = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article)
     - if not pages_first
       - (pages || []).each do |page|
         = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path

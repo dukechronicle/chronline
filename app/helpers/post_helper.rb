@@ -24,13 +24,17 @@ module PostHelper
     }.to_json
   end
 
-  def site_post_url(post)
+  def site_post_url(post, options = {})
     if post.is_a? Blog::Post
-      site_blog_post_url(
-        post.blog, post, subdomain: :www, protocol: 'http')
+      polymorphic_url([:site, post.blog, post], options)
     else
-      site_article_url(post, subdomain: :www, protocol: 'http')
+      polymorphic_url([:site, post], options)
     end
+  end
+
+  def site_post_path(post, options = {})
+    options[:routing_type] = :path
+    site_post_url(post, options)
   end
 
   def permanent_post_url(post)
