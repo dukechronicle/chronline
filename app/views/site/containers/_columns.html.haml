@@ -4,7 +4,7 @@
     .span-3.article-list.content-container
       - articles.each_with_index do |article, i|
         - if i.even?
-          %a.hover.list-story.highlight-left{href: site_article_path(article)}
+          %a.hover.list-story.highlight-left{href: site_post_path(article)}
             .subtitle
               %span= article.section.name
             %h3.title= article.title
@@ -17,7 +17,7 @@
     .span-3.article-list.content-container.last
       - articles.each_with_index do |article, i|
         - if i.odd?
-          %a.hover.list-story.highlight-right{href: site_article_path(article)}
+          %a.hover.list-story.highlight-right{href: site_post_path(article)}
             .subtitle
               %span= article.section.name
             %h3.title= article.title
