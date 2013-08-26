@@ -3,7 +3,7 @@
   .rounded.clearfix.align-group
     - articles.each_with_index do |article, i|
       .content-container.align-element.row-article{class: ('feature' if feature && i == 0)}
-        %a.row-story.hover.highlight-bottom{href: site_article_path(article)}
+        %a.row-story.hover.highlight-bottom{href: site_post_path(article)}
           - if article.image
             - if feature and i == 0
               = cropped_image_tag article.image, :rectangle_314x

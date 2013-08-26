@@ -15,7 +15,7 @@ Layout.add_schema(:article, {
                     "required" => true,
                     "model" => true,
                   }) do |article_ids|
-  Article.includes(:authors, :image).find_in_order(article_ids)
+  Post.includes(:authors, :image).find_in_order(article_ids)
 end
 
 Layout.add_schema(:page, {"type" => "integer"}) do |page_ids|

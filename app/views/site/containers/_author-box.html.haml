@@ -24,7 +24,7 @@
 
           .article-list
             - author.articles.published.limit(5).order('published_at DESC').each do |article|
-              %a.hover.list-story.highlight-right{href: site_article_path(article)}
+              %a.hover.list-story.highlight-right{href: site_post_path(article)}
                 %h3.title= article.title
                 %p.subtitle= display_date(article)
                 %p.teaser= article.teaser
