@@ -6,6 +6,7 @@ class Admin::NewsletterController < Admin::BaseController
   end
 
   def send_newsletter
+    params[:newsletter] ||= {}
     params[:newsletter][:scheduled_time] = construct_time(params[:newsletter])
 
     if params[:newsletter].has_key?(:article)
