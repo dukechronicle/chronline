@@ -112,6 +112,10 @@ class Article < Post
     self[:section]
   end
 
+  def section_id
+    section.id
+  end
+
   private
   def self.fetch_popular_from_redis(section, limit)
     $redis.multi do
