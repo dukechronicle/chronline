@@ -62,6 +62,7 @@ class Blog
       id: 1000,
       name: 'Blog',
       taxonomy: 'sections',
+      parent_id: nil,
     }
     nodes = self.all.map do |blog|
       {
