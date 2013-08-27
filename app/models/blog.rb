@@ -57,6 +57,24 @@ class Blog
     self.all.each(&block)
   end
 
+  def self.nodes
+    blog_root = {
+      id: 1000,
+      name: 'Blog',
+      taxonomy: 'sections',
+    }
+    nodes = self.all.map do |blog|
+      {
+        id: blog.section_id,
+        name: blog.id.titlecase,
+        taxonomy: 'sections',
+        parent_id: blog_root[:id],
+      }
+    end
+    nodes.insert(0, blog_root)
+    nodes
+  end
+
   private
   def self.lookup(id)
     if Blog::Data[id]
