@@ -57,4 +57,8 @@ class Blog::Post < ::Post
   def previous_url
     previous_id
   end
+
+  def section_id
+    blog.section_id
+  end
 end

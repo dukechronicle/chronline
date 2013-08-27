@@ -128,6 +128,9 @@ Chronline::Application.routes.draw do
       resources :blogs, only: [], controller: 'blog_posts' do
         resources :posts, only: :index, controller: 'blog_posts'
       end
+      resources :posts, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
+        post :unpublish, on: :member
+      end
     end
   end
 
