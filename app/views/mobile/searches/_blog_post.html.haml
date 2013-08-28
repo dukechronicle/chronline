@@ -2,4 +2,4 @@
   - if blog_post.image
     = cropped_image_tag blog_post.image, :square_80x
   %h2= blog_post.title
-  %p #{blog_post.author.name} | #{display_date(blog_post)}
+  %p #{byline(blog_post)} | #{display_date(blog_post)}
