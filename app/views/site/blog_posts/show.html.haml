@@ -11,8 +11,10 @@
 
 .span-8
   .rounded
+    .image-container
+      = image_tag @blog.banner, class: 'blog-banner'
+  .rounded
     %article.article-container.blog-post
-      %h3.blog-name= @blog.name
       %h1.title= @blog_post.title
 
       %p.byline
