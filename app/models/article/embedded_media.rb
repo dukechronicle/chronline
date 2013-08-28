@@ -7,12 +7,14 @@ class Article::EmbeddedMedia
   end
 
   def render_media()
-    tag_list = @body.scan(/{{([a-zA-z]*):([0-9]*)}} ?/).to_a
+    tag_list = @body.scan(/{{([a-zA-Z]*):([^\}]*)}}/).to_a
     tags = []
     tag_list.each do |tag_data|
       case tag_data[0]
       when 'Image'
         tags.push ImageTag.new(tag_data[1])
+      when 'Icon'
+        tags.push IconTag.new(tag_data[1])
       end
     end
 
@@ -20,7 +22,7 @@ class Article::EmbeddedMedia
 
     class_objects = get_class_objects(class_ids_hash)
 
-    @rendered = @body.gsub(/{{([a-zA-z]*):([0-9]*)}} ?/) do |t|
+    @rendered = @body.gsub(/{{([a-zA-Z]*):([^\}]*)}}/) do |t|
       tag = tags.shift
       tag.to_html(class_objects)
     end
