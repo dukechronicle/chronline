@@ -103,6 +103,7 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
       get 'galleries' => 'galleries#index'
+      get 'galleries/:gallery_id' => 'galleries#show'
 
       resources :images, only: :index
       resources :staff, only: :index
