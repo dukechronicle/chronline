@@ -8,6 +8,10 @@ Chronline::Application.routes.draw do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
       get 'search' => 'articles#search'
+
+      get 'galleries' => 'galleries#index'
+      get 'galleries/:gallery_id' => 'galleries#show'
+
       resource :newsletter, only: :show do
         post 'subscribe'
         post 'unsubscribe'
@@ -102,8 +106,6 @@ Chronline::Application.routes.draw do
       get 'qduke' => 'qduke#frontpage'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'search' => 'articles#search'
-      get 'galleries' => 'galleries#index'
-      get 'galleries/:gallery_id' => 'galleries#show'
 
       resources :images, only: :index
       resources :staff, only: :index
