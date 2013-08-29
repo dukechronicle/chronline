@@ -106,10 +106,10 @@ Chronline::Application.routes.draw do
       resources :pages, except: :show
       resources :staff, except: :show
 
-      # resources :blogs, only: :index, controller: 'blog_posts' do
-      #   resources :posts, except: :show, controller: 'blog_posts',
-      #     id: Post::SLUG_PATTERN
-      # end
+      resources :blogs, only: :index, controller: 'blog_posts' do
+        resources :posts, except: :show, controller: 'blog_posts',
+          id: Post::SLUG_PATTERN
+      end
 
       mount Resque::Server.new, at: '/resque'
     end
