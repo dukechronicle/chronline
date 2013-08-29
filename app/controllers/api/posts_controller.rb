@@ -20,7 +20,7 @@ class Api::PostsController < Api::BaseController
     post = Post.new(request.POST)
     if post.save
       respond_with_post post, status: :created,
-        location: api_post_url(post)
+        location: api_article_url(post)
     else
       render json: post.errors, status: :unprocessable_entity
     end
