@@ -23,11 +23,11 @@ Chronline::Application.routes.draw do
         get :print, on: :member
       end
 
-      resources :blogs, only: :index, controller: 'blog_posts' do
-        resources :posts, only: [:index, :show], controller: 'blog_posts',
-          id: Post::SLUG_PATTERN
-        get 'tags/:tag' => 'blog_posts#tags', as: :tagged
-      end
+      # resources :blogs, only: :index, controller: 'blog_posts' do
+      #   resources :posts, only: [:index, :show], controller: 'blog_posts',
+      #     id: Post::SLUG_PATTERN
+      #   get 'tags/:tag' => 'blog_posts#tags', as: :tagged
+      # end
 
       resources :staff, only: :show do
         member do
@@ -61,10 +61,10 @@ Chronline::Application.routes.draw do
 
       resource :search, only: :show
 
-      resources :blogs, only: :index, controller: 'blog_posts' do
-        resources :posts, only: [:index, :show], controller: 'blog_posts',
-          id: Post::SLUG_PATTERN
-      end
+      # resources :blogs, only: :index, controller: 'blog_posts' do
+      #   resources :posts, only: [:index, :show], controller: 'blog_posts',
+      #     id: Post::SLUG_PATTERN
+      # end
 
       match '/404', :to => 'base#not_found'
 
@@ -102,10 +102,10 @@ Chronline::Application.routes.draw do
       resources :pages, except: :show
       resources :staff, except: :show
 
-      resources :blogs, only: :index, controller: 'blog_posts' do
-        resources :posts, except: :show, controller: 'blog_posts',
-          id: Post::SLUG_PATTERN
-      end
+      # resources :blogs, only: :index, controller: 'blog_posts' do
+      #   resources :posts, except: :show, controller: 'blog_posts',
+      #     id: Post::SLUG_PATTERN
+      # end
 
       mount Resque::Server.new, at: '/resque'
     end
@@ -125,9 +125,9 @@ Chronline::Application.routes.draw do
       resources :articles, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
-      resources :blogs, only: [], controller: 'blog_posts' do
-        resources :posts, only: :index, controller: 'blog_posts'
-      end
+      # resources :blogs, only: [], controller: 'blog_posts' do
+      #   resources :posts, only: :index, controller: 'blog_posts'
+      # end
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
