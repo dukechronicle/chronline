@@ -12,7 +12,7 @@ class Blog
   private_class_method :new
 
   attr_accessor :id, :name, :logo, :banner, :description, :section_id,
-    :twitter_widget
+    :twitter_widgets
 
   def initialize(attributes={})
     attributes.each do |attr, value|
@@ -31,6 +31,10 @@ class Blog
 
   def to_param
     id
+  end
+
+  def twitter_widgets
+    @twitter_widgets ||= []
   end
 
   def ==(other)
