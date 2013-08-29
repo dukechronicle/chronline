@@ -42,14 +42,11 @@ class Admin::BlogPostsController < Admin::BaseController
 
 
   private
-
   def update_blog_post(blog_post)
-    # Last element of taxonomy array may be an empty string
-    author_name = params[:blog_post].delete(:author_id)
+    author_names = params[:blog_post].delete(:author_ids).reject { |s| s.blank? }
     blog_post.assign_attributes(params[:blog_post])
-    unless author_name.blank?
-      blog_post.author = Staff.find_or_create_by_name(author_name)
-    end
+    blog_post.authors = Staff.find_or_create_all_by_name(author_names)
+    blog_post.assign_attributes(params[:blog_post])
     blog_post
   end
 
