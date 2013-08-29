@@ -1,7 +1,7 @@
 initialize '.featured-selectable', ->
-  $slide = $('.slide:not(.hidden)')
-  console.log $slide
-  $(this).on 'click', 'a.selector', (e) ->
+  $slide = $('.slide:visible')
+  $slide.css('display', 'block')
+  $(this).on 'click', '.selector a', (e) ->
     e.preventDefault()
     $lastSlide = $slide
     $slide = $('.slide').eq($(this).data('index'))

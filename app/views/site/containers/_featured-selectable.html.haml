@@ -10,8 +10,7 @@
             %p.teaser= post.teaser
   .thumbnails
     - posts[0...4].each_with_index do |post, index|
-      .span-2{class: ('last' if index == 3)}
-        .rounded
-          %a.selector.hover.highlight-bottom{href: site_post_path(post), data: {index: index}}
-            .image-container
-              = cropped_image_tag post.image, :rectangle_132x
+      .rounded.selector
+        %a.hover.highlight-bottom{href: site_post_path(post), data: {index: index}}
+          .image-container
+            = cropped_image_tag post.image, :rectangle_152x
