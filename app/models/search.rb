@@ -112,7 +112,7 @@ class Search
   end
 
   def initialize_model(model)
-    if model
+    if model.present?
       @model =
         if model.is_a? String
           model.constantize
