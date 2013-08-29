@@ -10,7 +10,9 @@ bluezone:
   logo: blogs/bluezone-logo.jpg
   banner: blogs/bluezone-banner.jpg
   description: Your one-stop shop for all the latest in Duke basketball, football, and more.
-  twitter_widget: 295248698340933632
+  twitter_widgets:
+    - 295248698340933632
+    - 372912145349894144
   section_id: 1002
 playground:
   name: Playground
