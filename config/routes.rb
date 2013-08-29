@@ -107,6 +107,10 @@ Chronline::Application.routes.draw do
       resources :articles, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
         post :unpublish, on: :member
       end
+      resources :posts, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+],
+        controller: :articles do
+        post :unpublish, on: :member
+      end
     end
   end
 
