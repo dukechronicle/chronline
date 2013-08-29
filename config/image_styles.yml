@@ -9,6 +9,7 @@ rectangle:
     - 314
     - 183
     - 152
+    - 132
 square:
   width: 200
   height: 200
