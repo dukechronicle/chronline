@@ -5,7 +5,7 @@
     = f.input :blog, disabled: true, input_html: {value: @blog_post.blog.name}
     = f.input :blog, as: :hidden, input_html: {value: @blog_post.blog.id}
     = f.input :title
-    = f.association :author, value_method: :name, as: :string, input_html: {class: 'staff-picker input-xlarge'}
+    = f.association :authors, as: :text_list, value_method: :name, input_html: {class: 'staff-picker', autocomplete: 'off'}
     = f.input :body, input_html: {rows: 5, class: 'wysiwyg'}
     = f.input :tag_list, label: "Tags", hint: 'Comma separated list of tags, no "and", and no pound signs.'
     = f.association :image, as: :image_picker
