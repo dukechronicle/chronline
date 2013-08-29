@@ -7,7 +7,7 @@ class Post
     end
 
     def render
-      tag_list = @body.scan(/{{([a-zA-Z]*):([\w\,]*)}}/)
+      tag_list = @body.scan(/{{([a-zA-Z]*):([\w\,\-]*)}}/)
       tags = tag_list.map do |tag, data|
         case tag
         when 'Image'
@@ -20,7 +20,7 @@ class Post
       execute_queries
 
       float_left = true
-      @rendered = @body.gsub(/{{([a-zA-Z]*):([\w\,]*)}}/) do |t|
+      @rendered = @body.gsub(/{{([a-zA-Z]*):([\w\,\-]*)}}/) do |t|
         float_left = !float_left
         tags.shift.to_html(float: float_left ? :left : :right)
       end
