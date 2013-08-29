@@ -28,6 +28,10 @@ Chronline::Application.routes.draw do
       #     id: Post::SLUG_PATTERN
       #   get 'tags/:tag' => 'blog_posts#tags', as: :tagged
       # end
+      resources :blogs, only: [], controller: 'blog_posts' do
+        resources :posts, only: [:show], controller: 'blog_posts',
+          id: Post::SLUG_PATTERN
+      end
 
       resources :staff, only: :show do
         member do
