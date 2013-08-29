@@ -122,13 +122,13 @@ Chronline::Application.routes.draw do
 
       resources :images, except: [:new, :edit]
       resources :staff, except: [:new, :edit]
-      resources :articles, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
+      resources :articles, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
       resources :blogs, only: [], controller: 'blog_posts' do
         resources :posts, only: :index, controller: 'blog_posts'
       end
-      resources :posts, except: [:new, :edit], id: %r[(\d{4}/\d{2}/\d{2}/)?[^/]+] do
+      resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
     end
