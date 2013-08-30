@@ -1,0 +1,16 @@
+- content_for :title_block do
+  = render 'site/partials/navigation'
+
+.span-8
+  #featured= render partial: 'site/containers/featured-selectable', locals: {posts: @model.featured_stories}
+  = render partial: 'site/containers/article-list', locals: {articles: @model.stories, title: "Recent", style: :teaser}
+
+.span-4.last
+  = render partial: 'site/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information}
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+  .standings
+    %h2.vertical-label ACC Standings
+    .rounded
+      Hi Mom
+  - @model.twitter_widgets.each do |widget_id|
+    = render partial: 'site/partials/twitter-timeline', locals: {widget_id: widget_id}
