@@ -4,6 +4,17 @@
 .span-8
   #featured= render partial: 'site/containers/featured-selectable', locals: {posts: @model.featured_stories}
   = render partial: 'site/containers/article-list', locals: {articles: @model.stories, title: "Recent", style: :teaser}
+  .clearfix
+    .span-4
+      .rounded
+        %a{href: "https://twitter.com/#{@model.twitter}"}
+          .image-container
+            = image_tag 'icons/twitter-large.png'
+    .span-4.last
+      .rounded
+        %a{href: "https://www.facebook.com/#{@model.facebook}"}
+          .image-container
+            = image_tag 'icons/facebook-large.png'
 
 .span-4.last
   = render partial: 'site/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information}
