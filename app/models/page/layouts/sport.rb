@@ -6,7 +6,24 @@ class Page::Layouts::Sport < Layout
         'label' => 'Featured Articles',
         'type' => 'array',
         'required' => true,
-        'items' => article_schema,
+        'items' => {
+          'type' => 'object',
+          'properties' => {
+            'article' => {
+              'label' => 'Article',
+              'required' => true,
+              'extends' => article_schema,
+            },
+            'video' => {
+              'label' => 'Video',
+              'type' => 'string',
+            },
+            'headline' => {
+              'label' => 'Display Tag',
+              'type' => 'string',
+            }
+          }
+        }
       },
       'stories' => {
         'label' => 'Recent Articles',
@@ -84,6 +101,14 @@ class Page::Layouts::Sport < Layout
         }
       },
       'standings_url' => {
+        'type' => 'string',
+        'required' => true,
+      },
+      'twitter' => {
+        'type' => 'string',
+        'required' => true,
+      },
+      'facebook' => {
         'type' => 'string',
         'required' => true,
       }
