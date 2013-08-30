@@ -2,9 +2,10 @@
   %h2.vertical-label= title
   .rounded
     .content-container
-      .game-stats{data: {starttime: info['date']}}
-        %p.label
-        %p.value
+      .clearfix
+        .game-stats{data: {starttime: info['date']}}
+          %p.label
+          %p.value
 
       .teams
         = image_tag info['main_team']['logo'], class: 'logo'
