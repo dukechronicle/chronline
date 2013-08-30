@@ -2,7 +2,7 @@
   %h2.vertical-label Standings
   .rounded
     .content-container
-      - ESPN.new.standings(url).each do |league, standings|
+      - ESPN.new.standings(url).to_a.reverse.each do |league, standings|
         .league
           %h3= league
           - standings.each do |team, score|
