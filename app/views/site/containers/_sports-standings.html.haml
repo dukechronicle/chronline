@@ -1,0 +1,9 @@
+.standings
+  %h2.vertical-label Standings
+  .rounded
+    .content-container
+      - ESPN.new.standings(url).each do |league, standings|
+        .league
+          %h3= league
+          - standings.each do |team, score|
+            %p= "#{team} (#{score})"

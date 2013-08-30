@@ -21,7 +21,7 @@ class Page::Layouts::Sport < Layout
       },
       'information' => {
         'type' => 'object',
-#        'required' => true,
+        'required' => true,
         'label' => 'Game Information',
         'properties' => {
           'sport' => {
@@ -82,6 +82,10 @@ class Page::Layouts::Sport < Layout
             'required' => true,
           }
         }
+      },
+      'standings_url' => {
+        'type' => 'string',
+        'required' => true,
       }
     }
   end
