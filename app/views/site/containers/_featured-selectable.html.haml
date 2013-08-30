@@ -4,7 +4,7 @@
       - posts.each_with_index do |post, index|
         %a.slide.hover.highlight-bottom{href: site_post_path(post), style: ('display:none;' if index > 0)}
           .image-container
-            = cropped_image_tag post.image, :banner_636x
+            = cropped_image_tag post.image, :rectangle_636x
           .content-container
             %h3.title= post.title
             %p.teaser= post.teaser

@@ -68,7 +68,7 @@ end
 
 Layout.add_schema(:datetime, {
                     'type' => 'string',
-                    'format' => 'date-time',
+#                    'format' => 'date-time',
                   }) do |datetimes|
   datetimes.map { |str| DateTime.iso8601(str) }
 end
