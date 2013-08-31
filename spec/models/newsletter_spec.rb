@@ -59,10 +59,10 @@ describe Newsletter do
 
     it "should have correct HTML content" do
       expect_campaign_create do |options|
-        options[:content][:html_MAIN].should ==
+        options[:content][:sections][:main].should ==
           "Pikachu attacks a flock of Spearows"
-        options[:content].should have_key(:html_ADIMAGE)
-        options[:content].should have_key(:html_ISSUEDATE)
+        options[:content][:sections].should have_key(:adimage)
+        options[:content][:sections].should have_key(:issuedate)
       end
     end
   end

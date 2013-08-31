@@ -18,7 +18,7 @@ class Newsletter
   end
 
   def create_campaign
-    response = @gb.campaigns.create({
+    response = @gb.campaigns.create(
       type: :regular,
       options: {
         list_id: Settings.mailchimp.list_id,
@@ -31,11 +31,13 @@ class Newsletter
         },
       },
       content: {
-        html_MAIN: content,
-        html_ADIMAGE: advertisement,
-        html_ISSUEDATE: issue_date,
-      },
-    })
+        sections: {
+          main: content,
+          adimage: advertisement,
+          issuedate: issue_date,
+        }
+      }
+    )
     @campaign_id = response['id']
   end
 
@@ -90,11 +92,9 @@ class ArticleNewsletter < Newsletter
   end
 
   private
-
   def subject
     "Chronicle Alert: #{@article.title}"
   end
-
 end
 
 class DailyNewsletter < Newsletter
@@ -117,9 +117,7 @@ class DailyNewsletter < Newsletter
   end
 
   private
-
   def subject
     "Duke Chronicle Daily Newsletter #{issue_date}"
   end
-
 end
