@@ -20,8 +20,6 @@ updateGameStats = ($element, startTime) ->
     milliseconds = startTime - Date.now()
     if milliseconds > 0
       displayRemainingTime($element, milliseconds)
-    else
-      displayGameScore($element)
 
 initialize '.game-stats', ->
   startTime = new Date($(this).data('starttime'))
