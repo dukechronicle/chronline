@@ -17,9 +17,8 @@
             = image_tag 'icons/facebook-large.png'
 
 .span-4.last
-  = render partial: 'site/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information}
+  = render partial: 'site/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information, game_info: ESPN.new.game_information(@model.information['espn_url'])}
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  - cache(action_suffix: 'standings') do
-    = render partial: 'site/containers/sports-standings', locals: {url: @model.standings_url}
+  = render partial: 'site/containers/sports-standings', locals: {url: @model.standings_url}
   - @model.twitter_widgets.each do |widget_id|
     = render partial: 'site/partials/twitter-timeline', locals: {widget_id: widget_id}

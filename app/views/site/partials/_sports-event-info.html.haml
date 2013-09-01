@@ -4,13 +4,13 @@
     .content-container
       .clearfix
         .game-stats{data: {starttime: info['date']}}
-          %p.label
-          %p.value
+          %p.label Game Score
+          %p.value #{game_info[:away_team][:name]} (#{game_info[:away_team][:score]}) - #{game_info[:home_team][:name]} (#{game_info[:home_team][:score]})
 
       .teams
-        = image_tag info['main_team']['logo'], class: 'logo'
-        %span.separator= info['home_game'] ? 'vs' : '@'
-        = image_tag info['opposing_team']['logo'], class: 'logo'
+        = image_tag game_info[:away_team][:logo], class: 'logo', alt: game_info[:away_team][:name], title: game_info[:away_team][:name]
+        %span.separator= '@'
+        = image_tag game_info[:home_team][:logo], class: 'logo', alt: game_info[:home_team][:name], title: game_info[:home_team][:name]
 
       .event-info
         %p
