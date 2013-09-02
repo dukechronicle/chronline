@@ -17,7 +17,8 @@ class Api::PostsController < Api::BaseController
   end
 
   def create
-    post = Post.new(request.POST)
+    klass = params[:section].starts_with?('/blog/') ? Blog::Post : Article
+    post = klass.new(request.POST)
     if post.save
       respond_with_post post, status: :created,
         location: api_article_url(post)
