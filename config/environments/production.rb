@@ -37,7 +37,7 @@ Chronline::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  config.logger = Le.new(Settings.logentries.token, ssl: true)
+  config.logger = Logger.new(STDOUT)
 
   # Use a different cache store in production
   config.cache_store = :redis_store, {
