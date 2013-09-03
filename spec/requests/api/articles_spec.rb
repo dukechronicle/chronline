@@ -1,5 +1,4 @@
 require 'spec_helper'
-include ArticleHelper
 
 describe Api::ArticlesController do
   before(:all) { @user = FactoryGirl.create(:user) }
