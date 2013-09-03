@@ -54,6 +54,5 @@
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
     = render 'site/partials/facebook-recommended'
-    = render partial: 'site/partials/video-player', locals: {width: 300}
 
   = render 'site/partials/facebook-social-share'
