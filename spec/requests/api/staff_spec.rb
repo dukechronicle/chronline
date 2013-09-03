@@ -155,6 +155,23 @@ describe "/staff/*" do
         should include('name')
       end
     end
+
+    describe "when staff name is already taken" do
+      let!(:staff) { FactoryGirl.create :staff, name: "Pokefan Joey" }
+
+      before do
+        post api_staff_index_url(subdomain: :api), { name: staff.name },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
+      end
+
+      it do
+        response.status.should == Rack::Utils.status_code(:found)
+      end
+
+      it "should have a location header pointing to existing record" do
+        response.location.should == api_staff_url(staff, subdomain: :api)
+      end
+    end
   end
 
   describe "PUT /staff/:id" do
