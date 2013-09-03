@@ -197,7 +197,7 @@ GEM
     kgio (2.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
-    le (2.1.9)
+    le (2.2.1)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
