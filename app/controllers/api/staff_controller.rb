@@ -23,7 +23,7 @@ class Api::StaffController < Api::BaseController
   def create
     staff = Staff.find_by_name(params[:name])
     unless staff.nil?
-      redirect_to api_staff_url(staff), status: :see_other
+      redirect_to api_staff_url(staff), status: :found
       return
     end
 
