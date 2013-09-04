@@ -165,7 +165,7 @@ describe "/staff/*" do
       end
 
       it do
-        response.status.should == Rack::Utils.status_code(:see_other)
+        response.status.should == Rack::Utils.status_code(:found)
       end
 
       it "should have a location header pointing to existing record" do
