@@ -105,7 +105,7 @@ describe "Images API" do
 
     context "when properly authenticated" do
       before do
-        post api_images_url(subdomain: :api), { image: image_attrs },
+        post api_images_url(subdomain: :api), image_attrs,
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
@@ -131,7 +131,7 @@ describe "Images API" do
     describe "with valid data" do
       let(:valid_attrs) { {caption: "The rare Pidgey in its natural habitat" } }
       before do
-        put api_image_url(image.id, subdomain: :api), { image: valid_attrs },
+        put api_image_url(image.id, subdomain: :api), valid_attrs,
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
@@ -144,10 +144,10 @@ describe "Images API" do
     describe "with invalid data" do
       let(:invalid_attrs) { {date: ""} }
       before do
-        put api_image_url(image.id, subdomain: :api), { image: invalid_attrs },
+        put api_image_url(image.id, subdomain: :api), invalid_attrs,
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
-      it { response.status.should == Rack::Utils.status_code(:unproccessable_entity) }
+      it { response.status.should == Rack::Utils.status_code(:unprocessable_entity) }
       it "should respond with validation errors" do
         res.should include('date')
       end
