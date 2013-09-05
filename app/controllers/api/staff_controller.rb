@@ -27,7 +27,7 @@ class Api::StaffController < Api::BaseController
       return
     end
 
-    staff = Staff.new(request.POST)
+    staff = Staff.new(params[:staff])
     if staff.save
       respond_with_staff staff, status: :created, location: api_staff_url(staff)
     else
@@ -37,7 +37,7 @@ class Api::StaffController < Api::BaseController
 
   def update
     staff = Staff.find(params[:id])
-    if staff.update_attributes(request.POST)
+    if staff.update_attributes(params[:staff])
       head :no_content
     else
       render json: staff.errors, status: :unprocessable_entity

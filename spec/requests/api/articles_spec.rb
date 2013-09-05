@@ -158,8 +158,8 @@ describe Api::ArticlesController do
 
     context "when properly authenticated" do
       before do
-        post api_articles_url(subdomain: :api), new_article_data,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        post api_articles_url(subdomain: :api), { article: new_article_data },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       its(:status) { should == Rack::Utils.status_code(:created) }
@@ -216,8 +216,8 @@ describe Api::ArticlesController do
 
       describe "with valid data" do
         before do
-          put api_article_url(article.id, subdomain: :api), valid_attrs,
-            { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+          put api_article_url(article.id, subdomain: :api),
+            { article: valid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
         end
         its(:status) { should == Rack::Utils.status_code(:no_content) }
         it "should have a changed title" do
@@ -228,8 +228,8 @@ describe Api::ArticlesController do
       describe "with invalid data" do
         let(:invalid_attrs) { {title: "" } }
         before do
-          put api_article_url(article.id, subdomain: :api), invalid_attrs,
-            { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+          put api_article_url(article.id, subdomain: :api),
+            { article: invalid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
         end
         it { response.status.should == Rack::Utils.status_code(:unprocessable_entity) }
         it "should respond with validation errors" do
