@@ -17,8 +17,13 @@ class Api::PostsController < Api::BaseController
   end
 
   def create
-    klass = params[:section].starts_with?('/blog/') ? Blog::Post : Article
-    post = klass.new(request.POST)
+    klass =
+      if params[:post][:section].try :starts_with?, '/blog/'
+        Blog::Post
+      else
+        Article
+      end
+    post = klass.new(params[:post])
     if post.save
       respond_with_post post, status: :created,
         location: api_article_url(post)
@@ -35,7 +40,7 @@ class Api::PostsController < Api::BaseController
 
   def update
     post = Post.find(params[:id])
-    if post.update_attributes(request.POST)
+    if post.update_attributes(params[:post])
       head :no_content
     else
       render json: post.errors, status: :unprocessable_entity

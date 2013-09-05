@@ -14,7 +14,7 @@ class Api::ImagesController < Api::BaseController
   end
 
   def create
-    image = Image.new(request.POST)
+    image = Image.new(params[:image])
     if image.save
       respond_with_image image, status: :created, location: api_image_url(image)
     else
@@ -24,7 +24,7 @@ class Api::ImagesController < Api::BaseController
 
   def update
     image = Image.find(params[:id])
-    if image.update_attributes(request.POST)
+    if image.update_attributes(params[:image])
       head :no_content
     else
       render json: image.errors, status: :unproccessable_entity

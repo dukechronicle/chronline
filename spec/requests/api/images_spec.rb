@@ -99,14 +99,14 @@ describe "Images API" do
     subject { response }
 
     it "should require authentication" do
-      expect{ post api_images_url(subdomain: :api), image_attrs }.
+      expect { post api_images_url(subdomain: :api), image_attrs }.
         to require_authorization
     end
 
     context "when properly authenticated" do
       before do
-        post api_images_url(subdomain: :api), image_attrs,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        post api_images_url(subdomain: :api), { image: image_attrs },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       its(:status) { should == Rack::Utils.status_code(:created) }
@@ -131,8 +131,8 @@ describe "Images API" do
     describe "with valid data" do
       let(:valid_attrs) { {caption: "The rare Pidgey in its natural habitat" } }
       before do
-        put api_image_url(image.id, subdomain: :api), valid_attrs,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        put api_image_url(image.id, subdomain: :api), { image: valid_attrs },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       its(:status) { should == Rack::Utils.status_code(:no_content) }
@@ -144,8 +144,8 @@ describe "Images API" do
     describe "with invalid data" do
       let(:invalid_attrs) { {date: ""} }
       before do
-        put api_image_url(image.id, subdomain: :api), invalid_attrs,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        put api_image_url(image.id, subdomain: :api), { image: invalid_attrs },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
       it { response.status.should == Rack::Utils.status_code(:unproccessable_entity) }
       it "should respond with validation errors" do

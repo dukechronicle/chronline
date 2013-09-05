@@ -6,7 +6,10 @@ describe "/sections/*" do
     let(:nodes) { ActiveSupport::JSON.decode(response.body) }
     subject { nodes }
 
-    it { should have(9).nodes }
+    it { should have(12).nodes }
+    it "should contain blog nodes" do
+      nodes.map { |node| node['name'] }.should include('Pokedex')
+    end
 
     describe "taxonomy node" do
       it 'should assign the "taxonomy" property to "sections"' do

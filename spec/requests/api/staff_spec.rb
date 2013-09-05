@@ -113,7 +113,7 @@ describe "/staff/*" do
 
     describe "when staff is valid" do
       before do
-        post api_staff_index_url(subdomain: :api), new_staff_attrs,
+        post api_staff_index_url(subdomain: :api), { staff: new_staff_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
@@ -143,7 +143,7 @@ describe "/staff/*" do
     describe "when staff is invalid" do
       before do
         new_staff_attrs.delete(:name)
-        post api_staff_index_url(subdomain: :api), new_staff_attrs,
+        post api_staff_index_url(subdomain: :api), { staff: new_staff_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
@@ -187,7 +187,7 @@ describe "/staff/*" do
       let(:updated_attrs) { { name: 'Pokefan Harold' } }
 
       before do
-        put api_staff_url(staff, subdomain: :api), updated_attrs,
+        put api_staff_url(staff, subdomain: :api), { staff: updated_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
@@ -206,7 +206,7 @@ describe "/staff/*" do
       let(:invalid_attrs) { { name: '' } }
 
       before do
-        put api_staff_url(staff, subdomain: :api), invalid_attrs,
+        put api_staff_url(staff, subdomain: :api), { staff: invalid_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 

@@ -20,8 +20,8 @@ describe Api::PostsController do
     context "when creating an article" do
       before do
         post_attrs[:section] = '/news/university/'
-        post api_posts_url(subdomain: :api), post_attrs,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        post api_posts_url(subdomain: :api), { post: post_attrs },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       its(:status) { should == Rack::Utils.status_code(:created) }
@@ -30,8 +30,8 @@ describe Api::PostsController do
     context "when creating a blog post" do
       before do
         post_attrs[:section] = '/blog/pokedex/'
-        post api_posts_url(subdomain: :api), post_attrs,
-          { 'HTTP_AUTHORIZATION' => http_auth(@user) }
+        post api_posts_url(subdomain: :api), { post: post_attrs },
+          'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
       its(:status) { should == Rack::Utils.status_code(:created) }
