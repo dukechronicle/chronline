@@ -2,6 +2,8 @@
 pokedex:
   name: The Pokedex
   description: Gotta catch em all
+  section_id: 1001
 kanto_news:
   name: Kanto News
   description: Everything about Kanto
+  section_id: 1002

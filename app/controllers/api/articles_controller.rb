@@ -18,7 +18,7 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    article = Article.new(request.POST)
+    article = Article.new(params[:article])
     if article.save
       respond_with_article article, status: :created,
         location: api_article_url(article)
@@ -35,7 +35,7 @@ class Api::ArticlesController < Api::BaseController
 
   def update
     article = Article.find(params[:id])
-    if article.update_attributes(request.POST)
+    if article.update_attributes(params[:article])
       head :no_content
     else
       render json: article.errors, status: :unprocessable_entity
