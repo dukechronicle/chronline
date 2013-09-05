@@ -9,7 +9,7 @@ class Blog::Post < ::Post
 
   acts_as_taggable
 
-  attr_accessible :blog, :section, :tag_list
+  attr_accessible :blog, :tag_list
 
 
   ##

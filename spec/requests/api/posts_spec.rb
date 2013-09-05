@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Api::PostsController do
   before(:all) { @user = FactoryGirl.create(:user) }
   after(:all) { @user.destroy }
+  subject { ActiveSupport::JSON.decode(response.body) }
 
   describe "POST /posts" do
     let(:post_attrs) do
@@ -10,7 +11,6 @@ describe Api::PostsController do
       attrs[:author_ids] = attrs.delete(:authors).map(&:id)
       attrs
     end
-    subject { response }
 
     it "should require authentication" do
       expect { post api_posts_url(subdomain: :api), post_attrs }.
@@ -24,7 +24,7 @@ describe Api::PostsController do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      its(:status) { should == Rack::Utils.status_code(:created) }
+      it { response.status.should == Rack::Utils.status_code(:created) }
     end
 
     context "when creating a blog post" do
@@ -34,8 +34,7 @@ describe Api::PostsController do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      its(:status) { should == Rack::Utils.status_code(:created) }
+      it { response.status.should == Rack::Utils.status_code(:created) }
     end
   end
-
 end
