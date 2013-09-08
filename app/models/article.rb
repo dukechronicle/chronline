@@ -17,7 +17,7 @@
 class Article < Post
   include Searchable
 
-  attr_accessible :section
+  attr_accessible :section, :embed_code
 
   serialize :section, Taxonomy::Serializer.new
   validates_with Taxonomy::Validator, attr: :section
