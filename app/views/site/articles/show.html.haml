@@ -38,7 +38,8 @@
 
         - if @article.image
           = render partial: 'partials/main-image', locals: {image: @article.image}
-
+        - elsif @article.embed_code
+          = render partial: 'partials/main-video'
         %p.byline
           %span.author By #{byline(@article, link: true)}
           %span.sep= "|"
