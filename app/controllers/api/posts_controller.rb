@@ -23,6 +23,8 @@ class Api::PostsController < Api::BaseController
       else
         Article
       end
+    params[:post][:teaser] = params[:post][:teaser]
+      .try(:truncate, 200, separator: ' ')
     post = klass.new(params[:post])
     if post.save
       respond_with_post post, status: :created,
@@ -40,6 +42,8 @@ class Api::PostsController < Api::BaseController
 
   def update
     post = Post.find(params[:id])
+    params[:post][:teaser] = params[:post][:teaser]
+      .try(:truncate, 200, separator: ' ')
     if post.update_attributes(params[:post])
       head :no_content
     else
