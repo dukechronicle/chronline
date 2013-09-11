@@ -5,11 +5,12 @@ class Site::NewslettersController < Site::BaseController
 
   def subscribe
     @email = params[:email]
-    gb = Gibbon.new(Settings.mailchimp.api_key)
+    gb = Gibbon::API.new(Settings.mailchimp.api_key)
     begin
-      gb.list_subscribe(
+      logger.debug @email
+      gb.lists.subscribe(
         id: Settings.mailchimp.list_id,
-        email_address: @email,
+        email: { email: @email },
         send_welcome: true
       )
     rescue Gibbon::MailChimpError => e
@@ -26,11 +27,11 @@ class Site::NewslettersController < Site::BaseController
 
   def unsubscribe
     @email = params[:email]
-    gb = Gibbon.new(Settings.mailchimp.api_key)
+    gb = Gibbon::API.new(Settings.mailchimp.api_key)
     begin
-      gb.list_unsubscribe(
+      gb.lists.unsubscribe(
         id: Settings.mailchimp.list_id,
-        email_address: @email,
+        email: { email: @email },
         send_goodbye: true
       )
     rescue Gibbon::MailChimpError => e
