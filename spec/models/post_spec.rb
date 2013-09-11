@@ -9,9 +9,6 @@ describe Post do
   it { should validate_presence_of :body }
   it { should validate_presence_of :title }
   it { should allow_value(Faker::Lorem.sentence(5)).for(:title) }
-  it "should not allow long titles" do
-    should_not allow_value(Faker::Lorem.sentence(20)).for(:title)
-  end
   it { should have_and_belong_to_many :authors }
   it { should validate_presence_of :authors }
   it { should allow_value(Faker::Lorem.paragraph(1)).for(:teaser) }

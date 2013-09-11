@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
     join_table: :posts_authors
 
   validates :body, presence: true
-  validates :title, presence: true, length: { maximum: 90 }
+  validates :title, presence: true
   validates :authors, presence: true
   validates :teaser, length: { maximum: 200 }
 
