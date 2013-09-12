@@ -8,9 +8,6 @@
         &raquo;
       = link_to parent.name, section_path(parent)
 
-- content_for :administrative_links do
-  = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
-
 - content_for :head do
   - cache(action_suffix: :head) do
     - if @article.published?
