@@ -12,6 +12,7 @@
     %tr
       %th Title
       %th Publication Date
+      %th Actions
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
@@ -19,5 +20,6 @@
         %td= article.published_at.strftime('%-m-%-d-%Y')
       - else
         %td Not scheduled
+      %td= link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
 
 = will_paginate
