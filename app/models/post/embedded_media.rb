@@ -1,3 +1,4 @@
+require 'json'
 class Post
   class EmbeddedMedia
 
@@ -16,6 +17,8 @@ class Post
           IconTag.new(self, *data.split(','))
         when 'Youtube'
           YoutubeTag.new(self, *data.split(','))
+        when 'Soundcloud'
+          SoundcloudTag.new(self, *data.split(','))
         end
       end
 
@@ -37,6 +40,12 @@ class Post
 
     def to_s
       @rendered ||= render
+    end
+
+    def get_oembed(oembed_url, options = {})
+      res = HTTParty.get(oembed_url + "?" +
+        options.merge({format: :json}).to_query)
+      JSON.parse(res.body)
     end
 
     private
