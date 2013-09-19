@@ -1,25 +1,24 @@
+require 'oembed'
 class Post
   class EmbeddedMedia
     class SoundcloudTag < ActionView::Base
       include ActionView::Helpers
 
-      OEMBED_URL = "http://soundcloud.com/oembed"
-
-      def initialize(embedded_media, url)
-        @embed_html = get_embed_html(embedded_media, url)
+      def initialize(_embedded_media, url)
+        @html = get_html(url)
       end
 
       def to_html(float: :right)
-        @embed_html
+        @html
       end
 
       private
-      def get_embed_html(embedded_media, url)
+      def get_html(url)
         Rails.cache.fetch("soundcloud:#{url}") do
-          embedded_media.get_oembed(OEMBED_URL, url: url)['html']
+          OEmbed::Providers::SoundCloud.get(url).html
         end
       end
-    end
 
+    end
   end
 end
