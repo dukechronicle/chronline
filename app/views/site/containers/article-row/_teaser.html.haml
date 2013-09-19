@@ -1,0 +1,5 @@
+%h3.title= article.title
+%p.subtitle
+  %span.author= byline(article)
+- if not (feature and i == 0)
+  %p.teaser= article.teaser
