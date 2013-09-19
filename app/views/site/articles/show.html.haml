@@ -45,11 +45,14 @@
           = render partial: 'site/partials/share-box', locals: {postable: @article}
           != @article.render_body
 
+    #recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: [@article] * 4, feature: false, style: :title}
     #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
 
   %aside.span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    .title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
+    /.title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
     = render 'site/partials/facebook-recommended'
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
 
   = render 'site/partials/facebook-social-share'
