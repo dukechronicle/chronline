@@ -42,12 +42,6 @@ class Post
       @rendered ||= render
     end
 
-    def get_oembed(oembed_url, options = {})
-      res = HTTParty.get(oembed_url + "?" +
-        options.merge({format: :json}).to_query)
-      JSON.parse(res.body)
-    end
-
     private
     def execute_queries
       @queries.each do |cls, query|
