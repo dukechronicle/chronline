@@ -52,7 +52,7 @@
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     /.title-small= render partial: 'site/containers/article-list', locals: {title: 'Related', articles: @article.related(5), style: :subhead}
     = render 'site/partials/facebook-recommended'
-    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
 
   = render 'site/partials/facebook-social-share'
