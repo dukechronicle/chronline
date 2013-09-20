@@ -19,6 +19,8 @@ class Post
           YoutubeTag.new(self, *data.split(','))
         when 'Soundcloud'
           SoundcloudTag.new(self, *data.split(','))
+        when 'Twitter'
+          TwitterTag.new(self, *data.split(','))
         end
       end
 
