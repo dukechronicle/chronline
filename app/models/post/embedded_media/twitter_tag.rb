@@ -2,7 +2,6 @@ require 'oembed'
 class Post
   class EmbeddedMedia
     class TwitterTag < ActionView::Base
-      include ActionView::Helpers
 
       def initialize(_embedded_media, url)
         @html = get_html(url)
