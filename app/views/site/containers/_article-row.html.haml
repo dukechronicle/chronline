@@ -12,4 +12,4 @@
             - else
               = cropped_image_tag article.image, :rectangle_152x
           .title-block
-            = render partial: "site/containers/article-row/#{style}", locals: { article: article }
+            = render partial: "site/containers/article-row/#{style}", locals: { article: article, feature: feature, index: i }
