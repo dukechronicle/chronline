@@ -25,6 +25,7 @@ class Post
         options = {
           alt: @image.caption,
           title: @image.caption,
+          src: @image.original.url(@style),
         }
         if @image.original.styles[@style].geometry =~ /(\d+)x(\d+)/
           options[:width] = $1
