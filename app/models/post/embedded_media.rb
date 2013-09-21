@@ -1,5 +1,6 @@
 require 'json'
 class Post
+  class EmbeddedMediaException < StandardError; end
   class EmbeddedMedia
 
     def initialize(body)
@@ -10,17 +11,11 @@ class Post
     def render
       tag_list = @body.scan(/{{([a-zA-Z]*):(\S*?)}}/)
       tags = tag_list.map do |tag, data|
-        case tag
-        when 'Image'
-          ImageTag.new(self, *data.split(','))
-        when 'Icon'
-          IconTag.new(self, *data.split(','))
-        when 'Youtube'
-          YoutubeTag.new(self, *data.split(','))
-        when 'Soundcloud'
-          SoundcloudTag.new(self, *data.split(','))
-        when 'Twitter'
-          TwitterTag.new(self, *data.split(','))
+        begin
+          "Post::EmbeddedMedia::#{tag}Tag".constantize.new(
+            self, *data.split(','))
+        rescue NameError
+          raise EmbeddedMediaException, "Invalid Tag: #{tag}"
         end
       end
 
