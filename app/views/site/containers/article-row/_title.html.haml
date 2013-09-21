@@ -1,3 +1,5 @@
 %h3.title= article.title
 %p.subtitle
   = display_date article
+- unless article.image
+  %p.teaser= article.teaser

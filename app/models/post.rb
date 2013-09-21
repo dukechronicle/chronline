@@ -32,7 +32,8 @@ class Post < ActiveRecord::Base
   def related(limit)
     search = Sunspot.more_like_this(self) do
       fields :title, :content
-      minimum_term_frequency 5
+      with(:date).greater_than(published_at - 1.week)
+      with(:date).less_than(published_at + 1.week)
       paginate per_page: limit
     end
     # HAX: Eager load authors
