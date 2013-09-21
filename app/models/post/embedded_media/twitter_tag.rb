@@ -14,7 +14,7 @@ class Post
       private
       def get_html(url)
         Rails.cache.fetch("twitter:#{url}") do
-          res = OEmbed::Providers::Twitter.get(url).html
+          OEmbed::Providers::Twitter.get(url).html
         end
       end
 

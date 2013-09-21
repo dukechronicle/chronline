@@ -1,3 +1,4 @@
+require 'uri'
 class Post
   class EmbeddedMedia
     class YoutubeTag < ActionView::Base
@@ -9,7 +10,8 @@ class Post
 
       def to_html(float: :right)
         content_tag(
-          :iframe, nil, frameborder: 0, allowfullscreen: 'yes',
+          :iframe, nil, frameborder: 0, allowfullscreen: true, width: 606,
+          height: 455,
           src: "//www.youtube.com/embed/#{@youtube_id}?showinfo=0&rel=0")
       end
     end
