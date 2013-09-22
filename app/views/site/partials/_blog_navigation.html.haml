@@ -1,0 +1,6 @@
+.nav-container
+  %nav.subnav
+    - @blog.categories.each do |tag|
+      %a.hover{href: site_blog_tagged_path(tag: tag)}
+        %h2= tag
+%h1= @blog.name

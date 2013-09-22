@@ -1,6 +1,6 @@
 - provide :title, @blog.name
 
 - content_for :title_block do
-  %h1= @blog.name
+  = render 'site/partials/blog_navigation'
 
 = render 'site/blog_posts/index'
