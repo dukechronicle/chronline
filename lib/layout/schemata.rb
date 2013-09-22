@@ -53,10 +53,7 @@ Layout.add_schema(:section_articles, {
 end
 
 Layout.add_schema(:rss, {'type' => 'string'}) do |feeds|
-  feeds.map do |feed_url|
-    feed = HTTParty.get(feed_url).body
-    RSS::Parser.parse(feed).items
-  end
+  [[]]
 end
 
 Layout.add_schema(:image, {
