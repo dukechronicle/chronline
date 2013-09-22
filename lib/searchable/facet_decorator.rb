@@ -32,11 +32,13 @@ module Searchable
   # the models.
   #
   class AssociationFacetDecorator < FacetDecorator
-    cattr_accessor :model, :model_method
+    class << self
+      attr_accessor :model, :model_method
+    end
 
     def self.wrap_rows(rows)
       ids = rows.map(&:value)
-      records = model.select([:id, model_method]).find(ids)
+      records = model.find(ids)
       id_map = Hash[records.map { |record| [record.id, record] }]
 
       rows.map do |row|
@@ -50,12 +52,12 @@ module Searchable
     end
 
     def name
-      record.send model_method
+      record.send self.class.model_method
     end
 
     private
     def record
-      @record ||= model.select(model_method).find(@row.value)
+      @record ||= model.find(@row.value)
     end
   end
 end
