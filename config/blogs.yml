@@ -13,6 +13,10 @@ bluezone:
   twitter_widgets:
     - 295248698340933632
     - 372912145349894144
+  categories:
+    - Football
+    - Recruiting
+    - Basketball
   section_id: 1002
 playground:
   name: Playground
