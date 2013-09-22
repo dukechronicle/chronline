@@ -1,6 +1,5 @@
 class Admin::ArticlesController < Admin::BaseController
-  include ::ArticlesController
-
+  include ::PostsController
   before_filter :redirect_article, only: :edit
 
 
