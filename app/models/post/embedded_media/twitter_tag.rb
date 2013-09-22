@@ -4,11 +4,11 @@ class Post
     class TwitterTag < ActionView::Base
 
       def initialize(_embedded_media, url)
-        @html = get_html(url)
+        @html = get_html(url).html_safe
       end
 
       def to_html(float: :right)
-        @html
+        content_tag :div, @html, class: 'embedded-tweet'
       end
 
       private
