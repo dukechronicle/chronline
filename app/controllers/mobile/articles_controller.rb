@@ -1,6 +1,5 @@
 class Mobile::ArticlesController < Mobile::BaseController
-  include ::ArticlesController
-
+  include ::PostsController
   before_filter :redirect_article, only: :show
 
 

@@ -1,4 +1,7 @@
 class Mobile::BlogPostsController < Mobile::BaseController
+  include ::PostsController
+  before_filter :redirect_blog_post, only: :show
+
 
   def index
     if params[:blog_id]
@@ -12,8 +15,9 @@ class Mobile::BlogPostsController < Mobile::BaseController
   end
 
   def show
-    @blog_post = Blog::Post.includes(:authors, :image).find(params[:id])
+    @blog_post = Blog::Post
+      .includes(:authors, image: :photographer)
+      .find(@blog_post)
     @blog = @blog_post.blog
   end
-
 end

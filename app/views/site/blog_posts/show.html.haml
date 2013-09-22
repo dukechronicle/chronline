@@ -34,6 +34,7 @@
 
       = render partial: 'site/blog_posts/tags', locals: {blog_post: @blog_post}
 
+  #recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @blog_post.related(4), feature: false, style: :title}
   #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
 
 %aside.span-4.last
