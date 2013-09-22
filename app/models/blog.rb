@@ -11,8 +11,8 @@ class Blog
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :name, :logo, :banner, :description, :section_id,
-    :twitter_widgets
+  attr_accessor :id, :banner, :categories, :description, :name, :logo,
+    :section_id, :twitter_widgets
 
   def initialize(attributes={})
     attributes.each do |attr, value|
@@ -35,6 +35,10 @@ class Blog
 
   def twitter_widgets
     @twitter_widgets ||= []
+  end
+
+  def categories
+    @categories ||= []
   end
 
   def ==(other)
