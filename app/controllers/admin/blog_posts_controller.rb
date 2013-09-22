@@ -1,4 +1,7 @@
 class Admin::BlogPostsController < Admin::BaseController
+  include ::PostsController
+  before_filter :redirect_blog_post, only: :edit
+
 
   def index
     if params[:blog_id]

@@ -1,6 +1,5 @@
 class Site::ArticlesController < Site::BaseController
-  include ::ArticlesController
-
+  include ::PostsController
   before_filter :redirect_article, only: [:show, :print]
 
 
@@ -28,9 +27,9 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    if !@article.published? and !user_signed_in?
-      return not_found
-    end
+    @article = Article
+      .includes(:authors, :slugs, image: :photographer)
+      .find(@article)
     @article.register_view
     @taxonomy = @article.section
   end

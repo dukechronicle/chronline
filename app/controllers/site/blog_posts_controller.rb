@@ -1,4 +1,7 @@
 class Site::BlogPostsController < Site::BaseController
+  include ::PostsController
+  before_filter :redirect_blog_post, only: :show
+
 
   def index
     if params[:blog_id]
@@ -15,7 +18,9 @@ class Site::BlogPostsController < Site::BaseController
   end
 
   def show
-    @blog_post = Blog::Post.includes(:authors, :image).find(params[:id])
+    @blog_post = Blog::Post
+      .includes(:authors, image: :photographer)
+      .find(@blog_post)
     @blog = @blog_post.blog
   end
 
@@ -27,5 +32,4 @@ class Site::BlogPostsController < Site::BaseController
       .order('published_at DESC')
       .page(params[:page])
   end
-
 end
