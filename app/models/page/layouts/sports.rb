@@ -20,21 +20,10 @@ class Page::Layouts::Sports < Layout
           }
         }
       },
-      'blog' => {
-        'label' => 'Blog',
-        'type' => 'object',
-        'properties' => {
-          'url' => {
-            'label' => 'URL',
-            'type' => 'string',
-            'required' => true,
-          },
-          'feed' => {
-            'label' => 'RSS Feed',
-            'extends' => rss_schema,
-            'required' => true,
-          }
-        }
+      'twitter_widget' => {
+        'label' => 'Twitter Widget ID',
+        'type' => 'string',
+        'required' => true,
       },
       'multimedia' => {
         'label' => 'Embedded Multimedia',
