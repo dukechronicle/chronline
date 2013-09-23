@@ -6,7 +6,9 @@ class Admin::BlogPostsController < Admin::BaseController
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
-      @blog_posts = @blog.posts.page(params[:page])
+      @blog_posts = @blog.posts
+        .order('published_at IS NOT NULL, published_at DESC')
+        .paginate(page: params[:page], per_page: 25)
     end
   end
 
