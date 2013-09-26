@@ -27,7 +27,7 @@ class Post
           title: @image.caption,
           src: @image.original.url(@style),
         }
-        if @image.original.styles[@style].geometry =~ /(\d+)x(\d+)/
+        if @image.original.styles[@style.to_sym].geometry =~ /(\d+)x(\d+)/
           options[:width] = $1
           options[:height] = $2
         end
