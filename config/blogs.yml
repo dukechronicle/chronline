@@ -19,6 +19,7 @@ bluezone:
     - "Women's Basketball"
     - Recruiting
   section_id: 1002
+  taxonomy_parent: [Sports]
 playground:
   name: Playground
   logo: blogs/playground-logo.jpg
