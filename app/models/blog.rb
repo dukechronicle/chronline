@@ -12,7 +12,7 @@ class Blog
   private_class_method :new
 
   attr_accessor :id, :banner, :categories, :description, :name, :logo,
-    :section_id, :twitter_widgets
+    :section_id, :twitter_widgets, :taxonomy_parent
 
   def initialize(attributes={})
     attributes.each do |attr, value|
@@ -41,6 +41,10 @@ class Blog
     @categories ||= []
   end
 
+  def taxonomy_parent
+    Taxonomy.new(@taxonomy_parent)
+  end
+
   def ==(other)
     other.is_a? Blog and self.id == other.id
   end
@@ -63,6 +67,11 @@ class Blog
 
   def self.each(&block)
     self.all.each(&block)
+  end
+
+  # TODO: Create find_by_<attr> methods using method_missing
+  def self.find_by_taxonomy_parent(taxonomy)
+    self.all.find { |blog| blog.taxonomy_parent == taxonomy }
   end
 
   def self.nodes

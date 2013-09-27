@@ -1,5 +1,8 @@
 .nav-container
   %nav.subnav
+    - if (blog = Blog.find_by_taxonomy_parent(@taxonomy))
+      %a.hover{href: site_blog_posts_path(blog)}
+        %h2= blog.name
     - @taxonomy.children.each do |subsection|
       %a.hover{href: section_path(subsection)}
         %h2= subsection.name
