@@ -1,0 +1,9 @@
+= form_for admin_config_path, url: admin_config_path, method: :put, html: {class: 'form-horizontal'} do |f|
+  %legend Configuration
+  .form-inputs
+    .control-group
+      %label.control-label{for: 'issuu'} Issuu Embed
+      .controls
+        = text_area_tag :issuu, @issuu, class: 'input-xxlarge'
+  .form-actions
+    = f.submit 'Send', class: 'btn btn-large btn-primary'
