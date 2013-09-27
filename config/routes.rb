@@ -111,6 +111,8 @@ Chronline::Application.routes.draw do
           id: Post::SLUG_PATTERN
       end
 
+      resource :config, only: [:show, :update]
+
       authenticate :user do
         mount Resque::Server.new, at: '/resque'
       end
