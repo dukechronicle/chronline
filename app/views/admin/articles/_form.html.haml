@@ -9,6 +9,7 @@
     = f.input :teaser, as: :text, input_html: {rows: 3, class: 'input-xxlarge'}
     = f.input :body, input_html: {rows: 5, class: 'wysiwyg'}
     = f.association :image, as: :image_picker
+    = f.input :embed_code, label: "Video URL (only youtube)"
     = f.input :published_at, as: :boolean, label: 'Publish', disabled: @article.published?
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
