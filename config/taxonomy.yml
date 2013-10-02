@@ -174,3 +174,21 @@
       id: 78
     - name: "Editor's Note"
       id: 79
+- name: Blogs
+  id: 1000
+  children:
+    - name: Bluezone
+      id: 1001
+      children:
+        - name: Football
+          id: 1004
+        - name: "Men's Baskeball"
+          id: 1005
+        - name: "Women's Basketball"
+          id: 1006
+        - name: Recruiting
+          id: 1007
+    - name: Bigblog
+      id: 1002
+    - name: Playground
+      id: 1003

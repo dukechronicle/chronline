@@ -118,6 +118,10 @@ class Taxonomy
     list_nodes({ 'children' => Taxonomy::Tree })
   end
 
+  def self.[](*taxonomy)
+    self.new(taxonomy)
+  end
+
   private
   def find_taxonomy_node(taxonomy)
     root = {'children' => Taxonomy::Tree}
