@@ -9,7 +9,7 @@ Chronline::Application.routes.draw do
 
       get 'search' => 'articles#search'
 
-      resource :galleries, only: [:index, :show]
+      resources :galleries, only: [:index, :show]
 
       resource :newsletter, only: :show do
         post 'subscribe'
