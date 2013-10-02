@@ -31,26 +31,26 @@ class PhotoshelterAPI
     path = "/gallery/query"
 
     json = get_session_response path
-    galleries = json["data"]["gallery"]
+    json["data"]["gallery"]
   end
 
   def get_gallery_images(gallery_id)
     path = "/gallery/#{gallery_id}/images"
 
     json = get_session_response path
-    images = json["data"]["images"]
+    json["data"]["images"]
   end
 
   def get_image_info(image_id)
     path = "/image/#{image_id}/iptc"
 
     json = get_session_response path
-    image_info = json["data"]
+    json["data"]
   end
 
   def logout
     path = "/authenticate/logout"
-    json = get_session_response path
+    get_session_response path
   end
 
 
