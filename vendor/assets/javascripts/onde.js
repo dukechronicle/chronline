@@ -145,13 +145,16 @@ onde.Onde.prototype.render = function (schema, data, opts) {
             arrays.children('li').each(function () {
                 var pid = $(this).parent().attr('id').replace('fieldvalue-', '');
                 var idx = $(this).index() + 1;
-                console.log($(this)[0]);
-                console.log($(this).index());
+
                 $(this).attr('id', 'field-' + pid + '_' + idx);
-                $(this).find('label').attr('for', 'fieldvalue-' + pid + '_' + idx);
-                $(this).find('input').attr('id', 'fieldvalue-' + pid + '_' + idx);
-                $(this).find('input').attr('name', pid.replace(/-/g, '.') + '[' + idx + ']');
-                $(this).find('button').attr('data-id', 'field-' + pid + '_' + idx);
+                $(this).children('label').attr('for', 'fieldvalue-' + pid + '_' + idx);
+
+                $input = $(this).find('> span > input');
+                $input.attr('id', 'fieldvalue-' + pid + '_' + idx);
+                $input.attr('name', pid.replace(/-/g, '.') + '[' + idx + ']');
+
+                $button = $(this).find('> small > button');
+                $button.attr('data-id', 'field-' + pid + '_' + idx);
             });
         },
     });

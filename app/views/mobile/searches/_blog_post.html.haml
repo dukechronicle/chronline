@@ -1,0 +1,5 @@
+%a{href: mobile_blog_post_path(blog_post.blog, blog_post)}
+  - if blog_post.image
+    = cropped_image_tag blog_post.image, :square_80x
+  %h2= blog_post.title
+  %p #{byline(blog_post)} | #{display_date(blog_post)}

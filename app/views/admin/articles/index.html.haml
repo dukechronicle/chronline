@@ -16,14 +16,10 @@
   - @articles.each do |article|
     %tr{id: "article_#{article.id}"}
       %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      - if article.published?
+      - if article.published_at
         %td= article.published_at.strftime('%-m-%-d-%Y')
       - else
-        %td Not published
-      %td
-        = link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
-        = link_to "Delete", [:admin, article], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
-        - if article.published_at.nil?
-          = link_to "Publish", [:publish, :admin, article], method: :post, class: 'btn btn-mini btn-info'
+        %td Not scheduled
+      %td= link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
 
 = will_paginate

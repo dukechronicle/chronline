@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
+ruby '2.0.0'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.14'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,14 +10,15 @@ group :production do
   gem 'le'
   gem 'pg'
   gem 'redis-rails'
-  gem 'thin'
   gem 'newrelic_rpm'
+  gem 'asset_sync'
+  gem 'unicorn'
 end
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
-  gem 'rspec-rails', '2.11.0'
-  gem 'rb-readline'
+  gem 'sqlite3', '~> 1.3.7'
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
   gem 'sunspot_solr'
   gem 'guard-rspec'
@@ -29,52 +30,54 @@ group :development do
   gem 'pry-doc'
   gem 'progress_bar'
   gem 'guard-spork'
-  gem 'meta_request', '0.2.1'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails',   '~> 3.2.6'
+  gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
-  gem 'asset_sync'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '~> 2.1.2'
 end
 
-gem 'active_attr'
 gem 'acts-as-taggable-on'
 gem 'aws-sdk'
 gem 'bootstrap-will_paginate'
 gem 'browser'
 gem 'default_value_for'
-gem 'devise', '2.1.2'  # https://github.com/scambra/devise_invitable/issues/265
+gem 'delayed_paperclip'
+gem 'devise', '~> 2.2.4'
 gem 'devise_invitable'
+gem 'feedzirra', '~> 0.2.0.rc2'
+gem 'fog'
 gem 'friendly_id'
-gem 'gibbon'
+gem 'gibbon', '~> 1.0.0'
 gem 'haml'
 gem 'hiredis'
+gem 'htmlentities'
 gem 'httparty'
+gem 'image_optim_bin'
 gem 'jquery-rails'
-gem 'json-schema'
+gem 'json-schema', '~> 1.1.1'
+gem 'nokogiri'
 gem 'paperclip'
+gem 'paperclip-optimizer'
+gem 'promise'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'rails_config'
 gem 'rdiscount'
-gem 'require_all'
 gem 'redis'
-gem 'simple_form'
-gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
-gem 'sunspot_rails', '2.0.0.pre.130115'
-gem 'will_paginate'
-gem 'sitemap_generator'
-gem 'carrierwave'
-gem 'fog'
+gem 'require_all'  # Used by old page implementation
+gem 'resque', '~> 1.22.0'
 gem 'rmagick'
+gem 'ruby-oembed'
+gem 'simple_form'
+gem 'sitemap_generator'
+gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
+gem 'sunspot_rails', '~> 2.0.0'
+gem 'tinymce-rails', '~> 4.0.2'
+gem 'will_paginate'
 
 group :test do
   gem 'capybara'

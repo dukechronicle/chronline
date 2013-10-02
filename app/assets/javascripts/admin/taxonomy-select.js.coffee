@@ -1,3 +1,5 @@
+#= require jquery.chained.js
+
 initialize 'select.taxonomy', ->
   $selects = $(this)
   $selects.each (i) ->

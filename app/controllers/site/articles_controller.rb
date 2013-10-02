@@ -1,8 +1,6 @@
 class Site::ArticlesController < Site::BaseController
-  include ::ArticlesController
-
-  before_filter :redirect_and_register_view, only: [:show, :print]
-  caches_action :show, layout: false
+  include ::PostsController
+  before_filter :redirect_article, only: [:show, :print]
 
 
   def index
@@ -18,7 +16,8 @@ class Site::ArticlesController < Site::BaseController
       nil
     end
 
-    @articles = Article.includes(:authors, :image)
+    @articles = Article
+      .includes(:authors, :image)
       .published.section(@taxonomy)
       .order('published_at DESC')
       .page(params[:page])
@@ -28,19 +27,17 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    if !@article.published? and !user_signed_in?
-      return not_found
-    end
+    @article = Article
+      .includes(:authors, :slugs, image: :photographer)
+      .find(@article)
+    @article.register_view
+    @taxonomy = @article.section
   end
 
   def print
+    @article = Article.includes(:authors, image: :photographer).find(@article)
+    @article.register_view
     render 'print', layout: 'print'
-  end
-
-  def search
-    params[:article_search] ||= {}
-    params[:article_search][:include] = :authors
-    super
   end
 
 end

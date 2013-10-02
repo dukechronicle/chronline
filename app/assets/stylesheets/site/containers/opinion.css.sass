@@ -1,32 +1,10 @@
-@import "compass/layout/stretching"
-
-
 .columns
   img.headshot
-    width: 70px
     float: right
     margin-left: 5px
     +border-radius($corner-radius)
 
 .author-box
-  position: relative
-
-  .author-list
-    width: 150px
-    min-height: 300px !important
-    .name
-      font-size: 1.1em
-      line-height: 1.3em
-
-  .authors
-    +stretch-y
-    margin-bottom: 0px
-    left: 150px
-    width: 324px
-
-  .author
-    display: none
-
   .author-info
     +clearfix
     border-bottom: 1px solid #DDD
@@ -34,6 +12,5 @@
     margin-bottom: 10px
 
     img.headshot
-      width: 100px
       float: right
       +border-radius($corner-radius)

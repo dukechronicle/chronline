@@ -2,17 +2,26 @@
   %legend= yield :form_title
   = f.error_notification
   .form-inputs
-    = f.input :title
+    = f.input :title, disabled: true
     = f.input :subtitle
-    = f.input :section, as: :taxonomy, input_html: {class: 'input-medium'}
+
+    .control-group
+      %label.control-label Section
+      .controls
+        = text_field_tag :section, @article.section.to_a.join(', '), disabled: true, class: 'input-xxlarge'
+
     = f.association :authors, as: :text_list, value_method: :name, input_html: {class: 'staff-picker', autocomplete: 'off'}
-    = f.input :teaser, as: :text, input_html: {rows: 3, class: 'input-xxlarge'}
-    = f.input :body, input_html: {rows: 5, class: 'wysiwyg'}
-    = f.association :image, as: :image_picker
-    = f.input :published_at, as: :boolean, label: 'Publish', disabled: @article.published?
+    = f.input :teaser, as: :text, disabled: true, input_html: {rows: 3, class: 'input-xxlarge'}
+    = f.input :body, disabled: true, input_html: {rows: 5, class: 'input-xxlarge'}
+
+    .control-group
+      %label.control-label Image
+      .controls
+        - if @article.image
+          = cropped_image_tag @article.image, :rectangle_378x
+
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
-    - if not @article.new_record?
-      = link_to "Delete Article", [:admin, @article], method: :delete, confirm: "Are you sure?", class: 'btn btn-large btn-danger'
 
-%script#image-select-template{type: 'text/template'}= render 'admin/templates/image-select'
+- content_for :scripts do
+  = tinymce_assets

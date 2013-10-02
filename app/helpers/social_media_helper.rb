@@ -1,8 +1,8 @@
 module SocialMediaHelper
 
-  def facebook_recommend_post(postable, options={})
+  def facebook_recommend_post(post, options={})
     defaults = {
-      href: site_article_url(postable, protocol: 'http'),
+      href: permanent_post_url(post),
       send: "false",
       layout: "button_count",
       width: "130",
@@ -13,20 +13,24 @@ module SocialMediaHelper
     content_tag :div, nil, class: 'fb-like', data: defaults.merge(options)
   end
 
-  def twitter_share_post(postable, options={})
+  def twitter_share_post(post, options={})
     defaults = {
       via: "dukechronicle",
-      url: permanent_post_url(postable)
+      url: permanent_post_url(post)
     }
-    link_to("Tweet", "https://twitter.com/share", class: 'twitter-share-button',
-            data: defaults.merge(options))
+    link_to(
+      "Tweet",
+      "https://twitter.com/share",
+      class: 'twitter-share-button',
+      data: defaults.merge(options)
+    )
   end
 
-  def google_plusone_post(postable, options={})
+  def google_plusone_post(post, options={})
     defaults = {
       size: "medium",
       annotation: "bubble",
-      href: permanent_post_url(postable)
+      href: permanent_post_url(post)
     }
     content_tag :div, nil, class: 'g-plusone', data: defaults.merge(options)
   end

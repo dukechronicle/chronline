@@ -4,15 +4,15 @@ class Blog
   extend ActiveModel::Naming
 
   # Must initialize Blog::Data here so that it is present on reload
-  File.open(File.join(Rails.root, "config", "blogs.yml")) do |file|
+  File.open(Rails.root.join('config', 'blogs.yml')) do |file|
     Blog::Data = YAML.load(file)
   end
 
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :name, :image, :description
-
+  attr_accessor :id, :banner, :categories, :description, :name, :logo,
+    :section_id, :twitter_widgets
 
   def initialize(attributes={})
     attributes.each do |attr, value|
@@ -26,11 +26,19 @@ class Blog
   end
 
   def posts
-    Blog::Post.where(blog: id)
+    Blog::Post.where(section: "/blog/#{id}/")
   end
 
   def to_param
     id
+  end
+
+  def twitter_widgets
+    @twitter_widgets ||= []
+  end
+
+  def categories
+    @categories ||= []
   end
 
   def ==(other)
@@ -38,19 +46,50 @@ class Blog
   end
 
   def self.find(id)
-    if Blog::Data[id]
-      attributes = Hash[Blog::Data[id]]
-      attributes['id'] = id
-      self.send(:new, attributes)
+    if id.is_a? Array
+      ids = id
+      ids.map { |id| lookup(id) }.compact
+    else
+      blog = lookup(id)
+      # TODO: not an ActiveRecord error?
+      raise ActiveRecord::RecordNotFound.new if blog.nil?
+      blog
     end
   end
 
   def self.all
-    Blog::Data.map {|key, _| self.find(key)}
+    self.find(Blog::Data.keys)
   end
 
   def self.each(&block)
     self.all.each(&block)
   end
 
+  def self.nodes
+    blog_root = {
+      id: 1000,
+      name: 'Blog',
+      taxonomy: 'sections',
+      parent_id: nil,
+    }
+    nodes = self.all.map do |blog|
+      {
+        id: blog.section_id,
+        name: blog.id.titlecase,
+        taxonomy: 'sections',
+        parent_id: blog_root[:id],
+      }
+    end
+    nodes.insert(0, blog_root)
+    nodes
+  end
+
+  private
+  def self.lookup(id)
+    if Blog::Data[id]
+      attributes = Hash[Blog::Data[id]]
+      attributes['id'] = id
+      self.send(:new, attributes)
+    end
+  end
 end

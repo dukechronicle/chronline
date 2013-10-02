@@ -15,7 +15,7 @@ Layout.add_schema(:article, {
                     "required" => true,
                     "model" => true,
                   }) do |article_ids|
-  Article.includes(:authors, :image).find_in_order(article_ids)
+  Post.includes(:authors, :image).find_in_order(article_ids)
 end
 
 Layout.add_schema(:page, {"type" => "integer"}) do |page_ids|
@@ -48,15 +48,12 @@ Layout.add_schema(:section_articles, {
                   }) do |sections|
   sections.map do |section|
     # TODO: Magic number
-    Article.limit(4).order('published_at DESC').section(section)
+    Article.limit(4).published.order('published_at DESC').section(section)
   end
 end
 
 Layout.add_schema(:rss, {'type' => 'string'}) do |feeds|
-  feeds.map do |feed_url|
-    feed = HTTParty.get(feed_url).body
-    RSS::Parser.parse(feed).items
-  end
+  [[]]
 end
 
 Layout.add_schema(:image, {
@@ -64,4 +61,11 @@ Layout.add_schema(:image, {
                     "display" => "image-picker"
                   }) do |image_ids|
   Image.includes(:photographer).find_in_order(image_ids)
+end
+
+Layout.add_schema(:datetime, {
+                    'type' => 'string',
+#                    'format' => 'date-time',
+                  }) do |datetimes|
+  datetimes.map { |str| DateTime.iso8601(str) }
 end

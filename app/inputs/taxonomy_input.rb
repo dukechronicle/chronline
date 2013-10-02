@@ -16,7 +16,6 @@ class TaxonomyInput < SimpleForm::Inputs::Base
 
 
   private
-
   def level_options(level)
     [['--', nil]] + Taxonomy.levels[level].map do |t|
       [t.name, {class: t.parent.name}]

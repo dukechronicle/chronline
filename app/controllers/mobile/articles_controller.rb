@@ -1,7 +1,6 @@
 class Mobile::ArticlesController < Mobile::BaseController
-  include ::ArticlesController
-
-  before_filter :redirect_and_register_view, only: :show
+  include ::PostsController
+  before_filter :redirect_article, only: :show
 
 
   def index
@@ -19,6 +18,10 @@ class Mobile::ArticlesController < Mobile::BaseController
   end
 
   def show
+    @article = Article
+      .includes(:authors, :slugs, image: :photographer)
+      .find(@article)
+    @article.register_view
   end
 
   def search
@@ -26,5 +29,4 @@ class Mobile::ArticlesController < Mobile::BaseController
     params[:article_search][:include] = [:authors, :image]
     super
   end
-
 end

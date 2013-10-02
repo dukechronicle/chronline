@@ -1,27 +1,32 @@
 - provide :title, @blog_post.title
+- provide :description, @blog_post.teaser
 
 - content_for :title_block do
   %h1= link_to @blog.name, site_blog_posts_path(@blog)
 
 - content_for :head do
+  - if @blog_post.block_bots
+    %meta{name: 'robots', content: 'noindex'}
   %link{rel: "canonical", href: site_blog_post_url(@blog, @blog_post, subdomain: :www)}
 
+- unless @blog_post.published?
+  = render 'site/partials/admin-notification'
 
 .span-8
   .rounded
+    .image-container
+      = image_tag @blog.banner, class: 'blog-banner'
+  .rounded
     %article.article-container.blog-post
-      %h3.blog-name= @blog.name
       %h1.title= @blog_post.title
 
       %p.byline
-        %span.author
-          By
-          = link_to @blog_post.author.name, site_staff_path(@blog_post.author)
+        %span.author By #{byline(@blog_post, link: true)}
         %span.sep= "|"
         = display_date(@blog_post)
 
       - if @blog_post.image
-        = render partial: 'partials/main-image', locals: {image: @blog_post.image}
+        = render partial: 'partials/main-image', locals: {image: @blog_post.image, banner: true}
 
       .article-body
         = render partial: 'site/partials/share-box', locals: {postable: @blog_post, except: [:print, :email]}
@@ -29,8 +34,13 @@
 
       = render partial: 'site/blog_posts/tags', locals: {blog_post: @blog_post}
 
+  #recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @blog_post.related(4), feature: false, style: :title}
   #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
 
 %aside.span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
   = render partial: 'site/partials/blog-info', locals: {blog: @blog}
+  - @blog.twitter_widgets.each do |widget_id|
+    = render partial: 'site/partials/twitter-timeline', locals: {widget_id: widget_id}
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}

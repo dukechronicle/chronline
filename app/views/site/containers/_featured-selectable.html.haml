@@ -1,0 +1,21 @@
+.featured-selectable.clearfix
+  .block.block-featured
+    .rounded.slides
+      - posts.each_with_index do |data, index|
+        - post = data['article']
+        %a.slide.hover.highlight-bottom{href: site_post_path(post), style: ('display:none;' if index > 0)}
+          .image-container
+            - if data['video'].present?
+              != data['video']
+            - else
+              = cropped_image_tag post.image, :rectangle_636x
+          .content-container
+            %h3.title= data['headline'].blank? ? post.title : data['headline']
+            %p.teaser= post.teaser
+  .thumbnails
+    - posts[0...4].each_with_index do |data, index|
+      - post = data['article']
+      .rounded.selector
+        %a.hover.highlight-bottom{href: site_post_path(post), data: {index: index}}
+          .image-container
+            = cropped_image_tag post.image, :rectangle_152x

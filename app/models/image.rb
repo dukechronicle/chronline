@@ -18,22 +18,33 @@
 require_dependency 'staff'
 
 class Image < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
 
-  File.open(File.join("app", "models", "image", "styles.yml")) do |file|
+  File.open(Rails.root.join("config", "image_styles.yml")) do |file|
     Image::Styles = YAML::load(file)
   end
 
   def self.styles
-    styles = Image::Styles.map do |type, info|
-      [type.underscore.to_sym, "#{info['width']}x#{info['height']}#"]
+    sizes = []
+    Image::Styles.each do |type, info|
+      sizes << [type, info['width'], info['height']]
+      info['sizes'].each do |width|
+        height = (width * info['height'] / info['width'].to_f).round
+        sizes << [type, width, height]
+      end
+    end
+    styles = sizes.map do |type, width, height|
+      ["#{type}_#{width}x".to_sym, "#{width}x#{height}#"]
     end
     Hash[styles]
   end
 
-  attr_accessible :attribution, :caption, :date, :location, :original, :credit
-  attr_accessor :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
-  has_attached_file :original, styles: self.styles, processors: [:cropper]
+  attr_accessible :attribution, :caption, :date, :location, :original, :credit,
+    :photographer_id
+  # Used in crop! method
+  attr_reader :crop_style, :crop_x, :crop_y, :crop_w, :crop_h
+  has_attached_file :original, styles: self.styles,
+    processors: [:cropper, :paperclip_optimizer]
+  process_in_background :original
 
   default_value_for(:date) { Date.today }
 
@@ -47,15 +58,17 @@ class Image < ActiveRecord::Base
 
   self.per_page = 30
 
-  def to_jq_upload
-    [{
-      name: original_file_name,
-      size: original_file_size,
-      url: edit_admin_image_path(self),
-      thumbnail_url: original.url(:thumb_rect),
-      delete_url: admin_image_path(self),
-      delete_type: 'DELETE',
-     }]
+  def crop!(style, x, y, w, h)
+    @crop_style, @crop_x, @crop_y, @crop_w, @crop_h = style, x, y, w, h
+    reprocess_style!(style)
+  end
+
+  def reprocess_style!(style)
+    info = Image::Styles[style]
+    styles = ([info['width']] + info['sizes']).map do |width|
+      "#{style}_#{width}x"
+    end
+    original.reprocess_without_delay!(*styles)
   end
 
   ###
@@ -63,7 +76,7 @@ class Image < ActiveRecord::Base
   ###
 
   def thumbnail_url
-    original.url(:thumb_rect)
+    original.url(:rectangle_183x)
   end
 
 end

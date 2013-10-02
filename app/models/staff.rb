@@ -23,14 +23,28 @@ class Staff < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   has_many :images, foreign_key: :photographer_id
-  has_many :blog_posts, foreign_key: :author_id, class_name: "Blog::Post"
   belongs_to :headshot, class_name: "Image"
-  has_and_belongs_to_many :articles, join_table: :articles_authors
+  has_and_belongs_to_many :articles, join_table: :posts_authors,
+    association_foreign_key: :post_id
+  has_and_belongs_to_many :blog_posts, join_table: :posts_authors,
+    association_foreign_key: :post_id, class_name: 'Blog::Post'
 
   validates :name, presence: true, uniqueness: true
 
-  scope :search, ->(name) { where('name LIKE ?', "#{name}%") }
+  scope :search, ->(prefix) { where('name LIKE ?', "#{prefix}%") }
+  scope :columnist, ->(bool) { where(columnist: (bool ? true : [false, nil])) }
 
+  self.per_page = 25
+
+  ###
+  # Query scope for staff records who are photographers
+  #
+  def self.photographer(bool)
+    self
+      .joins('LEFT OUTER JOIN images ON staff.id = images.photographer_id')
+      .group('staff.id')
+      .having("COUNT(images.id) #{bool ? '>' : '='} 0")
+  end
 
   def author?
     articles.present?
