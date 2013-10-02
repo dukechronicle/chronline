@@ -3,7 +3,12 @@ SitemapGenerator::Sitemap.sitemaps_host = "http://#{Settings.aws.bucket}.s3.amaz
 SitemapGenerator::Sitemap.public_path = "tmp/"
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/site"
 SitemapGenerator::Sitemap.create_index = true
-SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
+  fog_provider: 'AWS',
+  fog_directory: Settings.aws.bucket,
+  aws_access_key_id: Settings.aws.access_key_id,
+  aws_secret_access_key: Settings.aws.secret_access_key,
+)
 
 
 SitemapGenerator::Sitemap.create do
@@ -27,11 +32,15 @@ SitemapGenerator::Sitemap.create do
   end
 
   # Article URLs
-  Article.includes(:image).find_each do |article|
+  articles = Article
+    .published
+    .where(block_bots: false)
+    .includes(:image)
+  articles.find_each do |article|
     images =
       if article.image
         [{
-        loc: article.image.original.url(:large_rect),
+        loc: article.image.original.url(:rectangle_636x),
         caption: article.image.caption,
          }]
       else
@@ -50,7 +59,7 @@ SitemapGenerator::Sitemap.create do
   Staff.includes(:headshot).find_each do |staff|
     images =
       if staff.headshot
-        [{loc: staff.headshot.original.url(:thumb_square_m)}]
+        [{loc: staff.headshot.original.url(:square_200x)}]
       else
         []
       end

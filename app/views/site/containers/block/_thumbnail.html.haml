@@ -1,8 +1,8 @@
 .block.block-thumbnail
   .rounded
-    %a.hover.highlight-right{href: site_article_path(article)}
+    %a.hover.highlight-right{href: site_post_path(article)}
       .content-container
         %h4.title= article.title
         - if article.image
-          = image_tag article.image.original.url(:thumb_square_s)
+          = cropped_image_tag article.image, :square_70x
         %p.teaser= article.teaser

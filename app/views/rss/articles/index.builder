@@ -22,7 +22,7 @@ xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
         xml.pubDate article.published_at.rfc822
         xml.comments site_article_url(article, subdomain: 'www') + '#disqus_thread'
         if article.image
-          xml.enclosure(url: article.image.original.url(:large_rect),
+          xml.enclosure(url: article.image.original.url(:rectangle_636x),
                         length: article.image.original_file_size,
                         type: article.image.original_content_type)
         end

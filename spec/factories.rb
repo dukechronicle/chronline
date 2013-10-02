@@ -8,8 +8,8 @@ FactoryGirl.define do
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
-    authors { [Staff.find_or_create_by_name(Faker::Name.name)] }
-    published_at 1.day.ago
+    authors { [FactoryGirl.create(:staff)] }
+    published_at Date.new(2008, 9, 30)
   end
 
   factory :staff do
@@ -19,6 +19,12 @@ FactoryGirl.define do
     twitter "pokefan"
     columnist false
     biography "The best Pokemon trainer ever."
+
+    factory :photographer do
+      after(:create) do |staff|
+        FactoryGirl.create(:image, photographer: staff)
+      end
+    end
   end
 
   factory :image do
@@ -32,7 +38,14 @@ FactoryGirl.define do
   factory :blog_post, class: Blog::Post do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
-    blog "bluezone"
-    association :author, factory: :staff
+    blog "pokedex"
+    authors { [FactoryGirl.create(:staff)] }
+  end
+
+  factory :user do
+    first_name "Ash"
+    last_name "Ketchum"
+    email "ash@ketch.um"
+    password "charizard"
   end
 end

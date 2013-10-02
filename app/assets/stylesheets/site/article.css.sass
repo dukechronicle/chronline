@@ -1,9 +1,16 @@
 .article-body
   +pie-clearfix
 
+  h4, h5
+    font-weight: bold
+    margin-bottom: 0.5em
+    [class^="icon-"], [class*=" icon-"]
+      vertical-align: baseline
+
   .share-box
     float: right
     margin-left: 10px
+    min-width: 145px
 
     .comment-link, .print-link, .email-link
       position: relative
@@ -40,7 +47,6 @@
     font-style: italic
 
   .main-image
-    width: 100%
     +border-radius($corner-radius)
 
   .photo-credit
@@ -60,6 +66,11 @@
     font-size: 1.2em
     line-height: 1.6em
     color: $dark-text
+    img
+      max-width: 100%
+
+  .lead-letter
+    font-size: 2em
 
 #disqus_thread
   padding: 1.5em 1.5em 0

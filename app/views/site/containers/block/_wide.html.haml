@@ -5,10 +5,10 @@
 .block.block-wide
   %h2.vertical-label= title
   .rounded
-    %a.hover.highlight-bottom{href: site_article_path(article)}
+    %a.hover.highlight-bottom{href: site_post_path(article)}
       - if article.image and show_image
         .image-container
-          = image_tag article.image.original.url(:thumb_wide)
+          = cropped_image_tag article.image, :banner_216x
       .content-container
         %h3.title= article.title
         %p.teaser= article.teaser

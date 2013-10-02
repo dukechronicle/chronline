@@ -2,7 +2,6 @@
   +border-radius($corner-radius)
   +black-box-shadow($default-box-shadow-opacity, 0px, 1px, 3px)
   background-color: white
-  +background-with-css2-fallback(linear-gradient(bottom, whiteSmoke 0%, white 33%))
   margin-bottom: $rounded-vertical-spacing
 
   .highlight-left
@@ -18,9 +17,8 @@
   +box-sizing(border-box)
 
   img
-    +border-radius($corner-radius)
     display: block
-    width: 100%
+    +border-radius($corner-radius)
 
   .photo-credit
     float: right

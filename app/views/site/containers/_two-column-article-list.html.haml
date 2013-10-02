@@ -4,14 +4,14 @@
     .top
       .span-4.content-container
         - articles['left'].each do |article|
-          %a.hover.highlight-left.teaser{href: site_article_path(article)}
+          %a.hover.highlight-left.teaser{href: site_post_path(article)}
             %h4= article.title
             = render partial: 'site/articles/subtitle', locals: {article: article}
             %p= article.teaser
 
       .span-4.content-container.last
         - articles['right'].each do |article|
-          %a.hover.highlight-right.teaser{href: site_article_path(article)}
+          %a.hover.highlight-right.teaser{href: site_post_path(article)}
             %h4= article.title
             = render partial: 'site/articles/subtitle', locals: {article: article}
             %p= article.teaser

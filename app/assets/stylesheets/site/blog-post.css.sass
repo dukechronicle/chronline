@@ -4,6 +4,9 @@
   .title
     margin-bottom: 0px
 
+  .main-image
+    margin-bottom: 1em
+
   .tags-row
     margin-top: 15px
     padding-top: 10px
@@ -15,6 +18,11 @@
       list-style-type: none
       li
         display: inline
+        a
+          color: $light-text
+          +single-transition(color, .25s, linear)
+        a:hover
+          color: $link-color
       li:after
         content: "\2022"
         padding: 0px 2px 0px 4px

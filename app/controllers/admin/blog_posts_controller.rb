@@ -1,9 +1,14 @@
 class Admin::BlogPostsController < Admin::BaseController
+  include ::PostsController
+  before_filter :redirect_blog_post, only: :edit
+
 
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
-      @blog_posts = Blog::Post.where(blog: @blog.id).page(params[:page])
+      @blog_posts = @blog.posts
+        .order('published_at IS NOT NULL, published_at DESC')
+        .paginate(page: params[:page], per_page: 25)
     end
   end
 
@@ -42,14 +47,11 @@ class Admin::BlogPostsController < Admin::BaseController
 
 
   private
-
   def update_blog_post(blog_post)
-    # Last element of taxonomy array may be an empty string
-    author_name = params[:blog_post].delete(:author_id)
+    author_names = params[:blog_post].delete(:author_ids).reject { |s| s.blank? }
     blog_post.assign_attributes(params[:blog_post])
-    unless author_name.blank?
-      blog_post.author = Staff.find_or_create_by_name(author_name)
-    end
+    blog_post.authors = Staff.find_or_create_all_by_name(author_names)
+    blog_post.assign_attributes(params[:blog_post])
     blog_post
   end
 

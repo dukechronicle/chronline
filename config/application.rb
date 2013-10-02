@@ -75,7 +75,8 @@ module Chronline
     config.assets.initialize_on_precompile = false
 
     # Add Bower components to asset search path
-    config.assets.paths << File.join(Rails.root, 'vendor', 'assets', 'components')
+    config.assets.paths <<
+      File.join(Rails.root, 'vendor', 'assets', 'bower_components')
 
     # Action mailer configuration
     config.action_mailer.default_url_options = { host: Settings.domain }
@@ -93,6 +94,8 @@ module Chronline
 
     # Use routes to handle exceptions (https://coderwall.com/p/w3ghqq)
     config.exceptions_app = self.routes
+
+    config.action_dispatch.tld_length = Settings.domain.count('.')
   end
 end
 

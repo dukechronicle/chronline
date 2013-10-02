@@ -7,32 +7,31 @@
   %link{rel: "canonical", href: site_article_url(@article, subdomain: :www, protocol: 'http')}
 
 
-%article#article
-  .article-container
-    %h1.title= @article.title
-    %h2.subtitle= @article.subtitle
+%article.article-container
+  %h1.title= @article.title
+  %h2.subtitle= @article.subtitle
 
-    - if @article.image
-      .image-container
-        = image_tag @article.image.original.url(:large_rect), class: 'main-image'
-        .clearfix
-          .photo-credit
-            %span= photo_credit(@article.image)
-          - if not @article.image.caption.blank?
-            %p.photo-caption= @article.image.caption
+  - if @article.image
+    .image-container
+      = cropped_image_tag @article.image, :rectangle_636x, class: 'main-image'
+      .clearfix
+        .photo-credit
+          %span= photo_credit(@article.image)
+        - if not @article.image.caption.blank?
+          %p.photo-caption= @article.image.caption
 
-    %p.byline
-      %span.author By #{byline(@article)}
-      %span.sep= "|"
-      %span.date= @article.published_at.strftime("%B %e, %Y")
+  %p.byline
+    %span.author By #{byline(@article)}
+    %span.sep= "|"
+    = display_date(@article)
 
-    #social-media
-      = facebook_recommend_article(@article)
-      = google_plusone_article(@article)
-      = twitter_share_article(@article)
+  #social-media
+    = facebook_recommend_post(@article)
+    = google_plusone_post(@article)
+    = twitter_share_post(@article)
 
-    .article-body!= @article.render_body
+  .article-body!= @article.render_body
 
-    %a{href: "/", data: {direction: "reverse", role: "button", rel: "back", icon: "back"}} Back
+  %a{href: "/", data: {direction: "reverse", role: "button", rel: "back", icon: "back"}} Back
 
-    #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
+  #disqus_thread{data: {disqus: disqus_options(@article)}}

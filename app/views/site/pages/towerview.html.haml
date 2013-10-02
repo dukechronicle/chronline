@@ -1,17 +1,18 @@
 - content_for :title_block do
   = render 'site/partials/navigation'
 
-.clearfix
-  .span-8
-    #featured= render partial: 'site/partials/slideshow', locals: {articles: @model.featured, pages: [], pages_first: true}
-    #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: "Shutter", multimedia: @model.multimedia}
+- cache do
+  .clearfix.align-group
+    .span-8.align-element{data: {alignprimary: "true"}}
+      #featured= render partial: 'site/partials/slideshow', locals: {articles: @model.featured, pages: [], pages_first: true}
+      #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: "Shutter", multimedia: @model.multimedia}
 
-  .span-4.last
-    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
-    #inquisitor= render partial: 'site/containers/block/wide', locals: {title: "The Inquisitor", article: @model.inquisitor}
+    .span-4.last.align-element{data: {aligntarget: "#inquisitor .rounded"}}
+      = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+      #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
+      #inquisitor= render partial: 'site/containers/block/wide', locals: {title: "The Inquisitor", article: @model.inquisitor}
 
-#bus-stop= render partial: 'site/containers/article-row', locals: {title: "The Bus Stop", articles: @model.bus_stop, feature: true}
-#plaza= render partial: 'site/containers/article-row', locals: {title: "The Plaza", articles: @model.plaza, feature: true}
-#issuu.rounded
-  .image-container!= @model.issuu
+  #bus-stop= render partial: 'site/containers/article-row', locals: {title: "The Bus Stop", articles: @model.bus_stop, feature: true}
+  #plaza= render partial: 'site/containers/article-row', locals: {title: "The Plaza", articles: @model.plaza, feature: true}
+  #issuu.rounded
+    .image-container!= @model.issuu

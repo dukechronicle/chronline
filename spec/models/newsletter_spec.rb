@@ -3,7 +3,8 @@ require 'spec_helper'
 
 describe Newsletter do
   let(:newsletter) { Newsletter.new }
-  let(:mock_gb) { double('Gibbon') }
+  let(:mock_gb) { double('Gibbon::API', campaigns: mock_campaigns) }
+  let(:mock_campaigns) { double('Gibbon::APICategory') }
   subject { newsletter }
 
   before do
@@ -19,12 +20,12 @@ describe Newsletter do
 
   describe "#create_campaign" do
     def expect_campaign_create(&proc)
-      mock_gb.should_receive(:campaign_create, &proc)
+      mock_campaigns.should_receive(:create, &proc).and_return('id' => 12345)
       newsletter.create_campaign
     end
 
     it "should set campaign_id instance variable" do
-      mock_gb.should_receive(:campaign_create).and_return(12345)
+      mock_campaigns.should_receive(:create).and_return('id' => 12345)
       newsletter.create_campaign
       newsletter.campaign_id.should == 12345
     end
@@ -58,10 +59,10 @@ describe Newsletter do
 
     it "should have correct HTML content" do
       expect_campaign_create do |options|
-        options[:content][:html_MAIN].should ==
+        options[:content][:sections][:main].should ==
           "Pikachu attacks a flock of Spearows"
-        options[:content].should have_key(:html_ADIMAGE)
-        options[:content].should have_key(:html_ISSUEDATE)
+        options[:content][:sections].should have_key(:adimage)
+        options[:content][:sections].should have_key(:issuedate)
       end
     end
   end
@@ -74,7 +75,7 @@ describe Newsletter do
       before { newsletter.test_email = "pikachu@pallet.town" }
 
       it "should send a draft email" do
-        mock_gb.should_receive(:campaign_send_test)
+        mock_campaigns.should_receive(:send_test)
           .with(cid: cid, test_emails: ["pikachu@pallet.town"])
         newsletter.send_campaign!
       end
@@ -86,7 +87,7 @@ describe Newsletter do
       end
 
       it "should schedule the campaign to be sent" do
-        mock_gb.should_receive(:campaign_schedule)
+        mock_campaigns.should_receive(:schedule)
           .with(cid: cid, schedule_time: "1998-09-30 03:14:00")
         newsletter.send_campaign!
       end
@@ -94,7 +95,7 @@ describe Newsletter do
 
     context "when it is not a test nor scheduled" do
       it "should send the campaign immediately" do
-        mock_gb.should_receive(:campaign_send_now).with(cid: cid)
+        mock_campaigns.should_receive(:send_now).with(cid: cid)
         newsletter.send_campaign!
       end
     end

@@ -1,0 +1,33 @@
+- provide :title, @blog_post.title
+
+- content_for :title_block do
+  %h2
+    = link_to "Home", mobile_root_path
+    &raquo;
+    = link_to "Blogs", mobile_blogs_path
+    &raquo;
+    = link_to @blog.name, mobile_blog_posts_path(@blog)
+
+- content_for :head do
+  %link{rel: "canonical", href: site_blog_post_url(@blog, @blog_post, subdomain: :www, protocol: 'http')}
+
+
+%article.article-container.blog-post
+  %h3.blog-name= @blog.name
+  %h1.title= @blog_post.title
+
+  %p.byline
+    %span.author By #{byline(@blog_post)}
+    %span.sep= "|"
+    = display_date(@blog_post)
+
+  #social-media
+    = facebook_recommend_post(@blog_post)
+    = google_plusone_post(@blog_post)
+    = twitter_share_post(@blog_post)
+
+  .article-body!= @blog_post.render_body
+
+  %a{href: "/", data: {direction: "reverse", role: "button", rel: "back", icon: "back"}} Back
+
+  #disqus_thread{data: {disqus: disqus_options(@blog_post)}}

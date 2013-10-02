@@ -1,0 +1,27 @@
+.sports-event-info
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      .clearfix
+        .game-stats{data: {starttime: info['date']}}
+          %p.label Game Score
+          %p.value #{game_info[:away_team][:name]} (#{game_info[:away_team][:score]}) - #{game_info[:home_team][:name]} (#{game_info[:home_team][:score]})
+
+      .teams
+        = image_tag game_info[:away_team][:logo], class: 'logo', alt: game_info[:away_team][:name], title: game_info[:away_team][:name]
+        %span.separator= '@'
+        = image_tag game_info[:home_team][:logo], class: 'logo', alt: game_info[:home_team][:name], title: game_info[:home_team][:name]
+
+      .event-info
+        %p
+          %span.label Where
+          %span= info['location']
+        %p
+          %span.label Date
+          %span= datetime_tag info['date'], 'dddd, mmmm d, yyyy'
+        %p
+          %span.label Time
+          %span= datetime_tag info['date'], 'h:MM Z'
+        %p
+          %span.label TV Channel/Radio
+          %span= info['channel']
