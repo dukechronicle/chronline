@@ -8,7 +8,7 @@ Chronline::Application.routes.draw do
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
-      resource :galleries, only: [:index, :show]
+      resources :galleries, only: [:index, :show]
 
       resource :search, only: :show
 
