@@ -6,13 +6,14 @@ class Site::BlogPostsController < Site::BaseController
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
+      @taxonomy = @blog.taxonomy
       @blog_posts = @blog.posts
         .published
         .includes(:authors, :image)
         .order('published_at DESC')
         .page(params[:page])
     else
-      @blog = true  # Sets blog nav tab active
+      @taxonomy = Taxonomy['Blogs']
       render 'site/blogs/index'
     end
   end
@@ -22,10 +23,12 @@ class Site::BlogPostsController < Site::BaseController
       .includes(:authors, image: :photographer)
       .find(@blog_post)
     @blog = @blog_post.blog
+    @taxonomy = @blog.taxonomy
   end
 
   def tags
     @blog = Blog.find(params[:blog_id])
+    @taxonomy = @blog.taxonomy
     @blog_posts = @blog.posts
       .published
       .tagged_with(params[:tag])

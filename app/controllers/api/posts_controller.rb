@@ -70,10 +70,11 @@ class Api::PostsController < Api::BaseController
     published_url = ->(post) { site_post_url(post, subdomain: :www) }
     options.merge!(
       include: :authors,
-      methods: [:author_ids, :square_80x_url, :section_id],
+      methods: [:author_ids, :square_80x_url],
       except: [:previous_id, :block_bots],
       properties: {
         published_url: published_url,
+        section_id: ->(post) { post.section.id },
       },
     )
     respond_with :api, post, options

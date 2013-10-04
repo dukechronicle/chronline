@@ -30,8 +30,6 @@
       - Taxonomy.main_sections.each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
-      %a{href: site_blogs_path, class: ("active" if @blog)}
-        %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com"}
         %h2 Photos
     = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
