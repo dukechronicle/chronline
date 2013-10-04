@@ -101,7 +101,9 @@ class Taxonomy
   end
 
   def self.main_sections
-    Taxonomy::Tree.map {|section| Taxonomy.new([section['name']])}
+    Taxonomy::Tree.map do |section|
+      Taxonomy.new([section['name']])
+    end
   end
 
   def self.levels
