@@ -51,5 +51,8 @@ namespace :db do
 end
 
 def random_taxonomy
-  Taxonomy.levels.flatten.sample
+  Taxonomy.levels
+    .flatten
+    .reject { |taxonomy| taxonomy <= Taxonomy['Blogs'] }
+    .sample
 end

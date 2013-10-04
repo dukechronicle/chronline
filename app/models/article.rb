@@ -17,13 +17,9 @@
 class Article < Post
   include Searchable
 
-  serialize :section, Taxonomy::Serializer.new
   validates_with Taxonomy::Validator, attr: :section
 
-  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
-
   self.per_page = 25  # set will_paginate default to 25 articles
-
 
   ##
   # Configure articles to be indexed by Solr
@@ -81,37 +77,6 @@ class Article < Post
     article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
       .take(limit).map(&:first)
     self.find_in_order(article_ids).compact
-  end
-
-  def self.most_commented(limit)
-    disqus = Disqus.new(Settings.disqus.api_key)
-    response = disqus.request(
-      :threads, :list_hot, limit: limit, forum: Settings.disqus.shortname)
-    return [] if response.nil?
-    slugs = response['response'].map do |thread|
-      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
-      [$1, thread['posts']]
-    end
-    articles = self.published.where(slug: slugs.map(&:first))
-    slugs.map do |slug, comments|
-      article = articles.find { |article| article.slug == slug }
-      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
-    end.compact
-  end
-
-  ##
-  # Reader for section attribute. Creates a Taxonomy object if section is a
-  # string.
-  #
-  def section
-    unless self[:section].is_a?(Taxonomy)
-      self[:section] = Taxonomy.new(self[:section])
-    end
-    self[:section]
-  end
-
-  def section_id
-    section.id
   end
 
   private

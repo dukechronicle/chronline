@@ -11,7 +11,7 @@ class Blog
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :banner, :categories, :description, :name, :logo,
+  attr_accessor :id, :banner, :description, :name, :logo,
     :section_id, :twitter_widgets, :taxonomy_parent
 
   def initialize(attributes={})
@@ -26,7 +26,7 @@ class Blog
   end
 
   def posts
-    Blog::Post.where(section: "/blog/#{id}/")
+    Blog::Post.where(section: taxonomy.to_s)
   end
 
   def to_param
@@ -37,8 +37,8 @@ class Blog
     @twitter_widgets ||= []
   end
 
-  def categories
-    @categories ||= []
+  def taxonomy
+    Taxonomy['Blogs', id]
   end
 
   def taxonomy_parent
@@ -67,6 +67,10 @@ class Blog
 
   def self.each(&block)
     self.all.each(&block)
+  end
+
+  def self.find_by_taxonomy(taxonomy)
+    self.all.find { |blog| taxonomy <= blog.taxonomy }
   end
 
   # TODO: Create find_by_<attr> methods using method_missing

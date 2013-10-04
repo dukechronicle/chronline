@@ -38,16 +38,11 @@ class Blog::Post < ::Post
   end
 
   def blog
-    if @blog.nil? && section && section =~ %r[/blog/(\w+)/]
-      @blog = Blog.find($1)
-    end
-    @blog
+    Blog.find_by_taxonomy(section)
   end
 
   def blog=(blog)
-    @blog = nil
-    blog = blog.id if blog.is_a? Blog
-    self.section = "/blog/#{blog}/"
+    self.section = blog.taxonomy
   end
 
   def blog_id
@@ -56,9 +51,5 @@ class Blog::Post < ::Post
 
   def previous_url
     previous_id
-  end
-
-  def section_id
-    blog.section_id
   end
 end
