@@ -7,7 +7,8 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
-    :section, :subtitle, :teaser, :title
+    :section, :subtitle, :teaser, :title, :embed_code
+
 
   belongs_to :image
   has_and_belongs_to_many :authors, class_name: 'Staff',

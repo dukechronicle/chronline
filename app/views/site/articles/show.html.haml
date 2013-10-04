@@ -36,10 +36,10 @@
         - if not @article.subtitle.blank?
           %h2.subtitle= @article.subtitle
 
-        - if @article.image
-          = render partial: 'partials/main-image', locals: {image: @article.image}
-        - elsif @article.embed_code
+        - if @article.embed_code && @article.embed_code.length > 3
           = render partial: 'partials/main-video'
+        - elsif @article.image
+          = render partial: 'partials/main-image', locals: {image: @article.image}
         %p.byline
           %span.author By #{byline(@article, link: true)}
           %span.sep= "|"
