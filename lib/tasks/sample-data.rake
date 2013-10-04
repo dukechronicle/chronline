@@ -30,7 +30,7 @@ namespace :db do
         subtitle: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
         teaser: Faker::SamuelJackson.sentence,
         body: Faker::SamuelJackson.paragraphs(2).join("\n"),
-        section: random_taxonomy,
+        section: random_article_taxonomy,
         image_id: image.id,
         published_at: (1..365).to_a.sample.days.ago,
         author_ids: [staff.sample.id],
@@ -41,7 +41,7 @@ namespace :db do
       blog_post = Blog::Post.create!(
         title: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
         body: Faker::SamuelJackson.paragraphs(4).join("\n"),
-        blog: Blog.all.sample,
+        section: random_blog_taxonomy,
         image_id: image.id,
         author_ids: [staff.sample.id],
         published_at: (1..365).to_a.sample.days.ago,
@@ -50,9 +50,16 @@ namespace :db do
   end
 end
 
-def random_taxonomy
+def random_article_taxonomy
   Taxonomy.levels
     .flatten
     .reject { |taxonomy| taxonomy <= Taxonomy['Blogs'] }
+    .sample
+end
+
+def random_blog_taxonomy
+  Taxonomy.levels
+    .flatten
+    .select { |taxonomy| taxonomy < Taxonomy['Blogs'] }
     .sample
 end

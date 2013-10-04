@@ -26,7 +26,7 @@ class Blog
   end
 
   def posts
-    Blog::Post.where(section: taxonomy.to_s)
+    Blog::Post.section(taxonomy)
   end
 
   def to_param
