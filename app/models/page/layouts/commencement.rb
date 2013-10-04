@@ -21,22 +21,22 @@ class Page::Layouts::Commencement < Layout
       },
       'freshman' => {
         'label' => 'Freshman Year',
-        'required' => true,
+        'required' => false,
         'extends' => article_schema,
       },
       'sophomore' => {
         'label' => 'Sophomore Year',
-        'required' => true,
+        'required' => false,
         'extends' => article_schema,
       },
       'junior' => {
         'label' => 'Junior Year',
-        'required' => true,
+        'required' => false,
         'extends' => article_schema,
       },
       'senior' => {
         'label' => 'Senior Year',
-        'required' => true,
+        'required' => false,
         'extends' => article_schema,
       },
       'articles' => {
