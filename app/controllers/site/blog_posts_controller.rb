@@ -35,4 +35,15 @@ class Site::BlogPostsController < Site::BaseController
       .order('published_at DESC')
       .page(params[:page])
   end
+
+  def categories
+    @blog = Blog.find(params[:blog_id])
+    @taxonomy = Taxonomy['Blogs', params[:blog_id], params[:category]]
+    @blog_posts = Blog::Post
+      .published
+      .section(@taxonomy)
+      .order('published_at DESC')
+      .page(params[:page])
+    render 'index'
+  end
 end
