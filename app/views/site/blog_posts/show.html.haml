@@ -4,9 +4,6 @@
 - content_for :title_block do
   %h1= link_to @blog.name, site_blog_posts_path(@blog)
 
-- content_for :administrative_links do
-  = link_to "Edit this article", edit_admin_blog_post_url(@blog, @blog_post, subdomain: :admin)
-
 - content_for :head do
   - if @blog_post.block_bots
     %meta{name: 'robots', content: 'noindex'}
@@ -37,6 +34,7 @@
 
       = render partial: 'site/blog_posts/tags', locals: {blog_post: @blog_post}
 
+  #recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @blog_post.related(4), feature: false, style: :title}
   #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
 
 %aside.span-4.last
@@ -44,3 +42,5 @@
   = render partial: 'site/partials/blog-info', locals: {blog: @blog}
   - @blog.twitter_widgets.each do |widget_id|
     = render partial: 'site/partials/twitter-timeline', locals: {widget_id: widget_id}
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}

@@ -1,3 +1,7 @@
+###
+# This controller is used mainly by Camayak so this class contains some
+# necessary hacks.
+#
 class Api::PostsController < Api::BaseController
   include PostHelper
   before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
@@ -26,6 +30,8 @@ class Api::PostsController < Api::BaseController
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
     post = klass.new(params[:post])
+    post.authors = [default_staff] if post.authors.blank?
+    post.convert_camayak_tags!
     if post.save
       respond_with_post post, status: :created,
         location: api_article_url(post)
@@ -44,7 +50,9 @@ class Api::PostsController < Api::BaseController
     post = Post.find(params[:id])
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
-    if post.update_attributes(params[:post])
+    post.assign_attributes(params[:post])
+    post.convert_camayak_tags!
+    if post.save
       head :no_content
     else
       render json: post.errors, status: :unprocessable_entity
@@ -69,5 +77,10 @@ class Api::PostsController < Api::BaseController
       },
     )
     respond_with :api, post, options
+  end
+
+  def default_staff
+    # HAX: Used by the Chronicle as the default staff writer
+    Staff.find_or_create_by_name('Staff Reports')
   end
 end

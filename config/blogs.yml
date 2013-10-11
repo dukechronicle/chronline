@@ -13,7 +13,13 @@ bluezone:
   twitter_widgets:
     - 295248698340933632
     - 372912145349894144
+  categories:
+    - Football
+    - "Men's Basketball"
+    - "Women's Basketball"
+    - Recruiting
   section_id: 1002
+  taxonomy_parent: [Sports]
 playground:
   name: Playground
   logo: blogs/playground-logo.jpg

@@ -4,11 +4,18 @@
   .form-inputs
     = f.input :blog, disabled: true, input_html: {value: @blog_post.blog.name}
     = f.input :blog, as: :hidden, input_html: {value: @blog_post.blog.id}
-    = f.input :title
+    = f.input :title, disabled: true
     = f.association :authors, as: :text_list, value_method: :name, input_html: {class: 'staff-picker', autocomplete: 'off'}
-    = f.input :body, input_html: {rows: 5, class: 'wysiwyg'}
+    = f.input :teaser, as: :text, disabled: true, input_html: {rows: 3, class: 'input-xxlarge'}
+    = f.input :body, disabled: true, input_html: {rows: 5, class: 'input-xxlarge'}
     = f.input :tag_list, label: "Tags", hint: 'Comma separated list of tags, no "and", and no pound signs.'
-    = f.association :image, as: :image_picker
+
+    .control-group
+      %label.control-label Image
+      .controls
+        - if @blog_post.image
+          = cropped_image_tag @blog_post.image, :rectangle_378x
+
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
 

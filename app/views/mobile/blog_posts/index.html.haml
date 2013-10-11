@@ -15,4 +15,4 @@
         - if blog_post.image
           = image_tag blog_post.image.original.url(:square_80x)
         %h2= blog_post.title
-        %p #{byline(blog_post)} | #{blog_post.created_at.strftime("%B %e, %Y")}
+        %p #{byline(blog_post)} | #{blog_post.published_at.strftime("%B %e, %Y")}

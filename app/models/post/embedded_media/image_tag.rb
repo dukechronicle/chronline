@@ -15,11 +15,24 @@ class Post
         classes = "embedded-image embedded-#{float}"
         content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
-          concat content_tag(:img, nil, src: @image.original.url(@style))
+          concat content_tag(:img, nil, **image_attributes)
           concat content_tag(:span, photo_credit, class: 'photo-credit')
         end
       end
 
+      private
+      def image_attributes
+        options = {
+          alt: @image.caption,
+          title: @image.caption,
+          src: @image.original.url(@style),
+        }
+        if @image.original.styles[@style.to_sym].geometry =~ /(\d+)x(\d+)/
+          options[:width] = $1
+          options[:height] = $2
+        end
+        options
+      end
     end
   end
 end

@@ -4,25 +4,13 @@
       = link_to "The Chronicle", admin_root_path, :class => "brand"
       - if user_signed_in?
         %ul.nav
-          %li.dropdown
-            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Articles
-            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
-              %li= link_to "Manage", admin_articles_path
-              %li= link_to "Create", new_admin_article_path
+          %li= link_to "Articles", admin_articles_path
 
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Blogs
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
-              %li.dropdown-submenu
-                = link_to "Manage", "#", tabindex: -1
-                %ul.dropdown-menu
-                  - Blog.each do |blog|
-                    %li= link_to blog.name, admin_blog_posts_path(blog)
-              %li.dropdown-submenu
-                = link_to "Create", "#", tabindex: -1
-                %ul.dropdown-menu
-                  - Blog.each do |blog|
-                    %li= link_to blog.name, new_admin_blog_post_path(blog)
+              - Blog.each do |blog|
+                %li= link_to blog.name, admin_blog_posts_path(blog)
 
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Images

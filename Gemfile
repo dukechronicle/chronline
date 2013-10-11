@@ -71,6 +71,7 @@ gem 'redis'
 gem 'require_all'  # Used by old page implementation
 gem 'resque', '~> 1.22.0'
 gem 'rmagick'
+gem 'ruby-oembed'
 gem 'simple_form'
 gem 'sitemap_generator'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
