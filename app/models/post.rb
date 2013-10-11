@@ -33,7 +33,8 @@ class Post < ActiveRecord::Base
   def related(limit)
     search = Sunspot.more_like_this(self) do
       fields :title, :content
-      minimum_term_frequency 5
+      with(:date).greater_than(published_at - 1.week) unless published_at.nil?
+      with(:date).less_than(published_at + 1.week) unless published_at.nil?
       paginate per_page: limit
     end
     # HAX: Eager load authors
@@ -64,6 +65,28 @@ onto per since than the this that to up via with)
 
   def render_body
     EmbeddedMedia.new(body).to_s
+  end
+
+  def convert_camayak_tags!
+    document = Nokogiri::HTML::DocumentFragment.parse(body)
+    document.css('.oembed').each do |camayak_tag|
+      url = camayak_tag.attr('data-camayak-embed-url')
+      provider =
+        case url
+        when %r[^https?://www\.youtube\.com/]
+          'Youtube'
+        when %r[^https?://twitter\.com/]
+          'Twitter'
+        when %r[^https?://soundcloud\.com/]
+          'Soundcloud'
+        when %r[^https?://instagram\.com/]
+          'Instagram'
+        end
+      unless provider.nil?
+        camayak_tag.replace("{{#{provider}:#{url}}}")
+      end
+    end
+    self.body = document.to_html
   end
 
   def square_80x_url

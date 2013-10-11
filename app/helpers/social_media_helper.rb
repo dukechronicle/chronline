@@ -2,7 +2,7 @@ module SocialMediaHelper
 
   def facebook_recommend_post(post, options={})
     defaults = {
-      href: site_post_url(post, protocol: 'http'),
+      href: permanent_post_url(post),
       send: "false",
       layout: "button_count",
       width: "130",

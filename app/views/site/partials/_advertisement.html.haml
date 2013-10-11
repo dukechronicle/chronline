@@ -1,5 +1,6 @@
+- suffix ||= nil
 .advertisement
   %h2.vertical-label Advertisement
   .rounded
     .image-container
-      %div{class: zone}= advertisement(zone)
+      %div{class: zone}= advertisement(zone, suffix)
