@@ -24,6 +24,9 @@ class Admin::ArticlesController < Admin::BaseController
 
   def create
     @article = update_article(Article.new)
+    if @article.embed_code
+      @article.embed_code = parseURL(@article.embed_code)
+    end
     if @article.save
       redirect_to site_article_url(@article, subdomain: 'www')
     else
@@ -62,6 +65,12 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   private
+
+  # convert entire video embed code to only url for db storage
+  def parseURL(full_tag)
+    url = /youtube.com.*(?:\/|v=)([^&$]+)/.match(full_tag)[1]
+  end
+
   def update_article(article)
     # Last element of taxonomy array may be an empty string
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }

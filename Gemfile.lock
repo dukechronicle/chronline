@@ -288,7 +288,7 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
-    rb-readline (0.4.2)
+    rb-readline (0.5.0)
     rdiscount (2.1.6)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -451,7 +451,7 @@ DEPENDENCIES
   rack-cors
   rails (= 3.2.14)
   rails_config
-  rb-readline (~> 0.4.2)
+  rb-readline (~> 0.5.0)
   rdiscount
   redis
   redis-rails
