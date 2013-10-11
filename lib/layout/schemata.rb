@@ -48,15 +48,12 @@ Layout.add_schema(:section_articles, {
                   }) do |sections|
   sections.map do |section|
     # TODO: Magic number
-    Article.limit(4).order('published_at DESC').section(section)
+    Article.limit(4).published.order('published_at DESC').section(section)
   end
 end
 
 Layout.add_schema(:rss, {'type' => 'string'}) do |feeds|
-  feeds.map do |feed_url|
-    feed = HTTParty.get(feed_url).body
-    RSS::Parser.parse(feed).items
-  end
+  [[]]
 end
 
 Layout.add_schema(:image, {

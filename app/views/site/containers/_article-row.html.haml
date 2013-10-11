@@ -1,3 +1,5 @@
+- style ||= :teaser
+
 .article-row
   %h2.vertical-label= title
   .rounded.clearfix.align-group
@@ -10,8 +12,4 @@
             - else
               = cropped_image_tag article.image, :rectangle_152x
           .title-block
-            %h3.title= article.title
-            %p.subtitle
-              %span.author= byline(article)
-            - if not (feature and i == 0)
-              %p.teaser= article.teaser
+            = render partial: "site/containers/article-row/#{style}", locals: { article: article, feature: feature, index: i }
