@@ -7,6 +7,10 @@ class Post
         @youtube_id = /v=([a-zA-Z0-9_-]{11})/.match(url)[1]
       end
 
+      def self.convert_camayak(url)
+        "{{Youtube:#{url}}}"
+      end
+
       def to_html(float: :right)
         content_tag(
           :iframe,

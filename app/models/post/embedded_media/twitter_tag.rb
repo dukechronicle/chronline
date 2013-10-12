@@ -7,6 +7,10 @@ class Post
         @html = get_html(url).html_safe
       end
 
+      def self.convert_camayak(url)
+        "{{Twitter:#{url}}}"
+      end
+
       def to_html(float: :right)
         content_tag :div, @html, class: 'embedded-tweet'
       end

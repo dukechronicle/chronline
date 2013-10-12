@@ -7,6 +7,10 @@ class Post
         @instagram_id = /\/p\/([a-zA-Z0-9]+)/.match(url)[1]
       end
 
+      def self.convert_camayak(url)
+        "{{Instagram:#{url}}}"
+      end
+
       def to_html(float: :right)
         content_tag :div, nil, class: 'embedded-instagram' do
           content_tag(
