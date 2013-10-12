@@ -31,7 +31,7 @@ class Api::PostsController < Api::BaseController
       .try(:truncate, 200, separator: ' ')
     post = klass.new(params[:post])
     post.authors = [default_staff] if post.authors.blank?
-    post.convert_camayak_tags!
+    post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
       respond_with_post post, status: :created,
         location: api_article_url(post)
@@ -51,7 +51,7 @@ class Api::PostsController < Api::BaseController
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
     post.assign_attributes(params[:post])
-    post.convert_camayak_tags!
+    post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
       head :no_content
     else

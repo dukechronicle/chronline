@@ -8,6 +8,30 @@ class Post
       @queries = {}
     end
 
+    def self.convert_camayak_tags(body)
+      document = Nokogiri::HTML::DocumentFragment.parse(body)
+      document.css('.oembed').each do |camayak_tag|
+        url = camayak_tag.attr('data-camayak-embed-url')
+        provider =
+          case url
+          when %r[^https?://www\.youtube\.com/]
+            'Youtube'
+          when %r[^https?://twitter\.com/]
+            'Twitter'
+          when %r[^https?://soundcloud\.com/]
+            'Soundcloud'
+          when %r[^https?://instagram\.com/]
+            'Instagram'
+          end
+        unless provider.nil?
+          camayak_tag.replace(
+            "Post::EmbeddedMedia::#{provider}Tag".constantize
+              .convert_camayak(url))
+        end
+      end
+      document.to_html
+    end
+
     def render
       tag_list = @body.scan(/{{([a-zA-Z]*):(\S*?)}}/)
       tags = tag_list.map do |tag, data|
