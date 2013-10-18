@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
-    :section, :subtitle, :teaser, :title, :embed_code
+    :section, :subtitle, :teaser, :title, :embed_code, :embed_url
 
 
   belongs_to :image
@@ -91,6 +91,22 @@ onto per since than the this that to up via with)
 
   def square_80x_url
     image.original.url(:square_80x) if image
+  end
+
+  def embed_url(params = {})
+    params[:v] = embed_code
+    uri = URI::Generic.build(
+      host: 'www.youtube.com',
+      path: '/watch',
+      query: URI.encode_www_form(params),
+    )
+    uri.to_s
+  end
+
+  def embed_url=(url)
+    uri = URI.parse(url)
+    params = Hash[URI.decode_www_form(uri.query)]
+    self.embed_code = params['v']
   end
 end
 
