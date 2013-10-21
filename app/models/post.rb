@@ -94,19 +94,25 @@ onto per since than the this that to up via with)
   end
 
   def embed_url(params = {})
-    params[:v] = embed_code
-    uri = URI::Generic.build(
-      host: 'www.youtube.com',
-      path: '/watch',
-      query: URI.encode_www_form(params),
-    )
-    uri.to_s
+    if embed_code.present?
+      params[:v] = embed_code
+      uri = URI::Generic.build(
+        host: 'www.youtube.com',
+        path: '/watch',
+        query: URI.encode_www_form(params),
+      )
+      uri.to_s
+    end
   end
 
   def embed_url=(url)
-    uri = URI.parse(url)
-    params = Hash[URI.decode_www_form(uri.query)]
-    self.embed_code = params['v']
+    if url.present?
+      uri = URI.parse(url)
+      params = Hash[URI.decode_www_form(uri.query)]
+      self.embed_code = params['v']
+    else
+      self.embed_code = nil
+    end
   end
 end
 
