@@ -17,6 +17,7 @@
       - post = data['article']
       .rounded.selector
         %a.hover.highlight-bottom{href: site_post_path(post), data: {index: index}}
+          .triangle
           .image-container
             = cropped_image_tag post.image, :rectangle_152x
           %h4.title= data['headline'].blank? ? post.title : data['headline']
