@@ -1,11 +1,15 @@
+require 'singleton'
+
 class PhotoshelterAPI
   include Errors
+  include Singleton
 
   BaseUri = "https://www.photoshelter.com/psapi/v1"
 
-  def initialize(email, password)
-    @email = email
-    @password = password
+  def initialize
+    @email ||= Settings.photoshelter.email
+    @password ||= Settings.photoshelter.password
+    authenticate
   end
 
   def authenticate
@@ -79,7 +83,6 @@ class PhotoshelterAPI
       end
 
       response = http.request(request) 
-
       if response.code != "200"
         raise PhotoshelterError.new(response.code)
       end

@@ -1,9 +1,8 @@
 class Site::GalleriesController < Site::BaseController
-  before_filter :authenticate
 
   def index
     galleries = Rails.cache.fetch(:galleries) do
-      @api.get_all_galleries
+      PhotoshelterAPI.instance.get_all_galleries
     end
 
     galleries.each do |gallery|
@@ -16,13 +15,7 @@ class Site::GalleriesController < Site::BaseController
 
   def show
     gallery = Gallery.find(params[:id])
-    @images =  @api.get_gallery_images(gallery.pid)
+    @images = gallery.get_gallery_images
   end
 
-  private
-
-    def authenticate
-      @api = PhotoshelterAPI.new(Settings.photoshelter.email, Settings.photoshelter.password)
-      @api.authenticate
-    end
 end
