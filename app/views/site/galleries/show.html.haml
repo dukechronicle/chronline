@@ -1,0 +1,6 @@
+- url = "http://cdn.c.photoshelter.com/img-get/"
+.galleria
+  - @images.each do |image|
+    %img{:src => "http://cdn.c.photoshelter.com/img-get/I000051opCFEfUto/"}
+    /%img{:src => image.get_image_url}
+    / = cropped_image_tag image, :rectangle_636x, 'data-title' => image.title
