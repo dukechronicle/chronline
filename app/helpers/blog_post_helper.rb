@@ -13,7 +13,7 @@ module BlogPostHelper
   end
 
   def recent_blog_posts(blog, limit=5)
-    blog.posts.order('published_at DESC').limit(limit)
+    blog.posts.published.order('published_at DESC').limit(limit)
   end
 
 end
