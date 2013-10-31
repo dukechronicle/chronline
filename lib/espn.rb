@@ -41,7 +41,7 @@ class ESPN
 
   private
   def scrape(key, url)
-    Rails.cache.fetch(key) do
+    Rails.cache.fetch(url + ":" + key) do
       response = HTTParty.get(url)
       yield Nokogiri::HTML(response.body)
     end
