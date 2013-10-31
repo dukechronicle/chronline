@@ -21,6 +21,9 @@
 - content_for :scripts do
   %script{src: '//www.readrboard.com/static/engage.js', defer: true}
 
+- content_for :administrative_links do
+  = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
+
 - unless @article.published?
   = render 'site/partials/admin-notification'
 

@@ -9,6 +9,9 @@
     %meta{name: 'robots', content: 'noindex'}
   %link{rel: "canonical", href: site_blog_post_url(@blog, @blog_post, subdomain: :www)}
 
+- content_for :administrative_links do
+  = link_to "Edit this blog post", edit_admin_blog_post_url(@blog, @blog_post, subdomain: :admin)
+
 - unless @blog_post.published?
   = render 'site/partials/admin-notification'
 
