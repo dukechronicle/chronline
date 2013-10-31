@@ -28,7 +28,7 @@ Chronline::Application.routes.draw do
           id: Post::SLUG_PATTERN
         get 'tags/:tag' => 'blog_posts#tags', as: :tagged
       end
-      resources :blogs, only: [], controller: 'blog_posts' do
+      resources :blogs, only: :none, controller: 'blog_posts' do
         resources :posts, only: [:show], controller: 'blog_posts',
           id: Post::SLUG_PATTERN
       end
@@ -131,7 +131,7 @@ Chronline::Application.routes.draw do
       resources :articles, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
-      resources :blogs, only: [], controller: 'blog_posts' do
+      resources :blogs, only: :none do
         resources :posts, only: :index, controller: 'blog_posts'
       end
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
@@ -144,6 +144,9 @@ Chronline::Application.routes.draw do
     namespace :rss, path: '/' do
       get 'section/*section' => 'articles#index', as: :article_section
       resources :articles, only: :index
+      resources :blogs, only: :none do
+        resources :posts, only: :index, controller: 'blog_posts'
+      end
     end
   end
 
