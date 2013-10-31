@@ -46,4 +46,8 @@ EOS
     end
   end
 
+  def recent_articles_by_author(staff, limit: 5)
+    staff.articles.limit(limit).order('published_at DESC')
+  end
+
 end

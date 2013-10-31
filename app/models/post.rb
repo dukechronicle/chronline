@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
   validates :teaser, length: { maximum: 200 }
 
 
-  def self.published
+  def self.default_scope
     self
       .where('published_at IS NOT NULL')
       .where(['published_at < ?', DateTime.now])

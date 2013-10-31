@@ -18,7 +18,7 @@ class Site::ArticlesController < Site::BaseController
 
     @articles = Article
       .includes(:authors, :image)
-      .published.section(@taxonomy)
+      .section(@taxonomy)
       .order('published_at DESC')
       .page(params[:page])
     unless @taxonomy.root?

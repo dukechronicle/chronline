@@ -12,10 +12,13 @@ class Admin::ArticlesController < Admin::BaseController
       params[:page] = find_article_page_for_date(date, @taxonomy)
     end
 
-    @articles = Article.includes(:authors, :image)
-      .section(@taxonomy)
-      .order('published_at IS NOT NULL, published_at DESC')
-      .page(params[:page])
+    @articles = Article.unscoped do  # Include unpublished articles
+      Article
+        .includes(:authors, :image)
+        .section(@taxonomy)
+        .order('published_at IS NOT NULL, published_at DESC')
+        .page(params[:page])
+    end
   end
 
   def new
