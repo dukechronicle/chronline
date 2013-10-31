@@ -6,7 +6,7 @@
       - elsif @model.top_headline['article']
         = render partial: 'site/containers/article-list/single', locals: {article: @model.top_headline['article'], breaking: @model.top_headline['breaking']}
 
-      #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: @model.slideshow.pages_first}
+      #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first']}
       #headlines= render partial: 'site/containers/two-column-article-list', locals: {title: 'Top Stories', articles: @model.headlines}
 
     .span-4.last.align-element{data: {aligntarget: '#popular .rounded'}}
