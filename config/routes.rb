@@ -57,6 +57,13 @@ Chronline::Application.routes.draw do
     end
   end
 
+  constraints subdomain: 'beta' do
+    namespace :beta, path: '/' do
+      root to: 'articles#index'
+      
+    end
+  end
+
   constraints subdomain: 'm' do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'
