@@ -92,7 +92,7 @@ class Article < Post
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.published.where(slug: slugs.map(&:first))
+    articles = self.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find { |article| article.slug == slug }
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed

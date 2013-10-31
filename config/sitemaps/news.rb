@@ -13,7 +13,6 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
 
 SitemapGenerator::Sitemap.create do
   articles = Article
-    .published
     .where(["published_at >= ?", 2.days.ago])
     .where(block_bots: false)
     .includes(:image)
