@@ -18,7 +18,7 @@ end
 group :development, :test do
   gem 'sqlite3', '~> 1.3.7'
   gem 'rspec-rails', '~> 2.14.0'
-  gem 'rb-readline', '~> 0.5.0'
+  gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
   gem 'sunspot_solr'
   gem 'guard-rspec'

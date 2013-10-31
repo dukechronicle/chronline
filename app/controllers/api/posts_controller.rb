@@ -9,7 +9,6 @@ class Api::PostsController < Api::BaseController
   def index
     posts = Post
       .includes(:authors, :image)
-      .published
       .order('published_at DESC')
       .paginate(page: params[:page], per_page: params[:limit])
     respond_with_post posts

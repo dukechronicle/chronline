@@ -3,7 +3,6 @@ class Rss::ArticlesController < ApplicationController
   def index
     @taxonomy = Taxonomy.new("/#{params[:section]}/")
     @articles = Article.includes(:authors, :image)
-      .published
       .section(@taxonomy)
       .order('published_at DESC')
       .limit(30)
