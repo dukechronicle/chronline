@@ -1,7 +1,7 @@
 %meta{property: "og:title", content: article.title}
 %meta{property: "og:type", content: "article"}
 - if article.image
-  %meta{property: "og:image", content: 'http:' + article.image.original}
+  %meta{property: "og:image", content: 'http:' + article.image.original.url}
 - else
   %meta{property: "og:image", content: 'http:' + image_path("logo/300x300.png")}
 %meta{property: "og:url", content: permanent_article_url(article)}
