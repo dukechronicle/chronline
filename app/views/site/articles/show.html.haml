@@ -28,7 +28,7 @@
   = render 'site/partials/admin-notification'
 
 - cache do
-  - @article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+  - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
   .span-8
     .rounded
       %article.article-container
