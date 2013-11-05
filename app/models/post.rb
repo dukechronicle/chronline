@@ -68,7 +68,7 @@ onto per since than the this that to up via with)
   end
 
   def body_text
-    body.gsub(/{{[a-zA-Z]*:\S*?}}/, '')
+    body.gsub(/{{[^\}]*}}/, '')
   end
 
   def convert_camayak_tags!
