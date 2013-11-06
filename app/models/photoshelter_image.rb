@@ -1,11 +1,10 @@
-class PhotoshelterImage
-  attr_accessor :title, :author, :caption, :pid, :uploaded_at, :section, :images
+class PhotoshelterImage < ActiveRecord::Base
+  attr_accessible :title, :author, :caption, :pid, :uploaded_at, :section, :images, :gid
 
-  def initialize(params)
-    @pid = params["id"]
-  end
+  validates :gid, presence: true
+  validates :pid, presence: true
 
   def get_image_url
-    "http://cdn.c.photoshelter.com/img-get/#{@pid}/"
+    "http://cdn.c.photoshelter.com/img-get/#{pid}/"
   end
 end
