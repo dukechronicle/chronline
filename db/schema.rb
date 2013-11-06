@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131002180554) do
+ActiveRecord::Schema.define(:version => 20131106053503) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20131002180554) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "galleries", :force => true do |t|
-    t.string   "pid"
+  create_table "galleries", :id => false, :force => true do |t|
+    t.string   "gid"
     t.string   "name"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -82,6 +82,15 @@ ActiveRecord::Schema.define(:version => 20131002180554) do
   end
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
+
+  create_table "photoshelter_images", :id => false, :force => true do |t|
+    t.string   "pid"
+    t.string   "gid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "photoshelter_images", ["gid", "pid"], :name => "index_photoshelter_images_on_gid_and_pid", :unique => true
 
   create_table "posts_authors", :force => true do |t|
     t.integer "post_id"
