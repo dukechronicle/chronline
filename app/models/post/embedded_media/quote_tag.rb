@@ -3,8 +3,8 @@ class Post
     class QuoteTag < ActionView::Base
       include ActionView::Helpers
 
-      def initialize(_embedded_media, text)
-        @text = text
+      def initialize(_embedded_media, *args)
+        @text = args.join(',')
       end
 
       def to_html(float: :right)
