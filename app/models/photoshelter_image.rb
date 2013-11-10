@@ -1,5 +1,5 @@
 class PhotoshelterImage < ActiveRecord::Base
-  attr_accessible :title, :author, :caption, :pid, :uploaded_at, :section, :images, :gid
+  attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid
 
   validates :gid, presence: true
   validates :pid, presence: true
