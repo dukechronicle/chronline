@@ -6,8 +6,8 @@ namespace :photoshelter do
   desc "Scrape Photoshelter API"
   task :scrape => :environment do
     PhotoshelterAPI.instance.get_all_galleries.each do |gallery|
-      if !Gallery.exists?(:pid => gallery['id']) then
-        Gallery.create(pid: gallery['id'], name: gallery['name'], description: gallery['description'])
+      if !Gallery.exists?(:gid => gallery['id']) then
+        Gallery.create(gid: gallery['id'], name: gallery['name'], description: gallery['description'])
         images = PhotoshelterAPI.instance.get_gallery_images gallery['id'] 
         if images then
           images.each do |image|
