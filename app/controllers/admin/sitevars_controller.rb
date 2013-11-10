@@ -1,10 +1,11 @@
-class Admin::ConfigsController < Admin::BaseController
+class Admin::SitevarsController < Admin::BaseController
   def show
-    @issuu = $redis.get('issuu')
   end
 
   def update
-    $redis.set('issuu', params[:issuu])
-    redirect_to admin_config_path
+    params[:sitevar].each do |var, val|
+      Sitevar.send "#{var}=", val
+    end
+    redirect_to admin_configuration_path
   end
 end

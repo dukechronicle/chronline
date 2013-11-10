@@ -9,7 +9,7 @@ class Sitevar
   def initialize(var)
     attrs = @@sitevars[var]
     @name = var
-    @label = attrs[:label]
+    @label = attrs[:label] || @name.titlecase
     @description = attrs[:description]
     @type = attrs[:type]
   end
