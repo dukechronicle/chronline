@@ -1,0 +1,13 @@
+= form_for :sitevar, url: admin_configuration_path, method: :put, html: {class: 'form-horizontal'} do |f|
+  %legend Configuration
+  .form-inputs
+    - Sitevar.each do |sitevar|
+      .control-group
+        %label.control-label{for: sitevar.name}= sitevar.label
+        .controls
+          - if sitevar.type == :text
+            = f.text_area sitevar.name, class: 'input-xxlarge', value: sitevar.value
+          - else
+            = f.text_field sitevar.name, class: 'input-xxlarge', value: sitevar.value
+  .form-actions
+    = f.submit 'Send', class: 'btn btn-large btn-primary'
