@@ -11,7 +11,8 @@ namespace :photoshelter do
         images = PhotoshelterAPI.instance.get_gallery_images gallery['id'] 
         if images then
           images.each do |image|
-            PhotoshelterImage.create(:pid => image['id'], :gid => gallery['id'])
+            info = PhotoshelterAPI.instance.get_image_info image['id']
+            PhotoshelterImage.create(:pid => image['id'], :gid => gallery['id'], :caption => info['caption'], :credit => info['credit'], :title => info['title'])
           end
         end
       end
