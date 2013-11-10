@@ -59,6 +59,6 @@
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
     #issuu.rounded
       %h2.vertical-label Issuu
-      .image-container!= $redis.get('issuu')
+      .image-container!= Sitevar.issuu
 
   = render 'site/partials/facebook-social-share'
