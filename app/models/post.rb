@@ -67,6 +67,10 @@ onto per since than the this that to up via with)
     EmbeddedMedia.new(body).to_s
   end
 
+  def body_text
+    body.gsub(/{{[^\}]*}}/, '')
+  end
+
   def convert_camayak_tags!
     document = Nokogiri::HTML::DocumentFragment.parse(body)
     document.css('.oembed').each do |camayak_tag|

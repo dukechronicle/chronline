@@ -24,5 +24,6 @@ after_fork do |server, worker|
     store.pool.reconnect
   end
   Rails.cache.reconnect
-  Resque.redis = $redis = Redis.new(url: Settings.redis, driver: :hiredis)
+  Resque.redis = Sitevar.config.redis = $redis =
+    Redis.new(url: Settings.redis, driver: :hiredis)
 end

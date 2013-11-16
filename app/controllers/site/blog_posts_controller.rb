@@ -17,9 +17,6 @@ class Site::BlogPostsController < Site::BaseController
   end
 
   def show
-    @blog_post = Blog::Post
-      .includes(:authors, image: :photographer)
-      .find(@blog_post)
     @blog = @blog_post.blog
   end
 

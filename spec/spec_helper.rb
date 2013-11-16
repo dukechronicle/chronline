@@ -41,6 +41,8 @@ RSpec.configure do |config|
         'Data',
         YAML.load_file(Rails.root.join('spec', 'config', 'blogs.yml'))
       )
+      Sitevar.config.sitevars =
+        YAML.load_file(Rails.root.join('spec', 'config', 'sitevars.yml'))
     end
   end
 

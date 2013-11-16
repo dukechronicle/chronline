@@ -15,6 +15,7 @@
 - unless @blog_post.published?
   = render 'site/partials/admin-notification'
 
+- @blog_post = Blog::Post.unscoped { Blog::Post.includes(:authors, image: :photographer).find(@blog_post) }
 .span-8
   .rounded
     .image-container
