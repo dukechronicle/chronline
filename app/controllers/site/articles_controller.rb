@@ -27,9 +27,6 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    @article = Article
-      .includes(:authors, :slugs, image: :photographer)
-      .find(@article)
     @article.register_view
     @taxonomy = @article.section
   end

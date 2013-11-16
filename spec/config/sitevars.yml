@@ -1,0 +1,4 @@
+---
+region:
+  description: The current region of the Pokemon world.
+  type: string
