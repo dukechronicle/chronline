@@ -3,9 +3,8 @@ class Sitevar
   private_class_method :new
 
 
-  def initialize(var)
-    attrs = @@config.sitevars[var]
-    @name = var
+  def initialize(var, attrs)
+    @name = var.to_s
     @label = attrs[:label] || @name.titlecase
     @description = attrs[:description]
     @type = attrs[:type]
@@ -20,7 +19,8 @@ class Sitevar
   end
 
   def self.[](var)
-    new(var)
+    attrs = @@config.sitevars[var]
+    new(var, attrs) unless attrs.nil?
   end
 
   def self.each(&proc)
