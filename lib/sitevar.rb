@@ -1,13 +1,10 @@
 class Sitevar
-  REDIS_KEY = 'configuration'
-
-  @@sitevars = ActiveSupport::HashWithIndifferentAccess.new
   attr_reader :name, :label, :description, :type
   private_class_method :new
 
 
   def initialize(var)
-    attrs = @@sitevars[var]
+    attrs = @@config.sitevars[var]
     @name = var
     @label = attrs[:label] || @name.titlecase
     @description = attrs[:description]
@@ -15,11 +12,11 @@ class Sitevar
   end
 
   def value
-    $redis.hget(REDIS_KEY, @name)
+    @@config.redis.hget(@@config.key, @name)
   end
 
   def value=(val)
-    $redis.hset(REDIS_KEY, @name, val)
+    @@config.redis.hset(@@config.key, @name, val)
   end
 
   def self.[](var)
@@ -27,29 +24,25 @@ class Sitevar
   end
 
   def self.each(&proc)
-    @@sitevars.map { |var, attrs| self[var] }.each(&proc)
+    @@config.sitevars.map { |var, attrs| self[var] }.each(&proc)
+  end
+
+  def self.config
+    @@config ||= Sitevar::Configuration.new
   end
 
   private
-  def self.sitevar(var, label: nil, description: nil, type: :string)
-    @@sitevars[var] = {
-      label: label,
-      description: description,
-      type: type,
-    }
-  end
-
   def self.method_missing(method, value = nil)
     if method =~ /(.*)=$/
       var = $1
-      if @@sitevars.include? var
+      if @@config.sitevars.include? var
         self[var].value = value
       else
         super
       end
     else
       var = method
-      if @@sitevars.include? var
+      if @@config.sitevars.include? var
         self[var].value
       else
         super
@@ -57,5 +50,18 @@ class Sitevar
     end
   end
 
-  sitevar :issuu, label: 'Issuu Embed', type: :text
+  class Configuration
+    DEFAULT_KEY = 'configuration'
+
+    attr_accessor :key, :redis, :sitevars
+
+    def initialize
+      self.key = DEFAULT_KEY
+      self.sitevars = {}
+    end
+
+    def sitevars=(sitevars)
+      @sitevars = HashWithIndifferentAccess.new(sitevars)
+    end
+  end
 end
