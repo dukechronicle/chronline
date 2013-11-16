@@ -38,7 +38,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def publish
-    @article = Article.find(params[:id])
+    @article = Article.unscoped.find(params[:id])
     @article.published_at = DateTime.now
     if @article.save
       flash[:sucess] = %Q[Article "#{@article.title} was published."]
@@ -49,7 +49,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def update
-    @article = update_article(Article.find(params[:id]))
+    @article = update_article(Article.unscoped.find(params[:id]))
     if @article.save
       redirect_to site_article_url(@article, subdomain: 'www')
     else
@@ -58,7 +58,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def destroy
-    article = Article.find(params[:id])
+    article = Article.unscoped.find(params[:id])
     article.destroy
     flash[:success] = %Q[Article "#{article.title}" was deleted.]
     redirect_to admin_articles_path
