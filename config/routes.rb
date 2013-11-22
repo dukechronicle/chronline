@@ -60,7 +60,6 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'beta' do
     namespace :beta, path: '/' do
       root to: 'articles#index'
-      
     end
   end
 
