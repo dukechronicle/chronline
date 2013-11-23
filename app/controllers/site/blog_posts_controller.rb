@@ -23,7 +23,6 @@ class Site::BlogPostsController < Site::BaseController
   def tags
     @blog = Blog.find(params[:blog_id])
     @blog_posts = @blog.posts
-      .published
       .tagged_with(params[:tag])
       .order('published_at DESC')
       .page(params[:page])
