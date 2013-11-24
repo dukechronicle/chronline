@@ -40,9 +40,10 @@ describe Blog do
   end
 
   describe "#posts" do
+    let(:tomorrow) { DateTime.now - 1.day }
     before do
-      FactoryGirl.create(:blog_post, blog: 'kanto_news')
-      FactoryGirl.create(:blog_post, blog: 'pokedex')
+      FactoryGirl.create(:blog_post, blog: 'kanto_news', published_at: tomorrow)
+      FactoryGirl.create(:blog_post, blog: 'pokedex', published_at: tomorrow)
     end
 
     its(:posts) { should have(1).item }
