@@ -62,7 +62,7 @@ describe Article do
   end
 
   describe "::popular" do
-    before(:all) do
+    before do
       @articles = FactoryGirl.create_list(:article, 4)
       $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[0].id)
       $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[1].id)
