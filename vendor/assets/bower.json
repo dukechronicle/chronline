@@ -14,6 +14,7 @@
     "underscore": "latest",
     "jquery-galleria": "~1.2.9",
     "jquery-masonry": "~3.1.1",
-    "jquery.cookie": "latest"
+    "jquery.cookie": "latest",
+    "backbone": "~1.1.0"
   }
 }
