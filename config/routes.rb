@@ -94,6 +94,8 @@ Chronline::Application.routes.draw do
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
 
+      get 'widgets' => 'widgets#index'
+
       resources :images, except: :show do
         put 'crop', on: :member
         get 'upload', on: :collection
