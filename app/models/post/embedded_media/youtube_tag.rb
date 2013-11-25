@@ -3,12 +3,13 @@ class Post
     class YoutubeTag < ActionView::Base
       include ActionView::Helpers
 
-      def initialize(_embedded_media, url)
-        @youtube_id = /v=([a-zA-Z0-9_-]{11})/.match(url)[1]
+      def initialize(_embedded_media, youtube_id)
+        @youtube_id = youtube_id
       end
 
       def self.convert_camayak(url)
-        "{{Youtube:#{url}}}"
+        youtube_id = /v=([a-zA-Z0-9_-]{11})/.match(url)[1]
+        "{{Youtube:#{youtube_id}}}"
       end
 
       def to_html(float: :right)
