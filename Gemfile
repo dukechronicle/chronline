@@ -79,8 +79,6 @@ gem 'will_paginate'
 group :test do
   gem 'capybara'
   gem 'poltergeist'
-  gem 'cucumber-rails', :require => false
-  gem 'cucumber-websteps'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard-rspec'
@@ -88,6 +86,7 @@ group :test do
   gem 'mock_redis'
   gem 'shoulda-matchers'
   gem 'spork-rails'
+  gem 'turnip'
   gem 'vcr'
   gem 'webmock'
 end
