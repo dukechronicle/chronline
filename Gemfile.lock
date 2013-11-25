@@ -83,21 +83,6 @@ GEM
       compass (>= 0.12.2, < 0.14)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
-    cucumber (1.3.5)
-      builder (>= 2.1.2)
-      diff-lcs (>= 1.1.3)
-      gherkin (~> 2.12.0)
-      multi_json (~> 1.7.5)
-      multi_test (>= 0.0.2)
-    cucumber-rails (1.3.1)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.2.0)
-      nokogiri (>= 1.5.0)
-      rails (~> 3.0)
-    cucumber-websteps (0.10.0)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.1.1)
-      launchy
     curb (0.8.4)
     database_cleaner (1.0.1)
     default_value_for (2.0.3)
@@ -147,7 +132,7 @@ GEM
     friendly_id (4.0.9)
     fspath (2.0.4)
     fssm (0.2.10)
-    gherkin (2.12.0)
+    gherkin (2.12.2)
       multi_json (~> 1.3)
     gibbon (1.0.0)
       httparty
@@ -192,8 +177,6 @@ GEM
     json (1.8.1)
     json-schema (1.1.1)
     kgio (2.8.0)
-    launchy (2.3.0)
-      addressable (~> 2.3)
     le (2.2.1)
     listen (2.2.0)
       celluloid (>= 0.15.2)
@@ -209,7 +192,6 @@ GEM
     mime-types (1.25.1)
     mock_redis (0.8.1)
     multi_json (1.7.9)
-    multi_test (0.0.2)
     multi_xml (0.5.5)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -372,6 +354,9 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turnip (1.1.0)
+      gherkin (>= 2.5)
+      rspec (~> 2.0)
     tzinfo (0.3.38)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
@@ -407,8 +392,6 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.2)
   compass-rails (~> 1.0.3)
-  cucumber-rails
-  cucumber-websteps
   database_cleaner
   default_value_for
   delayed_paperclip
@@ -462,6 +445,7 @@ DEPENDENCIES
   sunspot_rails (~> 2.0.0)
   sunspot_solr
   tinymce-rails (~> 4.0.2)
+  turnip
   uglifier (~> 2.1.2)
   unicorn
   vcr
