@@ -21,15 +21,12 @@ group :development, :test do
   gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
   gem 'sunspot_solr'
-  gem 'guard-rspec'
 end
 
 group :development do
   gem 'annotate'
   gem 'pry-rails'
   gem 'pry-doc'
-  gem 'progress_bar'
-  gem 'guard-spork'
 end
 
 # Gems used only for assets and not required
@@ -86,10 +83,11 @@ group :test do
   gem 'cucumber-websteps'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'guard-cucumber'
+  gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'shoulda-matchers'
-  gem 'webmock'
-  gem 'vcr'
   gem 'mock_redis'
+  gem 'shoulda-matchers'
+  gem 'spork-rails'
+  gem 'vcr'
+  gem 'webmock'
 end
