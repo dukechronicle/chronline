@@ -34,7 +34,7 @@ class Article < Post
   searchable if: :published_at, include: :authors do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :content, stored: true, more_like_this: true do
-      Nokogiri::HTML(body).text
+      Nokogiri::HTML(body_text).text
     end
     time :date, trie: true do
       published_at
@@ -92,7 +92,7 @@ class Article < Post
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.published.where(slug: slugs.map(&:first))
+    articles = self.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
       article = articles.find { |article| article.slug == slug }
       [article, comments] unless article.nil?  # TODO: this shouldn't be needed

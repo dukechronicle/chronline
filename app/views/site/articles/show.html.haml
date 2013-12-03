@@ -21,11 +21,14 @@
 - content_for :scripts do
   %script{src: '//www.readrboard.com/static/engage.js', defer: true}
 
+- content_for :administrative_links do
+  = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
+
 - unless @article.published?
   = render 'site/partials/admin-notification'
 
 - cache do
-  - @article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+  - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
   .span-8
     .rounded
       %article.article-container
@@ -33,9 +36,10 @@
         - if not @article.subtitle.blank?
           %h2.subtitle= @article.subtitle
 
-        - if @article.image
+        - if @article.embed_code.present?
+          = render partial: 'partials/main-video'
+        - elsif @article.image
           = render partial: 'partials/main-image', locals: {image: @article.image}
-
         %p.byline
           %span.author By #{byline(@article, link: true)}
           %span.sep= "|"
@@ -53,5 +57,8 @@
     = render 'site/partials/facebook-recommended'
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+    #issuu.rounded
+      %h2.vertical-label Issuu
+      .image-container!= Sitevar.issuu
 
   = render 'site/partials/facebook-social-share'

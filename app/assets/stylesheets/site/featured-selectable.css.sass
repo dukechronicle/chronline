@@ -5,7 +5,28 @@
   .selector
     float: left
     margin-right: 6px
+    width: 156px
+    position: relative
     .image-container
-      padding: 2px
+      padding: 2px 2px 0px
+    .title
+      padding: 4px 2px
+      margin-bottom: 0px
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
+    .triangle
+      display: none
+      position: absolute
+      top: -5px
+      left: 68px
+      width: 0
+      height: 0
+      border-left: 10px solid transparent
+      border-right: 10px solid transparent
+      border-bottom: 5px solid $highlight-color
   .selector:last-child
     margin-right: 0px
+  .selected
+    .triangle
+      display: block

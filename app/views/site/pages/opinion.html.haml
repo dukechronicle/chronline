@@ -4,7 +4,7 @@
 - cache do
   .clearfix
     .span-6
-      #columns= render partial: 'site/containers/columns', locals: {title: "Today's Columns", articles: @model.featured}
+      #columns= render partial: 'site/containers/columns', locals: {title: "Daily Features", articles: @model.featured}
       #columnists= render partial: 'site/containers/author-box', locals: {title: "Columnists", authors: @model.columnists}
 
     .span-6.last

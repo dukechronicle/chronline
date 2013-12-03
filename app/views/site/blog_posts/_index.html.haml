@@ -30,3 +30,5 @@
   - @blog.twitter_widgets.each do |widget_id|
     = render partial: 'site/partials/twitter-timeline', locals: {widget_id: widget_id}
   = render 'site/partials/facebook-recommended'
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}

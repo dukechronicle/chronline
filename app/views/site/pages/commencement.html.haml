@@ -12,11 +12,15 @@
         .article-container!= @model.schedule
 
 .clearfix.align-group
-  .span-3.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Freshman Year", article: @model.freshman}
-  .span-3.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Sophomore Year", article: @model.sophomore}
-  .span-3.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Junior Year", article: @model.junior}
-  .span-3.last.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Senior Year", article: @model.senior}
+  - if @model.freshman
+    .span-3.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Freshman Year", article: @model.freshman}
+  - if @model.sophomore
+    .span-3.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Sophomore Year", article: @model.sophomore}
+  - if @model.junior
+    .span-3.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Junior Year", article: @model.junior}
+  - if @model.senior
+    .span-3.last.align-element{data: {aligntarget: ".rounded"}}= render partial: 'site/containers/block/wide', locals: {title: "Senior Year", article: @model.senior}
 
 .clearfix
-  - @model.articles.each_with_index do |article, i|
+  - (@model.articles || []).each_with_index do |article, i|
     .span-3{class: (i % 4 == 3 ? 'last' : nil)}= render partial: 'site/containers/block/wide', locals: {article: article, show_image: false}

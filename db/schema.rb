@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20131110211702) do
     t.datetime "published_at"
     t.boolean  "block_bots",   :default => false
     t.string   "type"
+    t.string   "embed_code"
   end
 
   add_index "articles", ["section", "published_at"], :name => "index_articles_on_section_and_published_at"
