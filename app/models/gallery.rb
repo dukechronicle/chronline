@@ -7,4 +7,8 @@ class Gallery < ActiveRecord::Base
   def get_gallery_images
     PhotoshelterImage.find_all_by_gid(gid)
   end
+
+  def get_slug
+    name.strip.gsub(/[^[:alnum:]]+/, "-")
+  end
 end
