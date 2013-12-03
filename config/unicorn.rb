@@ -1,5 +1,5 @@
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
-timeout 15
+timeout 30
 preload_app true
 
 before_fork do |server, worker|
@@ -24,5 +24,6 @@ after_fork do |server, worker|
     store.pool.reconnect
   end
   Rails.cache.reconnect
-  Resque.redis = $redis = Redis.new(url: Settings.redis, driver: :hiredis)
+  Resque.redis = Sitevar.config.redis = $redis =
+    Redis.new(url: Settings.redis, driver: :hiredis)
 end

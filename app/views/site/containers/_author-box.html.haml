@@ -23,7 +23,7 @@
             %p.tagline= author.tagline
 
           .article-list
-            - author.articles.published.limit(5).order('published_at DESC').each do |article|
+            - recent_articles_by_author(author).each do |article|
               %a.hover.list-story.highlight-right{href: site_post_path(article)}
                 %h3.title= article.title
                 %p.subtitle= display_date(article)

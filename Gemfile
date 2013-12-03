@@ -21,15 +21,12 @@ group :development, :test do
   gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
   gem 'sunspot_solr'
-  gem 'guard-rspec'
 end
 
 group :development do
   gem 'annotate'
   gem 'pry-rails'
   gem 'pry-doc'
-  gem 'progress_bar'
-  gem 'guard-spork'
 end
 
 # Gems used only for assets and not required
@@ -82,30 +79,16 @@ gem 'will_paginate'
 group :test do
   gem 'capybara'
   gem 'poltergeist'
-  gem 'cucumber-rails', :require => false
-  gem 'cucumber-websteps'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'guard-cucumber'
+  gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'mock_redis'
   gem 'shoulda-matchers'
-  gem 'webmock'
+  gem 'spork-rails'
+  gem 'turnip'
   gem 'vcr'
   gem 'mock_redis'
   gem 'turn'
+  gem 'webmock'
 end
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'

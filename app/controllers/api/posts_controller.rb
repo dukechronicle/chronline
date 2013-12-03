@@ -1,3 +1,7 @@
+###
+# This controller is used mainly by Camayak so this class contains some
+# necessary hacks.
+#
 class Api::PostsController < Api::BaseController
   include PostHelper
   before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
@@ -5,7 +9,6 @@ class Api::PostsController < Api::BaseController
   def index
     posts = Post
       .includes(:authors, :image)
-      .published
       .order('published_at DESC')
       .paginate(page: params[:page], per_page: params[:limit])
     respond_with_post posts
@@ -26,6 +29,7 @@ class Api::PostsController < Api::BaseController
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
     post = klass.new(params[:post])
+    post.authors = [default_staff] if post.authors.blank?
     post.convert_camayak_tags!
     if post.save
       respond_with_post post, status: :created,
@@ -36,13 +40,13 @@ class Api::PostsController < Api::BaseController
   end
 
   def unpublish
-    post = Post.find(params[:id])
+    post = Post.unscoped.find(params[:id])
     post.update_attributes!(published_at: nil)
     respond_with_post post, status: :ok
   end
 
   def update
-    post = Post.find(params[:id])
+    post = Post.unscoped.find(params[:id])
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
     post.assign_attributes(params[:post])
@@ -55,7 +59,7 @@ class Api::PostsController < Api::BaseController
   end
 
   def destroy
-    post = Post.find(params[:id])
+    post = Post.unscoped.find(params[:id])
     post.destroy
     head :no_content
   end
@@ -72,5 +76,10 @@ class Api::PostsController < Api::BaseController
       },
     )
     respond_with :api, post, options
+  end
+
+  def default_staff
+    # HAX: Used by the Chronicle as the default staff writer
+    Staff.find_or_create_by_name('Staff Reports')
   end
 end

@@ -7,7 +7,7 @@
     = f.input :title, disabled: true
     = f.association :authors, as: :text_list, value_method: :name, input_html: {class: 'staff-picker', autocomplete: 'off'}
     = f.input :teaser, as: :text, disabled: true, input_html: {rows: 3, class: 'input-xxlarge'}
-    = f.input :body, disabled: true, input_html: {rows: 5, class: 'input-xxlarge'}
+    = f.input :body, input_html: {rows: 5, class: 'input-xxlarge'}
     = f.input :tag_list, label: "Tags", hint: 'Comma separated list of tags, no "and", and no pound signs.'
 
     .control-group

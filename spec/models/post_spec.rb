@@ -16,7 +16,7 @@ describe Post do
     should_not allow_value(Faker::Lorem.paragraph(10)).for(:teaser)
   end
 
-  describe "::published" do
+  describe "default scope" do
     let!(:posts) do
       [
        FactoryGirl.create(:article, published_at: nil),
@@ -25,7 +25,7 @@ describe Post do
       ]
     end
 
-    subject { Post.published }
+    subject { Post.all }
 
     it "should exclude posts with no published_at time" do
       should_not include(posts[0])

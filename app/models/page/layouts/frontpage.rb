@@ -37,6 +37,10 @@ class Page::Layouts::Frontpage < Layout
             'label' => 'Page IDs',
             'type' => 'array',
             'items' => page_schema,
+          },
+          'pages_first' => {
+            'label' => 'Pages First?',
+            'type' => 'boolean',
           }
         }
       },

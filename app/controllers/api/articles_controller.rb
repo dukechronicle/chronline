@@ -5,7 +5,6 @@ class Api::ArticlesController < Api::BaseController
     taxonomy = Taxonomy.new("/#{params[:section]}/")
     articles = Article
       .includes(:authors, :image)
-      .published
       .section(taxonomy)
       .order('published_at DESC')
       .paginate(page: params[:page], per_page: params[:limit])

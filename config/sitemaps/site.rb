@@ -33,7 +33,6 @@ SitemapGenerator::Sitemap.create do
 
   # Article URLs
   articles = Article
-    .published
     .where(block_bots: false)
     .includes(:image)
   articles.find_each do |article|

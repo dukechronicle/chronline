@@ -9,7 +9,7 @@ class Post
     end
 
     def render
-      tag_list = @body.scan(/{{([a-zA-Z]*):(\S*?)}}/)
+      tag_list = @body.scan(/{{([a-zA-Z]*):([^\}]*?)}}/)
       tags = tag_list.map do |tag, data|
         begin
           "Post::EmbeddedMedia::#{tag}Tag".constantize.new(
@@ -22,7 +22,7 @@ class Post
       execute_queries
 
       float_left = true
-      @rendered = @body.gsub(/{{([a-zA-Z]*):(\S*?)}}/) do |t|
+      @rendered = @body.gsub(/{{([a-zA-Z]*):([^\}]*?)}}/) do |t|
         float_left = !float_left
         tags.shift.to_html(float: float_left ? :left : :right)
       end

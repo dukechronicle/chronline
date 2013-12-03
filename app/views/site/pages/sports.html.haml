@@ -1,5 +1,5 @@
 - content_for :title_block do
-  = render 'site/partials/navigation'
+  = render 'site/partials/navigation', nav_links: @model.nav_links
 
 - cache do
   .clearfix.align-group
@@ -9,7 +9,7 @@
 
     .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
       = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-      #blog.title-medium= render partial: 'site/containers/article-list/rss', locals: {title: "Blue Zone", items: @model.blog['feed'], image: {src: 'blogs/sportsblog-banner.jpg', href: @model.blog['url']}}
+      = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget}
 
   .clearfix
     - @model.bottom_articles.each_with_index do |article, i|
