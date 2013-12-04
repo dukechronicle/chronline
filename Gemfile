@@ -20,7 +20,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.0'
   gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
-  gem 'sunspot_solr'
+  gem 'sunspot_solr', '~> 2.1.0'
 end
 
 group :development do
@@ -72,7 +72,7 @@ gem 'ruby-oembed'
 gem 'simple_form'
 gem 'sitemap_generator'
 gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
-gem 'sunspot_rails', '~> 2.0.0'
+gem 'sunspot_rails', '~> 2.1.0'
 gem 'tinymce-rails', '~> 4.0.2'
 gem 'will_paginate'
 
