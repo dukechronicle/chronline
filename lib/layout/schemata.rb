@@ -69,3 +69,11 @@ Layout.add_schema(:datetime, {
                   }) do |datetimes|
   datetimes.map { |str| DateTime.iso8601(str) }
 end
+
+Layout.add_schema(:gallery, {
+  "type" => "string",
+  "required" => true,
+}) do |gallery_ids|
+  Gallery.where(gid: gallery_ids)
+end
+
