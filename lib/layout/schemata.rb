@@ -74,6 +74,6 @@ Layout.add_schema(:gallery, {
   "type" => "string",
   "required" => true,
 }) do |gallery_ids|
-  Gallery.where(gid: gallery_ids)
+  Gallery.find_in_order(gallery_ids, :gid)
 end
 
