@@ -20,7 +20,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.0'
   gem 'rb-readline', '~> 0.4.2'
   gem 'ffaker'
-  gem 'sunspot_solr'
+  gem 'sunspot_solr', '~> 2.0.0'
 end
 
 group :development do
