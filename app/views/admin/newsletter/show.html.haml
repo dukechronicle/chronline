@@ -1,12 +1,13 @@
-= form_for ArticleNewsletter.new, url: admin_newsletter_path, html: {class: 'form-horizontal'} do |f|
+= form_for ArticleNewsletter.new, url: admin_newsletter_path, html: {class: 'form-horizontal', onKeyPress: "return event.keyCode != 13;"} do |f|
   %legend Newsletter
   .form-inputs
     .control-group
-      %label.control-label{for: 'newsletter_article'} Article
+      %label.control-label{for: 'newsletter_article'} Newsletter Type
       .controls
+        %span.help-block= link_to "Daily (click to layout)", edit_admin_page_path(@newsletter_page)
+        %span Breaking News Alert
         %input.input-enabler{type: 'checkbox'}
         = f.text_field :article, disabled: true, class: 'input-xlarge', class: 'input-xlarge article-picker'
-        %span.help-block= link_to "Lay out the newsletter here", edit_admin_page_path(@newsletter_page)
     .control-group
       %label.control-label{for: 'newsletter_test_email'} Test email
       .controls
