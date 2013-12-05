@@ -33,6 +33,7 @@ class Newsletter
       content: {
         sections: {
           preheader_content00: teaser,
+          header_image: header,
           left_column_lead: column_lead(0),
           right_column_lead: column_lead(1),
           body_content: content,
@@ -76,7 +77,7 @@ class Newsletter
   end
 
   def teaser
-    @model['teaser'] || ""
+    ""
   end
 
 end
@@ -105,6 +106,12 @@ class ArticleNewsletter < Newsletter
   private
   def subject
     "Chronicle Alert: #{@article.title}"
+  end
+
+  private
+  def header
+    src = "https://s3.amazonaws.com/chronline/newsletter/alert_header.png"
+    %{<img src="#{src}" style="max-width:600px;" id="headerImage" alt="The Chronicle Breaking News Alert" /></a>}
   end
 end
 
@@ -135,5 +142,15 @@ class DailyNewsletter < Newsletter
   private
   def subject
     "Duke Chronicle Daily Newsletter #{issue_date}"
+  end
+
+  private
+  def header
+    src = "https://s3.amazonaws.com/chronline/newsletter/daily_header.png"
+    %{<img src="#{src}" style="max-width:600px;" id="headerImage" alt="The Chronicle Daily Newsletter" /></a>}
+  end
+
+  def teaser
+    @model['teaser'] || ""
   end
 end
