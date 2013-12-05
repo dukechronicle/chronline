@@ -2,8 +2,8 @@
   - if model.send(section.name.downcase).present?
     %h2= section.name
     - model.send(section.name.downcase).each do |article|
-      %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}
-        %h3= article.title
+      %h3
+        %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}=article.title
       .article
         - if article.image
           %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}

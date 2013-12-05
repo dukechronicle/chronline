@@ -32,8 +32,11 @@ class Newsletter
       },
       content: {
         sections: {
-          main: content,
-          adimage: advertisement,
+          preheader_content00: teaser,
+          left_column_lead: column_lead(0),
+          right_column_lead: column_lead(1),
+          body_content: content,
+          advertisement_content: advertisement,
           issuedate: issue_date,
         }
       }
@@ -66,6 +69,14 @@ class Newsletter
     # TODO: make this configurable by non-developers
     src = "http://#{Settings.content_cdn}/advertisements/#{Settings.mailchimp.ad_image}"
     %{<a href="#{Settings.mailchimp.ad_href}"><img src="#{src}"/></a>}
+  end
+
+  def column_lead(i)
+    ""
+  end
+
+  def teaser
+    @model['teaser'] || ""
   end
 
 end
@@ -110,6 +121,11 @@ class DailyNewsletter < Newsletter
     # TODO: look into executing in an actual controller context with helpers
     template = File.read(File.join(%w{app views newsletter daily.html.haml}))
     Haml::Engine.new(template).render(Rails.application.routes.url_helpers, model: @model)
+  end
+
+  def column_lead(i)
+    template = File.read(File.join(%w{app views newsletter featured.html.haml}))
+    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, article: @model['featured'][i])
   end
 
   def self.model_name
