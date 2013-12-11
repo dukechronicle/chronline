@@ -74,10 +74,6 @@ module Chronline
     # https://devcenter.heroku.com/articles/rails-asset-pipeline
     config.assets.initialize_on_precompile = false
 
-    # Add Bower components to asset search path
-    config.assets.paths <<
-      File.join(Rails.root, 'vendor', 'assets', 'bower_components')
-
     # Action mailer configuration
     config.action_mailer.default_url_options = { host: Settings.domain }
     config.action_mailer.delivery_method = :smtp
