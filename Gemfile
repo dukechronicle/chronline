@@ -36,6 +36,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
   gem 'uglifier', '~> 2.1.2'
+  gem 'bower-rails', '~> 0.5.0'
 end
 
 gem 'acts-as-taggable-on'
