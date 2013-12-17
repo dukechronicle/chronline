@@ -1,4 +1,22 @@
-%h1 Hello
 .clearfix.align-group
   .span-8.align-element{data: {alignprimary: "true"}}
-    #slideshow= render partial: 'site/partials/photoshelter-slideshow', locals: {gallery: @model.featured}
+  .rounded.clearfix
+    .row
+      = render partial: 'site/partials/large-photoshelter-slideshow', locals: {gallery: @model.row1.first}
+    .row
+      %h2.vertical-label News
+      - @model.row1.each do |gallery|
+        .span-3
+          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+  .rounded.clearfix
+    .row
+      %h2.vertical-label Sports
+      - @model.row1.each do |gallery|
+        .span-3
+          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+  .rounded.clearfix
+    .row
+      %h2.vertical-label Recess
+      - @model.row1.each do |gallery|
+        .span-3
+          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
