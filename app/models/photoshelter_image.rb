@@ -1,11 +1,12 @@
 class PhotoshelterImage < ActiveRecord::Base
+  BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
   attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid
 
   validates :gid, presence: true
   validates :pid, presence: true
 
-  def get_image_url
-    "http://cdn.c.photoshelter.com/img-get/#{pid}/"
+  def get_image_url(width = nil)
+    width ? (return "#{BASE_IMAGE_URL}/#{pid}/s/#{width}") : (return "#{BASE_IMAGE_URL}/#{pid}")
   end
 
   # url of the photoshelter buy page

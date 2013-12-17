@@ -1,0 +1,2 @@
+- image = gallery.get_gallery_images.first 
+%img{:src => image.get_image_url(300), :data => {:link => image.get_photoshelter_url}}
