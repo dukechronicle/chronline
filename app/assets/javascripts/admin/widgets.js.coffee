@@ -5,10 +5,11 @@ initialize '#widget-editor', ->
     el: $('#widget-editor')
 
     providers:
-      'soundcloud': SoundcloudView
-      'instagram': InstagramView
-      'youtube': YoutubeView
       'image': ImageView
+      'instagram': InstagramView
+      'soundcloud': SoundcloudView
+      'twitter': TwitterView
+      'youtube': YoutubeView
 
     routes:
       ':provider': 'loadView'

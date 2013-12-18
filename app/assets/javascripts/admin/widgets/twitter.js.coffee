@@ -1,27 +1,25 @@
 initialize '#widget-editor', ->
-  YoutubeView = Backbone.View.extend
+  TwitterView = Backbone.View.extend
     events:
       'keyup #url': 'update'
 
-    urlPattern: /^https?:\/\/www.youtube\.com\//
+    urlPattern: /^https?:\/\/twitter\.com\//
 
     initialize: (options) ->
       this._handler = _.debounce(_.bind(this.handler, this), 700)
 
     handler: (url, callback) ->
       if this.urlPattern.test(url)
-        match = /v=([a-zA-Z0-9_-]{11})/.exec(url)
-        if match
-          callback("{{Youtube:#{match[1]}}}")
-          return
-      callback("Invalid url!")
+        callback("{{Twitter:#{url}}}")
+      else
+        callback("Invalid url!")
 
     render: ->
-      text_field =  _.template("<label for='<%= field_id %>'><%= label %></label>
+      text_field = _.template("<label for='<%= field_id %>'><%= label %></label>
               <input id='<%= field_id %>' type='text'>")
       this.$el.html(text_field
         field_id: 'url'
-        label: 'Youtube URL'
+        label: 'Twitter URL'
       )
 
     update: (e) ->
@@ -29,4 +27,4 @@ initialize '#widget-editor', ->
         if (tag)
           $('#tag-result').text(tag)
 
-  window.YoutubeView = YoutubeView
+  window.TwitterView = TwitterView
