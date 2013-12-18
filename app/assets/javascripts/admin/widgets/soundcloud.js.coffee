@@ -14,7 +14,7 @@ initialize '#widget-editor', ->
           id = /tracks%2F(\d+)&/.exec(data.html)[1]
           callback("{{Soundcloud:#{id}}}")
       else
-        callback()
+        callback("Invalid url!")
 
     render: ->
       text_field = _.template("<label for='<%= field_id %>'><%= label %></label>
