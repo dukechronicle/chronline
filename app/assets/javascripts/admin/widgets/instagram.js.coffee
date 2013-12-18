@@ -13,7 +13,7 @@ initialize '#widget-editor', ->
       if match
         callback("{{Instagram:#{match[1]}}}")
       else
-        callback()
+        callback("Invalid url!")
 
     render: ->
       text_field = _.template("<label for='<%= field_id %>'><%= label %></label>
