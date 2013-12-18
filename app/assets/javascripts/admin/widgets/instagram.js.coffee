@@ -3,14 +3,15 @@ initialize '#widget-editor', ->
     events:
       'keyup #url': 'update'
 
-    urlPattern: /^https?:\/\/instagram\.com\//
+    urlPattern: /^https?:\/\/instagram\.com\/p\/([a-zA-Z0-9]+)/
 
     initialize: (options) ->
       this._handler = _.debounce(_.bind(this.handler, this), 700)
 
     handler: (url, callback) ->
-      if this.urlPattern.test(url)
-        callback("{{Instagram:#{url}}}")
+      match = this.urlPattern.exec(url)
+      if match
+        callback("{{Instagram:#{match[1]}}}")
       else
         callback()
 

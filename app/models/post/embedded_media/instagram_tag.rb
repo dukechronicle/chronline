@@ -3,12 +3,13 @@ class Post
     class InstagramTag < ActionView::Base
       include ActionView::Helpers
 
-      def initialize(_embedded_media, url)
-        @instagram_id = /\/p\/([a-zA-Z0-9]+)/.match(url)[1]
+      def initialize(_embedded_media, id)
+        @instagram_id = id
       end
 
       def self.convert_camayak(url)
-        "{{Instagram:#{url}}}"
+        id = /\/p\/([a-zA-Z0-9]+)/.match(url)[1]
+        "{{Instagram:#{id}}}"
       end
 
       def to_html(float: :right)
