@@ -2,22 +2,32 @@ class Page::Layouts::Gallery < Layout
 
   def schema
     {
-      'featured' => {
+      'slideshow' => {
         'label' => 'Featured Gallery',
         'required' => true,
         'extends' => gallery_schema,
+      }, 
+      'twitter_widget' => {
+        'label' => 'Twitter Widget ID',
+        'type' => 'string',
+        'required' => true,
       },
-      'row1' => {
+      'featured' => {
+        'label' => 'Featured Galleries',
+        'type' => 'array',
+        'items' => gallery_schema,
+      },
+      'news' => {
         'label' => 'Row One Galleries',
         'type' => 'array',
         'items' => gallery_schema,
       },
-      'row2' => {
+      'sports' => {
         'label' => 'Row Two Galleries',
         'type' => 'array',
         'items' => gallery_schema,
       },
-      'row3' => {
+      'recess' => {
         'label' => 'Row Three Galleries',
         'type' => 'array',
         'items' => gallery_schema,
