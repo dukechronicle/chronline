@@ -1,22 +1,30 @@
 .clearfix.align-group
   .span-8.align-element{data: {alignprimary: "true"}}
-  .rounded.clearfix
-    .row
-      = render partial: 'site/partials/large-photoshelter-slideshow', locals: {gallery: @model.row1.first}
-    .row
-      %h2.vertical-label News
-      - @model.row1.each do |gallery|
-        .span-3
+    #slideshow= render partial: 'site/partials/large-photoshelter-slideshow', locals: {gallery: @model.slideshow}
+    %h2.vertical-label Featured
+    .rounded.clearfix
+      - @model.featured.each do |gallery|
+        .span-3.small-gallery
           = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
-  .rounded.clearfix
-    .row
-      %h2.vertical-label Sports
-      - @model.row1.each do |gallery|
-        .span-3
-          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
-  .rounded.clearfix
-    .row
-      %h2.vertical-label Recess
-      - @model.row1.each do |gallery|
-        .span-3
-          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+
+  .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
+    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget}
+.rounded.clearfix
+  .row
+    %h2.vertical-label News
+    - @model.news.each do |gallery|
+      .span-3.small-gallery
+        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+.rounded.clearfix
+  .row
+    %h2.vertical-label Sports
+    - @model.sports.each do |gallery|
+      .span-3.small-gallery
+        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+.rounded.clearfix
+  .row
+    %h2.vertical-label Recess
+    - @model.recess.each do |gallery|
+      .span-3.small-gallery
+        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
