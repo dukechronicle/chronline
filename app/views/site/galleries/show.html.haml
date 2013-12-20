@@ -1,7 +1,16 @@
-- url = "http://cdn.c.photoshelter.com/img-get/"
-.rounded.large-slideshow
-  .galleria
-    - @images.each do |image|
-      /%img{:src => "http://cdn.c.photoshelter.com/img-get/I000051opCFEfUto/"}
-      %img{:src => image.get_image_url, :data => {:link => image.get_photoshelter_url }}
-      / = cropped_image_tag image, :rectangle_636x, 'data-title' => image.title
+.span-8
+  .rounded
+    %article.article-container
+      %h1.title= @gallery.name
+      .article-body
+        != @gallery.description
+
+      .galleria
+        - @gallery.get_gallery_images.each do |image|
+          %img{:src => image.get_image_url, :data => {:link => image.get_photoshelter_url }}
+      %p.byline
+        / %span.author By #{byline(@article, link: true)}
+        / %span.sep= "|"
+        / = display_date(@article)
+.span-4.last.align-element
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
