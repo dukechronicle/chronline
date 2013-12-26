@@ -11,9 +11,9 @@
   })();
 
   _qevents.push({
-  qacct:"#{Settings.quantcast.qacct}"
+  qacct:"#{ENV['QUANTCAST']}"
   });
 
 %noscript
   %div{style: "display:none;"}
-    %img{src: "//pixel.quantserve.com/pixel/#{Settings.quantcast.qacct}.gif", border: "0", height: "1", width: "1", alt: "Quantcast"}
+    %img{src: "//pixel.quantserve.com/pixel/#{ENV['QUANTCAST']}.gif", border: "0", height: "1", width: "1", alt: "Quantcast"}
