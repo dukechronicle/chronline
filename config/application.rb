@@ -75,14 +75,14 @@ module Chronline
     config.assets.initialize_on_precompile = false
 
     # Action mailer configuration
-    config.action_mailer.default_url_options = { host: Settings.domain }
+    config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
 
     # Use Redis cache store
     config.cache_store = :redis_store, {
-      url: Settings.redis,
+      url: ENV['REDIS_URL'],
       expires_in: 10.minutes,
       race_condition_ttl: 10.seconds
     }
@@ -93,7 +93,7 @@ module Chronline
     # Allow HTTP response access to all subdomains
     config.middleware.use Rack::Cors do
       allow do
-        origins %r{https?://\w+\.#{Settings.domain}}
+        origins %r{https?://\w+\.#{ENV['DOMAIN']}}
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
@@ -101,7 +101,7 @@ module Chronline
     # Use routes to handle exceptions (https://coderwall.com/p/w3ghqq)
     config.exceptions_app = self.routes
 
-    config.action_dispatch.tld_length = Settings.domain.count('.')
+    config.action_dispatch.tld_length = ENV['DOMAIN'].count('.')
   end
 end
 

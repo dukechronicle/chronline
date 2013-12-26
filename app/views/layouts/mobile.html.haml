@@ -9,8 +9,9 @@
       try{Typekit.load()}catch(e){}
     = stylesheet_link_tag "mobile", :media => "all"
     = render 'partials/favicon'
-    = yield :head
     = csrf_meta_tags
+    = yield :head
+    = render 'partials/google-analytics'
   %body
     #fb-root
     .container{data: {role: "page"}}
