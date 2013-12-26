@@ -80,6 +80,16 @@ module Chronline
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
 
+    # Use Redis cache store
+    config.cache_store = :redis_store, {
+      url: Settings.redis,
+      expires_in: 10.minutes,
+      race_condition_ttl: 10.seconds
+    }
+
+    # Send logs to standard output
+    config.logger = Logger.new(STDOUT)
+
     # Allow HTTP response access to all subdomains
     config.middleware.use Rack::Cors do
       allow do

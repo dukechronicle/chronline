@@ -35,9 +35,6 @@ Chronline::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  # Send logs to standard output
-  config.logger = Logger.new(STDOUT)
-
   # Make sure we preload the parent and children classes in development
   require_dependency File.join("app", "models", "newsletter.rb")
 

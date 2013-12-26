@@ -36,16 +36,6 @@ Chronline::Application.configure do
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
-  # Use a different logger for distributed setups
-  config.logger = Logger.new(STDOUT)
-
-  # Use a different cache store in production
-  config.cache_store = :redis_store, {
-    url: Settings.redis,
-    expires_in: 10.minutes,
-    race_condition_ttl: 10.seconds
-  }
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "//#{Settings.content_cdn}"
 
