@@ -393,7 +393,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
-  annotate
+  annotate (~> 2.6.1)
   asset_sync
   aws-sdk
   bootstrap-will_paginate

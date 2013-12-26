@@ -20,10 +20,8 @@
 # Ignore bower components
 /vendor/assets/bower_components
 
-config/redis.conf
-config/settings.local.yml
-config/settings/*.local.yml
-config/environments/*.local.yml
+# Ignore dotenv environment specific files
+.env.*
 
 solr/
 
