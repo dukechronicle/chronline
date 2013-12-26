@@ -3,9 +3,6 @@ ruby '2.0.0'
 
 gem 'rails', '3.2.16'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 group :production do
   gem 'newrelic_rpm'
   gem 'asset_sync'
@@ -13,9 +10,10 @@ group :production do
 end
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 0.9.0'
+  gem 'ffaker', '~> 1.22.1'
+  gem 'rb-readline', '~> 0.5.0', require: false
   gem 'rspec-rails', '~> 2.14.0'
-  gem 'rb-readline', '~> 0.4.2'
-  gem 'ffaker'
   gem 'sunspot_solr', '~> 2.1.0'
 end
 
@@ -32,7 +30,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
   gem 'uglifier', '~> 2.1.2'
-  gem 'bower-rails', :git => 'git://github.com/jimpo/bower-rails.git'
+  gem 'bower-rails', git: 'git://github.com/jimpo/bower-rails.git'
 end
 
 gem 'acts-as-taggable-on'
@@ -59,7 +57,7 @@ gem 'paperclip'
 gem 'paperclip-optimizer'
 gem 'promise'
 gem 'pg', '~> 0.17.1'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rails_config'
 gem 'rdiscount'
 gem 'redis', '~> 3.0.6'
@@ -70,7 +68,7 @@ gem 'rmagick'
 gem 'ruby-oembed'
 gem 'simple_form'
 gem 'sitemap_generator'
-gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
+gem 'subdomain-fu', git: 'git://github.com/mbleigh/subdomain-fu.git'
 gem 'sunspot_rails', '~> 2.1.0'
 gem 'tinymce-rails', '~> 4.0.2'
 gem 'will_paginate'
