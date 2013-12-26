@@ -205,7 +205,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
-    newrelic_rpm (3.6.5.130)
+    newrelic_rpm (3.7.1.180)
     nokogiri (1.5.10)
     orm_adapter (0.4.0)
     paperclip (3.4.2)
