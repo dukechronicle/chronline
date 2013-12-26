@@ -18,9 +18,9 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
-  gem 'pry-rails'
-  gem 'pry-doc'
+  gem 'annotate', '~> 2.6.1'
+  gem 'pry-rails', '~> 0.3.2'
+  gem 'pry-doc', '~> 0.5.1'
 end
 
 # Gems used only for assets and not required

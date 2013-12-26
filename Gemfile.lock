@@ -43,8 +43,9 @@ GEM
     acts-as-taggable-on (2.4.1)
       rails (>= 3, < 5)
     addressable (2.3.5)
-    annotate (2.5.0)
-      rake
+    annotate (2.6.1)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (3.0.3)
     asset_sync (0.5.4)
       activemodel
@@ -230,10 +231,10 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry-doc (0.4.6)
+    pry-doc (0.5.1)
       pry (>= 0.9)
       yard (>= 0.8)
-    pry-rails (0.3.1)
+    pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.4.5)
     rack-cache (1.2)
@@ -385,7 +386,7 @@ GEM
     will_paginate (3.0.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yard (0.8.6.2)
+    yard (0.8.7.3)
 
 PLATFORMS
   ruby
@@ -430,8 +431,8 @@ DEPENDENCIES
   pg (~> 0.17.1)
   poltergeist
   promise
-  pry-doc
-  pry-rails
+  pry-doc (~> 0.5.1)
+  pry-rails (~> 0.3.2)
   rack-cors
   rails (= 3.2.16)
   rails_config
