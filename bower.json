@@ -8,13 +8,13 @@
             "bootstrap": "~2.3.2",
             "jcrop": "~0.9.12",
             "jquery": "~1.10.2",
+            "jquery.cookie": "~1.4.0",
             "jquery-file-upload": "~8.4.2",
+            "jquery-galleria": "~1.3.2",
+            "jquery-masonry": "~3.1.1",
             "jquery-ui": "~1.10.3",
             "onde": "git://github.com/exavolt/onde.git",
-            "underscore": "latest",
-            "jquery-galleria": "~1.2.9",
-            "jquery-masonry": "~3.1.1",
-            "jquery.cookie": "latest"
+            "underscore": "~1.5.2"
         }
     }
 }
