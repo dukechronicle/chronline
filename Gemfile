@@ -11,7 +11,6 @@ end
 
 group :development, :test do
   gem 'dotenv-rails', '~> 0.9.0'
-  gem 'ffaker', '~> 1.22.1'
   gem 'rb-readline', '~> 0.5.0', require: false
   gem 'rspec-rails', '~> 2.14.0'
   gem 'sunspot_solr', '~> 2.1.0'
@@ -42,6 +41,7 @@ gem 'delayed_paperclip'
 gem 'devise', '~> 2.2.4'
 gem 'devise_invitable'
 gem 'feedzirra', '~> 0.2.0.rc2'
+gem 'ffaker', '~> 1.22.1'
 gem 'fog'
 gem 'friendly_id'
 gem 'gibbon', '~> 1.0.0'
