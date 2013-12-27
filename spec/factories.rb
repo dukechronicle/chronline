@@ -1,6 +1,5 @@
 include ActionDispatch::TestProcess
 
-
 FactoryGirl.define do
   factory :article do
     title { Faker::Lorem.words(5).join(' ') }
@@ -8,7 +7,7 @@ FactoryGirl.define do
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
     section "/news/university"
-    authors { [FactoryGirl.create(:staff)] }
+    authors { [ FactoryGirl.create(:staff) ] }
     published_at Date.new(2008, 9, 30)
   end
 
@@ -39,7 +38,7 @@ FactoryGirl.define do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
     blog "pokedex"
-    authors { [FactoryGirl.create(:staff)] }
+    authors { [ FactoryGirl.create(:staff) ] }
   end
 
   factory :user do

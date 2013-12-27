@@ -32,8 +32,8 @@ describe Article do
       let(:response) do
         articles_with_posts.map do |article, posts|
           {
-            'link' => site_article_url(article, subdomain: 'www',
-                                       host: Settings.domain),
+            'link' => site_article_url(
+              article, subdomain: 'www', host: ENV['DOMAIN']),
             'posts' => posts,
           }
         end
@@ -41,7 +41,7 @@ describe Article do
 
       before do
         Disqus.any_instance.should_receive(:request)
-          .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+          .with(:threads, :list_hot, limit: 5, forum: ENV['DISQUS_SHORTNAME'])
           .and_return({'response' => response})
       end
 
@@ -53,7 +53,7 @@ describe Article do
     context "when Disqus response is nil" do
       before do
         Disqus.any_instance.should_receive(:request)
-          .with(:threads, :list_hot, limit: 5, forum: Settings.disqus.shortname)
+          .with(:threads, :list_hot, limit: 5, forum: ENV['DISQUS_SHORTNAME'])
           .and_return(nil)
       end
 
@@ -62,7 +62,7 @@ describe Article do
   end
 
   describe "::popular" do
-    before(:all) do
+    before do
       @articles = FactoryGirl.create_list(:article, 4)
       $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[0].id)
       $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[1].id)
