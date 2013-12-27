@@ -15,7 +15,7 @@
     = f.input :caption
     = f.input :location
     = f.association :photographer, value_method: :name, as: :string, input_html: {class: 'staff-picker input-xlarge'}
-    = f.input :attribution, collection: Settings.image_attributions
+    = f.input :attribution, collection: Image::Attributions
     = f.input :credit, hint: "Image credit when there is no attributed photographer"
     = f.input :date, as: :date, native: browser.chrome?
   .form-actions
