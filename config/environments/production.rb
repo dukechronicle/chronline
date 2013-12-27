@@ -64,13 +64,14 @@ Chronline::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Configure ActionMailer to use Gmail
+  # Configure ActionMailer to use Gmail
   ActionMailer::Base.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true,
-    domain: Settings.gmail.domain,
-    user_name: Settings.gmail.username,
-    password: Settings.gmail.password,
+    domain: ENV['GMAIL_DOMAIN'],
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD'],
   }
 end
