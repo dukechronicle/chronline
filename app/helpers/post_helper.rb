@@ -17,7 +17,7 @@ module PostHelper
   def disqus_options(post)
     {
       production: Rails.env.production?,
-      shortname: Settings.disqus.shortname,
+      shortname: ENV['DISQUS_SHORTNAME'],
       identifier: disqus_identifier(post),
       title: post.title,
       url: permanent_post_url(post),
