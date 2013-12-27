@@ -25,8 +25,9 @@
 
     = yield :head
     = render 'site/partials/open-graph/facebook-app'
+    = render 'partials/google-analytics'
   %body
-    #fb-root
+    #fb-root{data: {'app-id' => ENV['FACEBOOK_APP_ID']}}
     = render 'site/partials/admin-panel'
     .container
       = render 'site/partials/header'
@@ -35,4 +36,5 @@
     #scripts
       = javascript_include_tag "site"
       = render 'partials/quantcast'
+      = render 'site/partials/widgets'
       = yield :scripts

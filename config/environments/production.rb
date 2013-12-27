@@ -36,18 +36,8 @@ Chronline::Application.configure do
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
-  # Use a different logger for distributed setups
-  config.logger = Logger.new(STDOUT)
-
-  # Use a different cache store in production
-  config.cache_store = :redis_store, {
-    url: Settings.redis,
-    expires_in: 10.minutes,
-    race_condition_ttl: 10.seconds
-  }
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "//#{Settings.content_cdn}"
+  config.action_controller.asset_host = "//#{ENV['CONTENT_CDN']}"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile +=
@@ -74,13 +64,14 @@ Chronline::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Configure ActionMailer to use Gmail
+  # Configure ActionMailer to use Gmail
   ActionMailer::Base.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true,
-    domain: Settings.gmail.domain,
-    user_name: Settings.gmail.username,
-    password: Settings.gmail.password,
+    domain: ENV['GMAIL_DOMAIN'],
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD'],
   }
 end

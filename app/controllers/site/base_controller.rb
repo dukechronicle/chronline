@@ -20,7 +20,7 @@ class Site::BaseController < ApplicationController
   end
 
   def sitemap_proxy
-    res = HTTParty.get("http://#{Settings.aws.bucket}.s3.amazonaws.com" +
+    res = HTTParty.get("http://#{ENV['AWS_S3_BUCKET']}.s3.amazonaws.com" +
                        "/sitemaps/news/sitemap1.xml.gz")
     send_data res.body
   end

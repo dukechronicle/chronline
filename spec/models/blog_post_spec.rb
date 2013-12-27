@@ -16,7 +16,7 @@ describe Blog::Post do
       ]
     end
 
-    subject { Blog::Post.tagged_with('SQUIRTLE') }
+    subject { Blog::Post.unscoped { Blog::Post.tagged_with('SQUIRTLE') } }
 
     it "should return case insensitive matches" do
       should include(blog_posts[0])
