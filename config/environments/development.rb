@@ -44,8 +44,8 @@ Chronline::Application.configure do
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true,
-    domain: Settings.gmail.domain,
-    user_name: Settings.gmail.username,
-    password: Settings.gmail.password,
+    domain: ENV['GMAIL_DOMAIN'],
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD'],
   }
 end
