@@ -20,8 +20,11 @@
 # Ignore bower components
 /vendor/assets/bower_components
 
-# Ignore dotenv environment specific files
-.env.*
+# Ignore local config file
+.env.development
+
+# Ignore local rspec config
+.rspec-local
 
 solr/
 

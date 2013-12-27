@@ -37,7 +37,7 @@ Chronline::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "//#{Settings.content_cdn}"
+  config.action_controller.asset_host = "//#{ENV['CONTENT_CDN']}"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile +=
