@@ -2,9 +2,13 @@ module ActiveRecordExtensions
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def find_in_order(ids)
-      models = Hash[self.where(id: ids).map { |model| [model.id, model] }]
-      ids.map { |id| models[id] }
+    # TODO: Create dynamic matchers for plural of attributes
+    def find_in_order(ids, property = :id)
+      models = self.where(property => ids).map do |model|
+        [model.send(property), model]
+      end
+      models_hash = Hash[models]
+      ids.map { |id| models_hash[id] }
     end
   end
 
