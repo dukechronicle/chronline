@@ -12,10 +12,13 @@ class Admin::ArticlesController < Admin::BaseController
       params[:page] = find_article_page_for_date(date, @taxonomy)
     end
 
-    @articles = Article.includes(:authors, :image)
-      .section(@taxonomy)
-      .order('published_at IS NOT NULL, published_at DESC')
-      .page(params[:page])
+    @articles = Article.unscoped do  # Include unpublished articles
+      Article
+        .includes(:authors, :image)
+        .section(@taxonomy)
+        .order('published_at IS NOT NULL, published_at DESC')
+        .page(params[:page])
+    end
   end
 
   def new
@@ -24,9 +27,6 @@ class Admin::ArticlesController < Admin::BaseController
 
   def create
     @article = update_article(Article.new)
-    if @article.embed_code
-      @article.embed_code = parseURL(@article.embed_code)
-    end
     if @article.save
       redirect_to site_article_url(@article, subdomain: 'www')
     else
@@ -38,7 +38,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def publish
-    @article = Article.find(params[:id])
+    @article = Article.unscoped.find(params[:id])
     @article.published_at = DateTime.now
     if @article.save
       flash[:sucess] = %Q[Article "#{@article.title} was published."]
@@ -49,7 +49,7 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def update
-    @article = update_article(Article.find(params[:id]))
+    @article = update_article(Article.unscoped.find(params[:id]))
     if @article.save
       redirect_to site_article_url(@article, subdomain: 'www')
     else
@@ -58,19 +58,13 @@ class Admin::ArticlesController < Admin::BaseController
   end
 
   def destroy
-    article = Article.find(params[:id])
+    article = Article.unscoped.find(params[:id])
     article.destroy
     flash[:success] = %Q[Article "#{article.title}" was deleted.]
     redirect_to admin_articles_path
   end
 
   private
-
-  # convert entire video embed code to only url for db storage
-  def parseURL(full_tag)
-    url = /youtube.com.*(?:\/|v=)([^&$]+)/.match(full_tag)[1]
-  end
-
   def update_article(article)
     # Last element of taxonomy array may be an empty string
     author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }

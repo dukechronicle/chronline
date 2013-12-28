@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
-    :section, :subtitle, :teaser, :title, :embed_code
+    :section, :subtitle, :teaser, :title, :embed_code, :embed_url
 
 
   belongs_to :image
@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
   validates :teaser, length: { maximum: 200 }
 
 
-  def self.published
+  def self.default_scope
     self
       .where('published_at IS NOT NULL')
       .where(['published_at < ?', DateTime.now])
@@ -67,8 +67,56 @@ onto per since than the this that to up via with)
     EmbeddedMedia.new(body).to_s
   end
 
+  def body_text
+    body.gsub(/{{[^\}]*}}/, '')
+  end
+
+  def convert_camayak_tags!
+    document = Nokogiri::HTML::DocumentFragment.parse(body)
+    document.css('.oembed').each do |camayak_tag|
+      url = camayak_tag.attr('data-camayak-embed-url')
+      provider =
+        case url
+        when %r[^https?://www\.youtube\.com/]
+          'Youtube'
+        when %r[^https?://twitter\.com/]
+          'Twitter'
+        when %r[^https?://soundcloud\.com/]
+          'Soundcloud'
+        when %r[^https?://instagram\.com/]
+          'Instagram'
+        end
+      unless provider.nil?
+        camayak_tag.replace("{{#{provider}:#{url}}}")
+      end
+    end
+    self.body = document.to_html
+  end
+
   def square_80x_url
     image.original.url(:square_80x) if image
+  end
+
+  def embed_url(params = {})
+    if embed_code.present?
+      params[:v] = embed_code
+      uri = URI::Generic.build(
+        host: 'www.youtube.com',
+        path: '/watch',
+        query: URI.encode_www_form(params),
+      )
+      uri.to_s
+    end
+  end
+
+  def embed_url=(url)
+    if url.present?
+      uri = URI.parse(url)
+      params = Hash[URI.decode_www_form(uri.query)]
+      self.embed_code = params['v']
+    else
+      self.embed_code = nil
+    end
   end
 end
 
