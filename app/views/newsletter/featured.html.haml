@@ -1,6 +1,6 @@
-%a{target: "_blank", href: site_article_url(article, subdomain: 'www', host: Settings.domain)}
+%a{target: "_blank", href: site_article_url(article, subdomain: 'www', host: ENV['DOMAIN'])}
   - if article.image
     %img.columnImage{src: 'https:' + article.image.original.url(:rectangle_314x), alt: "Chronicle Photo"}
 %h3{style: 'padding-top:10px;'}
-  %a{target: "_blank", href: site_article_url(article, subdomain: 'www', host: Settings.domain)}=article.title
+  %a{target: "_blank", href: site_article_url(article, subdomain: 'www', host: ENV['DOMAIN'])}=article.title
 %p= article.teaser
