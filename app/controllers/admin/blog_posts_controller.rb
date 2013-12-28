@@ -6,9 +6,11 @@ class Admin::BlogPostsController < Admin::BaseController
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
-      @blog_posts = @blog.posts
-        .order('published_at IS NOT NULL, published_at DESC')
-        .paginate(page: params[:page], per_page: 25)
+      @blog_posts = Blog::Post.unscoped do  # Allow unpublished articles
+        @blog.posts
+          .order('published_at IS NOT NULL, published_at DESC')
+          .paginate(page: params[:page], per_page: 25)
+      end
     end
   end
 
@@ -19,7 +21,8 @@ class Admin::BlogPostsController < Admin::BaseController
   def create
     @blog_post = update_blog_post(Blog::Post.new)
     if @blog_post.save
-      redirect_to admin_blog_posts_path(params[:blog_id])
+      redirect_to site_blog_post_url(
+        @blog_post.blog, @blog_post, subdomain: 'www')
     else
       render 'new'
     end
@@ -32,7 +35,8 @@ class Admin::BlogPostsController < Admin::BaseController
   def update
     @blog_post = update_blog_post(Blog::Post.find(params[:id]))
     if @blog_post.update_attributes(params[:blog_post])
-      redirect_to admin_blog_posts_path(params[:blog_id])
+      redirect_to site_blog_post_url(
+        @blog_post.blog, @blog_post, subdomain: 'www')
     else
       render 'edit'
     end

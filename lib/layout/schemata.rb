@@ -47,8 +47,8 @@ Layout.add_schema(:section_articles, {
                     'type' => 'string',
                   }) do |sections|
   sections.map do |section|
-    # TODO: Magic number
-    Article.limit(4).published.order('published_at DESC').section(section)
+    # FIXME: Magic number
+    Article.limit(4).order('published_at DESC').section(section)
   end
 end
 

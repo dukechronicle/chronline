@@ -11,17 +11,6 @@ end
 
 module Chronline
   class Application < Rails::Application
-    # Load application settings into Settings global constant
-    RailsConfig.load_and_set_settings(
-      Rails.root.join("config", "settings.yml").to_s,
-      Rails.root.join("config", "settings", "#{Rails.env}.yml").to_s,
-      Rails.root.join("config", "environments", "#{Rails.env}.yml").to_s,
-
-      Rails.root.join("config", "settings.local.yml").to_s,
-      Rails.root.join("config", "settings", "#{Rails.env}.local.yml").to_s,
-      Rails.root.join("config", "environments", "#{Rails.env}.local.yml").to_s
-    )
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -74,28 +63,32 @@ module Chronline
     # https://devcenter.heroku.com/articles/rails-asset-pipeline
     config.assets.initialize_on_precompile = false
 
-    # Add Bower components to asset search path
-    config.assets.paths <<
-      File.join(Rails.root, 'vendor', 'assets', 'bower_components')
-
     # Action mailer configuration
-    config.action_mailer.default_url_options = { host: Settings.domain }
+    config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
 
+    # Use Redis cache store
+    config.cache_store = :redis_store, {
+      url: ENV['REDIS_URL'],
+      expires_in: 10.minutes,
+      race_condition_ttl: 10.seconds
+    }
+
+    # Send logs to standard output
+    config.logger = Logger.new(STDOUT)
+
     # Allow HTTP response access to all subdomains
     config.middleware.use Rack::Cors do
       allow do
-        origins %r{https?://\w+\.#{Settings.domain}}
+        origins %r{https?://\w+\.#{ENV['DOMAIN']}}
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
 
     # Use routes to handle exceptions (https://coderwall.com/p/w3ghqq)
     config.exceptions_app = self.routes
-
-    config.action_dispatch.tld_length = Settings.domain.count('.')
   end
 end
 

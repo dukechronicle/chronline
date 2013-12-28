@@ -1,5 +1,5 @@
 - content_for :title_block do
-  = render 'site/partials/navigation'
+  = render 'site/partials/navigation', nav_links: @model.nav_links
 
 - cache do
   .clearfix.align-group
