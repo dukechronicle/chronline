@@ -2,3 +2,7 @@
 issuu:
   label: Issuu Embed
   type: text
+mailchimp_ad_href:
+  label: Newsletter Advertisement Link
+mailchimp_ad_image:
+  label: Newsletter Advertisement Image
