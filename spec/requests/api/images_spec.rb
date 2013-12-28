@@ -29,7 +29,7 @@ describe "Images API" do
 
   describe "GET /images" do
     before do
-      stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
+      stub_request(:put, /#{ENV['AWS_S3_BUCKET']}\.s3\.amazonaws\.com/)
       @images = FactoryGirl.create_list(:image, 3)
     end
     subject { response }
@@ -76,7 +76,7 @@ describe "Images API" do
 
   describe "GET /images/:id" do
     before do
-      stub_request(:put, /#{Settings.aws.bucket}\.s3\.amazonaws\.com/)
+      stub_request(:put, /#{ENV['AWS_S3_BUCKET']}\.s3\.amazonaws\.com/)
       @image = FactoryGirl.create(:image)
       get api_image_url(@image, subdomain: :api)
     end

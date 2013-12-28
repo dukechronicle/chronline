@@ -18,6 +18,12 @@
 require_dependency 'staff'
 
 class Image < ActiveRecord::Base
+  Attributions = [
+    '? / The Chronicle',
+    '? / Chronicle File Photo',
+    'Photo Illustration by ?',
+    'Chronicle Graphic by ?',
+  ]
 
   File.open(Rails.root.join("config", "image_styles.yml")) do |file|
     Image::Styles = YAML::load(file)
@@ -78,5 +84,4 @@ class Image < ActiveRecord::Base
   def thumbnail_url
     original.url(:rectangle_183x)
   end
-
 end

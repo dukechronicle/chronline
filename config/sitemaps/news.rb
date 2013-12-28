@@ -1,19 +1,18 @@
-SitemapGenerator::Sitemap.default_host = "http://www.#{Settings.domain}"
-SitemapGenerator::Sitemap.sitemaps_host = "http://#{Settings.aws.bucket}.s3.amazonaws.com/"
+SitemapGenerator::Sitemap.default_host = "http://www.#{ENV['DOMAIN']}"
+SitemapGenerator::Sitemap.sitemaps_host = "http://#{ENV['AWS_S3_BUCKET']}.s3.amazonaws.com/"
 SitemapGenerator::Sitemap.public_path = "tmp/"
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/news"
 SitemapGenerator::Sitemap.create_index = false
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
   fog_provider: 'AWS',
-  fog_directory: Settings.aws.bucket,
-  aws_access_key_id: Settings.aws.access_key_id,
-  aws_secret_access_key: Settings.aws.secret_access_key,
+  fog_directory: ENV['AWS_S3_BUCKET'],
+  aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+  aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
 )
 
 
 SitemapGenerator::Sitemap.create do
   articles = Article
-    .published
     .where(["published_at >= ?", 2.days.ago])
     .where(block_bots: false)
     .includes(:image)
