@@ -32,6 +32,10 @@ class Post
       document.to_html
     end
 
+    def self.remove(post_body)
+      post_body.gsub(/{{[^\}]*}}/, '')
+    end
+
     def render
       tag_list = @body.scan(/{{([a-zA-Z]*):([^\}]*?)}}/)
       tags = tag_list.map do |tag, data|

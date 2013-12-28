@@ -22,7 +22,7 @@ class Blog::Post < ::Post
   searchable if: :published_at, include: [:authors, :tags] do
     text :title, stored: true, boost: 2.0, more_like_this: true
     text :content, stored: true, more_like_this: true do
-      Nokogiri::HTML(body_text).text
+      Nokogiri::HTML(Post::EmbeddedMedia.remove(body)).text
     end
     time :date, trie: true do
       published_at
