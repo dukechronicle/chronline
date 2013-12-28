@@ -55,7 +55,7 @@ class Newsletter
       "Campaign scheduled to be sent at " +
         scheduled_time.strftime('%r on %D %Z')
     else
-      @gb.campaigns.send_now(cid: @campaign_id)
+      @gb.campaigns.send(cid: @campaign_id)
       "Campaign was sent"
     end
   end
