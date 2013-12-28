@@ -65,11 +65,18 @@ class Newsletter
     Date.today.to_s
   end
 
+  def render(template, locals)
+    # TODO: look into executing in an actual controller context with helpers
+    template = File.read(
+      Rails.root.join('app', 'views', 'newsletter', "#{template}.html.haml"))
+    Haml::Engine.new(template)
+      .render(Rails.application.routes.url_helpers, locals)
+  end
+
   private
   def advertisement
-    # TODO: make this configurable by non-developers
-    src = "http://#{ENV['CONTENT_CDN']}/advertisements/#{ENV['MAILCHIMP_AD_IMAGE']}"
-    %{<a href="#{ENV['MAILCHIMP_AD_HREF']}"><img src="#{src}"/></a>}
+    src = "https://#{ENV['CONTENT_CDN']}/advertisements/#{Sitevar.mailchimp_ad_image}"
+    render(:advertisement, href: Sitevar.mailchimp_ad_href, image: src)
   end
 
   def column_lead(i)
@@ -79,7 +86,6 @@ class Newsletter
   def teaser
     ""
   end
-
 end
 
 class ArticleNewsletter < Newsletter
@@ -94,9 +100,7 @@ class ArticleNewsletter < Newsletter
   end
 
   def content
-    # TODO: look into executing in an actual controller context with helpers
-    template = File.read(File.join(%w{app views newsletter article.html.haml}))
-    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, article: @article)
+    render(:article, article: @article)
   end
 
   def self.model_name
@@ -125,14 +129,11 @@ class DailyNewsletter < Newsletter
   end
 
   def content
-    # TODO: look into executing in an actual controller context with helpers
-    template = File.read(File.join(%w{app views newsletter daily.html.haml}))
-    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, model: @model)
+    render(:daily, model: @model)
   end
 
   def column_lead(i)
-    template = File.read(File.join(%w{app views newsletter featured.html.haml}))
-    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, article: @model['featured'][i])
+    render(:featured, article: @model.featured[i])
   end
 
   def self.model_name
@@ -151,6 +152,6 @@ class DailyNewsletter < Newsletter
   end
 
   def teaser
-    @model['teaser'] || ""
+    @model.teaser || super
   end
 end
