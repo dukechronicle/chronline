@@ -4,15 +4,17 @@
       %h1.title= @gallery.name
       .article-body
         != @gallery.description
-
-      .galleria
-        - @gallery.get_gallery_images.each do |image|
-          %img{:src => image.get_image_url, :data => { :description => image.caption, :link => image.get_photoshelter_url }}
-      %p.byline
-        - if @gallery.credit
-          %span.author By #{@gallery.credit}
-        / %span.author By #{byline(@article, link: true)}
-        / %span.sep= "|"
-        / = display_date(@article)
+        %br
+        %br
+        .gallery.span-4
+          - @gallery.get_gallery_images.each do |image|
+            %img{:src => image.get_image_url, :data => { :description => "should be image.caption #{image.get_photoshelter_url}", :link => image.get_photoshelter_url }}
+        #imageinfo.span-3
+        %p.byline.span-4
+          - if @gallery.credit
+            %span.author By #{byline(@gallery)}
+          / %span.author By #{byline(@article, link: true)}
+          / %span.sep= "|"
+          / = display_date(@article)
 .span-4.last.align-element
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

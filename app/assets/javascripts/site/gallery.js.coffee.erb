@@ -1,0 +1,18 @@
+#= require jquery-galleria/src/galleria
+
+GALLERIA_THEME = "<%= asset_path 'galleria/themes/gallery/galleria.gallery.js' %>"
+
+initialize '.gallery', ->
+  Galleria.loadTheme(GALLERIA_THEME)
+  Galleria.configure
+    transition: 'fade'
+    autoplay: false
+    width: 300
+    height: 300
+    _toggleInfo: false
+  Galleria.on "image",(e) ->
+    caption = e.galleriaData.description
+    Galleria.log(caption) # the currently active IMG element
+    $("#imageinfo").text(caption)
+  
+  Galleria.run $(this)
