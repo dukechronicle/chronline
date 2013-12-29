@@ -1,0 +1,5 @@
+%h3= @topic.title
+
+- @topic.responses.each do |response|
+  %h5= response.title
+  %h5= response.content

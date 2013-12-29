@@ -1,0 +1,7 @@
+- provide :title, @topic.title
+- provide :description, @topic.description
+
+- content_for :content do
+	- @topic.responses.each do |r|
+			%h4= r.title
+			%p= r.description
