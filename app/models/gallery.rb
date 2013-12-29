@@ -13,4 +13,17 @@ class Gallery < ActiveRecord::Base
   def get_slug
     name.strip.gsub(/[^[:alnum:]]+/, "-")
   end
+
+  def credit
+    if get_gallery_images.size > 0
+      get_gallery_images.first.credit
+    else
+      nil
+    end
+  end
+
+  def self.each(&block)
+    self.all.each(&block)
+  end
+
 end

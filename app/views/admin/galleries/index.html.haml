@@ -1,0 +1,15 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Gallery
+      %th Publication Date
+      %th Actions
+  - @galleries.each do |gallery|
+    %tr{id: "gallery_#{gallery.gid}"}
+      %td= link_to gallery.name, site_gallery_url(gallery.gid, subdomain: 'www')
+      - if false
+        %td= gallery.published_at.strftime('%-m-%-d-%Y')
+      - else
+      %td= link_to "Edit", edit_admin_gallery_path(gallery.gid), class: 'btn btn-mini'
+
+/ = will_paginate
