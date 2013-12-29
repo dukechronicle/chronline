@@ -7,8 +7,10 @@
 
       .galleria
         - @gallery.get_gallery_images.each do |image|
-          %img{:src => image.get_image_url, :data => {:link => image.get_photoshelter_url }}
+          %img{:src => image.get_image_url, :data => { :description => image.caption, :link => image.get_photoshelter_url }}
       %p.byline
+        - if @gallery.credit
+          %span.author By #{@gallery.credit}
         / %span.author By #{byline(@article, link: true)}
         / %span.sep= "|"
         / = display_date(@article)

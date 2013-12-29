@@ -101,6 +101,8 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
+      resources :galleries, except: :show
+
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
       end
