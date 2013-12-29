@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130907041203) do
+ActiveRecord::Schema.define(:version => 20131124051931) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -84,6 +84,17 @@ ActiveRecord::Schema.define(:version => 20130907041203) do
   add_index "posts_authors", ["post_id"], :name => "index_articles_authors_on_article_id"
   add_index "posts_authors", ["staff_id"], :name => "index_articles_authors_on_author_id"
 
+  create_table "responses", :force => true do |t|
+    t.integer  "topic_id"
+    t.boolean  "approved"
+    t.boolean  "reported"
+    t.integer  "upvotes"
+    t.integer  "downvotes"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "staff", :force => true do |t|
     t.string   "affiliation"
     t.text     "biography"
@@ -116,6 +127,13 @@ ActiveRecord::Schema.define(:version => 20130907041203) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "topics", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|

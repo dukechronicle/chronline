@@ -33,6 +33,9 @@ Chronline::Application.routes.draw do
           id: Post::SLUG_PATTERN
       end
 
+      resources :topics, only: [:show, :index]
+      resources :responses, only: [:new, :create]
+      
       resources :staff, only: :show do
         member do
           get 'articles'
@@ -105,7 +108,9 @@ Chronline::Application.routes.draw do
 
       resources :pages, except: :show
       resources :staff, except: :show
-
+      resources :topics
+      resources :responses
+      
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',
           id: Post::SLUG_PATTERN
