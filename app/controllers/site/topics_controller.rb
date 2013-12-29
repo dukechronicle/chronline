@@ -1,11 +1,11 @@
 class Site::TopicsController < Site::BaseController
 
 	def show
-		@thisTopic = Topic.find(params[:id])
+		@topic = Topic.find(params[:id])
 	end
 
 	def index
-		@allTopics = Topics.all
+		@topics = Topic.all
 	end
 
 end
