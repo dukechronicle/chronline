@@ -6,13 +6,12 @@ initialize '.gallery', ->
   Galleria.loadTheme(GALLERIA_THEME)
   Galleria.configure
     transition: 'fade'
-    autoplay: false
-    width: 300
-    height: 300
-    _toggleInfo: false
+    autoplay: true
+    width: 636
+    height: 393
   Galleria.on "image",(e) ->
     caption = e.galleriaData.description
-    Galleria.log(caption) # the currently active IMG element
     $("#imageinfo").text(caption)
-  
+    $(".buy").attr("href", e.galleriaData.link) 
+    console.log e.galleriaData
   Galleria.run $(this)
