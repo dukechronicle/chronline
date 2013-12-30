@@ -1,3 +1,4 @@
 - image = gallery.get_gallery_images.first 
-%a{href: site_gallery_path(image.get_gallery.gid) }
-  %img{:src => image.get_image_url(300), :data => {:link => image.get_photoshelter_url}, :height => 200}
+- if image
+  %a{href: site_gallery_path(image.get_gallery.gid) }
+    %img{:src => image.get_image_url(300), :data => {:link => image.get_photoshelter_url}, :height => 200, width: 200}
