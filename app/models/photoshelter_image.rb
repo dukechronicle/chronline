@@ -2,6 +2,8 @@ class PhotoshelterImage < ActiveRecord::Base
   BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
   attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid
 
+  self.table_name = :gallery_images  # FIX: Rename this class Gallery::Image
+
   validates :gid, presence: true
   validates :pid, presence: true
 
