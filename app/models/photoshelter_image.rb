@@ -6,7 +6,7 @@ class PhotoshelterImage < ActiveRecord::Base
   validates :pid, presence: true
 
   def url(width = nil)
-    width ? ("#{BASE_IMAGE_URL}/#{pid}/s/#{width}") : ("#{BASE_IMAGE_URL}/#{pid}")
+    width ? "#{BASE_IMAGE_URL}/#{pid}/s/#{width}" : "#{BASE_IMAGE_URL}/#{pid}"
   end
 
   # url of the photoshelter buy page
