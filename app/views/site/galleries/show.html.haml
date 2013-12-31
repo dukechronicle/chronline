@@ -8,24 +8,24 @@
         %br
         .gallery
           - @gallery.get_gallery_images.each do |image|
-            %img{:src => image.get_image_url, :data => { :description => image.caption, :link => image.get_photoshelter_url}}
+            %img{:src => image.url, :data => { :description => image.caption, :link => image.photoshelter_url}}
         %p.buy-link
           %a.buy Buy Photograph
         %p.byline.photo-credit
           - if @gallery.credit
-            %span.author By #{byline(@gallery)}
+            %span.author By #{photag_byline(@gallery)}
           / %span.author By #{byline(@article, link: true)}
           / %span.sep= "|"
           / = display_date(@article)
         #imageinfo.span-8
-.span-4.last.align-element
+.span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
 
 .span-8
   .rounded.clearfix
     .row
       %h2.vertical-label Most Recent
-      - @recent.select{|x| x.get_gallery_images.size > 0}.each do |gallery|
+      - @recent.select{|x| !x.empty?}.each do |gallery|
         .span-3.small-gallery
           = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
 

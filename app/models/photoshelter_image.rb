@@ -5,17 +5,17 @@ class PhotoshelterImage < ActiveRecord::Base
   validates :gid, presence: true
   validates :pid, presence: true
 
-  def get_image_url(width = nil)
-    width ? (return "#{BASE_IMAGE_URL}/#{pid}/s/#{width}") : (return "#{BASE_IMAGE_URL}/#{pid}")
+  def url(width = nil)
+    width ? ("#{BASE_IMAGE_URL}/#{pid}/s/#{width}") : ("#{BASE_IMAGE_URL}/#{pid}")
   end
 
   # url of the photoshelter buy page
-  def get_photoshelter_url
-    "http://dukechronicle.photoshelter.com/gallery-image/#{get_gallery.get_slug}/#{get_gallery.gid}/#{pid}"
+  def photoshelter_url
+    "http://dukechronicle.photoshelter.com/gallery-image/#{get_gallery.slug}/#{get_gallery.gid}/#{pid}"
   end
 
   # gets the gallery by gallery id 
   def get_gallery
-    Gallery.where(gid: gid).first
+    Gallery.find_by_gid(gid)
   end
 end
