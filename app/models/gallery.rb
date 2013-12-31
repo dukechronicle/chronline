@@ -21,6 +21,6 @@ class Gallery < ActiveRecord::Base
   end
 
   def empty?
-    get_gallery_images.size==0
+    get_gallery_images.empty?
   end
 end

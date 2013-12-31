@@ -25,7 +25,7 @@
   .rounded.clearfix
     .row
       %h2.vertical-label Most Recent
-      - @recent.select{|x| !x.empty?}.each do |gallery|
+      - @recent.reject(&:empty?).each do |gallery|
         .span-3.small-gallery
           = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
 
