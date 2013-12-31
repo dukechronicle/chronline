@@ -1,6 +1,6 @@
 class Post
   class EmbeddedMedia
-    class InstagramTag < ActionView::Base
+    class InstagramTag < EmbeddedMedia::Tag
       include ActionView::Helpers
 
       def initialize(_embedded_media, id)
@@ -25,6 +25,10 @@ class Post
             src: "//instagram.com/p/#{@instagram_id}/embed/"
           )
         end
+      end
+
+      def to_s
+        "{{Instagram:#{@instagram_id}}}"
       end
     end
   end

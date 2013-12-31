@@ -1,6 +1,6 @@
 class Post
   class EmbeddedMedia
-    class ImageTag < ActionView::Base
+    class ImageTag < self::Tag
       # HAX: there must be a better way to generate HTML
       include ActionView::Helpers
       include ImageHelper
@@ -18,6 +18,10 @@ class Post
           concat content_tag(:img, nil, **image_attributes)
           concat content_tag(:span, photo_credit, class: 'photo-credit')
         end
+      end
+
+      def to_s
+        "{{Image:#{@image.id}}}"
       end
 
       private
