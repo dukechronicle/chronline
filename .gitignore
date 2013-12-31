@@ -22,10 +22,11 @@ Gemfile.lock
 # Ignore bower components
 /vendor/assets/bower_components
 
-config/redis.conf
-config/settings.local.yml
-config/settings/*.local.yml
-config/environments/*.local.yml
+# Ignore local config file
+.env.development
+
+# Ignore local rspec config
+.rspec-local
 
 solr/
 

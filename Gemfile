@@ -1,32 +1,25 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'rails', '3.2.14'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.16'
 
 group :production do
-  gem 'le'
-  gem 'pg'
-  gem 'redis-rails'
   gem 'newrelic_rpm'
   gem 'asset_sync'
   gem 'unicorn'
 end
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.3.7'
+  gem 'dotenv-rails', '~> 0.9.0'
+  gem 'rb-readline', '~> 0.5.0', require: false
   gem 'rspec-rails', '~> 2.14.0'
-  gem 'rb-readline', '~> 0.4.2'
-  gem 'ffaker'
-  gem 'sunspot_solr', '~> 2.0.0'
+  gem 'sunspot_solr', '~> 2.1.0'
 end
 
 group :development do
-  gem 'annotate'
-  gem 'pry-rails'
-  gem 'pry-doc'
+  gem 'annotate', '~> 2.6.1'
+  gem 'pry-rails', '~> 0.3.2'
+  gem 'pry-doc', '~> 0.5.1'
 end
 
 # Gems used only for assets and not required
@@ -36,6 +29,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
   gem 'uglifier', '~> 2.1.2'
+  gem 'bower-rails', git: 'git://github.com/jimpo/bower-rails.git'
 end
 
 gem 'acts-as-taggable-on'
@@ -47,11 +41,12 @@ gem 'delayed_paperclip'
 gem 'devise', '~> 2.2.4'
 gem 'devise_invitable'
 gem 'feedzirra', '~> 0.2.0.rc2'
+gem 'ffaker', '~> 1.22.1'
 gem 'fog'
 gem 'friendly_id'
 gem 'gibbon', '~> 1.0.0'
 gem 'haml'
-gem 'hiredis'
+gem 'hiredis', '~> 0.4.5'
 gem 'htmlentities'
 gem 'httparty'
 gem 'image_optim_bin'
@@ -61,18 +56,19 @@ gem 'nokogiri'
 gem 'paperclip'
 gem 'paperclip-optimizer'
 gem 'promise'
-gem 'rack-cors', :require => 'rack/cors'
-gem 'rails_config'
+gem 'pg', '~> 0.17.1'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rdiscount'
-gem 'redis'
+gem 'redis', '~> 3.0.6'
+gem 'redis-rails', '~> 3.2.4'
 gem 'require_all'  # Used by old page implementation
 gem 'resque', '~> 1.22.0'
 gem 'rmagick'
 gem 'ruby-oembed'
 gem 'simple_form'
 gem 'sitemap_generator'
-gem 'subdomain-fu', :git => 'git://github.com/mbleigh/subdomain-fu.git'
-gem 'sunspot_rails', '~> 2.0.0'
+gem 'subdomain-fu', git: 'git://github.com/mbleigh/subdomain-fu.git'
+gem 'sunspot_rails', '~> 2.1.0'
 gem 'tinymce-rails', '~> 4.0.2'
 gem 'will_paginate'
 

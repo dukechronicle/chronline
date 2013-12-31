@@ -1,5 +1,5 @@
 %h1
-  %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}= article.title
+  %a{href: site_article_url(article, subdomain: 'www', host: ENV['DOMAIN'])}= article.title
 
 %p.byline
   %span.author By #{article.authors.map(&:name).join(', ')}
@@ -12,5 +12,5 @@
 %p= article.teaser
 
 %p
-  %a{href: site_article_url(article, subdomain: 'www', host: Settings.domain)}
-    Visit #{Settings.domain} for the full article.
+  %a{href: site_article_url(article, subdomain: 'www', host: ENV['DOMAIN'])}
+    Visit #{ENV['DOMAIN']} for the full article.

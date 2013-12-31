@@ -27,9 +27,6 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
 
-    # Formatting
-    config.formatter = Settings.rspec.formatter
-
     config.include Paperclip::Shoulda::Matchers
 
     config.before(:suite) do

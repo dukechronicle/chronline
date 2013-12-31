@@ -51,7 +51,7 @@ Chronline::Application.routes.draw do
         match section => redirect("/section/#{section}")
       end
 
-      match 'rss' => redirect("http://rss.#{Settings.domain}/articles")
+      match 'rss' => redirect("http://rss.#{ENV['DOMAIN']}/articles")
 
       # The controller methods redirect to the most current route
       get 'article/:id' => 'articles#show', as: :article_deprecated
@@ -74,7 +74,7 @@ Chronline::Application.routes.draw do
 
       match '/404', :to => 'base#not_found'
 
-      match 'join' => redirect("http://www.#{Settings.domain}/pages/join?force_full_site=true")
+      match 'join' => redirect("http://www.#{ENV['DOMAIN']}/pages/join?force_full_site=true")
 
       # Legacy routes
       # The controller method redirects to the most current route
