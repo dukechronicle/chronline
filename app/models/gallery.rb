@@ -17,9 +17,10 @@ class Gallery < ActiveRecord::Base
   def credit
     if get_gallery_images.size > 0
       get_gallery_images.first.credit
-    else
-      nil
     end
   end
 
+  def empty?
+    get_gallery_images.size==0
+  end
 end

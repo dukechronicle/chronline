@@ -19,8 +19,8 @@ class Admin::GalleriesController < Admin::BaseController
 
   private
   def update_gallery(gallery)
-      gallery.update_attributes(params[:gallery])
-    return gallery
+    gallery.update_attributes(params[:gallery])
+    gallery
   end
 
  end
