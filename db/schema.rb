@@ -47,11 +47,22 @@ ActiveRecord::Schema.define(:version => 20130907041203) do
   create_table "galleries", :id => false, :force => true do |t|
     t.string   "gid"
     t.string   "name"
+    t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.text     "description"
-    t.string   "section"
   end
+
+  create_table "gallery_images", :id => false, :force => true do |t|
+    t.string   "pid"
+    t.string   "gid"
+    t.text     "caption"
+    t.string   "credit"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "gallery_images", ["gid", "pid"], :name => "index_gallery_images_on_gid_and_pid", :unique => true
 
   create_table "images", :force => true do |t|
     t.string   "caption",               :limit => 500
@@ -83,18 +94,6 @@ ActiveRecord::Schema.define(:version => 20130907041203) do
   end
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
-
-  create_table "photoshelter_images", :id => false, :force => true do |t|
-    t.string   "pid"
-    t.string   "gid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.text     "caption"
-    t.string   "credit"
-    t.string   "title"
-  end
-
-  add_index "photoshelter_images", ["gid", "pid"], :name => "index_photoshelter_images_on_gid_and_pid", :unique => true
 
   create_table "posts_authors", :force => true do |t|
     t.integer "post_id"
