@@ -7,8 +7,8 @@ class PhotoshelterAPI
   BaseUri = "https://www.photoshelter.com/psapi/v1"
 
   def initialize
-    @email ||= Settings.photoshelter.email
-    @password ||= Settings.photoshelter.password
+    @email ||= ENV['PHOTOSHELTER_EMAIL']
+    @password ||= ENV['PHOTOSHELTER_PASSWORD']
     authenticate
   end
 
