@@ -1,6 +1,6 @@
 class Post
   class EmbeddedMedia
-    class TwitterTag < ActionView::Base
+    class TwitterTag < EmbeddedMedia::Tag
 
       def initialize(_embedded_media, url)
         @url = url
@@ -18,6 +18,9 @@ class Post
         end
       end
 
+      def to_s
+        "{{Twitter:#{@url}}}"
+      end
     end
   end
 end
