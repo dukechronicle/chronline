@@ -34,8 +34,8 @@ Spork.prefork do
       DatabaseCleaner.clean_with(:truncation)
 
       Kernel.silence_warnings do
-        Taxonomy.const_set(
-          'Tree',
+        Taxonomy.set_taxonomy_tree(
+          :sections,
           YAML.load_file(Rails.root.join('spec', 'config', 'taxonomy.yml'))
         )
         Blog.const_set(
