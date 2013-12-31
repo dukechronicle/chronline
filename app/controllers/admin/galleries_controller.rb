@@ -10,15 +10,11 @@ class Admin::GalleriesController < Admin::BaseController
 
   def update
     @gallery = update_gallery(Gallery.find_by_gid(params[:id]))
-    puts "gallery: #{@gallery.name}"
-    if true # @gallery.save
+    if @gallery.save
       redirect_to edit_admin_gallery_path(@gallery.gid)
     else
       render 'edit'
     end
-  end
-
-  def destroy
   end
 
   private
