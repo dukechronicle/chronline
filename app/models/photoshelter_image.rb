@@ -5,7 +5,7 @@ class PhotoshelterImage < ActiveRecord::Base
   validates :gid, presence: true
   validates :pid, presence: true
 
-  def get_image_url(width = nil)
+  def url(width = nil)
     width ? (return "#{BASE_IMAGE_URL}/#{pid}/s/#{width}") : (return "#{BASE_IMAGE_URL}/#{pid}")
   end
 

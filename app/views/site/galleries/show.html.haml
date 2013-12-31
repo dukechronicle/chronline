@@ -8,7 +8,7 @@
         %br
         .gallery
           - @gallery.get_gallery_images.each do |image|
-            %img{:src => image.get_image_url, :data => { :description => image.caption, :link => image.get_photoshelter_url}}
+            %img{:src => image.url, :data => { :description => image.caption, :link => image.get_photoshelter_url}}
         %p.buy-link
           %a.buy Buy Photograph
         %p.byline.photo-credit
