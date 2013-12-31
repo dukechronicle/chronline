@@ -1,3 +1,5 @@
+require_dependency 'blog/series'
+
 class Blog::Post < ::Post
   include Searchable
 
@@ -10,7 +12,7 @@ class Blog::Post < ::Post
   acts_as_taggable
 
   attr_accessible :blog, :tag_list
-
+  has_many :series, through: :tags
 
   ##
   # Configure blog posts to be indexed by Solr
