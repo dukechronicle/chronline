@@ -1,13 +1,11 @@
 %hr
 %footer#footer
   .legal
-    %span.copyright Copyright &copy; 2012 Duke Student Publishing Company. All rights reserved.
+    %span.copyright Copyright &copy; #{Date.today.year} Duke Student Publishing Company. All rights reserved.
     %span.sep= '|'
     = link_to "User Guidelines", "/pages/user-guidelines"
     %span.sep= '|'
     = link_to "Privacy Policy", "/pages/privacy-policy"
-    /%span.sep= '|'
-    /= link_to "AdChoices", "//quantcast.com/adchoices-pub?pub=#{Settings.quantcast.pub}", id: "adChoicesLogo", target: "_blank", style: "display:inline-block; width:75px; height:16px; line-height: 16px; text-align:left; background: transparent url(//aboutads.quantcast.com?icon=#{Settings.quantcast.pub}) right 0 no-repeat; text-decoration:none; font-size:11px; font-family:arial,helvetica,sans-serif;"
 
   .links
     = link_to "About Us", "/pages/about-us"

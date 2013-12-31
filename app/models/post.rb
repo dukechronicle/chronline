@@ -7,7 +7,8 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
-    :section, :subtitle, :teaser, :title
+    :section, :subtitle, :teaser, :title, :embed_code, :embed_url
+
 
   belongs_to :image
   has_and_belongs_to_many :authors, class_name: 'Staff',
@@ -21,7 +22,7 @@ class Post < ActiveRecord::Base
   serialize :section, Taxonomy::Serializer.new
   scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
-  def self.published
+  def self.default_scope
     self
       .where('published_at IS NOT NULL')
       .where(['published_at < ?', DateTime.now])
@@ -90,6 +91,51 @@ onto per since than the this that to up via with)
     EmbeddedMedia.new(body).to_s
   end
 
+  def body_text
+    body.gsub(/{{[^\}]*}}/, '')
+  end
+
+  def convert_camayak_tags!
+    document = Nokogiri::HTML::DocumentFragment.parse(body)
+    document.css('.oembed').each do |camayak_tag|
+      url = camayak_tag.attr('data-camayak-embed-url')
+      provider =
+        case url
+        when %r[^https?://www\.youtube\.com/]
+          'Youtube'
+        when %r[^https?://twitter\.com/]
+          'Twitter'
+        when %r[^https?://soundcloud\.com/]
+          'Soundcloud'
+        when %r[^https?://instagram\.com/]
+          'Instagram'
+        end
+      unless provider.nil?
+        camayak_tag.replace("{{#{provider}:#{url}}}")
+      end
+    end
+  end
+
+  def square_80x_url
+    image.original.url(:square_80x) if image
+  end
+
+  def self.most_commented(limit)
+    disqus = Disqus.new(ENV['DISQUS_API_KEY'])
+    response = disqus.request(
+      :threads, :list_hot, limit: limit, forum: ENV['DISQUS_SHORTNAME'])
+    return [] if response.nil?
+    slugs = response['response'].map do |thread|
+      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
+      [$1, thread['posts']]
+    end
+    articles = self.where(slug: slugs.map(&:first))
+    slugs.map do |slug, comments|
+      article = articles.find { |article| article.slug == slug }
+      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
+    end.compact
+  end
+
   ##
   # Reader for section attribute. Creates a Taxonomy object if section is a
   # string.
@@ -101,24 +147,26 @@ onto per since than the this that to up via with)
     self[:section]
   end
 
-  def square_80x_url
-    image.original.url(:square_80x) if image
+  def embed_url(params = {})
+    if embed_code.present?
+      params[:v] = embed_code
+      uri = URI::Generic.build(
+        host: 'www.youtube.com',
+        path: '/watch',
+        query: URI.encode_www_form(params),
+      )
+      uri.to_s
+    end
   end
 
-  def self.most_commented(limit)
-    disqus = Disqus.new(Settings.disqus.api_key)
-    response = disqus.request(
-      :threads, :list_hot, limit: limit, forum: Settings.disqus.shortname)
-    return [] if response.nil?
-    slugs = response['response'].map do |thread|
-      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
-      [$1, thread['posts']]
+  def embed_url=(url)
+    if url.present?
+      uri = URI.parse(url)
+      params = Hash[URI.decode_www_form(uri.query)]
+      self.embed_code = params['v']
+    else
+      self.embed_code = nil
     end
-    articles = self.published.where(slug: slugs.map(&:first))
-    slugs.map do |slug, comments|
-      article = articles.find { |article| article.slug == slug }
-      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
-    end.compact
   end
 end
 

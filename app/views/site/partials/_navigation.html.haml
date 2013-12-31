@@ -1,8 +1,15 @@
+- nav_links ||= nil
+
 .nav-container
   %nav.subnav
-    - @taxonomy.children.each do |subsection|
-      %a.hover{href: section_path(subsection)}
-        %h2= subsection.name
+    - if nav_links
+      - nav_links.each do |link|
+        %a.hover{href: link['href']}
+          %h2= link['name']
+    - else
+      - @taxonomy.children.each do |subsection|
+        %a.hover{href: section_path(subsection)}
+          %h2= subsection.name
 %h1
   - @taxonomy.parents.each_with_index do |parent, i|
     - if i > 0

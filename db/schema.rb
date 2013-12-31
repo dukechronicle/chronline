@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821030518) do
+ActiveRecord::Schema.define(:version => 20130907041203) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20130821030518) do
     t.datetime "published_at"
     t.boolean  "block_bots",   :default => false
     t.string   "type"
+    t.string   "embed_code"
   end
 
   add_index "articles", ["section", "published_at"], :name => "index_articles_on_section_and_published_at"
