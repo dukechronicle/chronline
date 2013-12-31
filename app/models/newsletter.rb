@@ -10,7 +10,7 @@ class Newsletter
     attributes.each do |key, value|
       send("#{key}=", value)
     end
-    @gb = Gibbon::API.new(Settings.mailchimp.api_key)
+    @gb = Gibbon::API.new(ENV['MAILCHIMP_API_KEY'])
   end
 
   def persisted?
@@ -21,11 +21,11 @@ class Newsletter
     response = @gb.campaigns.create(
       type: :regular,
       options: {
-        list_id: Settings.mailchimp.list_id,
+        list_id: ENV['MAILCHIMP_LIST_ID'],
         subject: subject,
-        from_email: Settings.mailchimp.from_email,
-        from_name: Settings.mailchimp.from_name,
-        template_id: Settings.mailchimp.template_id,
+        from_email: ENV['MAILCHIMP_FROM_EMAIL'],
+        from_name: ENV['MAILCHIMP_FROM_NAME'],
+        template_id: ENV['MAILCHIMP_TEMPLATE_ID'],
         analytics: {
           google: subject[0...50]  # 50 character maximum,
         },
@@ -64,8 +64,8 @@ class Newsletter
   private
   def advertisement
     # TODO: make this configurable by non-developers
-    src = "http://#{Settings.content_cdn}/advertisements/#{Settings.mailchimp.ad_image}"
-    %{<a href="#{Settings.mailchimp.ad_href}"><img src="#{src}"/></a>}
+    src = "http://#{ENV['CONTENT_CDN']}/advertisements/#{ENV['MAILCHIMP_AD_IMAGE']}"
+    %{<a href="#{ENV['MAILCHIMP_AD_HREF']}"><img src="#{src}"/></a>}
   end
 
 end

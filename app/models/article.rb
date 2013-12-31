@@ -84,9 +84,9 @@ class Article < Post
   end
 
   def self.most_commented(limit)
-    disqus = Disqus.new(Settings.disqus.api_key)
+    disqus = Disqus.new(ENV['DISQUS_API_KEY'])
     response = disqus.request(
-      :threads, :list_hot, limit: limit, forum: Settings.disqus.shortname)
+      :threads, :list_hot, limit: limit, forum: ENV['DISQUS_SHORTNAME'])
     return [] if response.nil?
     slugs = response['response'].map do |thread|
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}

@@ -1,23 +1,15 @@
 # Facebook
 initialize '#fb-root', ->
-  window.fbAsyncInit = =>
-    # init the FB JS SDK
+  # https://developers.facebook.com/docs/javascript/howto/jquery/
+  $.ajaxSetup(cache: true)
+  $.getScript '//connect.facebook.net/en_UK/all.js', =>
     FB.init
-      appId      : <%= Settings.facebook.app_id %>  # App ID from the App Dashboard
-      channelUrl : '//<%= Settings.domain %>/channel.html'  # Channel File for x-domain communication
-      status     : true  # check the login status upon init?
-      cookie     : true  # set sessions cookies to allow your server to access the session?
-      xfbml      : true  # parse XFBML tags on this page?
+      appId      : $(this).data('app-id')  # App ID from the app dashboard
+      status     : true  # Check Facebook Login status
+      xfbml      : true  # Look for social plugins on the page
+      cookie     : true  # Enable cookie support
 
     $(this).trigger('fbinit')
-
-  `(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));`
 
 # Google+
 initialize '.g-plusone', ->
