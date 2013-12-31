@@ -10,20 +10,17 @@ class Gallery < ActiveRecord::Base
 
   # replaces all sequences on non-alphanumeric characters with a dash
   # used to get the proper url for the photoshelter buy page
-  def get_slug
+  def slug
     name.strip.gsub(/[^[:alnum:]]+/, "-")
   end
 
   def credit
     if get_gallery_images.size > 0
       get_gallery_images.first.credit
-    else
-      nil
     end
   end
 
-  def self.each(&block)
-    self.all.each(&block)
+  def empty?
+    get_gallery_images.size==0
   end
-
 end
