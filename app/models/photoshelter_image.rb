@@ -10,7 +10,7 @@ class PhotoshelterImage < ActiveRecord::Base
   end
 
   # url of the photoshelter buy page
-  def get_photoshelter_url
+  def photoshelter_url
     "http://dukechronicle.photoshelter.com/gallery-image/#{get_gallery.slug}/#{get_gallery.gid}/#{pid}"
   end
 
