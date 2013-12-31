@@ -22,8 +22,4 @@ class Gallery < ActiveRecord::Base
     end
   end
 
-  def self.each(&block)
-    self.all.each(&block)
-  end
-
 end
