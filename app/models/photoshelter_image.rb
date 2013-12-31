@@ -16,6 +16,6 @@ class PhotoshelterImage < ActiveRecord::Base
 
   # gets the gallery by gallery id 
   def get_gallery
-    Gallery.where(gid: gid).first
+    Gallery.find_by_gid(gid)
   end
 end
