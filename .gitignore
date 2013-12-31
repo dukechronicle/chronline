@@ -10,8 +10,6 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
-# Ignore Gemfile.lock
-Gemfile.lock
 # Ignore Redis dumps
 /db/*.rdb
 
