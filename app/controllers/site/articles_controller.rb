@@ -18,7 +18,7 @@ class Site::ArticlesController < Site::BaseController
 
     @articles = Article
       .includes(:authors, :image)
-      .published.section(@taxonomy)
+      .section(@taxonomy)
       .order('published_at DESC')
       .page(params[:page])
     unless @taxonomy.root?
@@ -27,9 +27,6 @@ class Site::ArticlesController < Site::BaseController
   end
 
   def show
-    @article = Article
-      .includes(:authors, :slugs, image: :photographer)
-      .find(@article)
     @article.register_view
     @taxonomy = @article.section
   end

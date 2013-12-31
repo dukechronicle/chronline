@@ -14,7 +14,7 @@ class ESPN
         if row.attr('class').include? 'colhead'
           current = standings[columns[0]] = []
         elsif row.attr('class') =~ /oddrow|evenrow/
-          current << [columns[0], columns[4]]
+          current << [columns[0], columns[1], columns[4]]
         end
       end
       standings
@@ -41,7 +41,7 @@ class ESPN
 
   private
   def scrape(key, url)
-    Rails.cache.fetch(key) do
+    Rails.cache.fetch(url + ":" + key) do
       response = HTTParty.get(url)
       yield Nokogiri::HTML(response.body)
     end

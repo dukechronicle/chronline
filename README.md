@@ -1,154 +1,25 @@
 Chronline
 =========
 
-Setting Up
-----------
+This is the code for the [Duke Chronicle](http://www.dukechronicle.com) website. The Chronicle is Duke's independent daily news organization. The site was written entirely by undergrad students at Duke. We are one of the few college news organizations that have a dedicated team responsible for building, maintaining, and running the online product. We want to build a platform for providing information and fostering discussion within the Duke community, and we take this mission very seriously. This is a project that will continue to improve as we try to build the *best* news platform out there.
 
-First you need [git](http://git-scm.com/book/en/Getting-Started-Installing-Git) in order to clone this repository. Next, you will need Ruby 1.9.3. You should install ruby and rubygems with [rvm](https://rvm.io/rvm/install/). You should also get Node.js and npm. I recommend using [nvm](https://github.com/creationix/nvm) to install them. Once you have those utilities, clone this repository and change into the directory. Then execute the following in your shell:
-
-```bash
-# Globally install Node.js utility binaries
-$ sudo npm install -g bower phantomjs
-
-# Run below command, and install the recommended packages
-$ rvm requirements
-
-# Install ImageMagick
-$ sudo apt-get install libmagickwand-dev imagemagick
-
-# More require packages for nokogiri
-$ sudo apt-get install libxslt-dev libxml2-dev
-
-# Install required gems
-$ gem install bundler
-$ bundle install --without production
-
-# Make sure you set up your development.local.yml (see below) before continuing. 
-
-# Install client side vendor assets with bower
-$ rake bower:refresh
-
-# Start local solr server (also must be done after every reboot)
-$ rake sunspot:solr:start
-
-# Rails database initialization (or also to update corrupt db)
-$ rake db:migrate
-$ rake db:refresh
-$ rake db:test:prepare
-
-# Add the following line to your /etc/hosts file
-127.0.0.1 www.lvh.me admin.lvh.me api.lvh.me rss.lvh.me m.lvh.me
-
-# Then, from the project directory
-$ rails server
-```
-
-### Configuration files
-
-You will be able to run tests at this point, but will not be able to run the server in the development environment until you supply the `config/settings/development.local.yml` file. This is not version controlled since it contains sensitive information. You can populate it using the `config/settings/test.yml` file as a template.
-
-Testing
+Development
 =============
+
+Documentation for development is in the [wiki](https://github.com/dukechronicle/chronline/wiki). To get the site up and running, check out the [setting up](https://github.com/dukechronicle/chronline/wiki/Setting-Up) page. We are very open to comments, suggestions, and pull requests.
+
+Join Us
+-------
+
+The Chronline team is a small group of undergrads who are passionate about programming and building something great. This is a great chance to get some real software engineering experience. If you are a current Duke student and are interested in helping us, you can send an email to [*recruitment@dukechronicle.com*](mailto:recruitment@dukechronicle.com). Anyone interested in web design should also definitely reach out!
 
 Writing Tests
 -------------
 
-### RSpec
+We are building up our test coverage slowly. We would like for all new code to have tests. Sometimes hard deadlines make this difficult, but we request that any pull requests come with tests. For more about our testing infrastructure, see the [testing](https://github.com/dukechronicle/chronline/wiki/Testing) wiki page.
 
-Resources:
-
- - [Built in RSpec matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers)
- - [Better Specs RSpec Guildines](http://betterspecs.org/)
- - [Shoulda Matchers](http://rubydoc.info/github/thoughtbot/shoulda-matchers/master/frames)
-
-### Cucumber
-
-Resources:
-
- - [Official Cucumber Site](http://cukes.info/)
- - [Gerkin Reference](https://github.com/cucumber/cucumber/wiki/Gherkin)
-
-Running Tests
--------------
-
-You can run acceptance tests with the following command:
-
-```bash
-$ cucumber features
-```
-
-You can run spec tests with the following command:
-
-```bash
-$ rspec spec
-```
-
-You can run tests continuously during development in a dedicated console.
-
-TODO Continuous testing hasn't been fully vetted; proceed with caution
-
-```bash
-$ guard
-```
-
-Style Considerations
-====================
-
-To stay consistent with the style of this project, please abide by the following guidelines:
-
-- Use Ruby 1.9 syntax for hashes and lambdas:
-  ```
-  # bad
-  {:a => 1, 'b' => 2}
-  lambda {|x, y| x + y}
-
-  # good
-  {a: 1, 'b' => 2}
-  ->(x, y) {x + y}
-  ```
-- Use Rails ActiveSupport helpers whenever possible:
-  ```
-  # bad
-  x.nil? || x.length == 0
-  !(x.nil? || x.length == 0)
-  JSON.parse(x)
-
-  # good
-  x.blank?
-  x.present?
-  ActiveSupport::JSON.decode(x)
-  ```
-- Use Pokemon references liberally when writing tests. Only the first 151 Pokemon are recognized.
-
-
-Test Customizations
--------------------
-
-Several options may be configured for your development pleasure via `/config/settings/test.local.yaml`
-
-TODO Customizations are rather volatile, so be careful!
-
-```yaml
-growl: true  # OS X Only, requires [Growl](http://growl.info/) to be installed
-rspec:
-  formatter: NyanCatFormatter # Options are NyanCatFormatter, NyanCatMusicFormatter, Fuubar, documentation, progress; defaults to progress
-spork: # See "Available Options"  at https://github.com/guard/guard-spork
-  rspec: true
-  cucumber: false # Default is true
-
-```
-
-Sitemap
-===============
-To generate the full sitemap, run:
-`$ rake sitemap:refresh CONFIG_FILE="config/sitemaps/site.rb"`
-
-
-To generate the news sitemap, run:
-`$ rake sitemap:refresh CONFIG_FILE="config/sitemaps/news.rb"`
-
-Other Resources
-===============
+Resources
+---------
 
 In no particular order:
 
@@ -163,3 +34,28 @@ In no particular order:
  - [Cucumber](https://www.relishapp.com/cucumber/cucumber/docs)
  - [Capybara](http://jnicklas.github.com/capybara/)
  - [Pry](http://pryrepl.org/)
+
+License
+=======
+
+The MIT License (MIT)
+
+Copyright (c) 2013 Duke Student Publishing Company
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

@@ -40,6 +40,23 @@ class Page::Layouts::Sports < Layout
         'required' => true,
         'items' => article_schema,
       },
+      'nav_links' => {
+        'label' => 'Navigation links',
+        'type' => 'array',
+        'items' => {
+          'type' => 'object',
+          'properties' => {
+            'name' => {
+              'label' => 'Label',
+              'type' => 'string',
+            },
+            'href' => {
+              'label' => 'Path',
+              'type' => 'string',
+            }
+          }
+        }
+      }
     }
   end
 
