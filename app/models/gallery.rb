@@ -10,7 +10,7 @@ class Gallery < ActiveRecord::Base
 
   # replaces all sequences on non-alphanumeric characters with a dash
   # used to get the proper url for the photoshelter buy page
-  def get_slug
+  def slug
     name.strip.gsub(/[^[:alnum:]]+/, "-")
   end
 
