@@ -1,5 +1,9 @@
 module ImageHelper
 
+  def image_attributions
+
+  end
+
   def photo_credit(image, options={})
     if image.photographer
       name = (options[:link] ?

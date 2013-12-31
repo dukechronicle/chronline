@@ -4,7 +4,7 @@ class Post
       include ActionView::Helpers
 
       def initialize(_embedded_media, url)
-        @instagram_id = /\/p\/([a-zA-Z0-9]+)/.match(url)[1]
+        @instagram_id = /\/p\/([\w\-]+)/.match(url)[1]
       end
 
       def to_html(float: :right)

@@ -9,12 +9,12 @@
       .rounded
         %a{href: "https://twitter.com/#{@model.twitter}"}
           .image-container
-            = image_tag 'icons/twitter-large.png'
+            = image_tag 'social-media/twitter.png'
     .span-4.last
       .rounded
         %a{href: "https://www.facebook.com/#{@model.facebook}"}
           .image-container
-            = image_tag 'icons/facebook-large.png'
+            = image_tag 'social-media/facebook.png'
 
 .span-4.last
   = render partial: 'site/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information, game_info: ESPN.new.game_information(@model.information['espn_url'])}

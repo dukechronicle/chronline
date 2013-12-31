@@ -7,7 +7,6 @@ class Mobile::BlogPostsController < Mobile::BaseController
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
       @blog_posts = @blog.posts
-        .published
         .order('published_at DESC')
         .includes(:authors, :image)
         .page(params[:page])

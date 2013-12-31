@@ -1,10 +1,12 @@
 module Rss::ApplicationHelper
 
-  def title(taxonomy)
-    if taxonomy.root?
+  def title(section)
+    if section.is_a? Blog
+      "The Chronicle | #{section.name}"
+    elsif section.root?
       "The Chronicle"
     else
-      "The Chronicle | #{taxonomy.to_a.join(', ')}"
+      "The Chronicle | #{section.to_a.join(', ')}"
     end
   end
 

@@ -13,9 +13,11 @@ class Disqus
   end
 
   def request(resource, action, options={})
-    uri = URI::HTTPS.build(host: DISQUS_HOST,
-                           path: request_path(resource, action),
-                           query: request_query(options))
+    uri = URI::HTTPS.build(
+      host: DISQUS_HOST,
+      path: request_path(resource, action),
+      query: request_query(options)
+    )
     handle_response(HTTParty.get(uri.to_s))
   end
 

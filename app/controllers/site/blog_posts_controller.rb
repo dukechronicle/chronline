@@ -8,7 +8,6 @@ class Site::BlogPostsController < Site::BaseController
       @blog = Blog.find(params[:blog_id])
       @taxonomy = @blog.taxonomy
       @blog_posts = @blog.posts
-        .published
         .includes(:authors, :image)
         .order('published_at DESC')
         .page(params[:page])
@@ -19,9 +18,6 @@ class Site::BlogPostsController < Site::BaseController
   end
 
   def show
-    @blog_post = Blog::Post
-      .includes(:authors, image: :photographer)
-      .find(@blog_post)
     @blog = @blog_post.blog
     @taxonomy = @blog.taxonomy
   end
@@ -30,7 +26,6 @@ class Site::BlogPostsController < Site::BaseController
     @blog = Blog.find(params[:blog_id])
     @taxonomy = @blog.taxonomy
     @blog_posts = @blog.posts
-      .published
       .tagged_with(params[:tag])
       .order('published_at DESC')
       .page(params[:page])

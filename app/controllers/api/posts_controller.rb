@@ -9,7 +9,6 @@ class Api::PostsController < Api::BaseController
   def index
     posts = Post
       .includes(:authors, :image)
-      .published
       .order('published_at DESC')
       .paginate(page: params[:page], per_page: params[:limit])
     respond_with_post posts
@@ -41,13 +40,13 @@ class Api::PostsController < Api::BaseController
   end
 
   def unpublish
-    post = Post.find(params[:id])
+    post = Post.unscoped.find(params[:id])
     post.update_attributes!(published_at: nil)
     respond_with_post post, status: :ok
   end
 
   def update
-    post = Post.find(params[:id])
+    post = Post.unscoped.find(params[:id])
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
     post.assign_attributes(params[:post])
@@ -60,7 +59,7 @@ class Api::PostsController < Api::BaseController
   end
 
   def destroy
-    post = Post.find(params[:id])
+    post = Post.unscoped.find(params[:id])
     post.destroy
     head :no_content
   end
