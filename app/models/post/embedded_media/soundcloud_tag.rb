@@ -1,14 +1,18 @@
 require 'oembed'
 class Post
   class EmbeddedMedia
-    class SoundcloudTag < ActionView::Base
-
+    class SoundcloudTag < EmbeddedMedia::Tag
       def initialize(_embedded_media, soundcloud_id)
+        @id = soundcloud_id
         @html = get_html(soundcloud_id)
       end
 
       def to_html(float: :right)
         @html
+      end
+
+      def to_s
+        "{{Soundcloud:#{@id}}}"
       end
 
       def self.convert_camayak(url)
