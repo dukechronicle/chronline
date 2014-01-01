@@ -36,6 +36,7 @@ Chronline::Application.routes.draw do
       resources :staff, only: :show do
         member do
           get 'articles'
+          get 'blog_posts'
           get 'images'
         end
       end
