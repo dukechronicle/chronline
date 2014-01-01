@@ -5,6 +5,8 @@ class Blog::Series < ActiveRecord::Base
   belongs_to :tag, class_name: 'ActsAsTaggableOn::Tag'
 
   validates :image, presence: true
+
+  delegate :name, to: :tag
 end
 
 class ActsAsTaggableOn::Tag

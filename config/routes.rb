@@ -112,6 +112,8 @@ Chronline::Application.routes.draw do
           id: Post::SLUG_PATTERN
       end
 
+      resources :blog_series, except: :show
+
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 
       authenticate :user do
