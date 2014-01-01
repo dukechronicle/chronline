@@ -44,7 +44,9 @@ Chronline::Application.configure do
     ['site.js', 'admin.js', 'mobile.js',
      'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
      'galleria/themes/chronicle/galleria.chronicle.js',
-     'galleria/themes/chronicle/galleria.chronicle.css']
+     'galleria/themes/chronicle/galleria.chronicle.css',
+     'galleria/themes/gallery/galleria.chronicle.js',
+     'galleria/themes/gallery/galleria.chronicle.css']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
