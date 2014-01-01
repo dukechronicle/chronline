@@ -1,4 +1,6 @@
 class PhotoshelterImage < ActiveRecord::Base
+  self.primary_key = :pid
+
   BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
   attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid
 

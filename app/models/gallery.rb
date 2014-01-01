@@ -1,4 +1,6 @@
 class Gallery < ActiveRecord::Base
+  self.primary_key = :gid
+
   attr_accessible :name, :gid, :description, :section, :photoshelter_images
 
   validates :name, presence: true
