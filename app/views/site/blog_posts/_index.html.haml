@@ -13,8 +13,7 @@
           %span.sep= "|"
           %span.date= display_date(blog_post)
 
-        - if blog_post.image
-          = render partial: 'partials/main-image', locals: {image: blog_post.image, banner: true}
+        = render partial: 'partials/blog-image', locals: {blog_post: blog_post}
 
         .article-body
           != blog_post.render_body
