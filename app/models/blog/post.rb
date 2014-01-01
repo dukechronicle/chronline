@@ -63,4 +63,16 @@ class Blog::Post < ::Post
   def section_id
     blog.section_id
   end
+
+  ##
+  # Blog posts should only have one series. This cannot be enforced, but is
+  # assumed to be true.
+  #
+  def series
+    super.first
+  end
+
+  def series=(series)
+    super([series])
+  end
 end
