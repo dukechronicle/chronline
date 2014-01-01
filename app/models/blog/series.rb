@@ -3,6 +3,8 @@ class Blog::Series < ActiveRecord::Base
 
   belongs_to :image
   belongs_to :tag, class_name: 'ActsAsTaggableOn::Tag'
+
+  validates :image, presence: true
 end
 
 class ActsAsTaggableOn::Tag
