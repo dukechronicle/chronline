@@ -7,7 +7,7 @@ class Site::BlogPostsController < Site::BaseController
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
       @blog_posts = @blog.posts
-        .includes(:authors, :image)
+        .includes(:authors, :image, :tags, series: :image)
         .order('published_at DESC')
         .page(params[:page])
     else
