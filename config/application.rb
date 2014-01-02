@@ -16,7 +16,7 @@ module Chronline
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -95,6 +95,6 @@ module Chronline
 end
 
 # Load extensions
-Dir[File.join(Rails.root, "lib", "**", "*.rb")].each do |file|
+Dir[File.join(Rails.root, 'lib', 'extensions', '**', '*.rb')].each do |file|
   require file
 end

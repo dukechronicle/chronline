@@ -1,5 +1,4 @@
 require 'rss'
-require 'taxonomy'
 
 
 Layout.add_schema(:markdown, {
@@ -37,7 +36,7 @@ end
 
 Layout.add_schema(:popular, {
                     'type' => 'string',
-                    'enum' => promise { Taxonomy.top_level(:sections).map {|t| t.name.downcase} },
+                    'enum' => Taxonomy.top_level(:sections).map {|t| t.name.downcase},
                   }) do |sections|
   sections.map do |section|
     Article.popular(section, limit: 7)

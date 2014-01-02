@@ -1,5 +1,3 @@
-require 'taxonomy/errors'
-
 class Taxonomy
   include Errors
 
@@ -159,3 +157,6 @@ class Taxonomy
     end.flatten
   end
 end
+
+# Configuration is wiped when reloaded
+load Rails.root.join('config', 'initializers', 'taxonomy.rb') if Rails.env.development?
