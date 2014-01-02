@@ -25,4 +25,8 @@ class Gallery < ActiveRecord::Base
   def empty?
     get_gallery_images.empty?
   end
+
+  def to_param
+    gid
+  end
 end
