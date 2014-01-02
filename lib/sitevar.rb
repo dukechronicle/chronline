@@ -65,3 +65,6 @@ class Sitevar
     end
   end
 end
+
+# Configuration is wiped when reloaded
+load Rails.root.join('config', 'initializers', 'sitevars.rb') if Rails.env.development?
