@@ -61,6 +61,19 @@ describe Staff do
     end
   end
 
+  describe "#blogger?" do
+    subject { FactoryGirl.build(:staff) }
+
+    context "when staff has no articles" do
+      it { should_not be_blogger }
+    end
+
+    context "when staff has a blog_post" do
+      before { subject.blog_posts << FactoryGirl.build(:blog_post) }
+      it { should be_blogger }
+    end
+  end
+
   describe "#last_name" do
     context "when name has two words" do
       subject { FactoryGirl.build(:staff, name: 'Ash Ketchum') }
