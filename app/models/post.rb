@@ -52,26 +52,24 @@ class Post < ActiveRecord::Base
     self.body = document.to_html
   end
 
-  def embed_url(params = {})
+  def embed_url
     if embed_code.present?
-      params[:v] = embed_code
       uri = URI::Generic.build(
         host: 'www.youtube.com',
         path: '/watch',
-        query: URI.encode_www_form(params),
+        query: URI.encode_www_form(v: embed_code),
       )
       uri.to_s
     end
   end
 
   def embed_url=(url)
-    if url.present?
-      uri = URI.parse(url)
-      params = Hash[URI.decode_www_form(uri.query)]
-      self.embed_code = params['v']
-    else
-      self.embed_code = nil
-    end
+    self.embed_code =
+      if url.present?
+        uri = URI.parse(url)
+        params = Hash[URI.decode_www_form(uri.query)]
+        params['v']
+      end
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/

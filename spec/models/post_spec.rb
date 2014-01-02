@@ -45,6 +45,63 @@ describe Post do
     end
   end
 
+  describe "::section" do
+    let!(:posts) do
+      [
+       FactoryGirl.create(:article, section: %w(News)),
+       FactoryGirl.create(:article, section: %w(News University)),
+       FactoryGirl.create(:article, section: %w(News University Academics))
+      ]
+    end
+    subject { Article.section(Taxonomy.new(:sections, %w(News University))) }
+
+    it { should have(2).posts }
+    it "should not include posts from parent sections" do
+      should_not include(posts[0])
+    end
+    it "should include posts from the given section" do
+      should include(posts[1])
+    end
+    it "should include posts from child sections" do
+      should include(posts[2])
+    end
+  end
+
+  describe "#body_text" do
+    before do
+      post.body = "<p>{{Image:5}}This paragraph has an embedded image.</p>"
+    end
+
+    it "should strip all embedded tags from the post body" do
+      subject.body_text.should == "<p>This paragraph has an embedded image.</p>"
+    end
+  end
+
+  describe "#convert_camayak_tags!" do
+    pending "should convert Camayak embedded media to custom tags"
+  end
+
+  describe "#embed_url" do
+    subject { post.embed_url }
+
+    context "when there is no embed code" do
+      before { post.embed_code = "" }
+      it { should be_nil }
+    end
+
+    context "when embed code is valid" do
+      before { post.embed_code = "JuYeHPFR3f0" }
+      it { should == "//www.youtube.com/watch?v=JuYeHPFR3f0" }
+    end
+  end
+
+  describe "#embed_url=" do
+    it "should parse and set embed code" do
+      post.embed_url = "http://www.youtube.com/watch?v=JuYeHPFR3f0"
+      post.embed_code.should == "JuYeHPFR3f0"
+    end
+  end
+
   describe "#normalize_friendly_id" do
     before do
       post.published_at = DateTime.new(1999, 11, 10)
@@ -113,6 +170,12 @@ describe Post do
       before { post.published_at = Date.today + 1 }
       it { should_not be_published }
     end
+  end
+
+  describe "#related" do
+    it "should make a MLT query to Solr"
+    it "should be an array of posts"
+    it "should return no more than the limit of posts"
   end
 
   describe "#render_body" do
