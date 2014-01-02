@@ -26,6 +26,10 @@ class Post < ActiveRecord::Base
       .where(['published_at < ?', DateTime.now])
   end
 
+  def body_text
+    body.gsub(/{{[^\}]*}}/, '')
+  end
+
   def convert_camayak_tags!
     document = Nokogiri::HTML::DocumentFragment.parse(body)
     document.css('.oembed').each do |camayak_tag|
@@ -46,6 +50,28 @@ class Post < ActiveRecord::Base
       end
     end
     self.body = document.to_html
+  end
+
+  def embed_url(params = {})
+    if embed_code.present?
+      params[:v] = embed_code
+      uri = URI::Generic.build(
+        host: 'www.youtube.com',
+        path: '/watch',
+        query: URI.encode_www_form(params),
+      )
+      uri.to_s
+    end
+  end
+
+  def embed_url=(url)
+    if url.present?
+      uri = URI.parse(url)
+      params = Hash[URI.decode_www_form(uri.query)]
+      self.embed_code = params['v']
+    else
+      self.embed_code = nil
+    end
   end
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
@@ -71,7 +97,7 @@ onto per since than the this that to up via with)
 
   ##
   # Search for posts with related content. Uses Solr to query for relevance.
-  # Returns the top +limit+ articles.
+  # Returns the top +limit+ posts.
   #
   def related(limit)
     search = Sunspot.more_like_this(self) do
@@ -85,53 +111,25 @@ onto per since than the this that to up via with)
     search.results
   end
 
-  def render_body
-    EmbeddedMedia.new(body).to_s
-  end
-
-  def body_text
-    body.gsub(/{{[^\}]*}}/, '')
-  end
-
-  def convert_camayak_tags!
-    document = Nokogiri::HTML::DocumentFragment.parse(body)
-    document.css('.oembed').each do |camayak_tag|
-      url = camayak_tag.attr('data-camayak-embed-url')
-      provider =
-        case url
-        when %r[^https?://www\.youtube\.com/]
-          'Youtube'
-        when %r[^https?://twitter\.com/]
-          'Twitter'
-        when %r[^https?://soundcloud\.com/]
-          'Soundcloud'
-        when %r[^https?://instagram\.com/]
-          'Instagram'
-        end
-      unless provider.nil?
-        camayak_tag.replace("{{#{provider}:#{url}}}")
+  ##
+  # Record temporarily that this post was viewed by a user. This data is
+  # stored in Redis for five days. The data is used to determine popularity of
+  # posts in each section. This should be called each time a post is
+  # viewed on the main site or on mobile.
+  #
+  def register_view
+    unless section.root?
+      key = "popularity:#{@@taxonomy}:#{section[0]}:#{Date.today}"
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.multi do
+        $redis.zincrby(key, 1, id)
+        $redis.expireat(key, timestamp)
       end
     end
   end
 
-  def square_80x_url
-    image.original.url(:square_80x) if image
-  end
-
-  def self.most_commented(limit)
-    disqus = Disqus.new(ENV['DISQUS_API_KEY'])
-    response = disqus.request(
-      :threads, :list_hot, limit: limit, forum: ENV['DISQUS_SHORTNAME'])
-    return [] if response.nil?
-    slugs = response['response'].map do |thread|
-      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
-      [$1, thread['posts']]
-    end
-    articles = self.where(slug: slugs.map(&:first))
-    slugs.map do |slug, comments|
-      article = articles.find { |article| article.slug == slug }
-      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
-    end.compact
+  def render_body
+    EmbeddedMedia.new(body).to_s
   end
 
   ##
@@ -145,26 +143,23 @@ onto per since than the this that to up via with)
     super(section)
   end
 
-  def embed_url(params = {})
-    if embed_code.present?
-      params[:v] = embed_code
-      uri = URI::Generic.build(
-        host: 'www.youtube.com',
-        path: '/watch',
-        query: URI.encode_www_form(params),
-      )
-      uri.to_s
-    end
+  def square_80x_url
+    image.original.url(:square_80x) if image
   end
 
-  def embed_url=(url)
-    if url.present?
-      uri = URI.parse(url)
-      params = Hash[URI.decode_www_form(uri.query)]
-      self.embed_code = params['v']
-    else
-      self.embed_code = nil
+  def self.popular(section, limit: 10)
+    popular = {}
+    posts = fetch_popular_from_redis(section, limit)
+    posts.each_with_index do |level, days|
+      level.each do |pair|
+        id, score = pair.map(&:to_i)
+        popular[id] = 0.0 unless popular.has_key?(id)
+        popular[id] += score / (days + 1)
+      end
     end
+    post_ids = popular.to_a.sort { |a, b| b[1] <=> a[1] }
+      .take(limit).map(&:first)
+    self.find_in_order(post_ids).compact
   end
 
   def self.taxonomy=(taxonomy)
@@ -173,6 +168,17 @@ onto per since than the this that to up via with)
     serialize :section, Taxonomy::Serializer.new(taxonomy)
   end
   private_class_method :taxonomy=
+
+  def self.fetch_popular_from_redis(section, limit)
+    $redis.multi do
+      5.times do |i|
+        key = "popularity:#{@@taxonomy}:#{section}:#{Date.today - i}"
+        $redis.zrevrangebyscore(
+          key, "+inf", 0, with_scores: true, limit: [0, limit])
+      end
+    end
+  end
+  private_class_method :fetch_popular_from_redis
 end
 
 # Necessary to avoid autoload namespacing conflict
