@@ -98,7 +98,7 @@ describe Article do
       ]
     end
 
-    subject { Article.section(Taxonomy.new(['News'])) }
+    subject { Article.section(Taxonomy.new(:sections, ['News'])) }
 
     it "should return all articles with a subsection of the given section" do
       should include(articles[0])
@@ -110,7 +110,7 @@ describe Article do
     end
 
     it "should be chainable with other query methods" do
-      articles = Article.section(Taxonomy.new(['News'])).limit(1)
+      articles = Article.section(Taxonomy.new(:sections, ['News'])).limit(1)
       articles.should have(1).article
     end
   end
@@ -132,15 +132,15 @@ describe Article do
 
     it "should not fail if article is in root taxonomy" do
       article.section = '/'
-      ->{ article.register_view }.should_not raise_error
+      expect { article.register_view }.to_not raise_error
     end
   end
 
   describe "#section" do
-    before { article.section = Taxonomy.new(['News', 'University']) }
+    before { article.section = Taxonomy.new(:sections, ['News', 'University']) }
 
     its(:section) { should be_a_kind_of(Taxonomy) }
-    its(:section) { should == Taxonomy.new(['News', 'University']) }
+    its(:section) { should == Taxonomy.new(:sections, ['News', 'University']) }
 
     it "should default to root taxonomy" do
       Article.new.section.should be_root
