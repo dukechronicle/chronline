@@ -15,6 +15,14 @@ class Blog
     @twitter_widgets = attrs[:twitter_widgets] || []
   end
 
+  def ==(rhs)
+    rhs.is_a?(self.class) && id == rhs.id
+  end
+
+  def id
+    name.downcase.gsub(/\s/, '')
+  end
+
   # Required to comply with ActiveModel interface
   def persisted?
     true
@@ -24,31 +32,30 @@ class Blog
     Blog::Post.section(taxonomy)
   end
 
-  def id
-    name.downcase.gsub(/\s/, '')
+  def taxonomy
+    Taxonomy.new(:blogs, [name])
   end
 
   def to_param
     id
   end
 
-  def taxonomy
-    Taxonomy.new(:blogs, [name])
-  end
-
   def self.find(id)
     if id.is_a? Array
       ids = id
-      ids.map { |id| @all[id] }.compact
+      ids.map { |id| find_by_id(id) }.compact
     else
+      blog = find_by_id(id)
       # TODO: not an ActiveRecord error?
-      raise ActiveRecord::RecordNotFound.new unless @all.include?(id)
-      @all[id]
+      raise ActiveRecord::RecordNotFound.new if blog.nil?
+      blog
     end
   end
 
   def self.all
-    @all.values
+    Taxonomy.top_level(:blogs).map do |taxonomy|
+      new(taxonomy.node.symbolize_keys)
+    end
   end
 
   def self.each(&block)
@@ -59,13 +66,7 @@ class Blog
     self.all.find { |blog| taxonomy <= blog.taxonomy }
   end
 
-  def self.load_blog_data(blogs)
-    @all = blogs.reduce({}) do |all, data|
-      blog = new(data.symbolize_keys)
-      all[blog.id] = blog
-      all
-    end
+  def self.find_by_id(id)
+    self.all.find { |blog| id == blog.id }
   end
-
-  load_blog_data(YAML.load_file(Rails.root.join('config', 'blogs.yml')))
 end
