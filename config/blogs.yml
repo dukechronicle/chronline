@@ -1,23 +1,15 @@
 ---
-bigblog:
-  name: Big Blog
-  logo: blogs/bigblog-logo.jpg
-  banner: blogs/bigblog-banner.jpg
+- name: Big Blog
+  id: 1001
   description: A closer look at Duke by students and for students.
-  section_id: 1001
-bluezone:
-  name: Blue Zone
+- name: Blue Zone
+  id: 1002
   logo: blogs/bluezone-logo.jpg
   banner: blogs/bluezone-banner.jpg
   description: Your one-stop shop for all the latest in Duke basketball, football, and more.
   twitter_widgets:
     - 295248698340933632
     - 372912145349894144
-  section_id: 1002
-  taxonomy_parent: [Sports]
-playground:
-  name: Playground
-  logo: blogs/playground-logo.jpg
-  banner: blogs/playground-banner.jpg
+- name: Playground
   description: Arts and culture at Duke, Durham and beyond.
   section_id: 1003

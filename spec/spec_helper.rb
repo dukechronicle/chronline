@@ -38,10 +38,12 @@ Spork.prefork do
           :sections,
           YAML.load_file(Rails.root.join('spec', 'config', 'taxonomy.yml'))
         )
-        Blog.const_set(
-          'Data',
+        Taxonomy.set_taxonomy_tree(
+          :blogs,
           YAML.load_file(Rails.root.join('spec', 'config', 'blogs.yml'))
         )
+        Blog.load_blog_data(
+          YAML.load_file(Rails.root.join('spec', 'config', 'blogs.yml')))
         Sitevar.config.sitevars =
           YAML.load_file(Rails.root.join('spec', 'config', 'sitevars.yml'))
       end

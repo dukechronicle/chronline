@@ -161,29 +161,27 @@ describe Taxonomy do
     let(:nodes) { Taxonomy.nodes }
     subject { nodes }
 
-    it { should have(9).nodes }
+    it { should have(11).nodes }
 
-    describe "taxonomy nodes" do
-      it 'should assign the "taxonomy" property to "sections"' do
-        nodes.each do |node|
-          node[:taxonomy].should == 'sections'
-        end
+    it 'should assign the "taxonomy" property to "sections"' do
+      nodes.each do |node|
+        node[:taxonomy].should == 'sections'
       end
-
-      it "should have a numeric id" do
-        nodes.each do |node|
-          node[:id].should be_an(Integer)
-        end
-      end
-
-      it "should have the correct parent_id" do
-        nodes.each do |node|
-          node[:parent_id].should be_an(Integer) unless node[:parent_id].nil?
-        end
-      end
-
-      it { nodes.each { |node| node.should have_key(:name) } }
     end
+
+    it "should have a numeric id" do
+      nodes.each do |node|
+        node[:id].should be_an(Integer)
+      end
+    end
+
+    it "should have the correct parent_id" do
+      nodes.each do |node|
+        node[:parent_id].should be_an(Integer) unless node[:parent_id].nil?
+      end
+    end
+
+    it { nodes.each { |node| node.should have_key(:name) } }
   end
 
 end
