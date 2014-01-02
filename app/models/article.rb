@@ -46,47 +46,19 @@ class Article < Post
     end
   end
 
-  ##
-  # Record temporarily that this article was viewed by a user. This data is
-  # stored in Redis for five days. The data is used to determine popularity of
-  # articles in each section. This should be called each time an article is
-  # viewed on the main site or on mobile.
-  #
-  def register_view
-    unless section.root?
-      key = "popularity:#{section[0].downcase}:#{Date.today}"
-      timestamp = 5.days.from_now.to_date.to_time.to_i
-      $redis.multi do
-        $redis.zincrby(key, 1, id)
-        $redis.expireat(key, timestamp)
-      end
+  def self.most_commented(limit)
+    disqus = Disqus.new(ENV['DISQUS_API_KEY'])
+    response = disqus.request(
+      :threads, :list_hot, limit: limit, forum: ENV['DISQUS_SHORTNAME'])
+    return [] if response.nil?
+    slugs = response['response'].map do |thread|
+      URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
+      [$1, thread['posts']]
     end
-  end
-
-  def self.popular(section, options={})
-    limit = options[:limit] || 10
-    popular = {}
-    articles = fetch_popular_from_redis(section, limit)
-    articles.each_with_index do |level, days|
-      level.each do |pair|
-        id, score = pair.map(&:to_i)
-        popular[id] = 0.0 if not popular.has_key?(id)
-        popular[id] += score / (days + 1)
-      end
-    end
-    article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
-      .take(limit).map(&:first)
-    self.find_in_order(article_ids).compact
-  end
-
-  private
-  def self.fetch_popular_from_redis(section, limit)
-    $redis.multi do
-      5.times do |i|
-        key = "popularity:#{section}:#{Date.today - i}"
-        $redis.zrevrangebyscore(
-          key, "+inf", 0, with_scores: true, limit: [0, limit])
-      end
-    end
+    posts = self.where(slug: slugs.map(&:first))
+    slugs.map do |slug, comments|
+      post = posts.find { |post| post.slug == slug }
+      [post, comments] unless post.nil?  # TODO: this shouldn't be needed
+    end.compact
   end
 end
