@@ -169,8 +169,8 @@ onto per since than the this that to up via with)
 
   def self.taxonomy=(taxonomy)
     @@taxonomy = taxonomy
-    validates_with Taxonomy::Validator, attr: :section
-    serialize :section, Taxonomy::Serializer.new(@@taxonomy)
+    validates_with Taxonomy::Validator, attr: :section, taxonomy: taxonomy
+    serialize :section, Taxonomy::Serializer.new(taxonomy)
   end
   private_class_method :taxonomy=
 end
