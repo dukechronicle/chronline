@@ -117,7 +117,7 @@ onto per since than the this that to up via with)
   #
   def register_view
     unless section.root?
-      key = "popularity:#{@@taxonomy}:#{section[0].downcase}:#{Date.today}"
+      key = "popularity:#{taxonomy}:#{section[0].downcase}:#{Date.today}"
       timestamp = 5.days.from_now.to_date.to_time.to_i
       $redis.multi do
         $redis.zincrby(key, 1, id)
@@ -136,7 +136,7 @@ onto per since than the this that to up via with)
   #
   def section=(section)
     unless section.is_a?(Taxonomy)
-      section = Taxonomy.new(@@taxonomy, section)
+      section = Taxonomy.new(taxonomy, section)
     end
     super(section)
   end
@@ -161,7 +161,7 @@ onto per since than the this that to up via with)
   end
 
   def self.taxonomy=(taxonomy)
-    @@taxonomy = taxonomy
+    @taxonomy = taxonomy
     validates_with Taxonomy::Validator, attr: :section, taxonomy: taxonomy
     serialize :section, Taxonomy::Serializer.new(taxonomy)
   end
@@ -170,13 +170,18 @@ onto per since than the this that to up via with)
   def self.fetch_popular_from_redis(section, limit)
     $redis.multi do
       5.times do |i|
-        key = "popularity:#{@@taxonomy}:#{section}:#{Date.today - i}"
+        key = "popularity:#{@taxonomy}:#{section}:#{Date.today - i}"
         $redis.zrevrangebyscore(
           key, "+inf", 0, with_scores: true, limit: [0, limit])
       end
     end
   end
   private_class_method :fetch_popular_from_redis
+
+  private
+  def taxonomy
+    self.class.instance_variable_get(:@taxonomy)
+  end
 end
 
 # Necessary to avoid autoload namespacing conflict
