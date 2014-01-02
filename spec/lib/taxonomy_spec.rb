@@ -44,12 +44,8 @@ describe Taxonomy do
     it { Taxonomy.new(:sections, '/').should be_root }
   end
 
-  describe "#id" do
-    it "should be a unique numeric id" do
-      subject.id.should == 2
-    end
-  end
-
+  its(:id) { should == 2 }
+  its(:taxonomy) { should == :sections }
   its(:to_s) { should == '/news/university/' }
   its(:path) { should == ['News', 'University'] }
   its(:to_a) { should == ['News', 'University'] }
@@ -98,8 +94,8 @@ describe Taxonomy do
   end
 
   describe "#root?" do
-    it { Taxonomy.new(:sections).root?.should be_true }
-    it { subject.root?.should be_false }
+    it { Taxonomy.new(:sections).should be_root }
+    it { should_not be_root }
   end
 
   describe "#[]" do
