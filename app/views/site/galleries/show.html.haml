@@ -1,7 +1,9 @@
+- content_for :title_block do
+  = render 'site/partials/gallery_navigation', gallery: @gallery
+
 .span-8
   .rounded
     %article.article-container
-      %h1.title= @gallery.name
       .article-body
         != @gallery.description
         %br
