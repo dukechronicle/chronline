@@ -117,7 +117,7 @@ onto per since than the this that to up via with)
   #
   def register_view
     unless section.root?
-      key = "popularity:#{@@taxonomy}:#{section[0]}:#{Date.today}"
+      key = "popularity:#{@@taxonomy}:#{section[0].downcase}:#{Date.today}"
       timestamp = 5.days.from_now.to_date.to_time.to_i
       $redis.multi do
         $redis.zincrby(key, 1, id)

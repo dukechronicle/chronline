@@ -65,6 +65,9 @@ describe Post do
     it "should include posts from child sections" do
       should include(posts[2])
     end
+    it "should be chainable with other query methods" do
+      subject.limit(1).should have(1).post
+    end
   end
 
   describe "#body_text" do
@@ -192,6 +195,79 @@ describe Post do
 
     it "should use EmbeddedMedia to render the body" do
       should == rendered_content
+    end
+  end
+
+  describe "#register_view" do
+    let(:key_pattern) { /popularity:[a-z]+:[a-z]+:\d{4}-\d{2}-\d{2}/ }
+    let(:post) { FactoryGirl.create(:article) }
+
+    it "should increment its id in the redis sorted set" do
+      $redis.should_receive(:zincrby).with(key_pattern, 1, post.id)
+      post.register_view
+    end
+
+    it "should expire the key in 5 days" do
+      timestamp = 5.days.from_now.to_date.to_time.to_i
+      $redis.should_receive(:expireat).with(key_pattern, timestamp)
+      post.register_view
+    end
+
+    it "should not fail if article is in root taxonomy" do
+      post.section = '/'
+      expect { post.register_view }.to_not raise_error
+    end
+  end
+
+  describe "#section=" do
+    let(:section) { Taxonomy.new(:sections, %w(Sports)) }
+    subject { post.section }
+
+    context "when set to a Taxonomy object" do
+      before { post.section = section }
+      it { should == section }
+    end
+
+    context "when set to a taxonomy string" do
+      before { post.section = section.to_s }
+      it { should == section }
+    end
+
+    context "when set to a taxonomy path array" do
+      before { post.section = section.to_a }
+      it { should == section }
+    end
+  end
+
+
+  describe "::popular" do
+    before(:all) do
+      @posts = FactoryGirl.create_list(:article, 4)
+      $redis.zincrby("popularity:sections:news:#{Date.today}", 2, @posts[0].id)
+      $redis.zincrby("popularity:sections:news:#{Date.today}", 3, @posts[1].id)
+      $redis.zincrby("popularity:sections:news:#{Date.today - 1}", 2, @posts[2].id)
+      $redis.zincrby("popularity:sections:sports:#{Date.today - 1}", 3, @posts[3].id)
+    end
+    after(:all) do
+      DatabaseCleaner.clean_with :truncation
+    end
+
+    subject { Article.popular(:news) }
+
+    it "should return posts only posts in the section" do
+      should match_array(@posts.take(3))
+    end
+
+    it "should return posts in descending number of views" do
+      should include_in_order(@posts[1], @posts[0])
+    end
+
+    it "should rank recent article views more highly than old article views" do
+      should include_in_order(@posts[0], @posts[2])
+    end
+
+    it "should return no more than the specified number of posts" do
+      Article.popular(:news, limit: 2).should have(2).posts
     end
   end
 end
