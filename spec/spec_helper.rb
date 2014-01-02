@@ -31,7 +31,7 @@ Spork.prefork do
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
-      DatabaseCleaner.clean_with(:truncation)
+      DatabaseCleaner.clean_with :truncation
 
       Kernel.silence_warnings do
         Taxonomy.set_taxonomy_tree(
