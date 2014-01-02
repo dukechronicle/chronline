@@ -10,6 +10,9 @@
             - if staff.author? and except != :articles
               %li
                 = link_to 'Articles', articles_site_staff_path(staff)
+            - if staff.blogger? and except != :blog_posts
+              %li
+                = link_to 'Blog Posts', blog_posts_site_staff_path(staff)
             - if staff.photographer? and except != :images
               %li
                 = link_to 'Photos', images_site_staff_path(staff)
