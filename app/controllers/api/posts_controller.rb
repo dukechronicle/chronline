@@ -21,9 +21,11 @@ class Api::PostsController < Api::BaseController
 
   def create
     klass =
-      if params[:post][:section].try :starts_with?, '/blog/'
+      # FIX: This is so gross, but Camayak would have to change to fix it
+      begin
+        Taxonomy.new(:blogs, params[:post][:section])
         Blog::Post
-      else
+      rescue Taxonomy::Errors::InvalidTaxonomyError
         Article
       end
     params[:post][:teaser] = params[:post][:teaser]
