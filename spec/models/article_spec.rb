@@ -22,6 +22,12 @@ describe Article do
   subject { article }
 
   it { Article.should be_searchable }
+  it { should be_a_kind_of(Post) }
+
+  describe "when given a blog section" do
+    before { article.section = Taxonomy.new(:blogs, %w(Pokedex)) }
+    it { should_not be_valid }
+  end
 
   describe "::most_commented" do
     include Rails.application.routes.url_helpers
