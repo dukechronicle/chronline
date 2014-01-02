@@ -7,12 +7,13 @@ class Site::BlogPostsController < Site::BaseController
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
       @taxonomy = @blog.taxonomy
-      @blog_posts = @blog.posts
+      @blog_posts = @blog
+        .posts
         .includes(:authors, :image)
         .order('published_at DESC')
         .page(params[:page])
     else
-      @taxonomy = Taxonomy['Blogs']
+      @taxonomy = Taxonomy.new(:blogs)
       render 'site/blogs/index'
     end
   end
@@ -33,9 +34,8 @@ class Site::BlogPostsController < Site::BaseController
 
   def categories
     @blog = Blog.find(params[:blog_id])
-    @taxonomy = Taxonomy['Blogs', params[:blog_id], params[:category]]
+    @taxonomy = Taxonomy.new(:blogs, [@blog.name, params[:category]])
     @blog_posts = Blog::Post
-      .published
       .section(@taxonomy)
       .order('published_at DESC')
       .page(params[:page])

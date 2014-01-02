@@ -10,6 +10,15 @@
   twitter_widgets:
     - 295248698340933632
     - 372912145349894144
+  children:
+    - name: Football
+      id: 1004
+    - name: "Men's Baskeball"
+      id: 1005
+    - name: "Women's Basketball"
+      id: 1006
+    - name: Recruiting
+      id: 1007
 - name: Playground
   description: Arts and culture at Duke, Durham and beyond.
   section_id: 1003
