@@ -3,21 +3,16 @@ class Blog
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  # Must initialize Blog::Data here so that it is present on reload
-  File.open(Rails.root.join('config', 'blogs.yml')) do |file|
-    Blog::Data = YAML.load(file)
-  end
-
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :banner, :description, :name, :logo,
-    :section_id, :twitter_widgets, :taxonomy_parent
+  attr_reader :description, :name, :section_id, :twitter_widgets
 
-  def initialize(attributes={})
-    attributes.each do |attr, value|
-      send("#{attr}=", value)
-    end
+  def initialize(attrs = {})
+    @name = attrs[:name]
+    @description = attrs[:description]
+    @section_id = attrs[:id]
+    @twitter_widgets = attrs[:twitter_widgets] || []
   end
 
   # Required to comply with ActiveModel interface
@@ -29,40 +24,31 @@ class Blog
     Blog::Post.section(taxonomy)
   end
 
+  def id
+    name.downcase.gsub(/\s/, '')
+  end
+
   def to_param
     id
   end
 
-  def twitter_widgets
-    @twitter_widgets ||= []
-  end
-
   def taxonomy
-    Taxonomy['Blogs', id]
-  end
-
-  def taxonomy_parent
-    Taxonomy.new(@taxonomy_parent)
-  end
-
-  def ==(other)
-    other.is_a? Blog and self.id == other.id
+    Taxonomy.new(:blogs, [name])
   end
 
   def self.find(id)
     if id.is_a? Array
       ids = id
-      ids.map { |id| lookup(id) }.compact
+      ids.map { |id| @all[id] }.compact
     else
-      blog = lookup(id)
       # TODO: not an ActiveRecord error?
-      raise ActiveRecord::RecordNotFound.new if blog.nil?
-      blog
+      raise ActiveRecord::RecordNotFound.new unless @all.include?(id)
+      @all[id]
     end
   end
 
   def self.all
-    self.find(Blog::Data.keys)
+    @all.values
   end
 
   def self.each(&block)
@@ -73,17 +59,13 @@ class Blog
     self.all.find { |blog| taxonomy <= blog.taxonomy }
   end
 
-  # TODO: Create find_by_<attr> methods using method_missing
-  def self.find_by_taxonomy_parent(taxonomy)
-    self.all.find { |blog| blog.taxonomy_parent == taxonomy }
-  end
-
-  private
-  def self.lookup(id)
-    if Blog::Data[id]
-      attributes = Hash[Blog::Data[id]]
-      attributes['id'] = id
-      self.send(:new, attributes)
+  def self.load_blog_data(blogs)
+    @all = blogs.reduce({}) do |all, data|
+      blog = new(data.symbolize_keys)
+      all[blog.id] = blog
+      all
     end
   end
+
+  load_blog_data(YAML.load_file(Rails.root.join('config', 'blogs.yml')))
 end
