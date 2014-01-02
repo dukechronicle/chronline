@@ -1,4 +1,4 @@
 .rounded.large-slideshow
   .galleria
     - gallery.get_gallery_images.each do |image|
-      %img{:src => image.url, :data => {:link => site_gallery_path(gallery.gid)}}
+      %img{:src => image.url, :data => {:link => site_gallery_path(gallery)}}
