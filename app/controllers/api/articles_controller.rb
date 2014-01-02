@@ -2,7 +2,7 @@ class Api::ArticlesController < Api::BaseController
   before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
 
   def index
-    taxonomy = Taxonomy.new("/#{params[:section]}/")
+    taxonomy = Taxonomy.new(:sections, "/#{params[:section]}/")
     articles = Article
       .includes(:authors, :image)
       .section(taxonomy)

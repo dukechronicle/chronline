@@ -1,3 +1,5 @@
+require 'taxonomy/errors'
+
 class Taxonomy
   include Errors
 
