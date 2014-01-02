@@ -3,7 +3,7 @@ require 'taxonomy/errors'
 class Taxonomy
   include Errors
 
-  attr_reader :id, :taxonomy
+  attr_reader :id, :taxonomy, :node
 
   @@taxonomies = {}
 
@@ -138,6 +138,7 @@ class Taxonomy
       @path << root['name']
     end
 
+    @node = root
     @id = root['id']
     @children = (root['children'] || [])
       .select { |child| child['new_id'].nil? }  # Taxonomy term has been renamed
