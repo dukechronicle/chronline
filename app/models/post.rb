@@ -9,7 +9,6 @@ class Post < ActiveRecord::Base
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
     :section, :subtitle, :teaser, :title, :embed_code, :embed_url
 
-
   belongs_to :image
   has_and_belongs_to_many :authors, class_name: 'Staff',
     join_table: :posts_authors
@@ -19,7 +18,6 @@ class Post < ActiveRecord::Base
   validates :authors, presence: true
   validates :teaser, length: { maximum: 200 }
 
-  serialize :section, Taxonomy::Serializer.new
   scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   def self.default_scope
@@ -137,14 +135,14 @@ onto per since than the this that to up via with)
   end
 
   ##
-  # Reader for section attribute. Creates a Taxonomy object if section is a
+  # Writer for section attribute. Creates a Taxonomy object if section is a
   # string.
   #
-  def section
-    unless self[:section].is_a?(Taxonomy)
-      self[:section] = Taxonomy.new(self[:section])
+  def section=(section)
+    unless section.is_a?(Taxonomy)
+      section = Taxonomy.new(@@taxonomy, section)
     end
-    self[:section]
+    super(section)
   end
 
   def embed_url(params = {})
@@ -168,6 +166,13 @@ onto per since than the this that to up via with)
       self.embed_code = nil
     end
   end
+
+  def self.taxonomy=(taxonomy)
+    @@taxonomy = taxonomy
+    validates_with Taxonomy::Validator, attr: :section
+    serialize :section, Taxonomy::Serializer.new(@@taxonomy)
+  end
+  private_class_method :taxonomy=
 end
 
 # Necessary to avoid autoload namespacing conflict

@@ -17,7 +17,7 @@
 class Article < Post
   include Searchable
 
-  validates_with Taxonomy::Validator, attr: :section
+  self.taxonomy = :sections
 
   self.per_page = 25  # set will_paginate default to 25 articles
 

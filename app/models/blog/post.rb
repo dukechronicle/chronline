@@ -1,6 +1,8 @@
 class Blog::Post < ::Post
   include Searchable
 
+  self.taxonomy = :blogs
+
   self.per_page = 10  # set will_paginate default to 10 articles
 
   # HAX: needed so that url_for works correctly for blog posts
@@ -10,7 +12,6 @@ class Blog::Post < ::Post
   acts_as_taggable
 
   attr_accessible :blog, :tag_list
-
 
   ##
   # Configure blog posts to be indexed by Solr
