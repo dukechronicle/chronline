@@ -220,25 +220,47 @@ describe Post do
   end
 
   describe "#section=" do
-    let(:section) { Taxonomy.new(:sections, %w(Sports)) }
     subject { post.section }
 
-    context "when set to a Taxonomy object" do
-      before { post.section = section }
-      it { should == section }
+    context "when called on an article" do
+      let(:section) { Taxonomy.new(:sections, %w(Sports)) }
+
+      context "when set to a Taxonomy object" do
+        before { post.section = section }
+        it { should == section }
+      end
+
+      context "when set to a taxonomy string" do
+        before { post.section = section.to_s }
+        it { should == section }
+      end
+
+      context "when set to a taxonomy path array" do
+        before { post.section = section.to_a }
+        it { should == section }
+      end
     end
 
-    context "when set to a taxonomy string" do
-      before { post.section = section.to_s }
-      it { should == section }
-    end
+    context "when called on a blog_post" do
+      let(:post) { FactoryGirl.build(:blog_post) }
+      let(:section) { Taxonomy.new(:blogs, %w(Pokedex)) }
 
-    context "when set to a taxonomy path array" do
-      before { post.section = section.to_a }
-      it { should == section }
+      context "when set to a Taxonomy object" do
+        before { post.section = section }
+        it { should == section }
+      end
+
+      context "when set to a taxonomy string" do
+        before { post.section = section.to_s }
+        it { should == section }
+      end
+
+      context "when set to a taxonomy path array" do
+        before { post.section = section.to_a }
+        it { should == section }
+      end
     end
   end
-
 
   describe "::popular" do
     before(:all) do
