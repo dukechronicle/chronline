@@ -7,17 +7,17 @@
     %h2.vertical-label News
     - @model.news.each do |gallery|
       .small-gallery
-        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 216}
   .rounded.clearfix.span-3
     %h2.vertical-label Sports
     - @model.sports.each do |gallery|
       .small-gallery
-        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, wdith: 216}
   .rounded.clearfix.span-3
     %h2.vertical-label Recess
     - @model.recess.each do |gallery|
       .small-gallery
-        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+        = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width:216}
   .span-3.last
     = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget}
 

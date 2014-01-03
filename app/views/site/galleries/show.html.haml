@@ -16,18 +16,15 @@
         %p.byline.photo-credit
           - if @gallery.credit
             %span.author By #{photag_byline(@gallery)}
-          / %span.author By #{byline(@article, link: true)}
-          / %span.sep= "|"
-          / = display_date(@article)
-        #imageinfo.span-8
+        #imageinfo
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
 
 .span-8
   .rounded.clearfix
-    .row
-      %h2.vertical-label Most Recent
+    %h2.vertical-label Most Recent
+    #galleryContainer.js-masonry{ data: {masonry: {options: '{ "itemSelector": ".small-gallery","gutter" : 2 }'}}}
       - @recent.reject(&:empty?).each do |gallery|
-        .span-3.small-gallery
-          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery}
+        .small-gallery
+          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 204}
 
