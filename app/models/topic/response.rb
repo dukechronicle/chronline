@@ -6,7 +6,7 @@ class Topic::Response < ActiveRecord::Base
 
 	belongs_to :topic
 
-	attr_accessible :content, :topic_id
+	attr_accessible :content
 
 	validates :content, presence: true, length: { maximum: 140 }
 
