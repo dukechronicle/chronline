@@ -84,17 +84,6 @@ ActiveRecord::Schema.define(:version => 20131124051931) do
   add_index "posts_authors", ["post_id"], :name => "index_articles_authors_on_article_id"
   add_index "posts_authors", ["staff_id"], :name => "index_articles_authors_on_author_id"
 
-  create_table "responses", :force => true do |t|
-    t.integer  "topic_id"
-    t.boolean  "approved"
-    t.boolean  "reported"
-    t.integer  "upvotes"
-    t.integer  "downvotes"
-    t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "staff", :force => true do |t|
     t.string   "affiliation"
     t.text     "biography"
@@ -127,6 +116,17 @@ ActiveRecord::Schema.define(:version => 20131124051931) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "topic_responses", :force => true do |t|
+    t.integer  "topic_id"
+    t.boolean  "approved"
+    t.boolean  "reported"
+    t.integer  "upvotes"
+    t.integer  "downvotes"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "topics", :force => true do |t|

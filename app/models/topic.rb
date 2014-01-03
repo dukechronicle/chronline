@@ -1,6 +1,6 @@
 class Topic < ActiveRecord::Base
   
-	has_many :responses
+	has_many :responses, class_name: 'Topic::Response', dependent: :destroy
 	
 	attr_accessible :title, :description
 

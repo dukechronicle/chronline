@@ -1,7 +1,7 @@
-class Site::ResponsesController < Site::BaseController
+class Site::TopicResponsesController < Site::BaseController
 
 	def create
-		@response = Response.new(params[:response])
+		@response = Topic.find(params[:topic_id]).responses.build(params[:topic_response]) 
 		if @response.save
 			redirect_to :back
 		else
