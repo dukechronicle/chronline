@@ -7,7 +7,6 @@
       .article-body
         != @gallery.description
         %br
-        %br
         .gallery
           - @gallery.get_gallery_images.each do |image|
             %img{:src => image.url, :data => { :description => image.caption, :link => image.photoshelter_url}}
@@ -17,14 +16,15 @@
           - if @gallery.credit
             %span.author By #{photag_byline(@gallery)}
         #imageinfo
+  .span-8
+    .rounded.clearfix
+      %h2.vertical-label Most Recent
+      #galleryContainer.js-masonry{ data: {masonry: {options: '{ "itemSelector": ".small-gallery","gutter" : 2 }'}}}
+        - @recent.reject(&:empty?).each do |gallery|
+          .small-gallery
+            = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 204}
+
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-
-.span-8
-  .rounded.clearfix
-    %h2.vertical-label Most Recent
-    #galleryContainer.js-masonry{ data: {masonry: {options: '{ "itemSelector": ".small-gallery","gutter" : 2 }'}}}
-      - @recent.reject(&:empty?).each do |gallery|
-        .small-gallery
-          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 204}
+  = render partial: 'site/partials/twitter-timeline', locals: {widget_id: 413760724477804544}
 
