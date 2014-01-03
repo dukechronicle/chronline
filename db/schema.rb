@@ -36,9 +36,12 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
   create_table "blog_series", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "image_id"
+    t.string   "blog_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "blog_series", ["tag_id"], :name => "index_blog_series_on_tag_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false

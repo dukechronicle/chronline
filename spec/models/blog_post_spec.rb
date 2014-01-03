@@ -44,7 +44,18 @@ describe Blog::Post do
       it { should be_nil }
     end
 
-    context "when tagged with a series" do
+    context "when tagged with a series for another blog" do
+      before do
+        blog_post.update_attributes!(
+          tag_list: ["Route 14"],
+          blog: Blog.find('kantonews')
+        )
+      end
+
+      it { should be_nil }
+    end
+
+    context "when tagged with a series for the same blog" do
       before { blog_post.update_attributes!(tag_list: ["Route 14"]) }
       it "should be assigned to the associated series" do
         should == blog_series

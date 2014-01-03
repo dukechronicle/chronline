@@ -63,7 +63,7 @@ class Blog::Post < ::Post
   # assumed to be true.
   #
   def series
-    super.first
+    super.find { |series| series.blog == self.blog }
   end
 
   def series=(series)
