@@ -2,9 +2,9 @@
 - provide :description, @topic.description
 
 - @topic.responses.each do |r|
-	%p= r.content
+	%p= r.content + ' | ' + r.created_at.strftime("%H:%M:%S %m/%d")
 
-%h4= 'Contribute to the conversation'
+%h3= 'Contribute to the conversation'
 = simple_form_for([:site, @response], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
 	%legend= yield :form_title
 	= f.error_notification
