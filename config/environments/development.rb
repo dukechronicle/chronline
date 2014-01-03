@@ -48,4 +48,6 @@ Chronline::Application.configure do
     user_name: ENV['GMAIL_USERNAME'],
     password: ENV['GMAIL_PASSWORD'],
   }
+
+  config.action_controller.asset_host = "//www.lvh.me:3000"
 end
