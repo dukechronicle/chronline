@@ -11,6 +11,7 @@ class Newsletter
       send("#{key}=", value)
     end
     @gb = Gibbon::API.new(ENV['MAILCHIMP_API_KEY'])
+    @renderer = Newsletter::Renderer.new
   end
 
   def persisted?
@@ -65,18 +66,11 @@ class Newsletter
     Date.today.to_s
   end
 
-  def render(template, locals)
-    # TODO: look into executing in an actual controller context with helpers
-    template = File.read(
-      Rails.root.join('app', 'views', 'newsletter', "#{template}.html.haml"))
-    Haml::Engine.new(template)
-      .render(Rails.application.routes.url_helpers, locals)
-  end
-
   private
   def advertisement
-    src = "https://#{ENV['CONTENT_CDN']}/advertisements/#{Sitevar.mailchimp_ad_image}"
-    render(:advertisement, href: Sitevar.mailchimp_ad_href, image: src)
+    image_src =
+      "https://#{ENV['CONTENT_CDN']}/advertisements/#{Sitevar.mailchimp_ad_image}"
+    @renderer.advertisement(Sitevar.mailchimp_ad_href, image_src)
   end
 
   def column_lead(i)
@@ -100,7 +94,7 @@ class ArticleNewsletter < Newsletter
   end
 
   def content
-    render(:article, article: @article)
+    @renderer.render 'article', article: @article
   end
 
   def self.model_name
@@ -114,8 +108,8 @@ class ArticleNewsletter < Newsletter
 
   private
   def header
-    src = "https://#{ENV['CONTENT_CDN']}/assets/images/newsletter/alert_header.png"
-    %{<img src="#{src}" style="max-width:600px;" id="headerImage" alt="The Chronicle Breaking News Alert" /></a>}
+    @renderer.header_image(
+      'newsletter/alert_header.png', 'The Chronicle Breaking News Alert')
   end
 end
 
@@ -129,11 +123,11 @@ class DailyNewsletter < Newsletter
   end
 
   def content
-    render(:daily, model: @model)
+    @renderer.render 'daily', model: @model
   end
 
   def column_lead(i)
-    render(:featured, article: @model.featured[i])
+    @renderer.render 'featured', article: @model.featured[i]
   end
 
   def self.model_name
@@ -147,8 +141,8 @@ class DailyNewsletter < Newsletter
 
   private
   def header
-    src = "https://#{ENV['CONTENT_CDN']}/assets/images/newsletter/daily_header.png"
-    %{<img src="#{src}" style="max-width:600px;" id="headerImage" alt="The Chronicle Daily Newsletter" /></a>}
+    @renderer.header_image(
+      'newsletter/daily_header.png', 'The Chronicle Daily Newsletter')
   end
 
   def teaser
