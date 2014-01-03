@@ -11,7 +11,6 @@ class Newsletter
       send("#{key}=", value)
     end
     @gb = Gibbon::API.new(ENV['MAILCHIMP_API_KEY'])
-    @renderer = Newsletter::Renderer.new
   end
 
   def persisted?
@@ -70,7 +69,8 @@ class Newsletter
   def advertisement
     image_src =
       "https://#{ENV['CONTENT_CDN']}/advertisements/#{Sitevar.mailchimp_ad_image}"
-    @renderer.advertisement(Sitevar.mailchimp_ad_href, image_src)
+    NewsletterMailer.advertisement(Sitevar.mailchimp_ad_href, image_src)
+      .body.raw_source
   end
 
   def column_lead(i)
@@ -94,7 +94,7 @@ class ArticleNewsletter < Newsletter
   end
 
   def content
-    @renderer.render 'article', article: @article
+    NewsletterMailer.article(@article).body.raw_source
   end
 
   def self.model_name
@@ -108,8 +108,9 @@ class ArticleNewsletter < Newsletter
 
   private
   def header
-    @renderer.header_image(
+    NewsletterMailer.header_image(
       'newsletter/alert_header.png', 'The Chronicle Breaking News Alert')
+      .body.raw_source
   end
 end
 
@@ -123,11 +124,11 @@ class DailyNewsletter < Newsletter
   end
 
   def content
-    @renderer.render 'daily', model: @model
+    NewsletterMailer.daily(@model).body.raw_source
   end
 
   def column_lead(i)
-    @renderer.render 'featured', article: @model.featured[i]
+    NewsletterMailer.featured(@model.featured[i]).body.raw_source
   end
 
   def self.model_name
@@ -141,8 +142,9 @@ class DailyNewsletter < Newsletter
 
   private
   def header
-    @renderer.header_image(
+    NewsletterMailer.header_image(
       'newsletter/daily_header.png', 'The Chronicle Daily Newsletter')
+      .body.raw_source
   end
 
   def teaser
