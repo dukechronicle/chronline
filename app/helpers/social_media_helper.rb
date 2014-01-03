@@ -3,12 +3,12 @@ module SocialMediaHelper
   def facebook_recommend_post(post, options={})
     defaults = {
       href: permanent_post_url(post),
-      send: "false",
       layout: "button_count",
       width: "130",
       'show-faces' => "false",
-      font: "lucida grande",
-      action: "recommend"
+      share: "false",
+      action: "recommend",
+      colorscheme: "light",
     }
     content_tag :div, nil, class: 'fb-like', data: defaults.merge(options)
   end
