@@ -37,7 +37,7 @@ describe "/staff/*" do
     context "when page 1 is fetched" do
       before { get api_staff_index_url(subdomain: :api), page: 1, limit: 2 }
 
-      it { response.status.should == Rack::Utils.status_code(:ok) }
+      it { response.should have_status_code(:ok) }
       it { should have(2).staff }
 
       it_should_behave_like "a staff response" do
@@ -49,7 +49,7 @@ describe "/staff/*" do
     context "when page 2 is fetched" do
       before { get api_staff_index_url(subdomain: :api), page: 2, limit: 2 }
 
-      it { response.status.should == Rack::Utils.status_code(:ok) }
+      it { response.should have_status_code(:ok) }
       it { should have(1).staff }
     end
 
@@ -98,16 +98,15 @@ describe "/staff/*" do
     before { get api_staff_url(staff, subdomain: :api) }
     let!(:staff) { FactoryGirl.create :staff }
 
-    it { response.status.should == Rack::Utils.status_code(:ok) }
+    it { response.should have_status_code(:ok) }
     it_should_behave_like "a staff response"
   end
 
   describe "POST /staff" do
     let(:new_staff_attrs) { FactoryGirl.attributes_for :staff }
 
-
     it "should require authentication" do
-      expect{ post api_staff_index_url(subdomain: :api), new_staff_attrs }.
+      expect { post api_staff_index_url(subdomain: :api), new_staff_attrs }.
         to require_authorization
     end
 
@@ -117,7 +116,7 @@ describe "/staff/*" do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:created) }
+      it { response.should have_status_code(:created) }
 
       it "should have the same fields as the original" do
         should include(new_staff_attrs.stringify_keys)
@@ -127,7 +126,6 @@ describe "/staff/*" do
         subject['id'].should be_a_kind_of(Integer)
       end
 
-      it { should include('updated_at', 'created_at') }
       it { Staff.should have(1).record }
 
       it_should_behave_like "a staff response" do
@@ -148,7 +146,7 @@ describe "/staff/*" do
       end
 
       it do
-        response.status.should == Rack::Utils.status_code(:unprocessable_entity)
+        response.should have_status_code(:unprocessable_entity)
       end
 
       it "should respond with validation errors" do
@@ -165,7 +163,7 @@ describe "/staff/*" do
       end
 
       it do
-        response.status.should == Rack::Utils.status_code(:found)
+        response.should have_status_code(:found)
       end
 
       it "should have a location header pointing to existing record" do
@@ -191,7 +189,7 @@ describe "/staff/*" do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:no_content) }
+      it { response.should have_status_code(:no_content) }
 
       it "should have updated attributes" do
         staff.reload.name.should == updated_attrs[:name]
@@ -211,7 +209,7 @@ describe "/staff/*" do
       end
 
       it do
-        response.status.should == Rack::Utils.status_code(:unprocessable_entity)
+        response.should have_status_code(:unprocessable_entity)
       end
 
       it "should respond with validation errors" do
@@ -234,7 +232,7 @@ describe "/staff/*" do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:no_content) }
+      it { response.should have_status_code(:no_content) }
 
       it "should remove the staff record" do
         Staff.should have(:no).records

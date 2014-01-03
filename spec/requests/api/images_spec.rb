@@ -147,7 +147,7 @@ describe "Images API" do
         put api_image_url(image.id, subdomain: :api), invalid_attrs,
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
-      it { response.status.should == Rack::Utils.status_code(:unprocessable_entity) }
+      it { response.should have_status_code(:unprocessable_entity) }
       it "should respond with validation errors" do
         res.should include('date')
       end

@@ -6,9 +6,9 @@ FactoryGirl.define do
     subtitle "Oak arrives just in time"
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
-    section "/news/university"
+    section ['News', 'University']
     authors { [ FactoryGirl.create(:staff) ] }
-    published_at Date.new(2008, 9, 30)
+    published_at DateTime.new(2008, 9, 30)
   end
 
   factory :staff do
