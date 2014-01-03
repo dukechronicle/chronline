@@ -1,12 +1,12 @@
 - Taxonomy.main_sections.each do |section|
-  - if model.send(section.name.downcase).present?
+  - if @model.send(section.name.downcase).present?
     %h2= section.name
-    - model.send(section.name.downcase).each do |article|
+    - @model.send(section.name.downcase).each do |article|
       %h3
-        %a{href: site_article_url(article, subdomain: 'www', host: ENV['DOMAIN'])}=article.title
+        %a{href: site_article_url(article, subdomain: 'www')}=article.title
       .article
         - if article.image
-          %a{href: site_article_url(article, subdomain: 'www', host: ENV['DOMAIN'])}
+          %a{href: site_article_url(article, subdomain: 'www')}
             %img{align: :left, src: 'https:' + article.image.original.url(:rectangle_152x), width: 152, height: 94, alt: "Chronicle Image", style: 'margin-right:10px;margin-bottom:10px;'}
         %p= article.teaser
         %br{style: 'clear:both;'}
