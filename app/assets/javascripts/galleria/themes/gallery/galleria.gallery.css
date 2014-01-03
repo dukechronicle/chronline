@@ -10,6 +10,9 @@
     position: relative;
     overflow: hidden;
 }
+.gallery .galleria-container {
+  background: black;
+}
 .galleria-container img {
     -moz-user-select: none;
     -webkit-user-select: none;
