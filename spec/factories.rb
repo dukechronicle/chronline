@@ -52,5 +52,6 @@ FactoryGirl.define do
   factory :blog_series, class: Blog::Series do
     association :image, factory: :image, strategy: :build
     tag { ActsAsTaggableOn::Tag.find_or_create_with_like_by_name("Route 14") }
+    blog { Blog.find('pokedex') }
   end
 end
