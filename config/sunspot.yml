@@ -10,9 +10,11 @@ development:
     hostname: localhost
     port: 8982
     log_level: INFO
+    solr_home: solr
 
 test:
   solr:
     hostname: localhost
     port: 8982
     log_level: WARNING
+    solr_home: solr

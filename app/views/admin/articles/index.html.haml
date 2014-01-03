@@ -1,6 +1,6 @@
 %ul.nav.nav-tabs
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
-  - Taxonomy.main_sections.each do |section|
+  - Taxonomy.top_level(:sections).each do |section|
     %li{class: ('active' if @taxonomy == section)}
       = link_to section.name, section_path(section)
   %form.navbar-search.pull-right

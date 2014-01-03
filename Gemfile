@@ -4,8 +4,9 @@ ruby '2.0.0'
 gem 'rails', '3.2.16'
 
 group :production do
-  gem 'newrelic_rpm'
   gem 'asset_sync'
+  gem 'newrelic_rpm'
+  gem 'rails_12factor'
   gem 'unicorn'
 end
 
