@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.0'
 
 gem 'rails', '3.2.16'
 
 group :production do
-  gem 'newrelic_rpm'
   gem 'asset_sync'
+  gem 'newrelic_rpm'
+  gem 'rails_12factor'
   gem 'unicorn'
 end
 
@@ -18,8 +19,10 @@ end
 
 group :development do
   gem 'annotate', '~> 2.6.1'
-  gem 'pry-rails', '~> 0.3.2'
+  gem 'byebug', '~> 2.5.0'
+  gem 'pry-byebug', '~> 1.2.1'
   gem 'pry-doc', '~> 0.5.1'
+  gem 'pry-rails', '~> 0.3.2'
 end
 
 # Gems used only for assets and not required
