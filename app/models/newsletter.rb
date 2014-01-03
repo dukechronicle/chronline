@@ -114,7 +114,7 @@ class ArticleNewsletter < Newsletter
 
   private
   def header
-    src = "https://s3.amazonaws.com/chronline/newsletter/alert_header.png"
+    src = "https://#{ENV['CONTENT_CDN']}/assets/images/newsletter/alert_header.png"
     %{<img src="#{src}" style="max-width:600px;" id="headerImage" alt="The Chronicle Breaking News Alert" /></a>}
   end
 end
@@ -147,7 +147,7 @@ class DailyNewsletter < Newsletter
 
   private
   def header
-    src = "https://s3.amazonaws.com/chronline/newsletter/daily_header.png"
+    src = "https://#{ENV['CONTENT_CDN']}/assets/images/newsletter/daily_header.png"
     %{<img src="#{src}" style="max-width:600px;" id="headerImage" alt="The Chronicle Daily Newsletter" /></a>}
   end
 
