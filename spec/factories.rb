@@ -6,7 +6,7 @@ FactoryGirl.define do
     subtitle "Oak arrives just in time"
     teaser "Ash becomes new Pokemon Champion."
     body "**Pikachu** wrecks everyone. The End."
-    section "/news/university"
+    section ['News', 'University']
     authors { [ FactoryGirl.create(:staff) ] }
     published_at Date.new(2008, 9, 30)
   end
@@ -37,8 +37,9 @@ FactoryGirl.define do
   factory :blog_post, class: Blog::Post do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
-    blog "pokedex"
+    blog { Blog.find('pokedex') }
     authors { [ FactoryGirl.create(:staff) ] }
+    published_at Date.new(2008, 9, 30)
   end
 
   factory :user do
