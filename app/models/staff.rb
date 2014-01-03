@@ -50,6 +50,10 @@ class Staff < ActiveRecord::Base
     articles.present?
   end
 
+  def blogger?
+    blog_posts.present?
+  end
+
   def last_name
     name.split.last
   end
