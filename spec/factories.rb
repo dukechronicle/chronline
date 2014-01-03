@@ -48,4 +48,9 @@ FactoryGirl.define do
     email "ash@ketch.um"
     password "charizard"
   end
+
+  factory :blog_series, class: Blog::Series do
+    association :image, factory: :image, strategy: :build
+    tag { ActsAsTaggableOn::Tag.find_or_create_with_like_by_name("Route 14") }
+  end
 end

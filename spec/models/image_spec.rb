@@ -21,10 +21,10 @@ describe Image do
   let(:image) { FactoryGirl.create(:image) }
   subject { image }
 
-  it { should have_many(:articles) }
+  it { should have_many(:posts) }
   it { should have_many(:pages) }
   it { should have_many(:staff).with_foreign_key(:headshot_id) }
-  it { should belong_to(:photographer).class_name("Staff") }
+  it { should belong_to(:photographer).class_name('Staff') }
   it { should have_attached_file(:original) }
   it { should validate_attachment_presence(:original) }
 

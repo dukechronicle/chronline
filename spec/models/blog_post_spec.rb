@@ -35,4 +35,20 @@ describe Blog::Post do
     its(:blog_id) { should == 'kantonews' }
     its(:section) { should == Taxonomy.new(:blogs, ['Kanto News']) }
   end
+
+  describe "#series" do
+    let!(:blog_series) { FactoryGirl.create(:blog_series) }
+    subject { blog_post.series }
+
+    context "when not tagged with a series" do
+      it { should be_nil }
+    end
+
+    context "when tagged with a series" do
+      before { blog_post.update_attributes!(tag_list: ["Route 14"]) }
+      it "should be assigned to the associated series" do
+        should == blog_series
+      end
+    end
+  end
 end
