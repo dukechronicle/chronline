@@ -7,7 +7,7 @@ end
 RSpec::Matchers.define :require_authorization do |expected|
   match do |proc|
     proc.call
-    response.should == have_status_code(:unauthorized)
+    response.should have_status_code(:unauthorized)
   end
 
   failure_message_for_should do |proc|
