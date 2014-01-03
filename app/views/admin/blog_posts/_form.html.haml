@@ -3,7 +3,7 @@
   = f.error_notification
   .form-inputs
     = f.input :blog, disabled: true, input_html: {value: @blog_post.blog.name}
-    = f.input :blog, as: :hidden, input_html: {value: @blog_post.blog.id}
+    = f.input :blog_id, as: :hidden, input_html: {value: @blog_post.blog.id}
     = f.input :title, disabled: true
     = f.association :authors, as: :text_list, value_method: :name, input_html: {class: 'staff-picker', autocomplete: 'off'}
     = f.input :teaser, as: :text, disabled: true, input_html: {rows: 3, class: 'input-xxlarge'}

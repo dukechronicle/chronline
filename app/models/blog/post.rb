@@ -13,7 +13,7 @@ class Blog::Post < ::Post
 
   acts_as_taggable
 
-  attr_accessible :blog, :tag_list
+  attr_accessible :blog_id, :tag_list
   has_many :series, through: :tags
 
 
@@ -52,6 +52,10 @@ class Blog::Post < ::Post
 
   def blog_id
     blog.id
+  end
+
+  def blog_id=(blog_id)
+    self.blog = Blog.find(blog_id)
   end
 
   def previous_url
