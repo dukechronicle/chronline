@@ -1,7 +1,18 @@
 - provide :title, @topic.title
 - provide :description, @topic.description
 
-- content_for :content do
-	- @topic.responses.each do |r|
-		%h4= r.title
-		%p= r.description
+- @topic.responses.each do |r|
+	%p= r.content
+
+%h4= 'Contribute to the conversation'
+= simple_form_for([:site, @response], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+	%legend= yield :form_title
+	= f.error_notification
+	.form-inputs
+		= f.input :content
+		= f.hidden_field :topic_id, value: @topic.id
+	.form-actions
+		= f.button :submit, class: 'btn btn-large btn-primary'
+
+- content_for :scripts do
+	= tinymce_assets
