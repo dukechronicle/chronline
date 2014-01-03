@@ -89,6 +89,11 @@ module Chronline
 
     # Use routes to handle exceptions (https://coderwall.com/p/w3ghqq)
     config.exceptions_app = self.routes
+
+    config.action_dispatch.tld_length = ENV['DOMAIN'].count('.')
+
+    # http://stackoverflow.com/questions/20361428/rails-i18n-validation-deprecation-warning
+    config.i18n.enforce_available_locales = true
   end
 end
 
