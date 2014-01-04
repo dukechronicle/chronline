@@ -3,4 +3,5 @@
 - if image
   %a{href: site_gallery_path(image.get_gallery) }
     %img.gal-img{:src => image.url(width), :data => {:link => image.photoshelter_url}, width: "#{width}px"}
+  %p{align: "center"}= gallery.name
   
