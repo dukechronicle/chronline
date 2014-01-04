@@ -29,8 +29,8 @@ class Admin::TopicsController < Admin::BaseController
 
 	def show
 		@topic = Topic.find(params[:id])
-		@responses = @topic.responses.order('created_at DESC')
-		@responses = @responses.paginate(page: params[:page], per_page: 5)
+		@responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 5)
+		binding.pry
 	end
 
 	def index
