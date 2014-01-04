@@ -1,4 +1,5 @@
 class Admin::TopicsController < Admin::BaseController
+	helper_method :approve_toggle, :report_toggle
 
 	def new
 		@topic = Topic.new
@@ -28,6 +29,8 @@ class Admin::TopicsController < Admin::BaseController
 
 	def show
 		@topic = Topic.find(params[:id])
+		@responses = @topic.responses.order('created_at DESC')
+		@responses = @responses.paginate(page: params[:page], per_page: 5)
 	end
 
 	def index
@@ -39,5 +42,23 @@ class Admin::TopicsController < Admin::BaseController
 		@topic.destroy
 		redirect_to admin_topics_path
 	end
+
+	private
+
+		def approve_toggle(approved)
+			if approved
+				return 'Remove Approval'
+			else
+				return 'Approve'
+			end
+		end
+
+		def report_toggle(reported)
+			if reported
+				return 'Remove Reported'
+			else
+				return 'Report'
+			end
+		end
 
 end

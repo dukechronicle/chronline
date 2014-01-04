@@ -120,13 +120,13 @@ ActiveRecord::Schema.define(:version => 20131124051931) do
 
   create_table "topic_responses", :force => true do |t|
     t.integer  "topic_id"
-    t.boolean  "approved"
-    t.boolean  "reported"
-    t.integer  "upvotes"
-    t.integer  "downvotes"
+    t.boolean  "approved",   :default => false
+    t.boolean  "reported",   :default => false
+    t.integer  "upvotes",    :default => 0
+    t.integer  "downvotes",  :default => 0
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "topics", :force => true do |t|
