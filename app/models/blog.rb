@@ -3,21 +3,24 @@ class Blog
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  # Must initialize Blog::Data here so that it is present on reload
-  File.open(Rails.root.join('config', 'blogs.yml')) do |file|
-    Blog::Data = YAML.load(file)
-  end
-
   # Blog class is not publicly instantiable
   private_class_method :new
 
-  attr_accessor :id, :banner, :categories, :description, :name, :logo,
-    :section_id, :twitter_widgets, :taxonomy_parent
+  attr_reader :description, :name, :section_id, :twitter_widgets
 
-  def initialize(attributes={})
-    attributes.each do |attr, value|
-      send("#{attr}=", value)
-    end
+  def initialize(attrs = {})
+    @name = attrs[:name]
+    @description = attrs[:description]
+    @section_id = attrs[:id]
+    @twitter_widgets = attrs[:twitter_widgets] || []
+  end
+
+  def ==(rhs)
+    rhs.is_a?(self.class) && id == rhs.id
+  end
+
+  def id
+    name.downcase.gsub(/\s/, '')
   end
 
   # Required to comply with ActiveModel interface
@@ -26,35 +29,23 @@ class Blog
   end
 
   def posts
-    Blog::Post.where(section: "/blog/#{id}/")
+    Blog::Post.section(taxonomy)
+  end
+
+  def taxonomy
+    Taxonomy.new(:blogs, [name])
   end
 
   def to_param
     id
   end
 
-  def twitter_widgets
-    @twitter_widgets ||= []
-  end
-
-  def categories
-    @categories ||= []
-  end
-
-  def taxonomy_parent
-    Taxonomy.new(@taxonomy_parent)
-  end
-
-  def ==(other)
-    other.is_a? Blog and self.id == other.id
-  end
-
   def self.find(id)
     if id.is_a? Array
       ids = id
-      ids.map { |id| lookup(id) }.compact
+      ids.map { |id| find_by_id(id) }.compact
     else
-      blog = lookup(id)
+      blog = find_by_id(id)
       # TODO: not an ActiveRecord error?
       raise ActiveRecord::RecordNotFound.new if blog.nil?
       blog
@@ -62,43 +53,20 @@ class Blog
   end
 
   def self.all
-    self.find(Blog::Data.keys)
+    Taxonomy.top_level(:blogs).map do |taxonomy|
+      new(taxonomy.node.symbolize_keys)
+    end
   end
 
   def self.each(&block)
     self.all.each(&block)
   end
 
-  # TODO: Create find_by_<attr> methods using method_missing
-  def self.find_by_taxonomy_parent(taxonomy)
-    self.all.find { |blog| blog.taxonomy_parent == taxonomy }
+  def self.find_by_taxonomy(taxonomy)
+    self.all.find { |blog| taxonomy <= blog.taxonomy }
   end
 
-  def self.nodes
-    blog_root = {
-      id: 1000,
-      name: 'Blog',
-      taxonomy: 'sections',
-      parent_id: nil,
-    }
-    nodes = self.all.map do |blog|
-      {
-        id: blog.section_id,
-        name: blog.id.titlecase,
-        taxonomy: 'sections',
-        parent_id: blog_root[:id],
-      }
-    end
-    nodes.insert(0, blog_root)
-    nodes
-  end
-
-  private
-  def self.lookup(id)
-    if Blog::Data[id]
-      attributes = Hash[Blog::Data[id]]
-      attributes['id'] = id
-      self.send(:new, attributes)
-    end
+  def self.find_by_id(id)
+    self.all.find { |blog| id == blog.id }
   end
 end

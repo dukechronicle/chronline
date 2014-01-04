@@ -2,9 +2,10 @@ require 'spec_helper'
 
 
 describe Blog::Post do
+  let(:blog_post) { FactoryGirl.build(:blog_post) }
+  subject { blog_post }
 
-  subject { FactoryGirl.build(:blog_post) }
-
+  it { Blog::Post.should be_searchable }
   it { should be_a_kind_of(Post) }
 
   describe "::tagged_with" do
@@ -16,7 +17,7 @@ describe Blog::Post do
       ]
     end
 
-    subject { Blog::Post.unscoped { Blog::Post.tagged_with('SQUIRTLE') } }
+    subject { Blog::Post.tagged_with('SQUIRTLE') }
 
     it "should return case insensitive matches" do
       should include(blog_posts[0])
@@ -28,9 +29,37 @@ describe Blog::Post do
     end
   end
 
-  describe "#blog" do
-    before { subject.blog = 'kanto_news' }
-    its(:blog) { should be_a_kind_of(Blog) }
+  describe "#blog=" do
+    before { subject.blog = Blog.find('kantonews') }
+    its(:blog) { should == Blog.find('kantonews') }
+    its(:blog_id) { should == 'kantonews' }
+    its(:section) { should == Taxonomy.new(:blogs, ['Kanto News']) }
   end
 
+  describe "#series" do
+    let!(:blog_series) { FactoryGirl.create(:blog_series) }
+    subject { blog_post.series }
+
+    context "when not tagged with a series" do
+      it { should be_nil }
+    end
+
+    context "when tagged with a series for another blog" do
+      before do
+        blog_post.update_attributes!(
+          tag_list: ["Route 14"],
+          blog: Blog.find('kantonews')
+        )
+      end
+
+      it { should be_nil }
+    end
+
+    context "when tagged with a series for the same blog" do
+      before { blog_post.update_attributes!(tag_list: ["Route 14"]) }
+      it "should be assigned to the associated series" do
+        should == blog_series
+      end
+    end
+  end
 end
