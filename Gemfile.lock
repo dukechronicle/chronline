@@ -51,9 +51,9 @@ GEM
     asset_sync (0.5.4)
       activemodel
       fog
-    aws-sdk (1.13.0)
+    aws-sdk (1.31.3)
       json (~> 1.4)
-      nokogiri (< 1.6.0)
+      nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.1.1)
     bootstrap-will_paginate (0.0.9)
@@ -116,7 +116,7 @@ GEM
       dotenv (= 0.9.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    excon (0.25.3)
+    excon (0.31.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -134,9 +134,9 @@ GEM
       sax-machine (~> 0.2.0.rc1)
     ffaker (1.22.1)
     ffi (1.9.3)
-    fog (1.14.0)
+    fog (1.19.0)
       builder
-      excon (~> 0.25.0)
+      excon (~> 0.31.0)
       formatador (~> 0.2.0)
       mime-types
       multi_json (~> 1.0)
@@ -210,9 +210,9 @@ GEM
     multi_xml (0.5.5)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.6.8)
+    net-ssh (2.7.0)
     newrelic_rpm (3.7.1.180)
-    nokogiri (1.5.10)
+    nokogiri (1.5.11)
     orm_adapter (0.4.0)
     paperclip (3.4.2)
       activemodel (>= 3.0.0)
@@ -409,7 +409,7 @@ DEPENDENCIES
   acts-as-taggable-on
   annotate (~> 2.6.1)
   asset_sync
-  aws-sdk
+  aws-sdk (~> 1.31.3)
   bootstrap-will_paginate
   bower-rails!
   browser
@@ -426,7 +426,7 @@ DEPENDENCIES
   factory_girl_rails
   feedzirra (~> 0.2.0.rc2)
   ffaker (~> 1.22.1)
-  fog
+  fog (~> 1.19.0)
   friendly_id
   gibbon (~> 1.0.0)
   guard-rspec

@@ -1,6 +1,6 @@
 %ul.nav.nav-tabs
   %li{class: ('active' if @taxonomy.root?)}= link_to "All", admin_articles_path
-  - Taxonomy.main_sections.each do |section|
+  - Taxonomy.top_level(:sections).each do |section|
     %li{class: ('active' if @taxonomy == section)}
       = link_to section.name, section_path(section)
   %form.navbar-search.pull-right
@@ -13,13 +13,14 @@
       %th Title
       %th Publication Date
       %th Actions
-  - @articles.each do |article|
-    %tr{id: "article_#{article.id}"}
-      %td= link_to article.title, site_article_url(article, subdomain: 'www')
-      - if article.published_at
-        %td= article.published_at.strftime('%-m-%-d-%Y')
-      - else
-        %td Not scheduled
-      %td= link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
+  %tbody
+    - @articles.each do |article|
+      %tr{id: "article_#{article.id}"}
+        %td= link_to article.title, site_article_url(article, subdomain: 'www')
+        - if article.published_at
+          %td= article.published_at.strftime('%-m-%-d-%Y')
+        - else
+          %td Not scheduled
+        %td= link_to "Edit", [:edit, :admin, article], class: 'btn btn-mini'
 
 = will_paginate

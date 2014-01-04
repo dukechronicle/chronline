@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Api::ArticlesController do
   before(:all) { @user = FactoryGirl.create(:user) }
   after(:all) { @user.destroy }
+  let(:articles) { ActiveSupport::JSON.decode(response.body) }
+  subject { articles }
 
   shared_examples_for "an article response" do
     it "should have article properties" do
@@ -41,29 +43,27 @@ describe Api::ArticlesController do
   end
 
   describe "GET /section/*" do
-    let!(:original_articles) do
+    let!(:records) do
       [
        FactoryGirl.create(:article, section: '/news/'),
        FactoryGirl.create(:article, section: '/news/', published_at: nil),
       ]
     end
-    let(:articles) { ActiveSupport::JSON.decode(response.body) }
-    subject { response }
 
-    context "incorrect section" do
+    context "empty section" do
       before { get api_article_section_url(subdomain: :api, section: 'sports') }
 
-      its(:status) { should == Rack::Utils.status_code(:ok) }
-      it { articles.should be_empty }
+      it { response.should have_status_code(:ok) }
+      it { should be_empty }
     end
 
     describe "correct section" do
-      let(:article) { original_articles[0] }
+      let(:article) { records.first }
 
       before { get api_article_section_url(subdomain: :api, section: 'news') }
 
-      its(:status) { should == Rack::Utils.status_code(:ok) }
-      it { articles.should have(1).articles }
+      it { response.should have_status_code(:ok) }
+      it { should have(1).articles }
 
       it "should not include unpublished articles" do
         articles.first['published_at'].should be_present
@@ -83,7 +83,7 @@ describe Api::ArticlesController do
   end
 
   describe "GET /articles" do
-    let!(:original_articles) do
+    let!(:records) do
       [
        FactoryGirl.create(:article, section: '/news/'),
        FactoryGirl.create(:article, section: '/news/', published_at: nil),
@@ -91,92 +91,99 @@ describe Api::ArticlesController do
        FactoryGirl.create(:article, section: '/sports/'),
       ]
     end
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
-    subject { response }
 
     context "when filtering by section" do
       before { get api_articles_url(subdomain: :api, section: 'news') }
 
-      its(:status) { should == Rack::Utils.status_code(:ok) }
-      it { res.should have(1).articles }
+      it { response.should have_status_code(:ok) }
+      it { should have(1).articles }
 
       it_should_behave_like "an article response" do
-        subject { res.first }
-        let(:article) { original_articles[0] }
+        subject { articles.first }
+        let(:article) { records.first }
       end
     end
 
     context "when page 1 is fetched" do
       before { get api_articles_url(subdomain: :api, page: 1, limit: 2) }
 
-      its(:status) { should == Rack::Utils.status_code(:ok) }
-      it { res.should have(2).articles }
+      it { response.should have_status_code(:ok) }
+      it { should have(2).articles }
 
       it_should_behave_like "an article response" do
-        subject { res.first }
-        let(:article) { Article.find(res.first['id']) }
+        subject { articles.first }
+        let(:article) { Article.find(subject['id']) }
       end
     end
 
     context "when page 2 is fetched" do
       before { get api_articles_url(subdomain: :api, page: 2, limit: 2) }
 
-      its(:status) { should == Rack::Utils.status_code(:ok) }
-      it { res.should have(1).articles }
+      it { response.should have_status_code(:ok) }
+      it { should have(1).articles }
 
       it_should_behave_like "an article response" do
-        subject { res.first }
-        let(:article) { Article.find(res.first['id']) }
+        subject { articles.first }
+        let(:article) { Article.find(subject['id']) }
       end
     end
   end
 
 
   describe "GET /articles/:id" do
-    let(:article) { FactoryGirl.create :article }
-    before { get api_article_url(subdomain: :api, id: article.id) }
-    subject { response }
+    before { get api_article_url(article, subdomain: :api) }
+    let!(:article) { FactoryGirl.create :article }
 
-    its(:status) { should == Rack::Utils.status_code(:ok) }
-
-    it_should_behave_like "an article response" do
-      subject { ActiveSupport::JSON.decode(response.body) }
-    end
+    it { response.should have_status_code(:ok) }
+    it_should_behave_like "an article response"
   end
 
-  describe "POST /articles/" do
-    let(:new_article_data) do
-      convert_objs_to_ids(
-        FactoryGirl.attributes_for(:article), :authors, :author_ids)
+  describe "POST /articles/", focus: true do
+    let(:new_article_attrs) do
+      attrs = FactoryGirl.attributes_for(:article)
+      attrs[:author_ids] = attrs.delete(:authors).map(&:id)
+      attrs
     end
-    subject { response }
 
     it "should require authentication" do
-      expect{ post api_articles_url(subdomain: :api), new_article_data }.
+      expect { post api_articles_url(subdomain: :api), new_article_attrs }.
         to require_authorization
     end
 
     context "when properly authenticated" do
       before do
-        post api_articles_url(subdomain: :api), { article: new_article_data },
+        post api_articles_url(subdomain: :api), { article: new_article_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      its(:status) { should == Rack::Utils.status_code(:created) }
+      it "should have the same fields as the original" do
+        subject['published_at'] = DateTime.iso8601(subject['published_at'])
+        should include(new_article_attrs.stringify_keys)
+      end
+
+      it { response.should have_status_code(:created) }
+
+      its(['id']) { should be_a_kind_of(Integer) }
+
+      it { Article.should have(1).record }
 
       it_should_behave_like "an article response" do
         subject { ActiveSupport::JSON.decode(response.body) }
         let(:article) { Article.find(subject['id']) }
+      end
+
+      it "should set correct location header" do
+        response.location.should ==
+          api_article_url(subject['slug'], subdomain: :api)
       end
     end
   end
 
   describe "POST /articles/:id/unpublish" do
     let(:article) { FactoryGirl.create :article }
-    subject { response }
 
     it "should require authentication" do
-      expect{ post unpublish_api_article_url(article.id, subdomain: :api) }.
+      expect { post unpublish_api_article_url(article.id, subdomain: :api) }.
         to require_authorization
     end
 
@@ -191,60 +198,57 @@ describe Api::ArticlesController do
         article.should_not be_published
       end
 
-      its(:status) { should == Rack::Utils.status_code(:ok) }
+      it { response.should have_status_code(:ok) }
 
-      it_should_behave_like "an article response" do
-        subject { ActiveSupport::JSON.decode(response.body) }
-      end
+      it_should_behave_like "an article response"
     end
   end
 
   describe "PUT /articles/:id" do
-    let(:original_article) { FactoryGirl.build :article }
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
-    subject { response }
+    let(:article_attrs) { FactoryGirl.attributes_for :article }
+    let!(:article) { FactoryGirl.create :article, article_attrs }
 
-    describe "update article" do
-      let(:article_attrs) { FactoryGirl.attributes_for :article }
-      let(:article) { FactoryGirl.create :article, article_attrs }
-      let(:valid_attrs) { {title: "Magikarp: Underrated?" } }
+    it "should require authentication" do
+      expect { put api_article_url(article.id, subdomain: :api) }.
+        to require_authorization
+    end
 
-      it "should require authentication" do
-        expect{ put api_article_url(article.id, subdomain: :api), valid_attrs }.
-          to require_authorization
+    describe "update with valid data" do
+      let(:valid_attrs) { { title: "Magikarp: Underrated?" } }
+
+      before do
+        put api_article_url(article.id, subdomain: :api),
+          { article: valid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      describe "with valid data" do
-        before do
-          put api_article_url(article.id, subdomain: :api),
-            { article: valid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
-        end
-        its(:status) { should == Rack::Utils.status_code(:no_content) }
-        it "should have a changed title" do
-          article.reload.title.should == valid_attrs[:title]
-        end
+      it { response.should have_status_code(:no_content) }
+
+      it "should have a changed title" do
+        article.reload.title.should == valid_attrs[:title]
+      end
+    end
+
+    describe "update with invalid data" do
+      let(:invalid_attrs) { { title: "" } }
+
+      before do
+        put api_article_url(article.id, subdomain: :api),
+          { article: invalid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      describe "with invalid data" do
-        let(:invalid_attrs) { {title: "" } }
-        before do
-          put api_article_url(article.id, subdomain: :api),
-            { article: invalid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
-        end
-        it { response.status.should == Rack::Utils.status_code(:unprocessable_entity) }
-        it "should respond with validation errors" do
-          res.should include('title')
-        end
+      it { response.should have_status_code(:unprocessable_entity) }
+
+      it "should respond with validation errors" do
+        should include('title')
       end
     end
   end
 
-  describe "DELETE /article/*" do
-    let(:res) { ActiveSupport::JSON.decode(response.body) }
-    subject { response }
+  describe "DELETE /articles/:id" do
     let!(:article) { FactoryGirl.create :article }
+
     it "should require authentication" do
-      expect{ delete api_article_url(article.id, subdomain: :api) }.
+      expect { delete api_article_url(article.id, subdomain: :api) }.
         to require_authorization
     end
 
@@ -254,16 +258,11 @@ describe Api::ArticlesController do
           { 'HTTP_AUTHORIZATION' => http_auth(@user) }
       end
 
-      it { response.status.should == Rack::Utils.status_code(:no_content) }
+      it { response.should have_status_code(:no_content) }
 
       it "should remove the article" do
         Article.should have(:no).records
       end
     end
   end
-end
-
-def convert_objs_to_ids(hash, key, new_key)
-  hash[new_key] = hash.delete(key).map { |obj| obj.id }
-  hash
 end

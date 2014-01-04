@@ -1,0 +1,12 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Actions
+  - @blog_series.each do |series|
+    %tr{id: "blog_series_#{series.id}"}
+      %td= link_to series.name, site_blog_tagged_url(series.blog, series.name, subdomain: 'www')
+      %td
+        = link_to "Edit", [:edit, :admin, series], class: 'btn btn-mini'
+        = link_to "Delete", [:admin, series], method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-mini btn-danger'
+= will_paginate
