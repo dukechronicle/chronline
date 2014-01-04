@@ -14,7 +14,7 @@ class Newsletter
 
     def header_image(image_path, alt)
       image_src = path_to_image(image_path)
-      image_tag image_path, alt: alt, id: 'headerImage', style: 'max-width:600px;'
+      link_to image_tag(@image_path, alt: @alt, id: 'headerImage', style: 'max-width:600px;'), "http://#{ENV['DOMAIN']}"
     end
   end
 end
