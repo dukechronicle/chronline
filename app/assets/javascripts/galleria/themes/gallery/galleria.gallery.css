@@ -9,6 +9,7 @@
 .galleria-container {
     position: relative;
     overflow: hidden;
+    margin: 0 auto;
 }
 .gallery .galleria-container {
   background: black;

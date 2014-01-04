@@ -32,7 +32,7 @@
           %h2= taxonomy.name
       %a{href: site_blogs_path, class: ("active" if @blog)}
         %h2 Blogs
-      %a{href: "http://www.dukechronicle.com/galleries"}
+      %a{href: "http://www.dukechronicle.com/galleries", class: ("active" if @galleries)}
         %h2 Photos
     = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
       = f.search_field :query, placeholder: 'Search archives', results: '5'
