@@ -21,9 +21,11 @@ class Api::PostsController < Api::BaseController
 
   def create
     klass =
-      if params[:post][:section].try :starts_with?, '/blog/'
+      # FIX: This is so gross, but Camayak would have to change to fix it
+      begin
+        Taxonomy.new(:blogs, params[:post][:section])
         Blog::Post
-      else
+      rescue Taxonomy::Errors::InvalidTaxonomyError
         Article
       end
     params[:post][:teaser] = params[:post][:teaser]
@@ -69,10 +71,11 @@ class Api::PostsController < Api::BaseController
     published_url = ->(post) { site_post_url(post, subdomain: :www) }
     options.merge!(
       include: :authors,
-      methods: [:author_ids, :square_80x_url, :section_id],
+      methods: [:author_ids, :square_80x_url],
       except: [:previous_id, :block_bots],
       properties: {
         published_url: published_url,
+        section_id: ->(post) { post.section.id },
       },
     )
     respond_with :api, post, options

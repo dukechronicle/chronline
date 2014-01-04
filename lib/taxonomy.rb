@@ -1,22 +1,25 @@
 class Taxonomy
   include Errors
 
-  # Must initialize Taxonomy::Tree here so that it is present on reload
-  File.open(Rails.root.join("config", "taxonomy.yml")) do |file|
-    Taxonomy::Tree = YAML.load(file)
-  end
+  attr_reader :id, :taxonomy, :node
+
+  @@taxonomies = {}
 
 
-  def initialize(taxonomy=[])
-    if taxonomy.nil?
-      taxonomy = []
-    elsif taxonomy.is_a? String
-      taxonomy = taxonomy.split('/')[1..-1] || []
+  def initialize(taxonomy, path = nil)
+    if path.nil?
+      path = []
+    elsif path.is_a? String
+      path = path.split('/')[1..-1] || []
     end
-    @node = find_taxonomy_node(taxonomy)
-    if @node.nil?
-      raise InvalidTaxonomyError.new(taxonomy)
+
+    if @@taxonomies.include? taxonomy
+      @taxonomy = taxonomy
+    else
+      raise UnknownTaxonomyError.new(taxonomy)
     end
+
+    find_taxonomy_node(@@taxonomies[@taxonomy], path)
   end
 
   ###
@@ -24,7 +27,7 @@ class Taxonomy
   ###
 
   def ==(rhs)
-    rhs.is_a? Taxonomy and to_a == rhs.to_a
+    rhs.is_a? Taxonomy and @path == rhs.path
   end
 
   def <=(rhs)
@@ -47,67 +50,65 @@ class Taxonomy
   end
 
   def [](i)
-    @node[:taxonomy][i]
+    @path[i]
   end
 
-  def as_json(options=nil)
-    to_a
+  def as_json(options = nil)
+    path
   end
 
   def children
-    @node[:children]
-      .select { |child| child['new_id'].nil? }
-      .map { |child| Taxonomy.new(to_a << child['name']) }
-  end
-
-  def id
-    @node[:id]
-  end
-
-  def name
-    @node[:taxonomy].last
+    @children.map { |child| self.class.new(@taxonomy, path << child) }
   end
 
   def parent
-    if to_s == '/'
-      nil
-    else
-      Taxonomy.new(to_a[0..-2])
+    unless root?
+      self.class.new(@taxonomy, path[0...-1])
     end
   end
 
   def parents
     parents = [self]
-    while parents.last != Taxonomy.new
+    until parents.last.root?
       parents.push(parents.last.parent)
     end
-    parents[0..-2].reverse
+    parents.reverse.drop(1)
   end
 
   def root?
-    to_s == '/'
+    @path.empty?
+  end
+
+  def path
+    Array.new(@path)
+  end
+
+  def name
+    @path.last
   end
 
   def to_a
-    Array.new(@node[:taxonomy])
+    path
   end
 
   def to_param
-    to_a
+    path
   end
 
   def to_s
-    '/' + @node[:taxonomy].map { |section| section.downcase + '/' }.join
+    '/' + @path.map { |section| section.downcase + '/' }.join
   end
 
-  def self.main_sections
-    Taxonomy::Tree.map {|section| Taxonomy.new([section['name']])}
+  def self.top_level(taxonomy)
+    @@taxonomies[taxonomy]['children'].map do |section|
+      self.new(taxonomy, [section['name']])
+    end
   end
 
-  def self.levels
-    level = Taxonomy.main_sections
+  def self.levels(taxonomy)
+    level = self.top_level(taxonomy)
     levels = []
-    while not level.empty? do
+    until level.empty?
       levels << level
       level = levels.last.map {|taxonomy| taxonomy.children}.flatten
     end
@@ -115,25 +116,31 @@ class Taxonomy
   end
 
   def self.nodes
-    list_nodes({ 'children' => Taxonomy::Tree })
+    @@taxonomies.map do |_taxonomy, tree|
+      list_nodes(tree)
+    end.flatten
+  end
+
+  def self.set_taxonomy_tree(taxonomy, tree)
+    @@taxonomies[taxonomy] = { 'children' => tree }
   end
 
   private
-  def find_taxonomy_node(taxonomy)
-    root = {'children' => Taxonomy::Tree}
-    full_taxonomy = []
-    taxonomy.each do |section|
-      root = (root['children'] or []).select do |child|
+  def find_taxonomy_node(root, path)
+    @path = []
+    path.each do |section|
+      root = (root['children'] || []).find do |child|
         child['new_id'].nil? && child['name'].downcase == section.downcase
-      end.first
-      return nil if root.nil?
-      full_taxonomy << root['name']
+      end
+      raise InvalidTaxonomyError.new(@taxonomy, path) if root.nil?
+      @path << root['name']
     end
-    {
-      id: root['id'],
-      taxonomy: full_taxonomy,
-      children: root['children'] || [],
-    }
+
+    @node = root
+    @id = root['id']
+    @children = (root['children'] || [])
+      .select { |child| child['new_id'].nil? }  # Taxonomy term has been renamed
+      .map { |child| child['name'] }
   end
 
   def self.list_nodes(root)
@@ -149,5 +156,7 @@ class Taxonomy
       list_nodes(child).insert(0, child_node)
     end.flatten
   end
-
 end
+
+# Configuration is wiped when reloaded
+load Rails.root.join('config', 'initializers', 'taxonomy.rb') if Rails.env.development?

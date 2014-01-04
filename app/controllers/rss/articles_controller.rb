@@ -1,7 +1,7 @@
 class Rss::ArticlesController < ApplicationController
 
   def index
-    @taxonomy = Taxonomy.new("/#{params[:section]}/")
+    @taxonomy = Taxonomy.new(:sections, "/#{params[:section]}/")
     @posts = Article
       .includes(:authors, :image)
       .section(@taxonomy)
