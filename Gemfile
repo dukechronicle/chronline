@@ -87,7 +87,6 @@ group :test do
   gem 'spork-rails'
   gem 'turnip'
   gem 'vcr'
-  gem 'mock_redis'
   gem 'turn'
   gem 'webmock'
 end
