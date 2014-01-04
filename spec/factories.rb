@@ -37,8 +37,9 @@ FactoryGirl.define do
   factory :blog_post, class: Blog::Post do
     title "Ash Catches a Pokemon"
     body "It was a Caterpie."
-    blog "pokedex"
+    blog { Blog.find('pokedex') }
     authors { [ FactoryGirl.create(:staff) ] }
+    published_at Date.new(2008, 9, 30)
   end
 
   factory :user do
@@ -46,5 +47,11 @@ FactoryGirl.define do
     last_name "Ketchum"
     email "ash@ketch.um"
     password "charizard"
+  end
+
+  factory :blog_series, class: Blog::Series do
+    association :image, factory: :image, strategy: :build
+    tag { ActsAsTaggableOn::Tag.find_or_create_with_like_by_name("Route 14") }
+    blog { Blog.find('pokedex') }
   end
 end
