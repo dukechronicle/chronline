@@ -6,7 +6,6 @@
     %article.article-container
       .article-body
         != @gallery.description
-        %br
         .gallery
           - @gallery.get_gallery_images.each do |image|
             %img{:src => image.url, :data => { :description => image.caption, :link => image.photoshelter_url}}
