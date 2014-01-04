@@ -115,7 +115,15 @@ Chronline::Application.routes.draw do
 
       resources :pages, except: :show
       resources :staff, except: :show
-      resources :topics
+      
+      resources :topics do
+        resources :responses, only: [:create, :destroy], controller: 'topic_responses' do
+          member do
+            post :approve
+            post :report
+          end
+        end
+      end
       
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',

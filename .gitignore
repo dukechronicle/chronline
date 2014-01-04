@@ -12,6 +12,7 @@
 
 # Ignore Redis dumps
 /db/*.rdb
+*.rdb
 
 # Ignore all logfiles and tempfiles.
 /log/*
