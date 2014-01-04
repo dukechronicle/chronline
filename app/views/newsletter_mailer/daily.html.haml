@@ -1,6 +1,7 @@
 - Taxonomy.main_sections.each do |section|
   - if @model.send(section.name.downcase).present?
-    %h2= section.name
+    %a{href: "http://www.#{ENV['CONTENT_CDN']}/section#{section}"}
+      %h2= section.name
     - @model.send(section.name.downcase).each do |article|
       %h3
         %a{href: site_article_url(article, subdomain: 'www')}=article.title
