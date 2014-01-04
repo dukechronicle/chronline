@@ -6,6 +6,12 @@
     %article.article-container
       .article-body
         != @gallery.description
+        %div= facebook_recommend(site_gallery_path(@gallery))
+        %div= twitter_share(site_gallery_path(@gallery))
+        %div= google_plusone(site_gallery_path(@gallery))
+        .outer
+          .title-area
+            %h2#title= @gallery.name
         .gallery
           - @gallery.get_gallery_images.each do |image|
             %img{:src => image.url, :data => { :description => image.caption, :link => image.photoshelter_url}}
@@ -26,4 +32,3 @@
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
   = render partial: 'site/partials/twitter-timeline', locals: {widget_id: 413760724477804544}
-
