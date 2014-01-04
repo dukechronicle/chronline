@@ -1,7 +1,7 @@
 if Rails.env.test?
   $redis = MockRedis.new
 else
-  Resque.redis = Sitevar.config.redis = $redis =
+  Resque.redis = $redis =
     Redis.new(url: ENV['REDIS_URL'], driver: :hiredis)
 
   # https://devcenter.heroku.com/articles/forked-pg-connections

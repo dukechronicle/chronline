@@ -29,7 +29,7 @@ describe Api::PostsController do
 
     context "when creating a blog post" do
       before do
-        post_attrs[:section] = '/blog/pokedex/'
+        post_attrs[:section] = '/pokedex/'
         post api_posts_url(subdomain: :api), { post: post_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
