@@ -1,5 +1,5 @@
 class Admin::TopicsController < Admin::BaseController
-	helper_method :approve_toggle, :report_toggle
+	helper_method :approve_toggle, :report_toggle, :archive_toggle
 
 	def new
 		@topic = Topic.new
@@ -34,7 +34,14 @@ class Admin::TopicsController < Admin::BaseController
 	end
 
 	def index
-		@topics = Topic.all
+		@active_topics = Topic.where('archived = ?', false)
+		@archived_topics = Topic.where('archived = ?', true)
+	end
+
+	def archive
+		@topic = Topic.find(params[:id])
+		@topic.update_attributes(archived: !@topic.archived)
+		redirect_to admin_topics_path
 	end
 
 	def destroy
@@ -58,6 +65,14 @@ class Admin::TopicsController < Admin::BaseController
 				return 'Remove Reported'
 			else
 				return 'Report'
+			end
+		end
+
+		def archive_toggle(archived)
+			if archived
+				return 'UnArchive'
+			else
+				return 'Archive'
 			end
 		end
 
