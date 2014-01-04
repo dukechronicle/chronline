@@ -6,21 +6,24 @@
     %article.article-container
       .article-body
         != @gallery.description
-        %div= facebook_recommend(site_gallery_path(@gallery))
-        %div= twitter_share(site_gallery_path(@gallery))
-        %div= google_plusone(site_gallery_path(@gallery))
         .outer
           .title-area
             %h2#title= @gallery.name
         .gallery
           - @gallery.get_gallery_images.each do |image|
             %img{:src => image.url, :data => { :description => image.caption, :link => image.photoshelter_url}}
-        %p.buy-link
-          %a.buy Buy Photograph
-        %p.byline.photo-credit
-          - if @gallery.credit
-            %span.author By #{photag_byline(@gallery)}
-        #imageinfo
+        #imageinfo.photo-caption
+          .social
+            .byline.photo-credit
+              - if @gallery.credit
+                %span.author By #{photag_byline(@gallery)}
+            %p.buy-link
+              %a.buy Buy Photograph
+            .share-box
+              %div= facebook_recommend(site_gallery_url(@gallery))
+              %div= twitter_share(site_gallery_url(@gallery))
+              %div= google_plusone(site_gallery_url(@gallery))
+
   .span-8
     .rounded.clearfix
       %h2.vertical-label Most Recent

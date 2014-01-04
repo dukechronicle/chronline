@@ -1,7 +1,7 @@
 - width ||= 200
 - image = gallery.get_gallery_images.first 
 - if image
-  %a{href: site_gallery_path(image.get_gallery) }
+  %a{href: site_gallery_url(image.get_gallery) }
     %img.gal-img{:src => image.url(width), :data => {:link => image.photoshelter_url}, width: "#{width}px"}
   %p{align: "center"}= gallery.name
   

@@ -7,11 +7,14 @@ initialize '.gallery', ->
   Galleria.configure
     transition: 'fade'
     autoplay: true
-    width: 600
+    width: 642
     height: 393
   Galleria.on "image",(e) ->
     caption = e.galleriaData.description
-    $("#imageinfo").text(caption)
+    $("#imageinfo").contents().filter( ->
+      return (this.nodeType == 3)
+    ).remove()
+    $("#imageinfo").append(caption)
     $(".buy").attr("href", e.galleriaData.link) 
     console.log e.galleriaData
   Galleria.run $(this)
