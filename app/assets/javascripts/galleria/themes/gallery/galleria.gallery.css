@@ -9,6 +9,10 @@
 .galleria-container {
     position: relative;
     overflow: hidden;
+    margin: -5px auto;
+}
+.gallery {
+  margin-top: -5px
 }
 .gallery .galleria-container {
   background: black;
@@ -242,12 +246,11 @@
 
 /********************************************/
 
-.galleria {
-    padding: 3px;
+.gallery {
     overflow: hidden;
 }
 
-.galleria img {
+.gallery img {
     border-radius: 4px;
 }
 

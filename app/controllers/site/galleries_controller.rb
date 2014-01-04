@@ -1,13 +1,12 @@
 class Site::GalleriesController < Site::BaseController
 
   def index
+    @galleries =  Gallery.all
     begin
       custom_page and return
     rescue ActiveRecord::RecordNotFound
       nil
     end
-
-    @galleries =  Gallery.all
   end
 
   def show
