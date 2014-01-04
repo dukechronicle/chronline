@@ -7,7 +7,8 @@ class Site::TopicsController < Site::BaseController
 	end
 
 	def index
-		@topics = Topic.all
+		@active_topics = Topic.where('archived = ?', false)
+		@archived_topics = Topic.where('archived = ?', true)
 	end
 
 end

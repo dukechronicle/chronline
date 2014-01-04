@@ -117,6 +117,9 @@ Chronline::Application.routes.draw do
       resources :staff, except: :show
       
       resources :topics do
+        member do
+          post :archive
+        end
         resources :responses, only: [:create, :destroy], controller: 'topic_responses' do
           member do
             post :approve

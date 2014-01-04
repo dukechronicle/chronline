@@ -1,16 +1,4 @@
 %btn.pull-left= link_to "New", new_admin_topic_path, class: 'btn'
-%table.table.table-striped
-  %thead
-    %tr
-      %th Topic
-      %th Description
-      %th Created Date
-      %th Edit
-      %th Delete
-  - @topics.each do |topic|
-    %tr{id: "topic_#{topic.id}"}
-      %td= link_to topic.title, admin_topic_path(topic)
-      %td= topic.description
-      %td= topic.created_at.strftime('%-m-%-d-%Y')
-      %td= link_to "Edit", [:edit, :admin, topic], class: 'btn btn-mini'
-      %td= link_to "Delete", admin_topic_path(topic.id), method: :delete, class: 'btn btn-mini'
+
+= render 'table', topics: @active_topics, title: 'Active Topics'
+= render 'table', topics: @archived_topics, title: 'Archived Topics'
