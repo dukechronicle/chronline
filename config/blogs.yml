@@ -13,7 +13,7 @@
   children:
     - name: Football
       id: 1004
-    - name: "Men's Baskeball"
+    - name: "Men's Basketball"
       id: 1005
     - name: "Women's Basketball"
       id: 1006
