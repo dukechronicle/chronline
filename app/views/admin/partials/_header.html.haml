@@ -31,6 +31,12 @@
               %li= link_to "Search", admin_staff_index_path
               %li= link_to "Create", new_admin_staff_path
 
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Blog Series
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li= link_to "Manage", admin_blog_series_index_path
+              %li= link_to "Create", new_admin_blog_series_path
+
           %li= link_to "Newsletter", admin_newsletter_path
           %li= link_to "Invite", new_user_invitation_path
           %li= link_to "Configuration", admin_configuration_path

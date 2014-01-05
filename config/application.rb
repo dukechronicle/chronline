@@ -98,6 +98,6 @@ module Chronline
 end
 
 # Load extensions
-Dir[File.join(Rails.root, "lib", "extensions", "**", "*.rb")].each do |file|
+Dir[File.join(Rails.root, 'lib', 'extensions', '**', '*.rb')].each do |file|
   require file
 end

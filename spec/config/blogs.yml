@@ -1,9 +1,7 @@
 ---
-pokedex:
-  name: The Pokedex
+- name: Pokedex
+  id: 1001
   description: Gotta catch em all
-  section_id: 1001
-kanto_news:
-  name: Kanto News
+- name: Kanto News
+  id: 1002
   description: Everything about Kanto
-  section_id: 1002
