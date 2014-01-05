@@ -28,11 +28,11 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.6'
+  gem 'bower-rails', git: 'https://github.com/jimpo/bower-rails.git', branch: 'heroku' # '~> 0.6.1'
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
+  gem 'sass-rails',   '~> 3.2.6'
   gem 'uglifier', '~> 2.1.2'
-  gem 'bower-rails', git: 'git://github.com/jimpo/bower-rails.git'
 end
 
 gem 'acts-as-taggable-on'
