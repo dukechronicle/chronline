@@ -27,12 +27,12 @@
           %h3.tagline The Independent Daily at Duke University
         %h1.brand The Chronicle
     %nav#nav
-      - Taxonomy.main_sections.each do |taxonomy|
+      - Taxonomy.top_level(:sections).each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
-      %a{href: site_blogs_path, class: ("active" if @blog)}
+      %a{href: site_blogs_path, class: ("active" if @taxonomy.try(:taxonomy) == :blogs)}
         %h2 Blogs
-      %a{href: "http://www.dukechronicle.com/galleries", class: ("active" if @galleries || @gallery)}
+      %a{href: site_galleries_path, class: ("active" if @galleries || @gallery)}
         %h2 Photos
     = form_for(Article::Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
       = f.search_field :query, placeholder: 'Search archives', results: '5'

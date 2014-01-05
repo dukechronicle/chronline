@@ -36,7 +36,7 @@ group :assets do
 end
 
 gem 'acts-as-taggable-on'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1.31.3'
 gem 'bootstrap-will_paginate'
 gem 'browser'
 gem 'default_value_for'
@@ -45,7 +45,7 @@ gem 'devise', '~> 2.2.4'
 gem 'devise_invitable'
 gem 'feedzirra', '~> 0.2.0.rc2'
 gem 'ffaker', '~> 1.22.1'
-gem 'fog'
+gem 'fog', '~> 1.19.0'
 gem 'friendly_id'
 gem 'gibbon', '~> 1.0.0'
 gem 'haml'
@@ -87,7 +87,6 @@ group :test do
   gem 'spork-rails'
   gem 'turnip'
   gem 'vcr'
-  gem 'mock_redis'
   gem 'turn'
   gem 'webmock'
 end
