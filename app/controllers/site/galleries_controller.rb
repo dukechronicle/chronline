@@ -12,7 +12,7 @@ class Site::GalleriesController < Site::BaseController
   def show
     @gallery = Gallery.find_by_gid(params[:id])
     #@images = gallery.get_gallery_images
-    @recent = Gallery.order('created_at DESC').limit(12)
+    @recent = Gallery.order('created_at DESC').limit(6)
   end
 
 end
