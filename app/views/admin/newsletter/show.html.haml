@@ -2,11 +2,12 @@
   %legend Newsletter
   .form-inputs
     .control-group
-      %label.control-label{for: 'newsletter_article'} Article
+      %label.control-label{for: 'newsletter_article'} Newsletter Type
       .controls
+        %span.help-block= link_to "Daily (click to layout)", edit_admin_page_path(@newsletter_page)
+        %span Breaking News Alert
         %input.input-enabler{type: 'checkbox'}
         = f.text_field :article, disabled: true, class: 'input-xlarge', class: 'input-xlarge article-picker'
-        %span.help-block= link_to "Lay out the newsletter here", edit_admin_page_path(@newsletter_page)
     .control-group
       %label.control-label{for: 'newsletter_test_email'} Test email
       .controls
@@ -20,4 +21,4 @@
         = time_zone_select :newsletter, :scheduled_timezone, ActiveSupport::TimeZone.us_zones, {default: @timezone}, disabled: true, class: 'input-xxlarge'
         %span.help-block If this is active, the newsletter will be sent at this time. Otherwise, it will be sent immediately.
   .form-actions
-    = f.submit 'Send', class: 'btn btn-large btn-primary'
+    = f.submit 'Send', class: 'btn btn-large btn-primary', confirm: 'Are you sure you want to send this email?'

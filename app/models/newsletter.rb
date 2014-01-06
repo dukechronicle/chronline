@@ -32,8 +32,12 @@ class Newsletter
       },
       content: {
         sections: {
-          main: content,
-          adimage: advertisement,
+          preheader_content00: teaser,
+          header_image: header,
+          left_column_lead: column_lead(0),
+          right_column_lead: column_lead(1),
+          body_content: content,
+          advertisement_content: advertisement,
           issuedate: issue_date,
         }
       }
@@ -51,7 +55,7 @@ class Newsletter
       "Campaign scheduled to be sent at " +
         scheduled_time.strftime('%r on %D %Z')
     else
-      @gb.campaigns.send_now(cid: @campaign_id)
+      @gb.campaigns.send(cid: @campaign_id)
       "Campaign was sent"
     end
   end
@@ -63,11 +67,19 @@ class Newsletter
 
   private
   def advertisement
-    # TODO: make this configurable by non-developers
-    src = "http://#{ENV['CONTENT_CDN']}/advertisements/#{ENV['MAILCHIMP_AD_IMAGE']}"
-    %{<a href="#{ENV['MAILCHIMP_AD_HREF']}"><img src="#{src}"/></a>}
+    image_src =
+      "https://#{ENV['CONTENT_CDN']}/advertisements/#{Sitevar.mailchimp_ad_image}"
+    NewsletterMailer.advertisement(Sitevar.mailchimp_ad_href, image_src)
+      .body.raw_source
   end
 
+  def column_lead(i)
+    ""
+  end
+
+  def teaser
+    ""
+  end
 end
 
 class ArticleNewsletter < Newsletter
@@ -82,9 +94,7 @@ class ArticleNewsletter < Newsletter
   end
 
   def content
-    # TODO: look into executing in an actual controller context with helpers
-    template = File.read(File.join(%w{app views newsletter article.html.haml}))
-    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, article: @article)
+    NewsletterMailer.article(@article).body.raw_source
   end
 
   def self.model_name
@@ -94,6 +104,13 @@ class ArticleNewsletter < Newsletter
   private
   def subject
     "Chronicle Alert: #{@article.title}"
+  end
+
+  private
+  def header
+    NewsletterMailer.header_image(
+      'newsletter/alert_header.png', 'The Chronicle Breaking News Alert')
+      .body.raw_source
   end
 end
 
@@ -107,9 +124,11 @@ class DailyNewsletter < Newsletter
   end
 
   def content
-    # TODO: look into executing in an actual controller context with helpers
-    template = File.read(File.join(%w{app views newsletter daily.html.haml}))
-    Haml::Engine.new(template).render(Rails.application.routes.url_helpers, model: @model)
+    NewsletterMailer.daily(@model).body.raw_source
+  end
+
+  def column_lead(i)
+    NewsletterMailer.featured(@model.featured[i]).body.raw_source
   end
 
   def self.model_name
@@ -119,5 +138,16 @@ class DailyNewsletter < Newsletter
   private
   def subject
     "Duke Chronicle Daily Newsletter #{issue_date}"
+  end
+
+  private
+  def header
+    NewsletterMailer.header_image(
+      'newsletter/daily_header.png', 'The Chronicle Daily Newsletter')
+      .body.raw_source
+  end
+
+  def teaser
+    @model.teaser || super
   end
 end
