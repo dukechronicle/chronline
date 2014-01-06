@@ -4,13 +4,6 @@ GIT
   specs:
     subdomain-fu (1.0.0.beta3)
 
-GIT
-  remote: https://github.com/jimpo/bower-rails.git
-  revision: 72fbffa6c474ade527311fa248edb47610ab2652
-  branch: heroku
-  specs:
-    bower-rails (0.6.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -58,6 +51,7 @@ GEM
     bcrypt-ruby (3.1.1)
     bootstrap-will_paginate (0.0.9)
       will_paginate
+    bower-rails (0.6.1)
     browser (0.2.0)
     builder (3.0.4)
     byebug (2.5.0)
@@ -409,7 +403,7 @@ DEPENDENCIES
   asset_sync
   aws-sdk (~> 1.31.3)
   bootstrap-will_paginate
-  bower-rails!
+  bower-rails (~> 0.6.1)
   browser
   byebug (~> 2.5.0)
   capybara
