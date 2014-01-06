@@ -1,4 +1,4 @@
-- Taxonomy.main_sections.each do |section|
+- Taxonomy.top_level(:sections).each do |section|
   - if @model.send(section.name.downcase).present?
     %a{href: site_article_section_url(section: section.to_s[1...-1], subdomain: 'www')}
       %h2= section.name

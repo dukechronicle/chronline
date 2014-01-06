@@ -101,16 +101,14 @@ class ArticleNewsletter < Newsletter
     Newsletter.model_name
   end
 
-  private
-  def subject
-    "Chronicle Alert: #{@article.title}"
-  end
-
-  private
   def header
     NewsletterMailer.header_image(
       'newsletter/alert_header.png', 'The Chronicle Breaking News Alert')
       .body.raw_source
+  end
+
+  def subject
+    "Chronicle Alert: #{@article.title}"
   end
 end
 
@@ -135,16 +133,14 @@ class DailyNewsletter < Newsletter
     Newsletter.model_name
   end
 
-  private
-  def subject
-    "Duke Chronicle Daily Newsletter #{issue_date}"
-  end
-
-  private
   def header
     NewsletterMailer.header_image(
       'newsletter/daily_header.png', 'The Chronicle Daily Newsletter')
       .body.raw_source
+  end
+
+  def subject
+    "Duke Chronicle Daily Newsletter #{issue_date}"
   end
 
   def teaser
