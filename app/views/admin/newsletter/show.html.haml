@@ -1,4 +1,4 @@
-= form_for ArticleNewsletter.new, url: admin_newsletter_path, html: {class: 'form-horizontal', onsubmit: "return confirm('Are you sure you want to send this email?')"} do |f|
+= form_for ArticleNewsletter.new, url: admin_newsletter_path, html: {class: 'form-horizontal'} do |f|
   %legend Newsletter
   .form-inputs
     .control-group
@@ -21,4 +21,4 @@
         = time_zone_select :newsletter, :scheduled_timezone, ActiveSupport::TimeZone.us_zones, {default: @timezone}, disabled: true, class: 'input-xxlarge'
         %span.help-block If this is active, the newsletter will be sent at this time. Otherwise, it will be sent immediately.
   .form-actions
-    = f.submit 'Send', class: 'btn btn-large btn-primary'
+    = f.submit 'Send', class: 'btn btn-large btn-primary', confirm: 'Are you sure you want to send this email?'
