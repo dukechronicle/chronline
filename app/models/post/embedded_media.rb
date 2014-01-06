@@ -37,15 +37,8 @@ class Post
     end
 
     def render
-      tag_list = @body.scan(/{{([a-zA-Z]*):([^\}]*?)}}/)
-      tags = tag_list.map do |tag, data|
-        begin
-          "Post::EmbeddedMedia::#{tag}Tag".constantize.new(
-            self, *data.split(','))
-        rescue NameError
-          raise EmbeddedMediaException, "Invalid Tag: #{tag}"
-        end
-      end
+      tag_list = @body.scan(/{{[a-zA-Z]*:[^\}]*?}}/)
+      tags = tag_list.map { |tag| match_tag(tag) }
 
       execute_queries
 
@@ -81,5 +74,12 @@ class Post
       original.merge!(new_options)
     end
 
+    def match_tag(tag)
+      Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
+        tag_obj = subclass.parse_tag(tag)
+        return tag_obj unless tag_obj.nil?
+      end
+      raise EmbeddedMediaException, "Invalid Tag: #{tag}"
+    end
   end
 end
