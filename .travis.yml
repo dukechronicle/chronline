@@ -3,3 +3,6 @@ rvm:
   - "2.1.0"
 before_script:
   - psql -c 'create database test;' -U postgres
+script:
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
