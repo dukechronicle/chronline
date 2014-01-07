@@ -11,22 +11,9 @@ class Post
     def self.convert_camayak_tags(body)
       document = Nokogiri::HTML::DocumentFragment.parse(body)
       document.css('.oembed').each do |camayak_tag|
-        url = camayak_tag.attr('data-camayak-embed-url')
-        provider =
-          case url
-          when %r[^https?://www\.youtube\.com/]
-            'Youtube'
-          when %r[^https?://twitter\.com/]
-            'Twitter'
-          when %r[^https?://soundcloud\.com/]
-            'Soundcloud'
-          when %r[^https?://instagram\.com/]
-            'Instagram'
-          end
-        unless provider.nil?
-          camayak_tag.replace(
-            "Post::EmbeddedMedia::#{provider}Tag".constantize
-              .convert_camayak(url))
+        tag = match_url_to_tag(camayak_tag.attr('data-camayak-embed-url'))
+        unless tag.nil?
+          camayak_tag.replace(tag.to_s)
         end
       end
       document.to_html
@@ -80,6 +67,15 @@ class Post
         return tag_obj unless tag_obj.nil?
       end
       raise EmbeddedMediaException, "Invalid Tag: #{tag}"
+    end
+
+    def self.match_url_to_tag(url)
+      Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
+        if subclass.respond_to? :parse_url
+          tag_obj = subclass.parse_url(url)
+          return tag_obj unless tag_obj.nil?
+        end
+      end
     end
   end
 end

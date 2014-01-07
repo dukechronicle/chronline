@@ -7,9 +7,10 @@ class Post
         @instagram_id = id
       end
 
-      def self.convert_camayak(url)
-        id = /\/p\/([a-zA-Z0-9]+)/.match(url)[1]
-        "{{Instagram:#{id}}}"
+      def self.parse_url(url)
+        return nil unless url =~ %r[^https?://instagram\.com/]
+        id = /\/p\/([\w\-]+)/.match(url)[1]
+        self.new(Post::EmbeddedMedia, id)
       end
 
       def to_html(float: :right)
