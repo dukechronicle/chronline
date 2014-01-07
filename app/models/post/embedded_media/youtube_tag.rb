@@ -7,9 +7,10 @@ class Post
         @youtube_id = youtube_id
       end
 
-      def self.convert_camayak(url)
+      def self.parse_url(url)
+        return nil unless url =~ %r[^https?://www\.youtube\.com/]
         youtube_id = /v=([a-zA-Z0-9_-]{11})/.match(url)[1]
-        "{{Youtube:#{youtube_id}}}"
+        self.new(Post::EmbeddedMedia, youtube_id)
       end
 
       def to_html(float: :right)

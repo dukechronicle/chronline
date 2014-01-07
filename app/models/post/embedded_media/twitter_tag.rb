@@ -6,8 +6,9 @@ class Post
         @url = url
       end
 
-      def self.convert_camayak(url)
-        "{{Twitter:#{url}}}"
+      def self.parse_url(url)
+        return nil unless url =~ %r[^https?://twitter\.com/]
+        self.new(Post::EmbeddedMedia, url)
       end
 
       def to_html(float: :right)
