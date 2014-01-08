@@ -17,13 +17,9 @@
 class Article < Post
   include Searchable
 
-  serialize :section, Taxonomy::Serializer.new
-  validates_with Taxonomy::Validator, attr: :section
-
-  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
+  self.taxonomy = :sections
 
   self.per_page = 25  # set will_paginate default to 25 articles
-
 
   ##
   # Configure articles to be indexed by Solr
@@ -50,39 +46,6 @@ class Article < Post
     end
   end
 
-  ##
-  # Record temporarily that this article was viewed by a user. This data is
-  # stored in Redis for five days. The data is used to determine popularity of
-  # articles in each section. This should be called each time an article is
-  # viewed on the main site or on mobile.
-  #
-  def register_view
-    unless section.root?
-      key = "popularity:#{section[0].downcase}:#{Date.today}"
-      timestamp = 5.days.from_now.to_date.to_time.to_i
-      $redis.multi do
-        $redis.zincrby(key, 1, id)
-        $redis.expireat(key, timestamp)
-      end
-    end
-  end
-
-  def self.popular(section, options={})
-    limit = options[:limit] || 10
-    popular = {}
-    articles = fetch_popular_from_redis(section, limit)
-    articles.each_with_index do |level, days|
-      level.each do |pair|
-        id, score = pair.map(&:to_i)
-        popular[id] = 0.0 if not popular.has_key?(id)
-        popular[id] += score / (days + 1)
-      end
-    end
-    article_ids = popular.to_a.sort {|a, b| b[1] <=> a[1]}
-      .take(limit).map(&:first)
-    self.find_in_order(article_ids).compact
-  end
-
   def self.most_commented(limit)
     disqus = Disqus.new(ENV['DISQUS_API_KEY'])
     response = disqus.request(
@@ -92,36 +55,10 @@ class Article < Post
       URI.parse(thread['link']).path =~ %r{/articles?/(.*)}
       [$1, thread['posts']]
     end
-    articles = self.where(slug: slugs.map(&:first))
+    posts = self.where(slug: slugs.map(&:first))
     slugs.map do |slug, comments|
-      article = articles.find { |article| article.slug == slug }
-      [article, comments] unless article.nil?  # TODO: this shouldn't be needed
+      post = posts.find { |post| post.slug == slug }
+      [post, comments] unless post.nil?  # TODO: this shouldn't be needed
     end.compact
-  end
-
-  ##
-  # Reader for section attribute. Creates a Taxonomy object if section is a
-  # string.
-  #
-  def section
-    unless self[:section].is_a?(Taxonomy)
-      self[:section] = Taxonomy.new(self[:section])
-    end
-    self[:section]
-  end
-
-  def section_id
-    section.id
-  end
-
-  private
-  def self.fetch_popular_from_redis(section, limit)
-    $redis.multi do
-      5.times do |i|
-        key = "popularity:#{section}:#{Date.today - i}"
-        $redis.zrevrangebyscore(
-          key, "+inf", 0, with_scores: true, limit: [0, limit])
-      end
-    end
   end
 end
