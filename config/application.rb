@@ -64,6 +64,7 @@ module Chronline
     config.assets.initialize_on_precompile = false
 
     # Action mailer configuration
+    config.action_mailer.asset_host = "https://#{ENV['CONTENT_CDN']}"
     config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
@@ -89,10 +90,15 @@ module Chronline
 
     # Use routes to handle exceptions (https://coderwall.com/p/w3ghqq)
     config.exceptions_app = self.routes
+
+    config.action_dispatch.tld_length = ENV['DOMAIN'].count('.')
+
+    # http://stackoverflow.com/questions/20361428/rails-i18n-validation-deprecation-warning
+    config.i18n.enforce_available_locales = true
   end
 end
 
 # Load extensions
-Dir[File.join(Rails.root, "lib", "extensions", "**", "*.rb")].each do |file|
+Dir[File.join(Rails.root, 'lib', 'extensions', '**', '*.rb')].each do |file|
   require file
 end

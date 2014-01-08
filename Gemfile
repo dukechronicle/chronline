@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.0'
 
 gem 'rails', '3.2.16'
 
 group :production do
-  gem 'newrelic_rpm'
   gem 'asset_sync'
+  gem 'newrelic_rpm'
+  gem 'rails_12factor'
   gem 'unicorn'
 end
 
@@ -18,22 +19,24 @@ end
 
 group :development do
   gem 'annotate', '~> 2.6.1'
-  gem 'pry-rails', '~> 0.3.2'
+  gem 'byebug', '~> 2.5.0'
+  gem 'pry-byebug', '~> 1.2.1'
   gem 'pry-doc', '~> 0.5.1'
+  gem 'pry-rails', '~> 0.3.2'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.6'
+  gem 'bower-rails', '~> 0.6.1'
   gem 'coffee-rails', '~> 3.2.2'
   gem 'compass-rails', '~> 1.0.3'
+  gem 'sass-rails',   '~> 3.2.6'
   gem 'uglifier', '~> 2.1.2'
-  gem 'bower-rails', git: 'git://github.com/jimpo/bower-rails.git'
 end
 
 gem 'acts-as-taggable-on'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1.31.3'
 gem 'bootstrap-will_paginate'
 gem 'browser'
 gem 'default_value_for'
@@ -42,9 +45,9 @@ gem 'devise', '~> 2.2.4'
 gem 'devise_invitable'
 gem 'feedzirra', '~> 0.2.0.rc2'
 gem 'ffaker', '~> 1.22.1'
-gem 'fog'
+gem 'fog', '~> 1.19.0'
 gem 'friendly_id'
-gem 'gibbon', '~> 1.0.0'
+gem 'gibbon', '~> 1.0.4'
 gem 'haml'
 gem 'hiredis', '~> 0.4.5'
 gem 'htmlentities'

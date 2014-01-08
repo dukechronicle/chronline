@@ -1,5 +1,9 @@
+require_dependency 'blog/series'
+
 class Blog::Post < ::Post
   include Searchable
+
+  self.taxonomy = :blogs
 
   self.per_page = 10  # set will_paginate default to 10 articles
 
@@ -9,7 +13,8 @@ class Blog::Post < ::Post
 
   acts_as_taggable
 
-  attr_accessible :blog, :tag_list
+  attr_accessible :blog_id, :tag_list
+  has_many :series, through: :tags
 
 
   ##
@@ -38,27 +43,34 @@ class Blog::Post < ::Post
   end
 
   def blog
-    if @blog.nil? && section && section =~ %r[/blog/(\w+)/]
-      @blog = Blog.find($1)
-    end
-    @blog
+    Blog.find_by_taxonomy(section)
   end
 
   def blog=(blog)
-    @blog = nil
-    blog = blog.id if blog.is_a? Blog
-    self.section = "/blog/#{blog}/"
+    self.section = blog.taxonomy
   end
 
   def blog_id
     blog.id
   end
 
+  def blog_id=(blog_id)
+    self.blog = Blog.find(blog_id)
+  end
+
   def previous_url
     previous_id
   end
 
-  def section_id
-    blog.section_id
+  ##
+  # Blog posts should only have one series. This cannot be enforced, but is
+  # assumed to be true.
+  #
+  def series
+    super.find { |series| series.blog == self.blog }
+  end
+
+  def series=(series)
+    super([series])
   end
 end
