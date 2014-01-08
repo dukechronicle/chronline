@@ -19,6 +19,16 @@ class Post
       document.to_html
     end
 
+    def self.match_url_to_tag(url)
+      Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
+        if subclass.respond_to? :parse_url
+          tag_obj = subclass.parse_url(url)
+          return tag_obj unless tag_obj.nil?
+        end
+      end
+      nil
+    end
+
     def self.remove(post_body)
       post_body.gsub(/{{[^\}]*}}/, '')
     end
@@ -67,15 +77,6 @@ class Post
         return tag_obj unless tag_obj.nil?
       end
       raise EmbeddedMediaException, "Invalid Tag: #{tag}"
-    end
-
-    def self.match_url_to_tag(url)
-      Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
-        if subclass.respond_to? :parse_url
-          tag_obj = subclass.parse_url(url)
-          return tag_obj unless tag_obj.nil?
-        end
-      end
     end
   end
 end

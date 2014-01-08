@@ -95,6 +95,7 @@ Chronline::Application.routes.draw do
       get 'section/*section' => 'articles#index', as: :article_section
 
       get 'widgets' => 'widgets#index'
+      get 'widgets/match_url' => 'widgets#match_url'
 
       resources :images, except: :show do
         put 'crop', on: :member
