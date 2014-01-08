@@ -31,25 +31,7 @@ class Post < ActiveRecord::Base
   end
 
   def convert_camayak_tags!
-    document = Nokogiri::HTML::DocumentFragment.parse(body)
-    document.css('.oembed').each do |camayak_tag|
-      url = camayak_tag.attr('data-camayak-embed-url')
-      provider =
-        case url
-        when %r[^https?://www\.youtube\.com/]
-          'Youtube'
-        when %r[^https?://twitter\.com/]
-          'Twitter'
-        when %r[^https?://soundcloud\.com/]
-          'Soundcloud'
-        when %r[^https?://instagram\.com/]
-          'Instagram'
-        end
-      unless provider.nil?
-        camayak_tag.replace("{{#{provider}:#{url}}}")
-      end
-    end
-    self.body = document.to_html
+    self.body = Post::EmbeddedMedia.convert_camayak_tags(body)
   end
 
   def embed_url
