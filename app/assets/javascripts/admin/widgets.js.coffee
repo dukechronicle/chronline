@@ -6,10 +6,7 @@ initialize '#widget-editor', ->
 
     providers:
       'image': ImageView
-      'instagram': InstagramView
-      'soundcloud': SoundcloudView
-      'twitter': TwitterView
-      'youtube': YoutubeView
+      'url': OembedView
 
     routes:
       ':provider': 'loadView'
