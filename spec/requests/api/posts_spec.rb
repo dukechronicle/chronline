@@ -24,17 +24,17 @@ describe Api::PostsController do
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:created) }
+      it { response.should have_status_code(:created) }
     end
 
     context "when creating a blog post" do
       before do
-        post_attrs[:section] = '/blog/pokedex/'
+        post_attrs[:section] = '/pokedex/'
         post api_posts_url(subdomain: :api), { post: post_attrs },
           'HTTP_AUTHORIZATION' => http_auth(@user)
       end
 
-      it { response.status.should == Rack::Utils.status_code(:created) }
+      it { response.should have_status_code(:created) }
     end
   end
 end

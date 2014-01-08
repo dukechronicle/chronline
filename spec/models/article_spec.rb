@@ -22,6 +22,12 @@ describe Article do
   subject { article }
 
   it { Article.should be_searchable }
+  it { should be_a_kind_of(Post) }
+
+  describe "when given a blog section" do
+    before { article.section = Taxonomy.new(:blogs, %w(Pokedex)) }
+    it { should_not be_valid }
+  end
 
   describe "::most_commented" do
     include Rails.application.routes.url_helpers
@@ -60,91 +66,4 @@ describe Article do
       it { Article.most_commented(5).should == [] }
     end
   end
-
-  describe "::popular" do
-    before do
-      @articles = FactoryGirl.create_list(:article, 4)
-      $redis.zincrby("popularity:news:#{Date.today}", 2, @articles[0].id)
-      $redis.zincrby("popularity:news:#{Date.today}", 3, @articles[1].id)
-      $redis.zincrby("popularity:news:#{Date.today - 1}", 2, @articles[2].id)
-      $redis.zincrby("popularity:sports:#{Date.today - 1}", 3, @articles[3].id)
-    end
-
-    subject { Article.popular(:news) }
-
-    it "should return articles only articles in the section" do
-      should =~ @articles.take(3)
-    end
-
-    it "should return articles in descending number of views" do
-      should include_in_order(@articles[1], @articles[0])
-    end
-
-    it "should rank recent article views more highly than old article views" do
-      should include_in_order(@articles[0], @articles[2])
-    end
-
-    it "should return no more than the specified number of articles" do
-      Article.popular(:news, limit: 2).should have(2).articles
-    end
-  end
-
-  describe "::section" do
-    let!(:articles) do
-      [
-       FactoryGirl.create(:article, section: '/news/'),
-       FactoryGirl.create(:article, section: '/news/university/'),
-       FactoryGirl.create(:article, section: '/sports/'),
-      ]
-    end
-
-    subject { Article.section(Taxonomy.new(['News'])) }
-
-    it "should return all articles with a subsection of the given section" do
-      should include(articles[0])
-      should include(articles[1])
-    end
-
-    it "should exclude articles in other sections" do
-      should_not include(articles[2])
-    end
-
-    it "should be chainable with other query methods" do
-      articles = Article.section(Taxonomy.new(['News'])).limit(1)
-      articles.should have(1).article
-    end
-  end
-
-  describe "#register_view" do
-    let(:key_pattern) { /popularity:[a-z]+:\d{4}-\d{2}-\d{2}/ }
-    let(:article) { FactoryGirl.create(:article) }
-
-    it "should increment its id in the redis sorted set" do
-      $redis.should_receive(:zincrby).with(key_pattern, 1, article.id)
-      article.register_view
-    end
-
-    it "should expire the key in 5 days" do
-      timestamp = 5.days.from_now.to_date.to_time.to_i
-      $redis.should_receive(:expireat).with(key_pattern, timestamp)
-      article.register_view
-    end
-
-    it "should not fail if article is in root taxonomy" do
-      article.section = '/'
-      ->{ article.register_view }.should_not raise_error
-    end
-  end
-
-  describe "#section" do
-    before { article.section = Taxonomy.new(['News', 'University']) }
-
-    its(:section) { should be_a_kind_of(Taxonomy) }
-    its(:section) { should == Taxonomy.new(['News', 'University']) }
-
-    it "should default to root taxonomy" do
-      Article.new.section.should be_root
-    end
-  end
-
 end

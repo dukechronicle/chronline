@@ -11,7 +11,7 @@ Documentation for development is in the [wiki](https://github.com/dukechronicle/
 Join Us
 -------
 
-The Chronline team is a small group of undergrads who are passionate about programming and building something great. This is a great chance to get some real software engineering experience. If you are a current Duke student and are interested in helping us, you can send an email to [*recruitment@dukechronicle.com*](mailto:recruitment@dukechronicle.com). Anyone interested in web design should also definitely reach out!
+The Chronline team is a small group of undergrads who are passionate about programming and building something awesome. This is a great chance to get some real software engineering experience. If you are a current Duke student and are interested in helping us, you can send an email to [*recruitment@dukechronicle.com*](mailto:recruitment@dukechronicle.com). Anyone interested in web design should also definitely reach out!
 
 Writing Tests
 -------------
@@ -35,12 +35,17 @@ In no particular order:
  - [Capybara](http://jnicklas.github.com/capybara/)
  - [Pry](http://pryrepl.org/)
 
+Security Issues
+===============
+
+We feel strongly about keeping this repository open source to show the kind of work we are doing. We try to abide by best practices to keep the site secure, but in the case that you find a security issue, please email [webmaster@dukechronicle.com](mailto:webmaster@dukechronicle.com). If you happen to find a bug, we will happily list your name here as a thank you.
+
 License
 =======
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Duke Student Publishing Company
+Copyright (c) 2014 Duke Student Publishing Company
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

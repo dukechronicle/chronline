@@ -5,7 +5,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def index
     taxonomy_string = "/#{params[:section]}/" if params[:section]
-    @taxonomy = Taxonomy.new(taxonomy_string)
+    @taxonomy = Taxonomy.new(:sections, taxonomy_string)
 
     if params[:date] and not params[:page]
       date = Date.parse(params[:date]) + 1
