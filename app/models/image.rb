@@ -53,6 +53,7 @@ class Image < ActiveRecord::Base
   process_in_background :original
 
   default_value_for(:date) { Date.today }
+  default_value_for(:attribution) { Attributions[0] }
 
   validates :original, attachment_presence: true
   validates :date, presence: true
