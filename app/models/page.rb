@@ -23,3 +23,8 @@ class Page < ActiveRecord::Base
   validates :path, presence: true, uniqueness: true,
     format: {with: /^\/[a-z0-9\_\.\-\/]*$/, message: 'Must be a URL path'}
 end
+
+# Load template definitions
+Dir[Rails.root.join('app', 'models', 'page', 'definitions', '*.rb')].each do |f|
+  require_dependency f
+end
