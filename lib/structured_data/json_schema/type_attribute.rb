@@ -4,7 +4,7 @@ module StructuredData
 
       def self.validate(current_schema, data, fragments, processor, validator, options = {})
         processor.insert(fragments, data)
-        super(current_schema, data, fragments, processor, validator, options)
+        super # (current_schema, data, fragments, processor, validator, options)
       end
 
     end
