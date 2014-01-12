@@ -13,7 +13,7 @@
   children:
     - name: Football
       id: 1004
-    - name: "Men's Baskeball"
+    - name: "Men's Basketball"
       id: 1005
     - name: "Women's Basketball"
       id: 1006
@@ -21,4 +21,4 @@
       id: 1007
 - name: Playground
   description: Arts and culture at Duke, Durham and beyond.
-  section_id: 1003
+  id: 1003
