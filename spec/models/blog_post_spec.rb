@@ -48,7 +48,7 @@ describe Blog::Post do
       before do
         blog_post.update_attributes!(
           tag_list: ["Route 14"],
-          blog: Blog.find('kantonews')
+          blog_id: 'kantonews'
         )
       end
 

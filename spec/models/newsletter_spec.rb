@@ -12,7 +12,8 @@ describe Newsletter do
     # Abstract newsletter methods must stubbed
     newsletter.stub(
       subject: "Pikachu saves Ash",
-      content: "Pikachu attacks a flock of Spearows"
+      content: "Pikachu attacks a flock of Spearows",
+      header: "Pocket Monsters!",
     )
   end
 
@@ -59,9 +60,11 @@ describe Newsletter do
 
     it "should have correct HTML content" do
       expect_campaign_create do |options|
-        options[:content][:sections][:main].should ==
+        options[:content][:sections][:body_content].should ==
           "Pikachu attacks a flock of Spearows"
-        options[:content][:sections].should have_key(:adimage)
+        options[:content][:sections].should have_key(:advertisement_content)
+        options[:content][:sections].should have_key(:left_column_lead)
+        options[:content][:sections].should have_key(:right_column_lead)
         options[:content][:sections].should have_key(:issuedate)
       end
     end
@@ -95,7 +98,7 @@ describe Newsletter do
 
     context "when it is not a test nor scheduled" do
       it "should send the campaign immediately" do
-        mock_campaigns.should_receive(:send_now).with(cid: cid)
+        mock_campaigns.should_receive(:send).with(cid: cid)
         newsletter.send_campaign!
       end
     end
