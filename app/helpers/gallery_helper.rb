@@ -11,4 +11,22 @@ module GalleryHelper
     names << photag
     photag = Staff.find_or_create_all_by_name(names)[0]
   end
+
+  def mailto_gallery(gallery)
+    subject = "Duke Chronicle: #{gallery.name}"
+    body = <<EOS
+
+
+--------------------------------------------------------------------------------
+
+Duke Chronicle
+
+#{gallery.name}
+
+#{photag_byline(gallery)}
+
+Visit #{site_gallery_url(gallery)} for the full gallery
+EOS
+  "mailto:?subject=#{subject}&body=#{URI.escape(body)}"
+  end
 end
