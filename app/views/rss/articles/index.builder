@@ -17,7 +17,7 @@ xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
       xml.item do
         xml.title article.title
         xml.link site_article_url(article, subdomain: 'www')
-        xml.description Post::EmbeddedMedia.remove(article.render_body)
+        xml.description article.body_text
         xml.author byline(article)
         xml.pubDate article.published_at.rfc822
         xml.comments site_article_url(article, subdomain: 'www') + '#disqus_thread'
