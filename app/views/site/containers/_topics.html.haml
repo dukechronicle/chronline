@@ -20,7 +20,7 @@
 								= link_to "", downvote_site_topic_response_path(topic, r), method: :downvote, class: 'icon-chevron-down'
 								%span= r.downvotes.to_s
 						%span.content= r.content
-						%span.timestamp= r.created_at.strftime("%m/%d %I:%M:%S %p")
+						%span.timestamp= r.created_at.strftime("%m/%d | %I:%M:%S %p")
 		= simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
 			= f.error_notification
 			= f.input :content, as: :string, placeholder: 'Submit a response...', label: false, input_html: {class: 'response-input'}
