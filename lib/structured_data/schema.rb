@@ -25,7 +25,7 @@ module StructuredData
     private
     def definitions
       pairs = Definition.subclasses.map do |definition|
-        [definition.schema_name, definition.json_schema]
+        [definition.schema_name, definition.new.schema]
       end
       Hash[pairs]
     end
