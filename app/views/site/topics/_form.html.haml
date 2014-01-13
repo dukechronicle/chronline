@@ -1,23 +1,8 @@
 %h2= topic.title
-%h3= topic.description
-
-%btn.pull-left= link_to "All Topics", site_topics_path
-
-%h3= 'Contribute to the conversation'
-= simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
-	%legend= yield :form_title
-	= f.error_notification
-	.form-inputs
-		= f.input :content
-	.form-actions
-		= f.button :submit, class: 'btn btn-large btn-primary'
-
-- content_for :scripts do
-	= tinymce_assets
+%h4= topic.description
+%btn.pull-left= button_to "All Topics", site_topics_path, method: :get
 
 -responses = topic.responses.where('reported = ? OR approved = ?', false, true).order('created_at DESC').paginate(page: params[:page], per_page: 5)
-
-= will_paginate responses
 
 - responses.each do |r|
 	- unless r.content.nil?
@@ -27,3 +12,10 @@
 		%br
 		%br
 
+= simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+	%legend= yield :form_title
+	= f.error_notification
+	.form-inputs
+		= f.input :content, as: :string
+	.form-actions
+		= f.button :submit, class: 'btn btn-large btn-primary'

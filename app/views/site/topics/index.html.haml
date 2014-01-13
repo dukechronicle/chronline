@@ -1,13 +1,16 @@
-%h2='Discussion Topics'
+.span-8
+  .rounded
+    .topic-container
+      %h2='Discussion Topics'
 
-%table.table.table-striped
-  %thead
-    %tr
-      %th Topic
-      %th Description
-      %th Created Date
-  - @active_topics.each do |topic|
-    %tr{id: "topic_#{topic.id}"}
-      %td= link_to topic.title, admin_topic_path(topic)
-      %td= topic.description
-      %td= topic.created_at.strftime('%-m-%-d-%Y')
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Topic
+            %th Description
+            %th Created Date
+        - @active_topics.each do |topic|
+          %tr{id: "topic_#{topic.id}"}
+            %td= link_to topic.title, admin_topic_path(topic)
+            %td= topic.description
+            %td= topic.created_at.strftime('%-m-%-d-%Y')
