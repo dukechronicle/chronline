@@ -29,7 +29,14 @@ class Admin::TopicsController < Admin::BaseController
 
 	def show
 		@topic = Topic.find(params[:id])
-		@responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 5)
+
+		if params[:option] == '2'
+			@responses = @topic.responses.where('reported = ?', true).order('created_at DESC').paginate(page: params[:page], per_page: 10)
+		elsif params[:option] == '3'
+			@responses = @topic.responses.where('approved = ?', true).order('created_at DESC').paginate(page: params[:page], per_page: 10)
+		else
+			@responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 10)
+		end
 	end
 
 	def index

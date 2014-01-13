@@ -2,7 +2,6 @@ class Admin::TopicResponsesController < Admin::BaseController
 
 	def create
 		@response = Topic.find(params[:topic_id]).responses.build(params[:topic_response])
-		Rails.logger.info(@response.errors.inspect) 
 		@response.approved = true
 		if @response.save
 			# some message?
