@@ -1,6 +1,7 @@
 .span-8
   .rounded
     .topic-container
+      =button_to "Back", site_opinion_path, method: :get
       %h2='Discussion Topics'
 
       %table.table.table-striped
@@ -13,4 +14,4 @@
           %tr{id: "topic_#{topic.id}"}
             %td= link_to topic.title, admin_topic_path(topic)
             %td= topic.description
-            %td= topic.created_at.strftime('%-m-%-d-%Y')
+            %td= datetime_tag(topic.created_at,"mm/dd/yyyy")
