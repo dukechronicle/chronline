@@ -9,7 +9,7 @@ class Post
       def self.parse_tag(tag, embedded_media)
         match = /{{([a-zA-Z]*):([^\}]*?)}}/.match(tag)
         if match.present? and match[1].eql? self.name.demodulize.sub(/Tag$/, '')
-          self.new(embedded_media, match[2])
+          self.new(embedded_media, *match[2].split(','))
         else
           nil
         end
