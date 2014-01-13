@@ -1,5 +1,27 @@
 .article-list
 %h2.vertical-label= title
 .rounded
-	.content-container
-		= render 'site/topics/form', topic: topic
+	.topic-container
+		%h2= topic.title
+		%h4.subtitle= topic.description
+		%btn.pull-left= link_to "See discussion archive", site_topics_path, method: :get
+
+		-responses = topic.responses.where('reported = ? OR approved = ?', false, true).order('created_at DESC')
+
+		.wrapper-div
+			- responses.each do |r|
+				- unless r.content.nil?
+					.response
+						.votes
+							.vote-button
+								= link_to "", upvote_site_topic_response_path(topic, r), method: :upvote, class: 'icon-chevron-up'
+								%span= r.upvotes.to_s
+							.vote-button
+								= link_to "", downvote_site_topic_response_path(topic, r), method: :downvote, class: 'icon-chevron-down'
+								%span= r.downvotes.to_s
+						%span.content= r.content
+						%span.timestamp= r.created_at.strftime("%m/%d %I:%M:%S %p")
+		= simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+			= f.error_notification
+			= f.input :content, as: :string, placeholder: 'Submit a response...', label: false, input_html: {class: 'response-input'}
+

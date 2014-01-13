@@ -1,6 +1,4 @@
-- provide :title, @topic.title
-%h3= @topic.description
-
-%btn.pull-left= link_to "All Topics", site_topics_path
-
-= render 'form', topic: @topic
+.span-8
+	.rounded
+		.topic-container
+			= render 'form', topic: @topic
