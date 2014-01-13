@@ -27,7 +27,7 @@ class Post < ActiveRecord::Base
   end
 
   def body_text
-    body.gsub(/{{[^\}]*}}/, '')
+    Post::EmbeddedMedia.remove(body)
   end
 
   def convert_camayak_tags!
