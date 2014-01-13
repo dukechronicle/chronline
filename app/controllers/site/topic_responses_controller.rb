@@ -27,6 +27,12 @@ class Site::TopicResponsesController < Site::BaseController
 		elsif status == -1
 			@response.update_attributes(downvotes: @response.downvotes - 1)
 		end
+
+		# if too many downvotes, this response will be reported
+		if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 20
+			@response.update_attributes(reported: true)
+		end
+
 		redirect_to :back
 	end
 
