@@ -29,6 +29,11 @@ class Page::Layouts::Opinion < Layout
         'extends' => image_schema,
         'required' => true,
       },
+      'topic' => {
+        'label' => 'Discussion Board ID',
+        'required' => true,
+        'extends' => topic_schema,
+      },
     }
   end
 
