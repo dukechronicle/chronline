@@ -1,4 +1,5 @@
 .span-8
 	.rounded
 		.topic-container
-			= render 'form', topic: @topic
+			=button_to "Back", site_topics_path, method: :get
+			= render 'site/containers/topics', title: 'Discussion', topic: @topic

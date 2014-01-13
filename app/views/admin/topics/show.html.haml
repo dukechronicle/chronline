@@ -15,12 +15,3 @@
 		= link_to approve_toggle(r.approved), approve_admin_topic_response_path(@topic, r), method: :approve, class: 'btn btn-mini'
 		= link_to report_toggle(r.reported), report_admin_topic_response_path(@topic, r), method: :report, class: 'btn btn-mini'
 		= link_to "Delete", admin_topic_response_path(@topic, r.id), method: :delete, class: 'btn btn-mini'
-
-%h3= 'Add Response (Approved by default)'
-= simple_form_for([:admin, @topic, @topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
-	%legend= yield :form_title
-	= f.error_notification
-	.form-inputs
-		= f.input :content, as: :string
-	.form-actions
-		= f.button :submit, class: 'btn btn-medium btn-primary'
