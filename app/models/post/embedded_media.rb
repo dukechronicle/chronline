@@ -73,7 +73,7 @@ class Post
 
     def match_tag(tag)
       Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
-        tag_obj = subclass.parse_tag(tag)
+        tag_obj = subclass.parse_tag(tag, self)
         return tag_obj unless tag_obj.nil?
       end
       raise EmbeddedMediaException, "Invalid Tag: #{tag}"
