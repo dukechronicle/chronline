@@ -3,8 +3,10 @@ module StructuredData
     class TypeAttribute < JSON::Schema::TypeV4Attribute
 
       def self.validate(current_schema, data, fragments, processor, validator, options = {})
-        processor.insert(fragments, data)
-        super # (current_schema, data, fragments, processor, validator, options)
+        super
+        if current_schema.schema['type'] == 'object'
+          processor.insert(fragments, OpenStruct.new(data))
+        end
       end
 
     end
