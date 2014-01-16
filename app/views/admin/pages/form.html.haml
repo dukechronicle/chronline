@@ -9,8 +9,9 @@
         = f.error_notification
         = f.input :title
         = f.input :path, label: "URL Path"
-        = f.input :layout_schema, collection: page_layout_options
-        = f.input :layout_data, as: :hidden
+        = f.input :layout_schema do
+          = f.select :layout_schema, page_layout_options
+        = f.input :layout_data, as: :hidden, value_method: :to_json
         = f.input :description, as: :text, input_html: {rows: 3}
         = f.association :image, as: :image_picker
       .form-actions

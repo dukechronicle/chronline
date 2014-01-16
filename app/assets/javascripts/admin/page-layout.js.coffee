@@ -23,18 +23,23 @@ loadTemplate = ->
   if schema
     dataString = $('#page_layout_data').val()
     data = JSON.parse(dataString) if dataString
+
+    component = JsonForm(schema: schema, data: data)
     form = document.querySelector('form#layout-data')
+
     React.unmountComponentAtNode(form)
-    React.renderComponent(JsonForm(schema: schema, data: data), form)
+    React.renderComponent(component, form)
+    component
 
 initialize 'form#page-settings', ->
-  $(this).find('#page_layout_schema').change ->
-    loadTemplate()
-  loadTemplate()
+  $(this).find('#page_layout_schema').change =>
+    @component = loadTemplate()
+  @component = loadTemplate()
 
-  # $(this).submit (e) ->
-  #   try
-  #     $(this).find('#page_layout_data').val(getLayoutData())
-  #   catch err
-  #     e.preventDefault()
-  #     console.error(err)
+  $(this).submit (e) =>
+    value = @component.value()
+    if value != undefined
+      $(this).find('#page_layout_data').val(JSON.stringify(value))
+    else
+      e.preventDefault()
+      alert('Please fix errors with layout before submitting')

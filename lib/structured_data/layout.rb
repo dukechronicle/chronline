@@ -8,14 +8,14 @@ module StructuredData
 
     def generate!
       validator = StructuredData::JSONValidator.new(
-        @schema.json_schema, @data.to_json, json: true)
+        @schema.json_schema, @data, json: true)
       validator.validate
       @model = validator.data
     end
 
     def validate
       validator = StructuredData::JSONValidator.new(
-        @schema.json_schema, @data.to_json, json: true, record_errors: true)
+        @schema.json_schema, @data, json: true, record_errors: true)
       validator.validate
     end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131231195346) do
+ActiveRecord::Schema.define(:version => 20140116220716) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -74,11 +74,11 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
 
   create_table "pages", :force => true do |t|
     t.text     "layout_data"
-    t.string   "layout_template"
+    t.string   "layout_schema"
     t.string   "path"
     t.string   "title"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "description"
     t.integer  "image_id"
   end

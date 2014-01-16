@@ -1,0 +1,32 @@
+{
+    "title": "Simple Slideshow",
+    "description": "Page with a main slideshow and space for additional articles",
+    "type": "object",
+    "required": ["slideshow", "top_articles"],
+    "properties": {
+        "slideshow": {
+            "title": "Slideshow Articles",
+            "type": "array",
+            "items": {
+                "allOf": [
+                    {"$ref": "#/definitions/article"},
+                    {"$ref": "#/definitions/has_image"}
+                ]
+            }
+        },
+        "list_title": {
+            "title": "Article List Label",
+            "type": "string"
+        },
+        "top_articles": {
+            "title": "Top List Articles",
+            "type": "array",
+            "items": {"$ref": "#/definitions/article"}
+        },
+        "bottom_articles": {
+            "title": "Bottom Block Articles",
+            "type": "array",
+            "items": {"$ref": "#/definitions/article"}
+        }
+    }
+}
