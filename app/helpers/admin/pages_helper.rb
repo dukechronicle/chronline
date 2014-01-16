@@ -5,8 +5,8 @@ module Admin::PagesHelper
   end
 
   def page_layout_options
-    Page::Layouts.all.each_pair.map do |name, layout_class|
-      [name, name, {'data-schema' => layout_class.new(nil).json_schema.to_json}]
+    StructuredData::Schema.all.map do |schema|
+      [schema.title, schema.name, {'data-schema' => schema.json_schema.to_json}]
     end
   end
 

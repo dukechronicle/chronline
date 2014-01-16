@@ -1,8 +1,7 @@
 .row
   .span8
     %h1 Page Layout
-    %form#layout-data{data: {embedded: @embedded.to_json}}
-      .onde-panel
+    %form#layout-data
   .span4
     = simple_form_for [:admin, @page], html: {id: 'page-settings'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|
       %legend Page Settings
@@ -10,7 +9,7 @@
         = f.error_notification
         = f.input :title
         = f.input :path, label: "URL Path"
-        = f.input :layout_template, collection: page_layout_options
+        = f.input :layout_schema, collection: page_layout_options
         = f.input :layout_data, as: :hidden
         = f.input :description, as: :text, input_html: {rows: 3}
         = f.association :image, as: :image_picker

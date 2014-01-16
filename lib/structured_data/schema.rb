@@ -1,9 +1,11 @@
 module StructuredData
   class Schema
     @@schemata = {}
+    attr_reader :name
 
 
-    def initialize(schema)
+    def initialize(name, schema)
+      @name = name
       @schema = schema
     end
 
@@ -25,14 +27,14 @@ module StructuredData
     private
     def definitions
       pairs = Definition.subclasses.map do |definition|
-        [definition.schema_name, definition.new.schema]
+        [definition.schema_name, definition.new.json_schema]
       end
       Hash[pairs]
     end
 
     class << self
       def all
-        @@schemata.map { |name, schema| self.new(schema) }
+        @@schemata.map { |name, schema| self.new(name, schema) }
       end
 
       def each(&block)
@@ -40,8 +42,9 @@ module StructuredData
       end
 
       def [](schema_name)
-        if @@schemata.include? schema_name.to_s
-          self.new(@@schemata[schema_name.to_s])
+        schema_name = schema_name.to_s
+        if @@schemata.include? schema_name
+          self.new(schema_name, @@schemata[schema_name])
         end
       end
 

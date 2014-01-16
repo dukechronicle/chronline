@@ -3,7 +3,7 @@ module StructuredData
   def has_layout(layout_attr = :layout)
     @@layout_attr = layout_attr
 
-    attr_reader "#{@@layout_attr}_data", "#{@@layout_attr}_schema"
+    attr_accessible "#{@@layout_attr}_data", "#{@@layout_attr}_schema"
 
     validates "#{@@layout_attr}_data", presence: true
     validates "#{@@layout_attr}_schema", presence: true
