@@ -4,6 +4,7 @@
 //= require bootstrap/docs/assets/js/bootstrap
 //= require bootstrap-typeahead
 //= require underscore/underscore
+//= require backbone/backbone
 
 //= require util
 //= require initialize

@@ -1,6 +1,6 @@
 class Post
   class EmbeddedMedia
-    class IconTag < ActionView::Base
+    class IconTag < EmbeddedMedia::Tag
       # HAX: there must be a better way to generate HTML
       include ActionView::Helpers
 
@@ -10,6 +10,10 @@ class Post
 
       def to_html(float: :right)
         content_tag(:i, nil, class: "icon-#{@icon}")
+      end
+
+      def to_s
+        "{{Icon:#{@icon}}}"
       end
     end
   end

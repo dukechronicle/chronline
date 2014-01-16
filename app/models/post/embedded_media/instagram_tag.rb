@@ -1,10 +1,16 @@
 class Post
   class EmbeddedMedia
-    class InstagramTag < ActionView::Base
+    class InstagramTag < EmbeddedMedia::Tag
       include ActionView::Helpers
 
-      def initialize(_embedded_media, url)
-        @instagram_id = /\/p\/([\w\-]+)/.match(url)[1]
+      def initialize(_embedded_media, id)
+        @instagram_id = id
+      end
+
+      def self.parse_url(url)
+        return nil unless url =~ %r[^https?://instagram\.com/]
+        id = /\/p\/([\w\-]+)/.match(url)[1]
+        self.new(Post::EmbeddedMedia, id)
       end
 
       def to_html(float: :right)
@@ -20,6 +26,10 @@ class Post
             src: "//instagram.com/p/#{@instagram_id}/embed/"
           )
         end
+      end
+
+      def to_s
+        "{{Instagram:#{@instagram_id}}}"
       end
     end
   end
