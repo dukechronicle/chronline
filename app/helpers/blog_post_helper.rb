@@ -16,6 +16,19 @@ module BlogPostHelper
     end
   end
 
+  def truncate_text(blog_post)
+    read_more_link = link_to(
+      "Read more", site_blog_post_path(blog_post.blog, blog_post))
+    Nokogiri::HTML::DocumentFragment.parse(
+      truncate(
+        blog_post.render_body,
+        length: 1200,
+        separator: '.',
+        omission: '... '+ read_more_link
+      )
+    )
+  end
+
   def blog_options
     Blog.all.map { |blog| [blog.name, blog.id] }
   end
