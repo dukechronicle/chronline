@@ -33,6 +33,7 @@ loadTemplate = ->
 
 initialize 'form#page-settings', ->
   $(this).find('#page_layout_schema').change =>
+    $(this).find('#page_layout_data').val(null)
     @component = loadTemplate()
   @component = loadTemplate()
 

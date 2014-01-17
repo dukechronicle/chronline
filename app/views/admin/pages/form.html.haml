@@ -1,6 +1,11 @@
 .row
   .span8
     %h1 Page Layout
+    - if @page.errors['layout_data'].present?
+      .alert.alert-error
+        %ul
+          - @page.errors['layout_data'].each do |error|
+            %li= error
     %form#layout-data
   .span4
     = simple_form_for [:admin, @page], html: {id: 'page-settings'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|

@@ -1,0 +1,12 @@
+{
+    "title": "Single Block",
+    "description": "Page layout containing a single block of styled text",
+    "type": "object",
+    "required": ["contents"],
+    "properties": {
+        "contents": {
+            "title": "Body Contents",
+            "$ref": "#/definitions/markdown"
+        }
+    }
+}
