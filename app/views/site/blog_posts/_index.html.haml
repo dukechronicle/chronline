@@ -16,8 +16,7 @@
         = render partial: 'partials/blog-image', locals: {blog_post: blog_post}
 
         .article-body
-          != truncate(blog_post.render_body, length: 600)
-          != link_to "Read more", site_blog_post_path(@blog, blog_post) 
+          = truncate_text(blog_post)
 
         = render partial: 'site/blog_posts/tags', locals: {blog_post: blog_post}
 
