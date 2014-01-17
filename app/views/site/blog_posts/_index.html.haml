@@ -16,7 +16,7 @@
         = render partial: 'partials/blog-image', locals: {blog_post: blog_post}
 
         .article-body
-          != blog_post.render_body
+          = truncate_text(blog_post)
 
         = render partial: 'site/blog_posts/tags', locals: {blog_post: blog_post}
 
