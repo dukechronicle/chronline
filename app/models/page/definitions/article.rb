@@ -6,8 +6,8 @@ class Page::Definitions::Article < StructuredData::Schema::Definition
 
   def schema
     {
-      'type' => 'integer',
-      'transform' => self
+      type: 'integer',
+      display: 'article-picker'
     }
   end
 
