@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131231195346) do
+ActiveRecord::Schema.define(:version => 20140119064432) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -84,6 +84,22 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
   end
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
+
+  create_table "poll_choices", :force => true do |t|
+    t.integer  "poll_id"
+    t.string   "title"
+    t.integer  "votes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "polls", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "section"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "posts_authors", :force => true do |t|
     t.integer "post_id"
