@@ -38,7 +38,11 @@ Chronline::Application.routes.draw do
         end
       end
 
-      resources :polls, only: :show
+      resources :polls, only: :show do
+        member do
+          post 'vote'
+        end
+      end
 
       match '/404', :to => 'base#not_found'
 
