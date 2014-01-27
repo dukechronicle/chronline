@@ -5,7 +5,8 @@
   .rounded
     %article.article-container
       .article-body
-        != @gallery.description
+        / TODO: Later add styling and include - Thanh-ha said ingore 
+        / != @gallery.description
         .outer
           .title-area
             %h2#title= @gallery.name
@@ -19,10 +20,11 @@
                 %span.author By #{photag_byline(@gallery)}
             %p.buy-link
               %a.buy Buy Photograph
-            .share-box
-              %div= facebook_recommend(site_gallery_url(@gallery))
-              %div= twitter_share(site_gallery_url(@gallery))
-              %div= google_plusone(site_gallery_url(@gallery))
+        .gal-share
+          .share-box
+            .share= facebook_recommend(site_gallery_url(@gallery))
+            .share.twit= twitter_share(site_gallery_url(@gallery))
+            .share= google_plusone(site_gallery_url(@gallery))
 
   .span-8
     .rounded.clearfix

@@ -6,7 +6,7 @@
           %h2#title= @model.slideshow.name
       .gallery
         - @model.slideshow.get_gallery_images.each do |image|
-          %img{:src => image.url, :data => {:link => image.photoshelter_url}}
+          %img{:src => image.url, :data => {:link => site_gallery_path(@model.slideshow)}}
     .rounded.clearfix.gal-col.span-4
       - @model.news.each do |gallery|
         .small-gallery
