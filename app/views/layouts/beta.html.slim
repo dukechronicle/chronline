@@ -1,0 +1,25 @@
+- provide(:title, @title) unless content_for? :title
+- provide(:description, @description) unless content_for? :description
+
+DOCTYPE html
+html class="no-js"
+    head
+        meta charset="utf-8"
+        meta http-equiv="X-UA-Compatible" content="IE=edge"
+        meta name="description" content=""
+        meta name="viewport" content="width=device-width, initial-scale=1.0"
+        = stylesheet_link_tag "beta", :media => "all"
+        = javascript_include_tag "modernizr/modernizr"
+        script type= "text/javascript" src= "//use.typekit.com/dwv2bjy.js"
+        javascript:
+            try{Typekit.load()}catch(e){}
+        = yield :head
+        // TODO(rivkees): finishing migrating includes from site
+    body
+        #fb-root data-app-id=ENV['FACEBOOK_APP_ID']
+        #wrap
+            == render 'beta/partials/header'
+            == yield
+            / == render 'beta/partials/footer'
+        #scripts
+        	= javascript_include_tag "beta"
