@@ -1,0 +1,20 @@
+header
+  nav.top-bar(data-topbar)
+    ul.title-area
+      li.divider
+      li.name
+        h1
+          a href=site_root_path The Chronicle
+    section.top-bar-section
+      ul.left.main-nav
+        li.divider
+        - Taxonomy.top_level(:sections).each do |taxonomy|
+          li
+            a href= section_path(taxonomy) class= ("active" if @taxonomy && @taxonomy <= taxonomy) = taxonomy.name
+      ul.right
+        li.has-form
+          .row.collapse
+            .large-8.small-9.columns
+              input type="text" placeholder="Find news"
+            .large-4.small-3.columns
+              a href="#" class="button expand" Search
