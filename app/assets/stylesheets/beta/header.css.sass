@@ -1,7 +1,15 @@
 header
-  nav.main-nav
+  nav.nav-main
     .title-area
       h1
         font-family: ambroise-std
-    .sections-nav
+    .nav-sections
       text-transform: uppercase
+    .nav-sections, .title-area
+      li.active a
+        background: $chron-blue-accent
+        color: $chron-text-white
+        &:hover
+          background: scale-color($chron-blue-accent, $lightness: -14%)
+    .divider
+      border-color: scale-color($chron-blue, $lightness: 14%)
