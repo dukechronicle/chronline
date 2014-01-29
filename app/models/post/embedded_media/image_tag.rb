@@ -13,9 +13,10 @@ class Post
 
       def to_html(float: :right)
         classes = "embedded-image embedded-#{float}"
+        article_id = :id
         content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
-          concat content_tag(:a, content_tag(:img, nil,**image_attributes), 'data-lightbox' => "image-1", href: @image.original.url(@style))
+          concat content_tag(:a, content_tag(:img, nil,**image_attributes), 'data-lightbox' => article_id, title: @image.caption, href: @image.original.url(@style))
           concat content_tag(:span, photo_credit, class: 'photo-credit')
         end
       end
