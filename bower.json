@@ -2,6 +2,7 @@
     "vendor": {
         "name": "bower-rails generated vendor assets",
         "dependencies": {
+            "backbone": "~1.1.0",
             "blueimp-canvas-to-blob": "~2.0.6",
             "blueimp-load-image": "~1.7.3",
             "blueimp-tmpl": "~2.2.1",
@@ -14,7 +15,8 @@
             "jquery-masonry": "~3.1.1",
             "jquery-ui": "~1.10.3",
             "onde": "git://github.com/exavolt/onde.git",
-            "underscore": "~1.5.2"
+            "underscore": "~1.5.2",
+            "lightbox2": "latest"
         }
     }
 }

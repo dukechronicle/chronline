@@ -1,20 +1,20 @@
 development:
   adapter: postgresql
-  database: development
+  database: chronline_development
   username: postgres
   password: postgres
   host: localhost
 
 test: &test
   adapter: postgresql
-  database: test
+  database: chronline_test
   username: postgres
   password: postgres
   host: localhost
 
 production:
   adapter: postgresql
-  database: production
+  database: chronline_production
   username: postgres
   password: postgres
   host: localhost
