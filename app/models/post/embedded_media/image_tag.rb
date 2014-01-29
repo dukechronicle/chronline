@@ -6,17 +6,20 @@ class Post
       include ImageHelper
       include Rails.application.routes.url_helpers
 
-      def initialize(embedded_media, image_id, style = :rectangle_314x)
+      def initialize(embedded_media, image_id, style = :rectangle_183x)
         @image = embedded_media.find(Image, image_id, include: :photographer)
         @style = style
       end
 
       def to_html(float: :right)
         classes = "embedded-image embedded-#{float}"
+        shape = @style.to_s.match(/^[^_]*/)[0]
+        width = Image::Styles[shape]["width"].to_s
+        style = (shape + "_" + width + "x").to_sym
         article_id = :id
         content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
-          concat content_tag(:a, content_tag(:img, nil,**image_attributes), 'data-lightbox' => article_id, title: @image.caption, href: @image.original.url(@style))
+          concat content_tag(:a, content_tag(:img, nil,**image_attributes), 'data-lightbox' => article_id, title: @image.caption, href: @image.original.url(style))
           concat content_tag(:span, photo_credit, class: 'photo-credit')
         end
       end
