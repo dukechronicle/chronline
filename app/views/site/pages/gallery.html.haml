@@ -3,10 +3,10 @@
     .rounded.featured
       .outer
         .title-area
-          %h2#title= @model.slideshow.name
+          %h2#title= @model.slideshow.first.name
       .gallery
-        - @model.slideshow.get_gallery_images.each do |image|
-          %img{:src => image.url, :data => {:link => site_gallery_path(@model.slideshow)}}
+        - @model.slideshow.map{ |gallery|  puts gallery.inspect; gallery.get_gallery_images.first }.each do |image|
+          %img{:src => image.url, :data => {:link => site_gallery_path(image.get_gallery)}}
     .rounded.clearfix.gal-col.span-4
       - @model.news.each do |gallery|
         .small-gallery
