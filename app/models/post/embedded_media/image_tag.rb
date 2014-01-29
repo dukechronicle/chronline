@@ -15,7 +15,7 @@ class Post
         classes = "embedded-image embedded-#{float}"
         content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
-          image_html = content_tag(:img, nil,**image_attributes)
+          image_html = content_tag(:img, nil,**image_attributes, class: "embedded-hover")
           image_url = @image.original.url(largest_style)
           concat(
             content_tag(
