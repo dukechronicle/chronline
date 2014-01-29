@@ -16,7 +16,7 @@
             "jquery-ui": "~1.10.3",
             "onde": "git://github.com/exavolt/onde.git",
             "underscore": "~1.5.2",
-            "lightbox2": "git://github.com/lokesh/lightbox2.git"
+            "lightbox2": "latest"
         }
     }
 }
