@@ -8,16 +8,34 @@ class Post
       @queries = {}
     end
 
-    def render
-      tag_list = @body.scan(/{{([a-zA-Z]*):([^\}]*?)}}/)
-      tags = tag_list.map do |tag, data|
-        begin
-          "Post::EmbeddedMedia::#{tag}Tag".constantize.new(
-            self, *data.split(','))
-        rescue NameError
-          raise EmbeddedMediaException, "Invalid Tag: #{tag}"
+    def self.convert_camayak_tags(body)
+      document = Nokogiri::HTML::DocumentFragment.parse(body)
+      document.css('.oembed').each do |camayak_tag|
+        tag = match_url_to_tag(camayak_tag.attr('data-camayak-embed-url'))
+        unless tag.nil?
+          camayak_tag.replace(tag.to_s)
         end
       end
+      document.to_html
+    end
+
+    def self.match_url_to_tag(url)
+      Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
+        if subclass.respond_to? :parse_url
+          tag_obj = subclass.parse_url(url)
+          return tag_obj unless tag_obj.nil?
+        end
+      end
+      nil
+    end
+
+    def self.remove(post_body)
+      post_body.gsub(/{{[^\}]*}}/, '')
+    end
+
+    def render
+      tag_list = @body.scan(/{{[a-zA-Z]*:[^\}]*?}}/)
+      tags = tag_list.map { |tag| match_tag(tag) }
 
       execute_queries
 
@@ -53,5 +71,12 @@ class Post
       original.merge!(new_options)
     end
 
+    def match_tag(tag)
+      Post::EmbeddedMedia::Tag.subclasses.each do |subclass|
+        tag_obj = subclass.parse_tag(tag, self)
+        return tag_obj unless tag_obj.nil?
+      end
+      raise EmbeddedMediaException, "Invalid Tag: #{tag}"
+    end
   end
 end
