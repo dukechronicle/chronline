@@ -13,13 +13,18 @@ class Post
 
       def to_html(float: :right)
         classes = "embedded-image embedded-#{float}"
-        shape = @style.to_s.match(/^[^_]*/)[0]
-        width = Image::Styles[shape]["width"].to_s
-        style = (shape + "_" + width + "x").to_sym
-        article_id = :id
         content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
-          concat content_tag(:a, content_tag(:img, nil,**image_attributes), 'data-lightbox' => article_id, title: @image.caption, href: @image.original.url(style))
+          image_html = content_tag(:img, nil,**image_attributes)
+          image_url = @image.original.url(largest_style)
+          concat(
+            content_tag(
+              :a, 
+              image_html,
+              'data-lightbox' => true, 
+              title: @image.caption, 
+              href: image_url)
+          )
           concat content_tag(:span, photo_credit, class: 'photo-credit')
         end
       end
@@ -29,6 +34,14 @@ class Post
       end
 
       private
+
+      def largest_style
+        shape = @style.to_s.match(/^[^_]*/)[0]
+        width = Image::Styles[shape]["width"].to_s
+        (shape + "_" + width + "x").to_sym
+      end
+
+
       def image_attributes
         options = {
           alt: @image.caption,
