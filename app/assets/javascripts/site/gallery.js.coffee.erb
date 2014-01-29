@@ -3,17 +3,25 @@
 GALLERIA_THEME = "<%= asset_path 'galleria/themes/gallery/galleria.gallery.js' %>"
 
 initialize '.gallery', ->
+  size = [600, 370]
+  size = [636, 393] if this[0]["className"] == "gallery main"
   Galleria.loadTheme(GALLERIA_THEME)
   Galleria.configure
     transition: 'fade'
     autoplay: true
-    width: 642
-    height: 393
+    width: size[0]
+    height: size[1]
   Galleria.on "image",(e) ->
     caption = e.galleriaData.description
-    $("#imageinfo").contents().filter( ->
+    updateText("#imageinfo", caption)
+    $(".buy").attr("href", e.galleriaData.link) 
+    title  = e.galleriaData.title
+    updateText("#title", title) if title
+  Galleria.run $(this)
+
+updateText = (id, text) ->
+  $(id).contents().filter( ->
       return (this.nodeType == 3)
     ).remove()
-    $("#imageinfo").append(caption)
-    $(".buy").attr("href", e.galleriaData.link) 
-  Galleria.run $(this)
+    $(id).append(text)
+
