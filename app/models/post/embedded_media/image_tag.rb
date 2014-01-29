@@ -6,7 +6,7 @@ class Post
       include ImageHelper
       include Rails.application.routes.url_helpers
 
-      def initialize(embedded_media, image_id, style = :rectangle_183x)
+      def initialize(embedded_media, image_id, style = :rectangle_314x)
         @image = embedded_media.find(Image, image_id, include: :photographer)
         @style = style
       end
