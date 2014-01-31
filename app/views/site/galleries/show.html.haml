@@ -18,14 +18,17 @@
             .byline.photo-credit
               - if @gallery.credit
                 %span.author By #{photag_byline(@gallery)}
-            %p.buy-link
-              %a.buy Buy Photograph
+            .share-box
+              .buy
+                .camera-link
+                  %i.icons-camera
+                .buy-link
+                  %a.buy Buy Photograph
         .gal-share
           .share-box
             .share= facebook_recommend(site_gallery_url(@gallery))
             .share.twit= twitter_share(site_gallery_url(@gallery))
             .share= google_plusone(site_gallery_url(@gallery))
-
   .span-8
     .rounded.clearfix
       %h2.vertical-label Most Recent
