@@ -29,13 +29,13 @@
             .share= facebook_recommend(site_gallery_url(@gallery))
             .share.twit= twitter_share(site_gallery_url(@gallery))
             .share.gplus= google_plusone(site_gallery_url(@gallery))
-  .span-8
-    .rounded.clearfix
-      %h2.vertical-label Most Recent
-      #galleryContainer.js-masonry{ data: {masonry: {options: '{ "itemSelector": ".small-gallery","gutter" : 2 }'}}}
-        - @recent.reject(&:empty?).each do |gallery|
-          .small-gallery
-            = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 204}
+/  .span-8
+/    .rounded.clearfix
+/      %h2.vertical-label Most Recent
+/      #galleryContainer.js-masonry{ data: {masonry: {options: '{ "itemSelector": ".small-gallery","gutter" : 2 }'}}}
+/        - @recent.reject(&:empty?).each do |gallery|
+/          .small-gallery
+/            = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 204}
 
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
