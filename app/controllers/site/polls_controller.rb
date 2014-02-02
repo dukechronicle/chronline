@@ -1,7 +1,7 @@
 class Site::PollsController < Site::BaseController
   def show
     @poll = Poll.find(params[:id])
-    @choices = @poll.choices.order(:title)
+    @choices = @poll.choices.order('votes DESC, title ASC')
   end
 
   def vote

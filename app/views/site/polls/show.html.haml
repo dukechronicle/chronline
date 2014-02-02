@@ -4,4 +4,6 @@
 .span-8
   .rounded
     .content-container
-      = render 'poll'
+      %h1= @poll.title
+      %h2= @poll.description
+      = render 'poll_results'
