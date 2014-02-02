@@ -1,7 +1,7 @@
 class Gallery < ActiveRecord::Base
   self.primary_key = :gid
 
-  attr_accessible :name, :gid, :description, :section, :photoshelter_images
+  attr_accessible :name, :gid, :description, :section, :photoshelter_images, :date
 
   validates :name, presence: true
   validates :gid, presence: true, uniqueness: true
@@ -29,4 +29,13 @@ class Gallery < ActiveRecord::Base
   def to_param
     gid
   end
+
+  # has_many Gallery::Images, get #images method
+
+  # tags : gem
+
+  # related articles : belongs_to relation
+
+  # section
+
 end
