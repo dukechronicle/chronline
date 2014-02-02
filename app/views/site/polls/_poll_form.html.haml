@@ -1,5 +1,3 @@
-%h1= @poll.title
-%h2= @poll.description
 -if @poll.choices
   = form_tag(vote_site_poll_path(@poll), method: :post) do |f|
     %ul
