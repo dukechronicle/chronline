@@ -1,6 +1,6 @@
 class Post
   class EmbeddedMedia
-    class ImageTag < ActionView::Base
+    class ImageTag < self::Tag
       # HAX: there must be a better way to generate HTML
       include ActionView::Helpers
       include ImageHelper
@@ -15,12 +15,33 @@ class Post
         classes = "embedded-image embedded-#{float}"
         content_tag(:span, nil, class: classes) do
           photo_credit = photo_credit(@image, link: true)
-          concat content_tag(:img, nil, **image_attributes)
+          image_html = content_tag(:img, nil,**image_attributes)
+          image_url = @image.original.url(largest_style)
+          concat(
+            content_tag(
+              :a, 
+              image_html,
+              'data-lightbox' => true, 
+              title: @image.caption, 
+              href: image_url)
+          )
           concat content_tag(:span, photo_credit, class: 'photo-credit')
         end
       end
 
+      def to_s
+        "{{Image:#{@image.id}}}"
+      end
+
       private
+
+      def largest_style
+        shape = @style.to_s.match(/^[^_]*/)[0]
+        width = Image::Styles[shape]["width"].to_s
+        (shape + "_" + width + "x").to_sym
+      end
+
+
       def image_attributes
         options = {
           alt: @image.caption,
