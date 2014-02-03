@@ -1,0 +1,21 @@
+---
+custom:
+  width: 240
+  height: 90
+  unit: 536871737
+leaderboard:
+  width: 728
+  height: 90
+  unit: 536871739
+medium_rectangle:
+  width: 300
+  height: 250
+  unit: 536871740
+medium_rectangle_1:
+  width: 300
+  height: 250
+  unit: 536871741
+medium_rectangle_2:
+  width: 300
+  height: 250
+  unit: 536871744
