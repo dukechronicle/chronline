@@ -1,0 +1,7 @@
+figure
+  = cropped_image_tag image, :banner_636x, class: 'jumbotron jumbotron-default'
+  .row
+    figcaption.columns.small-12.medium-7.large-5
+      - if not image.caption.blank?
+        p.photo-caption= "IMAGE: " + image.caption
+      p.photo-credit= photo_credit(image, link: true)
