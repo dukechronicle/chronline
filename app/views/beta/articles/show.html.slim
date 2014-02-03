@@ -13,12 +13,12 @@
 
 - cache do
   - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
-  section.row.article-jumbotron
-    //TODO(rivkees): use figures
+  section.page-jumbotron
+    //TODO(rivkees): implement video, gallary, and graph jumbo's
     - if @article.embed_code.present?
       = render partial: 'partials/main-video'
     - elsif @article.image
-      = render partial: 'partials/main-image', locals: {image: @article.image}
+      = render partial: 'partials/jumbotron-default', locals: {image: @article.image}
   .page-main-wrap
     .row.page-main
       section.page-body-content.columns.small-7.small-offset-1
