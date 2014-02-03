@@ -85,6 +85,12 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'beta' do
     namespace :beta, path: '/' do
       root to: 'articles#index'
+      get 'section/*section' => 'articles#index', as: :article_section
+      get 'pages/*path' => 'base#custom_page'
+
+      resources :articles, only: :show, id: Post::SLUG_PATTERN do
+        get :print, on: :member
+      end
     end
   end
 
