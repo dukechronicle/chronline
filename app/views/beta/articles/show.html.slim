@@ -1,0 +1,40 @@
+- provide :title, @article.title
+- provide :description, @article.teaser
+
+- content_for :head do
+  - cache(action_suffix: :head) do
+    - if @article.published?
+      - article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
+      = render partial: 'site/partials/twitter_cards/article', locals: {article: article}
+      = render partial: 'site/partials/open-graph/article', locals: {article: article}
+    - if @article.block_bots
+      meta[name= 'robots' content= 'noindex']
+    link[rel= "canonical" href= site_article_url(@article, subdomain: :www, protocol: 'http')]
+
+- cache do
+  - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
+  section.row.article-jumbotron
+    //TODO(rivkees): use figures
+    - if @article.embed_code.present?
+      = render partial: 'partials/main-video'
+    - elsif @article.image
+      = render partial: 'partials/main-image', locals: {image: @article.image}
+  .page-main-wrap
+    .row.page-main
+      section.page-body-content.columns.small-7.small-offset-1
+        article.postable.news
+          header
+            .article-summary
+              h1= @article.title
+              - if not @article.subtitle.blank?
+                p.subtitle= @article.subtitle
+              p.byline
+                span.author By #{byline(@article, link: true)}
+                span.sep= " - "
+                = display_date(@article)
+          .article-body
+            == @article.render_body
+      aside.columns.small-4 Sidebar
+    .row
+      section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
+      section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
