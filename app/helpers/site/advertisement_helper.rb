@@ -1,7 +1,5 @@
 module Site::AdvertisementHelper
-  File.open(Rails.root.join("config", "ad_types.yml")) do |file|
-    AD_UNITS = YAML::load(file)
-  end
+  AD_UNITS = YAML::load_file(Rails.root.join("config", "ad_types.yml"))
 
   GROUP_ID = '5382d6fe6c'
 
