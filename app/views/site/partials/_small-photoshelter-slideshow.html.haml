@@ -3,5 +3,5 @@
 - if image
   %a{href: site_gallery_url(gallery) }
     %img.gal-img{:src => image.url(width), :data => {:link => site_gallery_url(gallery)}, width: "#{width}px"}
-  %p.title-link{align: "center"}= link_to gallery.name, site_gallery_path(gallery)
+  %p.title-link= link_to gallery.name, site_gallery_path(gallery)
   

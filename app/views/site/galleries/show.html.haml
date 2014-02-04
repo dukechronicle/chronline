@@ -12,12 +12,12 @@
             %h2#title= @gallery.name
         .gallery
           - @gallery.get_gallery_images.each do |image|
-            %img{:src => image.url, :data => { :description => image.caption, :link => image.photoshelter_url}}
+            %img{:src => image.url, :data => { :description => image_info(image), :link => image.photoshelter_url}}
         #imageinfo.photo-caption
           .social
             .byline.photo-credit
               - if @gallery.credit
-                %span.author By #{photag_byline(@gallery)}
+                %span.author#cred By #{photag_byline(@gallery)}
             .share-box
               .buy
                 .camera-link

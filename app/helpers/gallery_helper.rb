@@ -12,6 +12,11 @@ module GalleryHelper
     photag = Staff.find_or_create_all_by_name(names)[0]
   end
 
+  def image_info(image)
+    credit = image.credit ? photag_byline(image) : ""
+    "__credit__:#{credit}__caption__:#{image.caption} "
+  end
+
   def mailto_gallery(gallery)
     subject = "Duke Chronicle: #{gallery.name}"
     body = <<EOS
