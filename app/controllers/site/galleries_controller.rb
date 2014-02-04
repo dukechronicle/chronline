@@ -1,7 +1,7 @@
 class Site::GalleriesController < Site::BaseController
 
   def index
-    @galleries =  Gallery.all
+    @galleries =  Gallery.order('date DESC')
     begin
       custom_page and return
     rescue ActiveRecord::RecordNotFound

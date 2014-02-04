@@ -12,8 +12,12 @@ initialize '.gallery', ->
     width: size[0]
     height: size[1]
   Galleria.on "image",(e) ->
-    caption = e.galleriaData.description
+    parsed = parseInfo(e.galleriaData.description)
+    console.log(parsed)
+    credit = parsed[0]
+    caption = parsed[1]
     updateText("#imageinfo", caption)
+    $("#cred").val(credit)
     $(".buy").attr("href", e.galleriaData.link) 
     title  = e.galleriaData.title
     updateText("#title", title) if title
@@ -25,3 +29,5 @@ updateText = (id, text) ->
     ).remove()
     $(id).append(text)
 
+parseInfo = (info) ->
+  info.split("__credit__:")[1].split("__caption__:")
