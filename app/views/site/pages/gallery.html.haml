@@ -4,7 +4,7 @@
       .title-area.main-title
         %h2#title= @model.slideshow.first.name
       .gallery.main
-        - @model.slideshow.map{ |gallery|  puts gallery.inspect; gallery.get_gallery_images.first }.each do |image|
+        - @model.slideshow.map{ |gallery| gallery.get_gallery_images.first }.each do |image|
           %img{:src => image.url, :data => {:link => site_gallery_path(image.get_gallery), :title => image.get_gallery.name}}
     .rounded.clearfix.gal-col.span-4
       - @model.news.each do |gallery|
@@ -17,5 +17,6 @@
           = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 300}
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-    = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget}
-      
+    %h2.vertical-label Twitter
+    .rounded
+      %a.twitter-timeline{height: "1050px", 'data-widget-id' => @model.twitter_widget}
