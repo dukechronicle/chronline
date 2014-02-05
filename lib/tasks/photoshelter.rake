@@ -15,7 +15,6 @@ namespace :photoshelter do
         gallery_name = gallery['name'].gsub(/[0-9]+\/[0-9]+\/[0-9]+/, '').sub(/^[\s\-]+/, '').lstrip
         Gallery.create(gid: gallery['id'], name: gallery_name, description: gallery['description'], date: date)
         images = PhotoshelterAPI.instance.get_gallery_images gallery['id']
-        images = nil
         if images then
           images.each do |image|
             info = PhotoshelterAPI.instance.get_image_info image['id']
