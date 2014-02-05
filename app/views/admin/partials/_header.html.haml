@@ -2,7 +2,7 @@
   .navbar-inner
     .container
       = link_to "The Chronicle", admin_root_path, :class => "brand"
-      - if user_signed_in?
+      - if current_user.try(:admin?)
         %ul.nav
           %li= link_to "Articles", admin_articles_path
 

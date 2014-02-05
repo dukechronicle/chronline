@@ -24,7 +24,7 @@ module PostsController
   end
 
   def admin_scoped
-    if user_signed_in?
+    if current_user.try(:admin?)
       Post.unscoped { yield }
     else
       yield

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::ArticlesController do
-  before(:all) { @user = FactoryGirl.create(:user) }
+  before(:all) { @user = FactoryGirl.create(:admin) }
   after(:all) { @user.destroy }
   let(:articles) { ActiveSupport::JSON.decode(response.body) }
   subject { articles }

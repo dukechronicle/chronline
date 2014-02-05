@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if current_user.try(:admin?)
   .admin-notification.showing
     .admin-notification-header
       Admin Notification

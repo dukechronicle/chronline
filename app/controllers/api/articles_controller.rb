@@ -1,5 +1,5 @@
 class Api::ArticlesController < Api::BaseController
-  before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
+  before_filter :authenticate_admin!, only: [:create, :update, :destroy, :unpublish]
   before_filter :allow_cors, only: [:index, :show]
 
   def index

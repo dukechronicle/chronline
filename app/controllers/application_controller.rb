@@ -10,14 +10,26 @@ class ApplicationController < ActionController::Base
   before_filter :force_ssl if Rails.env.production?
 
 
-  protected
+  def authenticate_admin!
+    authenticate_user!
+    unless current_user.admin?
+      respond_to do |format|
+        format.html do
+          render 'unauthorized', layout: 'error', status: :unauthorized
+        end
+        format.json do
+          head :unauthorized
+        end
+      end
+    end
+  end
 
   def social_crawler?
     CRAWLERS.any? {|crawler| request.user_agent =~ crawler}
   end
 
   def force_ssl
-    redirect_ssl if user_signed_in?
+    redirect_ssl if current_user.try(:admin?)
   end
 
   def redirect_ssl
