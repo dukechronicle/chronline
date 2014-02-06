@@ -52,6 +52,7 @@ class Api::PostsController < Api::BaseController
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
     post.assign_attributes(params[:post])
+    post.authors = [default_staff] if post.authors.blank?
     post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
       head :no_content
