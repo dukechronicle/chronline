@@ -62,6 +62,7 @@ gem 'promise'
 gem 'pg', '~> 0.17.1'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rdiscount'
+gem "recaptcha", :require => "recaptcha/rails"
 gem 'redis', '~> 3.0.6'
 gem 'redis-rails', '~> 3.2.4'
 gem 'require_all'  # Used by old page implementation
