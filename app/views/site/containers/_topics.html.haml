@@ -14,14 +14,17 @@
 					.response
 						.votes
 							.vote-button
-								= link_to "", upvote_site_topic_response_path(topic, r), method: :upvote, class: 'icon-chevron-up'
+								= link_to "", upvote_site_topic_response_path(topic, r), html: {id: 'up_vote'}, method: :upvote, class: 'icon-chevron-up'
 								%span= r.upvotes.to_s
 							.vote-button
-								= link_to "", downvote_site_topic_response_path(topic, r), method: :downvote, class: 'icon-chevron-down'
+								= link_to "", downvote_site_topic_response_path(topic, r), html: {id: 'down_vote'}, method: :downvote, class: 'icon-chevron-down'
 								%span= r.downvotes.to_s
 						%span.content= r.content
 						%span.timestamp= datetime_tag(r.created_at,"m/dd | h:MM:ss TT")
-		= simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, remote: true) do |f|
+		= simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal', id: 'response-form'}, defaults: {input_html: {class: 'input-xlarge'}}, remote: true) do |f|
 			= f.error_notification
-			= f.input :content, as: :string, placeholder: 'Submit a response...', label: false, input_html: {class: 'response-input'}
+			= f.input :content, as: :string, placeholder: 'Submit a response...', label: false, input_html: {class: 'response-input', id: 'response-input'}
 
+			%div{ id:'recaptcha', style: 'display:none;'}= recaptcha_tags
+
+			= f.submit class: 'btn'
