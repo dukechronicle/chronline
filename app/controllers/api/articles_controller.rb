@@ -1,8 +1,9 @@
 class Api::ArticlesController < Api::BaseController
   before_filter :authenticate_user!, only: [:create, :update, :destroy, :unpublish]
+  before_filter :allow_cors, only: [:index, :show]
 
   def index
-    taxonomy = Taxonomy.new("/#{params[:section]}/")
+    taxonomy = Taxonomy.new(:sections, "/#{params[:section]}/")
     articles = Article
       .includes(:authors, :image)
       .section(taxonomy)

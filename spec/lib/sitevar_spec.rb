@@ -1,9 +1,17 @@
 require 'spec_helper'
 
+
 describe Sitevar do
   before(:all) do
     # In development and production, this is run in config/initializers/redis.rb
     Sitevar.config.redis = $redis
+    @sitevars = Sitevar.config.sitevars
+    Sitevar.config.sitevars =
+      YAML.load_file(Rails.root.join('spec', 'config', 'sitevars.yml'))
+  end
+
+  after(:all) do
+    Sitevar.config.sitevars = @sitevars
   end
 
   describe "::new" do

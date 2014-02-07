@@ -1,5 +1,5 @@
 module Helpers
-  def json_attributes(obj)
-    ActiveSupport::JSON.decode(obj.to_json)
+  def json_attributes(obj, options = {})
+    ActiveSupport::JSON.decode(obj.to_json(options))
   end
 end

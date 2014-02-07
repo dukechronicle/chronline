@@ -27,10 +27,7 @@ Chronline::Application.routes.draw do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
           id: Post::SLUG_PATTERN
         get 'tags/:tag' => 'blog_posts#tags', as: :tagged
-      end
-      resources :blogs, only: :none, controller: 'blog_posts' do
-        resources :posts, only: [:show], controller: 'blog_posts',
-          id: Post::SLUG_PATTERN
+        get 'categories/:category' => 'blog_posts#categories', as: :category
       end
 
       resources :topics, only: [:show, :index] do
@@ -104,6 +101,9 @@ Chronline::Application.routes.draw do
       post 'newsletter' => 'newsletter#send_newsletter'
       get 'section/*section' => 'articles#index', as: :article_section
 
+      get 'widgets' => 'widgets#index'
+      get 'widgets/match_url' => 'widgets#match_url'
+
       resources :images, except: :show do
         put 'crop', on: :member
         get 'upload', on: :collection
@@ -132,6 +132,8 @@ Chronline::Application.routes.draw do
         resources :posts, except: :show, controller: 'blog_posts',
           id: Post::SLUG_PATTERN
       end
+
+      resources :blog_series, except: :show
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 

@@ -1,5 +1,11 @@
-def random_taxonomy
-  Taxonomy.levels.flatten.sample
+def random_taxonomy(taxonomy)
+  Taxonomy.levels(taxonomy).flatten.sample
+end
+
+def body_html
+  Faker::Lorem.paragraphs(4).map do |paragraph|
+    "<p>#{paragraph}</p>"
+  end.join
 end
 
 if User.find_by_email("admin@chron.dev").nil?
@@ -24,11 +30,11 @@ image = Image.create!(
 
 30.times do |n|
   article = Article.create!(
-    title: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
-    subtitle: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
-    teaser: Faker::SamuelJackson.sentence,
-    body: Faker::SamuelJackson.paragraphs(2).join("\n"),
-    section: random_taxonomy,
+    title: Faker::Lorem.words(5).map(&:capitalize).join(' '),
+    subtitle: Faker::Lorem.words(5).map(&:capitalize).join(' '),
+    teaser: Faker::Lorem.sentence,
+    body: body_html,
+    section: random_taxonomy(:sections),
     image_id: image.id,
     published_at: (1..365).to_a.sample.days.ago,
     author_ids: [staff.sample.id],
@@ -37,9 +43,9 @@ end
 
 30.times do |n|
   blog_post = Blog::Post.create!(
-    title: Faker::SamuelJackson.words(5).map(&:capitalize).join(' '),
-    body: Faker::SamuelJackson.paragraphs(4).join("\n"),
-    blog: Blog.all.sample,
+    title: Faker::Lorem.words(5).map(&:capitalize).join(' '),
+    body: body_html,
+    section: random_taxonomy(:blogs),
     image_id: image.id,
     author_ids: [staff.sample.id],
     published_at: (1..365).to_a.sample.days.ago,
