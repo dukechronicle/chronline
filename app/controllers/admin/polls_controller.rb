@@ -31,6 +31,7 @@ class Admin::PollsController < Admin::BaseController
 
   private
   def update_poll(poll)
+    params[:poll][:section].reject!(&:empty?)
     choice_titles = params[:poll].delete(:choice_ids).reject {|s| s.blank? }
     poll.assign_attributes(params[:poll])
     poll.choices = Poll::Choice.find_create_or_delete_poll_choices(poll, choice_titles)
