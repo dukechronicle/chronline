@@ -4,6 +4,9 @@
   .form-inputs
     = f.input :title
     = f.input :description
+
+  = f.input :section, as: :taxonomy, taxonomy: :sections
+
   %legend Choices
   = f.association :choices, as: :text_list, value_method: :title, input_html: {class: 'choice-picker', autocomplete: 'off'}
 
