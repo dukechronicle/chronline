@@ -27,6 +27,9 @@
 # Ignore local rspec config
 .rspec-local
 
+# Ignore generated sprites
+app/assets/images/icons-*.png
+
 solr/
 
 /public/attachments/

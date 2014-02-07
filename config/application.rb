@@ -64,6 +64,7 @@ module Chronline
     config.assets.initialize_on_precompile = false
 
     # Action mailer configuration
+    config.action_mailer.asset_host = "https://#{ENV['CONTENT_CDN']}"
     config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
@@ -98,6 +99,6 @@ module Chronline
 end
 
 # Load extensions
-Dir[File.join(Rails.root, "lib", "extensions", "**", "*.rb")].each do |file|
+Dir[File.join(Rails.root, 'lib', 'extensions', '**', '*.rb')].each do |file|
   require file
 end

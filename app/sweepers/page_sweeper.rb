@@ -16,10 +16,6 @@ class PageSweeper < ActionController::Caching::Sweeper
 
   private
   def expire_cache_for(page)
-    fragment = site_root_url(subdomain: :www, protocol: false)
-      .gsub(%r[(^/*)|(/*$)], '')  # Remove leading and trailing slashes
-    fragment += page.path
-    expire_fragment fragment
+    expire_fragment "www.#{ENV['DOMAIN']}#{page.path}"
   end
-
 end

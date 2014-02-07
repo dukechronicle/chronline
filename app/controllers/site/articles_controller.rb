@@ -5,7 +5,7 @@ class Site::ArticlesController < Site::BaseController
 
   def index
     begin
-      @taxonomy = Taxonomy.new("/#{params[:section]}/")
+      @taxonomy = Taxonomy.new(:sections, "/#{params[:section]}/")
     rescue Taxonomy::InvalidTaxonomyError
       return not_found
     end
