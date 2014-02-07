@@ -24,6 +24,8 @@ class Site::TopicResponsesController < Site::BaseController
 			@response.update_attributes(upvotes: votes)
 
 			format.html { redirect_to :back }
+			format.js   {}
+			format.json { render json: @response, status: status }
 		end
 	end
 
@@ -45,6 +47,8 @@ class Site::TopicResponsesController < Site::BaseController
 			end
 
 			format.html { redirect_to :back }
+			format.js   {}
+			format.json { render json: @response, status: status }
 		end
 	end
 
@@ -69,7 +73,6 @@ class Site::TopicResponsesController < Site::BaseController
 			end
 		end
 
-
 		def session_downvote_status(response_id)
 			if session[:downvotes].nil?
 				session[:downvotes] = { response_id => true }
@@ -82,6 +85,5 @@ class Site::TopicResponsesController < Site::BaseController
 				return :has_voted
 			end
 		end
-
 
 end

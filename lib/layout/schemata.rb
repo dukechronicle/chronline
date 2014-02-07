@@ -73,5 +73,5 @@ end
 Layout.add_schema(:topic, {
                     "type" => "integer",
                   }) do |topic_ids|
-  Topic.includes(:responses).find_in_order(topic_ids)
+  Topic.find_in_order(topic_ids)
 end
