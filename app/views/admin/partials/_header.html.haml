@@ -36,6 +36,7 @@
               %li= link_to "Manage", admin_topics_path
               %li= link_to "Create", new_admin_topic_path
 
+          %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Blog Series
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
               %li= link_to "Manage", admin_blog_series_index_path
