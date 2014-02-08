@@ -155,7 +155,7 @@ Chronline::Application.routes.draw do
         post :unpublish, on: :member
       end
       resources :topics, only: :none do
-        resources :responses, only: [:index, :create, :destroy], controller: 'topic_responses' do
+        resources :responses, only: [:index, :create], controller: 'topic_responses' do
           member do
             post :upvote
             post :downvote

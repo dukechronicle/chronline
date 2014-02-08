@@ -1,34 +1,33 @@
 class Api::TopicResponsesController < Api::BaseController
-
   REPORT_LIMIT = 10
 
   def index
     @topic = Topic.find(params[:topic_id])
     @responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 30)
-    respond_with @responses, status: :success
+    respond_with @responses
   end
 
   def create
     @response = Topic.find(params[:topic_id]).responses.build(params[:topic_response])
     if !verify_recaptcha
       respond_with "reCAPTCHA failure", status: :forbidden
-    if !@response.save
-      respond_with @response.errors, status: :unprocessable_entity
-    else
-      respond_with @response, status: :created
+      if !@response.save
+        respond_with @response.errors, status: :unprocessable_entity
+      else
+        respond_with @response, status: :created
+      end
     end
-  end
 
-  def upvote
-    @response = Topic::Response.find(params[:id])
-    status = session_upvote_status(@response.id)
-    votes = @response.upvotes
-    if status == :has_not_voted
-      votes = votes + 1
-    elsif status == :has_voted
-      votes = votes - 1
-    end
-    @response.update_attributes(upvotes: votes)
+    def upvote
+      @response = Topic::Response.find(params[:id])
+      status = session_upvote_status(@response.id)
+      votes = @response.upvotes
+      if status == :has_not_voted
+        votes = votes + 1
+      elsif status == :has_voted
+        votes = votes - 1
+      end
+      @response.update_attributes(upvotes: votes)
     end
     respond_with @response, status: :success
   end
@@ -61,13 +60,13 @@ class Api::TopicResponsesController < Api::BaseController
     end
   end
 
-  def destroy
-    @response = Topic::Response.find(params[:id])
-    @response.destroy
-    respond_with status: :success
-  end
+    def destroy
+      @response = Topic::Response.find(params[:id])
+      @response.destroy
+      respond_with status: :success
+    end
 
-  private
+    private
 
     def report_helper
       if session[:reported].nil?
@@ -106,5 +105,5 @@ class Api::TopicResponsesController < Api::BaseController
         return :has_voted
       end
     end
-
+  end
 end
