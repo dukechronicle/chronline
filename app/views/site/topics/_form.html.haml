@@ -5,17 +5,17 @@
 -responses = topic.responses.where('reported = ? OR approved = ?', false, true).order('created_at DESC').paginate(page: params[:page], per_page: 5)
 
 - responses.each do |r|
-	- unless r.content.nil?
-		%h6= r.content + ' | ' + r.created_at.strftime("%H:%M:%S %m/%d") + ' | up:' + r.upvotes.to_s + ' | down:' + r.downvotes.to_s
-		%btn.pull-left= link_to "Up", upvote_site_topic_response_path(topic, r), method: :upvote
-		%btn.pull-left= link_to "Down", downvote_site_topic_response_path(topic, r), method: :downvote
-		%br
-		%br
+  - unless r.content.nil?
+    %h6= r.content + ' | ' + r.created_at.strftime("%H:%M:%S %m/%d") + ' | up:' + r.upvotes.to_s + ' | down:' + r.downvotes.to_s
+    %btn.pull-left= link_to "Up", upvote_site_topic_response_path(topic, r), method: :upvote
+    %btn.pull-left= link_to "Down", downvote_site_topic_response_path(topic, r), method: :downvote
+    %br
+    %br
 
 = simple_form_for([:site, topic, topic.responses.build], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
-	%legend= yield :form_title
-	= f.error_notification
-	.form-inputs
-		= f.input :content, as: :string
-	.form-actions
-		= f.button :submit, class: 'btn btn-large btn-primary'
+  %legend= yield :form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :content, as: :string
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary'
