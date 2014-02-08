@@ -10,99 +10,98 @@ class Api::TopicResponsesController < Api::BaseController
   def create
     @response = Topic.find(params[:topic_id]).responses.build(params[:topic_response])
     if !verify_recaptcha
-      respond_with "reCAPTCHA failure", status: :forbidden
-    end
-    if !@response.save
-      respond_with @response.errors, status: :unprocessable_entity
+      render json: "reCAPTCHA failure", status: :forbidden
+    elsif @response.save
+      render json: @response, status: :created
     else
-      respond_with @response, status: :created
+      render json: @response.errors, status: :unprocessable_entity
     end
+  end
 
-    def upvote
+  def upvote
+    @response = Topic::Response.find(params[:id])
+    status = session_upvote_status(@response.id)
+    votes = @response.upvotes
+    if status == :has_not_voted
+      votes = votes + 1
+    elsif status == :has_voted
+      votes = votes - 1
+    end
+    @response.update_attributes(upvotes: votes)
+    respond_with @response, status: :success
+  end
+
+  def downvote
+    @response = Topic::Response.find(params[:id])
+    status = session_downvote_status(@response.id)
+    votes = @response.downvotes
+    if status == :has_not_voted
+      votes = votes + 1
+    elsif status == :has_voted
+      votes = votes - 1
+    end
+    @response.update_attributes(downvotes: votes)
+
+    # if too many downvotes, this response will be reported
+    if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 10
+      @response.update_attributes(reported: true)
+    end
+    respond_with @response, status: :success
+  end
+
+  def report
+    if !report_helper
+      respond_with "Report limited exceeded.", status: :forbidden
+    else
       @response = Topic::Response.find(params[:id])
-      status = session_upvote_status(@response.id)
-      votes = @response.upvotes
-      if status == :has_not_voted
-        votes = votes + 1
-      elsif status == :has_voted
-        votes = votes - 1
-      end
-      @response.update_attributes(upvotes: votes)
+      @response.update_attributes(reported: true)
       respond_with @response, status: :success
     end
+  end
 
-    def downvote
-      @response = Topic::Response.find(params[:id])
-      status = session_downvote_status(@response.id)
-      votes = @response.downvotes
-      if status == :has_not_voted
-        votes = votes + 1
-      elsif status == :has_voted
-        votes = votes - 1
-      end
-      @response.update_attributes(downvotes: votes)
+  def destroy
+    @response = Topic::Response.find(params[:id])
+    @response.destroy
+    respond_with status: :success
+  end
 
-      # if too many downvotes, this response will be reported
-      if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 10
-        @response.update_attributes(reported: true)
-      end
-      respond_with @response, status: :success
+  private
+
+  def report_helper
+    if session[:reported].nil?
+      session[:reported] = 1
+    else
+      session[:reported] = session[:reported] + 1
     end
-
-    def report
-      if !report_helper
-        respond_with "Report limited exceeded.", status: :forbidden
-      else
-        @response = Topic::Response.find(params[:id])
-        @response.update_attributes(reported: true)
-        respond_with @response, status: :success
-      end
+    if session[:reported] > REPORT_LIMIT
+      return false
     end
+    return true
+  end
 
-    def destroy
-      @response = Topic::Response.find(params[:id])
-      @response.destroy
-      respond_with status: :success
+  def session_upvote_status(response_id)
+    if session[:upvotes].nil?
+      session[:upvotes] = { response_id => true }
+      return :has_not_voted
+    elsif not session[:upvotes][response_id]
+      session[:upvotes][response_id] = true
+      return :has_not_voted
+    elsif session[:upvotes][response_id]
+      session[:upvotes][response_id] = false
+      return :has_voted
     end
+  end
 
-    private
-
-    def report_helper
-      if session[:reported].nil?
-        session[:reported] = 1
-      else
-        session[:reported] = session[:reported] + 1
-      end
-      if session[:reported] > REPORT_LIMIT
-        return false
-      end
-      return true
-    end
-
-    def session_upvote_status(response_id)
-      if session[:upvotes].nil?
-        session[:upvotes] = { response_id => true }
-        return :has_not_voted
-      elsif not session[:upvotes][response_id]
-        session[:upvotes][response_id] = true
-        return :has_not_voted
-      elsif session[:upvotes][response_id]
-        session[:upvotes][response_id] = false
-        return :has_voted
-      end
-    end
-
-    def session_downvote_status(response_id)
-      if session[:downvotes].nil?
-        session[:downvotes] = { response_id => true }
-        return :has_not_voted
-      elsif not session[:downvotes][response_id]
-        session[:downvotes][response_id] = true
-        return :has_not_voted
-      elsif session[:downvotes][response_id]
-        session[:downvotes][response_id] = false
-        return :has_voted
-      end
+  def session_downvote_status(response_id)
+    if session[:downvotes].nil?
+      session[:downvotes] = { response_id => true }
+      return :has_not_voted
+    elsif not session[:downvotes][response_id]
+      session[:downvotes][response_id] = true
+      return :has_not_voted
+    elsif session[:downvotes][response_id]
+      session[:downvotes][response_id] = false
+      return :has_voted
     end
   end
 end
