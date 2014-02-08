@@ -11,11 +11,11 @@ class Api::TopicResponsesController < Api::BaseController
     @response = Topic.find(params[:topic_id]).responses.build(params[:topic_response])
     if !verify_recaptcha
       respond_with "reCAPTCHA failure", status: :forbidden
-      if !@response.save
-        respond_with @response.errors, status: :unprocessable_entity
-      else
-        respond_with @response, status: :created
-      end
+    end
+    if !@response.save
+      respond_with @response.errors, status: :unprocessable_entity
+    else
+      respond_with @response, status: :created
     end
 
     def upvote
@@ -28,37 +28,36 @@ class Api::TopicResponsesController < Api::BaseController
         votes = votes - 1
       end
       @response.update_attributes(upvotes: votes)
-    end
-    respond_with @response, status: :success
-  end
-
-  def downvote
-    @response = Topic::Response.find(params[:id])
-    status = session_downvote_status(@response.id)
-    votes = @response.downvotes
-    if status == :has_not_voted
-      votes = votes + 1
-    elsif status == :has_voted
-      votes = votes - 1
-    end
-    @response.update_attributes(downvotes: votes)
-
-    # if too many downvotes, this response will be reported
-    if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 10
-      @response.update_attributes(reported: true)
-    end
-    respond_with @response, status: :success
-  end
-
-  def report
-    if !report_helper
-      respond_with "Report limited exceeded.", status: :forbidden
-    else
-      @response = Topic::Response.find(params[:id])
-      @response.update_attributes(reported: true)
       respond_with @response, status: :success
     end
-  end
+
+    def downvote
+      @response = Topic::Response.find(params[:id])
+      status = session_downvote_status(@response.id)
+      votes = @response.downvotes
+      if status == :has_not_voted
+        votes = votes + 1
+      elsif status == :has_voted
+        votes = votes - 1
+      end
+      @response.update_attributes(downvotes: votes)
+
+      # if too many downvotes, this response will be reported
+      if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 10
+        @response.update_attributes(reported: true)
+      end
+      respond_with @response, status: :success
+    end
+
+    def report
+      if !report_helper
+        respond_with "Report limited exceeded.", status: :forbidden
+      else
+        @response = Topic::Response.find(params[:id])
+        @response.update_attributes(reported: true)
+        respond_with @response, status: :success
+      end
+    end
 
     def destroy
       @response = Topic::Response.find(params[:id])
