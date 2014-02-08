@@ -24,11 +24,6 @@ class Page::Layouts::Opinion < Layout
         'label' => 'Columnists',
         'extends' => columnists_schema,
       },
-      'cartoon' => {
-        'label' => 'Cartoon',
-        'extends' => image_schema,
-        'required' => true,
-      },
       'topic' => {
         'label' => 'Discussion Board ID',
         'required' => true,

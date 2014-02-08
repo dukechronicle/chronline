@@ -7,6 +7,7 @@
       %th Edit
       %th Archive
       %th Delete
+  %tbody
   - topics.each do |topic|
     %tr{id: "topic_#{topic.id}"}
       %td= link_to topic.title, admin_topic_path(topic)
