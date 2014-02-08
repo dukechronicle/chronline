@@ -30,15 +30,6 @@ Chronline::Application.routes.draw do
         get 'categories/:category' => 'blog_posts#categories', as: :category
       end
 
-      resources :topics, only: [:show, :index] do
-        resources :responses, only: :create, controller: 'topic_responses' do
-          member do
-            post :upvote
-            post :downvote
-          end
-        end
-      end
-
       resources :staff, only: :show do
         member do
           get 'articles'
@@ -163,6 +154,16 @@ Chronline::Application.routes.draw do
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
+      resources :topics, only: :none do
+        resources :responses, only: :create, controller: 'topic_responses' do
+          member do
+            post :upvote
+            post :downvote
+            post :report
+          end
+        end
+      end
+
     end
   end
 

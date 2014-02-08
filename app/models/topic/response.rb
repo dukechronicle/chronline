@@ -16,22 +16,14 @@ class Topic::Response < ActiveRecord::Base
 
   # checks content for blacklisted words. If there is a blacklisted word,
   # the response is automatically reported.
-  # TODO include subsets of words. So, 'bitches' is blacklisted even though 
-  # only 'bitch' is in the blacklist. Is this a good method? May not be efficient
   def blacklist
     content = self.content.split(/\W+/)
     content.each do |word|
-
       @@blacklist.each do |bword|
         if bword.include?(word)
           self.reported = true
         end
       end
-=begin
-      if @@blacklist.include?(word)
-        self.reported = true
-      end
-=end
     end
   end
 
