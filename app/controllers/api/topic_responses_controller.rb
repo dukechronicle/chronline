@@ -4,8 +4,12 @@ class Api::TopicResponsesController < Api::BaseController
 
   def index
     @topic = Topic.find(params[:topic_id])
-    @responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 30)
-    respond_with @responses, status: :success
+    if !@topic
+      respond_with status: :unprocessable_entity
+      else
+      @responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 30)
+      respond_with @responses, status: :success
+    end
   end
 
   def create
