@@ -6,7 +6,8 @@ class CreateTopicResponses < ActiveRecord::Migration
 			t.boolean			:reported, default: false
 			t.integer			:upvotes, default: 0
 			t.integer 		:downvotes, default: 0
-			t.text 				:content
+			t.string 			:content
+      t.float       :score
 
       t.timestamps
     end
