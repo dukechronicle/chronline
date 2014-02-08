@@ -6,4 +6,7 @@
     .content-container
       %h1= @poll.title
       %h2= @poll.description
-      = render 'poll_results'
+      - if @voted
+        = render 'poll_results'
+      - else
+        = render 'poll_form'
