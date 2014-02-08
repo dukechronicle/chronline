@@ -6,6 +6,8 @@
 
     .responses
 
-    = form_for([:site, topic, topic.responses.build]) do |f|
+    = form_for([:api, topic, topic.responses.build],
+      url: api_topic_responses_url(topic, subdomain: :api),
+      subremote: true) do |f|
       = f.text_field :content, placeholder: 'Submit a response...'
       = f.submit 'Submit'
