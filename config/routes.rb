@@ -115,7 +115,7 @@ Chronline::Application.routes.draw do
 
       resources :pages, except: :show
       resources :staff, except: :show
-      
+
       resources :topics do
         member do
           post :archive
@@ -127,7 +127,7 @@ Chronline::Application.routes.draw do
           end
         end
       end
-      
+
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',
           id: Post::SLUG_PATTERN
