@@ -1,5 +1,8 @@
 #= require site/models/topic-response
 
 TopicResponse.Collection = Backbone.Collection.extend
-  urlRoot: ->
-    fullUrl('api', "/topics/#{this.get('topic_id')}/responses")
+  url: ->
+    fullUrl('api', "/topics/#{@topicId}/responses")
+
+  initialize: (_models, options) ->
+    @topicId = options.topicId
