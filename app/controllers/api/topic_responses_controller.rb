@@ -12,6 +12,7 @@ class Api::TopicResponsesController < Api::BaseController
     @response = Topic.find(params[:topic_id]).responses.build(params[:topic_response])
     if !verify_recaptcha
       respond_with "reCAPTCHA failure", status: :forbidden
+    end
     if !@response.save
       respond_with @response.errors, status: :unprocessable_entity
     else
@@ -29,7 +30,6 @@ class Api::TopicResponsesController < Api::BaseController
       votes = votes - 1
     end
     @response.update_attributes(upvotes: votes)
-    end
     respond_with @response, status: :success
   end
 
