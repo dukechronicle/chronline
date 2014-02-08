@@ -11,13 +11,14 @@ class Admin::TopicResponsesController < Admin::BaseController
 
   def report
     @response = Topic::Response.find(params[:id])
-    @response.update_attributes(reported: !@response.reported)
+    @response.reported = !@response.reported
+    @response.save
     redirect_to :back
   end
 
   def approve
     @response = Topic::Response.find(params[:id])
-    @response.update_attributes(approved: !@response.approved)
+    @response.approved = !@response.approved
     redirect_to :back
   end
 
