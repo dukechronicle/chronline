@@ -421,7 +421,7 @@ DEPENDENCIES
   devise (~> 2.2.4)
   devise_invitable
   dotenv-rails (~> 0.9.0)
-  eco
+  eco (~> 1.0.0)
   factory_girl_rails
   feedzirra (~> 0.2.0.rc2)
   ffaker (~> 1.22.1)
