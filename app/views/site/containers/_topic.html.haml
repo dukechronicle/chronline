@@ -1,0 +1,11 @@
+%h2.vertical-label= title
+.rounded
+  .topic-container
+    %h2= topic.title
+    %p= topic.description
+
+    .responses
+
+    = form_for([:site, topic, topic.responses.build]) do |f|
+      = f.text_field :content, placeholder: 'Submit a response...'
+      = f.submit 'Submit'
