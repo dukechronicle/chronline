@@ -8,9 +8,9 @@ class Topic::Response < ActiveRecord::Base
 
   belongs_to :topic
 
-  attr_accessible :content, :approved, :reported, :upvotes, :downvotes
-
   validates :content, presence: true, length: { maximum: 140 }
+
+  attr_accessible :content
 
   before_save :blacklist
 
