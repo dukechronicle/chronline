@@ -3,7 +3,7 @@ class Api::TopicResponsesController < Api::BaseController
   REPORT_LIMIT = 10
 
   def index
-    @topic = Topic.find(params[:topic_id)])
+    @topic = Topic.find(params[:topic_id])
     @responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 30)
     respond_with @responses, status: :success
   end
@@ -58,6 +58,7 @@ class Api::TopicResponsesController < Api::BaseController
       @response = Topic::Response.find(params[:id])
       @response.update_attributes(reported: true)
       respond_with @response, status: :success
+    end
   end
 
   def destroy
