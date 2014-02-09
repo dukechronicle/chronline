@@ -4,11 +4,11 @@ class Api::TopicResponsesController < Api::BaseController
 
   def index
     @topic = Topic.find(params[:topic_id])
-    if !@topic
-      respond_with status: :unprocessable_entity
-      else
+    if @topic
       @responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 30)
-      respond_with @responses, status: :success
+      respond_with @responses, status: :ok
+    else
+      respond_with status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class Api::TopicResponsesController < Api::BaseController
       votes = votes - 1
     end
     @response.update_attributes(upvotes: votes)
-    respond_with @response, status: :success
+    respond_with @response, status: :ok
   end
 
   def downvote
@@ -52,7 +52,7 @@ class Api::TopicResponsesController < Api::BaseController
     if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 10
       @response.update_attributes(reported: true)
     end
-    respond_with @response, status: :success
+    respond_with @response, status: :ok
   end
 
   def report
@@ -61,14 +61,14 @@ class Api::TopicResponsesController < Api::BaseController
     else
       @response = Topic::Response.find(params[:id])
       @response.update_attributes(reported: true)
-      respond_with @response, status: :success
+      respond_with @response, status: :ok
     end
   end
 
   def destroy
     @response = Topic::Response.find(params[:id])
     @response.destroy
-    respond_with status: :success
+    respond_with status: :ok
   end
 
   private
