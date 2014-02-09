@@ -1,4 +1,4 @@
-<p><%= @content %></p>
+<p class="content"><%= @content %></p>
 <ul class="response-actions">
   <li>
     <button type="button" class="upvote"></button><span class="upvote-count"><%= @upvotes %></span>
