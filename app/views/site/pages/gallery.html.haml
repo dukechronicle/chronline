@@ -6,15 +6,17 @@
       .gallery.main
         - @model.slideshow.map{ |gallery| gallery.get_gallery_images.first }.each do |image|
           %img{:src => image.url, :data => {:link => site_gallery_path(image.get_gallery), :title => image.get_gallery.name}}
-    .rounded.clearfix.gal-col.span-4
+    .gal-col.span-4
       - @model.news.each do |gallery|
-        .small-gallery
-          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 300}
-    .rounded.clearfix.gal-col
+        .rounded.clearfix.gal-col
+          .small-gallery
+            = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 300}
       - puts @model.sports.inspect
+    .gal-col
       - @model.sports.each do |gallery|
-        .small-gallery
-          = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 300}
+        .rounded.clearfix.gal-col.span-4
+          .small-gallery
+            = render partial: 'site/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 300}
   .span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     %h2.vertical-label Twitter
