@@ -1,1 +1,15 @@
 <p><%= @content %></p>
+<ul class="response-actions">
+  <li>
+    <button type="button" class="upvote"></button><span class="upvote-count"><%= @upvotes %></span>
+  </li>
+  <li>
+    <button type="button" class="downvote"></button><span class="downvote-count"><%= @downvotes %></span>
+  </li>
+  <li>
+    <button type="button" class="report">Report</button>
+  </li>
+  <li>
+    <time datetime="<%= @created_at %>"><%= @timestamp %></time>
+  </li>
+</div>

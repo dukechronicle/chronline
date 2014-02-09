@@ -1,21 +1,33 @@
-.up_vote
-	color: black
-	font-size: 9px
-	font-family: serif
-.down_vote
-	color: black
-	font-size: 9px
-	font-family: serif
+ul.response-actions
+  list-style: none
+  padding: 0
+  margin: 0
+  font-family: sans-serif
+  color: $caption-color
 
-.up_vote.upvoted
-	font-size: 11px
-	color: #347C17
+  li
+    display: inline
+    &:last-child:after
+      content: none
+      color: $dark-text
+    &:after
+      content: "\b7"
+      color: $dark-text
 
-.down_vote.downvoted
-	font-size: 11px
-	color: #9F000F
+  button
+    cursor: pointer
+    color: $caption-color
+    background: none
+    border: none
+    padding: 0
+    outline: none
 
-.up_vote_number.upvoted
-	font-weight: bold
-.down_vote_number.downvoted
-	font-weight: bold
+  .upvote
+    &:before
+      content: "\25B2"
+      color: $dark-text
+
+  .downvote
+    &:before
+      content: "\25BC"
+      color: $dark-text
