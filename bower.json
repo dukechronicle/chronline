@@ -16,7 +16,8 @@
             "jquery-ui": "~1.10.3",
             "onde": "git://github.com/exavolt/onde.git",
             "underscore": "~1.5.2",
-            "lightbox2": "latest"
+            "lightbox2": "latest",
+            "imagesloaded": "latest"
         }
     }
 }

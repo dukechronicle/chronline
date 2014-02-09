@@ -8,5 +8,8 @@
 //= require common/social-media
 //= require common/analytics
 //= require common/local-time
-//= require_tree ./site
+//= require eventEmitter/EventEmitter.min.js
+//= require eventie/eventie.js
+//= require imagesloaded/imagesloaded.js
 //= require lightbox2/js/lightbox-2.6.min
+//= require_tree ./site

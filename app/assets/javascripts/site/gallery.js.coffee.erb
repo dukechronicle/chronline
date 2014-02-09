@@ -13,7 +13,6 @@ initialize '.gallery', ->
     height: size[1]
   Galleria.on "image",(e) ->
     parsed = parseInfo(e.galleriaData.description)
-    console.log(parsed)
     credit = parsed[0]
     caption = parsed[1]
     updateText("#imageinfo", caption)
@@ -30,4 +29,12 @@ updateText = (id, text) ->
     $(id).append(text)
 
 parseInfo = (info) ->
-  info.split("__credit__:")[1].split("__caption__:")
+  info.split("__credit__:")[1].split("__caption__:") if info
+
+$container = $('#galleryContainer')
+imagesLoaded( $container, ->
+  $container.masonry({
+    itemSelector: ".small-gallery",
+    gutter: 2
+  })
+)
