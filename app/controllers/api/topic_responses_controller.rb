@@ -6,7 +6,7 @@ class Api::TopicResponsesController < Api::BaseController
     @topic = Topic.find(params[:topic_id])
     if @topic
       @responses = @topic.responses.order('created_at DESC').paginate(page: params[:page], per_page: 30)
-      respond_with @responses, status: :ok
+      respond_with_topic_responses @responses, status: :ok
     else
       respond_with status: :unprocessable_entity
     end
@@ -20,7 +20,7 @@ class Api::TopicResponsesController < Api::BaseController
     if !@response.save
       respond_with @response.errors, status: :unprocessable_entity
     else
-      respond_with @response, status: :created
+      respond_with_topic_responses @response, status: :created
     end
   end
 
@@ -33,8 +33,9 @@ class Api::TopicResponsesController < Api::BaseController
     elsif status == :has_voted
       votes = votes - 1
     end
-    @response.update_attributes(upvotes: votes)
-    respond_with @response, status: :ok
+    @response.upvotes = votes
+    @response.save
+    respond_with_topic_responses @response, status: :ok
   end
 
   def downvote
@@ -46,13 +47,14 @@ class Api::TopicResponsesController < Api::BaseController
     elsif status == :has_voted
       votes = votes - 1
     end
-    @response.update_attributes(downvotes: votes)
+    @response.downvotes = votes
 
     # if too many downvotes, this response will be reported
     if Float(@response.downvotes+1)/Float(@response.upvotes+1) > 10
-      @response.update_attributes(reported: true)
+      @response.reported = true
     end
-    respond_with @response, status: :ok
+    @response.save
+    respond_with_topic_responses @response, status: :ok
   end
 
   def report
@@ -61,7 +63,7 @@ class Api::TopicResponsesController < Api::BaseController
     else
       @response = Topic::Response.find(params[:id])
       @response.update_attributes(reported: true)
-      respond_with @response, status: :ok
+      respond_with_topic_responses @response, status: :ok
     end
   end
 
@@ -109,6 +111,23 @@ class Api::TopicResponsesController < Api::BaseController
         session[:downvotes][response_id] = false
         return :has_voted
       end
+    end
+
+    def respond_with_topic_responses(responses, options = {})
+      options.merge!(
+        properties: {
+          upvoted: ->(response) { 
+            (upvotes = session[:upvotes]).nil? ? false : upvotes[response.id]
+          },
+          downvoted: ->(response) { 
+            (downvotes = session[:downvotes]).nil? ? false : downvotes[response.id]
+          },
+          reported: ->(response) { 
+            (reported = session[:reported]).nil? ? false : reported[response.id]
+          },
+        }
+      )
+      respond_with responses, options
     end
 
 end
