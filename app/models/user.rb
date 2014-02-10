@@ -15,4 +15,7 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def admin?
+    role.to_s == 'admin'
+  end
 end

@@ -53,7 +53,7 @@ FactoryGirl.define do
       last_name "Ketchum"
       email "ash@ketch.um"
       password "charizard"
-      admin true
+      role "admin"
     end
   end
 
