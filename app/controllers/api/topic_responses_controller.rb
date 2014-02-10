@@ -5,7 +5,7 @@ class Api::TopicResponsesController < Api::BaseController
     @topic = Topic.find(params[:topic_id])
     @responses = @topic.responses
       .order('created_at DESC')
-      .paginate(page: params[:page], per_page: 30)
+      .paginate(page: params[:page], per_page: 10)
     respond_with_topic_responses @responses
   end
 

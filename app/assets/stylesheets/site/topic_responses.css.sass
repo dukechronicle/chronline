@@ -32,14 +32,14 @@
       &:before
         content: "\25B2"
         color: $dark-text
-    .upvote.voted
-      &:before
-        color: #239023
-
     .downvote
       &:before
         content: "\25BC"
         color: $dark-text
-    .downvote.voted
-      &:before
-        color: darkred
+    .voted
+      .upvote
+        &:before
+          color: #239023
+      .downvote
+        &:before
+          color: darkred
