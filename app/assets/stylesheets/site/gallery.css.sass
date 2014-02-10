@@ -33,6 +33,7 @@
   padding: 3px
   font-size: 18px
   text-align: left
+  line-height: 1.25
 .social
   float: right
   width: 150px
@@ -52,9 +53,11 @@
   margin-top: 6px
 .small-gallery
   margin-bottom: -30px
+  width: 210px
 .small-gallery a
   color: #222
-  +single-transition(border-color, .25s, linear)
+.small-gallery a:hover
+  color: $link-color
 #imageinfo
   clear: both
   width: 100%
