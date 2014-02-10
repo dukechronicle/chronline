@@ -100,10 +100,6 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    devise_invitable (1.1.8)
-      actionmailer (~> 3.0)
-      devise (>= 2.1.2)
-      railties (~> 3.0)
     diff-lcs (1.2.5)
     dotenv (0.9.0)
     dotenv-rails (0.9.0)
@@ -413,7 +409,6 @@ DEPENDENCIES
   default_value_for
   delayed_paperclip
   devise (~> 2.2.4)
-  devise_invitable
   dotenv-rails (~> 0.9.0)
   factory_girl_rails
   feedzirra (~> 0.2.0.rc2)
