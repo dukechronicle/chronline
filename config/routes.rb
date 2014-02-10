@@ -7,6 +7,7 @@ Chronline::Application.routes.draw do
   constraints subdomain: 'www' do
     devise_for :users, controllers: {
       sessions: 'site/sessions',
+      registrations: 'site/registrations',
       passwords: 'site/passwords',
     }
 
