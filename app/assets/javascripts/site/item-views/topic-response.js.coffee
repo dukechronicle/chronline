@@ -6,6 +6,16 @@ window.TopicResponseView = Backbone.Marionette.ItemView.extend
   tagName: 'li'
   className: 'topic-response'
 
+  events:
+    'click .upvote': 'upvote'
+    'click .downvote': 'downvote'
+
+  upvote: ->
+    @model.upvote()
+
+  downvote: ->
+    @model.downvote()
+
   formatDate: (time) ->
     now = new Date()
     if time.getFullYear() == now.getFullYear() and

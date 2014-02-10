@@ -1,14 +1,16 @@
 <p class="content"><%= @content %></p>
 <ul class="response-actions">
-  <li>
-    <button type="button" class="upvote"></button><span class="upvote-count"><%= @upvotes %></span>
+  <li class="<%= 'voted' if @upvoted %>">
+    <button type="button" class="upvote"></button><span class="count"><%= @upvotes %></span>
   </li>
-  <li>
-    <button type="button" class="downvote"></button><span class="downvote-count"><%= @downvotes %></span>
+  <li class="<%= 'voted' if @downvoted %>">
+    <button type="button" class="downvote"></button><span class="count"><%= @downvotes %></span>
   </li>
+  <% unless @reported: %>
   <li>
     <button type="button" class="report">Report</button>
   </li>
+  <% end %>
   <li>
     <time datetime="<%= @created_at %>"><%= @timestamp %></time>
   </li>
