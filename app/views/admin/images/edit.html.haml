@@ -8,7 +8,7 @@
   = f.select :crop_style, Image::Styles.map {|type, info| [type.capitalize, type, 'data-dimensions' => info.to_json]}
   = f.submit 'Crop Version', class: 'btn'
 
-= simple_form_for [:admin, @image], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}} do |f|
+= simple_form_for [:admin, @image], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, wrapper: :bootstrap do |f|
   %legend Photo Information
   = f.error_notification
   .form-inputs
