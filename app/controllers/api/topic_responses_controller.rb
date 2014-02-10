@@ -5,8 +5,9 @@ class Api::TopicResponsesController < Api::BaseController
   def index
     @topic = Topic.find(params[:topic_id])
     if @topic
-      @responses = @topic.responses.order('created_at DESC').
-      @responses.paginate(page: params[:page], per_page: 30)
+      @responses = @topic.responses
+      .order('created_at DESC')
+      .paginate(page: params[:page], per_page: 30)
       respond_with_topic_responses @responses, status: :ok
     else
       respond_with status: :unprocessable_entity
@@ -108,16 +109,19 @@ class Api::TopicResponsesController < Api::BaseController
 
     # for multiple responses
     def respond_with_topic_responses(responses, options = {})
+      upvotes = session[:upvotes]
+      downvotes = session[:downvotes]
+      reports = session[:reported]
       options.merge!(
         properties: {
           session_upvoted: ->(response) { 
-            session[:upvotes].nil? ? false : session[:upvotes][response.id]
+            upvotes.nil? ? false : upvotes[response.id]
           },
           session_downvoted: ->(response) { 
-            session[:downvotes].nil? ? false : session[:downvotes][response.id]
+            downvotes.nil? ? false : downvotes[response.id]
           },
           session_reported: ->(response) { 
-            session[:reported].nil? ? false : session[:reported][response.id]
+            reports.nil? ? false : reports[response.id]
           },
         }
       )
