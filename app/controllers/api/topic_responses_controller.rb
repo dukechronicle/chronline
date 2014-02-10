@@ -20,7 +20,7 @@ class Api::TopicResponsesController < Api::BaseController
     if !@response.save
       respond_with @response.errors, status: :unprocessable_entity
     else
-      respond_with_topic_responses @response, status: :created
+      respond_with_topic_response @response, status: :created
     end
   end
 
@@ -35,7 +35,7 @@ class Api::TopicResponsesController < Api::BaseController
     end
     @response.upvotes = votes
     @response.save
-    respond_with_topic_responses @response, status: :ok
+    respond_with_topic_response @response, status: :ok
   end
 
   def downvote
@@ -54,7 +54,7 @@ class Api::TopicResponsesController < Api::BaseController
       @response.reported = true
     end
     @response.save
-    respond_with_topic_responses @response, status: :ok
+    respond_with_topic_response @response, status: :ok
   end
 
   def report
@@ -62,8 +62,9 @@ class Api::TopicResponsesController < Api::BaseController
       respond_with "Report limited exceeded.", status: :forbidden
     else
       @response = Topic::Response.find(params[:id])
-      @response.update_attributes(reported: true)
-      respond_with_topic_responses @response, status: :ok
+      @response.reported = true
+      @response.save
+      respond_with_topic_response @response, status: :ok
     end
   end
 
@@ -113,6 +114,7 @@ class Api::TopicResponsesController < Api::BaseController
       end
     end
 
+    # for multiple responses
     def respond_with_topic_responses(responses, options = {})
       options.merge!(
         properties: {
@@ -130,4 +132,15 @@ class Api::TopicResponsesController < Api::BaseController
       respond_with responses, options
     end
 
+    # for a single Topic::Response
+    def respond_with_topic_response(response, options = {})
+      response_hash = response.as_json
+      params = {       
+            upvoted: (upvotes = session[:upvotes]).nil? ? false : upvotes[response.id],
+            downvoted: (downvotes = session[:downvotes]).nil? ? false : downvotes[response.id],
+            reported: (reported = session[:reported]).nil? ? false : reported[response.id]
+      }
+      response_hash.merge!(params)
+      render json: response_hash, status: options[:status]
+    end
 end
