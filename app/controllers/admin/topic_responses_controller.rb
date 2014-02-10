@@ -19,6 +19,7 @@ class Admin::TopicResponsesController < Admin::BaseController
   def approve
     @response = Topic::Response.find(params[:id])
     @response.approved = !@response.approved
+    @response.save
     redirect_to :back
   end
 
