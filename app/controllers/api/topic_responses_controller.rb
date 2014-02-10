@@ -114,14 +114,14 @@ class Api::TopicResponsesController < Api::BaseController
       reports = session[:reported]
       options.merge!(
         properties: {
-          session_upvoted: ->(response) { 
+          upvoted: ->(response) { 
             upvotes.nil? ? false : upvotes[response.id]
           },
-          session_downvoted: ->(response) { 
+          downvoted: ->(response) { 
             downvotes.nil? ? false : downvotes[response.id]
           },
-          session_reported: ->(response) { 
-            reports.nil? ? false : reports[response.id]
+          reports: ->(response) { 
+            reports.nil? ? false : reports
           },
         }
       )
@@ -135,9 +135,9 @@ class Api::TopicResponsesController < Api::BaseController
       downvotes = session[:downvotes]
       reports = session[:reported]
       params = {       
-            session_upvoted: upvotes.nil? ? false : upvotes[response.id],
-            session_downvoted: downvotes.nil? ? false : downvotes[response.id],
-            session_reported: reports.nil? ? false : reports[response.id]
+            upvoted: upvotes.nil? ? false : upvotes[response.id],
+            downvoted: downvotes.nil? ? false : downvotes[response.id],
+            reports: reports.nil? ? false : reports
       }
       response_hash.merge!(params)
       render json: response_hash, status: options[:status]
