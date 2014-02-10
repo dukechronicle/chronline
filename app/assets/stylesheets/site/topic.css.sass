@@ -1,41 +1,51 @@
 .topic-container
-	padding: 1.2em 1.5em
+  .title
+    margin-bottom: .25em
 
-	.wrapper-div
-		margin: 1.0em 0.0em 1.0em
-		border: 2px solid #B8B8B8
-		overflow-y: scroll
-		height: 400px
+  padding: 1.2em 1.5em
 
-	.subtitle
-		font-size: 1.5em
-		margin-top: -10px
-		margin-bottom: 1.0px
-		font-style: italic
+  ul.responses
+    padding: 0
+    margin: 0
+    border: 2px solid #B8B8B8
+    overflow-x: hidden
+    overflow-y: scroll
+    height: 400px
+    list-style: none
 
-	.response
-		padding: 0.3em 0.3em
-		border-bottom: 1px solid #D0D0D0
-		position: relative
+  li.topic-response
+    border-bottom: 1px solid #B8B8B8
+    padding: 5px 3px
+    &:last-child
+      border-bottom: none
 
-		.votes
-			display: inline-block
-			padding: 0.0em 0.5em
-			border-right: 1px solid #D0D0D0
-			.vote-button
-				display: block
+  .wrapper-div
+    margin: 1.0em 0.0em 1.0em
+    border: 2px solid #B8B8B8
+    overflow-y: scroll
+    height: 400px
 
-		.content
-			padding: 0.0em 0.5em
-			position: absolute
-			top: 30%
-			font-size: 1.1em
-		.timestamp
-			font-size: 0.8em
-			float: right
-			font-style: italic
-			color: grey
+  .subtitle
+    font-size: 1.5em
+    margin-top: -10px
+    margin-bottom: 1.0px
+    font-style: italic
 
-	.response-input
-		width: 100%
-		box-sizing: border-box
+  .response
+    padding: 0.3em 0.3em
+    border-bottom: 1px solid #D0D0D0
+    position: relative
+
+  textarea#topic_response_content
+    font-family: sans-serif
+    display: none
+    height: 60px
+    box-sizing: border-box
+    width: 100%
+
+  #recaptcha_widget_div
+    display: none
+
+  #topic_response_error
+    display: none
+    margin: .5em 0 .2em
