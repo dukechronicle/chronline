@@ -1,7 +1,7 @@
 initialize '#discussion-board', ->
   topicId = $(this).find('.topic-container').data('id')
   responses = new TopicResponse.Collection([], topicId: topicId)
-  responses.fetch
+  responses.nextPage
     success: =>
       view = new TopicResponsesView(
         collection: responses
