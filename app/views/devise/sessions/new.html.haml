@@ -1,13 +1,20 @@
 - provide :title, 'Sign in'
 
-.rounded
-  .form-container
-    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .form-inputs
-        = f.input :email, required: false, autofocus: true
-        = f.input :password, required: false
-        = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-      .form-actions
-        = f.button :submit, "Sign in"
+.span-8
+  .rounded
+    .form-container
+      = render 'site/partials/flash', flash: flash
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        %fieldset
+          .form-inputs
+            = f.input :email, required: false, autofocus: true
+            = f.input :password, required: false
+            = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
 
-    = render 'devise/shared/links'
+          .form-actions
+            = f.button :submit, "Sign in"
+
+      = render 'devise/shared/links'
+
+.span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

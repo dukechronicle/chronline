@@ -1,12 +1,18 @@
 - provide :title, "Forgot your password?"
 
-.rounded
-  .form-container
-    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-      = f.error_notification
-      .form-inputs
-        = f.input :email, required: true, autofocus: true
-      .form-actions
-        = f.button :submit, "Send me reset password instructions"
+.span-8
+  .rounded
+    .form-container
+      = render 'site/partials/flash', flash: flash
+      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+        = f.error_notification
+        %fieldset
+          .form-inputs
+            = f.input :email, required: true, autofocus: true
+          .form-actions
+            = f.button :submit, "Send me reset password instructions"
 
-    = render 'devise/shared/links'
+      = render 'devise/shared/links'
+
+.span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

@@ -1,18 +1,24 @@
 - provide :title, "Change your password"
 
-.rounded
-  .form-container
-    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-      = f.error_notification
+.span-8
+  .rounded
+    .form-container
+      = render 'site/partials/flash', flash: flash
+      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+        = f.error_notification
 
-      = f.input :reset_password_token, as: :hidden
-      = f.full_error :reset_password_token
+        = f.input :reset_password_token, as: :hidden
+        = f.full_error :reset_password_token
 
-      .form_inputs
-        = f.input :password, label: "New password", required: true
-        = f.input :password_confirmation, label: "Confirm your new password", required: true
+        %fieldset
+          .form_inputs
+            = f.input :password, label: "New password", required: true
+            = f.input :password_confirmation, label: "Confirm your new password", required: true
 
-      .form-actions
-        = f.button :submit, "Change my password"
+          .form-actions
+            = f.button :submit, "Change my password"
 
-    = render 'devise/shared/links'
+      = render 'devise/shared/links'
+
+.span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
