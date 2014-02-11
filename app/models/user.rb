@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  Roles = %w(user admin)
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -11,6 +13,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+
+  default_value_for :role, Roles[0]
 
   def name
     "#{first_name} #{last_name}"
