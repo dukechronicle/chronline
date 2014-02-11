@@ -14,26 +14,20 @@ class Site::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   layout 'site'
 
   def facebook
-    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"])
-
-    if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication
-      if is_navigational_format?
-        set_flash_message(:notice, :success, kind: 'Facebook')
-      end
-    else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
-    end
+    oauth_callback('facebook')
   end
 
   def google_oauth2
-    @user = User.find_for_google_oauth(request.env["omniauth.auth"])
+    oauth_callback('google')
+  end
 
-    if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication
+  private
+  def oauth_callback(provider)
+    user = User.find_for_oauth(provider, request.env["omniauth.auth"])
+    if user.persisted?
+      sign_in_and_redirect user, event: :authentication
       if is_navigational_format?
-        set_flash_message(:notice, :success, kind: 'Google')
+        set_flash_message(:notice, :success, kind: provider.capitalize)
       end
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
