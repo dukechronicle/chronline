@@ -63,15 +63,15 @@ Chronline::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Configure ActionMailer to use Gmail
-  # Configure ActionMailer to use Gmail
   ActionMailer::Base.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
+    address: ENV['SMTP_ADDRESS'],
+    port: ENV['SMTP_PORT'],
     authentication: :plain,
     enable_starttls_auto: true,
-    domain: ENV['GMAIL_DOMAIN'],
-    user_name: ENV['GMAIL_USERNAME'],
-    password: ENV['GMAIL_PASSWORD'],
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
   }
+  if ENV['SMTP_DOMAIN'].present?
+    ActionMailer::Base.smtp_settings[:domain] = ENV['SMTP_DOMAIN']
+  end
 end
