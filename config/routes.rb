@@ -116,7 +116,7 @@ Chronline::Application.routes.draw do
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 
-      resources :users, only: [:search, :index, :show] do
+      resources :users, only: [:index, :show] do
         post :change_role, on: :member
       end
 
