@@ -16,4 +16,15 @@ class Admin::UsersController < Admin::BaseController
   def show
     @user = User.find(params[:id])
   end
+
+  def change_role
+    @user = User.find(params[:id])
+    @user.role = params[:user][:role]
+    logger.debug @user
+    if @user.save
+      redirect_to [:admin, @user]
+    else
+      render 'show'
+    end
+  end
 end
