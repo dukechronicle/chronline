@@ -16,8 +16,8 @@ class AddTrackableToUsers < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Omniauth
-      t.string :provider
-      t.string :uid
+      t.string :facebook_uid
+      t.string :google_uid
     end
   end
 end
