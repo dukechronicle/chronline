@@ -3,6 +3,9 @@
   - User::Roles.each do |role|
     %li{class: ('active' if @role == role)}
       = link_to role.capitalize, admin_users_path(role: role)
+  %form.navbar-search.pull-right
+    %input.search-query{type: 'email', name: 'email'}
+    %input.btn{type: 'submit', value: 'Search by email'}
 
 %table.table.table-striped
   %thead
