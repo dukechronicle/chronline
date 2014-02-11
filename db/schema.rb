@@ -43,43 +43,6 @@ ActiveRecord::Schema.define(:version => 20140211165459) do
 
   add_index "blog_series", ["tag_id"], :name => "index_blog_series_on_tag_id"
 
-  create_table "bracket_games", :force => true do |t|
-    t.integer  "team1_id"
-    t.integer  "team2_id"
-    t.integer  "score1"
-    t.integer  "score2"
-    t.integer  "position"
-    t.integer  "year"
-    t.datetime "start_time"
-    t.boolean  "final",      :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
-  add_index "bracket_games", ["year", "position"], :name => "index_bracket_games_on_year_and_position"
-
-  create_table "bracket_teams", :force => true do |t|
-    t.string   "school"
-    t.string   "shortname"
-    t.string   "mascot"
-    t.integer  "seed"
-    t.integer  "region_id"
-    t.integer  "espn_id"
-    t.integer  "year"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "bracket_teams", ["year", "seed", "region_id"], :name => "index_bracket_teams_on_year_and_seed_and_region_id"
-
-  create_table "brackets", :force => true do |t|
-    t.integer  "year"
-    t.string   "user_id"
-    t.text     "picks"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
     t.integer  "sluggable_id",                 :null => false

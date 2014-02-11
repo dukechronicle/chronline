@@ -25,15 +25,14 @@ class ApplicationController < ActionController::Base
   end
 
   def social_crawler?
-    CRAWLERS.any? {|crawler| request.user_agent =~ crawler}
+    CRAWLERS.any? { |crawler| request.user_agent =~ crawler }
   end
 
   def force_ssl
-    redirect_ssl if current_user.try(:admin?)
+    redirect_ssl if user_signed_in?
   end
 
   def redirect_ssl
     redirect_to protocol: "https://" if request.protocol != "https://"
   end
-
 end
