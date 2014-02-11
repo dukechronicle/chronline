@@ -1,5 +1,5 @@
 require 'resque/server'
-require_dependency 'site/users_controller' # contains site devise controllers
+require 'site/users_controller' # contains site devise controllers
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
@@ -9,6 +9,7 @@ Chronline::Application.routes.draw do
       sessions: 'site/sessions',
       registrations: 'site/registrations',
       passwords: 'site/passwords',
+      omniauth_callbacks: 'site/omniauth_callbacks',
     }
 
     namespace :site, path: '/'  do
