@@ -40,9 +40,12 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     ## Inputs
-    b.use :label_input
-    b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
-    b.use :error, :wrap_with => { :tag => :span, :class => :error }
+    b.use :label
+    b.wrapper tag: 'div', class: 'controls' do |ba|
+      ba.use :input
+      ba.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
+      ba.use :error, :wrap_with => { :tag => :span, :class => 'inline-error' }
+    end
   end
 
   # The default wrapper to be used by the FormBuilder.
