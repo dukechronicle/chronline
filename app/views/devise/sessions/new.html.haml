@@ -12,7 +12,7 @@
             = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
 
           .form-actions
-            = f.button :submit, "Sign in"
+            = f.button :submit, "Sign in", class: 'button button-rounded button-primary'
 
       = render 'devise/shared/links'
 
