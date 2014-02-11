@@ -10,7 +10,7 @@
           .form-inputs
             = f.input :email, required: true, autofocus: true
           .form-actions
-            = f.button :submit, "Send me reset password instructions"
+            = f.button :submit, "Send me reset password instructions", class: 'button button-rounded button-primary'
 
       = render 'devise/shared/links'
 
