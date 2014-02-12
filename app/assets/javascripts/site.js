@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery-ui/ui/jquery-ui
 //= require underscore/underscore
+//= require backbone/backbone
 
 //= require util
 //= require initialize
