@@ -8,9 +8,9 @@ class Page::Layouts::LargeEmbed < Layout
         'required' => true,
         'items' => article_schema,
        },
-      'storify' => {
+      'large_embed' => {
         'type' => 'string',
-        'label' => 'Storfiy Embed',
+        'label' => 'Large Embed',
       },
       'video' => {
         'label' => 'Video Embed Code',
