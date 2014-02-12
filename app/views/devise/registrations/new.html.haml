@@ -1,7 +1,8 @@
 - provide :title, 'Sign up'
 
-.span-8
-  .rounded
+
+.rounded.clearfix.align-group
+  .span-6.align-element{data: {aligntarget: 'fieldset'}}
     .form-container
       = render 'site/partials/flash', flash: flash
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
@@ -17,7 +18,11 @@
           .form-actions
             = f.button :submit, "Sign up", class: 'button button-rounded button-primary'
 
-      = render 'devise/shared/links'
+          = render 'devise/shared/links'
 
-.span-4.last
-  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+  .span-6.last.align-element{data: {aligntarget: 'fieldset'}}
+    .form-container
+      %fieldset
+        = link_to '', omniauth_authorize_path(resource_name, :facebook), class: 'facebook-login'
+        = link_to '', omniauth_authorize_path(resource_name, :google_oauth2), class: 'google-login'
+
