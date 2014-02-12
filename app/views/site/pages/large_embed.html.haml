@@ -2,7 +2,7 @@
   .span-8
     .align-element
       = render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow, pages: [], pages_first: true}
-    != @model.storify
+    != @model.large_embed
   .span-4.last.align-element
     = render partial: 'site/partials/video', locals: {video: @model.video }
     - (@model.side_articles || []).each_with_index do |article, i|
