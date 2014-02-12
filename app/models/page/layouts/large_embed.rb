@@ -1,4 +1,4 @@
-class Page::Layouts::Storify < Layout
+class Page::Layouts::LargeEmbed < Layout
 
   def schema
     {
