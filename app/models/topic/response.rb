@@ -1,4 +1,5 @@
 class Topic::Response < ActiveRecord::Base
+  default_scope where("reported = false OR approved = true")
 
   @@blacklist = File.read("config/blacklist.txt").split(",").collect(&:strip).to_set
 

@@ -6,7 +6,6 @@ class Api::TopicResponsesController < Api::BaseController
     @topic = Topic.find(params[:topic_id])
     if @topic
       @responses = @topic.responses
-      .where("reported = ? OR approved = ?", false, true)
       .order('created_at DESC')
       .paginate(page: params[:page], per_page: 30)
       respond_with_topic_responses @responses, status: :ok
@@ -93,30 +92,31 @@ class Api::TopicResponsesController < Api::BaseController
     end
 
     # false means has not voted
-    def session_status_helper(response_id, option)
-      option = option.to_sym
-      if session[option].nil?
-        session[option] = { response_id => true }
+    def session_status_helper(response_id, up_or_down)
+      votestatus = votes_hashparam(response_id, up_or_down)
+      if session[votestatus].nil?
+        session[votestatus] = true
         return false
-      elsif not session[option][response_id]
-        session[option][response_id] = true
+      elsif session[votestatus]
+        session[votestatus]= true
         return false
-      elsif session[option][response_id]
-        session[option][response_id] = false
+      elsif session[votestatus]
+        session[votestatus] = false
         return true
       end
     end
 
+    def votes_hashparam(response_id, option)
+      (option.to_s + "_" + response_id.to_s).to_sym
+    end
 
     # for multiple responses
     def respond_with_topic_responses(responses, options = {})
-      upvotes = session[:upvotes]
-      downvotes = session[:downvotes]
       reports = session[:reports]
       options.merge!(
         properties: {
           upvoted: ->(response) { 
-            upvotes.nil? ? false : upvotes[response.id]
+            upvotes.nil? ? false : session[session_votes]
           },
           downvoted: ->(response) { 
             downvotes.nil? ? false : downvotes[response.id]
