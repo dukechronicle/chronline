@@ -72,12 +72,12 @@ class Api::TopicResponsesController < Api::BaseController
   private
 
     def report_helper
-      if session[:reported].nil?
-        session[:reported] = 1
+      if session[:reports].nil?
+        session[:reports] = 1
       else
-        session[:reported] = session[:reported] + 1
+        session[:reports] = session[:reports] + 1
       end
-      if session[:reported] > REPORT_LIMIT
+      if session[:reports] > REPORT_LIMIT
         return false
       end
       return true
@@ -111,7 +111,7 @@ class Api::TopicResponsesController < Api::BaseController
     def respond_with_topic_responses(responses, options = {})
       upvotes = session[:upvotes]
       downvotes = session[:downvotes]
-      reports = session[:reported]
+      reports = session[:reports]
       options.merge!(
         properties: {
           upvoted: ->(response) { 
@@ -133,7 +133,7 @@ class Api::TopicResponsesController < Api::BaseController
       response_hash = response.as_json
       upvotes = session[:upvotes]
       downvotes = session[:downvotes]
-      reports = session[:reported]
+      reports = session[:reports]
       params = {       
             upvoted: upvotes.nil? ? false : upvotes[response.id],
             downvoted: downvotes.nil? ? false : downvotes[response.id],
