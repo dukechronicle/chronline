@@ -1,7 +1,6 @@
 .clearfix.align-group
   .span-8
-    .align-element
-      = render partial: 'site/partials/image_slideshow', locals: {images: @model.slideshow}
+    != @model.slideshow_embed
     != @model.large_embed
   .span-4.last.align-element
     = render partial: 'site/partials/video', locals: {video: @model.video }
