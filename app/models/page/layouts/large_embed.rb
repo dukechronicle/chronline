@@ -4,9 +4,9 @@ class Page::Layouts::LargeEmbed < Layout
     {
       'slideshow' => {
         'type' => 'array',
-        'label' => 'Slideshow Articles',
+        'label' => 'Slideshow Images',
         'required' => true,
-        'items' => article_schema,
+        'items' => image_schema,
        },
       'large_embed' => {
         'type' => 'string',
