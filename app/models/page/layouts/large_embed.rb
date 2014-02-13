@@ -2,11 +2,10 @@ class Page::Layouts::LargeEmbed < Layout
 
   def schema
     {
-      'slideshow' => {
-        'type' => 'array',
-        'label' => 'Slideshow Images',
+      'slideshow_embed' => {
+        'type' => 'string',
+        'label' => 'Slideshow Embed',
         'required' => true,
-        'items' => image_schema,
        },
       'large_embed' => {
         'type' => 'string',
