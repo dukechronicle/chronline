@@ -38,7 +38,7 @@ Chronline::Application.routes.draw do
         end
       end
 
-      resources :polls, only: :show do
+      resources :polls do
         member do
           post 'vote'
         end

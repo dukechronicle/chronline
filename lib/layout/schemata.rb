@@ -69,3 +69,9 @@ Layout.add_schema(:datetime, {
                   }) do |datetimes|
   datetimes.map { |str| DateTime.iso8601(str) }
 end
+
+Layout.add_schema(:poll, {
+                    'type' => 'integer',
+                  }) do |poll_ids|
+  Poll.find_in_order(poll_ids)
+end

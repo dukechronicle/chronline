@@ -6,6 +6,7 @@
     .span-8.align-element{data: {alignprimary: "true"}}
       #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: true}
       #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+      #poll= render partial: 'site/containers/poll', locals: {poll: @model.poll}
 
     .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
       = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
