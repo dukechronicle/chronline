@@ -3,6 +3,7 @@
 //= require jquery-ui/ui/jquery-ui
 //= require underscore/underscore
 //= require backbone/backbone
+//= require marionette/lib/backbone.marionette
 
 //= require util
 //= require initialize

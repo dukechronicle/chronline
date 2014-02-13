@@ -284,6 +284,7 @@ GEM
     rdiscount (2.1.6)
     rdoc (3.12.2)
       json (~> 1.4)
+    recaptcha (0.3.6)
     redis (3.0.6)
     redis-actionpack (3.2.4)
       actionpack (~> 3.2.0)
@@ -420,7 +421,7 @@ DEPENDENCIES
   devise (~> 2.2.4)
   devise_invitable
   dotenv-rails (~> 0.9.0)
-  eco
+  eco (~> 1.0.0)
   factory_girl_rails
   feedzirra (~> 0.2.0.rc2)
   ffaker (~> 1.22.1)
@@ -452,6 +453,7 @@ DEPENDENCIES
   rails_12factor
   rb-readline (~> 0.5.0)
   rdiscount
+  recaptcha
   redis (~> 3.0.6)
   redis-rails (~> 3.2.4)
   require_all

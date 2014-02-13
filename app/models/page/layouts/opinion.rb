@@ -24,10 +24,10 @@ class Page::Layouts::Opinion < Layout
         'label' => 'Columnists',
         'extends' => columnists_schema,
       },
-      'cartoon' => {
-        'label' => 'Cartoon',
-        'extends' => image_schema,
+      'topic' => {
+        'label' => 'Discussion Board ID',
         'required' => true,
+        'extends' => topic_schema,
       },
     }
   end
