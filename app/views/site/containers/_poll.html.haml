@@ -1,0 +1,8 @@
+.rounded
+  .content-container
+    %h4.title= poll.title
+    %P= poll.description
+    - if voted_on_poll?(poll)
+      = render partial: 'site/containers/poll_results', locals: {poll: poll}
+    - else
+      = render partial: 'site/containers/poll_form', locals: {poll: poll}

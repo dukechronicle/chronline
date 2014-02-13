@@ -7,6 +7,8 @@ class Poll::Choice < ActiveRecord::Base
 
   default_value_for(:votes) { 0 }
 
+  default_scope order: 'votes DESC, title ASC'
+
   def self.find_create_or_delete_poll_choices(poll, titles)
     unused_choices = poll.choices.reject { |choice| not titles.include? choice.title }
     unused_choices.each { |choice| choice.destroy }
