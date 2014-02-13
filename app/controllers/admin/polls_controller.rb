@@ -10,6 +10,7 @@ class Admin::PollsController < Admin::BaseController
   def create
     @poll = update_poll(Poll.new)
     if @poll.save
+      flash[:success] = "Poll was created."
       redirect_to edit_admin_poll_url(@poll, subdomain: :admin)
     else
       render 'new'
@@ -23,6 +24,7 @@ class Admin::PollsController < Admin::BaseController
   def update
     @poll = update_poll(Poll.find(params[:id]))
     if @poll.save
+      flash[:success] = "Poll was updated."
       redirect_to edit_admin_poll_url(@poll, subdomain: :admin)
     else
       render 'new'

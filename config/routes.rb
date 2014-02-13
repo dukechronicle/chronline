@@ -120,7 +120,7 @@ Chronline::Application.routes.draw do
 
       resources :blog_series, except: :show
 
-      resources :polls do
+      resources :polls, except: :show do
         resources :choices, controller: 'poll_choices'
       end
 
