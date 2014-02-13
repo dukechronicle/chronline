@@ -6,6 +6,7 @@ class Api::TopicResponsesController < Api::BaseController
     @topic = Topic.find(params[:topic_id])
     if @topic
       @responses = @topic.responses
+      .where("reported = ? OR approved = ?", false, true)
       .order('created_at DESC')
       .paginate(page: params[:page], per_page: 30)
       respond_with_topic_responses @responses, status: :ok

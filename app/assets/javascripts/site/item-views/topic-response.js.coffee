@@ -9,6 +9,7 @@ window.TopicResponseView = Backbone.Marionette.ItemView.extend
   events:
     'click .upvote': 'upvote'
     'click .downvote': 'downvote'
+    'click .report': 'report'
 
   initialize: ->
     this.listenTo(@model, 'change', @render)
@@ -19,8 +20,8 @@ window.TopicResponseView = Backbone.Marionette.ItemView.extend
   downvote: ->
     @model.downvote()
 
-#  report: ->
-#    @model.report()
+  report: ->
+    @model.report()
 
   formatDate: (time) ->
     now = new Date()
