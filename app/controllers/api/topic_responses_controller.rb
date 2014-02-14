@@ -6,6 +6,7 @@ class Api::TopicResponsesController < Api::BaseController
     @topic = Topic.find(params[:topic_id])
     if @topic
       @responses = @topic.responses
+      .where("reported = false OR approved = true")
       .order('created_at DESC')
       .paginate(page: params[:page], per_page: 30)
       respond_with_topic_responses @responses, status: :ok
@@ -94,13 +95,10 @@ class Api::TopicResponsesController < Api::BaseController
     # false means has not voted
     def session_status_helper(response_id, up_or_down)
       votestatus = votes_hashparam(response_id, up_or_down)
-      if session[votestatus].nil?
+      if session[votestatus].nil? or not session[votestatus]
         session[votestatus] = true
         return false
-      elsif session[votestatus]
-        session[votestatus]= true
-        return false
-      elsif session[votestatus]
+      else
         session[votestatus] = false
         return true
       end
@@ -112,17 +110,16 @@ class Api::TopicResponsesController < Api::BaseController
 
     # for multiple responses
     def respond_with_topic_responses(responses, options = {})
-      reports = session[:reports]
       options.merge!(
         properties: {
-          upvoted: ->(response) { 
-            upvotes.nil? ? false : session[session_votes]
+          upvoted: ->(response) {
+            session[votes_hashparam(response.id, :upvotes)] ||= false
           },
-          downvoted: ->(response) { 
-            downvotes.nil? ? false : downvotes[response.id]
+          downvoted: ->(response) {
+            session[votes_hashparam(response.id, :downvotes)] ||= false
           },
-          reports: ->(response) { 
-            reports.nil? ? false : reports
+          reports: ->(response) {
+            session[:reports] ||= 0
           },
         }
       )
@@ -132,13 +129,10 @@ class Api::TopicResponsesController < Api::BaseController
     # for a single Topic::Response
     def respond_with_topic_response(response, options = {})
       response_hash = response.as_json
-      upvotes = session[:upvotes]
-      downvotes = session[:downvotes]
-      reports = session[:reports]
-      params = {       
-            upvoted: upvotes.nil? ? false : upvotes[response.id],
-            downvoted: downvotes.nil? ? false : downvotes[response.id],
-            reports: reports.nil? ? false : reports
+      params = {
+            upvoted: session[votes_hashparam(response.id, :upvotes)] ||= false,
+            downvoted: session[votes_hashparam(response.id, :downvotes)] ||= false,
+            reports: session[:reports] ||= 0
       }
       response_hash.merge!(params)
       render json: response_hash, status: options[:status]
