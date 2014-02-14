@@ -3,7 +3,7 @@ window.TopicResponse = Backbone.Model.extend
     fullUrl('api', "/topics/#{this.get('topic_id')}/responses")
 
   upvote: ->
-    this.request('downvote')
+    this.request('upvote')
     count = this.get('upvotes')
     if this.get('upvoted')
       this.set(upvoted: false, upvotes: count - 1)
@@ -19,12 +19,15 @@ window.TopicResponse = Backbone.Model.extend
       this.set(downvoted: true, downvotes: count + 1)
 
   report: ->
-    this.request('downvote')
+    this.request('report')
     this.set(reported: true)
 
   request: (action) ->
+    token = $("meta[name='csrf-token']").attr('content')
     $.ajax
       method: 'POST'
       url: "#{this.urlRoot()}/#{this.id}/#{action}"
+      headers:
+        'X-CSRF-Token': token
       xhrFields:
         withCredentials: true
