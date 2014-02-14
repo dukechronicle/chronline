@@ -3,7 +3,7 @@ window.TopicResponse = Backbone.Model.extend
     fullUrl('api', "/topics/#{this.get('topic_id')}/responses")
 
   upvote: ->
-    $.post("#{this.urlRoot()}/#{this.id}/upvote")
+    this.request('downvote')
     count = this.get('upvotes')
     if this.get('upvoted')
       this.set(upvoted: false, upvotes: count - 1)
@@ -11,7 +11,7 @@ window.TopicResponse = Backbone.Model.extend
       this.set(upvoted: true, upvotes: count + 1)
 
   downvote: ->
-    $.post("#{this.urlRoot()}/#{this.id}/downvote")
+    this.request('downvote')
     count = this.get('downvotes')
     if this.get('downvoted')
       this.set(downvoted: false, downvotes: count - 1)
@@ -19,5 +19,12 @@ window.TopicResponse = Backbone.Model.extend
       this.set(downvoted: true, downvotes: count + 1)
 
   report: ->
-    $.post("#{this.urlRoot()}/#{this.id}/report")
+    this.request('downvote')
     this.set(reported: true)
+
+  request: (action) ->
+    $.ajax
+      method: 'POST'
+      url: "#{this.urlRoot()}/#{this.id}/#{action}"
+      xhrFields:
+        withCredentials: true
