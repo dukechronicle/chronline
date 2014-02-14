@@ -19,15 +19,23 @@ module Admin::EventsHelper
 	end
 
 	def url_last_day
-		return day_admin_events_path(params[:year].to_i,
-									 params[:month].to_i,
-									(params[:day].to_i - 1))
+		if (params[:day].to_i > 1)
+			return day_admin_events_path(params[:year].to_i,
+									 	 params[:month].to_i,
+										(params[:day].to_i - 1))
+		else
+			return last_month
+		end
 	end
 
 	def url_next_day
-		return day_admin_events_path(params[:year].to_i,
-									 params[:month].to_i,
-									(params[:day].to_i + 1))
+		if (params[:day].to_i < 28)
+			return day_admin_events_path(params[:year].to_i,
+										 params[:month].to_i,
+										(params[:day].to_i + 1))
+		else
+			return next_month
+		end
 	end
 
 	def last_month
@@ -35,8 +43,7 @@ module Admin::EventsHelper
 			return month_admin_events_path(params[:year].to_i,
 										  (params[:month].to_i - 1))
 		else
-			return month_admin_events_path((params[:year].to_i - 1),
-											12)
+			return month_admin_events_path((params[:year].to_i - 1), 12)
 		end
 	end
 
@@ -45,10 +52,7 @@ module Admin::EventsHelper
 			return month_admin_events_path(params[:year].to_i,
 										  (params[:month].to_i + 1))
 		else
-			return month_admin_events_path((params[:year].to_i + 1),
-											01)
+			return month_admin_events_path((params[:year].to_i + 1), 01)
 		end
 	end
-
-	
 end
