@@ -5,11 +5,12 @@
       %th Date
       %th Gallery
       %th Actions
-  - @galleries.each do |gallery|
-    %tr{id: "gallery_#{gallery.gid}"}
-      %td= link_to gallery.gid, edit_admin_gallery_path(gallery)
-      %td= gallery.date
-      %td= link_to gallery.name, site_gallery_url(gallery, subdomain: 'www')
-      %td= link_to "Edit", edit_admin_gallery_path(gallery), class: 'btn btn-mini'
+  %tbody
+    - @galleries.each do |gallery|
+      %tr{id: "gallery_#{gallery.gid}"}
+        %td= link_to gallery.gid, edit_admin_gallery_path(gallery)
+        %td= gallery.date
+        %td= link_to gallery.name, site_gallery_url(gallery, subdomain: 'www')
+        %td= link_to "Edit", edit_admin_gallery_path(gallery), class: 'btn btn-mini'
 
 / = will_paginate
