@@ -5,6 +5,6 @@ class Topic < ActiveRecord::Base
   attr_accessible :title, :description, :archived
 
   validates :title, presence: true
-  validates :description, presence: true, length: { maximum: 100 }
+  validates :description
 
 end
