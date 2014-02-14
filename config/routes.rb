@@ -100,6 +100,13 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
+      resources :events, only: [:new, :create, :show, :index], id: Post::SLUG_PATTERN do
+        collection do
+          get '/:year/:month' => 'events#monthly', as: 'month' # TODO: add constraints for correct numbers 
+          get '/:year/:month/:day' => 'events#daily', as: 'day' # TODO: add constraints for correct numbers 
+          end
+      end
+
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
       end

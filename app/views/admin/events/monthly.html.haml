@@ -1,0 +1,50 @@
+.outer_calendar
+	.header-container
+		.title-container
+			%h3.white.title Duke Calendar
+		.month-container
+			%h3.white.month-name= @month_name + " " + params[:year]
+	.inner_calendar
+		.weekday-panel
+			%h4.block Sunday
+			%h4.block Monday
+			%h4.block Tuesday
+			%h4.block Wednesday
+			%h4.block Thursday
+			%h4.block Friday
+			%h4.block Saturday
+		.left_inner
+			-(1..@front_offset).each do
+				=link_to last_month do
+					.btn.invisible-day-block
+			-@keys.each do |key|
+				=link_to day_url(key) do 
+					-if (key == @today)
+						.btn.day-block-today
+							%p= key[3..4]
+							-if (@map[key] != nil)
+								-@map[key].each do |event|
+									%p.get-left= event.title
+					-else
+						.btn.day-block
+							%p= key[3..4]
+							-if (@map[key] != nil)
+								-@map[key].each do |event|
+									%p.get-left= event.title
+			-(1..@end_offset).each do
+				=link_to next_month do
+					.btn.invisible-day-block
+
+		.right_inner
+			%li= link_to('Jan', '/events/2014/01', class: 'link-style')
+			%li= link_to('Feb', '/events/2014/02', class: 'link-style')
+			%li= link_to('Mar', '/events/2014/03', class: 'link-style')
+			%li= link_to('Apr', '/events/2014/04', class: 'link-style')
+			%li= link_to('May', '/events/2014/05', class: 'link-style')
+			%li= link_to('Jun', '/events/2014/06', class: 'link-style')
+			%li= link_to('Jul', '/events/2014/07', class: 'link-style')
+			%li= link_to('Aug', '/events/2014/08', class: 'link-style')
+			%li= link_to('Sep', '/events/2014/09', class: 'link-style')
+			%li= link_to('Oct', '/events/2014/10', class: 'link-style')
+			%li= link_to('Nov', '/events/2014/11', class: 'link-style')
+			%li= link_to('Dec', '/events/2014/12', class: 'link-style')

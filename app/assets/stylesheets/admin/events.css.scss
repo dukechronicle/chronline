@@ -1,0 +1,139 @@
+.list-style {
+	list-style: none;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	padding-top: 5px;
+	border-top: solid 1px LightGray;
+	height: 75px;
+}
+
+.outer_calendar {
+	margin-top: 20px;
+}
+
+
+.header-container {
+	height: 50px;
+	background-color: #3333CC;
+	margin-top: 0px;
+}
+
+.month-link {
+	float: right;
+	font-size: .6em;
+}
+
+.month-container {
+	width: 350px;
+	height: 50px;
+	float: right;
+	margin-right: 450px;
+}
+
+.title-container {
+	float: left;
+	height: 50px;
+}
+
+.title {
+	margin-top: 5px;
+	text-align: center;
+}
+
+
+.get-left {
+	float: left;
+}
+
+.month-name {
+	text-align: center;
+	margin-top: 5px;
+}
+
+
+.inner_calendar {
+	background-color: white;
+	height: 820px;
+	border-right: solid 4px #3333CC;
+	border-left: solid 4px #3333CC;
+	border-bottom: solid 4px #3333CC;
+}
+
+.weekday-panel {
+	margin-left: 10px;
+	margin-right: 80px;
+	height: 30px;
+	margin-bottom: 10px;
+	font-size: 1.4em;
+	font-weight: bold;
+	.block {
+		width: 153px;
+		text-align: center;
+		float: left;
+	}
+}
+
+.left_inner {
+	margin-left: 10px;
+	width: 93%;
+	float: left;
+}
+
+.link-style {
+	margin-left: 3px;
+	color: SteelBlue;
+	&:hover {
+		color: LightGray;
+		text-decoration: none;
+	}
+}
+
+.right_inner {
+	float: left;
+	margin-top: 100px;
+	height: 300px;
+	font-size: 2.0em;
+	font-weight: bold;
+	color: white;
+	li {
+		list-style: none;
+		margin-bottom: 25px;
+		margin-top: 25px;
+	}
+}
+
+
+.white {
+	color: white;
+	margin-left: 10px;
+	margin-top: 5px;
+}
+
+.day-block {
+	width: 125px;
+	border-radius: 5px;
+	height: 142px;
+	border: solid 2px Gray;
+	float:left;
+	p {
+		margin-bottom: 0px;
+	}
+}
+
+.day-block-today {
+	width: 125px;
+	border: 3px solid Blue;
+	height: 142px;
+	float:left;
+	p {
+		margin-bottom: 0px;
+	}
+}
+
+
+.invisible-day-block {
+	width: 125px;
+	border-radius: 5px;
+	height: 142px;
+	float:left;
+}
