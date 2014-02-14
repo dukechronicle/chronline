@@ -5,6 +5,4 @@ class Topic < ActiveRecord::Base
   attr_accessible :title, :description, :archived
 
   validates :title, presence: true
-  validates :description
-
 end
