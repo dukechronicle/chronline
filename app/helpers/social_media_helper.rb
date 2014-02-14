@@ -9,7 +9,6 @@ module SocialMediaHelper
       share: "false",
       action: "recommend",
       colorscheme: "light",
-      float: "left"
     }
     content_tag :div, nil, class: 'fb-like', data: defaults.merge(options)
   end
