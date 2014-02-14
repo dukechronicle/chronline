@@ -18,9 +18,8 @@ class Api::TopicResponsesController < Api::BaseController
     response_params = params[:topic_response]
     @response = Topic.find(params[:topic_id]).responses.build(response_params)
     if !verify_recaptcha
-      respond_with "reCAPTCHA failure", status: :forbidden
-    end
-    if !@response.save
+      head status: :forbidden
+    elsif !@response.save
       respond_with @response.errors, status: :unprocessable_entity
     else
       respond_with_topic_response @response, status: :created
