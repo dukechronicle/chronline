@@ -1,5 +1,5 @@
 class Gallery < ActiveRecord::Base
-  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
   include FriendlyId
 
   friendly_id :name, use: [:slugged, :history]

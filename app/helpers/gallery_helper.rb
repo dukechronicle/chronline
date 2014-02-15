@@ -6,6 +6,10 @@ module GalleryHelper
     link_to photag.name, images_site_staff_path(photag)
   end
 
+  def permanent_gallery_url(gallery)
+    site_gallery_url(gallery.gid, subdomain: :www)
+  end
+
   def get_staff_from_photag(photag)
     names = []
     names << photag
