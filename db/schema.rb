@@ -57,11 +57,14 @@ ActiveRecord::Schema.define(:version => 20140201003855) do
   create_table "galleries", :id => false, :force => true do |t|
     t.string   "gid"
     t.string   "name"
+    t.string   "slug"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.date     "date"
   end
+
+  add_index "galleries", ["slug"], :name => "index_galleries_on_slug", :unique => true
 
   create_table "gallery_images", :id => false, :force => true do |t|
     t.string   "pid"

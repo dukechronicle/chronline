@@ -1,8 +1,9 @@
 class CreateGalleriesAndGalleryImages < ActiveRecord::Migration
   def change
     create_table :galleries, id: false do |t|
-      t.string :gid, primary_key: true
+      t.string :gid, :primary_key => true
       t.string :name
+      t.string :slug, unique: true
       t.text :description
 
       t.timestamps
@@ -19,5 +20,6 @@ class CreateGalleriesAndGalleryImages < ActiveRecord::Migration
     end
 
     add_index :gallery_images, [:gid, :pid], unique: true
+    add_index :galleries, :slug, unique: true
   end
 end

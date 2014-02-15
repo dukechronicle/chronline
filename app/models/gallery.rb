@@ -1,4 +1,9 @@
 class Gallery < ActiveRecord::Base
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
+  include FriendlyId
+
+  friendly_id :name, use: [:slugged, :history]
+
   self.primary_key = :gid
 
   attr_accessible :name, :gid, :description, :section, :photoshelter_images, :date
@@ -12,7 +17,7 @@ class Gallery < ActiveRecord::Base
 
   # replaces all sequences on non-alphanumeric characters with a dash
   # used to get the proper url for the photoshelter buy page
-  def slug
+  def photoshelter_slug
     name.strip.gsub(/[^[:alnum:]]+/, "-")
   end
 
@@ -26,8 +31,23 @@ class Gallery < ActiveRecord::Base
     get_gallery_images.empty?
   end
 
-  def to_param
-    gid
+  # largely copied from post.rb
+  def normalize_friendly_id(name, max_chars=100)
+    return nil if name.nil?  # record won't save -- name presence is validated
+    removelist = %w(a an as at before but by for from is in into like of off on
+                    onto per since than the this that to up via with)
+    r = /\b(#{removelist.join('|')})\b/i
+
+    s = name.downcase  # convert to lowercase
+    s.gsub!(r, '')
+    s.strip!
+    s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
+    s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
+    s = s[0...max_chars].chomp('-')
+
+    slug = (date || Date.today).strftime('%Y/%m/%d/') + s
+    puts slug
+    slug
   end
 
   # has_many Gallery::Images, get #images method

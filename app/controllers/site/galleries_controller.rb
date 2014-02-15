@@ -10,7 +10,7 @@ class Site::GalleriesController < Site::BaseController
   end
 
   def show
-    @gallery = Gallery.find_by_gid(params[:id])
+    @gallery = Gallery.find(params[:id])
     @recent = Gallery.order('created_at DESC').limit(3).reject(&:empty?)
   end
 
