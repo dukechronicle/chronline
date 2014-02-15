@@ -8,12 +8,9 @@ class Gallery < ActiveRecord::Base
 
   attr_accessible :name, :gid, :description, :section, :photoshelter_images, :date
 
+  has_many :photoshelter_images, primary_key: "gid", foreign_key: "gid"
   validates :name, presence: true
   validates :gid, presence: true, uniqueness: true
-
-  def get_gallery_images
-    PhotoshelterImage.find_all_by_gid(gid)
-  end
 
   # replaces all sequences on non-alphanumeric characters with a dash
   # used to get the proper url for the photoshelter buy page
@@ -22,13 +19,13 @@ class Gallery < ActiveRecord::Base
   end
 
   def credit
-    if get_gallery_images.size > 0
-      get_gallery_images.first.credit
+    if photoshelter_images.size > 0
+      photoshelter_images.first.credit
     end
   end
 
   def empty?
-    get_gallery_images.empty?
+    photoshelter_images.empty?
   end
 
   # largely copied from post.rb
@@ -45,9 +42,7 @@ class Gallery < ActiveRecord::Base
     s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
     s = s[0...max_chars].chomp('-')
 
-    slug = (date || Date.today).strftime('%Y/%m/%d/') + s
-    puts slug
-    slug
+    (date || Date.today).strftime('%Y/%m/%d/') + s
   end
 
   # has_many Gallery::Images, get #images method
