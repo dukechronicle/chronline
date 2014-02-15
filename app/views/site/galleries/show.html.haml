@@ -25,9 +25,9 @@
                 %i.icons-camera
               .buy-link
                 %a.buy Buy Photograph
-            .share.face= facebook_recommend(site_gallery_url(@gallery))
-            .share.twit= twitter_share(site_gallery_url(@gallery))
-            .share.gplus= google_plusone(site_gallery_url(@gallery))
+            .share.face= facebook_recommend(permanent_gallery_url(@gallery))
+            .share.twit= twitter_share(permanent_gallery_url(@gallery))
+            .share.gplus= google_plusone(permanent_gallery_url(@gallery))
   .span-8
     .rounded.clearfix
       %h2.vertical-label Most Recent
