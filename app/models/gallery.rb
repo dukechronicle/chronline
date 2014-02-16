@@ -5,6 +5,7 @@ class Gallery < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :history]
 
   self.primary_key = :gid
+  self.per_page = 25
 
   attr_accessible :name, :gid, :description, :section, :images, :date
 

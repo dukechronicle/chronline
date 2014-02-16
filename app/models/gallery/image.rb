@@ -2,10 +2,11 @@ class Gallery::Image < ActiveRecord::Base
   self.primary_key = :pid
 
   BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
-  attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid
+  attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid, :gallery
 
   self.table_name = :gallery_images  # FIX: Rename this class Gallery::Image
 
+  belongs_to :gallery, foreign_key: :gid
   validates :gid, presence: true
   validates :pid, presence: true
 
@@ -15,11 +16,8 @@ class Gallery::Image < ActiveRecord::Base
 
   # url of the photoshelter buy page
   def photoshelter_url
-    "http://dukechronicle.photoshelter.com/gallery-image/#{get_gallery.photoshelter_slug}/#{get_gallery.gid}/#{pid}"
+    "http://dukechronicle.photoshelter.com/gallery-image/#{gallery.photoshelter_slug}/#{gallery.gid}/#{pid}"
   end
 
-  # gets the gallery by gallery id 
-  def get_gallery
-    Gallery.find_by_gid(gid)
-  end
 end
+
