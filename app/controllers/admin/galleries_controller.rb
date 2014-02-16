@@ -1,7 +1,7 @@
 class Admin::GalleriesController < Admin::BaseController
 
   def index
-    @galleries = Gallery.all
+    @galleries =  Gallery.order('date DESC').page(params[:page])
   end
 
   def edit
