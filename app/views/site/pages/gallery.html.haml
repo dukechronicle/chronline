@@ -4,8 +4,8 @@
       .title-area.main-title
         %h2#title= @model.slideshow.first.name
       .gallery.main
-        - @model.slideshow.map{ |gallery| gallery.get_gallery_images.first }.each do |image|
-          %img{:src => image.url, :data => {:link => site_gallery_path(image.get_gallery), :title => image.get_gallery.name}}
+        - @model.slideshow.map{ |gallery| gallery.images.first }.each do |image|
+          %img{:src => image.url, :data => {:link => site_gallery_path(image.gallery), :title => image.gallery.name}}
     .gal-col.span-4
       - @model.news.each do |gallery|
         .rounded.clearfix.gal-col
