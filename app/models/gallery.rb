@@ -6,9 +6,9 @@ class Gallery < ActiveRecord::Base
 
   self.primary_key = :gid
 
-  attr_accessible :name, :gid, :description, :section, :photoshelter_images, :date
+  attr_accessible :name, :gid, :description, :section, :images, :date
 
-  has_many :photoshelter_images, primary_key: "gid", foreign_key: "gid"
+  has_many :images, class_name: "Gallery::Image", primary_key: "gid", foreign_key: "gid"
   validates :name, presence: true
   validates :gid, presence: true, uniqueness: true
 
@@ -19,13 +19,13 @@ class Gallery < ActiveRecord::Base
   end
 
   def credit
-    if photoshelter_images.size > 0
-      photoshelter_images.first.credit
+    if images.size > 0
+      images.first.credit
     end
   end
 
   def empty?
-    photoshelter_images.empty?
+    images.empty?
   end
 
   # largely copied from post.rb
