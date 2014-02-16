@@ -11,7 +11,9 @@ showSelection = (index) ->
 
   selectedNav.addClass('selected')
   selected.show()
-  selected.closest('.multiplexer').height(selected.height())
+
+  columnistsHeight = $('.selectors a').parent().height()+8
+  selected.closest('.multiplexer').height(Math.max(columnistsHeight, selected.height()))
 
 initialize '.multiplexer', ->
   $('.selectors').on 'click', 'a', (e) ->
