@@ -111,6 +111,18 @@ Chronline::Application.routes.draw do
       resources :pages, except: :show
       resources :staff, except: :show
 
+      resources :topics do
+        member do
+          post :archive
+        end
+        resources :responses, only: [:create, :destroy], controller: 'topic_responses' do
+          member do
+            post :approve
+            post :report
+          end
+        end
+      end
+
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',
           id: Post::SLUG_PATTERN
@@ -146,6 +158,16 @@ Chronline::Application.routes.draw do
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
+      resources :topics, only: :none do
+        resources :responses, only: [:index, :create], controller: 'topic_responses' do
+          member do
+            post :upvote
+            post :downvote
+            post :report
+          end
+        end
+      end
+
     end
   end
 

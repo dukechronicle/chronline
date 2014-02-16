@@ -1,0 +1,4 @@
+.rounded.large-slideshow
+  .galleria
+    - images.each do |image|
+      = cropped_image_tag image, :rectangle_636x, 'data-title' => image.caption, 'data-link' => '#'
