@@ -1,0 +1,4 @@
+%btn.pull-left= link_to "New", new_admin_topic_path, class: 'btn'
+
+= render 'table', topics: @active_topics, title: 'Active Topics'
+= render 'table', topics: @archived_topics, title: 'Archived Topics'
