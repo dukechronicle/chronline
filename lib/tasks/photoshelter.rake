@@ -11,7 +11,7 @@ namespace :photoshelter do
       if !Gallery.exists?(:gid => gallery['id']) then
         begin
           date = Date.strptime gallery['name'], '%Y/%m/%d'
-        rescue
+        rescue ArgumentError
           date = nil
         end
         gallery_name = gallery['name'].gsub(/[0-9]+\/[0-9]+\/[0-9]+/, '').sub(/^[\s\-]+/, '').lstrip
