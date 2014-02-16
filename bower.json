@@ -14,6 +14,7 @@
             "jquery-galleria": "~1.3.2",
             "jquery-masonry": "~3.1.1",
             "jquery-ui": "~1.10.3",
+            "marionette": "~1.6.2",
             "onde": "git://github.com/exavolt/onde.git",
             "underscore": "~1.5.2",
             "lightbox2": "latest",
