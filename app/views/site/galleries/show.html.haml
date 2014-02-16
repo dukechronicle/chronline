@@ -11,7 +11,7 @@
           .title-area
             %h2#title= @gallery.name
         .gallery
-          - @gallery.photoshelter_images.each do |image|
+          - @gallery.images.each do |image|
             %img{src: image.url, data: { description: image_info(image), link: image.photoshelter_url}}
         #imageinfo.photo-caption
           .social

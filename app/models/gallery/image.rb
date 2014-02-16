@@ -1,4 +1,4 @@
-class PhotoshelterImage < ActiveRecord::Base
+class Gallery::Image < ActiveRecord::Base
   self.primary_key = :pid
 
   BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
