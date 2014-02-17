@@ -11,10 +11,10 @@ namespace :photoshelter do
       if !Gallery.exists?(:gid => gallery['id']) then
         begin
           date = Date.strptime gallery['name'], '%Y/%m/%d'
-        rescue
+        rescue ArgumentError
           date = nil
         end
-        gallery_name = gallery['name'].gsub(/[0-9]+\/[0-9]+\/[0-9]+/, '').sub(/^[\s\-]+/, '').lstrip
+        gallery_name = gallery['name'].gsub(/[0-9]+\/[0-9]+\/[0-9]+/, '').sub(/^[\s\-]+/, '')
         Gallery.create(gid: gallery['id'], name: gallery_name, description: gallery['description'], date: date)
         images = PhotoshelterAPI.instance.get_gallery_images gallery['id']
         if images then
