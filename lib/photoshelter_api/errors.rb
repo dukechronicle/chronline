@@ -5,7 +5,7 @@ class PhotoshelterAPI
       attr_reader :error_code
 
       def initialize(error_code)
-        @error_code = error_code
+        super(error_code)
       end
     end
 
