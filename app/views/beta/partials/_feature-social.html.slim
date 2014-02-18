@@ -1,0 +1,17 @@
+- except ||= []
+
+.sidebar-social.row
+  .sidebar-widget
+    = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(postable)
+
+  - if not except.include? :print
+    .sidebar-widget
+      = link_to "Print", print_site_article_path(postable)
+
+  - if not except.include? :email
+    .sidebar-widget
+      = link_to "Email", mailto_article(postable)
+
+  .sidebar-widget= facebook_recommend_post(postable)
+  .sidebar-widget= twitter_share_post(postable)
+  .sidebar-widget= google_plusone_post(postable)
