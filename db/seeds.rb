@@ -62,3 +62,12 @@ tournament = Tournament.create!(
 teams = YAML.load_file(
   Rails.root.join('db', 'fixtures', 'tournament_teams.yml'))
 teams.each { |team| tournament.teams.create!(team) }
+
+0.upto(62) do |position|
+  game = tournament.games.build(
+    position: position,
+    start_time: Date.new(2013, 3, 1 + rand(30))
+  )
+  game.update_teams
+  game.save!
+end

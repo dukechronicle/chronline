@@ -7,6 +7,7 @@ class Tournament < ActiveRecord::Base
   attr_accessible :name, :event, :start_date
 
   has_many :teams, class_name: 'Tournament::Team'
+  has_many :games, class_name: 'Tournament::Game'
 
   validates :name, presence: true
   validates :event, presence: true
