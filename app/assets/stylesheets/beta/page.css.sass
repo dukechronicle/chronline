@@ -1,18 +1,26 @@
 /* Includes styles for .page-main-wrap, which is used on static pages, articles, and blog posts */
+.page-header
+  .header-title
+    border-top: 1px solid $chron-gray-light
+    border-bottom: 1px solid $chron-gray-light
+    padding-top: 20px
+    padding-bottom: 20px
+    margin: 10px 0 7px
+    h1, p.subtitle
+      font-family: "adobe-garamond-pro",sans-serif
+      line-height: 1.1
+    p.subtitle
+      font-size: 1.3rem
+      margin-bottom: 8px
+  .header-section, .header-byline
+    color: $chron-gray-dark
+    font-size: 14px
 
-.page-main
-  background-color: $chron-gray-light
-  padding-top: 40px
-.page-jumbotron
-  width: 100%
-  figure
-    margin: 0
-    img
-      margin-top: -10%
-    @media #{$medium-up}
-      .row
-        position: relative
-        figcaption
-          position: absolute
-          bottom: 0
-          right: 0
+.page-header, .page-feature, .page-main
+  padding-top: 1rem
+
+.page-sidebar
+  background-color: $chron-blue
+  .sidebar-widget
+    border-bottom: 1px solid $chron-gray-dark
+    padding: .5rem .2rem
