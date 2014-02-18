@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211165459) do
+ActiveRecord::Schema.define(:version => 20140218024954) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -134,7 +134,8 @@ ActiveRecord::Schema.define(:version => 20140211165459) do
     t.boolean  "reported",   :default => false
     t.integer  "upvotes",    :default => 0
     t.integer  "downvotes",  :default => 0
-    t.text     "content"
+    t.string   "content"
+    t.float    "score"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
@@ -146,6 +147,17 @@ ActiveRecord::Schema.define(:version => 20140211165459) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
+
+  create_table "tournaments", :force => true do |t|
+    t.string   "name"
+    t.string   "event"
+    t.datetime "start_date"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tournaments", ["slug"], :name => "index_tournaments_on_slug", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
