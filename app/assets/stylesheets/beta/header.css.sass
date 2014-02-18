@@ -1,10 +1,15 @@
 header#super-header
   nav.nav-main
+    opacity: .9
     .title-area
       h1
         font-family: ambroise-std
     .nav-sections
       text-transform: uppercase
+      letter-spacing: 3px
+      a
+        font-size: 12px
+        font-weight: 500
     .nav-sections, .title-area
       li.active a
         background: $chron-blue-accent
@@ -13,3 +18,5 @@ header#super-header
           background: scale-color($chron-blue-accent, $lightness: -14%)
     .divider
       border-color: scale-color($chron-blue, $lightness: 14%)
+  .header-advertisement
+    padding-top: $page-section-spacing
