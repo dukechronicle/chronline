@@ -1,6 +1,5 @@
 class Tournament::Team < ActiveRecord::Base
-  attr_accessible :espn_id, :mascot, :region_id, :seed, :shortname, :school,
-    :tournament
+  attr_accessible :espn_id, :mascot, :region_id, :seed, :shortname, :school
 
   belongs_to :tournament
 
