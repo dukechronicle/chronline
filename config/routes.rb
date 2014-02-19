@@ -45,6 +45,8 @@ Chronline::Application.routes.draw do
         end
       end
 
+      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN
+
       match '/404', :to => 'base#not_found'
 
       match 'join' => redirect('/pages/join')

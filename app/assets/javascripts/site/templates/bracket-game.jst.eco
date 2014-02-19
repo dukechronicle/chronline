@@ -1,0 +1,20 @@
+<div class="team team-1 <%= 'team-selectable' if @selectable %> <%= 'selected' if @winner? and @winner.id == @team1?.id %>">
+  <div class="seed">
+    <%= @team1?.get('seed') %>
+  </div>
+  <div class="game-info">
+    <span class="name">
+      <%= @team1?.get('shortname') %>
+    </span>
+  </div>
+</div>
+<div class="team team-2 <%= 'team-selectable' if @selectable %> <%= 'selected' if @winner? and @winner.id == @team2?.id %>">
+  <div class="seed">
+    <%= @team2?.get('seed') %>
+  </div>
+  <div class="game-info">
+    <span class="name">
+      <%= @team2?.get('shortname') %>
+    </span>
+  </div>
+</div>
