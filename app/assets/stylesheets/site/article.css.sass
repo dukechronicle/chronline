@@ -61,6 +61,14 @@
 
   .byline
     color: $caption-color
+    padding: 0px
+    li
+      list-style-type: none
+      display: inline
+      &:before
+        content: "| "
+      &:first-child:before
+        content: none
 
   .article-body
     font-size: 1.2em
