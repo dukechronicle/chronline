@@ -10,6 +10,17 @@ window.BracketView = Backbone.View.extend
     this.listenTo(@model, 'change', @render) if @model?
     @games = options['games']
 
+  save: ->
+    token = $("meta[name='csrf-token']").attr('content')
+    @model.save {},
+      headers:
+        'X-CSRF-Token': token
+      success: (model, response, options) ->
+        console.log 'success'
+      error: (model, response, options) ->
+        console.log 'error'
+        console.log response
+
   render: ->
     @$el.html(@template(bracket: @model))
 

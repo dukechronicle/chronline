@@ -1,4 +1,7 @@
 window.Bracket = Backbone.Model.extend
+  url: ->
+    window.location.pathname.replace(/\/new$/, '')
+
   defaults:
     picks: []
 
