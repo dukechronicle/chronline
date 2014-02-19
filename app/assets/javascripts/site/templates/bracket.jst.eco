@@ -1,0 +1,43 @@
+<div class="actions">
+  <% if @bracket?.isNew() and @bracket?.complete(): %>
+    <button type="button" class="btn done btn-lg btn-primary">Done</button>
+  <% end %>
+</div>
+
+<div class="clearfix">
+  <div class="region region-left region-0">
+    <h3 class="region-name">Midwest</h3>
+    <% for round in [1..4]: %>
+      <div class="round round-<%= round %>"></div>
+    <% end %>
+  </div>
+  <div class="region region-right region-2">
+    <h3 class="region-name">South</h3>
+    <% for round in [4..1]: %>
+      <div class="round round-<%= round %>"></div>
+    <% end %>
+  </div>
+</div>
+
+<div class="clearfix">
+  <div class="final-rounds">
+    <div class="game-61 final-four"></div>
+    <div class="game-62 final-four"></div>
+    <div class="game-63 championship"></div>
+  </div>
+</div>
+
+<div class="clearfix">
+  <div class="region region-left region-1">
+    <h3 class="region-name">West</h3>
+    <% for round in [1..4]: %>
+      <div class="round round-<%= round %>"></div>
+    <% end %>
+  </div>
+  <div class="region region-right region-3">
+    <h3 class="region-name">East</h3>
+    <% for round in [4..1]: %>
+      <div class="round round-<%= round %>"></div>
+    <% end %>
+  </div>
+</div>

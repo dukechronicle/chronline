@@ -1,0 +1,30 @@
+<div class="team <%= 'winner' if @team1?.id == @game.winner()?.id %>">
+  <div class="seed">
+    <%= @team1?.get('seed') %>
+  </div>
+  <div class="game-info">
+    <span class="name">
+      <%= @team1?.get('shortname') %>
+    </span>
+    <% if @game.get('score1')?: %>
+      <span class="score">
+        <%= @game.get('score1') %>
+      </span>
+    <% end %>
+  </div>
+</div>
+<div class="team <%= 'winner' if @team2?.id == @game.winner()?.id %>">
+  <div class="seed">
+    <%= @team2?.get('seed') %>
+  </div>
+  <div class="game-info">
+    <span class="name">
+      <%= @team2?.get('shortname') %>
+    </span>
+    <% if @game.get('score2')?: %>
+      <span class="score">
+        <%= @game.get('score2') %>
+      </span>
+    <% end %>
+  </div>
+</div>

@@ -15,7 +15,11 @@ class Tournament < ActiveRecord::Base
   validates :start_date, presence: true
 
   def normalize_friendly_id(s)
-    "#{super}/#{start_date.year}"
+    "#{super}/#{year}"
+  end
+
+  def year
+    start_date.year
   end
 
   private

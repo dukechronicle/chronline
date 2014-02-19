@@ -1,0 +1,109 @@
+@import "compass/css3"
+@import "compass/utilities/general/clearfix"
+
+$team_ht: 22px
+$team_spc: 2px
+$game_ht: 2 * $team_ht + $team_spc
+$game_spc: 14px
+$round_wd: 31%
+
+#bracket
+  position: relative
+  padding: 1.2em 1.5em
+
+  .bracket-lines
+    position: absolute
+
+  .region
+    @include clearfix
+    float: left
+    width: 50%
+    position: relative
+
+  .region-name
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    position: absolute
+    margin: 0
+    top: 50%
+    left: 50%
+    -webkit-transform: translate(-50%, -50%)
+
+  .round
+    width: $round_wd
+    float: left
+
+  .region-left
+    .round-1
+      margin-right: 4%
+    .round-2
+      margin-right: -14%
+    .round-3
+      margin-right: -17%
+    .round-4
+      margin-right: 3%
+
+  .region-right
+    .round-1
+      margin-left: 4%
+    .round-2
+      margin-left: -14%
+    .round-3
+      margin-left: -17%
+    .round-4
+      margin-left: 3%
+
+  .game
+    height: $game_ht
+    position: relative
+
+  .round-1
+    .game
+      margin-bottom: $game_spc
+      &:last-child
+        margin-bottom: 0
+  .round-2
+    margin-top: ($game_ht + $game_spc) / 2
+    .game
+      margin-bottom: $game_ht + 2 * $game_spc
+      &:last-child
+        margin-bottom: 0
+  .round-3
+    margin-top: 3 * ($game_ht + $game_spc) / 2
+    .game
+      margin-bottom: 3 * $game_ht + 4 * $game_spc
+      &:last-child
+        margin-bottom: 0
+  .round-4
+    margin-top: 7 * ($game_ht + $game_spc) / 2
+    .game
+      margin-bottom: 7 * $game_ht + 8 * $game_spc
+      &:last-child
+        margin-bottom: 0
+
+  .final-rounds
+    width: 60%
+    margin: 20px auto
+    .game-61
+      width: 30%
+      float: left
+    .game-62
+      width: 30%
+      float: right
+    .game-63
+      width: 30%
+      margin: auto
+
+  .final-four
+    padding: 1%
+    border: 3px solid black
+
+  .championship
+    padding: 1%
+    border: 3px solid MidnightBlue
+
+  .actions
+    position: absolute
+    top: 30px
+    left: 50%
+    @include translateX(-50%)
+    z-index: 1
