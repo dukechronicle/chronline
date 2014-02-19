@@ -1,5 +1,5 @@
 class Tournament::Game < ActiveRecord::Base
-  attr_accessible :position, :start_time, :team1, :team2, :tournament
+  attr_accessible :position, :start_time, :team1, :team2
 
   belongs_to :tournament
   belongs_to :team1, class_name: 'Tournament::Team'

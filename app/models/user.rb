@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
 
+  has_many :brackets, class_name: 'Tournament::Bracket'
+
   default_value_for :role, Roles[0]
 
   def name
