@@ -1,27 +1,12 @@
 #= require site/templates/bracket
+#= require site/templates/login
 
 window.BracketView = Backbone.View.extend
   template: JST['site/templates/bracket']
 
-  events:
-    'click .done': 'save'
-
   initialize: (options) ->
     this.listenTo(@model, 'change', @render) if @model?
     @games = options['games']
-
-  save: ->
-    token = $("meta[name='csrf-token']").attr('content')
-    @model.save {},
-      headers:
-        'X-CSRF-Token': token
-      success: (model, response, options) ->
-        slug = model.get('tournament').slug
-        window.location = "/tournaments/#{slug}/brackets/#{model.id}"
-      error: (model, response, options) ->
-        if response.status == 401
-          console.log('Please login')
-          # Prompt for login
 
   render: ->
     @$el.html(@template(bracket: @model))
@@ -30,6 +15,13 @@ window.BracketView = Backbone.View.extend
       $(this).prepend (new BracketLinesView(flipped: false)).render().el
     @$el.find('.region-right').each ->
       $(this).prepend (new BracketLinesView(flipped: true)).render().el
+
+    if @model?.isNew() and @model?.complete()
+      $form = $('#new_tournament_bracket').clone()
+      $form.find('#tournament_bracket_picks').val(
+        JSON.stringify(@model.get('picks'))
+      )
+      @$el.find('.actions').append($form)
 
     subview =
       if @model?

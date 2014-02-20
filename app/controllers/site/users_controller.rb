@@ -1,9 +1,11 @@
 class Site::SessionsController < Devise::SessionsController
   layout 'site'
+  respond_to :html, :js
 end
 
 class Site::RegistrationsController < Devise::RegistrationsController
   layout 'site'
+  respond_to :html, :js
 end
 
 class Site::PasswordsController < Devise::PasswordsController

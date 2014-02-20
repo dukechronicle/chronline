@@ -1,5 +1,5 @@
 require 'resque/server'
-require 'site/users_controller' # contains site devise controllers
+require_dependency 'site/users_controller' # contains site devise controllers
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}

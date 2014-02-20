@@ -2,4 +2,7 @@
 
 .rounded
   .bracket-container
-    #bracket.bracket{data: {games: @games}}
+    = form_for [:site, @tournament, @bracket] do |f|
+      = f.hidden_field :picks
+      = f.submit "Done", class: "done button button-flat-action button-large"
+    #bracket.bracket{data: {bracket: @bracket.to_json, games: @games}}
