@@ -22,6 +22,10 @@ class Tournament < ActiveRecord::Base
     start_date.year
   end
 
+  def full_name
+    "#{name} #{event} #{year}"
+  end
+
   private
   def name_and_event
     "#{name} #{event}"

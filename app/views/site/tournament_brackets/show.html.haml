@@ -1,0 +1,4 @@
+- provide :title, "#{current_user.name}'s #{@tournament.full_name} Bracket"
+
+.rounded
+  #bracket.bracket{data: {bracket: @bracket.to_json, games: @games}}

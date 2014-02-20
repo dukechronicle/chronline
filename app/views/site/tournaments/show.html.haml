@@ -1,4 +1,4 @@
-- provide :title, "#{@tournament.name} #{@tournament.event} #{@tournament.year}"
+- provide :title, @tournament.full_name
 
 .rounded
   #bracket.tournament{data: {games: @games}}

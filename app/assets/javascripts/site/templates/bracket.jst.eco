@@ -1,6 +1,6 @@
 <div class="actions">
   <% if @bracket?.isNew() and @bracket?.complete(): %>
-    <button type="button" class="btn done btn-lg btn-primary">Done</button>
+    <button type="button" class="done button button-flat-action button-large">Done</button>
   <% end %>
 </div>
 
