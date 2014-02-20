@@ -1,0 +1,6 @@
+:javascript
+  OX_#{group_id}.showAdUnit("#{unit}");
+%noscript
+  %iframe{id: group_id, name: group_id, src: "//ox-d.oncampusweb.com/w/1.0/afr?auid=#>#{unit}&cb=#{a_random}", frameBorder: 0, frameSpacing: 0, scrolling: "no", width: "#{width}", height: "#{height}"}
+    %a{href: "//ox-d.oncampusweb.com/w/1.0/rc?cs=#{group_id}&cb=#{a_random}"}
+      %img{src: "//ox-d.oncampusweb.com/w/1.0/ai?auid=#{unit}&cs=#{group_id}&cb=#{a_random}", border: 0}

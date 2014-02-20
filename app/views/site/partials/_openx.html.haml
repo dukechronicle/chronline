@@ -1,9 +1,5 @@
+%script{type: 'text/javascript', src: '//ox-d.oncampusweb.com/w/1.0/jstag'}
 :javascript
-  var OA_zones = {
-    'custom': 1087,
-    'leaderboard' : 914,
-    'medium_rectangle' : 316,
-    'medium_rectangle_1' : 316,
-    'medium_rectangle_2' : 316,
-  }
-%script{type: 'text/javascript', src: '//www.oncampusweb.com/delivery/spcjs.php?id=73&amp;block=1'}
+  var OX_#{ad_group_id} = OX();
+  OX_#{ad_group_id}.addPage("536870985");
+  OX_#{ad_group_id}.fetchAds();
