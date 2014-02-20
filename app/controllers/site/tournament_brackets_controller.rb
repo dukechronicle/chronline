@@ -1,4 +1,6 @@
 class Site::TournamentBracketsController < Site::BaseController
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
+
   def show
     @taxonomy = Taxonomy.new(:sections, ['Sports'])
     @tournament = Tournament.find(params[:tournament_id])
@@ -22,14 +24,10 @@ class Site::TournamentBracketsController < Site::BaseController
     @taxonomy = Taxonomy.new(:sections, ['Sports'])
     @tournament = Tournament.find(params[:tournament_id])
     if user_signed_in?
-      @bracket = current_user.brackets
-        .find_by_tournament_id(@tournament.id)
-      if @bracket
-        flash[:notice] = "You may only create one bracket per year"
-        redirect_to [:site, @tournament, @bracket]
-        return
-      end
+      check_for_existing(@tournament) and return
     end
+    @bracket = @tournament.brackets.build(session[:tournament_bracket])
+    @bracket.picks = JSON.parse(@bracket.picks) if @bracket.picks.is_a? String
     @games = @tournament.games
       .includes(:team1, :team2)
       .order(:position)
@@ -37,19 +35,36 @@ class Site::TournamentBracketsController < Site::BaseController
   end
 
   def create
-    unless user_signed_in?
-      render json: "User is not signed in", status: :unauthorized
-      return
-    end
     @tournament = Tournament.find(params[:tournament_id])
+    unless user_signed_in?
+      session[:tournament_bracket] = params[:tournament_bracket]
+      session[:user_return_to] =
+        new_site_tournament_tournament_bracket_path(@tournament)
+      authenticate_user!
+    end
+
+    check_for_existing(@tournament) and return
+
     @bracket = current_user.brackets.build(
       tournament: @tournament,
-      picks: params[:tournament_bracket][:picks]
+      picks: JSON.parse(params[:tournament_bracket][:picks])
     )
     if @bracket.save
-      render json: @bracket, include: :tournament
+      flash[:success] = "Your bracket has been created"
+      redirect_to [:site, @tournament, @bracket]
     else
       render json: @bracket.errors, status: :unprocessable_entity
+    end
+  end
+
+  private
+  def check_for_existing(tournament)
+    @bracket = current_user.brackets
+      .find_by_tournament_id(@tournament.id)
+    if @bracket
+      flash[:notice] = "You may only create one bracket per year"
+      redirect_to [:site, @tournament, @bracket]
+      true
     end
   end
 end
