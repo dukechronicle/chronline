@@ -16,10 +16,12 @@ window.BracketView = Backbone.View.extend
       headers:
         'X-CSRF-Token': token
       success: (model, response, options) ->
-        console.log 'success'
+        slug = model.get('tournament').slug
+        window.location = "/tournaments/#{slug}/brackets/#{model.id}"
       error: (model, response, options) ->
-        console.log 'error'
-        console.log response
+        if response.status == 401
+          console.log('Please login')
+          # Prompt for login
 
   render: ->
     @$el.html(@template(bracket: @model))

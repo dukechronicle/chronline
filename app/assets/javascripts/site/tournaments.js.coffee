@@ -5,6 +5,6 @@ initialize '#bracket.tournament', ->
 
 initialize '#bracket.bracket', ->
   games = new Game.Collection($(this).data('games'))
-  bracket = new Bracket()
-  bracket._randomPicks(games)
+  bracket = new Bracket($(this).data('bracket'))
+#  bracket._randomPicks(games)
   (new BracketView(model: bracket, games: games, el: $(this)[0])).render()

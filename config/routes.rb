@@ -45,8 +45,10 @@ Chronline::Application.routes.draw do
         end
       end
 
-      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN do
-        resources :brackets, controller: 'tournament_brackets'
+      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN
+      resources :tournaments, only: :none do
+        resources :tournament_brackets, path: 'brackets',
+          tournament_id: Tournament::SLUG_PATTERN
       end
 
       match '/404', :to => 'base#not_found'
