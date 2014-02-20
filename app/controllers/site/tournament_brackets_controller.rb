@@ -2,11 +2,20 @@ class Site::TournamentBracketsController < Site::BaseController
   def show
     @taxonomy = Taxonomy.new(:sections, ['Sports'])
     @tournament = Tournament.find(params[:tournament_id])
-    @bracket = @tournament.brackets.find(params[:id])
-    @games = @tournament.games
-      .includes(:team1, :team2)
-      .order(:position)
-      .to_json(include: [:team1, :team2])
+    authenticate_user! unless @tournament.started?
+
+    @bracket = @tournament.brackets.includes(:user).find(params[:id])
+    if @tournament.started? || @bracket.user == current_user
+      @games = @tournament.games
+        .includes(:team1, :team2)
+        .order(:position)
+        .to_json(include: [:team1, :team2])
+    else
+      flash[:error] =
+        "You may only see other users' brackets once the tournament starts"
+      @forbidden = true
+      render status: :forbidden
+    end
   end
 
   def new
