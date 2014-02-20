@@ -26,6 +26,10 @@ class Tournament < ActiveRecord::Base
     "#{name} #{event} #{year}"
   end
 
+  def started?
+    DateTime.now > start_date
+  end
+
   private
   def name_and_event
     "#{name} #{event}"

@@ -1,4 +1,7 @@
-- provide :title, "#{current_user.name}'s #{@tournament.full_name} Bracket"
+- provide :title, "#{@bracket.user.name}'s #{@tournament.full_name} Bracket"
 
 .rounded
-  #bracket.bracket{data: {bracket: @bracket.to_json, games: @games}}
+  .bracket-container
+    = render 'site/partials/flash', flash: flash
+    - unless @forbidden
+      #bracket.bracket{data: {bracket: @bracket.to_json, games: @games}}
