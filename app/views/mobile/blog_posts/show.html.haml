@@ -22,9 +22,9 @@
     = display_date(@blog_post)
 
   #social-media
-    = facebook_recommend(permanent_post_url(@blog_post))
-    = google_plusone(permanent_post_url(@blog_post))
-    = twitter_share(permanent_post_url(@blog_post))
+    = facebook_recommend(permanent_blog_post_url(@blog_post))
+    = google_plusone(permanent_blog_post_url(@blog_post))
+    = twitter_share(permanent_blog_post_url(@blog_post))
 
   .article-body!= @blog_post.render_body
 
