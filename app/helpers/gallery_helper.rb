@@ -7,7 +7,7 @@ module GalleryHelper
   end
 
   def permanent_gallery_url(gallery)
-    site_gallery_url(gallery.gid, subdomain: :www)
+    site_gallery_url(gallery.gid, subdomain: :www, protocol: 'http')
   end
 
   def get_staff_from_photag(photag)
