@@ -27,7 +27,7 @@ initialize '.gallery', ->
 
 updateText = (id, text) ->
   $(id).contents().filter( ->
-      return (this.nodeType == 3)
+      @nodeType == 3
     ).remove()
     $(id).append(text)
 

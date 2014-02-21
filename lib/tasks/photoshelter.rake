@@ -33,7 +33,6 @@ namespace :photoshelter do
   task :empty => :environment do
     require 'gallery/image'
     Gallery.delete_all
-    'Gallery::Image'.delete_all
   end
 
 
