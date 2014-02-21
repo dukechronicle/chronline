@@ -26,9 +26,9 @@
     = display_date(@article)
 
   #social-media
-    = facebook_recommend(permanent_post_url(@article))
-    = google_plusone(permanent_post_url(@article))
-    = twitter_share(permanent_post_url(@article))
+    = facebook_recommend(permanent_article_url(@article))
+    = google_plusone(permanent_article_url(@article))
+    = twitter_share(permanent_article_url(@article))
 
   .article-body!= @article.render_body
 
