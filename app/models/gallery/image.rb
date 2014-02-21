@@ -4,7 +4,7 @@ class Gallery::Image < ActiveRecord::Base
   BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
   attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid, :gallery
 
-  self.table_name = :gallery_images  # FIX: Rename this class Gallery::Image
+  self.table_name = :gallery_images
 
   belongs_to :gallery, foreign_key: :gid
   validates :gid, presence: true
