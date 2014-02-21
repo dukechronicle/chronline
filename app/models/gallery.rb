@@ -9,7 +9,8 @@ class Gallery < ActiveRecord::Base
 
   attr_accessible :name, :gid, :description, :section, :images, :date
 
-  has_many :images, class_name: "Gallery::Image", primary_key: "gid", foreign_key: "gid", dependent: :destroy
+  has_many :images, class_name: "Gallery::Image", primary_key: "gid",
+           foreign_key: "gid", dependent: :destroy
   validates :name, presence: true
   validates :gid, presence: true, uniqueness: true
 
