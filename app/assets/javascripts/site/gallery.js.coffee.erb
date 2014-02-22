@@ -20,7 +20,7 @@ initialize '.gallery', ->
       credit = parsed[0]
       caption = parsed[1]
       updateText("#imageinfo", caption)
-      $("#cred").html(credit)
+      $("#cred").html(credit+" / The Chronicle")
     $(".buy").attr("href", e.galleriaData.link) 
     title  = e.galleriaData.title
     updateText("#title", title) if title

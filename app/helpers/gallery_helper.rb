@@ -16,9 +16,9 @@ module GalleryHelper
     photag = Staff.find_or_create_all_by_name(names)[0]
   end
 
-  def image_info(image)
+  def image_info(image, i)
     credit = image.credit ? photag_byline(image) : ""
-    "__credit__:#{credit}__caption__:#{image.caption} "
+    "__credit__:#{credit}__caption__:(#{i}/#{image.gallery.images.size}) #{image.caption} "
   end
 
   def mailto_gallery(gallery)
