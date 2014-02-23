@@ -18,4 +18,8 @@ class Admin::GalleriesController < Admin::BaseController
     end
   end
 
+  def scrape
+    Resque.enqueue(PhotoshelterWorker)
+    redirect_to admin_galleries_path
+  end
  end
