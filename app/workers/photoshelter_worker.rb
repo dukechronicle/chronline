@@ -1,6 +1,6 @@
 require 'rake'
 Rake::Task.clear # necessary to avoid tasks being loaded several times in dev mode
-Chronline::Application.load_tasks # providing your application name is 'sample'
+Chronline::Application.load_tasks 
 class PhotoshelterWorker
   @queue = :photoshelter
   def self.perform
