@@ -56,7 +56,7 @@ class Post < ActiveRecord::Base
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)
-    s = super title, max_chars
+    s = super
     (published_at || Date.today).strftime('%Y/%m/%d/') + s
   end
 

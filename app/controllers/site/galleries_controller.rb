@@ -11,7 +11,7 @@ class Site::GalleriesController < Site::BaseController
 
   def show
     @gallery = Gallery.find(params[:id])
-    @recent = Gallery.order('date DESC').limit(3).reject(&:empty?)
+    @recent = Gallery.nonempty.order('date DESC').limit(3)
   end
 
   private
