@@ -9,7 +9,8 @@
 
     .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
       = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-      = render partial: 'site/containers/poll', locals: {poll: @model.poll}
+      - if @model.poll
+        = render partial: 'site/containers/poll', locals: {poll: @model.poll}
       = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget}
 
   .clearfix
