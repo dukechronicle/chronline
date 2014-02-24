@@ -1,8 +1,0 @@
--if poll.choices
-  %ul.poll.poll-results
-    - poll.choices.each do |choice|
-      %li.poll-choice{data: {votes: choice.votes}}
-        .poll-choice-bar
-        .poll-choice-result
-          =choice.title
-          %span.choice-percentage

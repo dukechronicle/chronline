@@ -7,7 +7,7 @@
   %tbody
     - @polls.each do |poll|
       %tr{id: "poll_#{poll.id}"}
-        %td= link_to poll.title, site_poll_url(poll, subdomain: 'www')
+        %td= link_to poll.title, [:edit, :admin, poll]
         %td= poll.section
         %td= link_to 'Edit', [:edit, :admin, poll], class: 'btn btn-mini'
 

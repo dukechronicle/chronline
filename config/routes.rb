@@ -38,7 +38,7 @@ Chronline::Application.routes.draw do
         end
       end
 
-      resources :polls do
+      resources :polls, only: :show  do
         member do
           post 'vote'
         end
@@ -132,9 +132,7 @@ Chronline::Application.routes.draw do
 
       resources :blog_series, except: :show
 
-      resources :polls, except: :show do
-        resources :choices, controller: 'poll_choices'
-      end
+      resources :polls, except: :show
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 
