@@ -13,6 +13,7 @@ class Gallery < ActiveRecord::Base
   validates :name, presence: true
   validates :gid, presence: true, uniqueness: true
 
+  scope :nonempty, -> { joins(:images) }
   # replaces all sequences on non-alphanumeric characters with a dash
   # used to get the proper url for the photoshelter buy page
   def photoshelter_slug
@@ -31,7 +32,7 @@ class Gallery < ActiveRecord::Base
 
   # largely copied from post.rb
   def normalize_friendly_id(name, max_chars=100)
-    s = super name, max_chars
+    s = super 
     (date || Date.today).strftime('%Y/%m/%d/') + s
   end
 
