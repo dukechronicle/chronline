@@ -1,8 +1,0 @@
--if poll.choices
-  = form_tag(vote_site_poll_path(poll), method: :post) do |f|
-    %ul.poll
-      - poll.choices.each do |choice|
-        %li.poll-choice
-          = radio_button_tag(:choice, choice.id)
-          = label_tag(:choice, choice.title, for: "choice_#{choice.id}")
-    = submit_tag('Submit')
