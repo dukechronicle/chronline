@@ -13,7 +13,7 @@ class Gallery < ActiveRecord::Base
   validates :name, presence: true
   validates :gid, presence: true, uniqueness: true
 
-  scope :nonempty, -> { joins(:images) }
+  scope :nonempty, -> { joins(:images).uniq }
   # replaces all sequences on non-alphanumeric characters with a dash
   # used to get the proper url for the photoshelter buy page
   def photoshelter_slug
