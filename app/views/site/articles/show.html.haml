@@ -43,6 +43,8 @@
         %ul.byline
           %li.author By #{byline(@article, link: true)}
           %li= display_date(@article)
+          - if @article.opinion
+            %li.opinion Opinion
 
         .article-body
           = render partial: 'site/partials/share-box', locals: {postable: @article}

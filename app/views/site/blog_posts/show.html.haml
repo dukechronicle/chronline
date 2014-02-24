@@ -27,6 +27,8 @@
       %ul.byline
         %li.author By #{byline(@blog_post, link: true)}
         %li= display_date(@blog_post)
+        - if @blog_post.opinion
+          %li.opinion Opinion
 
       = render partial: 'partials/blog-image', locals: {blog_post: @blog_post}
 

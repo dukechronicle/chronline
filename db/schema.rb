@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131231195346) do
+ActiveRecord::Schema.define(:version => 20140218224628) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
     t.boolean  "block_bots",   :default => false
     t.string   "type"
     t.string   "embed_code"
+    t.boolean  "opinion",      :default => false
   end
 
   add_index "articles", ["section", "published_at"], :name => "index_articles_on_section_and_published_at"
@@ -85,6 +86,22 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
 
+  create_table "poll_choices", :force => true do |t|
+    t.integer  "poll_id"
+    t.string   "title"
+    t.integer  "votes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "polls", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "section"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "posts_authors", :force => true do |t|
     t.integer "post_id"
     t.integer "staff_id"
@@ -134,7 +151,8 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
     t.boolean  "reported",   :default => false
     t.integer  "upvotes",    :default => 0
     t.integer  "downvotes",  :default => 0
-    t.text     "content"
+    t.string   "content"
+    t.float    "score"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
