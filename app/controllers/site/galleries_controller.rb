@@ -1,10 +1,10 @@
 class Site::GalleriesController < Site::BaseController
   before_filter :redirect_gallery, only: :show
   def index
-    @galleries =  Gallery.order('date DESC').page(params[:page])
     begin
       custom_page and return
     rescue ActiveRecord::RecordNotFound
+      @galleries =  Gallery.order('date DESC').page(params[:page])
       nil
     end
   end
