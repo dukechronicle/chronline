@@ -1,49 +1,29 @@
 #= require site/templates/poll-form
 #= require site/templates/poll-results
 
-window.PollView = Backbone.Marionette.View.extend
-  className: 'poll'
-  urlRoot: (action) ->
-    action = action || ''
-    fullUrl('www', "/polls/#{@id}/#{action}")
-
+window.PollView = Backbone.Marionette.ItemView.extend
   initialize: ->
-    this.request()
+    this.listenTo(@model, 'change', @render)
+    @model.fetch()
 
   events:
     'submit form': 'submit'
 
-  render: (attrs) ->
-    if attrs.voted
+  getTemplate: ->
+    if @model.get('voted')
       template = JST['site/templates/poll-results']
     else
       template = JST['site/templates/poll-form']
-    @$el.html(template(
-      title: attrs.poll.title,
-      description: attrs.poll.description,
-      choices: attrs.choices
-    ))
-    if attrs.voted
-      this._renderBars()
 
-  request: ->
-    $.getJSON this.urlRoot(), (data) =>
-      this.render(data)
+  onRender: ->
+    if @model.get('voted')
+      this._renderBars()
 
   submit: (e) ->
     e.preventDefault()
-    token = $("meta[name='csrf-token']").attr('content')
-    $form = $(@$el.find('form'))
-    $.ajax(
-      method: 'POST'
-      url: this.urlRoot('vote'),
-      data: $form.serialize()
-      headers:
-        'X-CSRF-Token': token
-      xhrFields:
-        withCredentials: true
-    ).done (data) =>
-      this.render(data)
+    chosen_choice = @$el.find('input[name=choice]:checked').val()
+    if chosen_choice
+      @model.vote(chosen_choice)
 
   _renderBars: ->
     poll_choices = @$el.find('.poll-choice')

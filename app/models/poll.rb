@@ -1,5 +1,3 @@
-require 'has_taxonomy'
-
 class Poll < ActiveRecord::Base
   extend HasTaxonomy
 
