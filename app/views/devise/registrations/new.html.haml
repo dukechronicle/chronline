@@ -1,18 +1,22 @@
-- provide :title, 'Sign in'
+- provide :title, 'Sign up'
+
 
 .rounded.clearfix.align-group
   .span-6.align-element{data: {aligntarget: 'fieldset'}}
     .form-container
       = render 'site/partials/flash', flash: flash
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = f.error_notification
         %fieldset
           .form-inputs
-            = f.input :email, required: false, autofocus: true
-            = f.input :password, required: false
-            = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+            = f.input :first_name , required: true
+            = f.input :last_name , required: true
+            = f.input :email, required: true
+            = f.input :password, required: true
+            = f.input :password_confirmation, required: true
 
           .form-actions
-            = f.button :submit, "Sign in", class: 'button button-rounded button-primary'
+            = f.button :submit, "Sign up", class: 'button button-rounded button-primary'
 
           = render 'devise/shared/links'
 
@@ -21,3 +25,4 @@
       %fieldset
         = link_to '', omniauth_authorize_path(resource_name, :facebook), class: 'facebook-login'
         = link_to '', omniauth_authorize_path(resource_name, :google_oauth2), class: 'google-login'
+

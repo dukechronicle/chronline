@@ -1,0 +1,23 @@
+%h1 #{@user.first_name} #{@user.last_name}
+%p
+  %strong Email
+  \: #{@user.email}
+%p
+  %strong Role
+  \: #{@user.role}
+%p
+  %strong Member since
+  \: #{datetime_tag(@user.created_at, 'mmmm d, yyyy')}
+%p
+  %strong Number of logins
+  \: #{@user.sign_in_count}
+%p
+  %strong Last login
+  \: #{datetime_tag(@user.last_sign_in_at, 'ddd mmm dd yyyy HH:MM:ss')}
+
+= simple_form_for [:change_role, :admin, @user], method: :post do |f|
+  %legend Change Privileges
+  = f.error_notification
+  = f.input :role, collection: User::Roles
+  = f.submit 'Change', class: 'btn',
+    confirm: "Are you sure you want to change this user's privileges?"

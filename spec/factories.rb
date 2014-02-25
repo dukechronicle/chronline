@@ -43,10 +43,18 @@ FactoryGirl.define do
   end
 
   factory :user do
-    first_name "Ash"
-    last_name "Ketchum"
-    email "ash@ketch.um"
-    password "charizard"
+    first_name "Trainer"
+    last_name "Misty"
+    email "misty@cerulean.city"
+    password "starmie"
+
+    factory :admin do
+      first_name "Ash"
+      last_name "Ketchum"
+      email "ash@ketch.um"
+      password "charizard"
+      role "admin"
+    end
   end
 
   factory :blog_series, class: Blog::Series do

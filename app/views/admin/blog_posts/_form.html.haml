@@ -1,4 +1,4 @@
-= simple_form_for([:admin, @blog_post.blog, @blog_post], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+= simple_form_for([:admin, @blog_post.blog, @blog_post], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, wrapper: :bootstrap) do |f|
   %legend= yield :form_title
   = f.error_notification
   .form-inputs

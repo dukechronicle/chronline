@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "/staff/*" do
-  before(:all) { @user = FactoryGirl.create(:user) }
+  before(:all) { @user = FactoryGirl.create(:admin) }
   after(:all) { @user.destroy }
   subject { ActiveSupport::JSON.decode(response.body) }
 

@@ -29,6 +29,7 @@
 
 # Ignore generated sprites
 app/assets/images/icons-*.png
+app/assets/images/auth-*.png
 
 solr/
 

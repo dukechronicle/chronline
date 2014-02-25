@@ -10,10 +10,22 @@ class ApplicationController < ActionController::Base
   before_filter :force_ssl if Rails.env.production?
 
 
-  protected
+  def authenticate_admin!
+    authenticate_user!
+    unless current_user.admin?
+      respond_to do |format|
+        format.html do
+          render 'unauthorized', layout: 'error', status: :unauthorized
+        end
+        format.json do
+          head :unauthorized
+        end
+      end
+    end
+  end
 
   def social_crawler?
-    CRAWLERS.any? {|crawler| request.user_agent =~ crawler}
+    CRAWLERS.any? { |crawler| request.user_agent =~ crawler }
   end
 
   def force_ssl
@@ -23,5 +35,4 @@ class ApplicationController < ActionController::Base
   def redirect_ssl
     redirect_to protocol: "https://" if request.protocol != "https://"
   end
-
 end

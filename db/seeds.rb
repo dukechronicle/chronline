@@ -9,13 +9,15 @@ def body_html
 end
 
 if User.find_by_email("admin@chron.dev").nil?
-  User.create!(
+  user = User.new(
     email: "admin@chron.dev",
     first_name: "Super",
     last_name: "User",
     password: "password",
     password_confirmation: "password",
   )
+  user.role = :admin
+  user.save!
 end
 
 staff = 15.times.map do |n|

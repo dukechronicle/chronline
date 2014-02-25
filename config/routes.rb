@@ -1,10 +1,17 @@
 require 'resque/server'
-require_dependency 'admin/users_controller' # contains admin devise controllers
+require 'site/users_controller' # contains site devise controllers
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
 
   constraints subdomain: 'www' do
+    devise_for :users, controllers: {
+      sessions: 'site/sessions',
+      registrations: 'site/registrations',
+      passwords: 'site/passwords',
+      omniauth_callbacks: 'site/omniauth_callbacks',
+    }
+
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
@@ -79,12 +86,6 @@ Chronline::Application.routes.draw do
   end
 
   constraints subdomain: 'admin' do
-    devise_for :users, controllers: {
-      sessions: 'admin/sessions',
-      invitations: 'admin/invitations',
-      passwords: 'admin/passwords',
-    }
-
     namespace :admin, path: '/'  do
       root to: 'main#home'
 
@@ -127,6 +128,10 @@ Chronline::Application.routes.draw do
       resources :blog_series, except: :show
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
+
+      resources :users, only: [:index, :show] do
+        post :change_role, on: :member
+      end
 
       authenticate :user do
         mount Resque::Server.new, at: '/resque'
