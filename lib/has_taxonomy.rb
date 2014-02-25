@@ -1,23 +1,15 @@
 module HasTaxonomy
-  def has_taxonomy
-    include Instancemethods
+  def has_taxonomy(field_name, taxonomy)
+    scope field_name, ->(taxonomy) { where("#{field_name} LIKE ?", "#{taxonomy.to_s}%") }
 
-    scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
+    validates_with Taxonomy::Validator, attr: field_name, taxonomy: taxonomy
+    serialize field_name, Taxonomy::Serializer.new(taxonomy)
 
-    validates_with Taxonomy::Validator, attr: :section, taxonomy: :sections
-    serialize :section, Taxonomy::Serializer.new(:sections)
-  end
-
-  module Instancemethods
-    ##
-    # Writer for section attribute. Creates a Taxonomy object if section is a
-    # string.
-    #
-    def section=(section)
-      unless section.is_a?(Taxonomy)
-        section = Taxonomy.new(:sections, section)
+    define_method("#{field_name}=") do |taxonomy_term|
+      unless taxonomy_term.is_a?(Taxonomy)
+        taxonomy_term = Taxonomy.new(taxonomy, taxonomy_term)
       end
-      super(section)
+      super(taxonomy_term)
     end
   end
 end
