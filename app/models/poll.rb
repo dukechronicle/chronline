@@ -5,7 +5,7 @@ class Poll < ActiveRecord::Base
 
   has_many :choices, class_name: 'Poll::Choice', dependent: :destroy
 
-  has_taxonomy
+  has_taxonomy(:section, :sections)
 
   accepts_nested_attributes_for :choices
 
