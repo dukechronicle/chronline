@@ -8,10 +8,9 @@
         %a.hover{href: site_blog_post_path(@blog, blog_post)}
           %h1.title= blog_post.title
 
-        %p.byline
-          %span.author By #{byline(blog_post, link: true)}
-          %span.sep= "|"
-          %span.date= display_date(blog_post)
+        %ul.byline
+          %li.author By #{byline(blog_post, link: true)}
+          %li.date= display_date(blog_post)
 
         = render partial: 'partials/blog-image', locals: {blog_post: blog_post}
 

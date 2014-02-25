@@ -61,6 +61,22 @@
 
   .byline
     color: $caption-color
+    padding: 0px
+    li
+      list-style-type: none
+      display: inline
+      &:before
+        content: "| "
+      &:first-child:before
+        content: none
+    .opinion
+      background-color: $link-color
+      color: $light-color
+      padding: 1px
+      font-size: .65em
+      +border-radius($corner-radius)
+      &:before
+        content: none
 
   .article-body
     font-size: 1.2em

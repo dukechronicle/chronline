@@ -40,10 +40,11 @@
           = render partial: 'partials/main-video'
         - elsif @article.image
           = render partial: 'partials/main-image', locals: {image: @article.image}
-        %p.byline
-          %span.author By #{byline(@article, link: true)}
-          %span.sep= "|"
-          = display_date(@article)
+        %ul.byline
+          %li.author By #{byline(@article, link: true)}
+          %li= display_date(@article)
+          - if @article.opinion
+            %li.opinion Opinion
 
         .article-body
           = render partial: 'site/partials/share-box', locals: {postable: @article}

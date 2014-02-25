@@ -3,12 +3,11 @@
     %h3= blog_post.blog.name
     %h1.title= blog_post.title
 
-    %p.byline
-      %span.author
+    %ul.byline
+      %li.author
         By
         = link_to blog_post.author.name, site_staff_path(blog_post.author)
-      %span.sep= "|"
-      %span.date= display_date(blog_post)
+      %li.date= display_date(blog_post)
 
     - if blog_post.image
       = render partial: 'partials/main-image', locals: {image: blog_post.image}
