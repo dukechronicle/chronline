@@ -1,12 +1,25 @@
 #= require site/templates/bracket
-#= require site/templates/login
 
 window.BracketView = Backbone.View.extend
   template: JST['site/templates/bracket']
 
+  events:
+    'click .edit': 'edit'
+    'click .done': 'save'
+
   initialize: (options) ->
     this.listenTo(@model, 'change', @render) if @model?
     @games = options['games']
+
+  edit: ->
+    @model.set(editing: true)
+
+  save: ->
+    @model.save {},
+      success: ->
+        console.log('saved')
+      error: ->
+        console.log('error')
 
   render: ->
     @$el.html(@template(bracket: @model))
@@ -16,7 +29,7 @@ window.BracketView = Backbone.View.extend
     @$el.find('.region-right').each ->
       $(this).prepend (new BracketLinesView(flipped: true)).render().el
 
-    if @model?.isNew() and @model?.complete()
+    if @model?.get('editing') and @model?.complete()
       $form = $('#new_tournament_bracket').clone()
       $form.find('#tournament_bracket_picks').val(
         JSON.stringify(@model.get('picks'))

@@ -26,7 +26,7 @@ window.BracketGameView = Backbone.View.extend
       @template(
         game: @model
         winner: @bracket.winnerForGame(@model)
-        selectable: @bracket.isNew()
+        selectable: @bracket.get('editing')
         team1: team1
         team2: team2
       )
