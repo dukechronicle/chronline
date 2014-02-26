@@ -139,6 +139,12 @@ Chronline::Application.routes.draw do
         post :change_role, on: :member
       end
 
+      resources :tournaments, only: [:index, :show], id: Tournament::SLUG_PATTERN
+      resources :tournaments, only: :none do
+        resources :tournament_teams, only: [:edit, :update], path: 'teams',
+          tournament_id: Tournament::SLUG_PATTERN
+      end
+
       authenticate :user do
         mount Resque::Server.new, at: '/resque'
       end

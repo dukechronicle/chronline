@@ -1,7 +1,9 @@
 class Tournament::Team < ActiveRecord::Base
-  attr_accessible :espn_id, :mascot, :region_id, :seed, :shortname, :school
+  attr_accessible :espn_id, :mascot, :region_id, :seed, :shortname, :school,
+    :preview, :article_id
 
   belongs_to :tournament
+  belongs_to :article
 
   before_validation { self.shortname ||= self.school }
 

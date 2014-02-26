@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140218061102) do
+ActiveRecord::Schema.define(:version => 20140226160443) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(:version => 20140218061102) do
     t.integer  "tournament_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.text     "preview"
+    t.integer  "article_id"
   end
 
   add_index "tournament_teams", ["tournament_id", "region_id", "seed"], :name => "index_tournament_teams_on_tournament_id_and_region_id_and_seed", :unique => true
