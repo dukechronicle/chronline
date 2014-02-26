@@ -2,4 +2,4 @@
 .rounded
   .content-container
     .poll-container
-      .poll{data: {'poll' => poll.to_json(include: :choices, properties: {voted: ->(poll) { voted_on_poll?(poll) }})}}
+      .poll{data: {'poll' => poll_json(poll)}}
