@@ -168,9 +168,18 @@
   children:
     - name: Bus Stop
       id: 76
+      children:
+        - name: Opinion
+          id: 80
     - name: Plaza
       id: 77
+      children:
+        - name: Opinion
+          id: 81
     - name: Inquisitor
       id: 78
+      children:
+        - name: Opinion
+          id: 82
     - name: "Editor's Note"
       id: 79
