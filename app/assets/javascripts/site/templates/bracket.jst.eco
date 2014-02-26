@@ -1,4 +1,11 @@
-<div class="actions"></div>
+<div class="actions">
+  <% if not @bracket?.get('editing') and @bracket?.editable(): %>
+  <button class="edit button button-flat-highlight button-large" type="button">Edit</button>
+  <% end %>
+  <% if @bracket?.get('editing') and not @bracket?.isNew() and @bracket.complete(): %>
+  <button class="done button button-flat-action button-large" type="button">Done</button>
+  <% end %>
+</div>
 
 <div class="clearfix">
   <div class="region region-left region-0">

@@ -29,4 +29,6 @@ class Tournament::Bracket < ActiveRecord::Base
   validates :user, presence: true
   validates :user_id, uniqueness: { scope: :tournament_id }
   validates_with PicksValidator
+
+  after_initialize { self.picks ||= [] }
 end

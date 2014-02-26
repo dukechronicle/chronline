@@ -5,6 +5,9 @@ window.Bracket = Backbone.Model.extend
   defaults:
     picks: []
 
+  initialize: ->
+    this.set(editing: true) if this.isNew()
+
   makePick: (game, teamId) ->
     picks = _.clone(this.get('picks'))
     if picks[game.get('position')] != teamId
@@ -37,6 +40,11 @@ window.Bracket = Backbone.Model.extend
 
   complete: ->
     _.compact(this.get('picks')).length == 63
+
+  editable: ->
+    console.log "hello"
+    console.log this.get('tournament')
+    true
 
   ##
   # Utility to make testing easier
