@@ -134,7 +134,8 @@ ActiveRecord::Schema.define(:version => 20131231195346) do
     t.boolean  "reported",   :default => false
     t.integer  "upvotes",    :default => 0
     t.integer  "downvotes",  :default => 0
-    t.text     "content"
+    t.string   "content"
+    t.float    "score"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
