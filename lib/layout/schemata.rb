@@ -70,6 +70,13 @@ Layout.add_schema(:datetime, {
   datetimes.map { |str| DateTime.iso8601(str) }
 end
 
+Layout.add_schema(:gallery, {
+  "type" => "string",
+  "required" => true,
+}) do |gallery_ids|
+  Gallery.includes(:images).find_in_order(gallery_ids, :gid)
+end
+
 Layout.add_schema(:topic, {
                     "type" => "integer",
                   }) do |topic_ids|

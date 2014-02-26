@@ -1,0 +1,44 @@
+#= require jquery-galleria/src/galleria
+#= require eventEmitter/EventEmitter.min.js
+#= require eventie/eventie.js
+#= require imagesloaded/imagesloaded.js
+
+GALLERIA_THEME = "<%= asset_path 'galleria/themes/gallery/galleria.gallery.js' %>"
+
+initialize '.gallery', ->
+  size = [600, 370]
+  size = [636, 393] if this[0]["className"] == "gallery main"
+  Galleria.loadTheme(GALLERIA_THEME)
+  Galleria.configure
+    transition: 'fade'
+    autoplay: true
+    width: size[0]
+    height: size[1]
+  Galleria.on "image",(e) ->
+    if e.galleriaData.description
+      parsed = parseInfo(e.galleriaData.description)
+      credit = parsed[0]
+      caption = parsed[1]
+      updateText("#imageinfo", caption)
+      $("#cred").html(credit+" / The Chronicle")
+    $(".buy").attr("href", e.galleriaData.link) 
+    title  = e.galleriaData.title
+    updateText("#title", title) if title
+  Galleria.run $(this)
+
+updateText = (id, text) ->
+  $(id).contents().filter( ->
+      @nodeType == 3
+    ).remove()
+    $(id).append(text)
+
+parseInfo = (info) ->
+  info.split("__credit__:")[1].split("__caption__:") if info
+
+$container = $('#galleryContainer')
+imagesLoaded( $container, ->
+  $container.masonry({
+    itemSelector: ".small-gallery",
+    gutter: 2
+  })
+)
