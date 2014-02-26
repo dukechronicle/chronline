@@ -1,4 +1,5 @@
 initialize '.poll-container', ->
-  pollId = $(this).find('.poll').data('id')
-  poll = new Poll(id: pollId)
+  pollJSON = $(this).find('.poll').data('poll')
+  poll = new Poll(pollJSON)
   view = new PollView(model: poll, el: '.poll')
+  view.render()

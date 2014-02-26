@@ -1,5 +1,5 @@
-<h4 class='title'><%= @poll.title %></h4>
-<p><%= @poll.description %></p>
+<h4 class='title'><%= @title %></h4>
+<p><%= @description %></p>
 <form class="poll-form" accept-charset="UTF-8" action="/polls/1/vote" method="post">
   <ul class='choice-list'>
     <% for choice in @choices: %>
