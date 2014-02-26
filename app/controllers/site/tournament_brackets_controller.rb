@@ -57,6 +57,19 @@ class Site::TournamentBracketsController < Site::BaseController
     end
   end
 
+  def update
+    @tournament = Tournament.find(params[:tournament_id])
+    @bracket = @tournament.brackets.includes(:user).find(params[:id])
+    @bracket.picks = params[:tournament_bracket][:picks]
+    if @tournament.started? || @bracket.user != current_user
+      head :forbidden
+    elsif @bracket.save
+      render json: @bracket
+    else
+      render json: @bracket.errors, status: :unprocessable_entity
+    end
+  end
+
   private
   def check_for_existing(tournament)
     @bracket = current_user.brackets
