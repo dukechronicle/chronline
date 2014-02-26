@@ -36,6 +36,9 @@ solr/
 
 #/ignore sitemaps
 /public/sitemap
+
+# Ignore dish_cassettes
+spec/fixtures/dish_cassettes/
 # General
 # =======
 
@@ -95,6 +98,9 @@ tmtags
 .*.sw[a-z]
 *.un~
 Session.vim
+
+# Redis
+dump.rdb
 
 # Misc
 # ====

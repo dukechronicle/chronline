@@ -15,6 +15,6 @@
       %i.icons-email
       = link_to "Email", mailto_article(postable)
 
-  %div= facebook_recommend_post(postable)
-  %div= twitter_share_post(postable)
-  %div= google_plusone_post(postable)
+  %div= facebook_recommend(permanent_post_url(postable))
+  %div= twitter_share(permanent_post_url(postable))
+  %div= google_plusone(permanent_post_url(postable))

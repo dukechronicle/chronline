@@ -8,6 +8,8 @@ Chronline::Application.routes.draw do
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
+      resources :galleries, only: [:index, :show], id: Gallery::SLUG_PATTERN
+
       resource :search, only: :show
 
       resource :newsletter, only: :show do
@@ -99,6 +101,8 @@ Chronline::Application.routes.draw do
         put 'crop', on: :member
         get 'upload', on: :collection
       end
+
+      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN
 
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
