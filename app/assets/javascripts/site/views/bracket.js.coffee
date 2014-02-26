@@ -16,10 +16,8 @@ window.BracketView = Backbone.View.extend
 
   save: ->
     @model.save {},
-      success: ->
-        console.log('saved')
-      error: ->
-        console.log('error')
+      success: =>
+        @model.set(editing: false)
 
   render: ->
     @$el.html(@template(bracket: @model))

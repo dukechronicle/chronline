@@ -47,7 +47,7 @@ Chronline::Application.routes.draw do
 
       resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN
       resources :tournaments, only: :none do
-        resources :tournament_brackets, path: 'brackets',
+        resources :tournament_brackets, except: :edit, path: 'brackets',
           tournament_id: Tournament::SLUG_PATTERN
       end
 

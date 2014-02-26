@@ -42,9 +42,8 @@ window.Bracket = Backbone.Model.extend
     _.compact(this.get('picks')).length == 63
 
   editable: ->
-    console.log "hello"
-    console.log this.get('tournament')
-    true
+    tournamentStart = new Date(this.get('tournament').start_date)
+    this.get('editable') and Date.now() < tournamentStart
 
   ##
   # Utility to make testing easier
