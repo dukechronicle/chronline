@@ -73,7 +73,7 @@ end
 Layout.add_schema(:poll, {
                     'type' => 'integer',
                   }) do |poll_ids|
-  Poll.find_in_order(poll_ids)
+  Poll.includes(:choices).find_in_order(poll_ids)
 end
 
 Layout.add_schema(:topic, {
