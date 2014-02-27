@@ -3,6 +3,7 @@
 
 window.PollView = Backbone.Marionette.ItemView.extend
   initialize: ->
+    @model.fetch()
     this.listenTo(@model, 'change', @render)
 
   events:
