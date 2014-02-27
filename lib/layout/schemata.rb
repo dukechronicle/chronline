@@ -76,6 +76,13 @@ Layout.add_schema(:poll, {
   Poll.includes(:choices).find_in_order(poll_ids)
 end
 
+Layout.add_schema(:gallery, {
+  "type" => "string",
+  "required" => true,
+}) do |gallery_ids|
+  Gallery.includes(:images).find_in_order(gallery_ids, :gid)
+end
+
 Layout.add_schema(:topic, {
                     "type" => "integer",
                   }) do |topic_ids|

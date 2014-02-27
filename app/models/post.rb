@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
 
   self.table_name = :articles
 
-  friendly_id :title, use: [:slugged, :history]
+  friendly_id :title, use: [:slugged, :history, :chronSlug]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
     :section, :subtitle, :teaser, :title, :embed_code, :embed_url
@@ -55,18 +55,7 @@ class Post < ActiveRecord::Base
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)
-    return nil if title.nil?  # record won't save -- title presence is validated
-    removelist = %w(a an as at before but by for from is in into like of off on
-onto per since than the this that to up via with)
-    r = /\b(#{removelist.join('|')})\b/i
-
-    s = title.downcase  # convert to lowercase
-    s.gsub!(r, '')
-    s.strip!
-    s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
-    s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
-    s = s[0...max_chars].chomp('-')
-
+    s = super
     (published_at || Date.today).strftime('%Y/%m/%d/') + s
   end
 

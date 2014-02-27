@@ -1,0 +1,10 @@
+= simple_form_for([:site, @gallery], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+  %legend= yield :form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :name
+    = f.input :date
+    = f.input :description, label: 'Subtitle', input_html: { rows: 8}
+
+  .form-actions
+    = f.button :submit, "Submit", class: 'btn btn-large btn-primary'
