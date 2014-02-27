@@ -1,6 +1,4 @@
-
 class Gallery < ActiveRecord::Base
-  require 'gallery/image'
   include FriendlyId
   SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
   friendly_id :name, use: [:slugged, :history, :chronSlug]
