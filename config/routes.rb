@@ -103,7 +103,7 @@ Chronline::Application.routes.draw do
       end
 
       resources :galleries, except: :show, id: Gallery::SLUG_PATTERN do
-        put 'scrape', on: :collection
+        post 'scrape', on: :collection
       end
 
       resources :articles, except: :show, id: Post::SLUG_PATTERN do

@@ -19,6 +19,7 @@ class Admin::GalleriesController < Admin::BaseController
 
   def scrape
     Resque.enqueue(PhotoshelterWorker)
+    flash[:success] = "The galleries are being updated in the background. This may take a few minutes."
     redirect_to admin_galleries_path
   end
  end
