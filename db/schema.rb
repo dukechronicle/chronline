@@ -109,6 +109,22 @@ ActiveRecord::Schema.define(:version => 20140201003855) do
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
 
+  create_table "poll_choices", :force => true do |t|
+    t.integer  "poll_id"
+    t.string   "title"
+    t.integer  "votes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "polls", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "section"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "posts_authors", :force => true do |t|
     t.integer "post_id"
     t.integer "staff_id"

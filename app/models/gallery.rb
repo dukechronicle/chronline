@@ -1,6 +1,6 @@
 class Gallery < ActiveRecord::Base
-  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
   include FriendlyId
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
   friendly_id :name, use: [:slugged, :history, :chronSlug]
 
   self.primary_key = :gid
@@ -34,6 +34,29 @@ class Gallery < ActiveRecord::Base
   def normalize_friendly_id(name, max_chars=100)
     s = super 
     (date || Date.today).strftime('%Y/%m/%d/') + s
+  end
+
+  def self.scrape
+    PhotoshelterAPI.instance.get_all_galleries.each do |gallery|
+      if !Gallery.exists?(:gid => gallery['id']) then
+        begin
+          date = Date.strptime gallery['name'], '%Y/%m/%d'
+        rescue ArgumentError
+          date = nil
+        end
+        gallery_name = gallery['name'].gsub(/[0-9]+\/[0-9]+\/[0-9]+/, '').sub(/^[\s\-]+/, '')
+        Gallery.create(gid: gallery['id'], name: gallery_name, description: gallery['description'], date: date)
+        images = PhotoshelterAPI.instance.get_gallery_images gallery['id']
+        if images then
+          images.each do |image|
+            info = PhotoshelterAPI.instance.get_image_info image['id']
+            if !Gallery::Image.exists?(:pid => image['id'], :gid => gallery['id']) then
+              Gallery::Image.create(:pid => image['id'], :gid => gallery['id'], :caption => info['caption'], :credit => info['credit'], :title => info['title'])
+            end
+          end
+        end
+      end
+    end
   end
 
 end

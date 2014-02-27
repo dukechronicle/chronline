@@ -40,6 +40,12 @@ Chronline::Application.routes.draw do
         end
       end
 
+      resources :polls, only: :show  do
+        member do
+          post 'vote'
+        end
+      end
+
       match '/404', :to => 'base#not_found'
 
       match 'join' => redirect('/pages/join')
@@ -102,7 +108,9 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN
+      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN do
+        post 'scrape', on: :collection
+      end
 
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
@@ -129,6 +137,8 @@ Chronline::Application.routes.draw do
       end
 
       resources :blog_series, except: :show
+
+      resources :polls, except: :show
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 
