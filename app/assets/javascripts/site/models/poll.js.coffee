@@ -1,11 +1,11 @@
 window.Poll = Backbone.Model.extend
   urlRoot: "/polls"
 
-  vote: (choice_id) ->
+  vote: (choiceId) ->
     $.ajax
       method: 'POST'
       url: "#{this.url()}/vote",
-      data: {choice: choice_id}
+      data: {choice: choiceId}
     .done (data) =>
       this.set(data)
 
