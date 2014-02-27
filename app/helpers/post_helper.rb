@@ -1,5 +1,22 @@
 module PostHelper
 
+  def byline(post, options={})
+    authors = post.authors.sort_by(&:last_name)
+    authors.map do |author|
+      if options[:link]
+        path =
+          if post.is_a? Blog::Post
+            blog_posts_site_staff_path(author)
+          else
+            articles_site_staff_path(author)
+          end
+        link_to author.name, path
+      else
+        author.name
+      end
+    end.to_sentence.html_safe
+  end
+
   def display_date(post, format = nil, notime: true)
     publish_date = post.published_at || post.created_at
     datetime_tag(publish_date, format || 'mmmm d, yyyy', timestamp: !notime)
