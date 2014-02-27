@@ -108,7 +108,9 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
-      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN
+      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN do
+        post 'scrape', on: :collection
+      end
 
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
