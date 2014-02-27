@@ -70,6 +70,12 @@ Layout.add_schema(:datetime, {
   datetimes.map { |str| DateTime.iso8601(str) }
 end
 
+Layout.add_schema(:poll, {
+                    'type' => 'integer',
+                  }) do |poll_ids|
+  Poll.includes(:choices).find_in_order(poll_ids)
+end
+
 Layout.add_schema(:gallery, {
   "type" => "string",
   "required" => true,

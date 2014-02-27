@@ -1,0 +1,14 @@
+= simple_form_for([:admin, @poll], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+  %legend= yield :form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :title
+    = f.input :description
+
+  = f.input :section, as: :taxonomy, taxonomy: :sections
+
+  %legend Choices
+  = f.association :choices, as: :text_list, value_method: :title, input_html: {class: 'choice-picker', autocomplete: 'off'}
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary'

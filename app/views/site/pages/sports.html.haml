@@ -6,11 +6,17 @@
     .span-8.align-element{data: {alignprimary: "true"}}
       #slideshow= render partial: 'site/partials/slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: true}
       #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+      -# HAX: this really only looks nice if the number of choices in the poll is < 5
+      - @model.bottom_articles[0...4].each_with_index do |article, i|
+        .span-4{class: (i % 2 == 1 ? 'last' : nil)}= render partial: 'site/containers/block/thumbnail', locals: {article: article}
 
     .span-4.last.align-element{data: {aligntarget: '#blog .rounded'}}
       = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+      - if @model.poll
+        = render partial: 'site/containers/poll', locals: {poll: @model.poll}
       = render partial: 'site/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget}
 
-  .clearfix
-    - @model.bottom_articles.each_with_index do |article, i|
-      .span-4{class: (i % 3 == 2 ? 'last' : nil)}= render partial: 'site/containers/block/thumbnail', locals: {article: article}
+  - if @model.bottom_articles.length > 4
+    .clearfix
+      - @model.bottom_articles[4..-1].each_with_index do |article, i|
+        .span-4{class: (i % 3 == 2 ? 'last' : nil)}= render partial: 'site/containers/block/thumbnail', locals: {article: article}
