@@ -20,20 +20,20 @@ window.PollView = Backbone.Marionette.ItemView.extend
 
   submit: (e) ->
     e.preventDefault()
-    chosen_choice = @$el.find('input[name=choice]:checked').val()
-    if chosen_choice
-      @model.vote(chosen_choice)
+    chosenChoice = @$el.find('input[name=choice]:checked').val()
+    if chosenChoice
+      @model.vote(chosenChoice)
 
   _renderBars: ->
     @model.calculatePercentages()
-    choice_elements = @$el.find('.poll-choice')
-    els_with_choices = _.zip(choice_elements, @model.get('choices'))
+    choiceElements = @$el.find('.poll-choice')
+    elsWithChoices = _.zip(choiceElements, @model.get('choices'))
 
-    _.each(els_with_choices, (el_choice_pair) ->
-      choice_el = $(el_choice_pair[0])
-      choice = el_choice_pair[1]
-      choice_el.find('.poll-choice-bar')
+    _.each(elsWithChoices, (elChoicePair) ->
+      choiceEl = $(elChoicePair[0])
+      choice = elChoicePair[1]
+      choiceEl.find('.poll-choice-bar')
         .animate({width: "#{choice.percentage}%"}, 500)
-      choice_el.find('.choice-percentage')
+      choiceEl.find('.choice-percentage')
         .text("#{choice.percentage.toFixed(1)}%")
     )
