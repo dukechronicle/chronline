@@ -1,7 +1,7 @@
 class Site::PollsController < Site::BaseController
   def show
-    @poll = Poll.includes(:choices).find(params[:id])
-    render json: @poll.to_json(include: :choices, properties: {
+    @choice.poll = Poll.includes(:choices).find(params[:id])
+    render json: @choice.poll.to_json(include: :choices, properties: {
       voted: ->(poll) { session.has_key?("poll#{poll.id}") }
     })
   end
@@ -10,7 +10,7 @@ class Site::PollsController < Site::BaseController
     if request.xhr?
       @choice = Poll::Choice.find(params[:choice])
       vote_for(@choice)
-      render json: @poll.to_json(include: :choices, properties: {
+      render json: @choice.poll.to_json(include: :choices, properties: {
         voted: ->(poll) { session.has_key?("poll#{poll.id}") }
       })
     end
