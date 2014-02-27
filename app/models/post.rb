@@ -19,8 +19,6 @@ class Post < ActiveRecord::Base
   validates :authors, presence: true
   validates :teaser, length: { maximum: 200 }
 
-  has_taxonomy(:section, :sections)
-
   def self.default_scope
     self
       .where('published_at IS NOT NULL')
