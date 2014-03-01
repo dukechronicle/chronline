@@ -3,7 +3,6 @@ rvm:
   - "2.1.1"
 before_script:
   - psql -c 'create database chronline_test;' -U postgres
-  - bundle exec rake db:migrate
+  - bundle exec rake db:migrate db:test:prepare
 script:
-  - bundle exec rake db:test:prepare
   - bundle exec rake
