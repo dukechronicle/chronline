@@ -1,8 +1,9 @@
 language: ruby
 rvm:
-  - "2.1.0"
+  - "2.1.1"
 before_script:
-  - psql -c 'create database test;' -U postgres
+  - psql -c 'create database chronline_test;' -U postgres
+  - bundle exec rake db:migrate
 script:
   - bundle exec rake db:test:prepare
   - bundle exec rake
