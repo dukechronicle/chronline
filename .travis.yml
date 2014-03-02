@@ -2,6 +2,7 @@ language: ruby
 rvm:
   - "2.1.1"
 before_script:
+  - redis-server & 
   - psql -c 'create database chronline_test;' -U postgres
   - bundle exec rake db:migrate db:test:prepare
 script:
