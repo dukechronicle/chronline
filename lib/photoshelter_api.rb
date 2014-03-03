@@ -1,8 +1,5 @@
-require 'singleton'
-
 class PhotoshelterAPI
   include Errors
-  include Singleton
 
   BaseUri = "https://www.photoshelter.com/psapi/v1"
 
