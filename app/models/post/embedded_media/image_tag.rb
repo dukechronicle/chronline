@@ -29,37 +29,7 @@ class Post
 
       def full_width?
         false
-
-      def to_html(float: :right)
-        classes = "embedded-image embedded-#{float}"
-        content_tag(:span, nil, class: classes) do
-          photo_credit = photo_credit(@image, link: true)
-          image_html = content_tag(:img, nil,**image_attributes)
-          image_url = @image.original.url(largest_style)
-          content_tag(
-            :figure,
-            image_html
-          )
-          # content_tag(
-          #   :a, 
-          #   image_html,
-          #   'data-lightbox' => true, 
-          #   title: @image.caption, 
-          #   href: image_url
-          # )
-          # concat(
-          #   content_tag(
-          #     :a, 
-          #     image_html,
-          #     'data-lightbox' => true, 
-          #     title: @image.caption, 
-          #     href: image_url)
-          # )
-          # concat content_tag(:span, photo_credit, class: 'photo-credit')
-        end
->>>>>>> More article page redesign
       end
-
 
       def to_s
         "{{Image:#{@image.id}}}"

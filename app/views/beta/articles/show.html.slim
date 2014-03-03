@@ -11,41 +11,53 @@
       meta[name= 'robots' content= 'noindex']
     link[rel= "canonical" href= site_article_url(@article, subdomain: :www, protocol: 'http')]
 
+/ - content_for :scripts do
+/   %script{src: '//www.readrboard.com/static/engage.js', defer: true}
+
+- content_for :administrative_links do
+  = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
+
+- unless @article.published?
+  = render 'site/partials/admin-notification'
+
 - cache do
   - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
   .page-main-wrap
-    article.postable.postable-news
-      header.page-header
-        .row
-          .header-section.columns.small-12= @article.section.name
-        .row
-          .header-title.columns.small-12
-            h1= @article.title
-            - if not @article.subtitle.blank?
-              p.subtitle= @article.subtitle
-        .row
-          .header-byline.columns.small-12
-            span.author By #{byline(@article, link: true)}
-            span.sep= " - "
-            = display_date(@article)
-      .row.page-feature(data-match-height)
-        aside.page-sidebar.columns.small-12.large-1
-          = render partial: 'beta/partials/feature-social', locals: {postable: @article}
-        section.page-feature-jumbotron.columns.small-12.large-11
-          //TODO(rivkees): implement video, gallary, and graph jumbo's
-          - if @article.embed_code.present?
-            = render partial: 'partials/main-video'
-          - elsif @article.image
-            = render partial: 'partials/jumbotron-default', locals: {image: @article.image}
-      .page-main.row
-        section.page-body-content.columns.small-8
-          == @article.render_body
-
-        aside.columns.small-4
-          = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-          = render 'site/partials/facebook-recommended'
-          = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
-          = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
     .row
-      section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
-      section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
+      article.postable.postable-article.columns.small-8
+        header.page-header
+          .row
+            .page-feature
+              //TODO(rivkees): implement video, gallary, and graph jumbo's
+              - if @article.embed_code.present?
+                = render partial: 'partials/main-video'
+              - elsif @article.image
+                = render partial: 'partials/jumbotron-default', locals: {image: @article.image, image_size: :rectangle_636x}
+          .row
+            .header-taxonomy.columns.small-12
+              - @article.section.parents.each_with_index do |parent, i|
+                span.taxonomy-section = link_to parent.name, section_path(parent)
+          .row
+            .header-title.columns.small-12
+              h1
+                = @article.title
+              - if not @article.subtitle.blank?
+                p.subtitle= @article.subtitle
+              p.header-byline
+                span.author By #{byline(@article, link: true)}
+                span= display_date(@article)
+          .row
+            .header-social.columns.small-12
+              = render partial: 'beta/partials/feature-social', locals: {postable: @article}
+        .row
+          main.page-body.columns.small-12
+            == @article.render_body
+      aside.page-sidebar.columns.small-4
+        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+        = render 'site/partials/facebook-recommended'
+        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+    footer.page-footer
+      .row
+        section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
+        section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
