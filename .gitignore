@@ -37,8 +37,6 @@ solr/
 #/ignore sitemaps
 /public/sitemap
 
-# Ignore dish_cassettes
-spec/fixtures/dish_cassettes/
 # General
 # =======
 

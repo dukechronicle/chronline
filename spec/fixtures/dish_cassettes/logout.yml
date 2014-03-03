@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:23:32 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hArSK9GbXYmWhrPGTZbohaWs1aXTxcLXv3gYemGzeQ78THT0YQJt8dMQhIubcDm44gU56hXIHt4tI%2BRO%2BOMeKa0rheFCf8QAOmMM0iYDd8ilXcDydR96twyK9VV1b1ZeU0T6MNKZtPH1zImF1O2TZ1VVyFQi2lYwH1%2FDEZE3CSmmKRfJVN37xcbll1fSqam9KMpZOPMRLKc%2FzMsq4XbX2Po4k3X0kAUjtWaJzQJI0XWzfkXdFWuWjvNp9u2dgC6f9aLIMII%2BZyL9jzMNwrTOoQhH%2FY6Pj2wGrriV3PrMtfmR%2FyLY3mer3abQJcTh3nmB4SsMkJmhq5PIk86isESkRmeNPDKoJNA8JpFi4P0kUib4yn79Rln%2FPZLARCmYC5OKECFpmOoWHjs6nnOLc0MIWyJRTptm5DCyJtIiJG%2FWB%2ByE3I2f%2F8AhVjoEw%3D%3AmxT3VfGL%2Fsdxg3%2BFY6LqIn9%2BPoCTbINhCrsdIO%2Bxt7Q%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:23:32 GMT
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate/logout?format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hArSK9GbXYmWhrPGTZbohaWs1aXTxcLXv3gYemGzeQ78THT0YQJt8dMQhIubcDm44gU56hXIHt4tI%2BRO%2BOMeKa0rheFCf8QAOmMM0iYDd8ilXcDydR96twyK9VV1b1ZeU0T6MNKZtPH1zImF1O2TZ1VVyFQi2lYwH1%2FDEZE3CSmmKRfJVN37xcbll1fSqam9KMpZOPMRLKc%2FzMsq4XbX2Po4k3X0kAUjtWaJzQJI0XWzfkXdFWuWjvNp9u2dgC6f9aLIMII%2BZyL9jzMNwrTOoQhH%2FY6Pj2wGrriV3PrMtfmR%2FyLY3mer3abQJcTh3nmB4SsMkJmhq5PIk86isESkRmeNPDKoJNA8JpFi4P0kUib4yn79Rln%2FPZLARCmYC5OKECFpmOoWHjs6nnOLc0MIWyJRTptm5DCyJtIiJG%2FWB%2ByE3I2f%2F8AhVjoEw%3D%3AmxT3VfGL%2Fsdxg3%2BFY6LqIn9%2BPoCTbINhCrsdIO%2Bxt7Q%3D
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:23:32 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hArSK9GbXYmWhrPGTZbohaWs1aXTxcLXv3gYemGzeQ78THT0YQJt8dMQhIubcDm44gU56hXIHt4tI%2BRO%2BOMeKa0rheFCf8QAOmMM0iYDd8ilXcDydR96twyK9VV1b1ZeU0T6MNKZtPH1zImF1O2TZ1VVyFQi2lYwH1%2FDEZE3CSmmKRfJVN37xcbll1fSqam9KMpZOPMRLKc%2FzMsq4XbX2Po4k3X0kAUjtWaJzQJI0XWzfkXdFWuWjvNp9u2dgC6f9aLIMII%2BZyL9jzMNwrTOoQhH%2FY6Pj2wGrriV3PrMtfmR%2FyLY3mer3abQJcTh3nmB4SsMkJmhq5PIk86isESkRmeNPDKoJNA8JpFi4P0kUib4yn79Rln%2FPZLARCmYC5OKECFpmOoWHjs6nnOLc0MIWyJRTptm5DCyJtIiJG%2FWB%2ByE3I2f%2F8AhVjoEw%3D%3AmxT3VfGL%2Fsdxg3%2BFY6LqIn9%2BPoCTbINhCrsdIO%2Bxt7Q%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '27'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":null}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:23:32 GMT
+recorded_with: VCR 2.5.0
