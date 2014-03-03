@@ -40,6 +40,12 @@ Chronline::Application.routes.draw do
         end
       end
 
+      resources :polls, only: :show  do
+        member do
+          post 'vote'
+        end
+      end
+
       match '/404', :to => 'base#not_found'
 
       match 'join' => redirect('/pages/join')
@@ -131,6 +137,8 @@ Chronline::Application.routes.draw do
       end
 
       resources :blog_series, except: :show
+
+      resources :polls, except: :show
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 

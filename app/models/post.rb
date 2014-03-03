@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
+  extend HasTaxonomy
   include FriendlyId
 
   self.table_name = :articles
@@ -17,8 +18,6 @@ class Post < ActiveRecord::Base
   validates :title, presence: true
   validates :authors, presence: true
   validates :teaser, length: { maximum: 200 }
-
-  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   def self.default_scope
     self
@@ -101,17 +100,6 @@ class Post < ActiveRecord::Base
     EmbeddedMedia.new(body).to_s
   end
 
-  ##
-  # Writer for section attribute. Creates a Taxonomy object if section is a
-  # string.
-  #
-  def section=(section)
-    unless section.is_a?(Taxonomy)
-      section = Taxonomy.new(taxonomy, section)
-    end
-    super(section)
-  end
-
   def square_80x_url
     image.original.url(:square_80x) if image
   end
@@ -131,13 +119,6 @@ class Post < ActiveRecord::Base
     self.find_in_order(post_ids).compact
   end
 
-  def self.taxonomy=(taxonomy)
-    @taxonomy = taxonomy
-    validates_with Taxonomy::Validator, attr: :section, taxonomy: taxonomy
-    serialize :section, Taxonomy::Serializer.new(taxonomy)
-  end
-  private_class_method :taxonomy=
-
   def self.fetch_popular_from_redis(section, limit)
     $redis.multi do
       5.times do |i|
@@ -148,11 +129,6 @@ class Post < ActiveRecord::Base
     end
   end
   private_class_method :fetch_popular_from_redis
-
-  private
-  def taxonomy
-    self.class.instance_variable_get(:@taxonomy)
-  end
 end
 
 # Necessary to avoid autoload namespacing conflict

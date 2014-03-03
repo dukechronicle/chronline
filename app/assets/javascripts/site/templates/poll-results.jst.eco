@@ -1,0 +1,13 @@
+<h4 class='title'><%= @title %></h4>
+<p><%= @description %></p>
+<ul class="choice-list">
+  <% for choice in @choices: %>
+    <li class="poll-choice" data-votes=<%= choice.votes %>>
+      <div class="poll-choice-bar"></div>
+      <div class="poll-choice-result">
+        <%= choice.title %>
+        <span class="choice-percentage"></span>
+      </div>
+    </li>
+  <% end %>
+</ul>
