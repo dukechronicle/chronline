@@ -1,0 +1,1171 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:01:56 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA0Qq9GbXYmWhrPGTZbohaU81aXTxcLXv3gYemHTeQ78THT0qRRX86iilIhLsH244iU56hXD5xrJIcww8bj7imNI4bRrE4Mp8rTNtQsB%2B%2BilXUD%2Bei7lfBkF2rrqzqy8pu1qMNKZvHHlwIzy67bJu6yq%2BFQjdKx33memOyRcFZavJF8l02ffN6uaXVdZ03N6UZS8efYySU5%2BiFp11ftPU9jsXufCUFSO2WQqOYxUm02Loh6%2FK2yor2bvPYjo8tkP6vxTKIIOSOcP2DCIKDwqQOQfjEhqf3B1YzJtaYWUe8cS8QOxbO9Xq1EwocwWz7lBxjsM0omho5Ig5d5ikESkRmuNPDKmqZGMJpFo7wk0Uib4ym79RlH2xhtXQth1YBtTzXU9MkKU6xqRmZQcAUypdQpBOdQGODzIkIOfP8%2BSG3Qs7%2B9w%2BzEZ8J%3AnAtTSHSEUSIfPbl7NnHdV7SbquMfS13DJ7eTt8f9rho%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:01:56 GMT
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/gallery/query?format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA0Qq9GbXYmWhrPGTZbohaU81aXTxcLXv3gYemHTeQ78THT0qRRX86iilIhLsH244iU56hXD5xrJIcww8bj7imNI4bRrE4Mp8rTNtQsB%2B%2BilXUD%2Bei7lfBkF2rrqzqy8pu1qMNKZvHHlwIzy67bJu6yq%2BFQjdKx33memOyRcFZavJF8l02ffN6uaXVdZ03N6UZS8efYySU5%2BiFp11ftPU9jsXufCUFSO2WQqOYxUm02Loh6%2FK2yor2bvPYjo8tkP6vxTKIIOSOcP2DCIKDwqQOQfjEhqf3B1YzJtaYWUe8cS8QOxbO9Xq1EwocwWz7lBxjsM0omho5Ig5d5ikESkRmuNPDKmqZGMJpFo7wk0Uib4ym79RlH2xhtXQth1YBtTzXU9MkKU6xqRmZQcAUypdQpBOdQGODzIkIOfP8%2BSG3Qs7%2B9w%2BzEZ8J%3AnAtTSHSEUSIfPbl7NnHdV7SbquMfS13DJ7eTt8f9rho%3D
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:01:56 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA8QC9GbXYmWhrPGTZbohaU81aXTxcLXv3gYdmGzeQ78THT0aRTb96iilIhXcAu54iU56hXAFx7YqcojcHT7imNK4XxYk4sYArTLMoOIwf5SYexkvZDJtwzG91X9XNdeO028mGlM1nv1wILy6n6tqmLm6lQi2l4wHz%2FCnZpuAiNcUq%2BazaoX2%2B3rP6ti3au9JMpZP3KRLKc%2FzEs34ou%2BYRxxJvuZICpHZboXHCkjRebf2Y90VX52X3sPlsz6cWSP%2FXYh1EGHFXeMFRhOFRYVKHIPzDRufXX6xmzKyxsK544X4o9ixa6g1qJxS4gjnOOT0lYJdTNDdyRRJ5zFcIlIjM8OaH1dQ2MYTzLFwRpKtE3hjP36nLPtjGaulaAe0SakWhZ6ZJMpxhUzNyg4A5lK%2BhSCc6gYaFrJmIOPOD5SH3Us7%2B%2BwezKp8K%3AxzYFedmZCU27vUvltL1dOFgMuT8WJYLgwtGBxTjMr1s%3D;
+        path=/; domain=.photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"gallery":[{"id":"G0000VX2MP0L6_kY","name":"2014\/02\/25
+        MBB vs. VT","f_list":"t"},{"id":"G00003rWLIb8HrAk","name":"14\/02\/24 LNY","f_list":"t"},{"id":"G0000m79Vgeh6Ua4","name":"2014\/02\/24","f_list":"t"},{"id":"G0000Jw402BVYPo8","name":"2014\/02\/22
+        Syracuse Cameron Crazies","f_list":"t"},{"id":"G0000hp_bFU93rVc","name":"2014\/02\/22
+        MBB vs. Syracuse","f_list":"t"},{"id":"G0000yORseJngftw","name":"2014\/02\/22
+        SyracuseLineUp","f_list":"t"},{"id":"G0000z2zwtiIFmrE","name":"2014\/02\/21
+        Lunar New Year","f_list":"t"},{"id":"G0000HGJYQyIXDhU","name":"2014\/02\/20
+        Class of 2014 Dinner","f_list":"t"},{"id":"G0000zgiZBgg6H0U","name":"2014\/02\/21","f_list":"t"},{"id":"G0000Fmb7xql7d_8","name":"2014\/02\/20
+        MBB vs. UNC","f_list":"t"},{"id":"G0000_cA6Y_pwsS4","name":"2014\/02\/25 Towerview
+        Watch List: Protests","f_list":"t"},{"id":"G0000lOLeHdXc1No","name":"2014\/02\/18
+        MBB vs. Georgia Tech","f_list":"t"},{"id":"G0000RzVepoFGwo0","name":"2014\/02\/15
+        MBB vs. Maryland","f_list":"t"},{"id":"G0000goWca3s54PQ","name":"2014\/02\/12
+        SNOW DAY","f_list":"t"},{"id":"G0000kC.0q3tRfWg","name":"2014\/02\/10 WBB
+        vs. UNC","f_list":"t"},{"id":"G00001aALNGQgZ.o","name":"2014\/02\/04 MBB vs.
+        Wake Forest","f_list":"t"},{"id":"G0000U3gXlpe1pbo","name":"2014\/02\/08 MBB
+        vs. BC","f_list":"t"},{"id":"G0000SAMzgfv5fPw","name":"2014\/02\/01 MBB vs.
+        Syracuse","f_list":"t"},{"id":"G0000XAjtVW8DmQ8","name":"2014\/01\/24 Track
+        & Field at UNC","f_list":"t"},{"id":"G00002m7zmWLbNvE","name":"2014\/01\/30
+        Week in Photos","f_list":"t"},{"id":"G0000q0o4cBn645w","name":"2014\/01\/30
+        Weekend In Tennis","f_list":"t"},{"id":"G0000oS9rgKvmVW4","name":"2014\/01\/30
+        Swim & Dive","f_list":"t"},{"id":"G0000aMBCiBaVOt8","name":"2013\/10\/18 Towerview:
+        Behind the Scenes of Duke Athletics","f_list":"t"},{"id":"G0000pQSdt2751W0","name":"2013\/08\/24
+        Mary Duke Auction","f_list":"t"},{"id":"G0000IpwSoiyHMdc","name":"2013\/09\/28
+        Football vs Troy","f_list":"t"},{"id":"G00005.1X7zig.m0","name":"2013\/09\/19
+        Week In Photos","f_list":"t"},{"id":"G0000Ih0E5WukOAA","name":"2013\/09\/14
+        FB vs. Georgia Tech","f_list":"t"},{"id":"G0000U2xymncbAi4","name":"2013\/09\/14
+        FB vs. Georgia Tech","f_list":"f"},{"id":"G0000FlLjl4axriM","name":"2013\/09\/09
+        WSoc Duke Nike Classic","f_list":"t"},{"id":"G00000krM.bdWceM","name":"2013\/09\/07
+        Week in Photos","f_list":"t"},{"id":"G00002bfBPqCqB1s","name":"Hopscotch 2013","f_list":"t"},{"id":"G0000L5sBsIt20Xg","name":"2013\/08\/30
+        MSoc vs Rutgers","f_list":"t"},{"id":"G0000lx9mGGg7reA","name":"2013\/09\/08
+        FB vs Memphis","f_list":"t"},{"id":"G0000jLzexagFopc","name":"2013\/09\/06
+        Week In Photos","f_list":"t"},{"id":"G0000CnaPxwk87YE","name":"2013\/08\/28
+        Class of 2014 Senior Kickoff","f_list":"t"},{"id":"G0000lNFo1HrYdX0","name":"2013\/08\/31
+        FB vs. NCCU","f_list":"t"},{"id":"G0000IiaOOZX0Too","name":"2013\/09\/01 Dance
+        Council Showcase","f_list":"t"},{"id":"G0000YxuyLny1jQk","name":"2013\/09\/01
+        Dance Council Showcase","f_list":"t"},{"id":"G0000d.xm_Zumxqs","name":"2013\/08\/27
+        Orientation Week","f_list":"t"},{"id":"G0000KD4kH34JcHM","name":"Nike Global
+        Challenge Day 3","f_list":"t"},{"id":"G00003jSBM7GABVE","name":"Nike Global
+        Challenge Day 2","f_list":"t"},{"id":"G0000zTm0To5v_S4","name":"Nike Global
+        Challenge Day 1","f_list":"t"},{"id":"G0000s63fz_kcUHg","name":"2013\/06\/28
+        Activism","f_list":"t"},{"id":"G0000jMa9l4A.OLo","name":"2013\/06\/28 East
+        Campus Dorms","f_list":"t"},{"id":"G0000i.XWme2NgXo","name":"12\/03\/26 WBB
+        vs St. Johns","f_list":"t"},{"id":"G0000C3NhOHLPVgc","name":"2013\/1\/16 WBB
+        vs. VT","f_list":"t"},{"id":"G0000W3g4oBchl8c","name":"2012\/09\/01 FB vs.
+        FIU","f_list":"t"},{"id":"G00005CU4d122b8Q","name":"2012\/08\/26 WSOC vs.
+        Florida","f_list":"t"},{"id":"G0000Ch1yqjbGxCU","name":"2012\/10\/20 FB vs.
+        UNC","f_list":"t"},{"id":"G0000k6BlRAZyOOo","name":"2012\/03\/26 WBB vs Stanford","f_list":"t"},{"id":"G0000V0KirM4xkqk","name":"2012\/03\/19-25
+        Week in Photos","f_list":"t"},{"id":"G0000gfD4SkF_JEo","name":"2012\/10\/19
+        WSOC vs. UNC","f_list":"t"},{"id":"G0000RaTmltOtzcI","name":"2012\/10\/19
+        Top Countdown Moments","f_list":"t"},{"id":"G0000TZlwy18NyHQ","name":"2012\/10\/22
+        5 Key Plays: FB vs. UNC","f_list":"t"},{"id":"G0000q02Wyx_HPhA","name":"2013\/03\/13
+        MLAX vs. UNC","f_list":"t"},{"id":"G00003zaDXGs6_WE","name":"2012\/03\/31
+        Football: Blue White scrimmage","f_list":"t"},{"id":"G0000cas2OX64DXE","name":"2012\/04\/24
+        Obama at UNC","f_list":"t"},{"id":"G0000vBFbtzgeJj4","name":"2012\/09\/04
+        DNC Tuesday","f_list":"t"},{"id":"G0000j5IrS.YW1aw","name":"Countdown to Craziness","f_list":"t"},{"id":"G0000EP1Z3SiffHY","name":"Senior
+        Slideshow: Addison Corriher","f_list":"t"},{"id":"G0000bJIhqCnt4zM","name":"2012\/08\/30-9\/01
+        MSOC vs. Santa Clara & Delaware","f_list":"t"},{"id":"G0000Srkpt_bI44I","name":"2012\/10\/17
+        Fall Break Sports","f_list":"t"},{"id":"G0000whWUQ_AGI08","name":"2012\/09\/02
+        Week in Photos","f_list":"t"},{"id":"G000056tmKNpiyzU","name":"2012\/08\/27
+        Week in Photos","f_list":"t"},{"id":"G0000KWhfN20b6aE","name":"2012\/08\/31
+        FH vs. Princeton","f_list":"t"},{"id":"G0000BdPxpvQ4Q40","name":"Senior Slideshow:
+        Faith Robertson","f_list":"t"},{"id":"G0000tkFqQk_SOls","name":"Senior Slideshow:
+        Caroline Rodriguez","f_list":"t"},{"id":"G0000r1DkM15JPrE","name":"Senior
+        Slideshow: Melissa Yeo","f_list":"t"},{"id":"G0000MQ2n2gj1INo","name":"2013\/04\/28
+        Senior Slideshows","f_list":"t"},{"id":"G0000wuIA9NGXiqI","name":"2012\/08\/27
+        A Capella Showcase","f_list":"t"},{"id":"G0000RWRQ6pshJQM","name":"2012\/05\/26
+        NCAA MLAX vs. Maryland","f_list":"t"},{"id":"G0000RBCc07SeXOo","name":"2012\/08\/30
+        Dance Council","f_list":"t"},{"id":"G0000fokjyqdEDCU","name":"2012\/09\/04
+        DNC Wednesday","f_list":"t"},{"id":"G00004N4fs27VEx0","name":"2012\/03\/26-4\/1
+        - Week In Photos","f_list":"t"},{"id":"G0000Wb2aVF_PQIM","name":"2013\/04\/29
+        Week In Photos","f_list":"t"},{"id":"G0000zZfJ25taIp8","name":"2012\/10\/21
+        Week in Photos","f_list":"t"},{"id":"G0000JjTRfTQN0yg","name":"2012\/03\/27
+        MLAX vs. Brown","f_list":"t"},{"id":"G0000f_pcH9B3QP8","name":"2012\/03\/24
+        - WLAX vs. Virginia","f_list":"t"},{"id":"G00009HRa5cNuD34","name":"2012\/03\/30
+        WLAX vs. UNC","f_list":"t"},{"id":"G0000ib0d7ZB2Q_o","name":"2012\/03\/23
+        - BSAI Step Show","f_list":"t"},{"id":"G0000cgMDMYJIoXY","name":"12\/03\/26","f_list":"t"},{"id":"G0000NkKyDeKTEts","name":"2012\/09\/07-08
+        VB vs. Elon & ECU","f_list":"t"},{"id":"G00000zdFrTOc7QM","name":"2012\/12\/10
+        WBB vs St. John''s","f_list":"t"},{"id":"G0000.WZLqL0i264","name":"2012\/04\/03
+        Mens Soccer vs NCState","f_list":"t"},{"id":"G00009er9zSbf3PQ","name":"2012\/09\/16
+        Week in Sports","f_list":"t"},{"id":"G0000abU30YZ05mM","name":"Laurie Garrett","f_list":"t"},{"id":"G0000W0t_asLoyeY","name":"2012\/09\/06
+        Maya Angelou & Nanoly","f_list":"t"},{"id":"G0000DteT85L_yq4","name":"2012\/11\/01
+        MBB vs. Winston-Salem State","f_list":"t"},{"id":"G00002Les1uKCTcg","name":"2012\/04\/6-04\/7
+        WTEN vs. Miami & FSU","f_list":"t"},{"id":"G00003eSUb2WKjXE","name":"2012\/04\/20-22
+        Tennis ACCs","f_list":"t"},{"id":"G0000f8_TOSjccAA","name":"2012\/04\/20-22
+        Weekend in Sports","f_list":"t"},{"id":"G0000OBTnQDN7RxI","name":"SXSW 2012:
+        Day 3","f_list":"t"},{"id":"G0000nkxaYdBkIQ0","name":"2012\/12\/06 WBB vs.
+        GT","f_list":"t"},{"id":"G0000ub_Kd1sRqo0","name":"2012\/10\/28 Football vs
+        FSU","f_list":"t"},{"id":"G000073dIHxQ3ELI","name":"2012\/10\/20 How to Build
+        a Forest","f_list":"t"},{"id":"G0000NB9iwE8shgY","name":"2012\/09\/07-09 WSOC
+        vs. San Diego & Marquette","f_list":"t"},{"id":"G0000p92zd0bN_bM","name":"2012\/10\/28
+        WSOC ACC 1st Round vs. WF","f_list":"t"},{"id":"G0000cade1Tt9mp0","name":"2012\/09\/06
+        DNC Thursday","f_list":"t"},{"id":"G0000A.lr.bdnn8s","name":"2012\/04\/07
+        WLAX vs. BC & MLAX vs. Marist","f_list":"t"},{"id":"G0000p9EjhWUIv8Y","name":"2012\/09\/09
+        FH vs. Northwestern","f_list":"t"},{"id":"G0000ibk7.D9vCNM","name":"2012\/12\/10
+        Week in Photos","f_list":"t"},{"id":"G000002LeK9k9_2E","name":"2012\/04\/13
+        Old Duke","f_list":"t"},{"id":"G0000AEcx6DTcW3c","name":"2012\/12\/08 MBB
+        vs. Temple","f_list":"t"},{"id":"G0000YKH3c7Q6kEM","name":"2012\/10\/24 PowderPuff
+        TriDelt vs. PiPhi","f_list":"t"},{"id":"G0000pmguuKSx.3s","name":"2012\/09\/08
+        Football vs Stanford","f_list":"t"},{"id":"G0000RRLGgxdelu0","name":"2012\/04\/10
+        Midsummer","f_list":"t"},{"id":"G0000NCilcTFuLuM","name":"2012\/09\/14 MSOC
+        vs. Clemson","f_list":"t"},{"id":"G0000a0SXDE4cq44","name":"2012\/09\/09 Week
+        in Photos","f_list":"t"},{"id":"G0000tGmOyvCAFMU","name":"2012\/10\/23 MSOC
+        vs. Davidson","f_list":"t"},{"id":"G0000IM7LrIB7zdY","name":"2012\/10\/28
+        5 Key Plays: FB vs. FSU","f_list":"t"},{"id":"G0000gUqDy9obMtU","name":"2012\/10\/28
+        Pink","f_list":"t"},{"id":"G0000J2yRjQFExYk","name":"2012\/04\/10 Condoleezza
+        Rice","f_list":"t"},{"id":"G000031f991dlDNM","name":"2012\/04\/08-15 Week
+        in Photos","f_list":"t"},{"id":"G0000ALNk.GvpWbE","name":"2012\/09\/16 FH
+        vs. ODU","f_list":"t"},{"id":"G0000bot.SJKHz1o","name":"2012\/04\/10 BASEBALL
+        vs. UNCG","f_list":"t"},{"id":"G0000RXxatPvUlbM","name":"2012\/04\/11 WLAX
+        vs. HPU","f_list":"t"},{"id":"G0000ucPep7zZ1Xc","name":"2012\/09\/20 WSOC
+        vs. Maryland","f_list":"t"},{"id":"G000071Txo6jRsQ8","name":"2012\/10\/27
+        ZTA Pink Run","f_list":"t"},{"id":"G0000Dgt_0wQxOmE","name":"2012\/04\/11-04\/12
+        Tennis vs. UNC","f_list":"t"},{"id":"G0000_qMRb2erx6Q","name":"2012\/10\/28
+        Week in Photos","f_list":"t"},{"id":"G00006PdVxJ_oCHw","name":"2012\/09\/16
+        Week in Photos","f_list":"t"},{"id":"G0000QO_JJHRnIHk","name":"2012\/04\/28
+        WLAX vs. Penn","f_list":"t"},{"id":"G0000ukCw_vuXZ0M","name":"2012\/04\/06-04\/08
+        Weekend in Sports","f_list":"t"},{"id":"G0000XQ5cgxacDqA","name":"2013\/1\/17
+        MBB vs. GT","f_list":"t"},{"id":"G0000mj51sdlARHM","name":"2012\/09\/16 FB
+        vs. NCCU","f_list":"t"},{"id":"G0000fk0_g_KwuwU","name":"2012\/10\/19 Election","f_list":"t"},{"id":"G0000VTef4aPJGdo","name":"2012\/09\/11
+        MSOC vs. GSU","f_list":"t"},{"id":"G0000IqGsr4pYyV8","name":"121026 Metamorphoses
+        Play","f_list":"t"},{"id":"G0000yWYm6VY01kc","name":"2012\/04\/05 - Ragtime","f_list":"t"},{"id":"G0000jw5n2fv8ghU","name":"2012\/03\/31
+        Earth Hour","f_list":"t"},{"id":"G0000aGM91Lmyuhc","name":"2012\/10\/27 MBB
+        vs. Western Washington","f_list":"t"},{"id":"G0000oVoB4eSU5gI","name":"2012\/04\/02-08
+        Week in Photos","f_list":"t"},{"id":"G0000EX.GkV1wghk","name":"2012 Please
+        work","f_list":"f"},{"id":"G00001J6TQZ1QT3E","name":"2013\/01\/21 MLK","f_list":"t"},{"id":"G0000FOFZpLTxNkk","name":"2012\/10\/12
+        MSOC vs. Maryland","f_list":"t"},{"id":"G00009eouj6efcgk","name":"2012\/10\/13
+        FB vs. VT","f_list":"t"},{"id":"G00002gc946pl53U","name":"2013\/01\/20 Bid
+        Day","f_list":"t"},{"id":"G0000Zfi2IGpPpFQ","name":"2012\/10\/11 WSOC vs.
+        NC State","f_list":"t"},{"id":"G0000VtCK3GYSKZg","name":"2012\/10\/11 Coming
+        Out Day","f_list":"t"},{"id":"G0000IZ0EnI8U0sM","name":"03\/06\/10 Post-UNC
+        Bonfire","f_list":"t"},{"id":"G0000UQ8qFWmYqg4","name":"2013\/01\/20 snow","f_list":"t"},{"id":"G0000.CILikynwos","name":"2012\/10\/08
+        Fall Theme","f_list":"t"},{"id":"G000088MOVWeq_1w","name":"2012\/10 Towerview
+        - Nick & Abby","f_list":"t"},{"id":"G0000Mav8beVNvtY","name":"2012\/11\/04
+        Week in Photos","f_list":"t"},{"id":"G0000z.9utYzCigw","name":"2012\/10\/05
+        MSOC vs. NC State","f_list":"t"},{"id":"G0000kEXSmRRQoXM","name":"2012\/09\/23
+        Week in Photos","f_list":"t"},{"id":"G0000z1ZRu533nsQ","name":"2012\/11\/03
+        Halloween etc. etc.","f_list":"t"},{"id":"G0000JDI.VfvGEC8","name":"2012\/11\/10
+        Awaaz","f_list":"t"},{"id":"G0000yxN1D8IwXKE","name":"2012\/10\/07 WSOC vs.
+        BC College","f_list":"t"},{"id":"G0000_SdbcDwgcIk","name":"2013\/01\/21 Inauguration","f_list":"t"},{"id":"G0000jMY7Nr1fl_k","name":"2012\/09\/08
+        Timeflies","f_list":"t"},{"id":"G0000uheRL5l.5Yc","name":"2013\/01\/23 MBB
+        vs. Miami","f_list":"t"},{"id":"G0000Z1St1Yzj05k","name":"Lefkowitz","f_list":"t"},{"id":"G0000KfreOZ.6Z0o","name":"2012\/09\/22
+        FB vs. Memphis","f_list":"t"},{"id":"G0000X19hrRtIdTs","name":"2012\/11\/03
+        5 Key Plays: FB vs. Clemson","f_list":"t"},{"id":"G0000OM2u0mZI_aM","name":"2012\/09\/27
+        WSOC vs. Clemson","f_list":"t"},{"id":"G0000oX_SSZTvJnA","name":"2012\/11\/10
+        Week in Photos","f_list":"t"},{"id":"G0000X.DE_siRvPE","name":"2012\/09\/30
+        Week in Photos","f_list":"t"},{"id":"G0000zY1xfIlqpko","name":"2012\/11\/09
+        MBB vs. GSU","f_list":"t"},{"id":"G0000UiVtHSK04lc","name":"2012\/11\/13 MBB
+        vs. Kentucky","f_list":"t"},{"id":"G0000y3DMtBTqyRQ","name":"2012\/11\/3 Duke
+        Football vs Clemson","f_list":"t"},{"id":"G0000vA4GXsr9dNM","name":"2012\/11\/3
+        Football vs Clemson","f_list":"f"},{"id":"G0000O4kdR0tH.04","name":"2012\/11\/03
+        Duke Football vs Clemson","f_list":"t"},{"id":"G00007.AOf6Max0U","name":"Awaaz_Sabro","f_list":"t"},{"id":"G0000i4OnGTvLRuU","name":"2012\/10\/07
+        5 Key Plays: FB vs. UVA","f_list":"t"},{"id":"G0000FWkBGUk.y4o","name":"2012\/10\/05-06
+        VB vs. MD & BC","f_list":"t"},{"id":"G0000eZW.Qau9lro","name":"2012\/11\/10
+        Election Day","f_list":"t"},{"id":"G0000liZPRg6yFTQ","name":"2012\/10\/06
+        FB vs. Virginia","f_list":"t"},{"id":"G0000EBuwjqP9qLI","name":"2012\/09\/28
+        MSOC vs. UNC","f_list":"t"},{"id":"G0000pXMyLOKevRQ","name":"2012\/09\/29
+        FB vs. WF","f_list":"t"},{"id":"G0000qu.c7VzgCbo","name":"2012\/10\/07 Week
+        in Photos","f_list":"t"},{"id":"G0000u8MdbknWGMA","name":"2012\/11\/10 VB
+        vs Miami","f_list":"t"},{"id":"G0000VUnON8OBdIo","name":"2013\/01\/24 vs.
+        Clemson","f_list":"t"},{"id":"G0000.I23WrvIiZU","name":"2012\/12 Behind The
+        Stand","f_list":"t"},{"id":"G00002RvSAXJ.Otk","name":"2012\/12\/30 WBB vs.
+        Monmouth","f_list":"t"},{"id":"G0000aF0TxubmKgk","name":"130201 Women''s Basketball
+        vs Miami","f_list":"t"},{"id":"G0000URBRFTgUNWs","name":"Top 10 Sports Photos
+        of 2012","f_list":"t"},{"id":"G0000DL5mrGUt2.Y","name":"2012\/12 Traveler''s
+        Tongue","f_list":"t"},{"id":"G0000rww3hfxBHNs","name":"3\/13\/11 ACC Tournament
+        - Duke vs Carolina","f_list":"t"},{"id":"G0000iQGQu5V7R0E","name":"Chron Alumni
+        - Summer 2012","f_list":"t"},{"id":"G00000scJWz6v1bk","name":"2012\/11\/19
+        WBB vs. Presbyterian & Iona","f_list":"t"},{"id":"G00009HgZjX13wBA","name":"2012\/12\/29
+        MBB vs. Santa Clara","f_list":"f"},{"id":"G0000JOjRdwYY5gI","name":"2012\/11\/18
+        WSOC NCAA Sweet Sixteen vs. UVA","f_list":"t"},{"id":"G0000VZ2P80s69B4","name":"2012\/11\/17
+        Stroll Show","f_list":"t"},{"id":"G00003tjGNzEDPPQ","name":"2012\/11\/18 MBB
+        vs. FGCU","f_list":"t"},{"id":"G0000J0NoZB6kZZw","name":"2012\/11\/24 FB vs.
+        Miami","f_list":"t"},{"id":"G0000lFHQSZsni7s","name":"2012\/11\/18 Week in
+        Photos","f_list":"t"},{"id":"G0000dFKsQWzRgLY","name":"2012\/11\/17 Football
+        vs Georgia Tech","f_list":"f"},{"id":"G000086K_XtgP28I","name":"2012\/11\/17
+        Actual FB vs Georgia Tech","f_list":"t"},{"id":"G00003ePDkLWx9.U","name":"2012\/12\/19
+        MBB vs. Cornell","f_list":"t"},{"id":"G00003J3ohrL8VpU","name":"2012\/12\/27
+        Belk Bowl","f_list":"t"},{"id":"G0000.ebw5mDRpjM","name":"2012\/12\/20 MBB
+        vs. Elon","f_list":"t"},{"id":"G0000.IdLsLvVbw4","name":"2012\/12\/02 Week
+        in Photos","f_list":"t"},{"id":"G0000KfvTkQZX4NA","name":"2012\/11\/28 WBB
+        vs. Michigan","f_list":"t"},{"id":"G0000WuSLvrC9yqM","name":"2012\/11\/28
+        MBB vs. OSU","f_list":"t"},{"id":"G0000yt_aUmgL1HM","name":"2013\/12\/31 Top
+        Photos of 2013","f_list":"t"},{"id":"G0000KwF7XbLmLpk","name":"11\/06\/2013
+        Tailgate History","f_list":"t"},{"id":"G0000mAS.MT.bj10","name":"2013\/11\/02
+        MBB vs. Drury","f_list":"t"},{"id":"G0000LsgOOL6Pmko","name":"Mountain Oasis
+        2013","f_list":"t"},{"id":"G0000yxqY_WgN0p0","name":"2013\/10\/24 Week In
+        Photos","f_list":"t"},{"id":"G0000Eb5EztMoW1M","name":"2012\/10\/26 MBB ALL
+        vs Bowie","f_list":"t"},{"id":"G0000zV6UbG4Oi0o","name":"2013\/10\/26 FB vs
+        VTech","f_list":"t"},{"id":"G00008p2o5S8s0X0","name":"2013\/10\/27 WBB WBScrimmage","f_list":"t"},{"id":"G0000P7tXwedHc70","name":"2013\/10\/19
+        FB vs. UVA","f_list":"t"},{"id":"G0000RyDjNE4BGbA","name":"2013\/10\/18 Countdown
+        to Craziness","f_list":"t"},{"id":"G0000sFSqd6w5_AU","name":"2013\/10\/18
+        Towerview: Italian Stone Masons","f_list":"t"},{"id":"G0000XGMWNoUoVSM","name":"2013\/10\/11
+        MSOC vs. NCSU","f_list":"t"},{"id":"G00002Wzljr72QXk","name":"2013\/10\/05
+        Live Wiser Concert","f_list":"t"},{"id":"G0000CDtJasWdQsE","name":"2013\/10\/10
+        Week In Photos","f_list":"t"},{"id":"G0000XfruWZHF4do","name":"2013\/10\/08
+        Coming Out Day","f_list":"t"},{"id":"G0000MFWHVOMbXLM","name":"2013\/10\/07
+        Brooklyn Nets Training Camp","f_list":"f"},{"id":"G0000pElJKBM_bKU","name":"2013\/10\/4
+        Duke Desegregation Documents","f_list":"t"},{"id":"G0000IhzvCGG3Gn8","name":"2013\/10\/03
+        Week in Photos","f_list":"t"},{"id":"G0000bKFkPQhO70s","name":"2013\/09\/29
+        Homecoming Weekend","f_list":"t"},{"id":"G0000otaN268jJ.s","name":"2013\/09\/29
+        Week In Photos","f_list":"t"},{"id":"G0000vBqyH0W9fSs","name":"2013\/09\/17
+        Durham Shooting","f_list":"t"},{"id":"G0000wZ51rAeklvw","name":"2013\/09\/19
+        Week In Sports","f_list":"t"},{"id":"G000067eYAmy9SGQ","name":"2013\/01\/27
+        MBB vs. Maryland Signs","f_list":"t"},{"id":"G0000sAiNI7i_Gm4","name":"2013\/01\/27
+        WBB vs. BC","f_list":"t"},{"id":"G00005FF3QyxfeO0","name":"2013\/01\/27 IVASA
+        Pageant","f_list":"t"},{"id":"G0000NvfKHN9faKU","name":"2013\/01\/26 MBB vs.
+        Maryland","f_list":"t"},{"id":"G0000jSESs5y_RJA","name":"2013\/01\/30 MBB
+        vs. WF","f_list":"t"},{"id":"G0000jz8kZ2vc5EM","name":"2012\/11\/23 MBB vs.
+        VCU","f_list":"t"},{"id":"G0000AclQTZ.cFyQ","name":"2012\/12\/02 MBB vs. Delaware","f_list":"t"},{"id":"G0000yiZh77syk08","name":"2012\/04\/21
+        Chronicle Alumni Event","f_list":"t"},{"id":"G00001sHgE.0CoqQ","name":"2013\/01\/08
+        MBB vs. Clemson","f_list":"t"},{"id":"G0000pLV_hDu21UY","name":"2012\/05\/11
+        Decades at Duke","f_list":"t"},{"id":"G0000kNqTqfErYjU","name":"2013\/02\/02
+        MBB vs. FSU","f_list":"t"},{"id":"G0000_rkVEaJdw04","name":"2013\/02\/03 WBB
+        vs. UNC","f_list":"t"},{"id":"G00003eY6kGqzHm0","name":"2012\/08\/19 WSOC
+        vs. Elon","f_list":"t"},{"id":"G0000lejAO1FQKn8","name":"2012\/08\/17-21 FB
+        Scrimmages & Meet the Blue Devils","f_list":"t"},{"id":"G0000ollfTp5nhQA","name":"2013\/01\/03
+        WBB vs. NCSU","f_list":"t"},{"id":"G0000vHy2xUwu98s","name":"2013\/01\/10
+        WBB vs. Clemson","f_list":"t"},{"id":"G0000Xp5pcVaLm3M","name":"2012\/08\/13
+        Divers & Coach K Post-Olympics @ RDU","f_list":"f"},{"id":"G0000HTO5s0wRQAE","name":"2013\/01\/05
+        MBB vs. WF","f_list":"t"},{"id":"G0000HC8tkatxz4c","name":"2013\/03\/15 MBB
+        ACC Quarters vs. MD","f_list":"t"},{"id":"G0000KwmIz0toEKE","name":"2013\/01\/02
+        MBB vs Davidson","f_list":"t"},{"id":"G0000Mab9L3YxzKI","name":"12\/01\/12
+        mbb vs elon","f_list":"t"},{"id":"G0000TWTseJYQtK0","name":"2012\/05\/12 Baccalaureate","f_list":"t"},{"id":"G0000zZ7Y5qHN3og","name":"2012\/08\/23
+        OWeek 2016","f_list":"t"},{"id":"G0000sOSPfjHZKO0","name":"2012\/05\/12 Beer
+        Trucks","f_list":"t"},{"id":"G0000tMlhdSYCM4M","name":"2012\/05\/13 Commencement","f_list":"t"},{"id":"G0000ELtdojqgka8","name":"2012\/05\/20
+        NCAA MLAX vs. Colgate","f_list":"t"},{"id":"G0000iFsLaQbndNU","name":"Uploader","f_list":"f"},{"id":"G0000q38KXdSSfMs","name":"2012\/05\/11-13
+        Weekend in Sports","f_list":"t"},{"id":"G0000hcaqZ4sq93I","name":"2013\/1\/13
+        WBB vs. WF","f_list":"t"},{"id":"G0000IUey1dYzCmg","name":"2012\/03\/12 -
+        MLax vs. Harvard","f_list":"t"},{"id":"G0000tJoUDfzI1oM","name":"2013\/01\/12
+        MBB vs. NC State","f_list":"t"},{"id":"G0000HwNnOMLNVvw","name":"11\/7\/11-11\/13\/11
+        Week In Photos","f_list":"t"},{"id":"G0000LpQFIJ9s_SM","name":"11\/12\/09
+        Tree Falls on Campus Drive","f_list":"t"},{"id":"G0000pNyyEdJBTlk","name":"11\/16\/11
+        November Dances","f_list":"t"},{"id":"G0000lg_wtspLLXE","name":"3\/4\/10 Personal
+        Checks","f_list":"t"},{"id":"G0000fQnMSsYyAM4","name":"3\/26\/10 Sweet Sixteen:
+        Duke Women''s Basketball vs. San Diego State","f_list":"t"},{"id":"G0000hU5E_sGPKX8","name":"2\/28\/10
+        Duke Men''s Basketball at UVA","f_list":"t"},{"id":"G0000zHbj_HFARoQ","name":"3\/3\/10
+        Duke Men''s Basketball at Maryland","f_list":"t"},{"id":"G0000Kke1DkZ_.50","name":"2\/3\/2011
+        Duke vs Maryland","f_list":"t"},{"id":"G0000d4PtcvTNVNo","name":"2\/8\/10
+        Duke Women''s Basketball vs UNC","f_list":"t"},{"id":"G0000xpJ145cOq44","name":"Paul
+        Farmer (GBS)","f_list":"f"},{"id":"G0000bu6_bp4CGZE","name":"03\/06\/10 Bonfire","f_list":"f"},{"id":"G0000T8XFnByS1.U","name":"3\/7\/10
+        Duke Women''s Basketball vs. NCState ACC Championship","f_list":"t"},{"id":"G0000qMrgHICUCkU","name":"10\/10\/09
+        Duke vs. NC State Football","f_list":"t"},{"id":"G0000Q1JsXEn13sk","name":"9\/5\/09
+        Duke vs. Richmond Football","f_list":"t"},{"id":"G0000cjsFpMH6kPQ","name":"9\/26\/09
+        Duke vs. NCCU Football","f_list":"t"},{"id":"G0000sys5O3giXkQ","name":"3\/2\/10
+        Tent Check in Kville","f_list":"t"},{"id":"G0000VqgRExc990I","name":"3\/11\/2011
+        Duke vs Maryland ACC Tournament","f_list":"t"},{"id":"G0000.Zp1NuRxVd0","name":"04\/15\/10
+        Uniquties in Durham","f_list":"t"},{"id":"G0000gn_EpUVwvnw","name":"1\/30\/10-
+        K-ville in Snow","f_list":"t"},{"id":"G0000m_HUhUW.l8k","name":"03\/06\/10
+        Duke Men''s Basketball vs. UNC","f_list":"t"},{"id":"G000034ZzA5qGeg4","name":"2\/4\/10
+        Duke Men''s Basketball vs Georgia Tech","f_list":"t"},{"id":"G0000uydEYMyBP74","name":"12\/19\/2009
+        Duke vs Gonzaga Men''s Basketball","f_list":"t"},{"id":"G0000R_EU0WJCg6w","name":"2\/9\/11
+        Duke vs UNC","f_list":"t"},{"id":"G00001HNmaEyeoaI","name":"02\/25\/10 Duke
+        Men''s Basketball vs. Tulsa","f_list":"t"},{"id":"G0000CNGWKKvJfNA","name":"Tailgate
+        at Duke","f_list":"t"},{"id":"G0000_C4M_s7OIxU","name":"MBB_ACCTourney2_Ian","f_list":"t"},{"id":"G0000x63irWxJb80","name":"2006-2007
+        Year in Review","f_list":"t"},{"id":"G0000rY1ANO7hqPQ","name":"Eating With
+        Lola 11\/02\/10","f_list":"t"},{"id":"G0000pRx2ZcfPVXk","name":"12\/02\/10
+        Duke v Wisconsin","f_list":"t"},{"id":"G0000uTiKpT1A1gU","name":"01\/06\/09
+        Duke Men''s Basketball vs. Iowa State","f_list":"t"},{"id":"G0000kvWHWGgrE10","name":"9\/30\/11
+        W Soccer vs. Virginia","f_list":"t"},{"id":"G0000Zyk9pwM8wPs","name":"01\/13\/10
+        Duke Men''s Basketball vs. Boston College 2","f_list":"t"},{"id":"G0000sQh6nS09mnQ","name":"01\/13\/10
+        Duke Men''s Basketball vs. Boston College","f_list":"t"},{"id":"G0000Iqgy77AUEfU","name":"10\/7\/11
+        M Soccer vs. NCSU","f_list":"t"},{"id":"G0000S1accE5vSn8","name":"2\/23\/10
+        Students Study in Kville","f_list":"t"},{"id":"G0000EKALDA9tBKs","name":"9\/14\/2010
+        Megafaun Rehersal","f_list":"t"},{"id":"G0000ZzH0DmoNU64","name":"3\/20\/10
+        Elements","f_list":"t"},{"id":"G0000uTjv8urAOJY","name":"12\/1\/2010 Men''s
+        Basketball: Duke vs Michigan State","f_list":"t"},{"id":"G00005a5rWPuhFrA","name":"11\/05\/10
+        Awaaz","f_list":"t"},{"id":"G0000GNDH0BbzI_Q","name":"Tailgate - N&O","f_list":"f"},{"id":"G0000GLaqCsqSi4c","name":"4\/3\/10
+        NCAA Semi Final: Duke vs. West Virginia","f_list":"t"},{"id":"G0000YMjolulo3vM","name":"2\/5\/2011
+        Duke vs NC State","f_list":"t"},{"id":"G0000dOIB00MZFxM","name":"12\/4\/10
+        Duke vs  Butler","f_list":"t"},{"id":"G0000XkKU3JE9ajc","name":"1\/6\/10 Duke
+        vs UMD","f_list":"t"},{"id":"G0000PqQ0xEGuSLg","name":"K-ville 2003-04","f_list":"f"},{"id":"G0000QAMgkugOZN8","name":"K-ville
+        2004-05","f_list":"f"},{"id":"G0000XXEzRERLflo","name":"K-ville 2005-06","f_list":"f"},{"id":"G0000CPzCram83mI","name":"Duke
+        Stroll Show","f_list":"t"},{"id":"G0000O1sQo2No0C0","name":"11\/21\/2010 New
+        Universe","f_list":"t"},{"id":"G0000Hy6ppYeXh_Y","name":"2\/13\/11 Tennis
+        vs Florida","f_list":"t"},{"id":"G0000C7sXPeuEugM","name":"10\/11\/11 Fall
+        Break in Durham","f_list":"t"},{"id":"G0000DQfCtxfxQKU","name":"1\/5\/10 Duke
+        vs UAB","f_list":"t"},{"id":"G0000mAwRKt5zRUU","name":"Brodhead photo","f_list":"t"},{"id":"G000067vzU3xsMPw","name":"4\/3\/2011
+        Weekend at Duke: April 1-3","f_list":"t"},{"id":"G0000tMpqB9zWeik","name":"10\/16\/11
+        Car Crash","f_list":"t"},{"id":"G0000iNsXniYp_JY","name":"3\/2932011 Duke
+        vs UCONN","f_list":"t"},{"id":"G0000J0E95L4BRg8","name":"4\/2\/11 TEDxDuke","f_list":"f"},{"id":"G0000PkC79pCJJT0","name":"24
+        Sept 11 - Pride Parade","f_list":"t"},{"id":"G0000QZd8165PU10","name":"9\/30\/2010
+        Duke Founder''s Day Convocation","f_list":"t"},{"id":"G0000TBlcRY0HgX0","name":"9\/26-10\/2
+        The Week in Photos","f_list":"t"},{"id":"G00005Rl9Qwxinoc","name":"Roger Dubay
+        - Chase Olivieri","f_list":"f"},{"id":"G00000tHW4JRsoRQ","name":"Higginbotham","f_list":"f"},{"id":"G0000G9N_h3D_Dgk","name":"8\/18\/2011_FriendshipGames2","f_list":"t"},{"id":"G0000xAZFLwjqhwA","name":"110427_secretsociety","f_list":"t"},{"id":"G0000HoCJroKA_80","name":"8\/19\/2011
+        Kunshan","f_list":"t"},{"id":"G0000GFuMkkVgq2k","name":"#1 OSU","f_list":"f"},{"id":"G0000ZRPiDWna6IY","name":"10\/30\/11-11\/5\/11:
+        Week in Photos","f_list":"t"},{"id":"G0000TCUN8fqOsrk","name":"Duke Big Weekend","f_list":"t"},{"id":"G0000G7rHtZou640","name":"10\/21\/2010
+        WIser Banner and Cardboard City","f_list":"t"},{"id":"G0000ojHZvPpKaBU","name":"10\/24\/11-10\/30\/11
+        Week In Photos","f_list":"t"},{"id":"G00003JwlJlKCfLI","name":"11\/5\/2011
+        Football vs. Miami","f_list":"t"},{"id":"G0000nubOrhmGXI0","name":"2012\/02\/05
+        MBB vs Miami","f_list":"t"},{"id":"G0000tOGGB91l4us","name":"2012\/03\/22
+        - On Tap","f_list":"t"},{"id":"G0000ClPRbKH7Znc","name":"2012\/02\/09 DUI\/Pitchforks","f_list":"t"},{"id":"G0000DWZdvp08RlE","name":"2012\/02\/15
+        WBB vs. VaTech","f_list":"t"},{"id":"G0000fwImlOvhK1o","name":"2012\/02\/26
+        Women''s Basketball vs UNC","f_list":"t"},{"id":"G0000oxiKWg16nwo","name":"shirt","f_list":"f"},{"id":"G0000kotRKrk8Bmk","name":"11\/13\/11
+        W Soccer vs. Radford","f_list":"t"},{"id":"G0000i9sH9W_1ssM","name":"3\/5\/10
+        Day Before The Game","f_list":"t"},{"id":"G0000dRw4F3pJfus","name":"11\/13\/2011
+        Volleyball vs. FSU","f_list":"t"},{"id":"G0000882AIb_QHBU","name":"10\/16\/2009
+        Countdown to Craziness","f_list":"t"},{"id":"G0000s4mVQWPe84Y","name":"11\/19\/11
+        Football vs. Georgia Tech","f_list":"t"},{"id":"G0000dOajD_q75to","name":"2\/28\/10
+        Kville from Night to Light","f_list":"t"},{"id":"G0000XjcSOJroLSk","name":"2\/26\/10
+        Kville on a Lazy Friday Afternoon","f_list":"t"},{"id":"G0000Rt_6hrhCngo","name":"2\/27\/10
+        Sleepy Kville","f_list":"t"},{"id":"G0000MYcdGbzOs14","name":"Duke and the
+        College Basketball Experience","f_list":"t"},{"id":"G0000XT3aQYvoBTY","name":"1\/29\/11
+        Men''s Lacrosse vs Navy","f_list":"t"},{"id":"G00002VLPp4XfytM","name":"1\/30\/11
+        Basketball vs St. John''s","f_list":"t"},{"id":"G0000hG1K0qaRnkA","name":"03\/27\/10
+        BSAI Fashion Show","f_list":"t"},{"id":"G0000TQTrWyV5JbQ","name":"11\/23\/10
+        Duke vs. Kansas State","f_list":"t"},{"id":"G0000Vu.AE3wyZuY","name":"3\/28\/10
+        Elite Eight NCAA: Duke Men''s Basketball vs. Baylor","f_list":"t"},{"id":"G0000CXpYf2uTRnI","name":"9\/14\/2010
+        Duke vs George Washington","f_list":"t"},{"id":"G0000KEfUVFS9dSQ","name":"3\/4\/10
+        Riots at UMD","f_list":"t"},{"id":"G0000x2gqT4vLh38","name":"9\/15\/2010 Career
+        Fair","f_list":"t"},{"id":"G0000S_mvrwqKXKI","name":"11\/27\/10 Duke Football
+        vs UNC","f_list":"t"},{"id":"G0000FJKA9OivvBE","name":"Photos of the Week
+        10\/09\/09","f_list":"t"},{"id":"G0000J4Ecmigdxzw","name":"9\/28\/11 M Soccer
+        vs. Presbyterian","f_list":"t"},{"id":"G0000YZxc62Vacig","name":"10\/03\/09
+        Duke vs. Virginia Tech Football","f_list":"t"},{"id":"G0000eCbs27v3j4I","name":"Crazies","f_list":"t"},{"id":"G0000BpQ_LB58A3w","name":"DukeAlabamaFootball","f_list":"t"},{"id":"G0000F7JUn.Lcr3E","name":"1\/28\/10
+        Duke Men''s Basketball vs Florida State University","f_list":"t"},{"id":"G0000WDLOqgqX2uM","name":"2
+        Feb 2011 - Duke @ Maryland","f_list":"t"},{"id":"G00003Vd_vCC9QxE","name":"10\/01\/09
+        Founders Day Convocation","f_list":"t"},{"id":"G0000J5vAloPITc4","name":"Nicholas
+        Kristof Speaks at Duke 9\/17\/09","f_list":"t"},{"id":"G0000XhP8XrC1Gn4","name":"Homecoming
+        Ball 2011","f_list":"t"},{"id":"G00005u4jfWvpkKI","name":"02\/08\/10 Women''s
+        Basketball vs. UNC (Naclerio)","f_list":"t"},{"id":"G0000MtMiHMFu9.s","name":"02\/08\/10
+        Women''s Basketball vs. UNC (Douglas)","f_list":"t"},{"id":"G0000TuTuYx7nJH8","name":"2\/8\/10
+        Bonfire After Duke Women''s BBall Victory","f_list":"t"},{"id":"G00005B0ou4QWNFE","name":"9\/12\/09
+        Duke vs. Army Football","f_list":"t"},{"id":"G0000yuPKkNxlX2A","name":"print","f_list":"t"},{"id":"G0000.QbRXPohado","name":"9\/28\/11
+        Carrboro Music Festival","f_list":"t"},{"id":"G000070qbYO0WXXY","name":"K-Records:
+        Women''s Win Over UNC Bonfire","f_list":"t"},{"id":"G0000RFEd9b8KyXQ","name":"9\/20\/09
+        Duke vs. Kansas Football","f_list":"t"},{"id":"G00007jlcqN7TJY4","name":"Hallelujah
+        Train","f_list":"t"},{"id":"G0000cTtANVz58AQ","name":"2009 Duke Homecoming
+        Weekend","f_list":"t"},{"id":"G0000OMU_UElXEMQ","name":"10\/10\/09 Joe College
+        Day","f_list":"t"},{"id":"G0000WjjWQroVHJU","name":"Mike Posner @ Duke : Purple
+        Week","f_list":"t"},{"id":"G0000dK8PCej5TcI","name":"2011\/11\/09 Medical
+        Photography","f_list":"f"},{"id":"G0000povABwy4EwY","name":"9\/9\/2010 Duke
+        College Republicans at DSG","f_list":"t"},{"id":"G0000gDdBbd_4yMk","name":"11\/18\/11
+        W Basketball vs. Auburn","f_list":"t"},{"id":"G0000MtewjIJ.Cqc","name":"Starfucker
+        at Duke Coffeehouse","f_list":"t"},{"id":"G0000EZBw6mdeePc","name":"Class
+        of 2009 Baccalaureate at the Duke Chapel","f_list":"t"},{"id":"G00000rS8fkGZIp0","name":"Sleepy
+        Sun @ Duke Coffeehouse","f_list":"t"},{"id":"G0000.sHsdtd8_QU","name":"3\/2\/10
+        Kville Studying at Night","f_list":"t"},{"id":"G00007UrS9CSCatA","name":"10\/23\/09
+        Photos of the Week","f_list":"t"},{"id":"G0000YHy6SsDcqwI","name":"10\/24\/09
+        Duke vs Maryland Football","f_list":"t"},{"id":"G0000O.sKWab0dzY","name":"10\/24\/09
+        Duke Basketball vs. Pfeiffer","f_list":"t"},{"id":"G0000fP2mtR1Yrbc","name":"11\/18\/11
+        W Soccer vs. UGA","f_list":"t"},{"id":"G0000Vng40mxuDa4","name":"MBB_ACCTourney1_Ian","f_list":"t"},{"id":"G0000GJrewHpLg8Q","name":"11\/02\/09
+        Duke vs. UVA","f_list":"t"},{"id":"G0000EDwJ73ob6MQ","name":"3\/3\/10 Line
+        Up Starts","f_list":"t"},{"id":"G0000Q5Wfp2GgcgQ","name":"11\/09\/09 Duke
+        vs. UNC Football","f_list":"t"},{"id":"G0000I0NGr9FJEkA","name":"11\/14\/09
+        Duke vs. Georgia Tech Football","f_list":"t"},{"id":"G0000lB4uisMf3u8","name":"11\/13\/09
+        Duke vs. UNC Greensboro Basketball","f_list":"t"},{"id":"G0000yTlfU_Oef_Y","name":"1\/29\/10-K-ville
+        Setup","f_list":"t"},{"id":"G0000qK2lm8.Y61o","name":"10\/6\/11 Dark Dark
+        Dark","f_list":"t"},{"id":"G0000gXmE6VlpjIQ","name":"01\/30\/10 Snow at Duke","f_list":"t"},{"id":"G0000dm7sK3MW9.o","name":"11\/21\/09
+        Duke Football at Miami","f_list":"t"},{"id":"G0000IpuGrLTpdHA","name":"12\/01\/2009
+        Duke vs. Wisconsin Men''s Basketball","f_list":"t"},{"id":"G0000zi_EdzbBYOc","name":"03\/06\/10
+        Cameron Crazies","f_list":"t"},{"id":"G0000inV2Uq8O1SE","name":"Coach K -
+        Men''s Health","f_list":"t"},{"id":"G0000JoAPFkkouWU","name":"9\/28\/11 Rock
+        The CASA","f_list":"t"},{"id":"G0000KdFUBEx2XNE","name":"1\/30\/10_Duke Men''s
+        Basketball at Georgetown","f_list":"t"},{"id":"G0000u61KNxFnO5s","name":"1\/30\/10_Duke
+        at Georgetown","f_list":"t"},{"id":"G0000MZ.ZWc_U5l8","name":"2\/6\/10 Duke
+        Men''s Basketball at Boston College","f_list":"t"},{"id":"G0000d3lnpDr5nw0","name":"K-Records:
+        Pre-Georgia Tech game 2\/4\/10","f_list":"t"},{"id":"G0000xASQJlBYnLY","name":"11\/13\/11
+        Football vs. UVA","f_list":"t"},{"id":"G0000OV3TooMwmwc","name":"10\/30\/2010
+        Duke vs Navy Football","f_list":"t"},{"id":"G0000Q9YxCiLvYRs","name":"1\/30\/10-
+        Snow at Duke","f_list":"t"},{"id":"G0000ITf0taWu7UU","name":"Rapper Wale Performs
+        on East Campus","f_list":"t"},{"id":"G0000OnlD8X8E0ng","name":"1\/31\/11 Duke
+        vs UConn","f_list":"t"},{"id":"G0000YPsGcyFPgZI","name":"01\/29\/10 Blue Tenting
+        Begins","f_list":"t"},{"id":"G0000DmLyXaxQ7jI","name":"3\/19\/10 Duke Men''s
+        Basketball vs Arkansas-Pine Bluff","f_list":"t"},{"id":"G0000X3GFizKl8_I","name":"11\/3\/11
+        W Basketball vs. Pfeiffer","f_list":"t"},{"id":"G0000y.Eh3kt9MGg","name":"2\/0911
+        UNC Bonfire","f_list":"t"},{"id":"G0000_JMHHrUEy2U","name":"03\/22\/10 Women''s
+        Basketball vs. LSU","f_list":"t"},{"id":"G0000GTvQokGhXf4","name":"2\/13\/10
+        Duke Men''s Basketball vs UMD","f_list":"t"},{"id":"G00002scP7D1uxlc","name":"2\/11\/10
+        Duke Women''s Basketball vs NCState","f_list":"t"},{"id":"G0000A9ErnLmJ2nc","name":"Obama
+        Honors Duke With Rose Garden Ceremony","f_list":"t"},{"id":"G0000GMcjQeAKz.M","name":"3\/23\/10
+        Men''s Lacrosse vs Dartmouth","f_list":"t"},{"id":"G00002TM9jas8TiM","name":"12\/04\/2010
+        Men''s Basketball: Duke vs Butler","f_list":"t"},{"id":"G0000ZplPUaVBFfU","name":"01\/03\/10
+        Duke Men''s Basketball vs. Clemson","f_list":"t"},{"id":"G0000Sg_qhD8QwKE","name":"12\/04\/2010
+        Volleyball NCAA Tournament","f_list":"t"},{"id":"G00005JqZpSKDqG0","name":"2009-2010
+        Year in Review","f_list":"t"},{"id":"G0000FvGyxjkmXh4","name":"2007-2008 Year
+        in Review","f_list":"t"},{"id":"G0000PXdMhka2158","name":"2008-2009 Year in
+        Review","f_list":"t"},{"id":"G0000ZWF5.1ldFOw","name":"2\/21\/10 Duke Men''s
+        Basketball vs. VaTech","f_list":"t"},{"id":"G0000wAPikV9shC0","name":"Recent
+        Images","f_list":"t"},{"id":"G0000I45Np8ZytRg","name":"2\/20\/10 Duke Women''s
+        Basketball vs Maryland","f_list":"t"},{"id":"G0000Ky44KWzkTK4","name":"3\/21\/10
+        Duke Men''s Basketball vs California","f_list":"t"},{"id":"G0000Suzpv73oDWU","name":"2\/21\/10
+        Pre VaTech Men''s Basketball Game","f_list":"t"},{"id":"G0000mU6YgJradAk","name":"2\/22\/10
+        White Tenting Dash","f_list":"t"},{"id":"G0000g7.9gb4lo50","name":"2014\/01\/29
+        SNOW","f_list":"t"},{"id":"G0000PM4JCMIr9cM","name":"2014\/01\/27 MBB vs.
+        Pitt","f_list":"t"},{"id":"G0000KgZVX74vBR0","name":"2013\/01\/25 MBB vs FSU","f_list":"t"},{"id":"G0000p06N7qbekqw","name":"2014\/01\/23
+        Week In Photos","f_list":"t"},{"id":"G0000hZCppeZt3EQ","name":"2014\/01\/22
+        MBB vs Miami","f_list":"t"},{"id":"G0000TG0ouiMUR6A","name":"2014\/01\/18
+        MBB vs. NC State","f_list":"t"},{"id":"G0000rKgbQBV90C0","name":"2014\/01\/15
+        Obama @ NC State","f_list":"t"},{"id":"G0000QY4buzeUemA","name":"2013\/11\/23
+        November Dance","f_list":"t"},{"id":"G0000aHIL9t4hkk8","name":"2013\/11\/23
+        FB vs. Wake Forest","f_list":"t"},{"id":"G0000OfPw064Yx4Y","name":"2013\/11\/22
+        HackDuke","f_list":"f"},{"id":"G0000S_MaP.cLKsk","name":"2013\/11\/21 Week
+        In Photos","f_list":"t"},{"id":"G0000IJ6_G.A2GMU","name":"2013\/11\/18 MBB
+        vs. UNCA (NIT Preseason Tipoff)","f_list":"t"},{"id":"G0000pmZZRerFp_0","name":"2013\/11\/17
+        FH vs. Mass (NCAA Round 2)","f_list":"t"},{"id":"G0000kwhFRp9N.5s","name":"2013\/11\/17
+        WBB vs. Alabama","f_list":"t"},{"id":"G0000JWTnhtDhDmc","name":"2013\/11\/16
+        FB vs. Miami","f_list":"t"},{"id":"G0000MyFjZ3ZO6DM","name":"2013\/11\/15
+        MBB vs. FAU","f_list":"t"},{"id":"G00002IDswF64fIU","name":"2013\/10\/14 WBB
+        vs. USC Upstate","f_list":"t"},{"id":"G0000cG51pAhgc64","name":"2013\/11\/14
+        Week in Photos","f_list":"t"},{"id":"G0000wvIESAgM17c","name":"2013\/11\/12
+        State Farm Classic - MBB vs. Kansas","f_list":"t"},{"id":"G0000AOfRZ_8AWvA","name":"2013\/11\/10
+        WBB vs. Cal","f_list":"t"},{"id":"G0000C3VR6M.wD74","name":"2013\/11\/09 FB
+        vs. NCState","f_list":"t"},{"id":"G0000en_dd.WBPK4","name":"2012\/11\/8 Awaaz","f_list":"t"},{"id":"G0000utEZP46szUE","name":"2013\/11\/08
+        MBB vs. Davidson","f_list":"t"},{"id":"G0000KjWmEBH87nA","name":"2013\/11\/07
+        Week In Photos","f_list":"t"},{"id":"G0000XTRXaTGtsXA","name":"2013\/11\/03
+        WBB vs. Coker","f_list":"t"},{"id":"G0000mJlHwkEnQss","name":"2013\/10\/30
+        WBB vs. Glenville State","f_list":"t"},{"id":"G0000qYiEbb_uy1E","name":"2013\/10\/25
+        Ark Dances","f_list":"t"},{"id":"G0000lxocDBvboF8","name":"2013\/10\/31 Week
+        In Photos","f_list":"t"},{"id":"G0000X2MXUu3qq0U","name":"2013\/10\/31 Week
+        In Sports","f_list":"t"},{"id":"G0000NhFeMNtXoQ8","name":"Right Round party
+        10\/28\/10","f_list":"t"},{"id":"G0000hDdOJsxi5pI","name":"01\/09\/10 Duke
+        Men''s Basketball at Georgia Tech","f_list":"t"},{"id":"G0000TTysdTdFEiA","name":"12\/07\/11
+        M Basketball vs. Colorado State","f_list":"t"},{"id":"G0000JXCM97QM3U4","name":"2\/22\/10
+        Kville in the Rain","f_list":"t"},{"id":"G000008YlKYhbdIE","name":"2\/24\/10
+        Kville on a Rainy Day","f_list":"t"},{"id":"G0000qzFk_REEv9c","name":"WBBall_Miami_Xavier","f_list":"t"},{"id":"G0000G6Gc.ukU9D8","name":"3\/14\/10
+        Duke Men''s Basketball vs. GeorgiaTech","f_list":"t"},{"id":"G0000wbQOmU2Q.5c","name":"01\/17\/10
+        Duke Men''s Basketball vs. Wake Forest - Nate Glencer","f_list":"t"},{"id":"G000066uMPIjZhKo","name":"01\/17\/10
+        Duke Men''s Basketball vs. Wake Forest","f_list":"t"},{"id":"G00009I9Cy.DjruQ","name":"9\/30\/11
+        C-2 Bus Fire","f_list":"t"},{"id":"G0000T1FCLAxpmRA","name":"2\/10\/10 Windy
+        Kville","f_list":"t"},{"id":"G0000iJ_58wEXBbk","name":"01\/18\/10 Duke Women''s
+        Basketball vs. UConn","f_list":"t"},{"id":"G0000foUrOXTiZi4","name":"01\/18\/10
+        Duke Women''s Basketball vs. UConn by Michael Naclerio","f_list":"t"},{"id":"G0000qiscXTl.RQ8","name":"1\/20\/10
+        Duke Men''s Basketball at NCState","f_list":"t"},{"id":"G0000SVJnp_fe1NY","name":"2\/18\/10
+        Duke Men''s Basketball at UMiami","f_list":"t"},{"id":"G0000O_BCy1_Zk.8","name":"2\/14\/10
+        Duke Women''s Basketball at VaTech","f_list":"t"},{"id":"G0000TQicOqZY6yw","name":"Hannukah
+        at Duke","f_list":"t"},{"id":"G0000T6njhQh6Lpw","name":"02\/18\/10 13 Most
+        Beautiful... Songs for Andy Warhol''s \"Screen Tests\"","f_list":"t"},{"id":"G0000VHBZq1z3cLg","name":"02\/10\/10
+        Duke Men''s at UNC","f_list":"t"},{"id":"G0000vln0ju_4kk8","name":"3\/22\/10
+        Duke Football \"Pro Day\"","f_list":"t"},{"id":"G0000haQlBxDnac4","name":"1\/23\/10
+        Duke Men''s Basketball at Clemson","f_list":"t"},{"id":"G0000KPrnHjGDLP4","name":"01\/24\/10_Women''s
+        Basketball at Maryland","f_list":"t"},{"id":"G0000KDfKsel.Bhs","name":"3\/27\/10
+        Sweet Sixteen NCAA: Duke Mens Basketball vs. Purdue","f_list":"t"},{"id":"G0000EJ7cRud3uw4","name":"Zoubek
+        at the White House","f_list":"f"},{"id":"G0000N.jTZRo.8Ig","name":"Basketball
+        In Review","f_list":"t"},{"id":"G0000ecCuPdpRYGc","name":"3\/12\/2011 Duke
+        vs Virginia Tech","f_list":"t"},{"id":"G00003DkKUXayNyQ","name":"11\/03\/10
+        Women''s Basketball vs. Wingate","f_list":"t"},{"id":"G0000LPXKfyKHU1A","name":"4\/2\/10
+        Obama visits Charlotte","f_list":"t"},{"id":"G0000TLos9i6cwNw","name":"Small
+        Town Records","f_list":"f"},{"id":"G00007yH0SEOjaAU","name":"4\/6\/10 Duke
+        Wins National Championship","f_list":"t"},{"id":"G0000pEgfib3kwZ8","name":"4\/6\/10
+        Duke Wins National Championship - Student Reactions","f_list":"t"},{"id":"G00003LHEBJMNl10","name":"Graduation
+        - 2008","f_list":"t"},{"id":"G0000AspEr6galmw","name":"10\/9\/11 Weekend Sports","f_list":"t"},{"id":"G0000g9XB5iVzPaE","name":"11\/06\/10
+        Duke Football vs. Virginia","f_list":"t"},{"id":"G0000D81YRHYr6R4","name":"4\/28\/10
+        Last Day of Classes","f_list":"t"},{"id":"G0000Ruf8buCbdeg","name":"04\/11\/10
+        Clearing Waters Premiere","f_list":"t"},{"id":"G0000eg9vOWkBMaw","name":"Men''s
+        Lacrosse NCAA Tournament vs. Johns Hopkins","f_list":"t"},{"id":"G00005s.sIkCYjcc","name":"05\/29\/10
+        Men''s Lacrosse Final Four vs. Virginia","f_list":"t"},{"id":"G0000lxbhgUP3DdQ","name":"5\/16\/10
+        Duke Commencement Class of 2010","f_list":"t"},{"id":"G0000V1kRRMjfQtQ","name":"Crazies
+        Pre-UNC game in K-Ville","f_list":"t"},{"id":"G0000mJ0jTV0wnPM","name":"2\/7\/2011
+        Etiquette Dinner","f_list":"f"},{"id":"G0000ZW0EsBKygH4","name":"Dunleavy,
+        Seminoles","f_list":"t"},{"id":"G0000gFyZeDzop.o","name":"ATO at Stroll Show","f_list":"f"},{"id":"G000058_z.mm2GyE","name":"1\/9\/11
+        Duke vs Maryland","f_list":"t"},{"id":"G00001w1CvNbwCXw","name":"8\/30\/10
+        Forever Duke Block Party","f_list":"t"},{"id":"G0000CBcu6wt9cEQ","name":"11\/11\/11
+        The Sea and Cake at Local 506","f_list":"t"},{"id":"G0000D9_UDXzDkQA","name":"10\/14\/11
+        W Soccer vs. UNC","f_list":"t"},{"id":"G0000FaZP_hF.BXg","name":"08\/31\/2010
+        Duke vs Campbell Volleyball","f_list":"t"},{"id":"G00006g0SntsD868","name":"11\/16\/2010
+        Duke Men''s Basketball vs. Miami (Ohio)","f_list":"t"},{"id":"G0000XfqGVA.VAso","name":"3\/20\/2011
+        Duke vs Michigan","f_list":"t"},{"id":"G0000CLMQ9QaS_CA","name":"3\/19\/2011
+        Marry Durham","f_list":"t"},{"id":"G0000jmLqBPyxVoQ","name":"8\/25\/2010 Duke
+        Convocation","f_list":"t"},{"id":"G0000r8vo6htPwZU","name":"01\/19\/2011 Men''s
+        Basketball: Duke vs NC State","f_list":"t"},{"id":"G0000O6Uv.CWU5oU","name":"11\/19\/11
+        Stroll Show","f_list":"t"},{"id":"G0000sSy5IDT2vR8","name":"K-ville 2006-07","f_list":"f"},{"id":"G0000hFOHQhXZ6qk","name":"K-ville
+        2007-08","f_list":"f"},{"id":"G00007NXNAU3pUU0","name":"K-ville 2009-10","f_list":"f"},{"id":"G0000NL3RWb7N8YI","name":"2\/23\/11
+        Duke vs Temple","f_list":"t"},{"id":"G0000_l7Kq1jyliE","name":"K-ville 2010-11","f_list":"f"},{"id":"G0000ZwnU0IvvZ3w","name":"3\/24\/2011
+        Duke vs Arizona","f_list":"t"},{"id":"G000042UuUfsSw2g","name":"11\/02\/16
+        Duke vs UVA","f_list":"t"},{"id":"G0000xCdX_DpZOUg","name":"Photos of Sean
+        Davis","f_list":"f"},{"id":"G0000_JAxV_ag1OM","name":"100823 Football Scrimmage","f_list":"t"},{"id":"G0000LVwDgJKAPek","name":"12\/06\/10
+        President Obama speaks at Forsyth Tech Community College","f_list":"t"},{"id":"G0000raFEMEopM_s","name":"12\/29\/10
+        Duke vs UNC Greensboro","f_list":"t"},{"id":"G0000l.dQDyuiTW4","name":"08\/23\/2010
+        Duke Orientation Week","f_list":"t"},{"id":"G0000tfzeneWjM.E","name":"11\/13\/11
+        Volleyball vs. FSU","f_list":"t"},{"id":"G00000J9X7gL0R9s","name":"1\/4\/11
+        Duke vs Kentucky","f_list":"t"},{"id":"G0000s5bWcCPMm_k","name":"9\/11\/2010
+        Duke vs Wake Forest Football","f_list":"t"},{"id":"G0000nk1kLHFGt9g","name":"11\/20\/11
+        W Soccer vs. Ohio State","f_list":"t"},{"id":"G00008jK.1_ydodw","name":"Cole
+        Bosson - Tailgate","f_list":"t"},{"id":"G000020z5GHIGQNY","name":"01\/27\/2011
+        Men''s Basketball: Duke vs Boston College","f_list":"t"},{"id":"G0000r3frC.Hg1JQ","name":"1\/2\/11
+        Duke vs Miami","f_list":"t"},{"id":"G00005m7LeCkJzhk","name":"Men''s Basketball:
+        Duke vs Colgate","f_list":"t"},{"id":"G00006uquc6v2Qz0","name":"Football:
+        Duke vs Georgia Tech","f_list":"t"},{"id":"G0000sQvNBZCmouc","name":"Women''s
+        Basketball: Duke vs Western Kentucky","f_list":"t"},{"id":"G00009z37ixb7pJc","name":"10\/6\/11
+        Shakori Hills Grassroots Festival","f_list":"t"},{"id":"G00006X5EDc9ZbKE","name":"12\/16\/10
+        Snow on East Campus","f_list":"t"},{"id":"G0000ARxt_cme0aY","name":"2\/24\/11
+        Duke vs UVA","f_list":"t"},{"id":"G0000zDNn.PHAyqo","name":"Homecoming Bridge
+        Painting","f_list":"t"},{"id":"G0000HGxUNYof7uk","name":"12\/30\/10 Duke vs
+        Temple","f_list":"t"},{"id":"G00000jkK9V4BaSM","name":"12\/10\/11 M Basketball
+        vs. Washington","f_list":"t"},{"id":"G000087U9PcEFTJg","name":"2\/13\/2011
+        Miami vs Duke","f_list":"t"},{"id":"G0000xvFZacdIrxs","name":"Mike Gbinije","f_list":"t"},{"id":"G0000Qp8nrjGZBR8","name":"Melissa
+        Yeo","f_list":"f"},{"id":"G00006mmPg2evu4g","name":"12\/20\/10 Duke vs. Elon","f_list":"t"},{"id":"G0000J0vPTc5TP4U","name":"1\/26\/11
+        Duke vs Clemson","f_list":"t"},{"id":"G0000t1YgvU3Bh68","name":"3\/24\/11
+        Small Town Records Compilation Release Party","f_list":"f"},{"id":"G00000PQ6w.Pq3Dc","name":"2010
+        Photos of the Year","f_list":"t"},{"id":"G0000CZpRUmyMXV8","name":"Whose Live
+        Anyway","f_list":"t"},{"id":"G0000CuLHlApWa3o","name":"9\/25\/2010 Duke vs
+        Army Football","f_list":"t"},{"id":"G0000KkQX_dlXzQc","name":"Homecoming Weekend
+        2010","f_list":"t"},{"id":"G0000eQFzNo5Zg80","name":"01\/22\/2011 Men''s Basketball:
+        Duke vs Wake Forest","f_list":"t"},{"id":"G0000XDvzVB7YDe8","name":"1\/12\/11
+        Duke vs FSU","f_list":"t"},{"id":"G0000O2otTNNQRuU","name":"NC Pride Parade","f_list":"t"},{"id":"G0000VLjmTdEuieY","name":"12\/11\/10
+        Basketball vs Saint Louis","f_list":"t"},{"id":"G0000O4ZSBUF5J5E","name":"3\/27\/11
+        Duke WBB vs DePaul","f_list":"t"},{"id":"G0000uORjRTNIiI0","name":"2\/20\/2011
+        Women''s Lacrosse: Duke vs William & Mary","f_list":"t"},{"id":"G0000Pa37QQBah18","name":"11\/13\/2010
+        Women''s Basketball Duke vs BYU","f_list":"t"},{"id":"G00004sAH9Rbkb3o","name":"2\/20\/2011
+        Men''s Basketball: Duke vs Georgia Tech","f_list":"t"},{"id":"G0000.WiBaChZwaA","name":"2\/20\/2011
+        Women''s Basketball: Duke vs Virginia Tech","f_list":"t"},{"id":"G0000hgjn9zc81LE","name":"11\/13\/2010
+        Football Duke vs Boston College","f_list":"t"},{"id":"G0000eJ3IZONA_mA","name":"11\/12\/2010
+        Live Wiser","f_list":"t"},{"id":"G0000b9NoP4WL_os","name":"Small Town Records
+        Release Party","f_list":"f"},{"id":"G0000oXbBWw1xDdk","name":"9\/19-26 This
+        Week in Photos","f_list":"t"},{"id":"G0000RlKiczB2_08","name":"11\/22\/10
+        Duke vs. Marquette","f_list":"t"},{"id":"G0000EYuTfFb735Q","name":"3\/18\/2011
+        Duke vs Hampton","f_list":"t"},{"id":"G0000vR4Jt.aek3E","name":"Photos for
+        Sabrosura","f_list":"f"},{"id":"G0000jva3uWGhqmw","name":"02\/11\/2011 Duke
+        Recruits Play in Cameron","f_list":"t"},{"id":"G0000Sf61.ex35lw","name":"Jeff
+        Johnson at Duke","f_list":"t"},{"id":"G0000acvBbUmK_5k","name":"Chris Sands
+        at Duke","f_list":"t"},{"id":"G0000m3eV6IKeo2o","name":"3\/21\/2011 Duke vs
+        Marist","f_list":"t"},{"id":"G0000mUlokI3VH0c","name":"12\/21\/10 Duke vs
+        Xavier","f_list":"t"},{"id":"G0000HOpYJ3zoLcY","name":"11\/14\/2010 Men''s
+        Basketball: Duke vs Princeton","f_list":"t"},{"id":"G0000_el8JFDJh7o","name":"01\/15\/2011
+        Men''s Basketball: Duke vs Virginia","f_list":"t"},{"id":"G0000bCeSgL8Xjfk","name":"The
+        First Few Days of Blue Tenting","f_list":"t"},{"id":"G0000wDtHEPPanG0","name":"12\/08\/2010
+        Men''s Basketball: Duke vs Bradley","f_list":"t"},{"id":"G000012BvL8ZlhrE","name":"12\/08\/2010
+        Lee Walden shooting in Cameron","f_list":"t"},{"id":"G0000JnRRZuIpN_s","name":"3\/31\/2011
+        Lupe Fiasco with Kid Sister","f_list":"t"},{"id":"G0000k_2WqAShLoA","name":"10\/14\/11
+        Countdown to Craziness","f_list":"t"},{"id":"G0000LekDF3HjSz8","name":"4\/16\/2011
+        Duke Kunshan Campus","f_list":"t"},{"id":"G000007VB9nOUT9U","name":"10\/15\/11
+        NC State Fair","f_list":"t"},{"id":"G00001O3UUXd_e_0","name":"11\/14\/11-11\/20\/11
+        Week In Photos","f_list":"t"},{"id":"G0000_NqjlvPltXE","name":"11\/18\/11
+        M Basketball vs. Davidson","f_list":"t"},{"id":"G0000J7Dspf6qhZs","name":"10\/18\/11
+        Obama","f_list":"t"},{"id":"G0000ZpyIumb3C_4","name":"11\/15\/11 M Basketball
+        vs. Michigan State","f_list":"t"},{"id":"G0000r_.6DQRbPWQ","name":"Bull City
+        Records","f_list":"t"},{"id":"G0000vuwVy900Rn8","name":"Mad Men and Mad Women
+        Party","f_list":"t"},{"id":"G0000puFa3xIQxpw","name":"k4","f_list":"t"},{"id":"G00008sxLC5AzoQc","name":"9\/25\/11
+        M  Football vs. Tulane","f_list":"t"},{"id":"G0000SHEIU_0Y5XI","name":"Andrew
+        Hanna","f_list":"t"},{"id":"G00007aTeD160cdc","name":"11\/2\/11 M Basketball
+        vs. Shaw","f_list":"t"},{"id":"G0000tr1JHB850ZI","name":"2\/26\/2011 Duke
+        vs Virginia Tech","f_list":"t"},{"id":"G0000lvZl03v7TBM","name":"10\/2\/2010
+        Joe College Day","f_list":"t"},{"id":"G0000cNHUUYJUbEw","name":"1\/8\/12 W
+        Basketball vs. NC State","f_list":"t"},{"id":"G0000MCrj1UUj_JM","name":"9\/30\/2010
+        The Vorticists Exhibit","f_list":"t"},{"id":"G0000TDonslRI10k","name":"10\/1\/2010
+        Duke Volleyball vs Boston College","f_list":"t"},{"id":"G0000ekQ3OTRJI5U","name":"3\/4\/2011
+        Women: Duke vs Wake Forest","f_list":"t"},{"id":"G0000fjkVoBYikKA","name":"4-9-2011
+        Leaf Awards","f_list":"t"},{"id":"G0000JMu6DGMRNJk","name":"11\/11\/11 M Soccer
+        vs. BC","f_list":"t"},{"id":"G0000E1hrhE9b4d4","name":"04\/10\/2011 Sports
+        of the Weekend","f_list":"t"},{"id":"G0000F4i3G1ElLrs","name":"10\/2\/2010
+        Duke vs Maryland Football","f_list":"t"},{"id":"G0000kE.qV4.D654","name":"8-10
+        April 2011 Weekend At Duke","f_list":"t"},{"id":"G0000pXljgzX4tv8","name":"bballreturn","f_list":"f"},{"id":"G0000824_w4kK.L8","name":"110822
+        - Duke in China, Friendship Game 3","f_list":"t"},{"id":"G0000pW_HHUyjL2c","name":"TedxDuke","f_list":"t"},{"id":"G0000Oru3vWp8smo","name":"Aug
+        24 2011 - Duke Class of 2015 Convocation","f_list":"t"},{"id":"G0000iISdHL.ymHo","name":"2\/27\/2011
+        Women: Duke vs UNC","f_list":"t"},{"id":"G0000B7Kb9dRpRxc","name":"Obama Visits
+        Cree Factory on 6\/13\/11","f_list":"t"},{"id":"G0000yfQlfU4cmcg","name":"HarryLiberman","f_list":"f"},{"id":"G0000bbKFpnd2XjY","name":"3\/5\/2011
+        Women: Duke vs Georgia Tech","f_list":"t"},{"id":"G0000y_2KYN0_TbE","name":"11\/8\/11
+        Durham Elections","f_list":"t"},{"id":"G0000uhEEbw1imKk","name":"11\/8\/11
+        M Soccer vs. Clemson","f_list":"t"},{"id":"G0000mDPFt5xY978","name":"Duke
+        vs. UNC Away 2011","f_list":"t"},{"id":"G0000gxzdFEgMrM8","name":"Duke Football
+        vs FSU","f_list":"f"},{"id":"G0000aBgB.thHXpU","name":"Chronicle Alumni Reunions","f_list":"t"},{"id":"G0000ZKnNxRaPI4o","name":"5\/15\/2011
+        Commencement: Duke Class of 2011","f_list":"t"},{"id":"G0000GQYTsDn7hoY","name":"3\/2\/2011
+        Duke vs Clemson","f_list":"t"},{"id":"G0000Nr9.Y.osF.o","name":"10\/05\/10
+        Duke vs Davidson Mens Soccer","f_list":"t"},{"id":"G0000l_.Jy3JVidw","name":"10\/29\/11
+        Football vs. Virginia Tech","f_list":"t"},{"id":"G000009nv1uLqA0g","name":"110818
+        - Nike Sports Festival","f_list":"t"},{"id":"G00003KIZoGvT82M","name":"110822
+        - Duke Visits the Beijing Olympic Park","f_list":"t"},{"id":"G0000K6fSsLabrpA","name":"110822
+        - Coach K Meets With Yao Ming","f_list":"t"},{"id":"G0000V5WVPWhDCj4","name":"11\/04\/11
+        - K4","f_list":"t"},{"id":"G0000a6F5idirS0Y","name":"10\/19\/11 Volleyball
+        vs. UNC","f_list":"t"},{"id":"G0000Ju.D1KVXkwM","name":"Joaquin Salas","f_list":"t"},{"id":"G0000i0TMaYEshyY","name":"110825
+        - Duke in UAE, Friendship Games","f_list":"t"},{"id":"G0000y.g5euB0qi0","name":"4\/14\/11
+        NASHUP","f_list":"t"},{"id":"G0000lymdtHymWoU","name":"3\/6\/11 Championships","f_list":"t"},{"id":"G0000MObl1qrNr3E","name":"Duke
+        vs. Chinese National Team 1","f_list":"t"},{"id":"G0000jjzhAjHqCL8","name":"10\/15\/11
+        Football vs. FSU","f_list":"t"},{"id":"G0000kfEUoLGwtzo","name":"David M.
+        Rubenstein Rare Book & Manuscript Library","f_list":"t"},{"id":"G0000Fl41daH7ajU","name":"9\/15\/11
+        Hopscotch Music Festival","f_list":"t"},{"id":"G0000sLYJOWWd_bE","name":"Duke
+        vs. Richmond Game","f_list":"t"},{"id":"G00009U8wVYw19xk","name":"Eno Quarry","f_list":"t"},{"id":"G0000MImfBNMr3Z4","name":"1\/12
+        Martin Luther King Jr.","f_list":"t"},{"id":"G0000mJgMrBlHV7E","name":"Home
+        Opener vs. Richmond","f_list":"t"},{"id":"G0000DKlEU0Pgi7E","name":"tourdeduke_tedknudsen","f_list":"t"},{"id":"G0000hI2vOoJ0fnQ","name":"14
+        Sept 11 - Obama at NCSU","f_list":"t"},{"id":"G0000wN3v1AX8ZdQ","name":"10\/2\/11
+        A New Fall","f_list":"t"},{"id":"G0000B8_i2_srAsA","name":"Duke vs. Stanford
+        Game","f_list":"t"},{"id":"G0000tPaCyMkD02o","name":"10\/2\/11 W Soccer vs.
+        Virginia Tech","f_list":"t"},{"id":"G000049HWNikU.54","name":"Sophomore Commencement","f_list":"t"},{"id":"G0000ANQ1_8Aw5X0","name":"26-28
+        Aug 11 - Weekend Orientation Events","f_list":"t"},{"id":"G00003vzFZwzTvQo","name":"10\/1\/11
+        M Football vs. FIU","f_list":"t"},{"id":"G0000q6G7lmPS78M","name":"Weekend
+        Orientation Events","f_list":"t"},{"id":"G0000y_MhV0BwQKo","name":"11\/12\/11
+        M Basketball vs. Presbyterian","f_list":"t"},{"id":"G0000GzdtRCF5pOE","name":"10\/22\/2011
+        Football vs. Wake Forest","f_list":"t"},{"id":"G0000YNnsrnnt00k","name":"110921
+        - Barton Seaver","f_list":"t"},{"id":"G0000qCxNL8UD4ms","name":"Duke''s Big
+        Weekend","f_list":"t"},{"id":"G0000ibzosNg6ryk","name":"110912 - Salsa on
+        the Steps","f_list":"t"},{"id":"G0000zktDhv5ETuk","name":"10\/16\/2010 Duke
+        vs Miami Football","f_list":"t"},{"id":"G0000fCUC8uzKkoE","name":"10\/15\/2010
+        Countdown to Craziness","f_list":"t"},{"id":"G00007HJJiEAx4Qs","name":"10\/15\/2010
+        Blue and White Game","f_list":"t"},{"id":"G00007mqKORdhPEQ","name":"libbyjandl2","f_list":"t"},{"id":"G0000NwPJLLQaoQc","name":"10\/19\/2010
+        Duke vs High Point Soccer","f_list":"t"},{"id":"G000004f9JzN0Wr0","name":"10\/17\/11-10\/23\/11
+        Week In Photos","f_list":"t"},{"id":"G0000tn1lzo9v7lA","name":"Duke vs. Boston
+        College","f_list":"t"},{"id":"G0000.IIACtNRpjw","name":"9\/19\/11 Brewgrass
+        Festival","f_list":"t"},{"id":"G00002xYxDesW4JU","name":"11\/11\/11 M Basketball
+        vs. Belmont","f_list":"t"},{"id":"G0000AA51V.4s3vc","name":"23 Sept 11 - Homecoming
+        Ball 2011","f_list":"t"},{"id":"G00003TdTEBdiz8w","name":"10\/23\/2010 Duke
+        vs Virginia Tech Football","f_list":"t"},{"id":"G0000ulyMqLcxy28","name":"10\/23\/2010
+        Duke vs St Augustine Basketball","f_list":"t"},{"id":"G0000Lcp.Syu1Ir8","name":"2013\/01\/07
+        MBB vs. GTech","f_list":"t"},{"id":"G0000tX8lxLlqwns","name":"2014\/01\/04
+        MBB vs. Notre Dame","f_list":"t"},{"id":"G0000BMzXw1T4Ogo","name":"2013\/12\/31
+        Chick-Fil-Bowl FB","f_list":"t"},{"id":"G0000EeU7w0QWZVM","name":"2013\/12\/31
+        MBB vs. Elon","f_list":"t"},{"id":"G0000UzifUMxPfCs","name":"2013\/12\/28
+        MBB vs. Eastern Michigan","f_list":"t"},{"id":"G0000a5IV2qipnxg","name":"2013\/12\/19
+        MBB vs. UCLA","f_list":"t"},{"id":"G0000YPPYGzpwITo","name":"2013\/12\/17
+        WBB vs. UConn","f_list":"t"},{"id":"G0000eNUpgLr6s1Y","name":"2013\/12\/16
+        MBB vs. Gardner-Webb","f_list":"t"},{"id":"G0000WwJbnd4oWjM","name":"2013\/12\/07
+        ACC Championships - FB vs. FSU","f_list":"t"},{"id":"G0000GsbcFiFp9Ls","name":"2013\/12\/03
+        Cameron Crazies - Duke vs Michigan","f_list":"t"},{"id":"G00008hvdddXd8zs","name":"2013\/12\/03
+        MBB vs. Michigan","f_list":"t"},{"id":"G00006UHnKB5bZhQ","name":"2013\/11\/30
+        FB vs. UNC","f_list":"t"},{"id":"G0000Dwi.oGaBlVg","name":"2013\/11\/29 MBB
+        vs. Arizona","f_list":"t"},{"id":"G0000dVCPD7xvqvM","name":"2013\/11\/27 MBB
+        vs. Alabama","f_list":"t"},{"id":"G0000oxegsLkKVFY","name":"2013\/11\/24 WSOC
+        vs. Arkansas","f_list":"t"},{"id":"G0000ZikabofmbOI","name":"2013\/11\/24
+        MBB vs. Vermont","f_list":"t"},{"id":"G0000NQHbOOrWx6I","name":"2013\/11\/24
+        FH NCAA Finals vs. UConn","f_list":"t"},{"id":"G0000DX1IkBQIa2E","name":"2013\/11\/22
+        FH NCAA Semifinals vs. Maryland","f_list":"t"},{"id":"G0000jZ888LD5Af0","name":"2013\/11\/23
+        Chapel Carillon","f_list":"t"},{"id":"G0000s9bboWwBy3c","name":"2013\/11\/22
+        WSOC vs. Florida","f_list":"t"},{"id":"G0000xvPj_HClVOU","name":"2013\/11\/19
+        MBB vs. ECU (NIT Preseason Tipoff)","f_list":"t"},{"id":"G0000TEoqLWz.o7E","name":"10\/24\/2010
+        Women''s Basketball Blue and White Game","f_list":"t"},{"id":"G0000KK6ytef1cV4","name":"110920
+        - FLAS Reception","f_list":"t"},{"id":"G0000mLli83juHMI","name":"10\/29\/11
+        M Basketball vs. Bellarmine","f_list":"t"},{"id":"G0000439MTQuIwnA","name":"10\/26\/11
+        House Model Lottery","f_list":"t"},{"id":"G0000pmX6nIEf160","name":"10\/26\/11
+        M Soccer vs. UNC Asheville","f_list":"t"},{"id":"G0000wV5K5343OXM","name":"12\/19\/11
+        M Basketball vs. UNCG","f_list":"t"},{"id":"G0000BUz9jayN7ns","name":"12\/20\/11
+        W Basketball vs. UNCW","f_list":"t"},{"id":"G0000Hg_U.mMvcmE","name":"11\/6\/11
+        W Basketball vs. Lander","f_list":"t"},{"id":"G00007Vc1GL_7rac","name":"M
+        Basketball vs. Clemson, W Basketball vs. Virginia Tech","f_list":"t"},{"id":"G0000NAgmzABMmg4","name":"Wallace
+        Wade","f_list":"t"},{"id":"G0000ysp3pMezFcs","name":"1\/18\/12 W Basketball
+        vs. Georgia Tech","f_list":"t"},{"id":"G0000y0dX0MSNc0E","name":"1\/2\/12
+        W Basketball vs. Virginia","f_list":"t"},{"id":"G0000AN6ngKixDJk","name":"11\/25\/11
+        W Soccer vs. Long Beach State","f_list":"t"},{"id":"G0000PVsaYVSiNEU","name":"11\/26\/11
+        Football vs. UNC","f_list":"t"},{"id":"G0000r5emequbxo0","name":"2012\/03\/02
+        K-Ville: Duke vs UNC","f_list":"t"},{"id":"G0000amMjlFD5uD4","name":"1\/4\/12
+        M Basketball vs. Temple","f_list":"t"},{"id":"G0000uesBQDiVTCI","name":"11\/30\/11
+        M Basketball vs. OSU","f_list":"t"},{"id":"G0000SlLAkRG.JI0","name":"Towerview''s
+        Look at Music in the Triangle","f_list":"t"},{"id":"G0000Z5LNJZjcXQE","name":"12\/01\/11
+        WBB vs. Purdue","f_list":"t"},{"id":"G0000O0IHzPAr4KE","name":"12\/02\/11
+        W Soccer NCAA vs Wake Forest","f_list":"t"},{"id":"G0000nJU47tUApr4","name":"12\/30\/11
+        M Basketball vs Michigan","f_list":"t"},{"id":"G0000n3hL8VpGpQ0","name":"2012\/03\/03
+        MBB vs UNC","f_list":"t"},{"id":"G0000ZL.Utb3l0QM","name":"1\/1\/12 M Basketball
+        vs. Penn","f_list":"t"},{"id":"G0000GV.ixOof3Oc","name":"chelsea Gray","f_list":"t"},{"id":"G00002am2h85byuI","name":"12\/04\/11
+        NCAA W Soccer vs Stanford","f_list":"t"},{"id":"G0000qvnqoKOgWjQ","name":"12\/04\/11
+        W Basketball vs Pittsburgh","f_list":"t"},{"id":"G0000CpZfHvrH8SQ","name":"11\/29
+        - 12\/4\/2011 Week In Photos","f_list":"t"},{"id":"G0000ils143KiHH4","name":"Stroll
+        Show - Meg","f_list":"t"},{"id":"G0000FqDC_kekQSc","name":"1\/19\/12 MBB vs
+        Wake Forest","f_list":"t"},{"id":"G0000rOCKkrXHjSQ","name":"1\/7-16\/12 Week
+        in Photos","f_list":"t"},{"id":"G00003KJQVl4Y4eA","name":"1\/17\/12 K4","f_list":"t"},{"id":"G0000rrnZ2Yldvrg","name":"1\/16-20\/12
+        M Tennis vs. UNC, W Tennis vs. W&M","f_list":"t"},{"id":"G0000w4zHfu_Tg1s","name":"1\/20\/12
+        Cass McCombs @ Haw River Ballroom","f_list":"t"},{"id":"G00003gB91gUu9bE","name":"1\/21\/12
+        M Basketball vs. FSU","f_list":"t"},{"id":"G0000BzJcmYOJBtI","name":"1\/22\/12
+        Bid Day","f_list":"t"},{"id":"G0000u4uM49XwTU8","name":"1\/24\/12 BSA March","f_list":"t"},{"id":"G0000OM6PZGwneyE","name":"1\/27\/12
+        Cameron Crazies at St. John''s","f_list":"t"},{"id":"G0000z2otms1NM3s","name":"03\/13\/12
+        Saxapahaw","f_list":"t"},{"id":"G0000S2ZIJln_ndA","name":"2012\/03\/09 - MBB
+        ACCs vs. VTech","f_list":"t"},{"id":"G0000621XeOXHfpA","name":"1\/12\/12 M.
+        Basketball vs. UVA","f_list":"t"},{"id":"G0000ui5Y3mP4jss","name":"1\/28\/12
+        M Bball vs. St. John''s","f_list":"t"},{"id":"G00004IcyLGI1iRI","name":"1\/25\/12
+        M Bball vs. Maryland","f_list":"t"},{"id":"G0000xPTuvrqLJ0k","name":"1\/22\/12
+        W Basketball vs. Maryland","f_list":"t"},{"id":"G0000YJorMfb6JEY","name":"1\/21\/12
+        Swim & Dive vs. Virginia","f_list":"t"},{"id":"G0000pN_iPGcTh6g","name":"12\/5-11\/11
+        Week In Photos","f_list":"t"},{"id":"G000021QTGSEzHIQ","name":"12\/11\/11
+        W Basketball vs. USC Upstate","f_list":"t"},{"id":"G0000TOQ4QojGmCY","name":"1\/23-29\/12
+        Week In Photos","f_list":"t"},{"id":"G0000y5OG.OX7NH4","name":"120130 WBB
+        vs UCONN","f_list":"t"},{"id":"G00003yQ3qsYpf.o","name":"SXSW 2012: Day 4","f_list":"t"},{"id":"G0000870YyyYpVC8","name":"SXSW
+        2012: Day 5","f_list":"t"},{"id":"G0000xryqc88KOuo","name":"SXSW 2012: Day
+        1","f_list":"t"},{"id":"G0000Nx3hNbz1TYw","name":"2012\/02\/02 WBB vs Wake
+        Forest","f_list":"t"},{"id":"G00004wRSxPm8xHc","name":"2012\/02\/02 MBB vs
+        Vtech","f_list":"t"},{"id":"G0000r5Up3ELxEZk","name":"2012\/02\/05 Crazies
+        at Duke-Miami","f_list":"t"},{"id":"G0000zO.e_a4KBDI","name":"2012\/03\/10
+        - MBB ACC tourney vs. FSU","f_list":"t"},{"id":"G000091_V4nLTdyE","name":"1\/30\/11-2\/5\/12
+        Week In Photos","f_list":"t"},{"id":"G0000lDeDXDffJj8","name":"2012\/02\/12-18
+        - Week In Photos","f_list":"t"},{"id":"G0000Fg1A2Z9OlwE","name":"2012\/02\/06
+        WBB vs. UNC","f_list":"t"},{"id":"G0000wC021bk434s","name":"2012\/03\/16 Holi","f_list":"t"},{"id":"G0000eonQlepJOCc","name":"2012\/03\/16
+        Duke Dance Council Block Party","f_list":"t"},{"id":"G0000b6YFdLsZ9rs","name":"Lemurs
+        painting","f_list":"t"},{"id":"G00001wyzE3ZpY.E","name":"Wild Horses of Shackleford","f_list":"t"},{"id":"G0000kaMXcCK7Vi8","name":"2012\/02\/08
+        UNC Victory Reactions","f_list":"t"},{"id":"G0000RA6me3IgMhY","name":"2012\/02\/08
+        MBB vs UNC","f_list":"t"},{"id":"G0000tojiLpsZ_us","name":"03\/16\/2012 Men''s
+        Basketball vs Lehigh","f_list":"t"},{"id":"G00009YH9LlSP09E","name":"2012\/02\/11
+        Crazies before Maryland","f_list":"t"},{"id":"G0000fnYECOS_Vf8","name":"2012\/02\/11
+        MBB vs. Maryland","f_list":"t"},{"id":"G0000LYNQt1vEjrM","name":"2012\/02\/06-12
+        Week In Photos","f_list":"t"},{"id":"G0000MNipYPAuUa0","name":"12\/03\/20
+        Women''s Basketball vs Vanderbilt","f_list":"t"},{"id":"G0000J7.BYQKfFzo","name":"2012\/03\/17
+        Marry Durham","f_list":"t"},{"id":"G0000LJAdvS9N_Co","name":"SXSW 2012: Day
+        2","f_list":"t"},{"id":"G0000tY5LTcU1uQo","name":"2012\/02\/16 MBB vs N.C.
+        State","f_list":"t"},{"id":"G0000STGKReFSCRs","name":"2012\/02\/19 WBB vs
+        Maryland","f_list":"t"},{"id":"G0000zfDRc4vWS9I","name":"2012\/02\/19 Women''s
+        Lacrosse vs Northwestern","f_list":"t"},{"id":"G0000gmZFvbbeQrY","name":"201\/02\/20
+        mbb vs BC","f_list":"t"},{"id":"G0000WAOqeQN0JPc","name":"2012\/02\/13-19
+        - Week In Photos","f_list":"t"},{"id":"G0000Nfy.qNj__e8","name":"2012\/02\/23
+        MBB vs FSU","f_list":"t"},{"id":"G0000vY9Z0iwyKEU","name":"2012\/02\/25 MBB
+        vs Virginia Tech","f_list":"t"},{"id":"G0000X055hd8KWYY","name":"Alumni Publications","f_list":"t"},{"id":"G00007IFriIy0CBw","name":"2012\/02\/20-26
+        - Week In Photos","f_list":"t"},{"id":"G0000x5a_OGRYhXI","name":"2012\/02\/28
+        mbb vs WFU","f_list":"t"},{"id":"G0000rKc7gyi4ro4","name":"2012\/02\/23 -
+        Duke Cancer Center Opening","f_list":"t"},{"id":"G0000llb8WCMv1ew","name":"2012\/02\/26
+        - Durham Cycling","f_list":"t"},{"id":"G0000IDxLTWkoVjE","name":"2012\/03\/01
+        K-Ville Walk-up Line","f_list":"t"},{"id":"G0000al8i.PSEesg","name":"2012\/03\/01
+        Reliving UNC 10-11","f_list":"t"},{"id":"G0000wbkVqc.8KPw","name":"2012\/03\/01
+        K-Ville: Personal Checks","f_list":"t"},{"id":"G0000V9vC_.gg0H8","name":"2012\/03\/02
+        K-Ville Walk-up Line","f_list":"t"},{"id":"G0000TgSmJHqiVwY","name":"Women''s
+        ACC: Duke vs NC State","f_list":"t"},{"id":"G0000_kx.GSbL1Sc","name":"2012\/01\/16
+        mbb and wbb","f_list":"f"},{"id":"G0000f6TnRtpNXPs","name":"hallelujah","f_list":"f"},{"id":"G0000lyLGBPthwXI","name":"1\/14\/11
+        Duke vs FSU","f_list":"f"},{"id":"G0000tle9jB0p.Ds","name":"01\/15\/2011 Men''s
+        Basketball: DUke vs Virginia","f_list":"f"},{"id":"G0000FpW1WRDqcv0","name":"2012\/1\/15
+        MLK","f_list":"f"},{"id":"G0000hz0N.BcbiVM","name":"JoeCollege","f_list":"f"},{"id":"G0000Ivmd49400RI","name":"Duke
+        vs. Army","f_list":"f"},{"id":"G0000R3CLEFqXgRo","name":"2\/23\/10 Student
+        Study in Kville","f_list":"f"},{"id":"G0000Dj7OhQpUIig","name":"12\/01\/17
+        K4","f_list":"f"},{"id":"G0000d5fQ8T88CJ8","name":"2012\/1\/7-16 Week In Photos","f_list":"f"},{"id":"G0000wCuScHf8mHI","name":"tourdeduke_tedknudsen","f_list":"f"},{"id":"G0000F5FNFd_gQSU","name":"2011\/12\/04
+        Women''s Soccer NCAA Tournament Finals vs Stanford","f_list":"f"},{"id":"G0000xCNTZZawJmw","name":"2011\/9\/12
+        - Salsa on the Steps","f_list":"f"},{"id":"G0000ahnLGyr2QqU","name":"2011\/12\/04
+        Women''s Basketball vs Pittsburgh","f_list":"f"},{"id":"G0000VfWINaPtIgw","name":"12\/19\/2011
+        M BBall vs UNCG","f_list":"f"},{"id":"G0000brlkgkgTIMo","name":"dartmouth_courtney","f_list":"f"},{"id":"G0000U8DsudN6uRg","name":"110629_Quarry","f_list":"f"},{"id":"G0000q4szZy8ut4c","name":"dartmouth_rob","f_list":"f"},{"id":"G0000RUjIvsmSGIE","name":"obama_court","f_list":"f"},{"id":"G00005lihBz1yG7o","name":"090919_KansasFB_Kurtz","f_list":"f"},{"id":"G0000OGBpzTqqAzE","name":"11\/13\/2010
+        Women''s Basketball Duke vs BYU","f_list":"f"},{"id":"G00006Poc3aKfU98","name":"photos
+        of the week","f_list":"f"},{"id":"G0000XHMwQVBmVtY","name":"11\/13\/2010 Football
+        Duke vs Boston College","f_list":"f"},{"id":"G0000UGrDtVCj7Vs","name":"2\/24\/10
+        Kville on a Rainy Day","f_list":"f"},{"id":"G00005NcPFfl.2Ng","name":"11\/12\/2010
+        Live Wiser","f_list":"f"},{"id":"G00001P_v.KvaZuw","name":"2011\/10\/25 MSoc
+        vs. UNC-Asheville","f_list":"f"},{"id":"G0000aXi0Qgp3lZI","name":"11\/14\/2010
+        Men''s Basketball: Duke vs Princeton","f_list":"f"},{"id":"G0000R4uSVPGU4H4","name":"090917_NicholasKristof_ChaseOlivieri","f_list":"f"},{"id":"G00007wl5uEXM3.8","name":"090926_NCCU-New","f_list":"f"},{"id":"G0000fEF_wCDjNPs","name":"0909_Homecoming","f_list":"f"},{"id":"G0000sL0EovDZ1XU","name":"pfeiffer","f_list":"f"},{"id":"G0000zs6j2pbqBiM","name":"Maryland
+        Football","f_list":"f"},{"id":"G00003tVMVUvQrng","name":"Recess","f_list":"f"},{"id":"G00001QienQQrpCE","name":"090905_FB_Richmond","f_list":"f"},{"id":"G0000vAnRFeAfCeE","name":"090509_Baccalaureate","f_list":"f"},{"id":"G00006PQ6G8.MHqE","name":"090906_Symphony
+        Pops _ Diana Liu","f_list":"f"},{"id":"G0000VKqB4WKag_Q","name":"090828_Walle_Kurtz","f_list":"f"},{"id":"G0000VpnuNBFd1Ng","name":"101009_NCState_ChaseOlivieri","f_list":"f"},{"id":"G0000w4LjED7mvSQ","name":"090906_SleepySun","f_list":"f"},{"id":"G0000RGeK8MxfpMM","name":"2011\/10\/27
+        Housing Model","f_list":"f"},{"id":"G0000V7Fk_HmkFy0","name":"091102-slideshow","f_list":"f"},{"id":"G0000o7PllzerWKk","name":"090911_MikePosner_Chapel_Chase","f_list":"f"},{"id":"G0000eUdehxOESlU","name":"090911_MikePosner_Chapel_Lawson","f_list":"f"},{"id":"G0000N2MVmcg2mAs","name":"091102_UVA2_IanSoileau","f_list":"f"},{"id":"G0000TWiocqnKq48","name":"091016_CountdownCrazieness_Kurtzetal","f_list":"f"},{"id":"G0000l4rNrQVnqMc","name":"100303_UMD_Naclerio","f_list":"f"},{"id":"G0000_Dt2l.oHosU","name":"100304_UMDRiots_Naclerio","f_list":"f"},{"id":"G00009x6tCn5XcEY","name":"110909_UNCFB_IanSoileau","f_list":"f"},{"id":"G0000KmqHWGrDkrU","name":"110909_UNCFB_AddisonCorriher","f_list":"f"},{"id":"G0000M4rh0trCYhc","name":"2011\/12\/2-
+        WBB VS UNCW","f_list":"f"},{"id":"G0000IMvSlBL0D6Q","name":"VT","f_list":"f"},{"id":"G0000lPoX8FBhrTo","name":"founders
+        day","f_list":"f"},{"id":"G0000Y3.qWE5umus","name":"10:26:09 ChasePhotoshelterDemo_ChaseOlivieri","f_list":"f"},{"id":"G0000x8kdaUBX.d4","name":"11%2f12online","f_list":"f"},{"id":"G0000hiCvsuBIteo","name":"felled
+        tree","f_list":"f"},{"id":"G0000o7XZHI9uBYw","name":"best","f_list":"f"},{"id":"G0000inR7ItwuMrU","name":"2011\/11\/13
+        Volleyball vs FSU","f_list":"f"},{"id":"G0000jDqTeRdmDko","name":"2011\/11\/12
+        Football vs UVA","f_list":"f"},{"id":"G0000.Rm6tGV5IDo","name":"GaTechFootball_CRod","f_list":"f"},{"id":"G0000Yh5WsPHKZXo","name":"GaTechFootball_Faith","f_list":"f"},{"id":"G0000KzOXg2hFB9M","name":"UNCGreensboro_Diana+Rob","f_list":"f"},{"id":"G00000Qjeydr9R7E","name":"11\/11\/11
+        The Sea and Cake at Local 506","f_list":"f"},{"id":"G0000Iiij.7IJNmE","name":"11\/28
+        - 12\/4\/2011 Week In Photos","f_list":"f"},{"id":"G0000LBPHHpqYntk","name":"Coach
+        K - Men''s Health","f_list":"f"},{"id":"G0000hexV_aZtSzk","name":"120109_DukeWisconsin_ChaseOlivieri","f_list":"f"},{"id":"G0000XkF9ZH9izmc","name":"8182011_china2","f_list":"f"},{"id":"G0000xW9ctGKtcWg","name":"01\/24\/10_Women''s
+        Basketball at Maryland_Nate Glencer","f_list":"f"},{"id":"G0000FYak1vTDBhk","name":"WBB_ACCTourney_Ian","f_list":"f"},{"id":"G0000IvXbdlgrpus","name":"11:21:09
+        Duke FB at Miami","f_list":"f"},{"id":"G0000XfFdpkpyPIk","name":"3\/4\/10
+        Personal Checks","f_list":"f"},{"id":"G000008zoYoOHJz0","name":"101116_Duke
+        Miami","f_list":"f"},{"id":"G0000LsgPm0zXXpo","name":"2\/26\/10 Kville on
+        a Lazy Friday Afternoon","f_list":"f"},{"id":"G0000A982csD6Oro","name":"2\/27\/10
+        Sleepy Kville","f_list":"f"},{"id":"G00001xXyepA7yw0","name":"2\/10\/10 Windy
+        Kville","f_list":"f"},{"id":"G0000nAj.Sy691ao","name":"100516_Commencement_ZTracer","f_list":"f"},{"id":"G0000f1h1dHCxFH4","name":"100129_KvilleSetup","f_list":"f"},{"id":"G0000iHmzS5jlvnU","name":"100130_KvilleSNOW","f_list":"f"},{"id":"G00009CacFfT0atI","name":"100130_Snow","f_list":"f"},{"id":"G0000NRoMmBpzVu0","name":"UVA","f_list":"f"},{"id":"G0000iZxXIZw6NRM","name":"UVA2","f_list":"f"},{"id":"G00006D2ol0qdoe4","name":"tailgatesale","f_list":"f"},{"id":"G00005B1cZhGVcnI","name":"100208_wUNC_Nac","f_list":"f"},{"id":"G0000FHOuAngOIx0","name":"2\/8\/10
+        Duke Women''s Basketball vs UNC","f_list":"f"},{"id":"G00007Ajz4HCERXE","name":"100515_MLaxJHU_ZTracer","f_list":"f"},{"id":"G0000fhtbYALdXU0","name":"100228_UVADL_SamSheft","f_list":"f"},{"id":"G0000TYrcYCGaO4Q","name":"100225_MbballVsTulsa","f_list":"f"},{"id":"G0000jfXTL7o_GvI","name":"100306_Bonfire","f_list":"f"},{"id":"G00006g8mpiLiI_Q","name":"crazies
+        online _court","f_list":"f"},{"id":"G0000tvr.h0HUTDA","name":"bonfire online_court","f_list":"f"},{"id":"G00001ximo.Ci1ck","name":"bball
+        online_court","f_list":"f"},{"id":"G0000DdANlK3.VPY","name":"100208_bonfire","f_list":"f"},{"id":"G00009lyPj_Wiv2M","name":"3\/5\/10
+        Day Before The Game","f_list":"f"},{"id":"G0000YN.kZvZYeUU","name":"1\/20\/10
+        Duke Men''s Basketball at NCState","f_list":"f"},{"id":"G0000X4aEHWao1aQ","name":"2\/6\/10
+        Duke Men''s Basketball at Boston College","f_list":"f"},{"id":"G0000rkBBT5ignc4","name":"3\/2\/10
+        Tent Check in Kville","f_list":"f"},{"id":"G0000J20F9_3ZODI","name":"3\/2\/10
+        Kville Studying at Night","f_list":"f"},{"id":"G00002xaWrlbNiHM","name":"ZachWebWake2","f_list":"f"},{"id":"G0000kaFxKXFUSbY","name":"NateWebWake","f_list":"f"},{"id":"G00007756GYzGVaM","name":"ZachWebWake","f_list":"f"},{"id":"G0000lJcExAjO57Q","name":"100403_WVU_SemiFinals_IanSoileau","f_list":"f"},{"id":"G00000Vok0PkIjoA","name":"100306_UNC","f_list":"f"},{"id":"G0000L4UJsRguyn0","name":"100306_Crazies","f_list":"f"},{"id":"G0000u4cWfblHCjU","name":"3\/3\/10
+        Line Up Starts","f_list":"f"},{"id":"G0000UjOga01k3Sc","name":"sports","f_list":"f"},{"id":"G0000G0HOtD6.v3w","name":"0607online","f_list":"f"},{"id":"G0000p4y_J7mQezE","name":"0708online","f_list":"f"},{"id":"G0000Bgazc9h1YUI","name":"0809online","f_list":"f"},{"id":"G0000mSi2MkD9k20","name":"0910online","f_list":"f"},{"id":"G0000mRPZIG6P6.s","name":"100326_SanDiegoState_Pena","f_list":"f"},{"id":"G0000_gI4G8TNhGA","name":"Best_Clemson","f_list":"f"},{"id":"G0000AAT.f3K4RiE","name":"2012\/01\/18
+        WBB vs Georgia Tech","f_list":"f"},{"id":"G0000cFTW0PdsnjQ","name":"1\/30\/10
+        Duke Men''s Basketball at Georgetown","f_list":"f"},{"id":"G0000c0xo2YauKow","name":"2\/4\/10
+        Duke Men''s Basketball vs Georgia Tech","f_list":"f"},{"id":"G0000jGWNf411nvE","name":"K-Record:
+        Pre- Georgia Tech Game 2\/4\/10","f_list":"f"},{"id":"G0000XH1Uf17tv9k","name":"2011\/11\/13
+        WSoc vs. Radford - NCAA","f_list":"f"},{"id":"G0000u145IKY0970","name":"2014\/01\/13
+        MBB vs. UVA","f_list":"t"},{"id":"G0000IZ0Cobuua84","name":"2014\/01\/12 WBB
+        vs. Boston College","f_list":"t"},{"id":"G0000c_3kSODoba0","name":"2014\/01\/11
+        MBB vs. Clemson","f_list":"t"},{"id":"G0000.w7aV3UVFIk","name":"3\/28\/10
+        Elite Eight: Duke Men''s Basketball vs. Baylor","f_list":"f"},{"id":"G0000Y0Aixuaj1.c","name":"WBBall_UCONN_Faith","f_list":"f"},{"id":"G0000T6DG2qJg0vc","name":"WBBall_UCONN_Naclerio","f_list":"f"},{"id":"G0000qlY.H5BGTnA","name":"2\/28\/10
+        Kville from Night to Light","f_list":"f"},{"id":"G0000U7Ri.vWTZAg","name":"2\/10\/10
+        Duke Men''s Basketball at UNC","f_list":"f"},{"id":"G0000IBw.bFVgKNg","name":"100326_Purdue_NCAA_Naclerio","f_list":"f"},{"id":"G00002cij2HPcfiM","name":"100127_FSU","f_list":"f"},{"id":"G0000T2XkZ7FClso","name":"100103_UNCAway_Ian","f_list":"f"},{"id":"G000007PMyOw5bBE","name":"1\/29\/10_K-ville
+        Setup","f_list":"f"},{"id":"G0000MR8HfeSW3H8","name":"4\/2\/10 Obama visits
+        Charlotte","f_list":"f"},{"id":"G0000uXEbrNPgckk","name":"MBB_ACCTourney1_Ian","f_list":"f"},{"id":"G0000WZyAf5_aThY","name":"100327_BSAIFashionShow_Larsa","f_list":"f"},{"id":"G0000ZxgxWnbOfFU","name":"Duke
+        vs Gonzaga Men''s Basketball","f_list":"f"},{"id":"G0000GZODSKQH2oA","name":"9\/11\/2010
+        Duke vs Wake Forest Football","f_list":"f"},{"id":"G0000m5_Nnu0ydq0","name":"grad","f_list":"f"},{"id":"G0000R4c6gIbW8dQ","name":"2011\/11\/7-13
+        Week In Photos","f_list":"f"},{"id":"G0000STt7EEN_qfE","name":"MBB_ACCTourney2_Ian","f_list":"f"},{"id":"G0000_Rl9gz1NteU","name":"DukeVirginia_FinalFour_Pena","f_list":"f"},{"id":"G00008u1ttVofn9A","name":"Duke
+        vs. FSU Volleyball 11\/13\/11","f_list":"f"},{"id":"G0000YOdJXygSR7Y","name":"Duke
+        vs. FSU VBall 11\/13\/11","f_list":"f"},{"id":"G00007WerFxV4L4o","name":"clearingwaters","f_list":"f"},{"id":"G0000CCljDYP0g4M","name":"04%2f11%2f10_Clearing
+        Waters_MaddieLieberberg","f_list":"f"},{"id":"G0000q_NZOMZ2vX4","name":"MBB_ACCTourney3_Ian","f_list":"f"},{"id":"G0000e1zPfR4Y0Po","name":"100322_LSU","f_list":"f"},{"id":"G0000rByPBl3h5Nc","name":"vtech_courtney","f_list":"f"},{"id":"G0000jF4HPeMj6pQ","name":"vtech_melissa","f_list":"f"},{"id":"G00000LWJCYvd3LU","name":"2\/21\/10
+        Duke Men''s Basketball vs. VaTech","f_list":"f"},{"id":"G00009L_GcSPhqNA","name":"2\/20\/10
+        Duke Women''s Basketball vs Maryland","f_list":"f"},{"id":"G00002u3VkxdWPuE","name":"WBB_GaTech_Ian","f_list":"f"},{"id":"G0000FBtoA01UlW8","name":"2\/22\/10
+        White Tenting Dash","f_list":"f"},{"id":"G0000Y53hyhsEoAY","name":"2\/13\/10
+        Duke Men''s Basketball vs UMD","f_list":"f"},{"id":"G0000p2x3fIL.09g","name":"2\/21\/10
+        Pre VaTech Men''s Basketball Game","f_list":"f"},{"id":"G000098xwcOYzOUQ","name":"2\/11\/10
+        Duke Women''s Basketball vs NCState","f_list":"f"},{"id":"G0000omR1N7hFl3A","name":"2\/22\/10
+        Kville in the Rain","f_list":"f"},{"id":"G0000sGWOnDCAbZo","name":"12\/01\/19
+        MBB vs Wake","f_list":"f"},{"id":"G0000ajSVvHmLSQ8","name":"12\/08\/2010 Men''s
+        Basketball: Duke vs Bradley","f_list":"f"},{"id":"G000019hFZoGmc80","name":"12\/08\/2010
+        Walden shooting","f_list":"f"},{"id":"G0000VOM4GM6HNK8","name":"melissa test","f_list":"f"},{"id":"G0000fbfQyGWKWcE","name":"Clemson-CRod","f_list":"f"},{"id":"G00000TIQ29UfO94","name":"100406_Butler_Championship_Ian","f_list":"f"},{"id":"G0000qKQbz..lmfY","name":"Bballreturn","f_list":"f"},{"id":"G0000Da7..t0416s","name":"11\/16\/2010
+        Men''s Basketball: Duke vs Miami (OH)","f_list":"f"},{"id":"G0000kAgJ698UdV8","name":"04-15-10_Uniquities_MelissaYeo","f_list":"f"},{"id":"G0000YEfG8UXxAX0","name":"studentreactions","f_list":"f"},{"id":"G0000wh385MzeqRo","name":"01\/06\/09
+        Duke vs. ISU","f_list":"f"},{"id":"G0000NWBCgiVpkds","name":"ldoconline","f_list":"f"},{"id":"G0000gpfw1ww6_b8","name":"10\/03\/21
+        - Duke MBB vs California (NCAA)","f_list":"f"},{"id":"G0000CuY70u9fuko","name":"crazies","f_list":"f"},{"id":"G0000PQf88Ig8Sz0","name":"01\/09\/10
+        Duke at GT","f_list":"f"},{"id":"G0000VNclcgfVfwE","name":"lupe crowd","f_list":"f"},{"id":"G0000Ya9qcUAgsq0","name":"2\/18\/10
+        Duke Men''s Basketball at UMiami","f_list":"f"},{"id":"G0000.OZkcFbV2P8","name":"02%2f18%2f10_13MostBeautifulSongs_MaddieLieberberg","f_list":"f"},{"id":"G0000RgQiiQRP6hc","name":"2\/14\/10
+        Duke Women''s Basketball at VaTech","f_list":"f"},{"id":"G0000HZ1K.RSkzGc","name":"2011\/11\/18
+        WBB vs Auburn","f_list":"f"},{"id":"G0000BWYw8Yej4yk","name":"YeoYeo","f_list":"f"},{"id":"G0000kKtoYj5jMQE","name":"Obama
+        Honors Duke With Rose Garden Ceremony","f_list":"f"},{"id":"G00002f8gfcO31sE","name":"BC_Addison","f_list":"f"},{"id":"G0000uy1i2SCRSGQ","name":"Footbal
+        \"Pro\" Day","f_list":"f"},{"id":"G0000ZrabR694xoU","name":"Larsa_BC","f_list":"f"},{"id":"G0000hFyNBk6FPJY","name":"BC_Larsa","f_list":"f"},{"id":"G0000JBXoKexUGpY","name":"Footbal
+        \"Pro\" Day_Courtney","f_list":"f"},{"id":"G0000tu8XUwKG2ZI","name":"Elements_KatShirrell","f_list":"f"},{"id":"G00000aWwGnylOwk","name":"WBBall_Miami_Xavier","f_list":"f"},{"id":"G00003_HswS6h5II","name":"3\/19\/10
+        Duke Men''s Basketball vs Arkansas Pine-Bluff","f_list":"f"},{"id":"G0000TaTIEnpGdfM","name":"Ellen","f_list":"f"},{"id":"G0000AQMMbaaxyj0","name":"8\/19\/2011_kunshan","f_list":"f"},{"id":"G0000sxxXzpJD9i0","name":"ZoubDC","f_list":"f"},{"id":"G0000qwCZED1U758","name":"4\/6\/2011
+        Duke Kunshan Campus","f_list":"f"},{"id":"G0000z3B23_ApK6U","name":"9\/14\/2010
+        Duke vs George Washington","f_list":"f"},{"id":"G00009UChnTNyy7U","name":"st
+        louis","f_list":"f"},{"id":"G0000oJZblQILQCw","name":"12\/16\/10 Snow on East","f_list":"f"},{"id":"G0000YULPJ.D3KUY","name":"2011\/11\/15
+        Men''s Basketball vs Michigan State","f_list":"f"},{"id":"G0000W2JrB4JVqKA","name":"9\/15\/2010
+        Career Fair","f_list":"f"},{"id":"G00009zhYvAIyBDk","name":"101123_KansasState","f_list":"f"},{"id":"G0000bjZcqWFGkSY","name":"fwdmikegbinijephotos","f_list":"f"},{"id":"G0000zrgFqCm9QLU","name":"fwdmikegbinijephotos
+        3","f_list":"f"},{"id":"G0000OHokQS_q4.Q","name":"100825_Convocation_Addison","f_list":"f"},{"id":"G00004GMQ8eo3zRE","name":"01\/27\/2011
+        Men''s Basketball: Duke vs Boston College","f_list":"f"},{"id":"G0000merHHBrgyNI","name":"1\/29\/11
+        Lax scrimmage vs. Navy","f_list":"f"},{"id":"G0000g_rOX90icGI","name":"2011
+        Graduation","f_list":"f"},{"id":"G0000ABLDPLUxW20","name":"2\/26\/2011 Duke
+        vs Virginia Tech","f_list":"f"},{"id":"G0000NbX15HWHWGE","name":"11\/19\/2010
+        Men''s Basketball: Duke vs Colgate","f_list":"f"},{"id":"G000041gzkj_DjWM","name":"2011\/9\/17
+        Brewgrass Festival","f_list":"f"},{"id":"G00005r9TeLGeZFQ","name":"11\/20\/2010
+        Football: Duke vs Georgia Tech","f_list":"f"},{"id":"G0000PZnsH5ZZkI4","name":"11\/21\/2010
+        Women''s Basketball: Duke vs Western Kentucky","f_list":"f"},{"id":"G0000WUsKt2iMgV4","name":"2011\/9\/17
+        Duke Football vs Boston College","f_list":"f"},{"id":"G00002EW5c1qVMKQ","name":"2011\/10\/29
+        Duke MBB vs Bellarmine","f_list":"f"},{"id":"G0000Qpc7AURhNVk","name":"11\/21\/2010
+        Duke Stroll Show","f_list":"f"},{"id":"G0000GAGbQiGlNYk","name":"1%2f26%2f11clemson","f_list":"f"},{"id":"G0000NjJIO8jvuwc","name":"AlabamaFootball_ChaseOlivieri","f_list":"f"},{"id":"G0000Az8Y2xJCL4U","name":"11\/21\/2010
+        New Universe","f_list":"f"},{"id":"G0000om7Dy8xa2iw","name":"Men''s Basketball:
+        Duke vs Michigan State","f_list":"f"},{"id":"G0000paVRW7T4LJY","name":"110825_DukeMBB
+        vs Dubai_Taylor","f_list":"f"},{"id":"G00002yZ9aVkpiNo","name":"first week
+        of blue tenting","f_list":"f"},{"id":"G0000kSIGS5_3s70","name":"2011\/9\/21
+        - Barton Seaver","f_list":"f"},{"id":"G0000Ecii7FSHKnk","name":"101127_UNC_Courtney","f_list":"f"},{"id":"G00001iNMGA6Niok","name":"menorah","f_list":"f"},{"id":"G0000byzq9v3yCaE","name":"2011\/11\/18
+        Women''s Soccer vs Georgia","f_list":"f"},{"id":"G0000.49Jc3aDJYs","name":"Duke
+        vs. BC","f_list":"f"},{"id":"G0000Vl_1_1BEbPw","name":"101122_Marquette","f_list":"f"},{"id":"G0000zuU8.IZx_jQ","name":"2011\/12\/07
+        MBB vs Col State","f_list":"f"},{"id":"G0000yP7Ih3JlfeI","name":"01\/22\/2011
+        Men''s Basketball: Duke vs Wake Forest","f_list":"f"},{"id":"G00004dYa3QQjWBk","name":"Dunleavy","f_list":"f"},{"id":"G0000GfDsSJB4Y.4","name":"4\/3\/2011
+        Weekend at Duke: April 1-3","f_list":"f"},{"id":"G00005bSkpGD4lgs","name":"01\/19\/2011
+        Men''s Basketball: Duke vs NC State","f_list":"f"},{"id":"G0000dBw1SGt8uXs","name":"101123_CBE","f_list":"f"},{"id":"G0000sgCyfvu1nMg","name":"Paul
+        Farmer (GBS)","f_list":"f"},{"id":"G0000gkNOZns5OJM","name":"November Dances","f_list":"f"},{"id":"G0000h.IotIHWQjA","name":"2\/27\/2011
+        Women: Duke vs UNC","f_list":"f"},{"id":"G0000qUabGqBzLc0","name":"2011\/9\/20
+        - FLAS Reception","f_list":"f"},{"id":"G0000aKoIhnWon8k","name":"9\/14\/2010
+        Megafaun Rehersal","f_list":"f"},{"id":"G0000FMkwKTxUEz4","name":"Leaf Awards","f_list":"f"},{"id":"G0000r9jrCQeuWt0","name":"2\/5\/2011
+        Duke vs NC State","f_list":"f"},{"id":"G0000jtBOOJ71aCM","name":"12\/4\/10
+        Duke vs Butler","f_list":"f"},{"id":"G0000AvMdCybQ2tc","name":"101221_Dukewomen
+        Xavier","f_list":"f"},{"id":"G0000NRqDfn75NKs","name":"04\/10\/2011 Sports
+        of the Weekend","f_list":"f"},{"id":"G0000ZI.VsH97BDc","name":"3\/2\/2011
+        Duke vs Clemson","f_list":"f"},{"id":"G0000l3.KBYLW5UY","name":"3\/18\/2011
+        Duke vs Hampton","f_list":"f"},{"id":"G0000fs9LFHBBnFA","name":"k4","f_list":"f"},{"id":"G0000jc6dKknQji0","name":"2011\/12\/10
+        MBB vs Washington","f_list":"f"},{"id":"G0000hE.dml7xaMA","name":"DukeWeekend","f_list":"f"},{"id":"G0000FWmbr77uC2I","name":"110216
+        Duke vs UVA","f_list":"f"},{"id":"G0000rpxcRsQIhVQ","name":"3\/11\/2011 Duke
+        vs Maryland ACC Tournament","f_list":"f"},{"id":"G0000DSCMRi3Ifik","name":"3\/21\/2011
+        Duke vs Marist","f_list":"f"},{"id":"G00000w9fGYWw0HM","name":"3\/4\/2011
+        Women: Duke vs Wake Forest","f_list":"f"},{"id":"G0000sV7NJ8TcvhU","name":"12\/02\/10
+        Duke v Wisconsin WBB","f_list":"f"},{"id":"G00008wY1va_rZpI","name":"3\/6\/11
+        wbball champs","f_list":"f"},{"id":"G0000GBtKW00WHuA","name":"100823 Football
+        Scrimmage","f_list":"f"},{"id":"G0000c_KipQ_rl4o","name":"01\/30\/11 Duke
+        vs. St. John''s","f_list":"f"},{"id":"G0000emnvjtcFt4s","name":"Mad Men and
+        Mad Women Party","f_list":"f"},{"id":"G00004_xD7F1uzac","name":"Bull City
+        Records","f_list":"f"},{"id":"G00001nmSRPnjJKM","name":"01\/06\/2011 Duke
+        vs. Maryland","f_list":"f"},{"id":"G0000V6B3hP8u6WM","name":"08\/23\/2010
+        Duke Oreintation Week","f_list":"f"},{"id":"G0000dK41Qb4YfmY","name":"3\/24\/2011
+        Duke vs Arizona","f_list":"f"},{"id":"G0000TG9wVYKyQR0","name":"3\/21\/2011
+        Duke vs Michigan","f_list":"f"},{"id":"G0000klAcEIqz1Ms","name":"2011\/10\/29
+        Duke Football vs. Virginia Tech","f_list":"f"},{"id":"G00004nif49I1XHQ","name":"1%2f30%2f11
+        St Johns_Margie","f_list":"f"},{"id":"G0000H604I4zOTpE","name":"3\/19\/2011Marry
+        Durham","f_list":"f"},{"id":"G0000_T7X66RxvOI","name":"1\/31\/11 Duke vs UConn","f_list":"f"},{"id":"G0000V4rcb3.AbN0","name":"9\/19\/2010
+        Duke Vs Alabama Football","f_list":"f"},{"id":"G0000IDMSgU0dMls","name":"3\/13\/11
+        men ACC champs","f_list":"f"},{"id":"G0000clJ2bXRw8lY","name":"duke vs temple
+        women","f_list":"f"},{"id":"G0000K_7O7wMH2B8","name":"100923_DPSVolleyball_KirstenOsborne","f_list":"f"},{"id":"G0000SaqCSUhp9yQ","name":"nashup","f_list":"f"},{"id":"G0000DGW5f.bOq4w","name":"1\/2\/11
+        Duke vs. Miami","f_list":"f"},{"id":"G0000qjnDF3Fb2m4","name":"12\/04\/2010
+        Men''s Basketball: Duke vs Butler","f_list":"f"},{"id":"G00008Fbfiy5e3aE","name":"12\/04\/2010
+        Volleyball NCAA Tournament","f_list":"f"},{"id":"G00001nTAwQmFCNc","name":"women''stennis","f_list":"f"},{"id":"G00008qFkw4m_j20","name":"2011\/12\/10
+        MBB vs Washington 2","f_list":"f"},{"id":"G0000gu_ixlr9oFg","name":"2\/20\/2011
+        Women''s Lacrosse: Duke vs William & Mary","f_list":"f"},{"id":"G00001oIE3AhMqTc","name":"2\/20\/2011
+        Men''s Basketball: Duke vs Georgia Tech","f_list":"f"},{"id":"G0000nwieo4uzPns","name":"2010
+        Photos of the Year","f_list":"f"},{"id":"G0000diUCjnjL.DE","name":"2\/20\/2011
+        Women''s Basketball: Duke vs Virginia Tech","f_list":"f"},{"id":"G0000_HcK65mKUrY","name":"01\/09\/11
+        Duke vs Maryland","f_list":"f"},{"id":"G00008yO.XqTD33I","name":"110824_Convocation_MYeo","f_list":"f"},{"id":"G0000hgTfdYOlG00","name":"3\/5\/2011
+        Women: Duke vs Georgia Tech","f_list":"f"},{"id":"G0000jDAino0tPDI","name":"forever
+        duke slideshow","f_list":"f"},{"id":"G0000M2IUoUbZZBg","name":"12\/20\/10
+        Duke vs. Elon","f_list":"f"},{"id":"G0000IxB_DRNm2yU","name":"08\/31\/2010
+        Duke vs Campbell Volleyball","f_list":"f"},{"id":"G00004PQNN57PDuI","name":"1\/5\/12
+        Duke vs. Alabama-Birmingham","f_list":"f"},{"id":"G0000Db6CZbb2KPc","name":"2\/7\/2011
+        Etiquette Dinner","f_list":"f"},{"id":"G0000NFg7.p06e70","name":"110213_DukeMiami","f_list":"f"},{"id":"G0000aulNeWe1fmY","name":"untitled
+        folder","f_list":"f"},{"id":"G0000CGIeksM_J_g","name":"Temple","f_list":"f"},{"id":"G0000vhRDZ74w3Zw","name":"gamept2","f_list":"f"},{"id":"G0000077TycCCJiQ","name":"02\/11\/2011
+        Duke Recruits Play in Cameron","f_list":"f"},{"id":"G0000sVjlIEdiHTI","name":"2011\/11\/19
+        Duke Football vs Georgia Tech","f_list":"f"},{"id":"G0000igKoHKgSYIg","name":"ATO
+        at Stroll Show","f_list":"f"},{"id":"G00008Qh8M_EIUR0","name":"crazies2","f_list":"f"},{"id":"G0000t4aIvr07xxM","name":"110818_Nike
+        Sports Festival","f_list":"f"},{"id":"G0000fE_LGUiXn84","name":"110822_Duke
+        Visits the Beijing Olympic Park","f_list":"f"},{"id":"G0000NTSUFZ7DXPQ","name":"110822_Coach
+        K meets Yao Ming","f_list":"f"},{"id":"G00009fUYmeC5Ncs","name":"David M.
+        Rubenstein Rare Book & Manuscript Library","f_list":"f"},{"id":"G0000MjdItNPZhv0","name":"110822_China
+        Game 3","f_list":"f"},{"id":"G0000c.Aiyr8rp5U","name":"UNCcrazies","f_list":"f"},{"id":"G0000YQKi94S7TDA","name":"Brodhead","f_list":"f"},{"id":"G0000SV6y3P1zakk","name":"120103_DukeWBBvsKentucky_ChrisDall","f_list":"f"},{"id":"G0000am6f7iQP.o8","name":"01\/09\/11
+        Duke vs. Maryland","f_list":"f"},{"id":"G0000mI0R6NRO0pI","name":"reunions","f_list":"f"},{"id":"G0000QFB0xDalmco","name":"12\/29\/10
+        Duke vs. UNCG","f_list":"f"},{"id":"G0000lApkcbMb9jw","name":"2211_UMD_Courtney","f_list":"f"},{"id":"G0000j1y7m2A5NAs","name":"2\/3\/2011
+        Duke vs Maryland","f_list":"f"},{"id":"G0000KRSOHW4h0gk","name":"3\/12\/2011
+        Duke vs Virginia Tech ACC Tournament","f_list":"f"},{"id":"G0000ZUN6jQBWGrQ","name":"1\/12\/11
+        Duke vs. FSU","f_list":"f"},{"id":"G0000SgDqqtLpz0Q","name":"9\/9\/2010 Duke
+        College Republicans at DSG","f_list":"f"},{"id":"G00006mke8RaYmH8","name":"110427_secretsociety","f_list":"f"},{"id":"G0000iQD.NlDaGho","name":"110210_bonfireslideshow_yeoyeo","f_list":"f"},{"id":"G00005BHMIqbmtek","name":"110210_UNCslideshow_yeoyeo","f_list":"f"},{"id":"G0000XOZJaJdCuok","name":"2011\/12\/30
+        MBB vs WMich","f_list":"f"},{"id":"G00004pvC47B1nx4","name":"OBAMA_TED","f_list":"f"},{"id":"G00009fyBWwoVkJs","name":"081811_Nike
+        Sports Festival","f_list":"f"},{"id":"G0000HqjsvR.GuGY","name":"110824_Convocation_MelissaYeo","f_list":"f"},{"id":"G0000LFS.R9G00UI","name":"110818_Nike
+        Sports Festival","f_list":"f"},{"id":"G0000Hxg9hgTZsVA","name":"110822_Duke
+        Visits the Beijing Olympic Park","f_list":"f"},{"id":"G0000lV2d2AYhsrE","name":"2011:11:05
+        Duke Football vs Miami","f_list":"f"},{"id":"G0000Gq_NbhzehOA","name":"NewFootballRichmond","f_list":"f"},{"id":"G0000EOTxA3d7aZ4","name":"Richmond","f_list":"f"},{"id":"G0000tkv3X4SQbKQ","name":"Big
+        Weekend duke","f_list":"f"},{"id":"G0000M9VP0YIHpjI","name":"2011\/12\/5-11
+        Week In Photos","f_list":"f"},{"id":"G0000OuGkdl59MpA","name":"110528_Men''s
+        lacrossesemifialUMD_TedKnudsen","f_list":"f"},{"id":"G00004PN8Wed491I","name":"2011\/9\/3
+        Duke Football vs Richmond","f_list":"f"},{"id":"G0000n9Resy3qrEY","name":"02\/24\/11
+        Duke WBB @ UVA","f_list":"f"},{"id":"G0000KuHGj_VI8WM","name":"richmond game","f_list":"f"},{"id":"G0000zqVpZQLiDFQ","name":"2011\/9\/10
+        Big Weekend at Duke","f_list":"f"},{"id":"G0000seQ3gp9ec6w","name":"2011\/9\/4
+        Duke''s Big Weekend","f_list":"f"},{"id":"G00008c0LAv06Pvs","name":"2011\/11\/09
+        Medical Photography","f_list":"f"},{"id":"G000067F9TvjXfXk","name":"2011\/11\/08
+        Durham Elections","f_list":"f"},{"id":"G00007Kt37A65MCA","name":"2011\/11\/12
+        Men''s Basketball vs Presbyterian","f_list":"f"},{"id":"G0000l1W2ocmlY2s","name":"2011\/11\/08
+        MSoc vs. Clemson","f_list":"f"},{"id":"G0000867LjXDZpYY","name":"2011\/10\/30
+        Week In Photos - Oct 24-30","f_list":"f"},{"id":"G0000dZWM2lOpOAw","name":"2011\/9\/3
+        Duke vs. Richmond Game","f_list":"f"},{"id":"G0000cvPXlcGyh3I","name":"2011\/11\/05
+        Duke Football vs Miami","f_list":"f"},{"id":"G0000EN_UFnrS5aQ","name":"3\/27\/11
+        Duke WBB vs DePaul","f_list":"f"},{"id":"G0000CrGVMp3vakA","name":"3\/2932011
+        Duke vs UCONN","f_list":"f"},{"id":"G0000HB9V3IaX0dQ","name":"K-VILLE 09-10","f_list":"f"},{"id":"G0000fuOjVQnU_Mg","name":"3\/31\/2011
+        Lupe Fiasco with Kid Sister","f_list":"f"},{"id":"G0000TLPbclRh_fo","name":"2011\/11\/11
+        Men''s Soccer vs Boston College","f_list":"f"},{"id":"G0000YkQurojwi2Y","name":"2011\/11\/02
+        Men''s Basketball vs. Shaw","f_list":"f"},{"id":"G0000I2zK9wEcpA8","name":"2011\/11\/03
+        Women''s Basketball vs. Pfeiffer","f_list":"f"},{"id":"G0000TOwBCfZuuig","name":"2011\/12\/11
+        WBB VS USC upstate","f_list":"f"},{"id":"G0000I3OibICqg_s","name":"2011\/11\/06
+        WBB vs. Lander","f_list":"f"},{"id":"G0000hL3Jo8JEhjw","name":"2011\/11\/06
+        Week in Photos","f_list":"f"},{"id":"G0000VoxlFVcU_8U","name":"MaryLou","f_list":"f"},{"id":"G0000LBJwFfmHagU","name":"SmallTownRecords_TracyHuang","f_list":"f"},{"id":"G0000JIWBthopkdk","name":"HarryLiberman","f_list":"f"},{"id":"G0000pnTYva6hNe8","name":"Welcomeback","f_list":"f"},{"id":"G0000iHdQxxGU4.4","name":"26-28
+        Aug 11 - Weekend Orientation Events","f_list":"f"},{"id":"G0000gEo4aQoiQB8","name":"2011\/9\/10
+        Hopscotch Music Festival Weekend","f_list":"f"},{"id":"G0000oLQ1UIh7ARk","name":"2012\/01\/01
+        MBB vs Penn","f_list":"f"},{"id":"G0000Ig.oJzIsaQE","name":"2011\/10\/15 NC
+        State Fair","f_list":"f"},{"id":"G0000Nm8v1b6BDBQ","name":"2011\/9\/28 Jeff
+        Johnson","f_list":"f"},{"id":"G0000Lq9gXC08.eo","name":"Chris Sands","f_list":"f"},{"id":"G0000TYuLc8carUU","name":"2011\/11\/26
+        Duke Football vs UNC","f_list":"f"},{"id":"G0000_DN99VaexKo","name":"2011\/10\/16
+        Car Crash","f_list":"f"},{"id":"G0000rscMMYWecbo","name":"2011\/9\/28 Rock
+        The CASA","f_list":"f"},{"id":"G00009K6tMxEiyxg","name":"2011\/10\/3 A New
+        Fall","f_list":"f"},{"id":"G0000J8nQvUUyw3w","name":"2011\/10\/12 Weekend
+        Sports - Fall Break","f_list":"f"},{"id":"G000025TrpWKdhj4","name":"2012\/01\/04
+        MBB vs Temple","f_list":"f"},{"id":"G0000KACWS6mHYOw","name":"2011\/10\/1
+        - Duke Football vs FIU","f_list":"f"},{"id":"G0000FVfooSo5KdU","name":"2011\/9\/23
+        - Homecoming Ball","f_list":"f"},{"id":"G0000jAe0mTpZ6zg","name":"110924 -
+        Pride Parade","f_list":"f"},{"id":"G0000pCwkH4pHuZc","name":"2011\/10\/18
+        Obama in Jamestown, NC","f_list":"f"},{"id":"G0000Yi076kmC0AY","name":"Shakori
+        Hills","f_list":"f"},{"id":"G0000lgadBIKmgpw","name":"9\/24\/2010 Homecoming
+        Bridge Painting","f_list":"f"},{"id":"G0000ZOGowbm6rpQ","name":"2011\/9\/14
+        - Obama at NCSU","f_list":"f"},{"id":"G0000OWwgAIzXGQQ","name":"Who''s Live
+        Anyways","f_list":"f"},{"id":"G0000abE126ZAPh8","name":"2011\/9\/19 Duke Football
+        vs Tulane","f_list":"f"},{"id":"G0000vfb_brR.gs8","name":"2011\/10\/5 Dark
+        Dark Dark @ the Pinhook","f_list":"f"},{"id":"G0000ba9k_Sw24Kg","name":"2011\/9\/13
+        Sophomore Commencement","f_list":"f"},{"id":"G0000vzf0sOxzuDU","name":"Andrew
+        Hanna","f_list":"f"},{"id":"G0000uqy1zXg7xa0","name":"Football vs. FSU - 10.15.11","f_list":"f"},{"id":"G0000z5uuF66_JyY","name":"2011\/11\/25
+        Women''s Soccer NCAA vs Long Beach State","f_list":"f"},{"id":"G0000J2w_xN6dU6g","name":"2011\/10\/22
+        Duke Football vs Wake Forest","f_list":"f"},{"id":"G0000ztZy.k0WUl4","name":"2011\/10\/12
+        Duke in Durham - A Look at Fall Break 2011","f_list":"f"},{"id":"G0000nS_1vRqiXBM","name":"2011\/11\/30
+        men''s basketball vs OSU","f_list":"f"},{"id":"G0000W9ItYf_RmNA","name":"2011\/11\/18
+        Men''s Basketball vs Davidson","f_list":"f"},{"id":"G00001pOCqt7Kao0","name":"chelsea
+        Gray","f_list":"f"},{"id":"G0000CVID1_WWVhE","name":"2011\/9\/28 - Troy Davis
+        Vigil","f_list":"f"},{"id":"G0000eTv7SPkKB5g","name":"2011\/11\/20 Women''s
+        Soccer vs Ohio State","f_list":"f"},{"id":"G0000.dBv5nWqz7M","name":"2011\/10\/14
+        Countdown to Craziness 2011","f_list":"f"},{"id":"G00006uMJWtxlwY8","name":"2011\/11\/14-20
+        Week In Photos","f_list":"f"},{"id":"G0000OYhkD2ii.do","name":"2011\/9\/10
+        Duke Football vs Stanford","f_list":"f"},{"id":"G0000fkbndUO1k3c","name":"2011\/9\/27
+        Men''s Soccer vs. Presbyterian","f_list":"f"},{"id":"G00000CcukMrIFpU","name":"2011\/11\/19
+        Stroll Show","f_list":"f"},{"id":"G0000Jmt7S8bPqS0","name":"Photos for Meg","f_list":"f"},{"id":"G00002ipvyYTe5Us","name":"K-VILLE
+        03-04","f_list":"f"},{"id":"G00005caTaYJ0cBI","name":"K-VILLE 04-05","f_list":"f"},{"id":"G0000rUyryeMUM3g","name":"K-VILLE
+        05-06","f_list":"f"},{"id":"G0000r4TE6Erbrb8","name":"K-VILLE 06-07","f_list":"f"},{"id":"G0000kmusPUc_Kh8","name":"K-VILLE
+        07-08","f_list":"f"},{"id":"G0000hqo1Uq2Zp24","name":"K-VILLE 10-11","f_list":"f"},{"id":"G0000Y7fEAD0Twqk","name":"wallace
+        wade","f_list":"f"},{"id":"G0000IQ1rsRNrYpM","name":"2011\/10\/19 Volleyball
+        vs. UNC","f_list":"f"},{"id":"G0000PJf9ZUfEHN0","name":"2012\/01\/02 wbb vs
+        Virginia","f_list":"f"},{"id":"G0000ehOI7bHOwqU","name":"2011\/10\/15 Duke
+        Football vs FSU","f_list":"f"},{"id":"G0000mQXFRz5tzr0","name":"2011\/9\/25
+        Carrboro Music Festival","f_list":"f"},{"id":"G0000C2G45M_U3DM","name":"2011\/9\/10
+        Hopscotch Music Festival","f_list":"f"},{"id":"G00006iEf6qYkv3o","name":"2011\/10\/13
+        Women''s Soccer vs. UNC","f_list":"f"},{"id":"G0000307trAeZmws","name":"2011\/9\/24
+        - Pride Parade","f_list":"f"},{"id":"G0000BCDzi6_wnbk","name":"2011\/10\/23
+        Week In Photos - Oct. 17-23","f_list":"f"},{"id":"G0000ktjHupAoo50","name":"2012\/01\/08
+        WBB vs NC State","f_list":"f"},{"id":"G0000Tgd5wlv5A6w","name":"9\/25\/2010
+        Duke vs Army Football","f_list":"f"},{"id":"G0000nlv2SyGkVbk","name":"Homecoming
+        Weekend","f_list":"f"},{"id":"G0000qM0PuArEnZU","name":"2011\/12\/2 Women''s
+        Soccer NCAA vs Wake Forest","f_list":"f"},{"id":"G0000KQveIF5yyR4","name":"2012\/01\/12
+        MBB vs UVA","f_list":"f"},{"id":"G0000Whwk.y_O1x0","name":"9\/25\/2010 NC
+        Pride Parade","f_list":"f"},{"id":"G0000LPUO8.ZCqQw","name":"2011\/12\/01
+        WBB vs. Purdue","f_list":"f"},{"id":"G0000UIARc2.ZuyQ","name":"12\/01\/11
+        Durham Bands","f_list":"f"},{"id":"G0000KxmYOjilzXQ","name":"9\/19-26 This
+        Week in Photos","f_list":"f"},{"id":"G0000KdzRD3TacP0","name":"9\/30\/2010
+        Duke Founder''s Day Convocation","f_list":"f"},{"id":"G0000exAXxmqhdmM","name":"10\/2\/2010
+        Joe College Day","f_list":"f"},{"id":"G0000upd2Zi27Cqk","name":"9\/30\/2010
+        The Vorticists Exhibit","f_list":"f"},{"id":"G00008_eJ20rAq3k","name":"10\/1\/2010
+        Duke Volleyball vs Boston College","f_list":"f"},{"id":"G0000l7t56yrdOM8","name":"10\/2\/2010
+        Duke vs Maryland Football","f_list":"f"},{"id":"G00009cM0J2_BOMc","name":"9\/26-10\/2
+        The Week in Photos","f_list":"f"},{"id":"G0000y2YTPfXERPM","name":"10%2f5msoccer","f_list":"f"},{"id":"G0000qri1BJe0Lmc","name":"10\/16\/2010
+        Duke vs Miami Football","f_list":"f"},{"id":"G0000kDmWYwB8mVc","name":"10\/15\/2010
+        Countdown to Craziness","f_list":"f"},{"id":"G0000SL28zcUl09Q","name":"10\/15\/2010
+        Blue and White Game","f_list":"f"},{"id":"G0000ehO7SYq55Dc","name":"10\/19\/2010
+        Duke vs High Point Soccer","f_list":"f"},{"id":"G0000TTOga9cnd6I","name":"10\/21\/2010
+        WIser Banner and Cardboard City","f_list":"f"},{"id":"G0000GJXksqqCxVo","name":"10\/23\/2010
+        Duke vs Virginia Tech Football","f_list":"f"},{"id":"G0000u4G6KEbpuL4","name":"10\/23\/2010
+        Duke vs St Augustine Basketball","f_list":"f"},{"id":"G0000vLtORFDVwlc","name":"10\/24\/2010
+        Women''s Basketball Blue and White Game","f_list":"f"},{"id":"G0000LKhynk64GBk","name":"10\/30\/2010
+        Duke vs Navy Football","f_list":"f"},{"id":"G0000FlUCZozNyPE","name":"eating
+        with lola","f_list":"f"},{"id":"G0000Hp1K1ezxbvE","name":"rightround","f_list":"f"},{"id":"G0000Wm5oQw6U0Qs","name":"Wbball
+        vs. Wingate","f_list":"f"},{"id":"G0000vDLznxPkMMo","name":"11\/06\/10 Duke
+        Football vs. Virginia","f_list":"f"},{"id":"G00004ABjrck4AxA","name":"101106_UVA_courtney","f_list":"f"},{"id":"G0000XKuGMsqqjNY","name":"Awaaz_Sophia
+        Palenberg","f_list":"f"},{"id":"G0000wliaEAE5tnM","name":"tailgate","f_list":"f"},{"id":"G0000tZWDcIzMKH4","name":"RIP
+        TAILGATE","f_list":"f"},{"id":"G0000fL0zRkahhVo","name":"coffeehouse","f_list":"f"},{"id":"G000075wWSCPhuQE","name":"2012\/02\/09
+        DUI\/Pitchforks","f_list":"f"},{"id":"G0000FhpnAJ0KO2A","name":"12\/01\/21
+        Men''s & Women''s Tennis","f_list":"f"},{"id":"G0000_3lHMP1hrdc","name":"Cass
+        McCombs @ Haw River Ballroom 1\/20\/12","f_list":"f"},{"id":"G00006XWySSq_ZIM","name":"01\/21\/2012
+        Duke vs. FSU","f_list":"f"},{"id":"G0000Xx0CIQZERIk","name":"02\/07\/12 Towerview
+        Lemurs","f_list":"f"},{"id":"G0000hN86_IC6w_s","name":"02\/07\/12 Towerview
+        Horses","f_list":"f"},{"id":"G0000mSyqO6WNcwI","name":"2012\/02\/23 - Cancer
+        Center Events","f_list":"f"},{"id":"G0000ovauu5cwyaE","name":"12\/01\/22 Bid
+        Day","f_list":"f"},{"id":"G0000wQaYQJuJ9yk","name":"12\/01\/21 Swim & Dive
+        vs Virginia","f_list":"f"},{"id":"G0000VpHKq7Iu_ks","name":"2012\/01\/22 WBB
+        vs Maryland","f_list":"f"},{"id":"G0000gVvc6VJBtiA","name":"2012\/02\/05 Crazies
+        at Miami","f_list":"f"},{"id":"G00009aEnqY3HYJY","name":"2012\/02\/26 - Durham
+        Cycling Race","f_list":"f"},{"id":"G00008kl2nG7EBPI","name":"Lemurs painting","f_list":"f"},{"id":"G0000p89L31NCJ4g","name":"Wild
+        Horses of Shackleford","f_list":"f"},{"id":"G0000VRZgKEgRBuI","name":"2012\/01\/30-02\/05
+        - Week In Photos","f_list":"f"},{"id":"G0000Fr9lyR6a4A4","name":"2012\/03\/01
+        Personal Checks","f_list":"f"},{"id":"G0000LLl2OcYbk9I","name":"2012\/03\/02
+        K-Ville Walk-up Line","f_list":"f"},{"id":"G0000.EH805KjtDo","name":"Women''s
+        ACC - Duke vs NC State 3\/2\/2012","f_list":"f"},{"id":"G0000NdBuTfKyscw","name":"2012\/02\/05
+        mbb vs Miami","f_list":"f"},{"id":"G0000z8hi.5DKcxY","name":"2012\/02\/06
+        - WBB vs. UNC","f_list":"f"},{"id":"G0000ElxPcTK4kvY","name":"2012\/02\/08
+        UNC Victory Reactions","f_list":"f"},{"id":"G0000lRkdVMaCHw8","name":"2012\/03\/22
+        On Tap","f_list":"f"},{"id":"G0000IW17WDOyov8","name":"2012\/01\/24 BSA March","f_list":"f"},{"id":"G0000Kh3IgCokNfk","name":"2012\/02\/08
+        MBB vs UNC","f_list":"f"},{"id":"G0000K7C2l92afG8","name":"2012\/02\/11 MBB
+        vs. Maryland","f_list":"f"},{"id":"G0000b54m8KUmfA0","name":"12\/01\/25 MBB
+        vs Maryland","f_list":"f"},{"id":"G0000jOLY8X8bfAM","name":"2012\/03\/03 MBB
+        vs UNC","f_list":"f"},{"id":"G0000hqinBt9PsD0","name":"2012\/03\/01 K-Ville
+        Walk-up Line","f_list":"f"},{"id":"G0000pYLnpFGaGW0","name":"2012\/03\/02
+        K-Ville: Duke vs UNC","f_list":"f"},{"id":"G0000ZKf8UQGiuvc","name":"2012\/02\/06-12
+        Week In Photos","f_list":"f"},{"id":"G0000f4pKDs6lIYA","name":"2012\/01\/27
+        Crazies at St John''s","f_list":"f"},{"id":"G0000Vq5rv9LHMxY","name":"12\/01\/28
+        MBB vs St John''s","f_list":"f"},{"id":"G0000BbzvKXWSqes","name":"2012\/02\/16
+        MBB vs N.C.State","f_list":"f"},{"id":"G0000E.lGR3HVigQ","name":"2012\/01\/23-29
+        - Week In Photos","f_list":"f"},{"id":"G0000otFy8Ya88RI","name":"2012\/02\/19
+        WBB vs Maryland","f_list":"f"},{"id":"G0000znRGJYeHMLI","name":"2012\/02\/19
+        Women''s Lacrosse vs Northwestern","f_list":"f"},{"id":"G0000oyqc3nMkDaQ","name":"2012\/02\/13-19
+        - Week In Photos","f_list":"f"},{"id":"G0000SrXlU5NaES8","name":"2012\/02\/23
+        mbb vs FSU","f_list":"f"},{"id":"G0000QCS67r26IB0","name":"120130 WBB vs UCONN","f_list":"f"},{"id":"G0000zsO6Lr3ZbRk","name":"2012\/02\/15
+        WBB vs. VaTech","f_list":"f"},{"id":"G00001faKDi6s0Yg","name":"12\/02\/19
+        mbb vs BC","f_list":"f"},{"id":"G00003O4KJznsHII","name":"2012\/03\/17 Marry
+        Durham","f_list":"f"},{"id":"G0000jROP6Jx38JM","name":"MBB -- VTech 02\/02\/2012
+        Chelsea Pieroni","f_list":"f"},{"id":"G0000s_saLWYhJO4","name":"2012\/02\/02
+        WBB vs Wake Forest","f_list":"f"},{"id":"G000024KjWmP3eCc","name":"2012\/02\/02
+        MBB vs Vtech","f_list":"f"},{"id":"G0000n4l2lIEcmPw","name":"2012\/02\/25
+        MBB vs Virginia Tech","f_list":"f"},{"id":"G0000NMKETPqLucY","name":"SXSW
+        2012: Day 3","f_list":"f"},{"id":"G0000ztHXa6Oru2A","name":"2012\/03\/12-
+        MLax vs. Harvard","f_list":"f"},{"id":"G0000vq.Ba3vfMbc","name":"Default","f_list":"f"},{"id":"G0000Vj_1pGAr_pI","name":"2012\/02\/11
+        Crazies before Maryland","f_list":"f"},{"id":"G0000XkN9k4KiaPA","name":"2012\/03\/09
+        - MBB ACC vs. VaTech","f_list":"f"},{"id":"G0000XqhYBDXllvU","name":"2012\/3\/16
+        Holi","f_list":"f"},{"id":"G0000O8FP_2v7XLE","name":"2012\/3\/16 Duke Dance
+        Council Block Party","f_list":"f"},{"id":"G0000C69G2IJhu9E","name":"2012\/03\/12-18
+        Week In Photos","f_list":"f"},{"id":"G0000dQqrhBtzOPY","name":"12\/03\/20
+        Women''s Basketball vs Vanderbilt","f_list":"f"},{"id":"G0000x37vV5FBKxI","name":"2012\/03\/16
+        MBB vs Lehigh","f_list":"f"},{"id":"G0000JhuTaqCwPt0","name":"2012\/02\/26
+        WBB vs UNC","f_list":"f"},{"id":"G0000ypOIblvtn68","name":"03\/13\/12 Saxapahaw","f_list":"f"},{"id":"G0000RtwLmnuOMRw","name":"2012\/03\/10
+        - MBB ACCs vs. FSU","f_list":"f"},{"id":"G0000vYA_uibnHDI","name":"Alumni
+        Publications","f_list":"f"},{"id":"G00007sXnejQdEuE","name":"2012\/02\/20-26
+        - Week In Photos","f_list":"f"},{"id":"G0000qkpd2YS52HU","name":"2012\/02\/28
+        mbb vs WF","f_list":"f"},{"id":"G0000nWFmQ_ZKD2Y","name":"2013\/03\/22 NCAA
+        2nd Round: MBB vs. Albany","f_list":"t"},{"id":"G0000K0SdosckQu8","name":"Professor
+        Munger","f_list":"t"},{"id":"G0000Y4aJuXLxeCc","name":"2013\/04\/15 Towerview:
+        Special Forces","f_list":"t"},{"id":"G0000_1yj5ZDHO2w","name":"201\/04\/15
+        Towerview:  Coach K''s Ties","f_list":"t"},{"id":"G0000dSBgiO_EeYQ","name":"2013\/03\/24
+        NCAA 3rd Round: MBB vs. Creighton","f_list":"t"},{"id":"G0000a7AYA1N4_Hk","name":"2013\/03\/31
+        NCAA Elite Eight: MBB vs. Louisville","f_list":"t"},{"id":"G0000nzJDhsIM5FQ","name":"2013\/02\/07
+        MBB vs. NCSU","f_list":"t"},{"id":"G0000x5CAFc5_TSY","name":"2013\/03\/31
+        NCAA Sweet 16: WBB vs. Nebraska","f_list":"t"},{"id":"G0000V8wQiX._lHo","name":"2013\/03\/29
+        NCAA Sweet 16: MBB vs. MSU","f_list":"t"},{"id":"G0000pR1uwohSrIE","name":"2013\/04\/10
+        Baseball vs. UNCG and NC Central","f_list":"t"},{"id":"G0000mKzKwNNDQLg","name":"2013\/05\/12
+        Commencement 2013","f_list":"t"},{"id":"G00000Usp0UcFRIs","name":"2013\/02\/10
+        MBB vs. BC","f_list":"t"},{"id":"G0000DfiiGcGhGt4","name":"2013\/02\/10 MDBTS
+        Center","f_list":"t"},{"id":"G0000PgOJMVPUUOU","name":"2013\/02\/08-10 Weekend
+        in Sports","f_list":"t"},{"id":"G0000w0Kba7_Irig","name":"2013\/05\/09 Commencement
+        Past","f_list":"f"},{"id":"G0000eTrTUecQmIE","name":"2013\/05\/09 Commencement
+        Past","f_list":"t"},{"id":"G0000r1Z410Toib8","name":"2013\/04\/13 Spring Game","f_list":"t"},{"id":"G0000sGJ0DjCzJ_A","name":"2013\/04\/21
+        Blue Devil Days","f_list":"t"},{"id":"G0000sXBmRZEejrw","name":"2013\/04\/03
+        Coach K Ties","f_list":"t"},{"id":"G0000Ja1IDDSODoA","name":"Cocoa Cinnamon","f_list":"t"},{"id":"G0000lDvPhFC60Vg","name":"2013\/04\/21
+        Weekend In Photos","f_list":"t"},{"id":"G0000KgBs5YAfkTQ","name":"2013\/04\/10
+        Spring Awakening","f_list":"t"},{"id":"G0000UZOsfucph_A","name":"2013\/04\/12
+        Old Duke","f_list":"t"},{"id":"G0000sSdJwiJSl9c","name":"Spring 2013","f_list":"t"},{"id":"G00005q9lya22wwE","name":"2013\/03\/26
+        NCAA 2nd Round: WBB vs. Oklahoma State","f_list":"t"},{"id":"G00005hnIycIrIO0","name":"2013\/02\/11
+        Personal Checks","f_list":"t"},{"id":"G0000sAha0DTVHMI","name":"2013\/02\/11
+        WBB vs. MD","f_list":"t"},{"id":"G0000RkGcEeVfRP4","name":"2013\/04\/02 NCAA
+        Elite Eight: WBB vs. Notre Dame","f_list":"t"},{"id":"G0000xCwwat42Llw","name":"2013\/03\/24
+        NCAA 1st Round: WBB vs. Hampton","f_list":"t"},{"id":"G0000IDGgbjmh_a4","name":"2013\/03\/30
+        JABULANI","f_list":"t"},{"id":"G0000vtIgCbbiIis","name":"2013\/04\/06 HOLI","f_list":"t"},{"id":"G0000INc_Q1YedHs","name":"2013\/06\/06
+        Obama Mooresville","f_list":"t"},{"id":"G0000jEAe0gZqBjk","name":"2013\/04\/26
+        LDOC","f_list":"t"},{"id":"G0000cDPHIbR4w3A","name":"2013\/02\/13 Bonfire","f_list":"t"},{"id":"G0000MMPfH.NPgJY","name":"2013\/02\/13
+        MBB vs. UNC","f_list":"t"},{"id":"G0000epKKAP5NqKM","name":"2013\/02\/13 Cameron
+        Crazies","f_list":"t"},{"id":"G0000ZUgaSCTBOQs","name":"2013\/05\/25 MLAX
+        NCAA Semis vs. Cornell","f_list":"t"},{"id":"G0000qYUN2wWv0Tw","name":"2013\/06\/03
+        Mega Moral Monday","f_list":"t"},{"id":"G0000.Av50yOAvWY","name":"2013\/02\/16
+        MBB vs. MD","f_list":"t"},{"id":"G0000iXaWm2HYnKg","name":"2013\/05\/27 MLAX
+        NCAA Championship vs. Syracuse","f_list":"t"},{"id":"G0000hcUgkVHturo","name":"2013\/04\/27
+        MLX vs. UNC","f_list":"t"},{"id":"G00005kP_9Zc89YE","name":"2013\/02\/21 MBB
+        vs. VT","f_list":"t"},{"id":"G0000pWO.0x5Faj4","name":"2013\/02\/22 WBB vs.
+        FSU","f_list":"t"},{"id":"G0000Og7sfkEQhFA","name":"2013\/02\/22-24 BSB vs.
+        Bucknell","f_list":"t"},{"id":"G0000ZYKuU6SpLCg","name":"2013\/02\/24 MBB
+        vs. BC","f_list":"t"},{"id":"G0000xWTcGM2guEQ","name":"2013\/02\/24 WBB vs.
+        MD","f_list":"t"},{"id":"G0000VPm57qAD4NU","name":"2013\/02\/24 LNY","f_list":"t"},{"id":"G0000CfL_kFtqTdw","name":"2013\/02\/26
+        TV Gun","f_list":"t"},{"id":"G0000xRI7wt0Itlg","name":"2013\/02\/26 TV Small
+        Town Record","f_list":"t"},{"id":"G00005eXgYvtBNbc","name":"2013\/02\/26 TV
+        Shooting Range","f_list":"t"},{"id":"G0000ZIIolqxe0Gk","name":"2013\/02\/28
+        MBB vs. UVA","f_list":"t"},{"id":"G0000FumuUBoseVw","name":"2013\/03\/02 MBB
+        vs. Miami","f_list":"t"},{"id":"G0000n_JlFR7jhmA","name":"2013\/03\/02 MLAX
+        vs. MD","f_list":"t"},{"id":"G0000XvmTO.zF9CE","name":"2013\/03\/02 WLAX vs.
+        Vanderbilt","f_list":"t"},{"id":"G0000uBG3_BQ29DM","name":"2013\/03\/03 WBB
+        vs. UNC","f_list":"t"},{"id":"G00006_4OJrzb7OQ","name":"2013\/03\/05 MBB vs.
+        VT","f_list":"t"},{"id":"G00009pLPIG3UsnQ","name":"2013\/03\/08 MLAX vs. Loyola","f_list":"t"},{"id":"G0000E98xaTEi4Wc","name":"2013\/03\/09
+        WBB ACC Semis vs. FSU","f_list":"t"},{"id":"G0000YB.Ck1mMf5o","name":"2013\/03\/09
+        MBB vs. UNC","f_list":"t"},{"id":"G0000ylPcB30WKcU","name":"2013\/03\/10 WBB
+        ACC Finals vs. UNC","f_list":"t"}],"total":1315}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:01:57 GMT
+recorded_with: VCR 2.5.0

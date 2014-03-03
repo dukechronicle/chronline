@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 02 Mar 2014 23:07:32 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9jAQ0V6M2qxM9HWeMiy3RC1tJq1uni4WvbuAw9NN24g34mPn4wgTL47YhCQcm8HNh1Ba3mGcgW2i0v7EL07xohrSuN6UZzwAw2YwjSLgN3wKVZxP5xE3a%2FCIb9WXVnVl5XTPI02pGw%2BfXAhY3Y5ZdvUVXEVCrWUjgXU88dkTMBJaopF8lU2ffNyuWXV9alobkozlk4%2Bxkgoz%2FEzy7petPU9jibefCUBSO1YoXFCkzRebN2Qd0Vb5aK923y6ZWMLpP9rsQwijJjLvWDPw3CvMKlDEP5ho%2BPbA6uZE2vOrMtfmR%2FyLY3mer3abQJcTh3nmB4SsMkJmhq5PIk86isESkRmeNPDKoLXBoTTLFwepItE3hhP36nLPsIStqGf1zYsMmTqMC803YTF2dJsC2riDKZQtoQi3dYxxtDUJiJi1A%2Fmh9yEnP3PL97mn6A%3D%3Ayh%2F0wfiqajf4ujerPIm4ELLVd7CTIZfSChXd%2FlBxCt0%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+    http_version: 
+  recorded_at: Sun, 02 Mar 2014 23:07:31 GMT
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 02 Mar 2014 23:07:32 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hArSK9GbXYmWhr1GbZbogHWs1aXTxcLXv3gYemGzeQ78THT0oQJt8dMQg4cW8HNh1BpjxDuQLbxaV9iN4dY8Q1pXG9KE74gQZMYZpFwG74FKu4HwpR96twyK5VV1b1ZeU0T6MNKZtPH1zImF1O2TZ1lV%2BFQi2lYwH1%2FDEZE1BITb5Ivsqmb14ut7S6PuXNTWnG0snHGAnlOX5madeLtr7H0cSbryQAqR0rNE5ocooXWzdkXd5WmWjvNp9u2dgC6f9aLIMII%2BZyL9jzMNwrTOoQhH%2FY6Pj2wGrriV3PrMtfmR%2FyLY3mer3abQJcTh3neDokYJMRNDVyeRJ51FcIlIjM8KaHVQSbBoTTLFwenBaJvDGevlOXfdC5SDVhGcgUViFEZqb4DC07NTItTzXdBFMoW0KRbusYY7jWJiJi1A%2Fmh9yEnP3PLxLdoF0%3D%3AnVpTUDmsPznKdWkpl2v856z8OoWE2aon9IpwXwsOagE%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+    http_version: 
+  recorded_at: Sun, 02 Mar 2014 23:07:32 GMT
+recorded_with: VCR 2.5.0
