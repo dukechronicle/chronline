@@ -1,4 +1,4 @@
-//= require jquery/jquery
+//= require jquery
 //= require jquery_ujs
 //= require jquery-ui/ui/jquery-ui
 //= require underscore/underscore

@@ -1,4 +1,4 @@
-//= require jquery/jquery
+//= require jquery
 //= require foundation/js/foundation
 $(document).foundation();
 

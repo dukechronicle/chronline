@@ -8,7 +8,7 @@
             "blueimp-tmpl": "~2.2.1",
             "bootstrap": "~2.3.2",
             "Buttons": "latest",
-            "foundation": "~5.0.3",
+            "foundation": "~5.1",
             "jcrop": "~0.9.12",
             "jquery": "~1.10.2",
             "jquery.cookie": "~1.4.0",

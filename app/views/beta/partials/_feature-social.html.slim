@@ -12,6 +12,6 @@
     .sidebar-widget
       = link_to "Email", mailto_article(postable)
 
-  .sidebar-widget= facebook_recommend_post(postable)
-  .sidebar-widget= twitter_share_post(postable)
-  .sidebar-widget= google_plusone_post(postable)
+  .sidebar-widget= facebook_recommend(permanent_post_url(postable))
+  .sidebar-widget= twitter_share(permanent_post_url(postable))
+  .sidebar-widget= google_plusone(permanent_post_url(postable))
