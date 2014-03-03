@@ -2,18 +2,20 @@
 http_interactions:
 - request:
     method: get
-    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    uri: https://www.photoshelter.com/psapi/v2/mem/authenticate?email=<EMAIL>&password=<PASSWORD>
     body:
       encoding: US-ASCII
       string: ''
-    headers: {}
+    headers:
+      X-Ps-Api-Key:
+      - "<API_KEY>"
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 03 Mar 2014 04:01:56 GMT
+      - Mon, 03 Mar 2014 06:23:05 GMT
       Server:
       - Apache
       Vary:
@@ -23,7 +25,7 @@ http_interactions:
       Set-Cookie:
       - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
         domain=.photoshelter.com
-      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA0Qq9GbXYmWhrPGTZbohaU81aXTxcLXv3gYemHTeQ78THT0qRRX86iilIhLsH244iU56hXD5xrJIcww8bj7imNI4bRrE4Mp8rTNtQsB%2B%2BilXUD%2Bei7lfBkF2rrqzqy8pu1qMNKZvHHlwIzy67bJu6yq%2BFQjdKx33memOyRcFZavJF8l02ffN6uaXVdZ03N6UZS8efYySU5%2BiFp11ftPU9jsXufCUFSO2WQqOYxUm02Loh6%2FK2yor2bvPYjo8tkP6vxTKIIOSOcP2DCIKDwqQOQfjEhqf3B1YzJtaYWUe8cS8QOxbO9Xq1EwocwWz7lBxjsM0omho5Ig5d5ikESkRmuNPDKmqZGMJpFo7wk0Uib4ym79RlH2xhtXQth1YBtTzXU9MkKU6xqRmZQcAUypdQpBOdQGODzIkIOfP8%2BSG3Qs7%2B9w%2BzEZ8J%3AnAtTSHSEUSIfPbl7NnHdV7SbquMfS13DJ7eTt8f9rho%3D;
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpXGB9hEFJHejFrsTLQ1HrJsN8RTq1mri4erZe8%2B8NB04wbynfj4SQnA5LsnOlES7u6VbU8AEmdVLN9ycGUdw3dbn3BNahw3jGJ%2BpD6TmGYSZT9%2BlptoGIuyGTbBmF3rvqqby8ZunyYbkDaPPriAvrjsqmubOr%2BWEjWljvnU9aZkTJRCaPJV8lW1Q%2FtyuaX19Slvb1IzlY4%2FpkhVnKNnlvZD2TX3OBq7y5VEAXLHEo1iGifRauvHrM%2B7Oiu7u82jOza1APBfi3UQQcgc7voHHgQHiQkdUNU%2FbHh6e2A1Y2aNhXX4K%2FMCvqPhUm%2BQu0UUh1PbPiXHWNlmBMyNHB6HLvUkogpEZLjzw2qCka6q8ywc7ierRNwYzd8JRR8E0dnKTUPDeWEhZGYYFSk0UgRhWlrpWZlD2RoKoAUtoANszETIqOcvD7mVYvY%2Fv%2Bpcn%2BY%3D%3AzKr18EaaNQZg5no5e7%2FMqtFOcjTCs1rA%2BIsa6ofbkao%3D;
         path=/; domain=.photoshelter.com
       - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
       Access-Control-Allow-Origin:
@@ -37,34 +39,36 @@ http_interactions:
       Accept-Ranges:
       - none
       Content-Length:
-      - '152'
+      - '25'
       Content-Type:
       - application/json
     body:
       encoding: UTF-8
-      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+      string: '{"status":"ok","data":[]}'
     http_version: 
-  recorded_at: Mon, 03 Mar 2014 04:01:56 GMT
+  recorded_at: Mon, 03 Mar 2014 06:23:04 GMT
 - request:
     method: get
-    uri: https://www.photoshelter.com/psapi/v1/gallery/query?format=json
+    uri: https://www.photoshelter.com/psapi/v2/mem/gallery/query?
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Cookie:
-      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA0Qq9GbXYmWhrPGTZbohaU81aXTxcLXv3gYemHTeQ78THT0qRRX86iilIhLsH244iU56hXD5xrJIcww8bj7imNI4bRrE4Mp8rTNtQsB%2B%2BilXUD%2Bei7lfBkF2rrqzqy8pu1qMNKZvHHlwIzy67bJu6yq%2BFQjdKx33memOyRcFZavJF8l02ffN6uaXVdZ03N6UZS8efYySU5%2BiFp11ftPU9jsXufCUFSO2WQqOYxUm02Loh6%2FK2yor2bvPYjo8tkP6vxTKIIOSOcP2DCIKDwqQOQfjEhqf3B1YzJtaYWUe8cS8QOxbO9Xq1EwocwWz7lBxjsM0omho5Ig5d5ikESkRmuNPDKmqZGMJpFo7wk0Uib4ym79RlH2xhtXQth1YBtTzXU9MkKU6xqRmZQcAUypdQpBOdQGODzIkIOfP8%2BSG3Qs7%2B9w%2BzEZ8J%3AnAtTSHSEUSIfPbl7NnHdV7SbquMfS13DJ7eTt8f9rho%3D
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUdtugyAYfpXGB9hEFJHejFrsTLQ1HrJsN8RTq1mri4erZe8%2B8NB04wbynfj4SQnA5LsnOlES7u6VbU8AEmdVLN9ycGUdw3dbn3BNahw3jGJ%2BpD6TmGYSZT9%2BlptoGIuyGTbBmF3rvqqby8ZunyYbkDaPPriAvrjsqmubOr%2BWEjWljvnU9aZkTJRCaPJV8lW1Q%2FtyuaX19Slvb1IzlY4%2FpkhVnKNnlvZD2TX3OBq7y5VEAXLHEo1iGifRauvHrM%2B7Oiu7u82jOza1APBfi3UQQcgc7voHHgQHiQkdUNU%2FbHh6e2A1Y2aNhXX4K%2FMCvqPhUm%2BQu0UUh1PbPiXHWNlmBMyNHB6HLvUkogpEZLjzw2qCka6q8ywc7ierRNwYzd8JRR8E0dnKTUPDeWEhZGYYFSk0UgRhWlrpWZlD2RoKoAUtoANszETIqOcvD7mVYvY%2Fv%2Bpcn%2BY%3D%3AzKr18EaaNQZg5no5e7%2FMqtFOcjTCs1rA%2BIsa6ofbkao%3D
+      X-Ps-Api-Key:
+      - "<API_KEY>"
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 03 Mar 2014 04:01:56 GMT
+      - Mon, 03 Mar 2014 06:23:05 GMT
       Server:
       - Apache
       Set-Cookie:
-      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA8QC9GbXYmWhrPGTZbohaU81aXTxcLXv3gYdmGzeQ78THT0aRTb96iilIhXcAu54iU56hXAFx7YqcojcHT7imNK4XxYk4sYArTLMoOIwf5SYexkvZDJtwzG91X9XNdeO028mGlM1nv1wILy6n6tqmLm6lQi2l4wHz%2FCnZpuAiNcUq%2BazaoX2%2B3rP6ti3au9JMpZP3KRLKc%2FzEs34ou%2BYRxxJvuZICpHZboXHCkjRebf2Y90VX52X3sPlsz6cWSP%2FXYh1EGHFXeMFRhOFRYVKHIPzDRufXX6xmzKyxsK544X4o9ixa6g1qJxS4gjnOOT0lYJdTNDdyRRJ5zFcIlIjM8OaH1dQ2MYTzLFwRpKtE3hjP36nLPtjGaulaAe0SakWhZ6ZJMpxhUzNyg4A5lK%2BhSCc6gYaFrJmIOPOD5SH3Us7%2B%2BwezKp8K%3AxzYFedmZCU27vUvltL1dOFgMuT8WJYLgwtGBxTjMr1s%3D;
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpXGB9hEFJHejFrsTLQ1HrJsN8RTq1mri4erZe8%2B8NB04wbynfj4SQnA5LsnOlES7u6VbU8AEmdVLN9ycGUdw3dbn3BNahw3jGJ%2BpD6TmGYSZT9%2BlptoGIuyGTbBmF3rvqqby8ZunyYbkDaPPriAvrjsqmubOr%2BWEjWljvnU9aZkTJRCaPJV8lW1Q%2FtyuaX19Slvb1IzlY4%2FpkhVnKNnlvZD2TX3OBq7y5VEAXLHEo1iGifRauvHrM%2B7Oiu7u82jOza1APBfi3UQQcgc7voHHgQHiQkdUNU%2FbHh6e2A1Y2aNhXX4K%2FMCvqPhUm%2BQu0UUh1PbPiXHWNlmBMyNHB6HLvUkogpEZLjzw2qCka6q8ywc7ierRNwYzd8JRR8E0dnKTUPDeWEhZGYYFSk0UgRhWlrpWZlD2RoKoAUtoANszETIqOcvD7mVYvY%2Fv%2Bpcn%2BY%3D%3AzKr18EaaNQZg5no5e7%2FMqtFOcjTCs1rA%2BIsa6ofbkao%3D;
         path=/; domain=.photoshelter.com
       Access-Control-Allow-Origin:
       - "*"
@@ -1167,5 +1171,5 @@ http_interactions:
         MBB vs. UNC","f_list":"t"},{"id":"G0000ylPcB30WKcU","name":"2013\/03\/10 WBB
         ACC Finals vs. UNC","f_list":"t"}],"total":1315}}'
     http_version: 
-  recorded_at: Mon, 03 Mar 2014 04:01:57 GMT
+  recorded_at: Mon, 03 Mar 2014 06:23:05 GMT
 recorded_with: VCR 2.5.0

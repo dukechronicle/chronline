@@ -1,20 +1,22 @@
 class PhotoshelterAPI
   include Errors
 
-  BaseUri = "https://www.photoshelter.com/psapi/v1"
+  BaseUri = "https://www.photoshelter.com/psapi/v2"
 
   def initialize
     @email ||= ENV['PHOTOSHELTER_EMAIL']
     @password ||= ENV['PHOTOSHELTER_PASSWORD']
+    @api_key ||= ENV['PHOTOSHELTER_API_KEY']
+    @user ||= ENV['PHOTOSHELTER_USER']
     authenticate
   end
 
   def authenticate
-    path = "/authenticate"
+    path = "/mem/authenticate"
     args = {email: @email, password: @password}
-    headers = {}
+    headers = {"X-PS-Api-Key" => @api_key}
 
-    response = get_response path, args, headers
+    response = get_response path, headers, args
 
     all_cookies = response.get_fields("set-cookie")
     cookies_array = Array.new
@@ -29,10 +31,17 @@ class PhotoshelterAPI
   end
 
   def get_all_galleries
-    path = "/gallery/query"
+    path = "/mem/gallery/query"
 
     json = get_session_response path
     json["data"]["gallery"]
+  end
+
+  def get_recently_updated_galleries
+    path = "/gallery/recently_updated"
+
+    json = get_session_response path, {user_id: @user}
+    json["data"]["galleries"]
   end
 
   def get_gallery_images(gallery_id)
@@ -43,27 +52,26 @@ class PhotoshelterAPI
   end
 
   def get_image_info(image_id)
-    path = "/image/#{image_id}/iptc"
+    path = "/mem/image/#{image_id}/iptc"
 
     json = get_session_response path
     json["data"]
   end
 
   def logout
-    path = "/authenticate/logout"
+    path = "/mem/authenticate/logout"
     get_session_response path
   end
 
 
   private
 
-    def get_session_response(path)
-      response = get_response path, {}, {"Cookie" => @cookie}
+    def get_session_response(path, args={})
+      response = get_response path, {"Cookie" => @cookie, "X-PS-Api-Key" => @api_key}, args
       ActiveSupport::JSON.decode response.body
     end
 
-    def get_response(path, args, headers)
-      args.merge!({format: "json"})
+    def get_response(path, headers, args={})
 
       uri = URI.parse(BaseUri + path)
       uri.query = URI.encode_www_form(args)

@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v2/mem/authenticate?email=<EMAIL>&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Ps-Api-Key:
+      - "<API_KEY>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 06:31:20 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUclugzAU%2FJXIH5DaYMA4lzoEUiRIEIuq9mKxNaAmULGcqv57bZYorS%2B25s3Mm%2FecUkTod08xBQl3D2DXU6SLNxTHNx1SmafwzcITrkiO44ZRzE%2FMtyWmGBQcxs9yEw1jUTbDJhiza91XdXPZWO12kiEp89iDCuFFZVVd29T5tZSoIXm2z1xvciYUFIKTr5Svqh3a58stra%2FbvL1JzhQ6fp8soXhHT3baD2XX3O1Y7C4tKUDyJhKNYhYn0Srrx6zPuzoru7vMY3t7SoHUfynWRQSh7XDXP%2FIgOEpM8BCEf6rh%2BfWhqmhzVVuqDn%2BxvYDvWbjEG%2BRtUuBwZlnn5BSDXUbRnMjhcegyTyJQIMLDnQerKdExhPMuHO4nK0V0jObvVEUeLf3QFUJIgSAxsQmxouiqgTMjLbS8zBQwm9qrKVJN1URYJ0u30GaevwxyK8Xuf34BwaOfRg%3D%3D%3AnFmJWQTUrL4G67lYDy4nteEdw7Q9tR5ngt3ydsBQZQM%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '25'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":[]}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 06:31:19 GMT
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v2/gallery/recently_updated?user_id=<USER>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUclugzAU%2FJXIH5DaYMA4lzoEUiRIEIuq9mKxNaAmULGcqv57bZYorS%2B25s3Mm%2FecUkTod08xBQl3D2DXU6SLNxTHNx1SmafwzcITrkiO44ZRzE%2FMtyWmGBQcxs9yEw1jUTbDJhiza91XdXPZWO12kiEp89iDCuFFZVVd29T5tZSoIXm2z1xvciYUFIKTr5Svqh3a58stra%2FbvL1JzhQ6fp8soXhHT3baD2XX3O1Y7C4tKUDyJhKNYhYn0Srrx6zPuzoru7vMY3t7SoHUfynWRQSh7XDXP%2FIgOEpM8BCEf6rh%2BfWhqmhzVVuqDn%2BxvYDvWbjEG%2BRtUuBwZlnn5BSDXUbRnMjhcegyTyJQIMLDnQerKdExhPMuHO4nK0V0jObvVEUeLf3QFUJIgSAxsQmxouiqgTMjLbS8zBQwm9qrKVJN1URYJ0u30GaevwxyK8Xuf34BwaOfRg%3D%3D%3AnFmJWQTUrL4G67lYDy4nteEdw7Q9tR5ngt3ydsBQZQM%3D
+      X-Ps-Api-Key:
+      - "<API_KEY>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 06:31:20 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhAUZHejFrtTLQ1HrJsN8TTqlmri4erZe8%2B8NB04wbynfj4SSki9LunmIKEuwew6ynSxRmK5ZsOqcxT%2BGbhCVekxnHDKOYn5tsSUwwKDuNnuYmGsSibYROM2bXuq7q5bKx2O9mQtHnswYXw4rKqrm3q%2FFpK1JA622euNyUTCgqhyVfJV9UO7fPlltbXbd7epGYqHb9PkVCcoyc77Yeya%2B5xLHaXKylAcicSjWIWJ9Fq68esz7s6K7u7zWN7e2qB1H8t1kEEoe1w1z%2FyIDhKTOgQhH%2FY8Pz6wCrazGoL6%2FAX2wv4noVLvUHuJgUOZ5Z1Tk4x2GUUzY0cHocu8yQCBSIy3PlhNSU6hnCehcP9ZJWIG6P5O1XRR0s%2FdIUQUiBITGxCrCi6auDMSAstLzMFzKH2GopUUzUR1gmaidBmnr885FaK2f%2F8AsG8n0c%3D%3AzPh%2BpCPKuMMjDowjFFtj7CzNQLLJ8SsK8bFEGkQkyLw%3D;
+        path=/; domain=.photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '822'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"galleries":[{"id":"G0000RzVepoFGwo0","name":"2014\/02\/15
+        MBB vs. Maryland","f_list":"t"},{"id":"G0000VX2MP0L6_kY","name":"2014\/02\/25
+        MBB vs. VT","f_list":"t"},{"id":"G0000yORseJngftw","name":"2014\/02\/22 SyracuseLineUp","f_list":"t"},{"id":"G0000hp_bFU93rVc","name":"2014\/02\/22
+        MBB vs. Syracuse","f_list":"t"},{"id":"G0000Jw402BVYPo8","name":"2014\/02\/22
+        Syracuse Cameron Crazies","f_list":"t"},{"id":"G0000lOLeHdXc1No","name":"2014\/02\/18
+        MBB vs. Georgia Tech","f_list":"t"},{"id":"G0000HGJYQyIXDhU","name":"2014\/02\/20
+        Class of 2014 Dinner","f_list":"t"},{"id":"G0000z2zwtiIFmrE","name":"2014\/02\/21
+        Lunar New Year","f_list":"t"},{"id":"G0000Fmb7xql7d_8","name":"2014\/02\/20
+        MBB vs. UNC","f_list":"t"},{"id":"G00001aALNGQgZ.o","name":"2014\/02\/04 MBB
+        vs. Wake Forest","f_list":"t"}]}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 06:31:20 GMT
+recorded_with: VCR 2.5.0

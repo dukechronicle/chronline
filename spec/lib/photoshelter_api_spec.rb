@@ -40,11 +40,20 @@ describe PhotoshelterAPI do
       PhotoshelterAPI.new
     end
 
-    describe "GET galleries" do
+    describe "GET all galleries" do
       use_vcr_cassette 'galleries'
 
       it "returns list of galleries" do
         @response = photoshelterapi.get_all_galleries
+        @response.should be_a Array
+      end
+    end
+
+    describe "GET recently updated galleries" do
+      use_vcr_cassette 'recently_updated_galleries'
+
+      it "returns a list of galleries" do
+        @response = photoshelterapi.get_recently_updated_galleries
         @response.should be_a Array
       end
     end

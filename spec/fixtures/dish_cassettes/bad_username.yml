@@ -2,18 +2,20 @@
 http_interactions:
 - request:
     method: get
-    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    uri: https://www.photoshelter.com/psapi/v2/mem/authenticate?email=<EMAIL>&password=<PASSWORD>
     body:
       encoding: US-ASCII
       string: ''
-    headers: {}
+    headers:
+      X-Ps-Api-Key:
+      - "<API_KEY>"
   response:
     status:
       code: 400
       message: Bad Request
     headers:
       Date:
-      - Mon, 03 Mar 2014 04:33:14 GMT
+      - Mon, 03 Mar 2014 06:19:21 GMT
       Server:
       - Apache
       Vary:
@@ -33,7 +35,7 @@ http_interactions:
       Access-Control-Max-Age:
       - '3600'
       Content-Length:
-      - '826'
+      - '1200'
       Connection:
       - close
       Content-Type:
@@ -41,15 +43,19 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"status":"error","error":{"code":400,"class":"AuthInvalidLoginErr","message":"We
-        couldn''t find a user account with that email address."},"usage":{"desc":"Returns
-        an HTTP cookie that is required by all the other modules. This cookie is of
-        a proprietary format and should be sent as is. Modules will return an updated
-        HTTP cookie so that accurate idle time can be tracked. Calls to the authentication
+        couldn''t find a user account with that email address."},"usage":{"desc":"Authentication
+        has two modes available, cookie based and token based authentication.\n\t\t\tIn
+        the default cookie based mode, authenticate returns an HTTP cookie that is
+        required by all other member endpoints. This cookie is of a proprietary format
+        and should be sent as is. Endpoints will return an updated HTTP cookie so
+        that accurate idle time can be tracked.\n\t\t\tThe token based mode returns
+        an authentication token. The other member endpoints accept the token. either
+        as a parameter or header value, to allow access. \n\t\t\tCalls to the authentication
         module must be made via an HTTPS connection.","input":{"email":{"desc":"email
-        address","required":"yes"},"password":{"desc":"password","required":"yes"}},"output":{"uploader":[{"name":"version","desc":"uploader
-        version"},{"name":"download","desc":"uploader URL"}],"org":[{"name":"id","desc":"organization
-        ID"},{"name":"name","desc":"organization name"},{"name":"member","desc":"user
-        is member of organization"}]}},"data":null}'
+        address","required":"yes"},"password":{"desc":"password","required":"yes"},"mode":{"desc":"authentication
+        mode, ''cookie'' or ''token'' (default: cookie)","required":"no"}},"output":{"0":{"name":"token","desc":"authentication
+        token, if requested"},"org":[{"name":"id","desc":"organization ID"},{"name":"name","desc":"organization
+        name"},{"name":"member","desc":"user is member of organization"}]}},"data":null}'
     http_version: 
-  recorded_at: Mon, 03 Mar 2014 04:33:14 GMT
+  recorded_at: Mon, 03 Mar 2014 06:19:20 GMT
 recorded_with: VCR 2.5.0

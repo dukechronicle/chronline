@@ -2,18 +2,20 @@
 http_interactions:
 - request:
     method: get
-    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    uri: https://www.photoshelter.com/psapi/v2/mem/authenticate?email=<EMAIL>&password=<PASSWORD>
     body:
       encoding: US-ASCII
       string: ''
-    headers: {}
+    headers:
+      X-Ps-Api-Key:
+      - "<API_KEY>"
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sun, 02 Mar 2014 23:07:32 GMT
+      - Mon, 03 Mar 2014 06:23:04 GMT
       Server:
       - Apache
       Vary:
@@ -23,7 +25,7 @@ http_interactions:
       Set-Cookie:
       - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
         domain=.photoshelter.com
-      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9jAQ0V6M2qxM9HWeMiy3RC1tJq1uni4WvbuAw9NN24g34mPn4wgTL47YhCQcm8HNh1Ba3mGcgW2i0v7EL07xohrSuN6UZzwAw2YwjSLgN3wKVZxP5xE3a%2FCIb9WXVnVl5XTPI02pGw%2BfXAhY3Y5ZdvUVXEVCrWUjgXU88dkTMBJaopF8lU2ffNyuWXV9alobkozlk4%2Bxkgoz%2FEzy7petPU9jibefCUBSO1YoXFCkzRebN2Qd0Vb5aK923y6ZWMLpP9rsQwijJjLvWDPw3CvMKlDEP5ho%2BPbA6uZE2vOrMtfmR%2FyLY3mer3abQJcTh3nmB4SsMkJmhq5PIk86isESkRmeNPDKoLXBoTTLFwepItE3hhP36nLPsIStqGf1zYsMmTqMC803YTF2dJsC2riDKZQtoQi3dYxxtDUJiJi1A%2Fmh9yEnP3PL97mn6A%3D%3Ayh%2F0wfiqajf4ujerPIm4ELLVd7CTIZfSChXd%2FlBxCt0%3D;
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BhA8QC9GbXamWhr1GbZbkhFV81aXTxcLXv3gYemGzeQ78THz5kim353FFNw4v4ObDqKTHmGcoXEs0tyiN8cPOKa0nh%2BnKT8wEJXYZpFwW74LFZJP%2BRF3a%2BiIbtWXVnVl5XTrEcbUraAPbgQnl1O2TZ1Ja6FQi2lc0PmB2OyTUEuNWKRfJVN3zxfbufquhbNTWnG0un7GAnlOXlyz11ftPU9jqX%2BfCUFSO22QpOUpadksXVD1om2yor2bgvY1h1bIP1fi2UQUex63A%2F3PIr2CpM6BOEfNj6%2BPrCaMbHGzHr8xQ0ivmXxXK9XO6HA48xxjqdDCjYZRVMjj6exzwKFQInIDH96WEVtE0M4zcLj4WmRyBuT6Tt12edDYCPXiIFwATWLWDAXWW5ilJtCYFgQMIW6SyjSiU4QRjaeiNhlQTg%2F5FbI2f%2F8AujAn84%3D%3AyhzkH9gPGhuW5yXDPkkOe%2FtArlJUFiWdG%2BqB65JqJTk%3D;
         path=/; domain=.photoshelter.com
       - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
       Access-Control-Allow-Origin:
@@ -37,28 +39,30 @@ http_interactions:
       Accept-Ranges:
       - none
       Content-Length:
-      - '152'
+      - '25'
       Content-Type:
       - application/json
     body:
       encoding: UTF-8
-      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+      string: '{"status":"ok","data":[]}'
     http_version: 
-  recorded_at: Sun, 02 Mar 2014 23:07:31 GMT
+  recorded_at: Mon, 03 Mar 2014 06:23:03 GMT
 - request:
     method: get
-    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    uri: https://www.photoshelter.com/psapi/v2/mem/authenticate?email=<EMAIL>&password=<PASSWORD>
     body:
       encoding: US-ASCII
       string: ''
-    headers: {}
+    headers:
+      X-Ps-Api-Key:
+      - "<API_KEY>"
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sun, 02 Mar 2014 23:07:32 GMT
+      - Mon, 03 Mar 2014 06:23:05 GMT
       Server:
       - Apache
       Vary:
@@ -68,7 +72,7 @@ http_interactions:
       Set-Cookie:
       - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
         domain=.photoshelter.com
-      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hArSK9GbXYmWhr1GbZbogHWs1aXTxcLXv3gYemGzeQ78THT0oQJt8dMQg4cW8HNh1BpjxDuQLbxaV9iN4dY8Q1pXG9KE74gQZMYZpFwG74FKu4HwpR96twyK5VV1b1ZeU0T6MNKZtPH1zImF1O2TZ1lV%2BFQi2lYwH1%2FDEZE1BITb5Ivsqmb14ut7S6PuXNTWnG0snHGAnlOX5madeLtr7H0cSbryQAqR0rNE5ocooXWzdkXd5WmWjvNp9u2dgC6f9aLIMII%2BZyL9jzMNwrTOoQhH%2FY6Pj2wGrriV3PrMtfmR%2FyLY3mer3abQJcTh3neDokYJMRNDVyeRJ51FcIlIjM8KaHVQSbBoTTLFwenBaJvDGevlOXfdC5SDVhGcgUViFEZqb4DC07NTItTzXdBFMoW0KRbusYY7jWJiJi1A%2Fmh9yEnP3PLxLdoF0%3D%3AnVpTUDmsPznKdWkpl2v856z8OoWE2aon9IpwXwsOagE%3D;
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB%2BignpDejFrsTLQ1arNsN8QDq2atLh6ulr37wEPTjRvId%2BLjJyUIk%2B%2BO6AScubcH244gU56hXIHt4tI%2BRm%2BOPuIbpXG9KE74kQZMYRuLgP3wKVZxPxSi7lfhkF2rrqzqy8pp1qMNKZtPH1xIn11O2TZ1lV%2BFQi2lYwH1%2FDEZE1BITb5Ivsqmb54vt7S6rvPmpjRj6eR9jITyHD%2BxtOtFW9%2FjaOLNVxKA1I4VGic0OceLrRuyLm%2BrTLR3m093bGyBtH8tlkGEEXO5Fxx4GB4UJnUIwj9sdHp9YDfGxBoz6%2FIX5od8R6O5Xq92mwCXU8c5nY8J2GYETY1cnkQe9RUCJSIzvOlhFcGmDuE0C5cH50Uib4yn79RkHz03PhC0bJxaZiYdmiYKLERhm2ZqGDADUyhbQpFmazbSETYmImLUD%2BaH3ISc%2Fc8v39afsA%3D%3D%3AxzBWkPt6h9f3d7QE1gRJv1UoU%2FcbEN0hQC5dVqoFYA8%3D;
         path=/; domain=.photoshelter.com
       - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
       Access-Control-Allow-Origin:
@@ -82,12 +86,12 @@ http_interactions:
       Accept-Ranges:
       - none
       Content-Length:
-      - '152'
+      - '25'
       Content-Type:
       - application/json
     body:
       encoding: UTF-8
-      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+      string: '{"status":"ok","data":[]}'
     http_version: 
-  recorded_at: Sun, 02 Mar 2014 23:07:32 GMT
+  recorded_at: Mon, 03 Mar 2014 06:23:04 GMT
 recorded_with: VCR 2.5.0

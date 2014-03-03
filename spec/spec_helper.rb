@@ -35,6 +35,8 @@ Spork.prefork do
       c.hook_into :webmock
       c.filter_sensitive_data('<EMAIL>') { ENV['PHOTOSHELTER_EMAIL'] }
       c.filter_sensitive_data('<PASSWORD>') { ENV['PHOTOSHELTER_PASSWORD'] }
+      c.filter_sensitive_data('<API_KEY>') { ENV['PHOTOSHELTER_API_KEY'] }
+      c.filter_sensitive_data('<USER>') { ENV['PHOTOSHELTER_USER'] }
     end
 
     config.extend VCR::RSpec::Macros
