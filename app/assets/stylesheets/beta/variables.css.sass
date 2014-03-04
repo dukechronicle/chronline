@@ -1,12 +1,13 @@
 /* Chronicle Color Pallate */
 $chron-blue: #031a32
 $chron-blue-accent: #083e8c
-$chron-gray-dark: #ccc
+$chron-gray-dark: #666
 $chron-gray-light: #e4e4e4
 $chron-text: #434343
 $chron-text-white: white
 $chron-almost-white: #f0f0f0
 $chron-font-serif: "freight-text-pro", "times", serif
+$chron-font-sans: "franklin-gothic-urw", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !default
 
 /* Foundation SCSS Variables */
 /*Header Fonts*/
@@ -25,7 +26,12 @@ $base-line-height: 150% !default
 $rem-base: 16px !default
 $body-bg: $chron-almost-white !default
 $body-font-color: $chron-text !default
-$body-font-family: "franklin-gothic-urw", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !default
+$body-font-family: $chron-font-sans
+
+/*Anchors*/
+$anchor-text-decoration: none
+$anchor-font-color: $chron-blue-accent
+$anchor-font-color-hover: scale-color($chron-blue-accent, $lightness: 25%)
 
 /*Topbar (header)*/
 $topbar-bg: $chron-blue
