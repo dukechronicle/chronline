@@ -6,11 +6,11 @@ class Beta::BaseController < ApplicationController
     @model = promise { @page.layout.model }
     @title = @page.title
     @description = @page.description
-    render "site/pages/#{@page.layout_template.to_s.underscore}"
+    render "beta/pages/#{@page.layout_template.to_s.underscore}"
   end
 
   def not_found
-    render 'site/404', status: :not_found
+    render 'beta/404', status: :not_found
   end
 
 end
