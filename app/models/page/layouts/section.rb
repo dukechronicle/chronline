@@ -44,22 +44,11 @@ class Page::Layouts::Section < Layout
           }
         }
       },
-      'headlines' => {
-        'label' => 'Headlines',
-        'type'=> 'object',
+      'topnews' => {
+        'label' => 'Top News',
+        'type'=> 'array',
         'required'=> true,
-        'properties'=> {
-          'left'=> {
-            'type'=> 'array',
-            'required'=> true,
-            'items'=> article_schema,
-          },
-          'right' => {
-            'type'=> 'array',
-            'required'=> true,
-            'items'=> article_schema,
-          }
-        }
+        'items'=> article_schema,
       },
       'popular' => {
         'label' => 'Most Commented',

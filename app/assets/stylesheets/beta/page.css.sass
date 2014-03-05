@@ -1,5 +1,7 @@
 /* Includes styles for .page-main-wrap, which is used on static pages, articles, and blog posts */
 .page-main-wrap
+  section
+    background-color: $chron-text-white
   article
     a
       border-bottom: 1px dotted scale-color($chron-blue-accent, $lightness: -40%)
@@ -42,8 +44,6 @@ main.page-body
 
 // Front Page
 .page-front
-  section
-    background-color: $chron-text-white
   aside
     background-color: $chron-blue
   .page-front-section-header
@@ -55,18 +55,6 @@ main.page-body
       font-weight: 500
       text-transform: uppercase
       letter-spacing: 3px
-
-.page-front-article-list
-  article
-    padding-top: $page-section-spacing
-    header
-      h1
-        color: $chron-gray-dark
-        font-size: 1rem
-        line-height: 1.1rem
-      .header-byline
-        color: $chron-gray-light
-        font-size: .8rem
 
 // Article Longform
 article.postable-longform
