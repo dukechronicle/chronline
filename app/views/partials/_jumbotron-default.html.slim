@@ -5,5 +5,5 @@ figure
     = cropped_image_tag image, :rectangle_606x, class: 'jumbotron jumbotron-default'
   figcaption
     - if not image.caption.blank?
-      p.photo-caption= "IMAGE: " + image.caption
-      p.photo-credit= photo_credit(image, link: true)
+      .photo-credit= photo_credit(image, link: true)
+      .photo-caption= image.caption
