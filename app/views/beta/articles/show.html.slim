@@ -27,13 +27,6 @@
       article.postable.postable-article.columns.small-8
         header.page-header
           .row
-            .page-feature
-              //TODO(rivkees): implement video, gallary, and graph jumbo's
-              - if @article.embed_code.present?
-                = render partial: 'partials/main-video'
-              - elsif @article.image
-                = render partial: 'partials/jumbotron-default', locals: {image: @article.image, image_size: :rectangle_636x}
-          .row
             .header-taxonomy.columns.small-12
               - @article.section.parents.each_with_index do |parent, i|
                 span.taxonomy-section = link_to parent.name, section_path(parent)
@@ -49,6 +42,13 @@
           .row
             .header-social.columns.small-12
               = render partial: 'beta/partials/feature-social', locals: {postable: @article}
+          .row
+            .page-feature
+              //TODO(rivkees): implement video, gallary, and graph jumbo's
+              - if @article.embed_code.present?
+                = render partial: 'partials/main-video'
+              - elsif @article.image
+                = render partial: 'partials/jumbotron-default', locals: {image: @article.image, image_size: :rectangle_636x}
         .row
           main.page-body.columns.small-12
             == @article.render_body
