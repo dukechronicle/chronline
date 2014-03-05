@@ -1,0 +1,9 @@
+.article-list-social.columns.small-4
+  - if article.image
+    = cropped_image_tag article.image, :square_200x
+header.columns.small-8
+  h1= article.title
+  .header-byline
+    span.author By Glenn Rivkees
+    span.sep= " - "
+    time January 1, 2014
