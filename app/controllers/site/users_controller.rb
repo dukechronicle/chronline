@@ -30,8 +30,19 @@ class Site::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         set_flash_message(:notice, :success, kind: provider.titleize)
       end
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"]
       redirect_to new_user_registration_url
     end
   end
+end
+
+##
+# TODO: This needs to be removed once oncampusweb starts supporting SSL
+module Devise::Controllers::Helpers
+  def after_sign_in_path_for_with_http(resource_or_scope)
+    path = after_sign_in_path_for_without_http(resource_or_scope)
+    site_root_url(protocol: 'http')[0...-1] + path
+  end
+
+  alias_method_chain :after_sign_in_path_for, :http
 end
