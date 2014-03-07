@@ -15,6 +15,8 @@ Chronline::Application.routes.draw do
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
+      resources :galleries, only: [:index, :show], id: Gallery::SLUG_PATTERN
+
       resource :search, only: :show
 
       resource :newsletter, only: :show do
@@ -42,6 +44,12 @@ Chronline::Application.routes.draw do
           get 'articles'
           get 'blog_posts'
           get 'images'
+        end
+      end
+
+      resources :polls, only: :show  do
+        member do
+          post 'vote'
         end
       end
 
@@ -101,6 +109,10 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
+      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN do
+        post 'scrape', on: :collection
+      end
+
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
         post :publish, on: :member
       end
@@ -126,6 +138,8 @@ Chronline::Application.routes.draw do
       end
 
       resources :blog_series, except: :show
+
+      resources :polls, except: :show
 
       resource :configuration, only: [:show, :update], controller: 'sitevars'
 

@@ -10,6 +10,7 @@ Spork.prefork do
   require 'rspec/autorun'
   require 'sunspot/rails/spec_helper'
   require 'webmock/rspec'
+  require 'vcr'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -28,6 +29,15 @@ Spork.prefork do
     config.order = "random"
 
     config.include Paperclip::Shoulda::Matchers
+
+    VCR.configure do |c|
+      c.cassette_library_dir = 'spec/fixtures/dish_cassettes'
+      c.hook_into :webmock
+      c.filter_sensitive_data('<EMAIL>') { ENV['PHOTOSHELTER_EMAIL'] }
+      c.filter_sensitive_data('<PASSWORD>') { ENV['PHOTOSHELTER_PASSWORD'] }
+    end
+
+    config.extend VCR::RSpec::Macros
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
