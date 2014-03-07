@@ -13,7 +13,8 @@
   \: #{@user.sign_in_count}
 %p
   %strong Last login
-  \: #{datetime_tag(@user.last_sign_in_at, 'ddd mmm dd yyyy HH:MM:ss')}
+  - if @user.last_sign_in_at
+    \: #{datetime_tag(@user.last_sign_in_at, 'ddd mmm dd yyyy HH:MM:ss')}
 
 = simple_form_for [:change_role, :admin, @user], method: :post do |f|
   %legend Change Privileges
