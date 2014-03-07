@@ -27,12 +27,20 @@ class User < ActiveRecord::Base
 
   class << self
     def find_for_oauth(provider, auth)
-      self.where("#{provider}_uid" => auth.uid).first_or_create do |user|
+      t = self.arel_table
+      query = t["#{provider}_uid"].eq(auth.uid)
+        .or(t[:email].eq(auth.info.email))
+      user = self.where(query).first_or_create do |user|
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
         user.first_name = auth.info.first_name
         user.last_name = auth.info.last_name
       end
+      if user["#{provider}_uid"].nil?
+        user["#{provider}_uid"] = auth.uid
+        user.save
+      end
+      user
     end
   end
 end
