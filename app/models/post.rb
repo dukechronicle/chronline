@@ -1,10 +1,11 @@
 class Post < ActiveRecord::Base
   SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
+  extend HasTaxonomy
   include FriendlyId
 
   self.table_name = :articles
 
-  friendly_id :title, use: [:slugged, :history]
+  friendly_id :title, use: [:slugged, :history, :chronSlug]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
     :section, :subtitle, :teaser, :title, :embed_code, :embed_url
@@ -17,8 +18,6 @@ class Post < ActiveRecord::Base
   validates :title, presence: true
   validates :authors, presence: true
   validates :teaser, length: { maximum: 200 }
-
-  scope :section, ->(taxonomy) { where('section LIKE ?', "#{taxonomy.to_s}%") }
 
   def self.default_scope
     self
@@ -56,18 +55,7 @@ class Post < ActiveRecord::Base
 
   # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)
-    return nil if title.nil?  # record won't save -- title presence is validated
-    removelist = %w(a an as at before but by for from is in into like of off on
-onto per since than the this that to up via with)
-    r = /\b(#{removelist.join('|')})\b/i
-
-    s = title.downcase  # convert to lowercase
-    s.gsub!(r, '')
-    s.strip!
-    s.gsub!(/[^-\w\s]/, '')  # remove unneeded chars
-    s.gsub!(/[-\s]+/, '-')   # convert spaces to hyphens
-    s = s[0...max_chars].chomp('-')
-
+    s = super
     (published_at || Date.today).strftime('%Y/%m/%d/') + s
   end
 
@@ -112,17 +100,6 @@ onto per since than the this that to up via with)
     EmbeddedMedia.new(body).to_s
   end
 
-  ##
-  # Writer for section attribute. Creates a Taxonomy object if section is a
-  # string.
-  #
-  def section=(section)
-    unless section.is_a?(Taxonomy)
-      section = Taxonomy.new(taxonomy, section)
-    end
-    super(section)
-  end
-
   def square_80x_url
     image.original.url(:square_80x) if image
   end
@@ -142,13 +119,6 @@ onto per since than the this that to up via with)
     self.find_in_order(post_ids).compact
   end
 
-  def self.taxonomy=(taxonomy)
-    @taxonomy = taxonomy
-    validates_with Taxonomy::Validator, attr: :section, taxonomy: taxonomy
-    serialize :section, Taxonomy::Serializer.new(taxonomy)
-  end
-  private_class_method :taxonomy=
-
   def self.fetch_popular_from_redis(section, limit)
     $redis.multi do
       5.times do |i|
@@ -159,11 +129,6 @@ onto per since than the this that to up via with)
     end
   end
   private_class_method :fetch_popular_from_redis
-
-  private
-  def taxonomy
-    self.class.instance_variable_get(:@taxonomy)
-  end
 end
 
 # Necessary to avoid autoload namespacing conflict

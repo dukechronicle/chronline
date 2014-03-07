@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.1.1'
 
 gem 'rails', '3.2.16'
 
@@ -90,5 +90,6 @@ group :test do
   gem 'spork-rails'
   gem 'turnip'
   gem 'vcr'
+  gem 'turn'
   gem 'webmock'
 end

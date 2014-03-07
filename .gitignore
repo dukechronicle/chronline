@@ -37,6 +37,7 @@ solr/
 
 #/ignore sitemaps
 /public/sitemap
+
 # General
 # =======
 
@@ -96,6 +97,9 @@ tmtags
 .*.sw[a-z]
 *.un~
 Session.vim
+
+# Redis
+dump.rdb
 
 # Misc
 # ====

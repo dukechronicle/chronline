@@ -4,6 +4,11 @@
 - cache do
   .clearfix.align-group
     .span-8.align-element{data: {alignprimary: "true"}}
+      - if @model.banner
+        - if @model.banner['page']
+          = render partial: 'site/containers/article-list/page', locals: {page: @model.banner['page']}
+        - elsif @model.banner['article']
+          = render partial: 'site/containers/article-list/single', locals: {article: @model.banner['article'], breaking: false}
       #featured= render partial: 'site/partials/slideshow', locals: {articles: @model.featured, pages: [], pages_first: true}
       #multimedia= render partial: 'site/containers/multimedia-row', locals: {title: "Shutter", multimedia: @model.multimedia}
 
@@ -14,5 +19,3 @@
 
   #bus-stop= render partial: 'site/containers/article-row', locals: {title: "The Bus Stop", articles: @model.bus_stop, feature: true}
   #plaza= render partial: 'site/containers/article-row', locals: {title: "The Plaza", articles: @model.plaza, feature: true}
-  #issuu.rounded
-    .image-container!= @model.issuu
