@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211165459) do
+ActiveRecord::Schema.define(:version => 20140308232907) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -121,8 +121,9 @@ ActiveRecord::Schema.define(:version => 20140211165459) do
     t.string   "title"
     t.string   "description"
     t.string   "section"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "archived",    :default => false
   end
 
   create_table "posts_authors", :force => true do |t|

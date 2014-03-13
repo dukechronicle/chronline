@@ -55,6 +55,8 @@
   %aside.span-4.last
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
     = render 'site/partials/facebook-recommended'
+    - if @poll
+      = render partial: 'site/containers/poll', locals: {poll: @poll}
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
     = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
     

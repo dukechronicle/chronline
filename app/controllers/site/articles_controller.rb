@@ -29,6 +29,7 @@ class Site::ArticlesController < Site::BaseController
   def show
     @article.register_view
     @taxonomy = @article.section
+    @poll = Poll.section(@article.section).first
   end
 
   def print
