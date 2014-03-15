@@ -1,7 +1,10 @@
 initialize '#bracket.tournament', ->
   games = new Game.Collection($(this).data('games'))
-  (new BracketView(games: games, el: $(this)[0])).render()
-
+  view = new BracketView
+    games: games
+    userBracket: $(this).data('user-bracket')
+    el: $(this)[0]
+  view.render()
 
 initialize '#bracket.bracket', ->
   games = new Game.Collection($(this).data('games'))
