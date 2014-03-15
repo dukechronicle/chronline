@@ -2,4 +2,4 @@
 
 .rounded
   .bracket-container
-    #bracket.tournament{data: {games: @games}}
+    #bracket.tournament{data: {games: @games, 'user-bracket' => @bracket.try(:id)}}

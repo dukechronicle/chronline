@@ -9,7 +9,8 @@ window.BracketView = Backbone.View.extend
 
   initialize: (options) ->
     this.listenTo(@model, 'change', @render) if @model?
-    @games = options['games']
+    @games = options.games
+    @userBracket = options.userBracket
 
   edit: ->
     @model.set(editing: true)
@@ -20,7 +21,7 @@ window.BracketView = Backbone.View.extend
         @model.set(editing: false)
 
   render: ->
-    @$el.html(@template(bracket: @model))
+    @$el.html(@template(bracket: @model, userBracket: @userBracket))
 
     @$el.find('.region-left').each ->
       $(this).prepend (new BracketLinesView(flipped: false)).render().el
