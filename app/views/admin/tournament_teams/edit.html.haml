@@ -1,15 +1,1 @@
-= simple_form_for([:admin, @team.tournament, @team], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, wrapper: :bootstrap) do |f|
-  %legend Edit #{@team.school}
-  = f.error_notification
-  .form-inputs
-    = f.input :shortname
-    = f.input :preview, cols: 5, input_html: { class: 'tinymce' }
-    - @team.article_id = @team.article && "#{@team.article.id} - #{@team.article.title}"
-    = f.association :article, as: :string, input_html: { class: 'article-picker input-xlarge' }
-
-  .form-actions
-    = f.button :submit, class: 'btn btn-large btn-primary'
-
-- content_for :scripts do
-  = tinymce_assets
-  = tinymce
+= render partial: 'admin/tournament_teams/form', locals: { team: @team, form_title: "Edit #{team.school}" }

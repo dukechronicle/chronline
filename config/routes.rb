@@ -141,8 +141,8 @@ Chronline::Application.routes.draw do
 
       resources :tournaments, only: [:index, :show], id: Tournament::SLUG_PATTERN
       resources :tournaments, only: :none do
-        resources :tournament_teams, only: [:edit, :update], path: 'teams',
-          tournament_id: Tournament::SLUG_PATTERN
+        resources :tournament_teams, only: [:new, :create, :edit, :update],
+          path: 'teams', tournament_id: Tournament::SLUG_PATTERN
       end
 
       authenticate :user do

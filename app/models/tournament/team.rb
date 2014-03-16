@@ -11,6 +11,8 @@ class Tournament::Team < ActiveRecord::Base
   validates :mascot, presence: true
   validates :shortname, presence: true
   validates :mascot, presence: true
+  validates :seed, presence: true,
+    numericality: { greater_than: 0, less_than_or_equal_to: 16 }
   validates :region_id, presence: true,
     numericality: { greater_than_or_equal_to: 0, less_than: 4 }
   validates :tournament, presence: true
