@@ -15,4 +15,8 @@ class Site::TournamentsController < Site::BaseController
         }
       )
   end
+
+  def challenge
+    @tournament = Tournament.find(params[:id])
+  end
 end

@@ -193,9 +193,10 @@ ActiveRecord::Schema.define(:version => 20140226160443) do
     t.string   "name"
     t.string   "event"
     t.datetime "start_date"
+    t.text     "challenge_text"
     t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "tournaments", ["slug"], :name => "index_tournaments_on_slug", :unique => true

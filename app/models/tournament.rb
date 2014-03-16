@@ -4,7 +4,7 @@ class Tournament < ActiveRecord::Base
 
   friendly_id :name_and_event, use: [:slugged, :sluggable]
 
-  attr_accessible :name, :event, :start_date
+  attr_accessible :name, :event, :start_date, :challenge_text
 
   has_many :teams, class_name: 'Tournament::Team', dependent: :destroy
   has_many :games, class_name: 'Tournament::Game', dependent: :destroy

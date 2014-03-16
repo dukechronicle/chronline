@@ -9,6 +9,8 @@
       %tr{id: "tournament_#{tournament.id}"}
         %td= link_to tournament.full_name, site_tournament_url(tournament, subdomain: 'www')
         %td= datetime_tag(tournament.start_date, 'mmm d, yyyy')
-        %td= link_to "Manage", [:admin, tournament], class: 'btn btn-mini'
+        %td
+          = link_to "Manage", [:admin, tournament], class: 'btn btn-mini'
+          = link_to "Edit", [:edit, :admin, tournament], class: 'btn btn-mini'
 
 = will_paginate
