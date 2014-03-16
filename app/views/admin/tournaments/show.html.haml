@@ -1,6 +1,7 @@
 %h1= @tournament.full_name
 
 %h2 Teams
+= link_to "Add team", new_admin_tournament_tournament_team_path(@tournament)
 %ul
   - @teams.each do |team|
     %li= link_to team.school, [:edit, :admin, @tournament, team]
