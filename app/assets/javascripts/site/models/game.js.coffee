@@ -51,3 +51,6 @@ window.Game = Backbone.Model.extend
 
   lastRound: ->
     this.get('position') == 62
+
+  formatStartTime: (format) ->
+    (new Date(this.get('start_time'))).format(format)
