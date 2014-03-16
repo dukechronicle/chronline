@@ -1,5 +1,5 @@
 # Inspired by http://snipt.net/jpartogi/slugify-javascript/
-module Sluggable
+module ChronSlug
   def normalize_friendly_id(s, max_chars=100)
     removelist = %w(a an as at before but by for from is in into like of off on
 onto per since than the this that to up via with)

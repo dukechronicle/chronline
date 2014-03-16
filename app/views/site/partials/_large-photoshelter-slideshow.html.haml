@@ -1,0 +1,4 @@
+.rounded.large-slideshow
+  .galleria
+    - gallery.images.each do |image|
+      %img{:src => image.url, :data => {:link => site_gallery_path(gallery)}}

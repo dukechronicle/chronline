@@ -54,6 +54,30 @@ ActiveRecord::Schema.define(:version => 20140226160443) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
+  create_table "galleries", :id => false, :force => true do |t|
+    t.string   "gid"
+    t.string   "name"
+    t.string   "slug"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.date     "date"
+  end
+
+  add_index "galleries", ["slug"], :name => "index_galleries_on_slug", :unique => true
+
+  create_table "gallery_images", :id => false, :force => true do |t|
+    t.string   "pid"
+    t.string   "gid"
+    t.text     "caption"
+    t.string   "credit"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "gallery_images", ["gid", "pid"], :name => "index_gallery_images_on_gid_and_pid", :unique => true
+
   create_table "images", :force => true do |t|
     t.string   "caption",               :limit => 500
     t.string   "location"
@@ -84,6 +108,22 @@ ActiveRecord::Schema.define(:version => 20140226160443) do
   end
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
+
+  create_table "poll_choices", :force => true do |t|
+    t.integer  "poll_id"
+    t.string   "title"
+    t.integer  "votes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "polls", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "section"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "posts_authors", :force => true do |t|
     t.integer "post_id"

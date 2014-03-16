@@ -40,6 +40,7 @@ GEM
     annotate (2.6.1)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+    ansi (1.4.3)
     arel (3.0.3)
     asset_sync (0.5.4)
       activemodel
@@ -87,10 +88,10 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    crack (0.4.1)
-      safe_yaml (~> 0.9.0)
-    curb (0.8.4)
-    database_cleaner (1.0.1)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
+    curb (0.8.5)
+    database_cleaner (1.2.0)
     debugger-linecache (1.2.0)
     default_value_for (2.0.3)
     delayed_paperclip (2.6.1)
@@ -351,8 +352,8 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
     ruby-oembed (0.8.9)
-    safe_yaml (0.9.4)
-    sass (3.2.9)
+    safe_yaml (1.0.1)
+    sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -396,6 +397,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turn (0.9.6)
+      ansi
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
@@ -492,6 +495,7 @@ DEPENDENCIES
   sunspot_rails (~> 2.1.0)
   sunspot_solr (~> 2.1.0)
   tinymce-rails (~> 4.0.2)
+  turn
   turnip
   uglifier (~> 2.1.2)
   unicorn

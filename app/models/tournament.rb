@@ -2,7 +2,7 @@ class Tournament < ActiveRecord::Base
   SLUG_PATTERN = %r([a-z_\-\d]+/\d{4})
   include FriendlyId
 
-  friendly_id :name_and_event, use: [:slugged, :sluggable]
+  friendly_id :name_and_event, use: [:slugged, :chronSlug]
 
   attr_accessible :name, :event, :start_date, :challenge_text
 

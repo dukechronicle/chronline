@@ -1,0 +1,95 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:19:46 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpXGB%2BjAI9KbUYudibbGQ5bthqhl1czq4uFq2bsPPDTduIF8Jz5%2BMgwR%2Fu6xjpWUeQdl12NoijMQK7BdVNqn6M3RJ1yVGteL4oSdSEAlplpYOYyffBMP44U3wyYc87rqy6q5bpx2O9mgtPnkwQX1xeWUXdtURc0lakkdDYjnT8kIKxehKVbJV9kO7fP1llX1tmhvUjOVTt6nSCDO8RPN%2BoF3zT2OJN5yJVag3JFE44Qkabza%2BjHvi67KeXe3%2BWRPpxZQ%2B9diHUQYUZd5wZGF4VFiQgcB%2BMNG59cHVjVm1lhYl71QP2R7Ei31BrnbWHEZcZxzekqUXY7h3MhlSeQRXyJAICLDmx9WYWTqAMyzcFmQrhJxYzx%2Fpyb6IE21IddVy7A%2BgJWbRp5zo0BmBjjUbGuajAila6gANRuYFjJnIqLED5aH3LiY%2Fc8vxQufTQ%3D%3D%3AzP4od5dqSrEdNHfdrUOkqvUNwRkmhr5JJqohHxP0SiA%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:19:46 GMT
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/image/I0000P1V4eGUln18/iptc?format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUdtugyAYfpXGB%2BjAI9KbUYudibbGQ5bthqhl1czq4uFq2bsPPDTduIF8Jz5%2BMgwR%2Fu6xjpWUeQdl12NoijMQK7BdVNqn6M3RJ1yVGteL4oSdSEAlplpYOYyffBMP44U3wyYc87rqy6q5bpx2O9mgtPnkwQX1xeWUXdtURc0lakkdDYjnT8kIKxehKVbJV9kO7fP1llX1tmhvUjOVTt6nSCDO8RPN%2BoF3zT2OJN5yJVag3JFE44Qkabza%2BjHvi67KeXe3%2BWRPpxZQ%2B9diHUQYUZd5wZGF4VFiQgcB%2BMNG59cHVjVm1lhYl71QP2R7Ei31BrnbWHEZcZxzekqUXY7h3MhlSeQRXyJAICLDmx9WYWTqAMyzcFmQrhJxYzx%2Fpyb6IE21IddVy7A%2BgJWbRp5zo0BmBjjUbGuajAila6gANRuYFjJnIqLED5aH3LiY%2Fc8vxQufTQ%3D%3D%3AzP4od5dqSrEdNHfdrUOkqvUNwRkmhr5JJqohHxP0SiA%3D
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:19:47 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpXGB%2BjAE0hvRi12JtoatVm2G6KWVbNWFw9Xy9594KHpxg3kO%2FHxkxGIyXdHTKKduL%2FTNh2BtjwDuULHw6VziN9cc8R1pfH8OEn5gYZMYToi2m74FKukH86i7lfRkF%2Brrqzqy8pt1qMNKltAH1zQnF1u2TZ1VVyFQpHSsZD6wZiMiXaWmmKRfJVN3zxfbll1XRfNTWnG0un7GAnkOXliWdeLtr7H0dSfryQaVDtWaJLS9JQstm7Iu6KtctHebQHdsrEFNP61WAYRxczjfrjnUbRXmNRBAP6w8fH1gdWtibVm1uMvLIj4lsZzvV7tDtE8Tl33eDqk2iYncGrk8TT2aaAQIBGZ4U8Pqwi2TQCmWXg8PC0SeWMyfach%2B2BDd6AwdWShD4By28pzYRXYzoCAhoPGychQtoRK0HCAjTCaiJjRIJwfchNy9j%2B%2FxSSfTg%3D%3D%3AmxT52sZuTpFS%2F1AcJzOgCLPgBk92%2FKBv9Hd9NNZoy6A%3D;
+        path=/; domain=.photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '872'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"title":null,"edit_status":null,"urgency":null,"category":null,"keyword":null,"instructions":null,"author":"Brianna
+        Siracuse\/The Chronicle","position":null,"city":null,"state":null,"country":null,"country_iso":null,"headline":null,"trans_ref":null,"credit":null,"source":null,"copyright":null,"caption":"Duke''s
+        football team won their season opener 46-26 last night against Florida International
+        University at Wallace Wade Stadium. The Blue Devils had a huge second quarter
+        during which they outscored the Panthers 30-7.","caption_writer":null,"filename":null,"ci_city":null,"ci_country":null,"ci_address":null,"ci_postal_code":null,"ci_region":null,"ci_email":null,"ci_phone":null,"ci_url":null,"genre":null,"location":null,"rights":null,"scene":null,"subject_code":null,"web_statement":null,"publish_date":null,"sdate":"2012-09-01
+        06:02:50 GMT"}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:19:46 GMT
+recorded_with: VCR 2.5.0

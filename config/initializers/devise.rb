@@ -250,4 +250,6 @@ Devise.setup do |config|
 end
 
 # Force SSL for login page
-Devise::SessionsController.before_filter :redirect_ssl if Rails.env.production?
+if Rails.env.production?
+  Devise::SessionsController.before_filter :redirect_ssl, except: :destroy
+end

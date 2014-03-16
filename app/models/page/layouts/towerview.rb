@@ -2,6 +2,22 @@ class Page::Layouts::Towerview < Layout
 
   def schema
     {
+      'banner' => {
+        'label' => 'Banner Story',
+        'type' => 'object',
+        'properties' => {
+          'article' => {
+            'label' => 'Article',
+            'extends' => article_schema,
+            'required' => false,
+          },
+          'page' => {
+            'label' => 'Page',
+            'extends' => page_schema,
+            'required' => false,
+          },
+        }
+      },
       'featured' => {
         'label' => "Featured",
         'type' => 'array',
