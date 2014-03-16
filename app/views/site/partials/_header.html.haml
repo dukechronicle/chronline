@@ -31,15 +31,16 @@
           %h3.tagline The Independent Daily at Duke University
         %h1.brand The Chronicle
     %nav#nav
-      - Taxonomy.top_level(:sections).each do |taxonomy|
+      - Taxonomy.top_level(:sections)[0...-1].each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
       %a{href: site_blogs_path, class: ("active" if @taxonomy.try(:taxonomy) == :blogs)}
         %h2 Blogs
       %a{href: site_galleries_path, class: ("active" if @galleries || @gallery)}
         %h2 Photos
-      %a{href: "/tournaments/ncaa-mens-basketball/2014"}
-        %h2 NCAA
+      - if frontpage?
+        %a{href: "/tournaments/ncaa-mens-basketball/2014"}
+          %h2 March Madness
     = form_for(Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
       = f.search_field :query, placeholder: 'Search archives', results: '5'
 
