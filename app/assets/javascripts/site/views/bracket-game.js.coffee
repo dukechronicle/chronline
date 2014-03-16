@@ -1,27 +1,30 @@
+#= require site/views/game
 #= require site/templates/bracket-game
 
-window.BracketGameView = Backbone.View.extend
+window.BracketGameView = GameView.extend
   template: JST['site/templates/bracket-game']
 
-  className: 'game'
-
   events:
+    'dblclick': 'showPreview'
     'click .team-selectable.team-1': 'selectTeam1'
     'click .team-selectable.team-2': 'selectTeam2'
 
   initialize: (options) ->
     @bracket = options.bracket
 
+  teams: ->
+    @bracket.teamsInGame(@model)
+
   selectTeam1: ->
-    [team1, team2] = @bracket.teamsInGame(@model)
+    [team1, team2] = this.teams()
     @bracket.makePick(@model, team1.id) if team1?
 
   selectTeam2: ->
-    [team1, team2] = @bracket.teamsInGame(@model)
+    [team1, team2] = this.teams()
     @bracket.makePick(@model, team2.id) if team2?
 
   render: ->
-    [team1, team2] = @bracket.teamsInGame(@model)
+    [team1, team2] = this.teams()
     @$el.html(
       @template(
         game: @model
