@@ -45,7 +45,9 @@ Chronline::Application.routes.draw do
         end
       end
 
-      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN
+      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN do
+        get 'challenge', on: :member
+      end
       resources :tournaments, only: :none do
         resources :tournament_brackets, except: :edit, path: 'brackets',
           tournament_id: Tournament::SLUG_PATTERN
@@ -139,7 +141,8 @@ Chronline::Application.routes.draw do
         post :change_role, on: :member
       end
 
-      resources :tournaments, only: [:index, :show], id: Tournament::SLUG_PATTERN
+      resources :tournaments, only: [:index, :show, :edit, :update],
+        id: Tournament::SLUG_PATTERN
       resources :tournaments, only: :none do
         resources :tournament_teams, only: [:new, :create, :edit, :update],
           path: 'teams', tournament_id: Tournament::SLUG_PATTERN
