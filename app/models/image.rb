@@ -86,3 +86,6 @@ class Image < ActiveRecord::Base
     original.url(:rectangle_183x)
   end
 end
+
+# Necessary to avoid autoload namespacing conflict
+require_dependency 'gallery/image' 

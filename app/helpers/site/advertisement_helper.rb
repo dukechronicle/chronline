@@ -6,14 +6,13 @@ module Site::AdvertisementHelper
   def advertisement(zone, suffix = nil)
     zone = suffix ? "#{zone}_#{suffix}" : zone.to_s
     page_id = '536870985'
-    a_random = Random.rand(99999999)
     render(
       partial: 'site/partials/advertisement_tag', layout: false, locals: {
         group_id: GROUP_ID,
         unit: AD_UNITS[zone]['unit'],
         width: AD_UNITS[zone]['width'],
         height: AD_UNITS[zone]['height'],
-        a_random: a_random,
+        a_random: Random.rand(99999999),
       }
     ).html_safe
   end

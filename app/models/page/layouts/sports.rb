@@ -25,6 +25,10 @@ class Page::Layouts::Sports < Layout
         'type' => 'string',
         'required' => true,
       },
+      'poll' => {
+        'label' => 'Poll',
+        'extends' => poll_schema,
+      },
       'multimedia' => {
         'label' => 'Embedded Multimedia',
         'type' => 'array',

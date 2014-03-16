@@ -7,7 +7,9 @@ class ApplicationController < ActionController::Base
   cache_sweeper :staff_sweeper
   cache_sweeper :page_sweeper
 
-  before_filter :force_ssl if Rails.env.production?
+  ##
+  # TODO: This needs to be uncommented once oncampusweb starts supporting SSL
+  # before_filter :force_ssl if Rails.env.production?
 
 
   def authenticate_admin!
@@ -29,6 +31,12 @@ class ApplicationController < ActionController::Base
   end
 
   def force_ssl
+    redirect_ssl if user_signed_in?
+  end
+
+  ##
+  # TODO: This needs to be removed once oncampusweb starts supporting SSL
+  def force_not_ssl
     redirect_ssl if user_signed_in?
   end
 
