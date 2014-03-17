@@ -2,7 +2,7 @@
 initialize '#fb-root', ->
   # https://developers.facebook.com/docs/javascript/howto/jquery/
   $.ajaxSetup(cache: true)
-  $.getScript '//connect.facebook.net/en_UK/all.js', =>
+  $.getScript '//connect.facebook.net/en_US/all.js', =>
     FB.init
       appId      : $(this).data('app-id')  # App ID from the app dashboard
       status     : true  # Check Facebook Login status
