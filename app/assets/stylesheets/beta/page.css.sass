@@ -1,5 +1,9 @@
 /* Includes styles for .page-main-wrap, which is used on static pages, articles, and blog posts */
 .page-main-wrap
+  .page-container
+    border-left: 1px solid $chron-gray-border
+    border-right: 1px solid $chron-gray-border
+    border-top: 1px solid $chron-gray-border
   section
     background-color: $chron-text-white
   article
@@ -8,34 +12,33 @@
       &:hover
         border-bottom: 1px dotted scale-color($chron-blue-accent, $lightness: 25%)
 
-.page-header, .page-body, .page-front
+.page-front
   padding-top: $page-section-spacing
+.page-container
+  margin-top: $page-section-spacing
 
 // Article/Page
+.header-container
+  border-bottom: 1px solid $chron-gray-border
 header.page-header
-  color: $chron-almost-white
-  a
-    color: $chron-almost-white
-    border-bottom: 1px dotted scale-color($chron-text-white, $lightness: -40%)
-    &:hover
-      color: $chron-text-white
-      border-bottom: 1px dotted $chron-text-white
   .header-taxonomy
-    background-color: $chron-blue
-    padding-top: .5rem
-    padding-bottom: .5rem
-    width: auto
-    .taxonomy-section:after
-      content: " » "
-    .taxonomy-section:last-child:after
-      content: " "
+    .taxonomy-section
+      padding: 5px
+      margin-right: 5px
+      background-color: $chron-blue
+      a
+        color: white
   .header-title
-    background-color: $chron-blue-accent
-  .header-social
-    background-color: $chron-blue
-
+    padding-top: $page-section-spacing
+    h1
+      font-size: 4rem
+    .subtitle
+      font-size: 2rem
+      line-height: 2rem
+aside.page-sidebar
+  border-left: 1px solid $chron-gray-border
 main.page-body
-  background-color: white
+  padding-top: $page-section-spacing
   font-family: $chron-font-serif
 
 .page-sidebar
@@ -55,12 +58,3 @@ main.page-body
       font-weight: 500
       text-transform: uppercase
       letter-spacing: 3px
-
-// Article Longform
-article.postable-longform
-  .page-feature
-    width: 100%
-  .page-header
-    box-shadow:  silver 0 10px 10px -5px
-    padding-bottom: $page-section-spacing
-    text-align: center
