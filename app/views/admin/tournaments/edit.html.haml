@@ -1,12 +1,1 @@
-= simple_form_for([:admin, @tournament], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, wrapper: :bootstrap) do |f|
-  %legend Edit #{@tournament.full_name}
-  = f.error_notification
-  .form-inputs
-    = f.input :challenge_text, cols: 5, input_html: { class: 'tinymce' }
-
-  .form-actions
-    = f.button :submit, class: 'btn btn-large btn-primary'
-
-- content_for :scripts do
-  = tinymce_assets
-  = tinymce plugins: [:link]
+= render 'admin/tournaments/form', form_title: "Edit #{@tournament.full_name}"

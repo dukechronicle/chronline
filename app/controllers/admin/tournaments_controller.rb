@@ -8,6 +8,19 @@ class Admin::TournamentsController < Admin::BaseController
     @teams = @tournament.teams.order(:school)
   end
 
+  def new
+    @tournament = Tournament.new
+  end
+
+  def create
+    @tournament = Tournament.new(params[:tournament])
+    if @tournament.save
+      redirect_to admin_tournaments_path
+    else
+      render 'new'
+    end
+  end
+
   def edit
     @tournament = Tournament.find(params[:id])
   end

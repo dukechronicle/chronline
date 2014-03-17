@@ -49,11 +49,16 @@
               %li= link_to "Manage", admin_polls_path
               %li= link_to "Create", new_admin_poll_path
 
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Tournaments
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li= link_to "Manage", admin_tournaments_path
+              %li= link_to "Create", new_admin_tournament_path
+
           %li= link_to "Newsletter", admin_newsletter_path
           %li= link_to "Embed Tags", admin_widgets_path
           %li= link_to "Configuration", admin_configuration_path
           %li= link_to "Users", admin_users_path
-          %li= link_to "Tournaments", admin_tournaments_path
 
         %ul.nav.pull-right
           %li= link_to "Logout", destroy_user_session_url(subdomain: 'www'), method: :delete

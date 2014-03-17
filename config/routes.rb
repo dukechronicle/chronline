@@ -155,8 +155,7 @@ Chronline::Application.routes.draw do
         post :change_role, on: :member
       end
 
-      resources :tournaments, only: [:index, :show, :edit, :update],
-        id: Tournament::SLUG_PATTERN
+      resources :tournaments, id: Tournament::SLUG_PATTERN
       resources :tournaments, only: :none do
         resources :tournament_teams, only: [:new, :create, :edit, :update],
           path: 'teams', tournament_id: Tournament::SLUG_PATTERN
