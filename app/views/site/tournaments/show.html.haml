@@ -1,0 +1,9 @@
+- provide :title, @tournament.full_name
+
+.rounded
+  .bracket-container
+    %p.challenge-text
+      Click
+      = link_to "here", challenge_site_tournament_path(@tournament)
+      to read more about the Chronicle bracket challenge and see the leaderboard.
+    #bracket.tournament{data: {tournament: tournament_json(@tournament), 'user-bracket' => @bracket.try(:id)}}

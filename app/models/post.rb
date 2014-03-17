@@ -53,10 +53,9 @@ class Post < ActiveRecord::Base
       end
   end
 
-  # Stolen from http://snipt.net/jpartogi/slugify-javascript/
   def normalize_friendly_id(title, max_chars=100)
-    s = super
-    (published_at || Date.today).strftime('%Y/%m/%d/') + s
+    return nil if title.nil?  # record won't save -- title presence is validated
+    (published_at || Date.today).strftime('%Y/%m/%d/') + super
   end
 
   def published?

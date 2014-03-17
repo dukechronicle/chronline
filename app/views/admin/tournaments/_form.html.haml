@@ -1,0 +1,19 @@
+= simple_form_for([:admin, @tournament], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, wrapper: :bootstrap) do |f|
+  %legend= form_title
+  = f.error_notification
+  .form-inputs
+    = f.input :name, hint: "eg. NCAA"
+    = f.input :event, hint: "eg. Men's Basketball"
+    = f.input :start_date, as: :date, native: browser.chrome?
+    = f.input :region0, label: "Top Left Region"
+    = f.input :region1, label: "Bottom Left Region"
+    = f.input :region2, label: "Top Right Region"
+    = f.input :region3, label: "Bottom Right Region"
+    = f.input :challenge_text, cols: 5, input_html: { class: 'tinymce' }
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-large btn-primary'
+
+- content_for :scripts do
+  = tinymce_assets
+  = tinymce plugins: [:link]
