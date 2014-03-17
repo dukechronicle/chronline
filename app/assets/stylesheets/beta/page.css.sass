@@ -19,6 +19,7 @@
 
 // Article/Page
 .header-container
+  padding-bottom: $page-section-spacing
   border-bottom: 1px solid $chron-gray-border
 header.page-header
   .header-taxonomy
@@ -41,6 +42,10 @@ header.page-header
     .subtitle
       font-size: 2rem
       line-height: 2rem
+  .header-byline
+    .date
+      color: $chron-gray-dark
+
 aside.page-sidebar
   border-left: 1px solid $chron-gray-border
 main.page-body
@@ -55,6 +60,7 @@ main.page-body
   height: 70px
   display: inline-block
   background-color: $chron-blue
+  vertical-align: top
 .header-widget-comments
 .header-widget-print
 .header-widget-email

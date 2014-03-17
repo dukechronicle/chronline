@@ -39,7 +39,9 @@
                   p.subtitle= @article.subtitle
                 p.header-byline
                   span.author By #{byline(@article, link: true)}
-                  span= display_date(@article)
+                  span.date
+                    = " on "
+                    = display_date(@article)
             .row
               .header-social.columns.small-12
                 = render partial: 'beta/partials/feature-social', locals: {postable: @article}
@@ -61,5 +63,5 @@
             = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
     footer.page-footer
       .row
-        / section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
+        section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
         section#disqus_thread.rounded[data-disqus= disqus_options(@article)]

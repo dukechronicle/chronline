@@ -1,6 +1,5 @@
 //= require jquery
 //= require foundation/js/foundation
-$(document).foundation();
 
 //= require util
 //= require initialize
@@ -8,3 +7,5 @@ $(document).foundation();
 //= require common/analytics
 //= require common/local-time
 //= require_tree ./beta
+
+$(document).foundation();

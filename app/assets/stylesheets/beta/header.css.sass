@@ -4,12 +4,12 @@ header#super-header
     .title-area
       h1
         font-family: "ambroise-std", serif
-    .nav-sections
+    .nav-sections, .search-section
       text-transform: uppercase
       letter-spacing: 3px
       a
         font-weight: 500
-    .nav-sections, .title-area
+    .nav-sections, .search-section, .title-area
       li.active a
         background: $chron-blue-accent
         color: $chron-text-white
@@ -17,5 +17,11 @@ header#super-header
           background: scale-color($chron-blue-accent, $lightness: -14%)
     .divider
       border-color: scale-color($chron-blue, $lightness: 14%)
+    .search-section
+      input
+        top: auto
+      ul.dropdown
+        width: 300px
   .header-advertisement
     padding-top: $page-section-spacing
+    padding-bottom: $page-section-spacing
