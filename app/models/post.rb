@@ -53,7 +53,7 @@ class Post < ActiveRecord::Base
       end
   end
 
-  def normalize_friendly_id(title)
+  def normalize_friendly_id(title, max_chars=100)
     return nil if title.nil?  # record won't save -- title presence is validated
     (published_at || Date.today).strftime('%Y/%m/%d/') + super
   end
