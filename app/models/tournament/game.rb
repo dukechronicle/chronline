@@ -10,7 +10,6 @@ class Tournament::Game < ActiveRecord::Base
     greater_than_or_equal_to: 0, less_than: 63
   }
   validates :tournament, presence: true
-  validates :start_time, presence: true
 
 
   def winner
