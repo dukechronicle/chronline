@@ -37,13 +37,13 @@
 
 <div class="clearfix">
   <div class="region region-left region-1">
-    <h3 class="region-name">West</h3>
+    <h3 class="region-name">East</h3>
     <% for round in [1..4]: %>
       <div class="round round-<%= round %>"></div>
     <% end %>
   </div>
   <div class="region region-right region-3">
-    <h3 class="region-name">East</h3>
+    <h3 class="region-name">West</h3>
     <% for round in [4..1]: %>
       <div class="round round-<%= round %>"></div>
     <% end %>
