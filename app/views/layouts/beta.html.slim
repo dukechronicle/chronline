@@ -29,7 +29,7 @@ html class="no-js"
         #wrap
             == render 'beta/partials/header'
             == yield
-            / == render 'beta/partials/footer'
+            == render 'beta/partials/footer'
         #scripts
         	= javascript_include_tag "beta"
             = yield :scripts
