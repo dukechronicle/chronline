@@ -1,17 +1,17 @@
 - except ||= []
 
-.sidebar-social
-  .sidebar-widget
+.feature-social
+  .header-widget.header-widget-comments
     = link_to "Comments", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(postable)
 
   - if not except.include? :print
-    .sidebar-widget
+    .header-widget.header-widget-print
       = link_to "Print", print_site_article_path(postable)
 
   - if not except.include? :email
-    .sidebar-widget
+    .header-widget.header-widget-email
       = link_to "Email", mailto_article(postable)
 
-  .sidebar-widget= facebook_recommend(permanent_post_url(postable))
-  .sidebar-widget= twitter_share(permanent_post_url(postable))
-  .sidebar-widget= google_plusone(permanent_post_url(postable))
+  .header-widget.header-widget-fb= facebook_recommend(permanent_post_url(postable))
+  .header-widget.header-widget-twitter= twitter_share(permanent_post_url(postable))
+  .header-widget.header-widget-gplus= google_plusone(permanent_post_url(postable))

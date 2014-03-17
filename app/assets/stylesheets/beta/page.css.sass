@@ -27,7 +27,13 @@ header.page-header
       margin-right: 5px
       background-color: $chron-blue
       a
-        color: white
+        color: $chron-text-white
+        border: none
+        &:hover
+          color: $chron-text-white
+          border: none
+      &:hover 
+        background-color: $chron-blue-accent
   .header-title
     padding-top: $page-section-spacing
     h1
@@ -40,6 +46,24 @@ aside.page-sidebar
 main.page-body
   padding-top: $page-section-spacing
   font-family: $chron-font-serif
+
+.header-widget
+  color: white
+  a
+    color: white
+  width: 70px
+  height: 70px
+  display: inline-block
+  background-color: $chron-blue
+.header-widget-comments
+.header-widget-print
+.header-widget-email
+.header-widget-fb
+  background-color: #3b5998
+.header-widget-twitter
+  background-color: #4099ff
+.header-widget-gplus
+  background-color: #d34836
 
 .page-sidebar
   //background-color: $chron-blue
