@@ -16,4 +16,8 @@ class Tournament::Team < ActiveRecord::Base
   validates :region_id, presence: true,
     numericality: { greater_than_or_equal_to: 0, less_than: 4 }
   validates :tournament, presence: true
+
+  def region
+    tournament.send("region#{region_id}")
+  end
 end
