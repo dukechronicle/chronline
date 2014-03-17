@@ -31,7 +31,7 @@
     <div class="versus"></div>
     <h3>
       <time datetime="<%= @game.get('start_time') %>">
-        <%= @game.formatStartTime('mmmm d, h:MM TT Z') %>
+        <%= @game.formatStartTime('mmmm d') %>
       </time>
     </h3>
   </div>
