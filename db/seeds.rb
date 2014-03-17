@@ -53,3 +53,25 @@ end
     published_at: (1..365).to_a.sample.days.ago,
   )
 end
+
+tournament = Tournament.create!(
+  name: "NCAA",
+  event: "Men's Basketball",
+  start_date: Date.new(2013, 3, 1),
+  region0: 'South',
+  region1: 'East',
+  region2: 'Midwest',
+  region3: 'West',
+)
+teams = YAML.load_file(
+  Rails.root.join('db', 'fixtures', 'tournament_teams.yml'))
+teams.each { |team| tournament.teams.create!(team) }
+
+0.upto(62) do |position|
+  game = tournament.games.build(
+    position: position,
+    start_time: Date.new(2013, 3, 1 + rand(30))
+  )
+  game.update_teams
+  game.save!
+end
