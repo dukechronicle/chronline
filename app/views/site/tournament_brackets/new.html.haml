@@ -7,4 +7,4 @@
     = form_for [:site, @tournament, @bracket] do |f|
       = f.hidden_field :picks
       = f.submit "Done", class: "done button button-flat-action button-large"
-    #bracket.bracket{data: {bracket: @bracket.to_json, games: @games}}
+    #bracket.bracket{data: {bracket: tournament_bracket_json(@bracket)}}

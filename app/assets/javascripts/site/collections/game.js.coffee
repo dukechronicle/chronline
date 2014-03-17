@@ -3,6 +3,8 @@
 Game.Collection = Backbone.Collection.extend
   model: Game
 
+  comparator: 'position'
+
   inRound: (round, region) ->
     switch region
       when 0
