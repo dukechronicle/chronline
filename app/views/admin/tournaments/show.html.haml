@@ -1,5 +1,10 @@
 %h1= @tournament.full_name
 
+%h2 Statistics
+%p
+  %strong Number of brackets:
+  = @tournament.brackets.count
+
 %h2 Teams
 = link_to "Add team", new_admin_tournament_tournament_team_path(@tournament)
 %ul
