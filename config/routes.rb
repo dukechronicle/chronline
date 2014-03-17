@@ -1,5 +1,5 @@
 require 'resque/server'
-require 'site/users_controller' # contains site devise controllers
+require_dependency 'site/users_controller' # contains site devise controllers
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
@@ -45,6 +45,14 @@ Chronline::Application.routes.draw do
           get 'blog_posts'
           get 'images'
         end
+      end
+
+      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN do
+        get 'challenge', on: :member
+      end
+      resources :tournaments, only: :none do
+        resources :tournament_brackets, except: :edit, path: 'brackets',
+          tournament_id: Tournament::SLUG_PATTERN
       end
 
       resources :polls, only: :show  do
@@ -145,6 +153,12 @@ Chronline::Application.routes.draw do
 
       resources :users, only: [:index, :show] do
         post :change_role, on: :member
+      end
+
+      resources :tournaments, id: Tournament::SLUG_PATTERN
+      resources :tournaments, only: :none do
+        resources :tournament_teams, only: [:new, :create, :edit, :update],
+          path: 'teams', tournament_id: Tournament::SLUG_PATTERN
       end
 
       authenticate :user do

@@ -49,6 +49,12 @@
               %li= link_to "Manage", admin_polls_path
               %li= link_to "Create", new_admin_poll_path
 
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Tournaments
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li= link_to "Manage", admin_tournaments_path
+              %li= link_to "Create", new_admin_tournament_path
+
           %li= link_to "Newsletter", admin_newsletter_path
           %li= link_to "Embed Tags", admin_widgets_path
           %li= link_to "Configuration", admin_configuration_path
