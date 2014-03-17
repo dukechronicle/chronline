@@ -23,6 +23,7 @@ class Tournament::Bracket < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :user
 
+  # TODO: Switch to Postgres array type on switch to Rails 4
   serialize :picks, JSON
 
   validates :tournament, presence: true

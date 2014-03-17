@@ -4,7 +4,10 @@ class Tournament < ActiveRecord::Base
 
   friendly_id :name_and_event, use: [:slugged, :chronSlug]
 
+
   attr_accessible :name, :event, :start_date, :challenge_text
+  # TODO: Use Postgres array type on switch to Rails 4
+  attr_accessible :region0, :region1, :region2, :region3
 
   has_many :teams, class_name: 'Tournament::Team', dependent: :destroy
   has_many :games, class_name: 'Tournament::Game', dependent: :destroy
@@ -13,6 +16,11 @@ class Tournament < ActiveRecord::Base
   validates :name, presence: true
   validates :event, presence: true
   validates :start_date, presence: true
+  validates :region0, presence: true
+  validates :region1, presence: true
+  validates :region2, presence: true
+  validates :region3, presence: true
+
 
   def normalize_friendly_id(s)
     "#{super}/#{year}"

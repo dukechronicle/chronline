@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140316224623) do
+ActiveRecord::Schema.define(:version => 20140317154029) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -238,6 +238,10 @@ ActiveRecord::Schema.define(:version => 20140316224623) do
     t.string   "slug"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "region0"
+    t.string   "region1"
+    t.string   "region2"
+    t.string   "region3"
   end
 
   add_index "tournaments", ["slug"], :name => "index_tournaments_on_slug", :unique => true
