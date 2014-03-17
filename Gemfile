@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.1'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 
 group :production do
   gem 'asset_sync'
