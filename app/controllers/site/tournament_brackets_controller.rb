@@ -8,10 +8,10 @@ class Site::TournamentBracketsController < Site::BaseController
 
     @bracket = @tournament.brackets.includes(:user).find(params[:id])
     if @tournament.started? || @bracket.user == current_user
-      @games = @tournament.games
-        .includes(:team1, :team2)
-        .order(:position)
-        .to_json(include: [:team1, :team2])
+      @bracket = Tournament::Bracket
+        .includes(:user)
+        .includes(tournament: { games: { team1: :article, team2: :article } })
+        .find(@bracket)
     else
       flash[:error] =
         "You may only see other users' brackets once the tournament starts"
@@ -26,12 +26,12 @@ class Site::TournamentBracketsController < Site::BaseController
     if user_signed_in?
       check_for_existing(@tournament) and return
     end
+
     @bracket = @tournament.brackets.build(session[:tournament_bracket])
+    @bracket.tournament = Tournament
+      .includes(games: { team1: :article, team2: :article })
+      .find(@tournament)
     @bracket.picks = JSON.parse(@bracket.picks) if @bracket.picks.is_a? String
-    @games = @tournament.games
-      .includes(:team1, :team2)
-      .order(:position)
-      .to_json(include: [:team1, :team2])
   end
 
   def create

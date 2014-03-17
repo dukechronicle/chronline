@@ -4,4 +4,4 @@
   .bracket-container
     = render 'site/partials/flash', flash: flash
     - unless @forbidden
-      #bracket.bracket{data: {bracket: @bracket.to_json(include: :tournament, properties: { editable: ->(bracket) { current_user == bracket.user }}), games: @games}}
+      #bracket.bracket{data: {bracket: tournament_bracket_json(@bracket)}}

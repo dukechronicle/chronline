@@ -57,7 +57,11 @@ end
 tournament = Tournament.create!(
   name: "NCAA",
   event: "Men's Basketball",
-  start_date: Date.new(2013, 3, 1)
+  start_date: Date.new(2013, 3, 1),
+  region0: 'South',
+  region1: 'East',
+  region2: 'Midwest',
+  region3: 'West',
 )
 teams = YAML.load_file(
   Rails.root.join('db', 'fixtures', 'tournament_teams.yml'))
