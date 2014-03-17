@@ -55,10 +55,10 @@
             main.page-body
               == @article.render_body
           aside.page-sidebar.columns.small-4
-            = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-            = render 'site/partials/facebook-recommended'
-            = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
-            = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+            = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+            = render 'beta/partials/facebook-recommended'
+            = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+            = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
     footer.page-footer
       .row
         / section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
