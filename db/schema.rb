@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211165459) do
+ActiveRecord::Schema.define(:version => 20140317154029) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -187,6 +187,64 @@ ActiveRecord::Schema.define(:version => 20140211165459) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
+
+  create_table "tournament_brackets", :force => true do |t|
+    t.integer  "tournament_id"
+    t.integer  "user_id"
+    t.text     "picks"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "tournament_brackets", ["tournament_id", "user_id"], :name => "index_tournament_brackets_on_tournament_id_and_user_id", :unique => true
+
+  create_table "tournament_games", :force => true do |t|
+    t.integer  "tournament_id"
+    t.integer  "team1_id"
+    t.integer  "team2_id"
+    t.integer  "score1"
+    t.integer  "score2"
+    t.integer  "position"
+    t.datetime "start_time"
+    t.boolean  "final",         :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "tournament_games", ["tournament_id", "position"], :name => "index_tournament_games_on_tournament_id_and_position", :unique => true
+
+  create_table "tournament_teams", :force => true do |t|
+    t.string   "school"
+    t.string   "shortname"
+    t.string   "mascot"
+    t.integer  "seed"
+    t.integer  "region_id"
+    t.integer  "espn_id"
+    t.integer  "tournament_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.text     "preview"
+    t.integer  "article_id"
+  end
+
+  add_index "tournament_teams", ["tournament_id", "region_id", "seed"], :name => "index_tournament_teams_on_tournament_id_and_region_id_and_seed", :unique => true
+  add_index "tournament_teams", ["tournament_id"], :name => "index_tournament_teams_on_tournament_id"
+
+  create_table "tournaments", :force => true do |t|
+    t.string   "name"
+    t.string   "event"
+    t.datetime "start_date"
+    t.text     "challenge_text"
+    t.string   "slug"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "region0"
+    t.string   "region1"
+    t.string   "region2"
+    t.string   "region3"
+  end
+
+  add_index "tournaments", ["slug"], :name => "index_tournaments_on_slug", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
