@@ -61,7 +61,7 @@
             = render 'beta/partials/facebook-recommended'
             = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
             = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
-    footer.page-footer
-      .row
-        section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
-        section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
+        footer.page-footer
+          .row
+            section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
+            section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
