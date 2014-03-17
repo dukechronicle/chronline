@@ -30,9 +30,11 @@
   <div class="game-info">
     <div class="versus"></div>
     <h3>
+      <% if @game.get('start_time'): %>
       <time datetime="<%= @game.get('start_time') %>">
         <%= @game.formatStartTime('mmmm d') %>
       </time>
+      <% end %>
     </h3>
   </div>
 </div>
