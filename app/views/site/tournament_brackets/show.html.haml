@@ -3,5 +3,7 @@
 .rounded
   .bracket-container
     = render 'site/partials/flash', flash: flash
+    - unless @tournament.started? || @bracket.complete?
+      .notice Your bracket is incomplete. Please make all selections before the tournament begins.
     - unless @forbidden
       #bracket.bracket{data: {bracket: tournament_bracket_json(@bracket)}}
