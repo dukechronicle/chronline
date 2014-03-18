@@ -10,7 +10,7 @@
     = f.input :espn_id, label: 'ESPN ID'
     = f.input :preview, cols: 5, input_html: { class: 'tinymce' }
     - team.article_id = team.article && "#{team.article.id} - #{team.article.title}"
-    = f.association :article, as: :string, input_html: { class: 'article-picker input-xlarge' }
+    = f.association :article, collection: [], as: :string, input_html: { class: 'article-picker input-xlarge' }
 
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
