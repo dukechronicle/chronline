@@ -1,4 +1,4 @@
-class Site::EventsController < Admin::BaseController
+class Site::EventsController < Site::BaseController
 	def new
 		@new_event = Event.new
 	end
