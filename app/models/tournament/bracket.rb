@@ -4,13 +4,11 @@ class Tournament::Bracket < ActiveRecord::Base
       picks = record.picks
       if !picks.is_a?(Array)
         record.errors[:picks] << "Must be an array of team IDs"
-      elsif picks.length != 63
-        record.errors[:picks] << "Must have a pick for each game"
       else
         teams = Tournament::Team.where(id: picks).select(&:id)
         unique_ids = Set.new(teams.map(&:id))
         picks.each do |id|
-          unless unique_ids.include? id
+          unless id.nil? or unique_ids.include? id
             record.errors[:picks] << "#{id} is not a valid team ID"
           end
         end
