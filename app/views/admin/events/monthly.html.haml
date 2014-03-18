@@ -1,50 +1,52 @@
+%div#daily-events=render 'daily_events'
 .outer_calendar
 	.header-container
 		.title-container
 			%h3.white.title Duke Calendar
 		.month-container
-			%h3.white.month-name= @month_name + " " + params[:year]
-	.inner_calendar
+			%h3.white.month-name
+				=link_to("<", last_month)
+				=@month_name + " " + params[:year]
+				=link_to(">", next_month)
+	.clearfix.inner_calendar
 		.weekday-panel
-			%h4.block Sunday
-			%h4.block Monday
-			%h4.block Tuesday
-			%h4.block Wednesday
-			%h4.block Thursday
-			%h4.block Friday
-			%h4.block Saturday
+			-Date::DAYNAMES.each do |name|
+				%h5.block= name
 		.left_inner
-			-(1..@front_offset).each do
+			-1.upto(@front_offset) do
 				=link_to last_month do
 					.btn.invisible-day-block
 			-@keys.each do |key|
-				=link_to day_url(key) do 
-					-if (key == @today)
-						.btn.day-block-today
-							%p= key[3..4]
-							-if (@map[key] != nil)
-								-@map[key].each do |event|
-									%p.get-left= event.title
-					-else
-						.btn.day-block
-							%p= key[3..4]
-							-if (@map[key] != nil)
-								-@map[key].each do |event|
-									%p.get-left= event.title
-			-(1..@end_offset).each do
+				-if (key == @today)
+					.btn.day-block-today.month-block
+						%p.day-num=key.day
+						%p.month-num{hidden: true}=@month
+						%p.year-num{hidden: true}=@year
+						%p.num-events
+							=@map[key].count
+							events
+				-else
+					.btn.day-block.block.month-block
+						%p.day-num= key.day
+						%p.month-num{hidden: true}=@month
+						%p.year-num{hidden: true}=@year
+						%p.num-events
+							=@map[key].count
+							events
+			-1.upto(@end_offset) do
 				=link_to next_month do
 					.btn.invisible-day-block
 
 		.right_inner
-			%li= link_to('Jan', '/events/2014/01', class: 'link-style')
-			%li= link_to('Feb', '/events/2014/02', class: 'link-style')
-			%li= link_to('Mar', '/events/2014/03', class: 'link-style')
-			%li= link_to('Apr', '/events/2014/04', class: 'link-style')
-			%li= link_to('May', '/events/2014/05', class: 'link-style')
-			%li= link_to('Jun', '/events/2014/06', class: 'link-style')
-			%li= link_to('Jul', '/events/2014/07', class: 'link-style')
-			%li= link_to('Aug', '/events/2014/08', class: 'link-style')
-			%li= link_to('Sep', '/events/2014/09', class: 'link-style')
-			%li= link_to('Oct', '/events/2014/10', class: 'link-style')
-			%li= link_to('Nov', '/events/2014/11', class: 'link-style')
-			%li= link_to('Dec', '/events/2014/12', class: 'link-style')
+			%li= link_to('Jan', get_month_url(1), class: 'link-style')
+			%li= link_to('Feb', get_month_url(2), class: 'link-style')
+			%li= link_to('Mar', get_month_url(3), class: 'link-style')
+			%li= link_to('Apr', get_month_url(4), class: 'link-style')
+			%li= link_to('May', get_month_url(5), class: 'link-style')
+			%li= link_to('Jun', get_month_url(6), class: 'link-style')
+			%li= link_to('Jul', get_month_url(7), class: 'link-style')
+			%li= link_to('Aug', get_month_url(8), class: 'link-style')
+			%li= link_to('Sep', get_month_url(9), class: 'link-style')
+			%li= link_to('Oct', get_month_url(10), class: 'link-style')
+			%li= link_to('Nov', get_month_url(11), class: 'link-style')
+			%li= link_to('Dec', get_month_url(12), class: 'link-style')

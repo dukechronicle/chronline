@@ -104,6 +104,7 @@ Chronline::Application.routes.draw do
         collection do
           get '/:year/:month' => 'events#monthly', as: 'month' # TODO: add constraints for correct numbers 
           get '/:year/:month/:day' => 'events#daily', as: 'day' # TODO: add constraints for correct numbers 
+          get 'change_day'
           end
       end
 
