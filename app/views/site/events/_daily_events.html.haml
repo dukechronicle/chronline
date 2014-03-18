@@ -1,5 +1,6 @@
-%h3
-	="Daily Events for " +  @day_str
+.daily-events-header	
+	%h3
+		="Daily Events for " +  @day_str
 -@daily_events.each do |event|
 	%li.list-style
 		%b= event.title
