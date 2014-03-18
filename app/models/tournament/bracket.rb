@@ -30,4 +30,8 @@ class Tournament::Bracket < ActiveRecord::Base
   validates_with PicksValidator
 
   after_initialize { self.picks ||= [] }
+
+  def complete?
+    picks.compact.length == 63
+  end
 end
