@@ -1,26 +1,26 @@
 <div class="actions">
   <% if @userBracket?: %>
   <a class="button button-flat-primary button-large" href="<%= "#{window.location.pathname}/brackets/#{@userBracket}" %>">My Bracket</a>
-  <% else if not @bracket?: %>
+  <% else if not @tournament.started() and not @bracket?: %>
   <a class="button button-flat-primary button-large" href="<%= "#{window.location.pathname}/brackets/new" %>">Make Bracket</a>
   <% end %>
   <% if not @bracket?.get('editing') and @bracket?.editable(): %>
   <button class="edit button button-flat-highlight button-large" type="button">Edit</button>
   <% end %>
-  <% if @bracket?.get('editing') and not @bracket?.isNew() and @bracket.complete(): %>
+  <% if @bracket?.get('editing') and not @bracket?.isNew(): %>
   <button class="done button button-flat-action button-large" type="button">Done</button>
   <% end %>
 </div>
 
 <div class="clearfix">
   <div class="region region-left region-0">
-    <h3 class="region-name"><%= @tournament.region0 %></h3>
+    <h3 class="region-name"><%= @tournament.get('region0') %></h3>
     <% for round in [1..4]: %>
       <div class="round round-<%= round %>"></div>
     <% end %>
   </div>
   <div class="region region-right region-2">
-    <h3 class="region-name"><%= @tournament.region1 %></h3>
+    <h3 class="region-name"><%= @tournament.get('region2') %></h3>
     <% for round in [4..1]: %>
       <div class="round round-<%= round %>"></div>
     <% end %>
@@ -37,13 +37,13 @@
 
 <div class="clearfix">
   <div class="region region-left region-1">
-    <h3 class="region-name"><%= @tournament.region2 %></h3>
+    <h3 class="region-name"><%= @tournament.get('region1') %></h3>
     <% for round in [1..4]: %>
       <div class="round round-<%= round %>"></div>
     <% end %>
   </div>
   <div class="region region-right region-3">
-    <h3 class="region-name"><%= @tournament.region3 %></h3>
+    <h3 class="region-name"><%= @tournament.get('region3') %></h3>
     <% for round in [4..1]: %>
       <div class="round round-<%= round %>"></div>
     <% end %>

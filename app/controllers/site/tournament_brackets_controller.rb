@@ -27,6 +27,11 @@ class Site::TournamentBracketsController < Site::BaseController
       check_for_existing(@tournament) and return
     end
 
+    if @tournament.started?
+      flash[:error] = "Sorry, you may no longer create a bracket."
+      redirect_to [:site, @tournament] and return
+    end
+
     @bracket = @tournament.brackets.build(session[:tournament_bracket])
     @bracket.tournament = Tournament
       .includes(games: { team1: :article, team2: :article })
@@ -44,16 +49,21 @@ class Site::TournamentBracketsController < Site::BaseController
     end
 
     check_for_existing(@tournament) and return
+    if @tournament.started?
+      flash[:error] = "Sorry, you may no longer create a bracket."
+      redirect_to [:site, @tournament] and return
+    end
 
     @bracket = current_user.brackets.build(
       tournament: @tournament,
       picks: JSON.parse(params[:tournament_bracket][:picks])
     )
     if @bracket.save
-      flash[:success] = "Your bracket has been created"
+      flash[:success] = "Your bracket has been created."
       redirect_to [:site, @tournament, @bracket]
     else
-      render json: @bracket.errors, status: :unprocessable_entity
+      flash[:error] = "There has been an error saving your bracket."
+      redirect_to new_site_tournament_tournament_bracket(@tournament)
     end
   end
 

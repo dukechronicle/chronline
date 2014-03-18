@@ -35,7 +35,7 @@ window.BracketView = Backbone.View.extend
     @$el.find('.region-right').each ->
       $(this).prepend (new BracketLinesView(flipped: true)).render().el
 
-    if @model?.get('editing') and @model?.complete()
+    if @model?.get('editing')
       $form = $('#new_tournament_bracket').clone()
       $form.find('#tournament_bracket_picks').val(
         JSON.stringify(@model.get('picks'))

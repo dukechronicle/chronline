@@ -2,6 +2,7 @@
 
 .rounded
   .bracket-container
+    = render 'site/partials/flash', flash: flash
     %p.challenge-text
       Click
       = link_to "here", challenge_site_tournament_path(@tournament)
