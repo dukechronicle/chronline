@@ -30,6 +30,13 @@ Chronline::Application.routes.draw do
         get 'categories/:category' => 'blog_posts#categories', as: :category
       end
 
+      resources :events, only: [:new, :create, :show, :index], id: Post::SLUG_PATTERN do
+        collection do
+          get '/:year/:month' => 'events#monthly', as: 'month' # TODO: add constraints for correct numbers 
+          get 'change_day'
+          end
+      end
+
       resources :staff, only: :show do
         member do
           get 'articles'
