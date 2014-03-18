@@ -1,4 +1,9 @@
 module Admin::EventsHelper
+
+	def sorted_daily_events(events)
+		events.sort_by!{|e| e.end_date}
+	end
+	
 	def get_day(event)
 		event.start_date.strftime('%d')
 	end
@@ -8,14 +13,20 @@ module Admin::EventsHelper
 	end
 
 	def day_url(key)
+		clicked_on_day = key.strftime("%D")[3..4].to_i
 		return day_admin_events_path(params[:year].to_i, 
 									 params[:month].to_i, 
-									 key[3..4].to_i)
+									 clicked_on_day)
 	end
 
 	def url_back_to_month
 		return month_admin_events_path(params[:year].to_i,
 									   params[:month].to_i)
+	end
+
+	def get_month_url(month)
+		return month_admin_events_path(params[:year].to_i,
+									   month)
 	end
 
 	def url_last_day

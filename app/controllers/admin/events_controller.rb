@@ -16,42 +16,47 @@ class Admin::EventsController < Admin::BaseController
 		end
 	end
 
-	def index
-		@map = get_map(Event.all)
-		@keys = make_keys(2)
-	end
-
 	def monthly
 		@today = get_today
-		@map = get_map(Event.all)
-		@keys = make_keys(params[:month].to_i)
+
+		@year = params[:year].to_i
+		@month = params[:month].to_i
+		@day = Date.today.strftime('%d').to_i
+
+		@daily_events = get_daily_events(@year, @month, @day)
+		@day_str = Date.today.strftime('%A %B %d, %Y')
+
+		@keys = make_keys(@year, @month)
+		@map = get_map(@year, @month, @keys)
 		@front_offset = get_front_offset
 		@end_offset = get_end_offset(@front_offset)
 		@month_name = get_month_name
 	end
 
-	def daily
-		day = Date.new(params[:year].to_i, 
-					   params[:month].to_i, 
-					   params[:day].to_i)
-		@all = Event.all
-		@daily_events = []
-		@all.each {|event| 
-			if (event.start_date.to_date == day)
-				@daily_events.push(event)
-			end
-		}
-		@daily_events.sort_by!{|e| e.start_date}
-		@day_str = day.strftime('%A %B %d, %Y')
+	def change_day
+		day = params['day'].to_i
+		month = params[:month].to_i
+		year = params[:year].to_i
+		date = Date.new(year, month, day)
+		@daily_events = get_daily_events(year, month, day)
+		@day_str = date.strftime('%A %B %d, %Y')
+	end
 
+	def daily
+		year = params[:year].to_i
+		month = params[:month].to_i
+		day = params[:day].to_i
+		date = Date.new(year, month, day)
+		@daily_events = get_daily_events(year, month, day)
+		@day_str = date.strftime('%A %B %d, %Y')
 	end
 
 	private
 
 	def get_month_name
-		return Date.new(params[:year].to_i, 
-						params[:month].to_i, 
-						1).strftime('%B')
+		Date.new(params[:year].to_i, 
+				 params[:month].to_i, 
+				 1).strftime('%B')
 	end
 
 	def get_front_offset
@@ -63,54 +68,42 @@ class Admin::EventsController < Admin::BaseController
 	end
 
 	def get_end_offset(front)
-		num_days = get_num_days(params[:month].to_i)
-		return (35 - num_days - front)
+		num_days = Time.days_in_month(params[:month].to_i, 
+								      params[:year].to_i)
+		if ((get_front_offset + num_days) > 35) 
+		 	return (42 - num_days - front)
+		else
+		 	return (35 - num_days - front) 
+		end
 	end
 
 
-	def get_map(events)
+	def get_map(year, month, keys)
 		map = Hash.new
-		events.each do |event|
-			if !map[to_time(event)]
-				map[to_time(event)] = []
-			end
-			map[to_time(event)].push(event)
-		end
+		keys.each {|key| map[key] = get_daily_events(year, month, key.day) }
 		return map
 	end
 
-	def get_num_days(month)
-		if(month == 2) #Feb
-			return 28
-		elsif (month== 8) #Aug
-			return 31
-		elsif (month < 8 && (month % 2) == 0) #Apr #Jun
-			return 30
-		elsif (month < 8 && (month % 2) != 0) #Jan #Mar #May #July
-			return 31
-		elsif (month > 8 && (month % 2) == 0) #Oct #Dec
-			return 31
-		else #Sep #Nov
-			return 30
-		end
-	end
-
-	def make_keys(month)
-		num_days = get_num_days(month)
-		start_of_month = Date.new(2014, month, 1)
-		end_of_month = Date.new(2014, month, num_days)
-		return (start_of_month.to_date..end_of_month).map{ 
-			|date| date.strftime("%D") }
+	def make_keys(year, month)
+		num_days = Time.days_in_month(month, year)
+		start_of_month = Date.new(year, month, 1)
+		end_of_month = Date.new(year, month, num_days)
+		return start_of_month.to_date..end_of_month
 	end
 
 	def to_time(event)
-		timezone = 'Eastern Time (US & Canada)'
 		event.start_date.strftime('%D')
 	end
 
 	def get_today
-		timezone = 'Eastern Time (US & Canada)'
 		return Time.now.strftime('%D')
+	end
+
+	def get_daily_events(year, month, day)
+		Event.where('EXTRACT(DAY from start_date AT TIME ZONE ?) = ? AND
+									 EXTRACT(MONTH from start_date) = ? AND
+		 						     EXTRACT(YEAR from start_date) = ?', 'IOT',
+		 						     day, month, year).sort_by!{|e| e.start_date}
 	end
 
 end
