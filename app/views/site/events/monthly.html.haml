@@ -1,4 +1,5 @@
-%div#daily-events=render 'daily_events'
+.span-5
+	%div#daily-events=render 'daily_events'
 .outer_calendar
 	.header-container
 		.title-container
@@ -10,32 +11,32 @@
 				=link_to(">", next_month)
 	.clearfix.inner_calendar
 		.weekday-panel
-			-Date::DAYNAMES.each do |name|
+			-Date::ABBR_DAYNAMES.each do |name|
 				%h5.block= name
 		.left_inner
 			-1.upto(@front_offset) do
 				=link_to last_month do
-					.btn.invisible-day-block
+					.invisible-day-block
 			-@keys.each do |key|
 				-if (key == @today)
-					.btn.day-block-today.month-block
+					.day-block-today.month-block
 						%p.day-num=key.day
 						%p.month-num{hidden: true}=@month
 						%p.year-num{hidden: true}=@year
-						%p.num-events
+						%p.num-events.center
 							=@map[key].count
 							events
 				-else
-					.btn.day-block.block.month-block
+					.day-block.block.month-block
 						%p.day-num= key.day
 						%p.month-num{hidden: true}=@month
 						%p.year-num{hidden: true}=@year
-						%p.num-events
+						%p.num-events.center
 							=@map[key].count
 							events
 			-1.upto(@end_offset) do
 				=link_to next_month do
-					.btn.invisible-day-block
+					.invisible-day-block
 
 		.right_inner
 			%li= link_to('Jan', get_month_url(1), class: 'link-style')
