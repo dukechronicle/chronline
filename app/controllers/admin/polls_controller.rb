@@ -1,6 +1,9 @@
 class Admin::PollsController < Admin::BaseController
   def index
-    @polls = Poll.page(params[:page]).order("created_at DESC")
+    @archived_polls = Poll.unscoped.where(archived: true)
+      .page(params[:archived_page])
+    @unarchived_polls = Poll.unscoped.where(archived: false)
+      .page(params[:unarchived_page])
   end
 
   def new
@@ -18,11 +21,11 @@ class Admin::PollsController < Admin::BaseController
   end
 
   def edit
-    @poll = Poll.find(params[:id])
+    @poll = Poll.unscoped.find(params[:id])
   end
 
   def update
-    @poll = update_poll(Poll.find(params[:id]))
+    @poll = update_poll(Poll.unscoped.find(params[:id]))
     if @poll.save
       flash[:success] = "Poll was updated."
       redirect_to edit_admin_poll_url(@poll, subdomain: :admin)
