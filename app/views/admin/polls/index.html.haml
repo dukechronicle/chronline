@@ -1,14 +1,6 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th Title
-      %th Section
-      %th Actions
-  %tbody
-    - @polls.each do |poll|
-      %tr{id: "poll_#{poll.id}"}
-        %td= link_to poll.title, [:edit, :admin, poll]
-        %td= poll.section
-        %td= link_to 'Edit', [:edit, :admin, poll], class: 'btn btn-mini'
-
-= will_paginate
+%h3 Active
+= render 'table', polls: @unarchived_polls
+= will_paginate(@unarchived_polls, param_name: :unarchived_page)
+%h3 Archived
+= render 'table', polls: @archived_polls
+= will_paginate(@archived_polls, param_name: :archived_page)

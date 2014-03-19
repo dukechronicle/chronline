@@ -121,8 +121,9 @@ ActiveRecord::Schema.define(:version => 20140317154029) do
     t.string   "title"
     t.string   "description"
     t.string   "section"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "archived",    :default => false
   end
 
   create_table "posts_authors", :force => true do |t|
