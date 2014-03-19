@@ -16,6 +16,22 @@
 
 .day-num {
 	margin-left: 3px;
+	font-size: 1.2em;
+}
+
+.filter {
+	width: 100%;
+	background-color: white;
+	height: 250px;
+	border: solid 3px $banner-color;
+}
+
+.filter-header {
+	background-color: $banner-color;
+	color: white;
+	text-align: center;
+	padding: 5px;
+	height: 20px;
 }
 
 .center {
@@ -29,13 +45,13 @@
 
 #daily-events {
 	background-color: white;
-	h3 {
+	h5 {
 		text-align: center;
 		color: white;
 		margin-top: 0px;
-		font-size: 1.5em;
 		margin-bottom: 0px;
 	}
+	margin-bottom: 20px;
 	float: left;
 	width: 100%;
 	border: solid 3px $banner-color;
@@ -43,11 +59,12 @@
 
 .daily-events-header {
 	background-color: $banner-color;
-	padding: 10px;
+	padding: 5px;
 }
 
 .outer_calendar {
-	width: 510px;
+	width: 100%;
+	margin-bottom: 10px;
 }
 
 .header-container {
@@ -63,10 +80,10 @@
 
 .month-container {
 	text-align: center;
-	width: 180px;
+	width: 150px;
 	height: 30px;
 	float: right;
-	margin-right: 170px;
+	margin-right: 210px;
 }
 
 .title-container {
@@ -101,18 +118,33 @@
 	margin-left: 10px;
 	font-weight: bold;
 	.block {
-		width: 62px;
+		width: 68px;
 		text-align: center;
 		float: left;
-		margin-top: 5px;
-		margin-bottom: 5px;
+		margin-top: 2px;
+		margin-bottom: 2px;
 	}
 }
 
 .left_inner {
 	margin-left: 10px;
-	width: 450px;
+	width: 495px;
 	float: left;
+}
+
+.filter-list {
+	list-style: none;
+}
+
+.option {
+	padding: 3px;
+	text-align: center;
+	border-top: solid 1px LightGray;
+	margin-bottom: 3px;
+}
+
+.final {
+	border-bottom: solid 1px LightGray;
 }
 
 .link-style {
@@ -126,14 +158,13 @@
 
 .right_inner {
 	float: left;
-	font-size: 1.1em;
 	font-weight: bold;
 	color: white;
-	margin-bottom: 20px;
+	margin-bottom: 18px;
 	li {
 		list-style: none;
-		margin-bottom: 9px;
-		margin-top: 9px;
+		margin-bottom: 3px;
+		margin-top: 3px;
 	}
 }
 
@@ -145,9 +176,9 @@
 }
 
 .day-block {
-	width: 60px;
+	width: 65px;
 	border-radius: 5px;
-	height: 70px;
+	height: 50px;
 	border: solid 2px Gray;
 	float:left;
 	p {
@@ -156,9 +187,9 @@
 }
 
 .day-block-today {
-	width: 60px;
+	width: 65px;
 	border: 3px solid $banner-color;
-	height: 70px;
+	height: 50px;
 	float:left;
 	p {
 		margin-bottom: 0px;
@@ -167,9 +198,9 @@
 
 
 .invisible-day-block {
-	width: 60px;
+	width: 65px;
 	border-radius: 5px;
-	height: 70px;
+	height: 50px;
 	border: solid 2px Gray;
 	float:left;
 	background-color: LightGray;
