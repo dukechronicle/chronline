@@ -32,7 +32,7 @@
     <h3>
       <% if @game.get('start_time'): %>
       <time datetime="<%= @game.get('start_time') %>">
-        <%= @game.formatStartTime('mmmm d') %>
+        <%= @game.formatStartTime('mmmm d, h:MM TT Z') %>
       </time>
       <% end %>
     </h3>
