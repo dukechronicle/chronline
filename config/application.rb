@@ -70,6 +70,9 @@ module Chronline
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
+    ActionMailer::Base.default({
+      from: "#{ENV['SMTP_FROM_NAME']} <#{ENV['SMTP_FROM_EMAIL']}>"
+    })
 
     # Use Redis cache store
     config.cache_store = :redis_store, {
