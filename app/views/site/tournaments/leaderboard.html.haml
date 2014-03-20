@@ -13,18 +13,18 @@
               %th Champion
               %th Score
           %tbody
+            - if @display_user_bracket
+              %tr.user-row.highlighted
+                %td= @user_bracket.rank
+                %td= link_to current_user.name, [:site, @tournament, @user_bracket]
+                %td= @user_bracket.champion.try(:school)
+                %td= @user_bracket.score
             - @brackets.each do |bracket, rank, champion|
               %tr{class: ('highlighted' if bracket.user == current_user)}
                 %td= rank
                 %td= link_to bracket.user.name, [:site, @tournament, bracket]
                 %td= champion.try(:school)
                 %td= bracket.score
-            - if @display_user_bracket
-              %tr.final-row.highlighted
-                %td= @user_bracket.rank
-                %td= link_to current_user.name, [:site, @tournament, @user_bracket]
-                %td= @user_bracket.champion.try(:school)
-                %td= @user_bracket.score
 
   .span-4.last
     = render 'site/partials/advertisement', zone: :medium_rectangle
