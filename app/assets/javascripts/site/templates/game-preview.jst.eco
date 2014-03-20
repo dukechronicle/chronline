@@ -30,7 +30,10 @@
   <div class="game-info">
     <div class="versus"></div>
     <h3>
-      <% if @game.get('start_time'): %>
+      <% if @game.get('final'): %>
+      <p class="final-score-text">Final Score:</p>
+      <p class="final-score"><%= @game.get('score1') %> - <%= @game.get('score2') %></p>
+      <% else if @game.get('start_time'): %>
       <time datetime="<%= @game.get('start_time') %>">
         <%= @game.formatStartTime('mmmm d, h:MM TT Z') %>
       </time>
