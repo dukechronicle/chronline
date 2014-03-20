@@ -50,11 +50,19 @@ class Tournament < ActiveRecord::Base
       end
       rank
     end
-    brackets.zip(ranks)
+    brackets.zip(ranks, fetch_champions(brackets))
   end
 
   private
   def name_and_event
     "#{name} #{event}"
+  end
+
+  def fetch_champions(brackets)
+    ids = brackets.map { |bracket| bracket.picks[62] }.compact
+    teams = Tournament::Team.where(id: ids)
+    teams = teams.map { |team| [team.id, team] }
+    teams = Hash[teams]
+    brackets.map { |bracket| teams[bracket.picks[62]] }
   end
 end

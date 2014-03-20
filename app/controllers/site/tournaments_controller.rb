@@ -45,7 +45,9 @@ class Site::TournamentsController < Site::BaseController
     brackets = Hash[brackets]
     tournament.featured.each do |info|
       info['bracket'] = brackets[info['id']]
-      info['champion'] = Tournament::Team.find(info['bracket'].picks.compact.last)
+      if info['bracket'].picks[62]
+        info['champion'] = Tournament::Team.find(info['bracket'].picks[62])
+      end
     end
   end
 end
