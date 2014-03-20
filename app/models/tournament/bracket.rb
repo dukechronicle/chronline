@@ -34,4 +34,16 @@ class Tournament::Bracket < ActiveRecord::Base
   def complete?
     picks.compact.length == 63
   end
+
+  def calculate_score
+    games = tournament.games.sort_by(&:position)
+    self.score = games.zip(picks).reduce(0) do |score, item|
+      game = item[0]; pick = item[1]
+      if game.final && game.winner.id == pick
+        score + 2 ** (game.round - 1)
+      else
+        score
+      end
+    end
+  end
 end
