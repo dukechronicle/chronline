@@ -1,4 +1,4 @@
-<div class="team team-1 <%= 'team-selectable' if @selectable %> <%= @selectedClass if @winner? and @winner.id == @team1?.id %> <%= 'incorrect' if @team1? and !@game.possibleWinner(@team1) %>">
+<div class="team team-1 <%= 'team-selectable' if @selectable %> <%= @selectedClass if @winner? and @winner.id == @team1?.id %> <%= 'incorrect' if @team1?.roundEliminated(@game.collection) and @game.round() > @team1.roundEliminated(@game.collection) %>">
   <div class="seed">
     <%= @team1?.get('seed') %>
   </div>
@@ -13,7 +13,7 @@
     <% end %>
   </div>
 </div>
-<div class="team team-2 <%= 'team-selectable' if @selectable %> <%= @selectedClass if @winner? and @winner.id == @team2?.id %> <%= 'incorrect' if @team2? and !@game.possibleWinner(@team2) %>">
+<div class="team team-2 <%= 'team-selectable' if @selectable %> <%= @selectedClass if @winner? and @winner.id == @team2?.id %> <%= 'incorrect' if @team2?.roundEliminated(@game.collection) and @game.round() > @team2.roundEliminated(@game.collection) %>">
   <div class="seed">
     <%= @team2?.get('seed') %>
   </div>
