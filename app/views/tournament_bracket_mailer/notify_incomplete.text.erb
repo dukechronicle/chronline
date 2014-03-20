@@ -1,0 +1,7 @@
+Hello <%= @bracket.user.first_name %>,
+
+I wanted to let you know that your bracket on the Chronicle is not complete. Please finish making your selections before the tournament begins on <%= @start_time.strftime('%A, %B %-d') %> at <%= @start_time.strftime('%l:%M %p %Z') %>.
+
+To edit your bracket, please sign into the Chronicle and visit <%= site_tournament_tournament_bracket_url(@bracket.tournament, @bracket, subdomain: 'www') %>.
+
+Thank you for participating and good luck!
