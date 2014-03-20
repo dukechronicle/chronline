@@ -38,6 +38,19 @@ class Tournament < ActiveRecord::Base
     DateTime.now > start_date
   end
 
+  def top_brackets(limit)
+    brackets = self.brackets.order('score DESC').limit(limit)
+
+    rank = 1
+    ranks = brackets.each_with_index.map do |bracket, i|
+      if i > 0 && bracket.score < brackets[i - 1].score
+        rank = i + 1
+      end
+      rank
+    end
+    brackets.zip(ranks)
+  end
+
   private
   def name_and_event
     "#{name} #{event}"
