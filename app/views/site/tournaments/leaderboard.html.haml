@@ -1,0 +1,27 @@
+- provide :title, "#{@tournament.full_name} Leaderboard"
+
+.clearfix
+  .span-8
+    .rounded
+      .article-container
+        %h1 Leaderboard
+        %table.striped.tournament-leaderboard
+          %thead
+            %tr
+              %th Rank
+              %th Player
+              %th Score
+          %tbody
+            - @brackets.each do |bracket, rank|
+              %tr{class: ('highlighted' if bracket.user == current_user)}
+                %td= rank
+                %td= link_to bracket.user.name, [:site, @tournament, bracket]
+                %td= bracket.score
+            - if @display_user_bracket
+              %tr.final-row.highlighted
+                %td= 100
+                %td= link_to current_user.name, [:site, @tournament, @user_bracket]
+                %td= @user_bracket.score
+
+  .span-4.last
+    = render 'site/partials/advertisement', zone: :medium_rectangle

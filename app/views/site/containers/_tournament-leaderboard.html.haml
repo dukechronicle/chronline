@@ -1,8 +1,0 @@
-%h2.vertical-label Leaderboard
-.rounded
-  .content-container
-    %ol.tournament-leaderboard
-      - tournament.brackets.includes(:user).order('score DESC').limit(25).each do |bracket|
-        %li
-          = link_to bracket.user.name, [:site, tournament, bracket], class: ('highlighted' if bracket.user == current_user)
-          (#{bracket.score})
