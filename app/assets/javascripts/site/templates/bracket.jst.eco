@@ -14,7 +14,7 @@
     <% if not @bracket?.get('editing') and @bracket?.editable(): %>
     <button class="edit button button-flat-highlight button-large" type="button">Edit</button>
     <% else if @bracket? and @tournament.started(): %>
-    <div class="score">
+    <div class="bracket-score">
       <strong>Score:</strong> <%= @bracket.get('score') %>
     </div>
     <% end %>
