@@ -39,7 +39,7 @@ class Tournament < ActiveRecord::Base
   end
 
   def top_brackets(limit)
-    brackets = self.brackets.order('score DESC').limit(limit)
+    brackets = self.brackets.includes(:user).order('score DESC').limit(limit)
 
     rank = 1
     ranks = brackets.each_with_index.map do |bracket, i|

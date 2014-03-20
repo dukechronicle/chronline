@@ -48,7 +48,10 @@ Chronline::Application.routes.draw do
       end
 
       resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN do
-        get 'challenge', on: :member
+        member do
+          get 'challenge'
+          get 'leaderboard'
+        end
       end
       resources :tournaments, only: :none do
         resources :tournament_brackets, except: :edit, path: 'brackets',

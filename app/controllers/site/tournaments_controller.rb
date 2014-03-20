@@ -23,4 +23,14 @@ class Site::TournamentsController < Site::BaseController
   def challenge
     @tournament = Tournament.find(params[:id])
   end
+
+  def leaderboard
+    @tournament = Tournament.find(params[:id])
+    @brackets = @tournament.top_brackets(25)
+    if user_signed_in?
+      @user_bracket = @tournament.brackets.find_by_user_id(current_user.id)
+      @display_user_bracket = @user_bracket &&
+        !@brackets.map(&:first).include?(@user_bracket)
+    end
+  end
 end
