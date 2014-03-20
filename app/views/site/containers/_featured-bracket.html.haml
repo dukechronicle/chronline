@@ -1,10 +1,10 @@
 .rounded.featured-bracket
   .content-container
-    %h3.name= bracket_info['bracket'].user.name
+    %h3.name= link_to bracket_info['bracket'].user.name, [:site, tournament, bracket_info['bracket']]
     %p.title= bracket_info['position']
     %p
       %strong Champion:
-      = bracket_info['champion'].school
+      = bracket_info['champion'].try(:school)
     %p
       %strong Rank:
       = bracket_info['bracket'].rank
