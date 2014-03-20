@@ -6,6 +6,7 @@ window.BracketGameView = GameView.extend
 
   events:
     'dblclick': 'showPreview'
+    'click': 'showPreviewUnlessEditing'
     'click .team-selectable.team-1': 'selectTeam1'
     'click .team-selectable.team-2': 'selectTeam2'
 
@@ -14,6 +15,9 @@ window.BracketGameView = GameView.extend
 
   teams: ->
     @bracket.teamsInGame(@model)
+
+  showPreviewUnlessEditing: ->
+    this.showPreview() unless this.get('editing')
 
   selectTeam1: ->
     [team1, team2] = this.teams()
