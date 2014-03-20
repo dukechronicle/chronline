@@ -27,10 +27,25 @@ class Site::TournamentsController < Site::BaseController
   def leaderboard
     @tournament = Tournament.find(params[:id])
     @brackets = @tournament.top_brackets(25)
+    fetch_featured_brackets(@tournament)
     if user_signed_in?
       @user_bracket = @tournament.brackets.find_by_user_id(current_user.id)
       @display_user_bracket = @user_bracket &&
         !@brackets.map(&:first).include?(@user_bracket)
+    end
+  end
+
+  private
+  def fetch_featured_brackets(tournament)
+    ids = tournament.featured.map { |info| info['id'] }
+    brackets = tournament.brackets.includes(:user).where(id: ids)
+    brackets = brackets.map do |bracket|
+      [bracket.id, bracket]
+    end
+    brackets = Hash[brackets]
+    tournament.featured.each do |info|
+      info['bracket'] = brackets[info['id']]
+      info['champion'] = Tournament::Team.find(info['bracket'].picks.compact.last)
     end
   end
 end

@@ -19,9 +19,11 @@
                 %td= bracket.score
             - if @display_user_bracket
               %tr.final-row.highlighted
-                %td= 100
+                %td= @user_bracket.rank
                 %td= link_to current_user.name, [:site, @tournament, @user_bracket]
                 %td= @user_bracket.score
 
   .span-4.last
     = render 'site/partials/advertisement', zone: :medium_rectangle
+    - @tournament.featured.each do |bracket_info|
+      = render 'site/containers/featured-bracket', bracket_info: bracket_info

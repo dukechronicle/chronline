@@ -35,6 +35,10 @@ class Tournament::Bracket < ActiveRecord::Base
     picks.compact.length == 63
   end
 
+  def rank
+    tournament.brackets.where('score > ?', score).count
+  end
+
   def calculate_score
     games = tournament.games.sort_by(&:position)
     self.score = games.zip(picks).reduce(0) do |score, item|

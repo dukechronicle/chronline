@@ -1,0 +1,13 @@
+.rounded.featured-bracket
+  .content-container
+    %h3.name= bracket_info['bracket'].user.name
+    %p.title= bracket_info['position']
+    %p
+      %strong Champion:
+      = bracket_info['champion'].school
+    %p
+      %strong Rank:
+      = bracket_info['bracket'].rank
+    %p
+      %strong Score:
+      = bracket_info['bracket'].score
