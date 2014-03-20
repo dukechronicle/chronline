@@ -25,6 +25,15 @@ window.BracketGameView = GameView.extend
 
   render: ->
     [team1, team2] = this.teams()
+    winner = @bracket.winnerForGame(@model)
+    actualWinner = @model.winner()
+    selectedClass =
+      if actualWinner? and actualWinner.id == winner.id
+        'selected correct'
+      else if actualWinner?
+        'selected incorrect'
+      else
+        'selected'
     @$el.html(
       @template(
         game: @model
@@ -32,6 +41,7 @@ window.BracketGameView = GameView.extend
         selectable: @bracket.get('editing')
         team1: team1
         team2: team2
+        selectedClass: selectedClass
       )
     )
     this
