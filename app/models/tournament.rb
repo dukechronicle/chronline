@@ -5,7 +5,7 @@ class Tournament < ActiveRecord::Base
   friendly_id :name_and_event, use: [:slugged, :chronSlug]
 
 
-  attr_accessible :name, :event, :start_date, :challenge_text, :featured
+  attr_accessible :name, :event, :start_date, :challenge_text
   # TODO: Use Postgres array type on switch to Rails 4
   attr_accessible :region0, :region1, :region2, :region3
 
