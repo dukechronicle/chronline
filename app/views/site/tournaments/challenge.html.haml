@@ -7,4 +7,6 @@
         .article-body!= @tournament.challenge_text
 
   .span-4.last
-    = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+    = render 'site/partials/advertisement', zone: :medium_rectangle
+    - if @tournament.started?
+      = render 'site/containers/tournament-leaderboard', tournament: @tournament
