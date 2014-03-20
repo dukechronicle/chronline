@@ -1,4 +1,4 @@
-<div class="team team-1 <%= 'team-selectable' if @selectable %> <%= 'selected' if @winner? and @winner.id == @team1?.id %>">
+<div class="team team-1 <%= 'team-selectable' if @selectable %> <%= @selectedClass if @winner? and @winner.id == @team1?.id %> <%= 'incorrect' if @team1? and !@game.possibleWinner(@team1) %>">
   <div class="seed">
     <%= @team1?.get('seed') %>
   </div>
@@ -6,9 +6,14 @@
     <span class="name">
       <%= @team1?.get('shortname') %>
     </span>
+    <% if @game.get('score1')?: %>
+      <span class="score">
+        <%= @game.get('score1') %>
+      </span>
+    <% end %>
   </div>
 </div>
-<div class="team team-2 <%= 'team-selectable' if @selectable %> <%= 'selected' if @winner? and @winner.id == @team2?.id %>">
+<div class="team team-2 <%= 'team-selectable' if @selectable %> <%= @selectedClass if @winner? and @winner.id == @team2?.id %> <%= 'incorrect' if @team2? and !@game.possibleWinner(@team2) %>">
   <div class="seed">
     <%= @team2?.get('seed') %>
   </div>
@@ -16,5 +21,10 @@
     <span class="name">
       <%= @team2?.get('shortname') %>
     </span>
+    <% if @game.get('score2')?: %>
+      <span class="score">
+        <%= @game.get('score2') %>
+      </span>
+    <% end %>
   </div>
 </div>

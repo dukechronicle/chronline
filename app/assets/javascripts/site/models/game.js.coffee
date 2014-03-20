@@ -15,6 +15,15 @@ window.Game = Backbone.Model.extend
       2 * (this.get('position') - this._firstGameInRound())
     @collection.at(position)
 
+  possibleWinner: (team) ->
+    winner = this.winner()
+    team1 = this.team1()
+    team2 = this.team2()
+    (team1? and team1.id == team.id) or
+    (team2? and team2.id == team.id) or
+    (not team1? and not this.firstRound() and this.game1().possibleWinner(team)) or
+    (not team2? and not this.firstRound() and this.game2().possibleWinner(team))
+
   next: ->
     position = this._firstGameInNextRound() +
       Math.floor((this.get('position') - this._firstGameInRound()) / 2)
