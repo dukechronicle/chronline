@@ -36,7 +36,7 @@ class Tournament::Bracket < ActiveRecord::Base
   end
 
   def rank
-    tournament.brackets.where('score > ?', score).count
+    tournament.brackets.where('score > ?', score).count + 1
   end
 
   def calculate_score
