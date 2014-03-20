@@ -23,6 +23,7 @@
               %tr.final-row.highlighted
                 %td= @user_bracket.rank
                 %td= link_to current_user.name, [:site, @tournament, @user_bracket]
+                %td= @user_bracket.champion.try(:school)
                 %td= @user_bracket.score
 
   .span-4.last
