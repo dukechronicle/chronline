@@ -33,9 +33,9 @@ describe Api::PostsController do
 
       context "with metadata" do
         before do
-          post_attrs[:metadata] = {
+          post_attrs[:metadata] = [{
             embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'
-          }
+          }]
           post api_posts_url(subdomain: :api), { post: post_attrs },
             'HTTP_AUTHORIZATION' => http_auth(@user)
         end
