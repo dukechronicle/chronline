@@ -91,10 +91,11 @@ class Api::PostsController < Api::BaseController
     Staff.find_or_create_by_name('Staff Reports')
   end
 
+  # Metadata request comes as array of hashes
+  # [{attr: value}, ...]
   def add_metadata(post, metadata)
     if metadata
-      metadata = Hash[*metadata.map{ |attr| attr.to_a }.flatten] if metadata
-      post.assign_attributes(metadata)
+      metadata.each { |attr| post.assign_attributes(attr) }
     end
   end
 end
