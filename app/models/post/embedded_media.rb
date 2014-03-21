@@ -1,4 +1,3 @@
-require 'json'
 class Post
   class EmbeddedMediaException < StandardError; end
   class EmbeddedMedia
@@ -39,10 +38,14 @@ class Post
 
       execute_queries
 
-      float_left = true
+      float_right = true
       @rendered = @body.gsub(/{{([a-zA-Z]*):([^\}]*?)}}/) do |t|
-        float_left = !float_left
-        tags.shift.to_html(float: float_left ? :left : :right)
+        tag = tags.shift
+        float =
+          if !tag.full_width?
+            (float_right = !float_right) ? :right : :left
+          end
+        tag.figure_html(float)
       end
     end
 
