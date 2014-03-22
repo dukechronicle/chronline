@@ -29,10 +29,7 @@ namespace :espn do
     end
 
     if updated
-      tournament.brackets.find_each do |bracket|
-        bracket.calculate_score
-        bracket.save!
-      end
+      tournament.update_brackets!
     end
   end
 

@@ -53,6 +53,15 @@ class Tournament < ActiveRecord::Base
     brackets.zip(ranks, fetch_champions(brackets))
   end
 
+  def update_brackets!
+    self.brackets
+      .includes(tournament: { games: [:team1, :team2] })
+      .find_each do |bracket|
+      bracket.calculate_score
+      bracket.save!
+    end
+  end
+
   private
   def name_and_event
     "#{name} #{event}"
