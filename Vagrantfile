@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
   config.vm.provision :shell, :path => "script/bootstrap.sh", privileged: false
   config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.synced_folder ".", "/home/vagrant/chronline"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
