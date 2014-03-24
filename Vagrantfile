@@ -11,6 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise64"
+  config.vm.provision :shell, :path => "script/lang.sh", privileged: false
   config.vm.provision :shell, :path => "script/bootstrap.sh", privileged: false
   config.vm.network :forwarded_port, guest: 3000, host: 3000
   config.vm.synced_folder ".", "/home/vagrant/chronline"
