@@ -36,7 +36,7 @@
           %h2= taxonomy.name
       %a{href: site_blogs_path, class: ("active" if @taxonomy.try(:taxonomy) == :blogs)}
         %h2 Blogs
-      %a{href: site_galleries_path, class: ("active" if @galleries || @gallery)}
+      %a{href: "http://shutter.dukechronicle.com/", class: ("active" if @galleries || @gallery)}
         %h2 Photos
       %a{href: "/tournaments/ncaa-mens-basketball/2014"}
         %h2 March Madness
