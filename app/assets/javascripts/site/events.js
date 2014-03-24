@@ -1,3 +1,12 @@
+$('.filter-box').click(function() {
+	var filters = [];
+	$(this).parent().find('.checkbox').each(function(index) {
+		if(index.prop('checked')) {
+			filters.push(index.text());
+		}
+	});
+});
+
 $('.month-block').click(function(){
 	day = $(this).find('.day-num').text();
 	month = $(this).find('.month-num').text();

@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20140207025851) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
+    t.string   "filter"
     t.text     "content"
     t.datetime "start_date"
     t.datetime "end_date"

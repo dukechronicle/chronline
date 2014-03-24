@@ -4,6 +4,9 @@
   = f.error_notification
   .form-inputs
     = f.input :title
+    %div.select-filter
+      Event Filter:
+      = f.select :filter, options_for_select([['Sports', 'Sports'], ['Music/Fine Arts', 'Music/Fine Arts'], ['Academic', 'Academic']])
     = f.input :content, input_html: {rows: 5}
     = f.input :start_date
     = f.input :end_date
