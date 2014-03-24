@@ -35,10 +35,10 @@ SocialShare = Backbone.View.extend
   toggleEnabled: (e) ->
     e.preventDefault()
     if @model.get('enabled')
-      $.cookie('disable-sharing', true, expires: 365 * 50)
+      $.cookie('disable-sharing', true, expires: 365 * 50, path: '/')
       @model.set('enabled', false)
     else
-      $.cookie('disable-sharing', '', expires: 365 * 50)
+      $.removeCookie('disable-sharing', path: '/')
       @model.set('enabled', true)
       this.delayedReadArticle()
 
