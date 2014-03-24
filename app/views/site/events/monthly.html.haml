@@ -6,9 +6,15 @@
 			.filter
 				%h5.filter-header Events Filter
 				%ol.filter-list
-					%li.option Sports
-					%li.option Music/Arts
-					%li.option.final Academic 
+					%div.filter-box
+						%input{:type => 'checkbox', :class => 'checkbox'}
+						Sports
+					%div.filter-box
+						%input{:type => 'checkbox', :class => 'checkbox'}
+						Music/Fine Arts
+					%div.filter-box
+						%input{:type => 'checkbox', :class => 'checkbox'}
+						Academic
 		.span-4.last= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle} 
 		.clearfix.align-group
 			.span-7

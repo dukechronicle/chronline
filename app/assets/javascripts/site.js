@@ -11,3 +11,4 @@
 //= require common/local-time
 //= require_tree ./site
 //= require lightbox2/js/lightbox-2.6.min
+//= require iCheck/icheck.js
