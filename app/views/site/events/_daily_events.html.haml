@@ -2,7 +2,7 @@
 	%h5
 		="Daily Events for " +  @day_str
 -@daily_events.each do |event|
-	%li.list-style
+	%li.list-style.list-event
 		%b= event.title
 		=" at " + get_time(event)
 		%p= event.content
