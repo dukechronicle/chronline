@@ -1,3 +1,17 @@
+var Event = Backbone.Model.extend({
+	
+
+});
+console.log(new Event());
+
+var EventsList = Backbone.Marionette.CollectionVew.extend({
+
+});
+
+var Calendar = Backbone.View.extend({
+
+});
+
 $('.filter-box').click(function() {
 	var filters = [];
 	$(this).parent().find('.checkbox').each(function(index) {
