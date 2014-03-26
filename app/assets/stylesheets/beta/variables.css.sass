@@ -1,8 +1,10 @@
 /* Chronicle Color Pallate */
 $chron-blue: #031a32
 $chron-blue-accent: #083e8c
+$chron-blue-highlight: #0065cb
 $chron-gray-dark: #aaa
-$chron-gray-light: #e4e4e4
+$chron-gray-medium: #e4e4e4
+$chron-gray-light: #f2f2f2
 $chron-gray-border: #ddd
 $chron-text: #222
 $chron-text-white: white
@@ -11,6 +13,8 @@ $chron-font-serif: "freight-text-pro", "times", serif
 $chron-font-sans: "din-condensed-web", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !default
 
 /* Foundation SCSS Variables */
+$primary-color: $chron-blue-accent
+
 /*Header Fonts*/
 $header-font-family: $chron-font-serif
 /*$header-font-weight: bold */
@@ -31,15 +35,22 @@ $body-font-family: $chron-font-sans
 
 /*Anchors*/
 $anchor-text-decoration: none
-$anchor-font-color: $chron-blue-accent
-$anchor-font-color-hover: scale-color($chron-blue-accent, $lightness: 25%)
+$anchor-font-color: $primary-color
+$anchor-font-color-hover: $chron-blue-highlight
+
 
 /*Topbar (header)*/
-$topbar-bg: $chron-blue
-$topbar-title-font-size: 2em
-$topbar-link-bg-active: $chron-blue-accent
-$topbar-link-bg-active-hover: scale-color($chron-blue-accent, $lightness: -14%)
-$topbar-link-bg-hover: $chron-blue-accent
+$topbar-bg: $chron-gray-light
+$topbar-dropdown-bg: $chron-gray-medium
+$topbar-title-font-size: 2.5rem
+$topbar-link-color: $chron-blue-accent
+$topbar-link-color-hover: $chron-blue-highlight
+$topbar-link-color-active: $chron-blue-accent
+$topbar-link-color-active-hover: $chron-blue-highlight
+$topbar-link-font-size: 1.2rem
+$topbar-link-bg-hover: $chron-gray-medium
+$topbar-link-bg-active: $chron-gray-medium
+$topbar-link-bg-active-hover: $chron-gray-medium
 
 /*Section spacing*/
 $page-section-spacing: 0.9375rem
