@@ -1,24 +1,22 @@
 header#super-header
-  nav.nav-main
-    opacity: .9
-    .nav-sections, .search-section
-      text-transform: uppercase
-      letter-spacing: 3px
-      a
-        font-weight: 500
-    .nav-sections, .search-section, .title-area
-      li.active a
-        background: $chron-blue-accent
-        color: $chron-text-white
-        &:hover
-          background: scale-color($chron-blue-accent, $lightness: -14%)
-    .divider
-      border-color: scale-color($chron-blue, $lightness: 14%)
-    .search-section
-      input
-        top: auto
-      ul.dropdown
-        width: 300px
   .header-advertisement
     padding-top: $page-section-spacing
     padding-bottom: $page-section-spacing
+  .contain-to-grid
+    background: transparent
+  ul.title-area
+    background: $chron-blue-accent
+    h1
+      a
+        color: $chron-gray-light
+        &:hover
+          color: $chron-text-white
+    &:hover
+      background: $chron-blue-highlight
+  nav
+    height: auto
+  nav.nav-main-secondary
+    text-transform: uppercase
+    letter-spacing: 3px
+    a
+      font-weight: 500
