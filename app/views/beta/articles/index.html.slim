@@ -1,5 +1,14 @@
 .page-main-wrap
-  .row
+  .row.page-container
     section.columns.small-8
       = render partial: 'beta/containers/article-list', locals: {articles: @articles, style: nil, notime: false} 
-    aside.columns.small-4 Ads!
+      = will_paginate
+    aside.page-sidebar.columns.small-4
+      = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+      - if @popular.present?
+        render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
+      = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+      = render 'beta/partials/facebook-recommended'
+      = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+
+
