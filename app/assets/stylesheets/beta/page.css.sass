@@ -38,10 +38,11 @@ header.page-header
   .header-title
     padding-top: $page-section-spacing
     h1
-      font-size: 4rem
+      font-size: 3.5rem
     .subtitle
-      font-size: 2rem
-      line-height: 2rem
+      font-size: 1.6rem
+      line-height: 1.6rem
+      margin-bottom: 1rem
   .header-byline
     .date
       color: $chron-gray-dark
@@ -70,6 +71,25 @@ main.page-body
   background-color: #4099ff
 .header-widget-gplus
   background-color: #d34836
+
+.feature-comments
+  position: absolute
+  right: 0
+  bottom: 0
+  .feature-comments-count a
+    padding: 5px
+    background-color: $chron-blue-accent
+    font-size: 1.6rem
+    color: $chron-text-white
+    border: none
+    display: block
+    &:hover
+      color: $chron-gray-light
+      border: none
+      background-color: $chron-blue-highlight
+  .feature-comments-banner
+    padding: 5px
+    text-align: right
 
 .page-sidebar
   //background-color: $chron-blue
