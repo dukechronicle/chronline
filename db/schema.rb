@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140320032226) do
+ActiveRecord::Schema.define(:version => 20140327153653) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -59,9 +59,10 @@ ActiveRecord::Schema.define(:version => 20140320032226) do
     t.string   "name"
     t.string   "slug"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.date     "date"
+    t.string   "primary_image_id"
   end
 
   add_index "galleries", ["slug"], :name => "index_galleries_on_slug", :unique => true
