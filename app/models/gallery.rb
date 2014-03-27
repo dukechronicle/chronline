@@ -1,13 +1,14 @@
 class Gallery < ActiveRecord::Base
   include FriendlyId
   SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
-  friendly_id :name, use: [:slugged, :history, :chronSlug]
+  friendly_id :name, use: [:slugged, :chronSlug]
 
   self.primary_key = :gid
   self.per_page = 25
 
-  attr_accessible :name, :gid, :description, :section, :images, :date
+  attr_accessible :name, :gid, :description, :section, :images, :date, :primary_image_id
 
+  belongs_to :primary_image, class_name: "Gallery::Image"
   has_many :images, class_name: "Gallery::Image", primary_key: "gid",
            foreign_key: "gid", dependent: :destroy
   validates :name, presence: true
