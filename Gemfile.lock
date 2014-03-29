@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/dukechronicle/jade.git
+  revision: 29028034ab480a3c0ecb070f803f5046cc8c717b
+  specs:
+    jade (0.1.1)
+      execjs
+      sprockets
+      tilt
+
+GIT
   remote: git://github.com/mbleigh/subdomain-fu.git
   revision: dfbd86448694e019a805830f0866599da7e2bae1
   specs:
@@ -185,10 +194,6 @@ GEM
     image_optim_bin (0.0.2)
     image_size (1.1.2)
     in_threads (1.1.1)
-    jade (0.1.1)
-      execjs
-      sprockets
-      tilt
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -465,7 +470,7 @@ DEPENDENCIES
   htmlentities
   httparty
   image_optim_bin
-  jade
+  jade!
   jquery-rails
   json-schema (~> 1.1.1)
   mock_redis
