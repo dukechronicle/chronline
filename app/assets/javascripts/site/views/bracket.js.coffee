@@ -30,9 +30,9 @@ window.BracketView = Backbone.View.extend
       )
     )
 
-    @$el.find('.region-left').each ->
+    @$el.find('.region-0, .region-1').each ->
       $(this).prepend (new BracketLinesView(flipped: false)).render().el
-    @$el.find('.region-right').each ->
+    @$el.find('.region-2, .region-3').each ->
       $(this).prepend (new BracketLinesView(flipped: true)).render().el
 
     if @model?.get('editing')
