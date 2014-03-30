@@ -1,28 +1,16 @@
 header#super-header
-  aside.header-advertisement.row
-    .custom_ad.columns.show-for-large-up.large-4= advertisement :custom
-    .leaderboard.columns.small-12.medium-12.large-8= advertisement :leaderboard
-  .contain-to-grid
-    nav.nav-main.top-bar[data-topbar]
-      ul.title-area
-        li.name
-          h1.chron-title= link_to "The Chronicle", site_root_path
-      section.top-bar-section.top-bar-section-first
-        ul.right.search-section
-          li.has-form
-            = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
-                .large-8.small-9.columns
-                  = f.search_field :query, placeholder: 'Search articles and authors'
-                .large-4.small-3.columns
-                  input.button.expand[type="submit" value="Go"]
-    .sticky
-      nav.nav-main-secondary.top-bar[data-topbar]
+  .contain-to-grid.sticky
+      nav.top-bar[data-topbar]
         ul.title-area
           li.name
-            h1.chron-title= link_to "C", site_root_path
+            h1.chron-title
+              a[href=site_root_path]
+                span.sticky-hide The 
+                | C
+                span.sticky-hide hronicle
           li.toggle-topbar.menu-icon
             a[href="#"] Menu
-        section.top-bar-section.top-bar-section-row
+        section.top-bar-section
           ul.left.nav-sections
             - Taxonomy.top_level(:sections).each do |taxonomy|
               li[class= ("active" if @taxonomy && @taxonomy <= taxonomy)]
@@ -31,3 +19,13 @@ header#super-header
               a[href= site_blogs_path] Blogs
             li
               a[href="http://shutter.dukechronicle.com"] Photos
+          ul.right.search-section
+            li.has-form
+              = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
+                  .large-8.small-9.columns
+                    = f.search_field :query, placeholder: 'Search articles and authors'
+                  .large-4.small-3.columns
+                    input.button.expand[type="submit" value="Go"]
+  aside.header-advertisement.row
+    .custom_ad.columns.show-for-large-up.large-4= advertisement :custom
+    .leaderboard.columns.small-12.medium-12.large-8= advertisement :leaderboard

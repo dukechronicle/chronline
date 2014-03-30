@@ -2,18 +2,24 @@
 $chron-blue: #031a32
 $chron-blue-accent: #083e8c
 $chron-blue-highlight: #0065cb
-$chron-gray-dark: #aaa
-$chron-gray-medium: #e4e4e4
-$chron-gray-light: #f2f2f2
-$chron-gray-border: #ddd
-$chron-text: #222
+
+$chron-gray-dark: #656565
+$chron-gray-border: #ccc
+$chron-gray-medium: #eaeaea
+$chron-gray-light: #f6f5f2
+
 $chron-text-white: white
-$chron-almost-white: #f0f0f0
-$chron-font-serif: "freight-text-pro", "times", serif
-$chron-font-sans: "din-condensed-web", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !default
+$chron-almost-white: $chron-gray-light
+$chron-text: #252525 /* a.k.a. really dark gray*/
+
+$chron-font-serif: "adobe-text-pro", "times", serif
+$chron-font-sans: "franklin-gothic-urw", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !default
 
 /* Foundation SCSS Variables */
 $primary-color: $chron-blue-accent
+
+/* Page Size */
+$row-width: rem-calc(1200)
 
 /*Header Fonts*/
 $header-font-family: $chron-font-serif
@@ -29,7 +35,7 @@ $header-bottom-margin: .5rem
 $base-font-size: 100% !default
 $base-line-height: 150% !default
 $rem-base: 16px !default
-$body-bg: $chron-text-white !default
+$body-bg: $chron-gray-light
 $body-font-color: $chron-text !default
 $body-font-family: $chron-font-sans
 
@@ -40,17 +46,17 @@ $anchor-font-color-hover: $chron-blue-highlight
 
 
 /*Topbar (header)*/
-$topbar-bg: $chron-gray-light
+$topbar-bg: $chron-blue
 $topbar-dropdown-bg: $chron-gray-medium
 $topbar-title-font-size: 2.5rem
-$topbar-link-color: $chron-blue-accent
+$topbar-link-color: $chron-gray-light
 $topbar-link-color-hover: $chron-blue-highlight
-$topbar-link-color-active: $chron-blue-accent
+$topbar-link-color-active: $chron-blue-highlight
 $topbar-link-color-active-hover: $chron-blue-highlight
-$topbar-link-font-size: 1.2rem
-$topbar-link-bg-hover: $chron-gray-medium
-$topbar-link-bg-active: $chron-gray-medium
-$topbar-link-bg-active-hover: $chron-gray-medium
+$topbar-link-font-size: .9rem
+$topbar-link-bg-hover: $chron-blue
+$topbar-link-bg-active: $chron-gray-light
+$topbar-link-bg-active-hover: $chron-gray-light
 
 /*Section spacing*/
 $page-section-spacing: 0.9375rem
