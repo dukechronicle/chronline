@@ -1,12 +1,16 @@
 class Post
   class EmbeddedMediaException < StandardError; end
   class EmbeddedMedia
-
     def initialize(body)
       @body = body
       @queries = {}
     end
 
+    ##
+    # Camayak represents media embedded with OEmbed as a div with class "oembed"
+    # and the data-camayak-embed-url as the URL of the embedded resource. This
+    # removes the Camayak divs and replaces them with valid embedded media tags.
+    #
     def self.convert_camayak_tags(body)
       document = Nokogiri::HTML::DocumentFragment.parse(body)
       document.css('.oembed').each do |camayak_tag|
@@ -16,6 +20,28 @@ class Post
         end
       end
       document.to_html
+    end
+
+    ##
+    # Since all embedded media is converted to a block element in the document,
+    # it is invalid to have embedded media within a <p> tag. This method scans
+    # an HTML document fragment and moves all embedded media tags outside of
+    # paragraph tags.
+    #
+    def self.normalize(body)
+      normalized = ""
+      document = Nokogiri::HTML::DocumentFragment.parse(body)
+      document.children.each do |node|
+        if node.name == "p"
+          normalized << node.to_html.gsub(Tag::PATTERN) do |tag|
+            normalized << tag
+            ''
+          end
+        else
+          normalized << node.to_html
+        end
+      end
+      normalized
     end
 
     def self.match_url_to_tag(url)
@@ -28,18 +54,22 @@ class Post
       nil
     end
 
-    def self.remove(post_body)
-      post_body.gsub(/{{[^\}]*}}/, '')
+    ##
+    # Remove all embedded media tags from HTML document. This is useful when the
+    # body is used in a context in which embedded media cannot be displayed
+    # (eg. RSS feeds).
+    #
+    def self.remove(body)
+      body.gsub(Tag::PATTERN, '')
     end
 
     def render
-      tag_list = @body.scan(/{{[a-zA-Z]*:[^\}]*?}}/)
-      tags = tag_list.map { |tag| match_tag(tag) }
+      tags = @body.scan(Tag::PATTERN).map { |tag| match_tag(tag) }
 
       execute_queries
 
       float_right = true
-      @rendered = @body.gsub(/{{([a-zA-Z]*):([^\}]*?)}}/) do |t|
+      @rendered = @body.gsub(Tag::PATTERN) do |t|
         tag = tags.shift
         float =
           if !tag.full_width?
