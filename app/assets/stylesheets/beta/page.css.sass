@@ -1,44 +1,23 @@
 /* Includes styles for .page-main-wrap, which is used on static pages, articles, and blog posts */
-.page-main-wrap
-  .page-container
-    border-left: 1px solid $chron-gray-border
-    border-right: 1px solid $chron-gray-border
-    border-top: 1px solid $chron-gray-border
-  section
-    background-color: $chron-text-white
-  article
-    a
-      border-bottom: 1px dotted scale-color($chron-blue-accent, $lightness: -40%)
-      &:hover
-        border-bottom: 1px dotted scale-color($chron-blue-accent, $lightness: 25%)
-
 .page-front
   padding-top: $page-section-spacing
-.page-container
-  margin-top: $page-section-spacing
 
 // Article/Page
-.header-container
-  padding-bottom: $page-section-spacing
-  border-bottom: 1px solid $chron-gray-border
+.page-content-column
+  background-color: $chron-text-white
+  border-left: 1px solid $chron-gray-border
+  border-right: 1px solid $chron-gray-border
+  box-shadow: $chron-gray-dark 2px 2px 6px -3px
+
 header.page-header
+  padding-bottom: $page-section-spacing
   .header-taxonomy
-    .taxonomy-section
-      padding: 5px
-      margin-right: 5px
-      background-color: $chron-blue-accent
-      a
-        color: $chron-text-white
-        border: none
-        &:hover
-          color: $chron-gray-light
-          border: none
-      &:hover 
-        background-color: $chron-blue-highlight
+    .button
+      margin-bottom: 0
   .header-title
     padding-top: $page-section-spacing
     h1
-      font-size: 3.5rem
+      font-size: 3rem
     .subtitle
       font-size: 1.6rem
       line-height: 1.6rem
@@ -47,11 +26,29 @@ header.page-header
     .date
       color: $chron-gray-dark
 
-aside.page-sidebar
-  border-left: 1px solid $chron-gray-border
 main.page-body
   padding-top: $page-section-spacing
   font-family: $chron-font-serif
+
+aside.page-sidebar
+  z-index: -1
+  background: white
+  .row  
+    padding-bottom: $page-section-spacing
+  .advertisement
+    background: $chron-gray-light
+    text-align: center
+    padding: 1rem
+  header
+    background-color: $chron-blue-accent
+    h2
+      color: white
+      font-family: $chron-font-sans
+      font-size: 1.5rem
+      text-transform: uppercase
+      font-weight: 300
+
+    /* TODO Clean Below*/
 
 .header-widget
   color: white
@@ -90,24 +87,6 @@ main.page-body
   .feature-comments-banner
     padding: 5px
     text-align: right
-
-.page-sidebar
-  //background-color: $chron-blue
-  color: $chron-text-white
-  > section
-    margin-top: $page-section-spacing
-    header
-      border-bottom: 2px solid $chron-blue
-      h2
-        background-color: $chron-blue
-        color: white
-        font-family: $chron-font-sans
-        display: inline-block
-        padding: 5px
-        margin: 0
-        font-size: 1.5rem
-        text-transform: uppercase
-        margin-left: $page-section-spacing
 
 // Front Page
 .page-front

@@ -23,45 +23,40 @@
 - cache do
   - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
   .page-main-wrap
-    article.row.page-container
-      .columns.small-12
-        .header-container.row
-          header.page-header.columns.small-12
-            .row
-              .header-taxonomy.columns.small-12
-                - @article.section.parents.each_with_index do |parent, i|
-                  span.taxonomy-section = link_to parent.name, section_path(parent)
-            .row
-              .header-title.columns.small-12
-                h1
-                  = @article.title
-                - if not @article.subtitle.blank?
-                  p.subtitle= @article.subtitle
-                p.header-byline
-                  span.author By #{byline(@article, link: true)}
-                  span.date
-                    = " on "
-                    = display_date(@article)
-            .row
-              .header-social.columns.small-12
-                = render partial: 'beta/partials/feature-social', locals: {postable: @article}
-
-        .page-content-container.row
-          .columns.small-8
-            section.page-feature.row
-              //TODO(rivkees): implement video, gallary, and graph jumbo's
-              - if @article.embed_code.present?
-                = render partial: 'partials/main-video'
-              - elsif @article.image
-                = render partial: 'partials/jumbotron-default', locals: {image: @article.image, image_size: :rectangle_636x}
-            main.page-body
-              == @article.render_body
-          aside.page-sidebar.columns.small-4
-            = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
-            = render 'beta/partials/facebook-recommended'
-            = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
-            = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
-        footer.page-footer
-          .row
-            section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
-            section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
+    .row.page-container
+      article.page-content-column.columns.small-8
+        header.page-header
+          .header-taxonomy
+            - @article.section.parents.each_with_index do |parent, i|
+              = link_to parent.name, section_path(parent), class: "button tiny"
+          .header-title
+            h1
+              = @article.title
+            - if not @article.subtitle.blank?
+              p.subtitle= @article.subtitle
+            p.header-byline
+              span.author By #{byline(@article, link: true)}
+              span.date
+                = " on "
+                = display_date(@article)
+          .header-social
+            = render partial: 'beta/partials/feature-social', locals: {postable: @article}
+        .feature-container
+          section.page-feature
+            //TODO(rivkees): implement video, gallary, and graph jumbo's
+            - if @article.embed_code.present?
+              = render partial: 'partials/main-video'
+            - elsif @article.image
+              = render partial: 'partials/jumbotron-default', locals: {image: @article.image, image_size: :rectangle_636x}
+        .page-content-container
+          main.page-body
+            == @article.render_body
+      aside.page-sidebar.columns.small-4
+        = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+        = render 'beta/partials/facebook-recommended'
+        = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+        = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+    footer.page-footer
+      .row
+        section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
+        section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
