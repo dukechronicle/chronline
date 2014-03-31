@@ -1,13 +1,10 @@
 /* Includes styles for .page-main-wrap, which is used on static pages, articles, and blog posts */
-.page-front
-  padding-top: $page-section-spacing
-
 // Article/Page
 .page-content-column
   background-color: $chron-text-white
   border-left: 1px solid $chron-gray-border
   border-right: 1px solid $chron-gray-border
-  box-shadow: $chron-gray-dark 2px 2px 6px -3px
+  box-shadow: $chron-gray-dark 0px 3px 6px -2px
 
 header.page-header
   padding-bottom: $page-section-spacing
@@ -35,16 +32,19 @@ aside.page-sidebar
   background: white
   .row  
     padding-bottom: $page-section-spacing
-  .advertisement
+    border-bottom: 1px solid $chron-gray-border
+    border-right: 1px solid $chron-gray-border
+  .row.advertisement
     background: $chron-gray-light
     text-align: center
     padding: 1rem
+    border: 0
   header
     background-color: $chron-blue-accent
     h2
       color: white
       font-family: $chron-font-sans
-      font-size: 1.5rem
+      font-size: 1rem
       text-transform: uppercase
       font-weight: 300
 
@@ -88,16 +88,16 @@ aside.page-sidebar
     padding: 5px
     text-align: right
 
-// Front Page
+// Section/Front Page
 .page-front
   aside
     background-color: $chron-blue
-  .page-front-section-header
+  section > header
     background-color: $chron-blue
-    h1
+    h2
+      color: white
       font-family: $chron-font-sans
-      text-align: right
-      font-size: .8rem
-      font-weight: 500
+      font-size: 1rem
       text-transform: uppercase
-      letter-spacing: 3px
+      font-weight: 300
+      text-align: right
