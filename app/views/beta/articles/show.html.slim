@@ -24,7 +24,7 @@
   - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
   .page-main-wrap
     .row.page-container
-      article.page-content-column.columns.small-8
+      article.page-content-column.columns.small-12.medium-8
         header.page-header
           .header-taxonomy
             - @article.section.parents.each_with_index do |parent, i|
@@ -51,7 +51,7 @@
         .page-content-container
           main.page-body
             == @article.render_body
-      aside.page-sidebar.columns.small-4
+      aside.page-sidebar.columns.show-for-medium-up.medium-4
         = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
         = render 'beta/partials/facebook-recommended'
         = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
