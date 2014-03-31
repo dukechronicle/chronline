@@ -1,20 +1,18 @@
 .page-main-wrap
-  .row
+  .row.page-container
     .page-front
-      section.page-front-slideshow.columns.small-12.medium-6.medium-push-2
-        header
-          .row
-            .page-front-section-header.columns.small-12
-              h1 Slideshow
+      .columns.small-12.medium-6.medium-push-2
+        section.row
+          header.columns.small-12
+            h2 Slideshow
         #slideshow.row
           = render partial: 'beta/partials/section_page-slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first']}
       aside.page-sidebar.columns.small-12.medium-2.medium-pull-6
         .widget Widget 1
         .widget Widget 2
         .widget Widget 3
-      section.page-front-article-list.columns.small-12.medium-4
-        header
-          .row
-            .page-front-section-header.columns.small-12
-              h1 Top News
+      .columns.small-12.medium-4
+        section.row
+          header.columns.small-12
+            h2 Top News
         = render partial: 'beta/containers/article-list', locals: {articles: @model.topnews, style: "social-image", notime: false} 
