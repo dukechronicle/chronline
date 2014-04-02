@@ -1,29 +1,32 @@
 .section-page-slider
-  ul(data-orbit data-options="bullets: false")
-    - count = 0
-    - if pages_first
-      - (pages || []).each do |page|
-        - if page.image
+  .slider-feature
+    ul(data-orbit data-options="bullets: false")
+      - count = 0
+      - if pages_first
+        - (pages || []).each do |page|
+          - if page.image
+            - count += 1
+            li(data-orbit-slide= page.path.gsub(/\//, "-"))
+              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
+              .orbit-caption
+                h2= page.description
+      - articles.each do |article|
+        - if article.image
           - count += 1
-          li(data-orbit-slide= page.path.gsub(/\//, "-"))
-            = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
+          li(data-orbit-slide= site_post_path(article).gsub(/\//, "-"))
+            = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article)
             .orbit-caption
-              h2= page.description
-    - articles.each do |article|
-      - if article.image
-        - count += 1
-        li(data-orbit-slide= site_post_path(article).gsub(/\//, "-"))
-          = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article)
-          .orbit-caption
-            h2= article.title
-            p= article.teaser
-    - unless pages_first
-      - (pages || []).each do |page|
-        - if page.image
-          - count += 1
-          li(data-orbit-slide= page.path.gsub(/\//, "-"))
-            = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
-            .orbit-caption= page.description
+              h2= article.title
+              p 
+                span Read More | 
+                span.author By #{byline(article, link: false)}
+      - unless pages_first
+        - (pages || []).each do |page|
+          - if page.image
+            - count += 1
+            li(data-orbit-slide= page.path.gsub(/\//, "-"))
+              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
+              .orbit-caption= page.description
   .slider-links.columns.small-12
     ul(class="small-block-grid-#{count}")
       - if pages_first

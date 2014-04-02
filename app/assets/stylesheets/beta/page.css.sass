@@ -90,16 +90,33 @@ aside.page-sidebar
 
 // Section/Front Page
 .page-front
-  aside
-    background-color: $chron-blue
+  .page-widget-sidebar
+    section
+      background-color: $chron-blue
+      color: $chron-text-white
+      border-bottom: 1px solid $chron-gray-border
   section
     background-color: $chron-text-white
+  .section-column-container
+    border-bottom: 1px solid $chron-gray-border
+    border-left: 1px solid $chron-gray-border
+    &:last-child
+      border-right: 1px solid $chron-gray-border
+      border-left: none
   section > header
     background-color: $chron-blue
-    h2
+    h2, h3
       color: white
       font-family: $chron-font-sans
       font-size: 1rem
       text-transform: uppercase
       font-weight: 300
       text-align: right
+    h3
+      font-size: .8rem
+  .section-active
+    > header
+      background-color: $chron-blue-accent
+    &.section-slideshow
+      > header
+        display: none
