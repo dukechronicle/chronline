@@ -4,6 +4,7 @@
 //= require underscore/underscore
 //= require backbone/backbone
 //= require marionette/lib/backbone.marionette
+//= require jade/runtime
 
 //= require util
 //= require initialize

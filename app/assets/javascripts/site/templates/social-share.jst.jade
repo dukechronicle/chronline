@@ -1,0 +1,17 @@
+if authToken
+a.toggle(href="#")
+  | Sharing is 
+  span.status= enabled ? 'on' : 'off'
+a.activity-toggle(href="#"): i.activity-icon
+if actions
+  .activity
+    h4 Recent Activity
+    table
+      tbody
+        each action in actions
+          tr(id=action.id)
+            td.url
+              a(href=action.data.article.url)= action.data.article.title
+            td: a.delete(href="#", data-id=action.id) x
+else
+  a.login(href="#") Share what you are reading on Facebook
