@@ -7,9 +7,10 @@
         - if style
           = render partial: "beta/containers/article-list/#{style}", locals: {article: article, first: (i == 0), options: {notime: notime}}
         - else
-          .columns.small-12
+          header.columns.small-12
             h1.title= article.title
-            .header-byline
-              span.author By Glenn Rivkees
-              span.sep= " - "
-              time January 1, 2014
+            p.header-byline
+              span.author By #{byline(article, link: false)}
+              span.date
+                = " on "
+                = display_date(article)

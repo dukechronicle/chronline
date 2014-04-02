@@ -5,6 +5,7 @@
   border-left: 1px solid $chron-gray-border
   border-right: 1px solid $chron-gray-border
   box-shadow: $chron-gray-dark 0px 3px 6px -2px
+  z-index: 1
 
 header.page-header
   padding-bottom: $page-section-spacing
@@ -28,7 +29,6 @@ main.page-body
   font-family: $chron-font-serif
 
 aside.page-sidebar
-  z-index: -1
   background: white
   .row  
     padding-bottom: $page-section-spacing
@@ -92,6 +92,8 @@ aside.page-sidebar
 .page-front
   aside
     background-color: $chron-blue
+  section
+    background-color: $chron-text-white
   section > header
     background-color: $chron-blue
     h2
