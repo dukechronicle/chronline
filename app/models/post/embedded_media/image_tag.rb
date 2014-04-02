@@ -11,22 +11,24 @@ class Post
         @style = style
       end
 
-      def to_html(float: :right)
-        classes = "embedded-image embedded-#{float}"
-        content_tag(:span, nil, class: classes) do
-          photo_credit = photo_credit(@image, link: true)
-          image_html = content_tag(:img, nil,**image_attributes)
-          image_url = @image.original.url(largest_style)
-          concat(
-            content_tag(
-              :a, 
-              image_html,
-              'data-lightbox' => true, 
-              title: @image.caption, 
-              href: image_url)
-          )
-          concat content_tag(:span, photo_credit, class: 'photo-credit')
-        end
+      def to_html
+        image_html = content_tag(:img, nil,**image_attributes)
+        image_url = @image.original.url(largest_style)
+        content_tag(
+          :a,
+          image_html,
+          'data-lightbox' => true,
+          title: @image.caption,
+          href: image_url
+        )
+      end
+
+      def caption
+        photo_credit(@image, link: true)
+      end
+
+      def full_width?
+        false
       end
 
       def to_s
@@ -34,13 +36,11 @@ class Post
       end
 
       private
-
       def largest_style
         shape = @style.to_s.match(/^[^_]*/)[0]
         width = Image::Styles[shape]["width"].to_s
         (shape + "_" + width + "x").to_sym
       end
-
 
       def image_attributes
         options = {
