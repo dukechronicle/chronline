@@ -1,5 +1,5 @@
 - provide :title, 'Page Not Found'
-  
+
 - content_for :title_bock do
   %h1 'Page Not Found'
 .span-8
@@ -11,4 +11,5 @@
         to go back to our homepage.
       = render 'partials/failwhale'
 .span-4.last
+  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
   = render 'site/partials/facebook-recommended'

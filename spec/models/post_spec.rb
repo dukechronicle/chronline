@@ -120,42 +120,6 @@ describe Post do
         should == post.published_at.to_date
       end
     end
-
-    describe "slug" do
-      subject { @slug }
-
-      it "should be lowercased" do
-        should match(/[a-z_\d\-]+/)
-      end
-
-      it "should contain key words of title" do
-        should include('ash')
-        should include('defeats')
-        should include('gary')
-        should include('indigo')
-        should include('plateau')
-      end
-
-      it "should not have unnecessary words" do
-        should_not include('-in-')
-      end
-
-      context "with long title" do
-        subject do
-          slug = post.normalize_friendly_id('a' * 49 + '-' + 'b' * 50, 50)
-          slug =~ %r[/([a-z_\d\-]+)$]
-          $1
-        end
-
-        it "should have a limit on the number of characters" do
-          should have_at_most(50).characters
-        end
-
-        it "should not end with a dash" do
-          should_not match(/\-$/)
-        end
-      end
-    end
   end
 
   describe "#published?" do

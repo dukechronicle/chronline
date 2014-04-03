@@ -1,0 +1,23 @@
+%ul.nav.nav-tabs
+  %li{class: ('active' if @role.nil?)}= link_to "All", admin_users_path
+  - User::Roles.each do |role|
+    %li{class: ('active' if @role == role)}
+      = link_to role.capitalize, admin_users_path(role: role)
+  %form.navbar-search.pull-right
+    %input.search-query{type: 'email', name: 'email'}
+    %input.btn{type: 'submit', value: 'Search by email'}
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Email
+      %th Name
+      %th Role
+  %tbody
+    - @users.each do |user|
+      %tr{id: "user_#{user.id}"}
+        %td= link_to user.email, admin_user_path(user)
+        %td #{user.first_name} #{user.last_name}
+        %td= user.role
+
+= will_paginate

@@ -7,6 +7,7 @@
             "blueimp-load-image": "~1.7.3",
             "blueimp-tmpl": "~2.2.1",
             "bootstrap": "~2.3.2",
+            "Buttons": "latest",
             "jcrop": "~0.9.12",
             "jquery": "~1.10.2",
             "jquery.cookie": "~1.4.0",
@@ -15,9 +16,11 @@
             "jquery-masonry": "~3.1.1",
             "jquery-ui": "~1.10.3",
             "iCheck": "git://github.com/fronteed/iCheck.git",
+            "marionette": "~1.6.2",
             "onde": "git://github.com/exavolt/onde.git",
             "underscore": "~1.5.2",
-            "lightbox2": "latest"
+            "lightbox2": "git://github.com/lokesh/lightbox2.git#v2.6",
+            "imagesloaded": "latest"
         }
     }
 }

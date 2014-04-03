@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if current_user.try(:admin?)
   .admin-panel
     = link_to "Administrative Interface", admin_root_url(subdomain: :admin)
     - if @page.present? and @page.is_a? Page

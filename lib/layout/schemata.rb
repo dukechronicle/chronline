@@ -69,3 +69,22 @@ Layout.add_schema(:datetime, {
                   }) do |datetimes|
   datetimes.map { |str| DateTime.iso8601(str) }
 end
+
+Layout.add_schema(:poll, {
+                    'type' => 'integer',
+                  }) do |poll_ids|
+  Poll.includes(:choices).find_in_order(poll_ids)
+end
+
+Layout.add_schema(:gallery, {
+  "type" => "string",
+  "required" => true,
+}) do |gallery_ids|
+  Gallery.includes(:images).find_in_order(gallery_ids, :gid)
+end
+
+Layout.add_schema(:topic, {
+                    "type" => "integer",
+                  }) do |topic_ids|
+  Topic.find_in_order(topic_ids)
+end

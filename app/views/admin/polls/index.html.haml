@@ -1,0 +1,6 @@
+%h3 Active
+= render 'table', polls: @unarchived_polls
+= will_paginate(@unarchived_polls, param_name: :unarchived_page)
+%h3 Archived
+= render 'table', polls: @archived_polls
+= will_paginate(@archived_polls, param_name: :archived_page)

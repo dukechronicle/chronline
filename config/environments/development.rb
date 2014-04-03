@@ -38,14 +38,15 @@ Chronline::Application.configure do
   # Make sure we preload the parent and children classes in development
   require_dependency File.join("app", "models", "newsletter.rb")
 
-  # Configure ActionMailer to use Gmail
   ActionMailer::Base.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
+    address: ENV['SMTP_ADDRESS'],
+    port: ENV['SMTP_PORT'],
     authentication: :plain,
     enable_starttls_auto: true,
-    domain: ENV['GMAIL_DOMAIN'],
-    user_name: ENV['GMAIL_USERNAME'],
-    password: ENV['GMAIL_PASSWORD'],
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
   }
+  if ENV['SMTP_DOMAIN'].present?
+    ActionMailer::Base.smtp_settings[:domain] = ENV['SMTP_DOMAIN']
+  end
 end

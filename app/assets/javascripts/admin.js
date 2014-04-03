@@ -9,4 +9,5 @@
 //= require util
 //= require initialize
 //= require admin/image-selector
+//= require common/local-time
 //= require_tree ./admin

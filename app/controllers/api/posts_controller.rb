@@ -30,7 +30,9 @@ class Api::PostsController < Api::BaseController
       end
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
+    metadata = params[:post].delete(:metadata)
     post = klass.new(params[:post])
+    add_metadata(post, metadata)
     post.authors = [default_staff] if post.authors.blank?
     post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
@@ -51,7 +53,10 @@ class Api::PostsController < Api::BaseController
     post = Post.unscoped.find(params[:id])
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
+    metadata = params[:post].delete(:metadata)
+    add_metadata(post, metadata)
     post.assign_attributes(params[:post])
+    post.authors = [default_staff] if post.authors.blank?
     post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
       head :no_content
@@ -84,5 +89,13 @@ class Api::PostsController < Api::BaseController
   def default_staff
     # HAX: Used by the Chronicle as the default staff writer
     Staff.find_or_create_by_name('Staff Reports')
+  end
+
+  # Metadata request comes as array of hashes
+  # [{attr: value}, ...]
+  def add_metadata(post, metadata)
+    if metadata
+      metadata.each { |attr| post.assign_attributes(attr) }
+    end
   end
 end

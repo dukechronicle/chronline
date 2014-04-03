@@ -23,8 +23,8 @@ class Newsletter
       options: {
         list_id: ENV['MAILCHIMP_LIST_ID'],
         subject: subject,
-        from_email: ENV['MAILCHIMP_FROM_EMAIL'],
-        from_name: ENV['MAILCHIMP_FROM_NAME'],
+        from_email: ENV['SMTP_FROM_EMAIL'],
+        from_name: ENV['SMTP_FROM_NAME'],
         template_id: ENV['MAILCHIMP_TEMPLATE_ID'],
         analytics: {
           google: subject[0...50]  # 50 character maximum,

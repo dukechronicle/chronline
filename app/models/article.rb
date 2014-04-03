@@ -17,7 +17,7 @@
 class Article < Post
   include Searchable
 
-  self.taxonomy = :sections
+  has_taxonomy :section, :sections
 
   self.per_page = 25  # set will_paginate default to 25 articles
 

@@ -1,12 +1,21 @@
 require 'resque/server'
-require_dependency 'admin/users_controller' # contains admin devise controllers
+require_dependency 'site/users_controller' # contains site devise controllers
 
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
 
   constraints subdomain: 'www' do
+    devise_for :users, controllers: {
+      sessions: 'site/sessions',
+      registrations: 'site/registrations',
+      passwords: 'site/passwords',
+      omniauth_callbacks: 'site/omniauth_callbacks',
+    }
+
     namespace :site, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
+
+      resources :galleries, only: [:index, :show], id: Gallery::SLUG_PATTERN
 
       resource :search, only: :show
 
@@ -42,6 +51,23 @@ Chronline::Application.routes.draw do
           get 'articles'
           get 'blog_posts'
           get 'images'
+        end
+      end
+
+      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN do
+        member do
+          get 'challenge'
+          get 'leaderboard'
+        end
+      end
+      resources :tournaments, only: :none do
+        resources :tournament_brackets, except: :edit, path: 'brackets',
+          tournament_id: Tournament::SLUG_PATTERN
+      end
+
+      resources :polls, only: :show  do
+        member do
+          post 'vote'
         end
       end
 
@@ -86,12 +112,6 @@ Chronline::Application.routes.draw do
   end
 
   constraints subdomain: 'admin' do
-    devise_for :users, controllers: {
-      sessions: 'admin/sessions',
-      invitations: 'admin/invitations',
-      passwords: 'admin/passwords',
-    }
-
     namespace :admin, path: '/'  do
       root to: 'main#home'
 
@@ -113,6 +133,9 @@ Chronline::Application.routes.draw do
           get '/:year/:month/:day' => 'events#daily', as: 'day' # TODO: add constraints for correct numbers 
           get 'change_day'
           end
+        end
+      resources :galleries, except: :show, id: Gallery::SLUG_PATTERN do
+        post 'scrape', on: :collection
       end
 
       resources :articles, except: :show, id: Post::SLUG_PATTERN do
@@ -122,6 +145,18 @@ Chronline::Application.routes.draw do
       resources :pages, except: :show
       resources :staff, except: :show
 
+      resources :topics do
+        member do
+          post :archive
+        end
+        resources :responses, only: [:create, :destroy], controller: 'topic_responses' do
+          member do
+            post :approve
+            post :report
+          end
+        end
+      end
+
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, except: :show, controller: 'blog_posts',
           id: Post::SLUG_PATTERN
@@ -129,7 +164,19 @@ Chronline::Application.routes.draw do
 
       resources :blog_series, except: :show
 
+      resources :polls, except: :show
+
       resource :configuration, only: [:show, :update], controller: 'sitevars'
+
+      resources :users, only: [:index, :show] do
+        post :change_role, on: :member
+      end
+
+      resources :tournaments, id: Tournament::SLUG_PATTERN
+      resources :tournaments, only: :none do
+        resources :tournament_teams, only: [:new, :create, :edit, :update],
+          path: 'teams', tournament_id: Tournament::SLUG_PATTERN
+      end
 
       authenticate :user do
         mount Resque::Server.new, at: '/resque'
@@ -157,6 +204,16 @@ Chronline::Application.routes.draw do
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
+      resources :topics, only: :none do
+        resources :responses, only: [:index, :create], controller: 'topic_responses' do
+          member do
+            post :upvote
+            post :downvote
+            post :report
+          end
+        end
+      end
+
     end
   end
 

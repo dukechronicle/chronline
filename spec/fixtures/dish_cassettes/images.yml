@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/authenticate?email=<EMAIL>&format=json&password=<PASSWORD>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:16:13 GMT
+      Server:
+      - Apache
+      Vary:
+      - negotiate,Accept-Encoding
+      Tcn:
+      - choice
+      Set-Cookie:
+      - SSphotoshelter_com_mem=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/;
+        domain=.photoshelter.com
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hA8URvRq12JtoatVm2G6KUVrNWFw9Xy9594KHpxg3kO%2FHxkxNkk%2B%2BOYAKOLNiCdUeQKc9Qrsjx7dLZJ%2B8uHnFNafwgSTO2p5GnMM0iYDt8ilXaDydR96t4KK5VV1b1ZeU2T6MNKVtIH1wIzy63bJu64lehUEvpvIgG4ZhsE3CSGr5Ivsqmb14ut7y6PvHmpjRj6exjjITynD57edeLtr7H0SyYryQAqd1WaJrR7Jgutm4oOt5WhWjvtpBuvLEF0v%2B1WAYRJ57PgmjH4ninMKlDEP5hk8PbA6sZE2vMrM9evTBmG5rM9Xq1OwT4jLru4bjPwLogaGrksywJaKgQKBGZEUwPq4htYginWfgsOi4SeWM6facu%2B0ALCU3wnCMNm2cb5tjQuc5PGGlnw%2BYOmEK9JRTpju5A07DwRCQeDaP5ITchZ%2F%2FzC%2Bfqn8U%3D%3AzirRWTu%2BiX6V7vj6YdP9xYZXiR3e3QzKZGKy1RsMCZc%3D;
+        path=/; domain=.photoshelter.com
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; path=/; domain=photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"uploader":{"version":"2.5.0","download":"https:\/\/support.photoshelter.com\/entries\/21620826-PhotoShelter-Desktop-Uploader"}}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:16:13 GMT
+- request:
+    method: get
+    uri: https://www.photoshelter.com/psapi/v1/gallery/G0000W3g4oBchl8c/images?format=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - acs=qYvUUr.DgUMRsRMC7Tqafw--; SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hA8URvRq12JtoatVm2G6KUVrNWFw9Xy9594KHpxg3kO%2FHxkxNkk%2B%2BOYAKOLNiCdUeQKc9Qrsjx7dLZJ%2B8uHnFNafwgSTO2p5GnMM0iYDt8ilXaDydR96t4KK5VV1b1ZeU2T6MNKVtIH1wIzy63bJu64lehUEvpvIgG4ZhsE3CSGr5Ivsqmb14ut7y6PvHmpjRj6exjjITynD57edeLtr7H0SyYryQAqd1WaJrR7Jgutm4oOt5WhWjvtpBuvLEF0v%2B1WAYRJ57PgmjH4ninMKlDEP5hk8PbA6sZE2vMrM9evTBmG5rM9Xq1OwT4jLru4bjPwLogaGrksywJaKgQKBGZEUwPq4htYginWfgsOi4SeWM6facu%2B0ALCU3wnCMNm2cb5tjQuc5PGGlnw%2BYOmEK9JRTpju5A07DwRCQeDaP5ITchZ%2F%2FzC%2Bfqn8U%3D%3AzirRWTu%2BiX6V7vj6YdP9xYZXiR3e3QzKZGKy1RsMCZc%3D
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Mar 2014 04:16:14 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - SSphotoshelter_com_mem=eJxdUdtugyAYfpWGB9hA8URvRq12JtoatVm2G6KUVrNWFw9Xy9594KHpxg3kO%2FHxkxNkk%2B%2BOYAKOLNiCdUeQKc9Qrsjx7dLZJ%2B8uHnFNafwgSTO2p5GnMM0iYDt8ilXaDydR96t4KK5VV1b1ZeU2T6MNKVtIH1wIzy63bJu64lehUEvpvIgG4ZhsE3CSGr5Ivsqmb14ut7y6PvHmpjRj6exjjITynD57edeLtr7H0SyYryQAqd1WaJrR7Jgutm4oOt5WhWjvtpBuvLEF0v%2B1WAYRJ57PgmjH4ninMKlDEP5hk8PbA6sZE2vMrM9evTBmG5rM9Xq1OwT4jLru4bjPwLogaGrksywJaKgQKBGZEUwPq4htYginWfgsOi4SeWM6facu%2B0ALCU3wnCMNm2cb5tjQuc5PGGlnw%2BYOmEK9JRTpju5A07DwRCQeDaP5ITchZ%2F%2FzC%2Bfqn8U%3D%3AzirRWTu%2BiX6V7vj6YdP9xYZXiR3e3QzKZGKy1RsMCZc%3D;
+        path=/; domain=.photoshelter.com
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET
+      Access-Control-Max-Age:
+      - '3600'
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '938'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"status":"ok","data":{"images":[{"id":"I0000P1V4eGUln18"},{"id":"I0000e2xvnDVizp0"},{"id":"I0000P_ZcT9rmQrk"},{"id":"I0000WVWlSrBNUp8"},{"id":"I0000ZEG2_TaSEBw"},{"id":"I0000PIwFGxv58q4"},{"id":"I0000ysHhFpf3yfE"},{"id":"I0000pTrrNQzkBSo"},{"id":"I0000q4kZKIDavYI"},{"id":"I00001JM9eft0GyA"},{"id":"I0000BvYq4a0ZWWY"},{"id":"I00007DzK8Pd1BVU"},{"id":"I0000YXq5ZIT32lI"},{"id":"I0000fIKAyNvR.xM"},{"id":"I0000dT9n5bEwIiE"},{"id":"I0000Ywqg9p9QlJk"},{"id":"I0000Hi58t2RMfNI"},{"id":"I0000IRQjvyq3j7k"},{"id":"I0000qJ4EIYHjt14"},{"id":"I000053tCBeNYmZg"},{"id":"I0000QMXAvtBII7o"},{"id":"I0000kMv9lWxjqr4"},{"id":"I0000tLk.qFi_Xcw"},{"id":"I0000WfCiiKUxRww"},{"id":"I0000qUPUjIkm7bs"},{"id":"I0000.0_w_lR1n34"}],"paging":{"page":1,"pages":1,"first":"https:\/\/www.photoshelter.com\/psapi\/v1\/gallery\/G0000W3g4oBchl8c\/images?format=json","last":"https:\/\/www.photoshelter.com\/psapi\/v1\/gallery\/G0000W3g4oBchl8c\/images?format=json"}}}'
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 04:16:13 GMT
+recorded_with: VCR 2.5.0

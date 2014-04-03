@@ -1,0 +1,334 @@
+---
+- school: Louisville
+  mascot: Cardinals
+  region_id: 0
+  seed: 1
+  espn_id: 97
+- school: "North Carolina A&T"
+  shortname: "N.C. A&T"
+  mascot: Aggies
+  region_id: 0
+  seed: 16
+  espn_id: 2448
+- school: Colorado State
+  mascot: Rams
+  region_id: 0
+  seed: 8
+  espn_id: 36
+- school: Missouri
+  mascot: Tigers
+  region_id: 0
+  seed: 9
+  espn_id: 142
+- school: Oklahoma St.
+  mascot: Cowboys
+  region_id: 0
+  seed: 5
+  espn_id: 197
+- school: Oregon
+  mascot: Ducks
+  region_id: 0
+  seed: 12
+  espn_id: 2483
+- school: Saint Louis
+  mascot: Billikens
+  region_id: 0
+  seed: 4
+  espn_id: 139
+- school: New Mexico State
+  mascot: Aggies
+  shortname: N.M. State
+  region_id: 0
+  seed: 13
+  espn_id: 166
+- school: Memphis
+  mascot: Tigers
+  region_id: 0
+  seed: 6
+  espn_id: 235
+- school: "Saint Mary's"
+  mascot: Gaels
+  region_id: 0
+  seed: 11
+  espn_id: 2608
+- school: Michigan State
+  mascot: Spartans
+  shortname: Michigan St.
+  region_id: 0
+  seed: 3
+  espn_id: 127
+- school: Valparaiso
+  mascot: Crusaders
+  region_id: 0
+  seed: 14
+  espn_id: 2674
+- school: Creighton
+  mascot: Bluejays
+  region_id: 0
+  seed: 7
+  espn_id: 156
+- school: Cincinnati
+  mascot: Bearcats
+  region_id: 0
+  seed: 10
+  espn_id: 2132
+- school: Duke
+  mascot: Blue Devils
+  region_id: 0
+  seed: 2
+  espn_id: 150
+- school: Albany
+  mascot: Great Danes
+  region_id: 0
+  seed: 15
+  espn_id: 399
+- school: Gonzaga
+  mascot: Bulldogs
+  region_id: 1
+  seed: 1
+  espn_id: 2250
+- school: Southern University
+  shortname: Southern
+  mascot: Jaguars
+  region_id: 1
+  seed: 16
+  espn_id: 2582
+- school: Pittsburgh
+  mascot: Panthers
+  region_id: 1
+  seed: 8
+  espn_id: 221
+- school: Wichita State
+  mascot: Shockers
+  region_id: 1
+  seed: 9
+  espn_id: 2724
+- school: Wisconsin
+  mascot: Badgers
+  region_id: 1
+  seed: 5
+  espn_id: 275
+- school: Mississippi
+  mascot: Rebels
+  region_id: 1
+  seed: 12
+  espn_id: 145
+- school: Kansas State
+  mascot: Wildcats
+  region_id: 1
+  seed: 4
+  espn_id: 2306
+- school: La Salle
+  mascot: Explorers
+  region_id: 1
+  seed: 13
+  espn_id: 2325
+- school: Arizona
+  mascot: Wildcats
+  region_id: 1
+  seed: 6
+  espn_id: 12
+- school: Belmont
+  mascot: Bruins
+  region_id: 1
+  seed: 11
+  espn_id: 2057
+- school: New Mexico
+  mascot: Lobos
+  region_id: 1
+  seed: 3
+  espn_id: 167
+- school: Harvard
+  mascot: Crimson
+  region_id: 1
+  seed: 14
+  espn_id: 108
+- school: Notre Dame
+  mascot: Fighting Irish
+  region_id: 1
+  seed: 7
+  espn_id: 87
+- school: Iowa State
+  mascot: Cyclones
+  region_id: 1
+  seed: 10
+  espn_id: 66
+- school: Ohio State
+  mascot: Buckeyes
+  region_id: 1
+  seed: 2
+  espn_id: 194
+- school: Iona
+  mascot: Gaels
+  region_id: 1
+  seed: 15
+  espn_id: 314
+- school: Kansas
+  mascot: Jayhawks
+  region_id: 2
+  seed: 1
+  espn_id: 2305
+- school: Western Kentucky
+  mascot: Hilltoppers
+  shortname: Western Ky.
+  region_id: 2
+  seed: 16
+  espn_id: 98
+- school: North Carolina
+  mascot: Tarheels
+  shortname: N. Carolina
+  region_id: 2
+  seed: 8
+  espn_id: 153
+- school: Villanova
+  mascot: Wildcats
+  region_id: 2
+  seed: 9
+  espn_id: 222
+- school: Virginia Commonwealth
+  mascot: Rams
+  shortname: VCU
+  region_id: 2
+  seed: 5
+  espn_id: 2670
+- school: Akron
+  mascot: Zips
+  region_id: 2
+  seed: 12
+  espn_id: 2006
+- school: Michigan
+  mascot: Wolverines
+  region_id: 2
+  seed: 4
+  espn_id: 130
+- school: South Dakota State
+  mascot: Jackrabbits
+  shortname: S. Dakota St.
+  region_id: 2
+  seed: 13
+  espn_id: 2571
+- school: UCLA
+  mascot: Bruins
+  region_id: 2
+  seed: 6
+  espn_id: 26
+- school: Minnesota
+  mascot: Golden Gophers
+  region_id: 2
+  seed: 11
+  espn_id: 135
+- school: Florida
+  mascot: Gators
+  region_id: 2
+  seed: 3
+  espn_id: 57
+- school: Northwestern State
+  mascot: Demons
+  shortname: "N'Western St."
+  region_id: 2
+  seed: 14
+  espn_id: 2466
+- school: San Diego State
+  mascot: Aztecs
+  shortname: San Diego St.
+  region_id: 2
+  seed: 7
+  espn_id: 21
+- school: Oklahoma
+  mascot: Sooners
+  region_id: 2
+  seed: 10
+  espn_id: 201
+- school: Georgetown
+  mascot: Hoyas
+  region_id: 2
+  seed: 2
+  espn_id: 46
+- school: Florida Gulf Coast
+  mascot: Eagles
+  shortname: FGCU
+  region_id: 2
+  seed: 15
+  espn_id: 526
+- school: Indiana
+  mascot: Hoosiers
+  region_id: 3
+  seed: 1
+  espn_id: 84
+- school: James Madison
+  mascot: Dukes
+  shortname: J. Madison
+  region_id: 3
+  seed: 16
+  espn_id: 256
+- school: North Carolina State
+  mascot: Wolfpack
+  shortname: N.C. State
+  region_id: 3
+  seed: 8
+  espn_id: 152
+- school: Temple
+  mascot: Owls
+  region_id: 3
+  seed: 9
+  espn_id: 218
+- school: UNLV
+  mascot: Rebels
+  region_id: 3
+  seed: 5
+  espn_id: 2439
+- school: California
+  mascot: Golden Bears
+  region_id: 3
+  seed: 12
+  espn_id: 25
+- school: Syracuse
+  mascot: Orange
+  region_id: 3
+  seed: 4
+  espn_id: 183
+- school: Montana
+  mascot: Grizzlies
+  region_id: 3
+  seed: 13
+  espn_id: 149
+- school: Butler
+  mascot: Bulldogs
+  region_id: 3
+  seed: 6
+  espn_id: 2086
+- school: Bucknell
+  mascot: Bison
+  region_id: 3
+  seed: 11
+  espn_id: 2083
+- school: Marquette
+  mascot: Golden Eagles
+  region_id: 3
+  seed: 3
+  espn_id: 269
+- school: Davidson
+  mascot: Wildcats
+  region_id: 3
+  seed: 14
+  espn_id: 2166
+- school: Illinois
+  mascot: Fighting Illini
+  region_id: 3
+  seed: 7
+  espn_id: 356
+- school: Colorado
+  mascot: Buffaloes
+  region_id: 3
+  seed: 10
+  espn_id: 38
+- school: Miami (Fl.)
+  mascot: Hurricanes
+  region_id: 3
+  seed: 2
+  espn_id: 2390
+- school: Pacific
+  mascot: Tigers
+  region_id: 3
+  seed: 15
+  espn_id: 279

@@ -4,7 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = ENV['GMAIL_USERNAME']
+  config.mailer_sender = "#{ENV['SMTP_FROM_NAME']} <#{ENV['SMTP_FROM_EMAIL']}>"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -127,7 +127,7 @@ Devise.setup do |config|
   # Email regex used to validate email formats. It simply asserts that
   # an one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  # config.email_regexp = /\A[^@]+@[^@]+\z/
+  config.email_regexp = /\A[^@]+@[^@]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
@@ -182,19 +182,9 @@ Devise.setup do |config|
   # Defines name of the authentication token params key
   # config.token_authentication_key = :auth_token
 
-  # ==> Scopes configuration
-  # Turn scoped views on. Before rendering "sessions/new", it will first check for
-  # "users/sessions/new". It's turned off by default because it's slower if you
-  # are using only default views.
-  # config.scoped_views = false
-
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
-  # config.default_scope = :user
-
-  # Set this configuration to false if you want /users/sign_out to sign out
-  # only the current scope. By default, Devise signs out all scopes.
-  # config.sign_out_all_scopes = true
+  config.default_scope = :user
 
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
@@ -213,7 +203,9 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
+    scope: 'email'
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -237,7 +229,27 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
+
+  # https://github.com/plataformatec/devise/wiki/How-To:-Redirect-to-a-specific-page-when-the-user-can-not-be-authenticated
+  config.warden do |manager|
+    manager.failure_app = Class.new(Devise::FailureApp) do
+      def redirect_url
+        new_user_session_url(subdomain: 'www')
+      end
+
+      # You need to override respond to eliminate recall
+      def respond
+        if http_auth?
+          http_auth
+        else
+          redirect
+        end
+      end
+    end
+  end
 end
 
 # Force SSL for login page
-Devise::SessionsController.before_filter :redirect_ssl if Rails.env.production?
+if Rails.env.production?
+  Devise::SessionsController.before_filter :redirect_ssl, except: :destroy
+end

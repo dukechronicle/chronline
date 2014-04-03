@@ -1,0 +1,10 @@
+h4.title= title
+p= description
+ul.choice-list
+  each choice in choices
+    li.poll-choice(data-votes=choice.votes)
+      .poll-choice-bar
+      .poll-choice-result
+        = choice.title
+        |  
+        span.choice-percentage

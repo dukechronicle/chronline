@@ -3,12 +3,14 @@
 //= require jquery-ui/ui/jquery-ui
 //= require underscore/underscore
 //= require backbone/backbone
+//= require marionette/lib/backbone.marionette
+//= require jade/runtime
 
 //= require util
 //= require initialize
 //= require common/social-media
 //= require common/analytics
 //= require common/local-time
-//= require_tree ./site
 //= require lightbox2/js/lightbox-2.6.min
 //= require iCheck/icheck.js
+//= require_tree ./site

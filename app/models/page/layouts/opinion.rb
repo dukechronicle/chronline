@@ -15,19 +15,14 @@ class Page::Layouts::Opinion < Layout
         'default' => '/opinion/editorial board/',
         'extends' => section_articles_schema,
       },
-      'blog' => {
-        'label' => 'Blog RSS Feed',
-        'extends' => rss_schema,
-        'required' => true,
-      },
       'columnists' => {
         'label' => 'Columnists',
         'extends' => columnists_schema,
       },
-      'cartoon' => {
-        'label' => 'Cartoon',
-        'extends' => image_schema,
+      'topic' => {
+        'label' => 'Discussion Board ID',
         'required' => true,
+        'extends' => topic_schema,
       },
     }
   end

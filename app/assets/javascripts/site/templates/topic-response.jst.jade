@@ -1,0 +1,10 @@
+p.content= content
+ul.response-actions
+  li(class=(upvoted ? 'voted' : ''))
+    button.upvote(type="button")
+    span.count= upvotes
+  li(class=(downvoted ? 'voted' : ''))
+    button.downvote(type="button")
+    span.count= downvotes
+  li: button.report(type="button") Report
+  li: time(datetime=created_at)= timestamp
