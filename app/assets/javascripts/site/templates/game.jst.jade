@@ -1,0 +1,10 @@
+mixin team(team, score)
+  .team(class=(team && game.winner() && team.id === game.winner().id ? 'winner' : ''))
+    .seed= team && team.get('seed')
+    .game-info
+      span.name= team && team.get('shortname')
+      if score
+        span.score= score
+
++team(team1, game.get('score1'))
++team(team2, game.get('score2'))

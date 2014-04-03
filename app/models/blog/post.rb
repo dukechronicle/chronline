@@ -3,7 +3,7 @@ require_dependency 'blog/series'
 class Blog::Post < ::Post
   include Searchable
 
-  self.taxonomy = :blogs
+  has_taxonomy :section, :blogs
 
   self.per_page = 10  # set will_paginate default to 10 articles
 

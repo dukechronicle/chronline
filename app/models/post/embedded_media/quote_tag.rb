@@ -7,9 +7,12 @@ class Post
         @text = args.join(',')
       end
 
-      def to_html(float: :right)
-        classes = "embedded-quote embedded-#{float}"
-        content_tag(:blockquote, @text, class: classes)
+      def to_html
+        content_tag(:blockquote, @text)
+      end
+
+      def full_width?
+        false
       end
 
       def to_s

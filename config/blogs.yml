@@ -22,3 +22,6 @@
 - name: Playground
   description: Arts and culture at Duke, Durham and beyond.
   id: 1003
+- name: Backpage Blogs
+  description: A casual conversation with the voices that shape Duke.
+  id: 1008

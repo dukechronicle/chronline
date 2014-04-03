@@ -1,0 +1,58 @@
+.topic-container
+  .title
+    margin-bottom: .25em
+
+  padding: 1.2em 1.5em
+
+  ul.responses
+    padding: 0
+    margin: 0
+    border: 2px solid #B8B8B8
+    overflow-x: hidden
+    overflow-y: scroll
+    height: 400px
+    list-style: none
+
+  li.topic-response
+    border-bottom: 1px solid #B8B8B8
+    padding: 5px 3px
+    &:last-child
+      border-bottom: none
+
+  .wrapper-div
+    margin: 1.0em 0.0em 1.0em
+    border: 2px solid #B8B8B8
+    overflow-y: scroll
+    height: 400px
+
+  .subtitle
+    font-size: 1.5em
+    margin-top: -10px
+    margin-bottom: 1.0px
+    font-style: italic
+
+  .response
+    padding: 0.3em 0.3em
+    border-bottom: 1px solid #D0D0D0
+    position: relative
+
+  input#topic_response_content
+    font-size: 1.5em
+    margin-bottom: 0
+
+  input.button
+    vertical-align: bottom
+
+  textarea#topic_response_content
+    font-family: sans-serif
+    display: none
+    height: 60px
+    box-sizing: border-box
+    width: 100%
+
+  #recaptcha_widget_div
+    display: none
+
+  #topic_response_error
+    display: none
+    margin: .5em 0 .2em

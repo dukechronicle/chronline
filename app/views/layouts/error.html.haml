@@ -1,0 +1,10 @@
+!!! 5
+%html
+  %head
+    %meta{'http-equiv' => "Content-Type", content: "text/html; charset=UTF-8"}
+    %title #{yield :title} | The Chronicle
+    = stylesheet_link_tag 'error', media: 'all'
+  %body
+    .section
+      %h1 The Chronicle
+      .article= yield

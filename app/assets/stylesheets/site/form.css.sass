@@ -1,0 +1,52 @@
+@import "auth/*.png"
+
+.form-container
+  padding: 1.2em 1.5em
+
+.span-6 .form-container
+  padding-left: 1.5em
+  padding-right: 0
+
+.span-6.last .form-container
+  padding-left: 0
+  padding-right: 1.5em
+
+.form-inputs
+  margin-bottom: 2em
+
+  .input
+    margin-bottom: 1em
+    label
+      font-size: 1.1em
+  .inline-error
+    color: red
+    font-size: 1.2em
+    &:before
+      content: " "
+
+.form-actions
+  margin-bottom: 1em
+
+.facebook-login
+  margin: 0 auto 10px
+  width: 374px
+  height: 84px
+  display: block
+  @include auth-sprite(facebook_active)
+  &:active
+    @include auth-sprite(facebook_pressed)
+
+.google-login
+  margin: 0 auto
+  width: 374px
+  height: 64px
+  display: block
+  @include auth-sprite(google_active)
+  &:active
+    @include auth-sprite(google_pressed)
+  &:hover
+    @include auth-sprite(google_hover)
+
+.small-gutter
+  .span-5
+    margin-right: 10px

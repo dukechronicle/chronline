@@ -2,9 +2,10 @@
   .navbar-inner
     .container
       = link_to "The Chronicle", admin_root_path, :class => "brand"
-      - if user_signed_in?
+      - if current_user.try(:admin?)
         %ul.nav
           %li= link_to "Articles", admin_articles_path
+          %li= link_to "Galleries", admin_galleries_path
 
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Blogs
@@ -31,15 +32,33 @@
               %li= link_to "Create", new_admin_staff_path
 
           %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Discussion Board
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li= link_to "Manage", admin_topics_path
+              %li= link_to "Create", new_admin_topic_path
+
+          %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Blog Series
             %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
               %li= link_to "Manage", admin_blog_series_index_path
               %li= link_to "Create", new_admin_blog_series_path
 
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Polls
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li= link_to "Manage", admin_polls_path
+              %li= link_to "Create", new_admin_poll_path
+
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown"} Tournaments
+            %ul.dropdown-menu{role: "menu", 'aria-labelledby' => "dLabel"}
+              %li= link_to "Manage", admin_tournaments_path
+              %li= link_to "Create", new_admin_tournament_path
+
           %li= link_to "Newsletter", admin_newsletter_path
-          %li= link_to "Invite", new_user_invitation_path
           %li= link_to "Embed Tags", admin_widgets_path
           %li= link_to "Configuration", admin_configuration_path
+          %li= link_to "Users", admin_users_path
 
         %ul.nav.pull-right
-          %li= link_to "Logout", destroy_user_session_path, method: :delete
+          %li= link_to "Logout", destroy_user_session_url(subdomain: 'www'), method: :delete

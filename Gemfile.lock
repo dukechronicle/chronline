@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/dukechronicle/jade.git
+  revision: 29028034ab480a3c0ecb070f803f5046cc8c717b
+  specs:
+    jade (0.1.1)
+      execjs
+      sprockets
+      tilt
+
+GIT
   remote: git://github.com/mbleigh/subdomain-fu.git
   revision: dfbd86448694e019a805830f0866599da7e2bae1
   specs:
@@ -7,12 +16,12 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (3.2.16)
-      actionpack (= 3.2.16)
+    actionmailer (3.2.17)
+      actionpack (= 3.2.17)
       mail (~> 2.5.4)
-    actionpack (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
+    actionpack (3.2.17)
+      activemodel (= 3.2.17)
+      activesupport (= 3.2.17)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -20,18 +29,18 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.16)
-      activesupport (= 3.2.16)
+    activemodel (3.2.17)
+      activesupport (= 3.2.17)
       builder (~> 3.0.0)
-    activerecord (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
+    activerecord (3.2.17)
+      activemodel (= 3.2.17)
+      activesupport (= 3.2.17)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
-    activesupport (3.2.16)
+    activeresource (3.2.17)
+      activemodel (= 3.2.17)
+      activesupport (= 3.2.17)
+    activesupport (3.2.17)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.4.1)
@@ -40,6 +49,7 @@ GEM
     annotate (2.6.1)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+    ansi (1.4.3)
     arel (3.0.3)
     asset_sync (0.5.4)
       activemodel
@@ -87,10 +97,10 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    crack (0.4.1)
-      safe_yaml (~> 0.9.0)
-    curb (0.8.4)
-    database_cleaner (1.0.1)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
+    curb (0.8.5)
+    database_cleaner (1.2.0)
     debugger-linecache (1.2.0)
     default_value_for (2.0.3)
     delayed_paperclip (2.6.1)
@@ -100,19 +110,10 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    devise_invitable (1.1.8)
-      actionmailer (~> 3.0)
-      devise (>= 2.1.2)
-      railties (~> 3.0)
     diff-lcs (1.2.5)
     dotenv (0.9.0)
     dotenv-rails (0.9.0)
       dotenv (= 0.9.0)
-    eco (1.0.0)
-      coffee-script
-      eco-source
-      execjs
-    eco-source (1.1.0.rc.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.31.0)
@@ -123,6 +124,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
     feedzirra (0.2.0.rc2)
@@ -169,6 +172,7 @@ GEM
       spork (>= 0.8.4)
     haml (4.0.3)
       tilt
+    hashie (2.0.5)
     hike (1.2.3)
     hiredis (0.4.5)
     htmlentities (4.3.1)
@@ -191,6 +195,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     json-schema (1.1.1)
+    jwt (0.1.11)
+      multi_json (>= 1.5)
     kgio (2.8.0)
     listen (2.2.0)
       celluloid (>= 0.15.2)
@@ -205,13 +211,33 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mock_redis (0.8.1)
-    multi_json (1.8.2)
+    multi_json (1.9.0)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
     newrelic_rpm (3.7.1.180)
     nokogiri (1.5.11)
+    oauth2 (0.9.3)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 0.1.8)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.2.1)
+      hashie (>= 1.2, < 3)
+      rack (~> 1.0)
+    omniauth-facebook (1.6.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-google-oauth2 (0.2.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2
+    omniauth-oauth2 (1.1.2)
+      faraday (>= 0.8, < 0.10)
+      multi_json (~> 1.3)
+      oauth2 (~> 0.9.3)
+      omniauth (~> 1.2)
     orm_adapter (0.4.0)
     paperclip (3.4.2)
       activemodel (>= 3.0.0)
@@ -228,7 +254,7 @@ GEM
       capybara (~> 2.1.0)
       faye-websocket (>= 0.4.4, < 0.5.0)
       http_parser.rb (~> 0.5.3)
-    polyglot (0.3.3)
+    polyglot (0.3.4)
     pr_geohash (1.0.0)
     progress (2.4.0)
     promise (0.3.0)
@@ -255,22 +281,22 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.16)
-      actionmailer (= 3.2.16)
-      actionpack (= 3.2.16)
-      activerecord (= 3.2.16)
-      activeresource (= 3.2.16)
-      activesupport (= 3.2.16)
+    rails (3.2.17)
+      actionmailer (= 3.2.17)
+      actionpack (= 3.2.17)
+      activerecord (= 3.2.17)
+      activeresource (= 3.2.17)
+      activesupport (= 3.2.17)
       bundler (~> 1.0)
-      railties (= 3.2.16)
+      railties (= 3.2.17)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
     rails_serve_static_assets (0.0.2)
     rails_stdout_logging (0.0.3)
-    railties (3.2.16)
-      actionpack (= 3.2.16)
-      activesupport (= 3.2.16)
+    railties (3.2.17)
+      actionpack (= 3.2.17)
+      activesupport (= 3.2.17)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -284,6 +310,7 @@ GEM
     rdiscount (2.1.6)
     rdoc (3.12.2)
       json (~> 1.4)
+    recaptcha (0.3.6)
     redis (3.0.6)
     redis-actionpack (3.2.4)
       actionpack (~> 3.2.0)
@@ -329,8 +356,8 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
     ruby-oembed (0.8.9)
-    safe_yaml (0.9.4)
-    sass (3.2.9)
+    safe_yaml (1.0.1)
+    sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -374,13 +401,18 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turn (0.9.6)
+      ansi
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
-    tzinfo (0.3.38)
+    tzinfo (0.3.39)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    unf (0.1.3)
+      unf_ext
+    unf_ext (0.0.6)
     unicorn (4.6.3)
       kgio (~> 2.6)
       rack
@@ -418,9 +450,7 @@ DEPENDENCIES
   default_value_for
   delayed_paperclip
   devise (~> 2.2.4)
-  devise_invitable
   dotenv-rails (~> 0.9.0)
-  eco
   factory_girl_rails
   feedzirra (~> 0.2.0.rc2)
   ffaker (~> 1.22.1)
@@ -434,11 +464,14 @@ DEPENDENCIES
   htmlentities
   httparty
   image_optim_bin
+  jade!
   jquery-rails
   json-schema (~> 1.1.1)
   mock_redis
   newrelic_rpm
   nokogiri
+  omniauth-facebook (~> 1.6.0)
+  omniauth-google-oauth2 (~> 0.2.2)
   paperclip
   paperclip-optimizer
   pg (~> 0.17.1)
@@ -448,10 +481,11 @@ DEPENDENCIES
   pry-doc (~> 0.5.1)
   pry-rails (~> 0.3.2)
   rack-cors
-  rails (= 3.2.16)
+  rails (= 3.2.17)
   rails_12factor
   rb-readline (~> 0.5.0)
   rdiscount
+  recaptcha
   redis (~> 3.0.6)
   redis-rails (~> 3.2.4)
   require_all
@@ -468,8 +502,10 @@ DEPENDENCIES
   sunspot_rails (~> 2.1.0)
   sunspot_solr (~> 2.1.0)
   tinymce-rails (~> 4.0.2)
+  turn
   turnip
   uglifier (~> 2.1.2)
+  unf
   unicorn
   vcr
   webmock

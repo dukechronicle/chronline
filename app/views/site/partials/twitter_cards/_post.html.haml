@@ -1,0 +1,10 @@
+- unless post.teaser.blank?
+  %meta{name: 'twitter:card', content: :summary}
+  %meta{name: 'twitter:site:id', content: ENV['TWITTER_ID']}
+  %meta{name: 'twitter:title', content: post.title}
+  %meta{name: 'twitter:url', content: permanent_post_url(post)}
+  %meta{name: 'twitter:description', content: post.teaser}
+  - if post.authors.first.twitter.present?
+    %meta{name: 'twitter:creator', content: "@#{post.authors.first.twitter}"}
+  - if post.image
+    %meta{name: 'twitter:image', content: 'http:' + post.image.original.url(:square_200x)}

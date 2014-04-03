@@ -1,4 +1,4 @@
-= simple_form_for([:admin, @article], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}) do |f|
+= simple_form_for([:admin, @article], html: {class: 'form-horizontal'}, defaults: {input_html: {class: 'input-xlarge'}}, wrapper: :bootstrap) do |f|
   %legend= yield :form_title
   = f.error_notification
   .form-inputs
@@ -23,6 +23,3 @@
 
   .form-actions
     = f.button :submit, class: 'btn btn-large btn-primary'
-
-- content_for :scripts do
-  = tinymce_assets

@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
+# Ignore Vagrant VM
+.vagrant/**
+
 # Ignore bundler config
 /.bundle
 
@@ -12,6 +15,7 @@
 
 # Ignore Redis dumps
 /db/*.rdb
+*.rdb
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -28,6 +32,7 @@
 
 # Ignore generated sprites
 app/assets/images/icons-*.png
+app/assets/images/auth-*.png
 
 solr/
 
@@ -35,6 +40,7 @@ solr/
 
 #/ignore sitemaps
 /public/sitemap
+
 # General
 # =======
 
@@ -94,6 +100,9 @@ tmtags
 .*.sw[a-z]
 *.un~
 Session.vim
+
+# Redis
+dump.rdb
 
 # Misc
 # ====
