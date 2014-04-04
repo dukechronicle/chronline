@@ -3,7 +3,7 @@ class Gallery < ActiveRecord::Base
   SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
   friendly_id :name, use: [:slugged, :chronSlug]
 
-  self.primary_key = :gid
+  self.primary_key = :id
   self.per_page = 25
 
   attr_accessible :name, :gid, :description, :section, :images, :date, :primary_image_id
