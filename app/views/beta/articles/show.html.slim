@@ -28,7 +28,9 @@
         header.page-header
           .header-taxonomy
             - @article.section.parents.each_with_index do |parent, i|
-              = link_to parent.name, section_path(parent), class: "button tiny"
+              .chev-container
+                .chev-header-rt-arrow
+                = link_to parent.name, section_path(parent), class: "button tiny"
           .header-title
             h1
               = @article.title
