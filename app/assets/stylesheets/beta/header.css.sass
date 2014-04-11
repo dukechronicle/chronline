@@ -6,14 +6,20 @@ header#super-header
     border-left: 1px solid $chron-gray-border
     border-right: 1px solid $chron-gray-border
     border-bottom: 1px solid $chron-gray-border
-  .nav-main-container, .nav-main, ul.title-area
-    background: $chron-blue-accent
-
-  nav
+  ul.title-area
+    li.name
+      background: $chron-blue
+      color: $chron-gray-light
+      a:hover
+        color: $chron-blue-highlight
+  .contain-to-grid.sticky
+    opacity: .95
+  nav.top-bar
     .nav-sections
       text-transform: uppercase
       a
-        font-weight: 600
+        font-family: $chron-font-sans-alt
+        font-weight: 500
 
 .fixed
   nav
