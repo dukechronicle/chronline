@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20140320032226) do
 
   add_index "blog_series", ["tag_id"], :name => "index_blog_series_on_tag_id"
 
+  create_table "events", :force => true do |t|
+    t.string   "title"
+    t.string   "filter"
+    t.text     "content"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
     t.integer  "sluggable_id",                 :null => false

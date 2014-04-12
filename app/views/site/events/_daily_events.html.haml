@@ -1,0 +1,11 @@
+#events-view
+	.daily-events-header
+		%h4="Daily Events for " +  @day_str
+	/ -@daily_events.each do |event|
+	/ 	/ %li.list-style.list-event
+	/ 	/ 	%b= event.title
+	/ 	/ 	=" at " + get_time(event)
+	/ 	/ 	%p= event.content
+
+	/ -if @daily_events.count == 0
+	/ 	%p.no-events There are currently no scheduled events.

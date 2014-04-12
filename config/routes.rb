@@ -39,6 +39,13 @@ Chronline::Application.routes.draw do
         get 'categories/:category' => 'blog_posts#categories', as: :category
       end
 
+      resources :events, only: [:new, :create, :show, :index], id: Post::SLUG_PATTERN do
+        collection do
+          get '/:year/:month' => 'events#monthly', as: 'month' # TODO: add constraints for correct numbers 
+          get 'change_day'
+          end
+      end
+
       resources :staff, only: :show do
         member do
           get 'articles'
@@ -120,6 +127,13 @@ Chronline::Application.routes.draw do
         get 'upload', on: :collection
       end
 
+      resources :events, only: [:new, :create, :show, :index], id: Post::SLUG_PATTERN do
+        collection do
+          get '/:year/:month' => 'events#monthly', as: 'month' # TODO: add constraints for correct numbers 
+          get '/:year/:month/:day' => 'events#daily', as: 'day' # TODO: add constraints for correct numbers 
+          get 'change_day'
+          end
+        end
       resources :galleries, except: :show, id: Gallery::SLUG_PATTERN do
         post 'scrape', on: :collection
       end
@@ -190,6 +204,15 @@ Chronline::Application.routes.draw do
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
+
+       resources :events, only: :none do
+        collection do
+          get '/:year/:month/:day' => 'events#daily', as: 'daily'
+        end
+      end
+
+
+
       resources :topics, only: :none do
         resources :responses, only: [:index, :create], controller: 'topic_responses' do
           member do
