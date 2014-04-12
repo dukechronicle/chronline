@@ -24,8 +24,9 @@ describe Api::PostsController do
 
       context "without metadata" do
         before do
-          post api_posts_url(subdomain: :api), { post: post_attrs },
-            'HTTP_AUTHORIZATION' => http_auth(@user)
+          post api_posts_url(subdomain: :api), post_attrs.to_json,
+            'HTTP_AUTHORIZATION' => http_auth(@user),
+            'CONTENT_TYPE' => 'application/json'
         end
 
         it { response.should have_status_code(:created) }
@@ -36,8 +37,9 @@ describe Api::PostsController do
           post_attrs[:metadata] = [{
             embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'
           }]
-          post api_posts_url(subdomain: :api), { post: post_attrs },
-            'HTTP_AUTHORIZATION' => http_auth(@user)
+          post api_posts_url(subdomain: :api), post_attrs.to_json,
+            'HTTP_AUTHORIZATION' => http_auth(@user),
+            'CONTENT_TYPE' => 'application/json'
         end
 
         it { response.should have_status_code(:created) }
@@ -53,8 +55,9 @@ describe Api::PostsController do
     context "when creating a blog post" do
       before do
         post_attrs[:section] = '/pokedex/'
-        post api_posts_url(subdomain: :api), { post: post_attrs },
-          'HTTP_AUTHORIZATION' => http_auth(@user)
+        post api_posts_url(subdomain: :api), post_attrs.to_json,
+          'HTTP_AUTHORIZATION' => http_auth(@user),
+          'CONTENT_TYPE' => 'application/json'
       end
 
       it { response.should have_status_code(:created) }
@@ -81,7 +84,8 @@ describe Api::PostsController do
 
       before do
         put api_post_url(post.id, subdomain: :api),
-          { post: valid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
+          valid_attrs.to_json, 'HTTP_AUTHORIZATION' => http_auth(@user),
+          'CONTENT_TYPE' => 'application/json'
       end
 
       it { expect(response).to have_status_code(:no_content) }
@@ -96,7 +100,8 @@ describe Api::PostsController do
 
       before do
         put api_post_url(post.id, subdomain: :api),
-          { post: valid_attrs }, 'HTTP_AUTHORIZATION' => http_auth(@user)
+          valid_attrs.to_json, 'HTTP_AUTHORIZATION' => http_auth(@user),
+          'CONTENT_TYPE' => 'application/json'
       end
 
       it { expect(response).to have_status_code(:no_content) }
