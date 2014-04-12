@@ -204,6 +204,15 @@ Chronline::Application.routes.draw do
       resources :posts, except: [:new, :edit], id: Post::SLUG_PATTERN do
         post :unpublish, on: :member
       end
+
+       resources :events, only: :none do
+        collection do
+          get '/:year/:month/:day' => 'events#daily', as: 'daily'
+        end
+      end
+
+
+
       resources :topics, only: :none do
         resources :responses, only: [:index, :create], controller: 'topic_responses' do
           member do

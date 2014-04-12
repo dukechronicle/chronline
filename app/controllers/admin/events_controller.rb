@@ -23,7 +23,7 @@ class Admin::EventsController < Admin::BaseController
 		@month = params[:month].to_i
 		@day = Date.today.strftime('%d').to_i
 
-		@daily_events = get_daily_events(@year, @month, @day)
+		@daily_events = Event.day(@year, @month, @day)
 		@day_str = Date.today.strftime('%A %B %d, %Y')
 
 		@keys = make_keys(@year, @month)
@@ -38,7 +38,7 @@ class Admin::EventsController < Admin::BaseController
 		month = params[:month].to_i
 		year = params[:year].to_i
 		date = Date.new(year, month, day)
-		@daily_events = get_daily_events(year, month, day)
+		@daily_events = Event.day(year, month, day)
 		@day_str = date.strftime('%A %B %d, %Y')
 	end
 
@@ -47,7 +47,7 @@ class Admin::EventsController < Admin::BaseController
 		month = params[:month].to_i
 		day = params[:day].to_i
 		date = Date.new(year, month, day)
-		@daily_events = get_daily_events(year, month, day)
+		@daily_events = Event.day(year, month, day)
 		@day_str = date.strftime('%A %B %d, %Y')
 	end
 
@@ -80,7 +80,7 @@ class Admin::EventsController < Admin::BaseController
 
 	def get_map(year, month, keys)
 		map = Hash.new
-		keys.each {|key| map[key] = get_daily_events(year, month, key.day) }
+		keys.each {|key| map[key] = Event.day(year, month, key.day) }
 		return map
 	end
 
@@ -97,13 +97,6 @@ class Admin::EventsController < Admin::BaseController
 
 	def get_today
 		return Time.now.strftime('%D')
-	end
-
-	def get_daily_events(year, month, day)
-		Event.where('EXTRACT(DAY from start_date AT TIME ZONE ?) = ? AND
-									 EXTRACT(MONTH from start_date) = ? AND
-		 						     EXTRACT(YEAR from start_date) = ?', 'IOT',
-		 						     day, month, year).sort_by!{|e| e.start_date}
 	end
 
 end

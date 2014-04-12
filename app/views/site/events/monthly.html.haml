@@ -4,7 +4,7 @@
 	.span-7.last
 		.span-3
 			.filter
-				%h5.filter-header Events Filter
+				%h4.filter-header Events Filter
 				%ol.filter-list
 					%div.filter-box
 						%input{:type => 'checkbox', :class => 'checkbox'}
@@ -15,15 +15,21 @@
 					%div.filter-box
 						%input{:type => 'checkbox', :class => 'checkbox'}
 						Academic
+					%div.filter-box
+						%input{:type => 'checkbox', :class => 'checkbox'}
+						Alumni
+					%div.filter-box
+						%input{:type => 'checkbox', :class => 'checkbox'}
+						Grad Students
 		.span-4.last= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle} 
 		.clearfix.align-group
 			.span-7
 				.outer_calendar
 					.header-container
 						.title-container
-							%h5.white.title Duke Calendar
+							%h4.white.title Duke Calendar
 						.month-container
-							%h5.white.month-name
+							%h4.white.month-name
 								=link_to("<", last_month)
 								=@month_name + " " + params[:year]
 								=link_to(">", next_month)
@@ -37,18 +43,14 @@
 									.invisible-day-block
 							-@keys.each do |key|
 								-if (key == @today)
-									.day-block-today.month-block
+									.day-block-today.month-block{:data => {year: @year, month: @month, day: key.day}}
 										%p.day-num=key.day
-										%p.month-num{hidden: true}=@month
-										%p.year-num{hidden: true}=@year
 										%p.num-events.center
 											=@map[key].count
 											events
 								-else
-									.day-block.block.month-block
+									.day-block.block.month-block{:data => {year: @year, month: @month, day: key.day}}
 										%p.day-num= key.day
-										%p.month-num{hidden: true}=@month
-										%p.year-num{hidden: true}=@year
 										%p.num-events.center
 											=@map[key].count
 											events

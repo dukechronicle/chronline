@@ -1,0 +1,7 @@
+li.list-style.list-event
+  b= title
+  -var date = new Date(start_date)
+  =" at " + date.toLocaleTimeString().replace(/:\d+ /, ' ')
+  p= content
+
+

@@ -1,5 +1,4 @@
-window.CalendarEventsList = Backbone.Marionette.CollectionView.extend
-  itemView: CalendarEventView
+#= require site/item-views/list-event
 
 window.EventsList = Backbone.Marionette.CollectionView.extend
   itemView: ListEventView
