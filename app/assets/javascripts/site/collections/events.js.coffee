@@ -1,10 +1,11 @@
-Event-Calendar.Collection = Backbone.Collection.extend
+#= require site/models/event
+
+Event.Collection = Backbone.Collection.extend
   model: Event
 
   url: ->
-    fullUrl('api', "/events/#{@eventYear}/#{@eventMonth}/#{@eventDay}")
+    fullUrl('api', "/events/#{@date.getFullYear()}/#{@date.getMonth()+1}/#{@date.getDate()}")
 
   initialize: (_models, options) ->
-    @eventYear = 2014
-    @eventMonth = 3;
-    @eventDay = 15;
+    @filter = 'all'
+    @date = new Date()
