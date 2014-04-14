@@ -95,7 +95,11 @@ class Api::PostsController < Api::BaseController
   # [{attr: value}, ...]
   def add_metadata(post, metadata)
     if metadata
-      metadata.each { |attr| post.assign_attributes(attr) }
+      metadata.each do |attr|
+        if post.class.accessible_attributes.include?(attr.keys.first)
+          post.assign_attributes(attr)
+        end
+      end
     end
   end
 end

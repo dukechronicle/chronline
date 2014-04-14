@@ -32,7 +32,7 @@ describe Api::PostsController do
         it { response.should have_status_code(:created) }
       end
 
-      context "with metadata" do
+      context "with valid metadata" do
         before do
           post_attrs[:metadata] = [{
             embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'
@@ -49,6 +49,19 @@ describe Api::PostsController do
           post = Post.find(subject['id'])
           expect(post.embed_code).to eq('JuYeHPFR3f0')
         end
+      end
+
+      context "with invalid metadata" do
+        before do
+          post_attrs[:metadata] = [{
+            a_bad_attr: true
+          }]
+          post api_posts_url(subdomain: :api), post_attrs.to_json,
+            'HTTP_AUTHORIZATION' => http_auth(@user),
+            'CONTENT_TYPE' => 'application/json'
+        end
+
+        it { response.should have_status_code(:created) }
       end
     end
 
