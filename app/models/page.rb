@@ -24,7 +24,7 @@ class Page < ActiveRecord::Base
   has_layout
 
   validates :title, presence: true
-  validates :path, presence: true, uniqueness: true, format: {with: /^\/[a-z0-9\_\.\-\/]*$/, message: 'Must be a URL path'}
+  validates :path, presence: true, uniqueness: true, format: {with: /^\/[a-z0-9%\_\.\-\/]*$/, message: 'Must be a URL path'}
   validates_with LayoutValidator
 
 end
