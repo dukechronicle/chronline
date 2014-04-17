@@ -183,3 +183,13 @@
           id: 82
     - name: "Editor's Note"
       id: 79
+- name: Special Topics
+  id: 83
+  children:
+    - name: Sexual Assault
+      id: 84
+      children:
+        - name: Articles
+          id: 85
+        - name: Blogs
+          id: 86
