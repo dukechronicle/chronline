@@ -1,0 +1,14 @@
+.article-box
+  .rounded
+    - articles.each do |article|
+      .clearfix
+        %a.hover.highlight-left{href: site_post_path(article)}
+          .content-container
+            - if article.image
+              = cropped_image_tag article.image, :rectangle_183x
+            %h4.title= article.title
+            %p.subtitle
+              %span.author= byline(article)
+              = display_date(article)
+            %p.teaser= article.teaser
+
