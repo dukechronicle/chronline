@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/dukechronicle/jade.git
+  revision: 29028034ab480a3c0ecb070f803f5046cc8c717b
+  specs:
+    jade (0.1.1)
+      execjs
+      sprockets
+      tilt
+
+GIT
   remote: git://github.com/mbleigh/subdomain-fu.git
   revision: dfbd86448694e019a805830f0866599da7e2bae1
   specs:
@@ -105,11 +114,6 @@ GEM
     dotenv (0.9.0)
     dotenv-rails (0.9.0)
       dotenv (= 0.9.0)
-    eco (1.0.0)
-      coffee-script
-      eco-source
-      execjs
-    eco-source (1.1.0.rc.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.31.0)
@@ -447,7 +451,6 @@ DEPENDENCIES
   delayed_paperclip
   devise (~> 2.2.4)
   dotenv-rails (~> 0.9.0)
-  eco (~> 1.0.0)
   factory_girl_rails
   feedzirra (~> 0.2.0.rc2)
   ffaker (~> 1.22.1)
@@ -461,6 +464,7 @@ DEPENDENCIES
   htmlentities
   httparty
   image_optim_bin
+  jade!
   jquery-rails
   json-schema (~> 1.1.1)
   mock_redis

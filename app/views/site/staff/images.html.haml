@@ -14,10 +14,10 @@
   .item= render partial: 'site/containers/staff-profile', locals: {staff: @staff, except: :images}
 
   - styles = [:rectangle_183x] * 3 << :rectangle_378x
-  - (@images * 6).each do |image|
+  - @images.each do |image|
     .item.image-item
       .rounded
         .image-container
           %a{href: associated_url(image)}
             = cropped_image_tag image, styles.sample
-  = will_paginate @images
+= will_paginate @images

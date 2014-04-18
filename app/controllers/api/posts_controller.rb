@@ -30,7 +30,7 @@ class Api::PostsController < Api::BaseController
       end
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
-    metadata = params[:post].delete(:metadata)
+    metadata = params.delete(:metadata)
     post = klass.new(params[:post])
     add_metadata(post, metadata)
     post.authors = [default_staff] if post.authors.blank?
@@ -53,7 +53,7 @@ class Api::PostsController < Api::BaseController
     post = Post.unscoped.find(params[:id])
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
-    metadata = params[:post].delete(:metadata)
+    metadata = params.delete(:metadata)
     add_metadata(post, metadata)
     post.assign_attributes(params[:post])
     post.authors = [default_staff] if post.authors.blank?
@@ -95,7 +95,11 @@ class Api::PostsController < Api::BaseController
   # [{attr: value}, ...]
   def add_metadata(post, metadata)
     if metadata
-      metadata.each { |attr| post.assign_attributes(attr) }
+      metadata.each do |attr|
+        if post.class.accessible_attributes.include?(attr.keys.first)
+          post.assign_attributes(attr)
+        end
+      end
     end
   end
 end

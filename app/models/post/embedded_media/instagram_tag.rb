@@ -13,19 +13,17 @@ class Post
         self.new(Post::EmbeddedMedia, id)
       end
 
-      def to_html(float: :right)
-        content_tag :div, nil, class: 'embedded-instagram' do
-          content_tag(
-            :iframe,
-            nil,
-            frameborder: 0,
-            scrolling: 'no',
-            allowtransparency: true,
-            width: 400,
-            height: 464,
-            src: "//instagram.com/p/#{@instagram_id}/embed/"
-          )
-        end
+      def to_html
+        content_tag(
+          :iframe,
+          nil,
+          frameborder: 0,
+          scrolling: 'no',
+          allowtransparency: true,
+          width: 400,
+          height: 464,
+          src: "//instagram.com/p/#{@instagram_id}/embed/"
+        )
       end
 
       def to_s

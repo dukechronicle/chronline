@@ -13,7 +13,7 @@ class Post
         self.new(Post::EmbeddedMedia, youtube_id)
       end
 
-      def to_html(float: :right)
+      def to_html
         content_tag(
           :iframe,
           nil,
