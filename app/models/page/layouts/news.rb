@@ -53,6 +53,10 @@ class Page::Layouts::News < Layout
           }
         }
       },
+      'poll' => {
+        'label' => 'Poll',
+        'extends' => poll_schema,
+      },
       'popular' => {
         'label' => 'Popular in section',
         'required' => true,

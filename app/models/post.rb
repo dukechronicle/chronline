@@ -26,11 +26,15 @@ class Post < ActiveRecord::Base
   end
 
   def body_text
-    Post::EmbeddedMedia.remove(body)
+    EmbeddedMedia.remove(body)
+  end
+
+  def body=(body)
+    super EmbeddedMedia.normalize(body)
   end
 
   def convert_camayak_tags!
-    self.body = Post::EmbeddedMedia.convert_camayak_tags(body)
+    self.body = EmbeddedMedia.convert_camayak_tags(body)
   end
 
   def embed_url
