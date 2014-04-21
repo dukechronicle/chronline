@@ -1,7 +1,7 @@
 class Gallery < ActiveRecord::Base
   include FriendlyId
   SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-zA-Z_\d\.\-]+]
-  friendly_id :name, use: [:slugged, :chronSlug]
+  friendly_id :name, use: [:slugged, :chronSlug, :history]
 
   self.per_page = 25
 
