@@ -5,6 +5,8 @@ class Gallery < ActiveRecord::Base
 
   self.per_page = 25
 
+  set_primary_key :id
+
   attr_accessible :name, :gid, :description, :section, :images, :date, :primary_image_id
 
   belongs_to :primary_image, class_name: "Gallery::Image"
