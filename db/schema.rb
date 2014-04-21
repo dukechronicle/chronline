@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327153653) do
+ActiveRecord::Schema.define(:version => 20140328200952) do
 
   create_table "articles", :force => true do |t|
     t.text     "body"
@@ -54,18 +54,14 @@ ActiveRecord::Schema.define(:version => 20140327153653) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "galleries", :id => false, :force => true do |t|
-    t.string   "gid"
-    t.string   "name"
-    t.string   "slug"
-    t.text     "description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.date     "date"
-    t.string   "primary_image_id"
+  create_table "galleries", :force => true do |t|
+    t.string "gid"
+    t.string "name"
+    t.string "slug"
+    t.text   "description"
+    t.date   "date"
+    t.string "primary_image_id"
   end
-
-  add_index "galleries", ["slug"], :name => "index_galleries_on_slug", :unique => true
 
   create_table "gallery_images", :id => false, :force => true do |t|
     t.string   "pid"
@@ -75,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20140327153653) do
     t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "gallery_id"
   end
 
   add_index "gallery_images", ["gid", "pid"], :name => "index_gallery_images_on_gid_and_pid", :unique => true
