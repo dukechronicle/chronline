@@ -24,6 +24,12 @@ class Page::Layouts::Opinion < Layout
         'required' => true,
         'extends' => topic_schema,
       },
+      'video' => {
+        'label' => 'Video Embed Code',
+        'type' => 'string',
+        'format' => 'multiline',
+        'required' => false,
+      },
     }
   end
 
