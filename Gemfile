@@ -78,6 +78,8 @@ gem 'sunspot_rails', '~> 2.1.0'
 gem 'tinymce-rails', '~> 4.0.2'
 gem 'unf'
 gem 'will_paginate'
+gem 'dalli'
+gem 'memcachier'
 
 group :test do
   gem 'capybara'
