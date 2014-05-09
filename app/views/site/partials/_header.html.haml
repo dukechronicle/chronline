@@ -38,8 +38,6 @@
         %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com/", class: ("active" if @galleries || @gallery)}
         %h2 Photos
-      %a{href: "/tournaments/ncaa-mens-basketball/2014"}
-        %h2 March Madness
     = form_for(Search.new, url: site_search_path, method: :get, html: {id: 'search-box'}) do |f|
       = f.search_field :query, placeholder: 'Search archives', results: '5'
 
