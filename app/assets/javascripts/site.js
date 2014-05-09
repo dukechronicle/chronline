@@ -11,5 +11,5 @@
 //= require common/social-media
 //= require common/analytics
 //= require common/local-time
-//= require lightbox2/js/lightbox-2.6.min
+//= require lightbox2/js/lightbox.min
 //= require_tree ./site
