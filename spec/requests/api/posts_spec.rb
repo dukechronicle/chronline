@@ -152,11 +152,13 @@ describe Api::PostsController do
       it { expect(response).to have_status_code(:no_content) }
 
       it "should change the type of the Post" do
-        expect(post.reload.type).to eq("Blog::Post")
+        updated_post = Post.find post.id
+        expect(updated_post.type).to eq("Blog::Post")
       end
 
       it "should update the path correctly" do
-        expect(post.reload.section.to_s).to eq("/pokedex/")
+        updated_post = Post.find post.id
+        expect(updated_post.section.to_s).to eq("/pokedex/")
       end
     end
   end

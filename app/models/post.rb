@@ -133,6 +133,21 @@ class Post < ActiveRecord::Base
     end
   end
   private_class_method :fetch_popular_from_redis
+
+  ##
+  # Get the class that corresponds to a section string based on the class'
+  # taxonomy. Used to determine what type a Post should be based on its section
+  # and no other context.
+  #
+  def self.section_to_class(section)
+    # FIX: This is so gross, but Camayak would have to change to fix it
+    begin
+      Taxonomy.new(:blogs, section)
+      Blog::Post
+    rescue Taxonomy::Errors::InvalidTaxonomyError
+      Article
+    end
+  end
 end
 
 # Necessary to avoid autoload namespacing conflict
