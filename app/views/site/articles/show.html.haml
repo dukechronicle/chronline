@@ -49,7 +49,7 @@
           = render partial: 'site/partials/share-box', locals: {postable: @article}
           != @article.render_body
 
-    -##recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
+    #recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
     #disqus_thread.rounded{data: {disqus: disqus_options(@article)}}
 
   %aside.span-4.last
