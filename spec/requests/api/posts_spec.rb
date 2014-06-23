@@ -123,5 +123,41 @@ describe Api::PostsController do
         expect(post.reload.title).to eq(valid_attrs[:title])
       end
     end
+
+    context "when changing to a section within the current taxonomy" do
+      let(:valid_section) { { section: "/sports/" } }
+
+      before do
+        put api_post_url(post.id, subdomain: :api),
+          valid_section.to_json, 'HTTP_AUTHORIZATION' => http_auth(@user),
+          'CONTENT_TYPE' => 'application/json'
+      end
+
+      it { expect(response).to have_status_code(:no_content) }
+
+      it "should update the path correctly" do
+        expect(post.reload.section.to_s).to eq("/sports/")
+      end
+    end
+
+    context "when changing to a section outside the current taxonomy" do
+      let(:valid_section) { { section: "/pokedex/" } }
+
+      before do
+        put api_post_url(post.id, subdomain: :api),
+          valid_section.to_json, 'HTTP_AUTHORIZATION' => http_auth(@user),
+          'CONTENT_TYPE' => 'application/json'
+      end
+
+      it { expect(response).to have_status_code(:no_content) }
+
+      it "should change the type of the Post" do
+        expect(post.reload.type).to eq("Blog::Post")
+      end
+
+      it "should update the path correctly" do
+        expect(post.reload.section.to_s).to eq("/pokedex/")
+      end
+    end
   end
 end
