@@ -160,6 +160,11 @@ describe Api::PostsController do
         updated_post = Post.find post.id
         expect(updated_post.section.to_s).to eq("/pokedex/")
       end
+
+      it "should have the same id" do
+        updated_post = Post.find post.id
+        expect(updated_post.id).to eq(post.id)
+      end
     end
   end
 end
