@@ -6,9 +6,13 @@ describe "/sections/*" do
     let(:nodes) { ActiveSupport::JSON.decode(response.body) }
     subject { nodes }
 
-    it { should have(11).nodes }
+    it { should have(12).nodes }
     it "should contain blog nodes" do
       nodes.map { |node| node['name'] }.should include('Pokedex')
+    end
+
+    it "should contain archived nodes" do
+      nodes.map { |node| node['name'] }.should include('Archived')
     end
 
     describe "taxonomy node" do
