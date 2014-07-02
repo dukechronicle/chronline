@@ -15,7 +15,8 @@
     .span-4.last.align-element{data: {aligntarget: "#inquisitor .rounded"}}
       = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
       #editors-note= render partial: 'site/containers/block/wide', locals: {title: "Letter from the Editor", article: @model.editors_note}
-      #inquisitor= render partial: 'site/containers/block/wide', locals: {title: "The Inquisitor", article: @model.inquisitor}
+      #issuu.rounded
+        .image-container!=@model.issuu
 
-  #bus-stop= render partial: 'site/containers/article-row', locals: {title: "The Bus Stop", articles: @model.bus_stop, feature: true}
-  #plaza= render partial: 'site/containers/article-row', locals: {title: "The Plaza", articles: @model.plaza, feature: true}
+  #bus-stop= render partial: 'site/containers/article-row', locals: {title: "Features", articles: @model.bus_stop, feature: true, all_feature: true}
+  #plaza= render partial: 'site/containers/article-row', locals: {title: "Ten People to Watch", articles: @model.plaza, feature: true}
