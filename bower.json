@@ -13,13 +13,13 @@
             "jquery": "~1.10.2",
             "jquery.cookie": "~1.4.0",
             "jquery-file-upload": "~8.4.2",
-            "jquery-galleria": "~1.3.2",
+            "jquery-galleria": "git://github.com/aino/galleria#1.3.2",
             "jquery-masonry": "~3.1.1",
             "jquery-ui": "~1.10.3",
             "marionette": "~1.6.2",
             "onde": "git://github.com/exavolt/onde.git",
             "underscore": "~1.5.2",
-            "lightbox2": "git://github.com/lokesh/lightbox2.git#v2.6",
+            "lightbox2": "~2.7.1",
             "imagesloaded": "latest"
         }
     }

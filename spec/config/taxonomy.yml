@@ -12,6 +12,9 @@
     - id: 5
       new_id: 3
       name: Merged
+    - id: 10
+      name: Archived
+      archived: true
 - id: 6
   name: Sports
 - id: 7

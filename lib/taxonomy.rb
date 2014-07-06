@@ -1,7 +1,7 @@
 class Taxonomy
   include Errors
 
-  attr_reader :id, :taxonomy, :node
+  attr_reader :id, :taxonomy, :node, :archived
 
   @@taxonomies = {}
 
@@ -57,8 +57,11 @@ class Taxonomy
     path
   end
 
-  def children
-    @children.map { |child| self.class.new(@taxonomy, path << child) }
+  def children(include_archived: false)
+    @children.map do |child|
+      node = self.class.new(@taxonomy, path << child)
+      node if not node.archived or include_archived
+    end.compact
   end
 
   def parent
@@ -105,19 +108,21 @@ class Taxonomy
     end
   end
 
-  def self.levels(taxonomy)
+  def self.levels(taxonomy, include_archived: true)
     level = self.top_level(taxonomy)
     levels = []
     until level.empty?
       levels << level
-      level = levels.last.map {|taxonomy| taxonomy.children}.flatten
+      level = levels.last.map do |taxonomy|
+        taxonomy.children(include_archived: include_archived)
+      end.flatten
     end
     levels
   end
 
-  def self.nodes
+  def self.nodes(include_archived: false)
     @@taxonomies.map do |_taxonomy, tree|
-      list_nodes(tree)
+      list_nodes(tree, include_archived: include_archived)
     end.flatten
   end
 
@@ -138,12 +143,13 @@ class Taxonomy
 
     @node = root
     @id = root['id']
+    @archived = root['archived']
     @children = (root['children'] || [])
       .select { |child| child['new_id'].nil? }  # Taxonomy term has been renamed
       .map { |child| child['name'] }
   end
 
-  def self.list_nodes(root)
+  def self.list_nodes(root, include_archived: false)
     return [] if root['children'].nil?
     root['children'].map do |child|
       child_node =  {
@@ -153,8 +159,11 @@ class Taxonomy
         parent_id: root['id'],
       }
       child_node[:new_id] = child['new_id'] unless child['new_id'].nil?
-      list_nodes(child).insert(0, child_node)
-    end.flatten
+      if not child['archived'] or include_archived
+        list_nodes(
+          child, include_archived: include_archived).insert(0, child_node)
+      end
+    end.compact.flatten
   end
 end
 

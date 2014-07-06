@@ -100,6 +100,7 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     curb (0.8.5)
+    dalli (2.7.1)
     database_cleaner (1.2.0)
     debugger-linecache (1.2.0)
     default_value_for (2.0.3)
@@ -208,6 +209,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     method_source (0.8.2)
     mime-types (1.25.1)
     mock_redis (0.8.1)
@@ -450,6 +452,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.2)
   compass-rails (~> 1.0.3)
+  dalli
   database_cleaner
   default_value_for
   delayed_paperclip
@@ -471,6 +474,7 @@ DEPENDENCIES
   jade!
   jquery-rails
   json-schema (~> 1.1.1)
+  memcachier
   mock_redis
   newrelic_rpm
   nokogiri

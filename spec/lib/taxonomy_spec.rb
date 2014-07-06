@@ -25,6 +25,13 @@ describe Taxonomy do
     end
   end
 
+  context "when constructed with an archived taxonomy term" do
+    it do
+      expect { Taxonomy.new(:sections, ['News', 'Archived']) }
+        .not_to raise_error
+    end
+  end
+
   context "when constructed with an inactive taxonomy term" do
     it do
       expect { Taxonomy.new(:sections, ['News', 'Merged']) }
@@ -113,10 +120,21 @@ describe Taxonomy do
       subject.children.should == children
     end
 
-    it "should not return inactive children" do
+    it "should not return inactive or archived children" do
       section = Taxonomy.new(:sections, ['News'])
       section.children.should ==
         [Taxonomy.new(:sections, ['News', 'University'])]
+    end
+
+    context "when including archived" do
+      it "should include archived" do
+        section = Taxonomy.new(:sections, ['News'])
+        section.children(include_archived: true).should ==
+          [
+            Taxonomy.new(:sections, ['News', 'University']),
+            Taxonomy.new(:sections, ['News', 'Archived'])
+          ]
+      end
     end
   end
 
@@ -144,15 +162,30 @@ describe Taxonomy do
   end
 
   describe "::levels" do
-    it "should return each level of the taxonomy tree as arrays" do
-      levels =
-        [
-         ['/news/', '/sports/', '/opinion/', '/recess/', '/towerview/'],
-         ['/news/university/'],
-         ['/news/university/academics/', '/news/university/board of trustees/'],
-        ]
-      Taxonomy.levels(:sections).should == levels.map do |level|
-        level.map { |taxonomy| Taxonomy.new(:sections, taxonomy) }
+    context "without archived taxonomies" do
+      it "should return each level of the taxonomy tree as arrays" do
+        levels =
+          [
+           ['/news/', '/sports/', '/opinion/', '/recess/', '/towerview/'],
+           ['/news/university/'],
+           ['/news/university/academics/', '/news/university/board of trustees/'],
+          ]
+        Taxonomy.levels(:sections, include_archived: false).should == levels.map do |level|
+          level.map { |taxonomy| Taxonomy.new(:sections, taxonomy) }
+        end
+      end
+    end
+    context "with archived taxonomies" do
+      it "should return each level of the taxonomy tree as arrays" do
+        levels =
+          [
+           ['/news/', '/sports/', '/opinion/', '/recess/', '/towerview/'],
+           ['/news/university/', '/news/archived'],
+           ['/news/university/academics/', '/news/university/board of trustees/'],
+          ]
+        Taxonomy.levels(:sections).should == levels.map do |level|
+          level.map { |taxonomy| Taxonomy.new(:sections, taxonomy) }
+        end
       end
     end
   end
