@@ -20,17 +20,10 @@ class Api::PostsController < Api::BaseController
   end
 
   def create
-    klass =
-      # FIX: This is so gross, but Camayak would have to change to fix it
-      begin
-        Taxonomy.new(:blogs, params[:post][:section])
-        Blog::Post
-      rescue Taxonomy::Errors::InvalidTaxonomyError
-        Article
-      end
+    klass = Post.section_to_class(params[:post][:section])
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
-    metadata = params[:post].delete(:metadata)
+    metadata = params.delete(:metadata)
     post = klass.new(params[:post])
     add_metadata(post, metadata)
     post.authors = [default_staff] if post.authors.blank?
@@ -51,9 +44,16 @@ class Api::PostsController < Api::BaseController
 
   def update
     post = Post.unscoped.find(params[:id])
+    detected_class = Post.section_to_class(params[:section])
+    if params[:section] and not post.class.eql? detected_class
+      # Change the type of the post if the new section is outside of the
+      # current taxonomy
+      post.update_attribute(:type, detected_class.to_s)
+      post = post.becomes(detected_class)
+    end
     params[:post][:teaser] = params[:post][:teaser]
       .try(:truncate, 200, separator: ' ')
-    metadata = params[:post].delete(:metadata)
+    metadata = params.delete(:metadata)
     add_metadata(post, metadata)
     post.assign_attributes(params[:post])
     post.authors = [default_staff] if post.authors.blank?
@@ -95,7 +95,11 @@ class Api::PostsController < Api::BaseController
   # [{attr: value}, ...]
   def add_metadata(post, metadata)
     if metadata
-      metadata.each { |attr| post.assign_attributes(attr) }
+      metadata.each do |attr|
+        if post.class.accessible_attributes.include?(attr.keys.first)
+          post.assign_attributes(attr)
+        end
+      end
     end
   end
 end

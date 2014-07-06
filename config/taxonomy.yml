@@ -167,19 +167,38 @@
   id: 75
   children:
     - name: Bus Stop
+      archived: true
       id: 76
       children:
         - name: Opinion
           id: 80
     - name: Plaza
       id: 77
+      archived: true
       children:
         - name: Opinion
           id: 81
     - name: Inquisitor
       id: 78
+      archived: true
       children:
         - name: Opinion
           id: 82
+    - name: News
+      id: 87
+    - name: Sports
+      id: 88
+    - name: Culture
+      id: 89
     - name: "Editor's Note"
       id: 79
+- name: Special Topics
+  id: 83
+  children:
+    - name: Sexual Assault
+      id: 84
+      children:
+        - name: Articles
+          id: 85
+        - name: Blogs
+          id: 86

@@ -8,7 +8,8 @@ class Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :history, :chronSlug]
 
   attr_accessible :author_ids, :body, :image_id, :previous_id, :published_at,
-    :section, :subtitle, :teaser, :title, :embed_code, :embed_url
+    :section, :subtitle, :teaser, :title, :embed_code, :embed_url,
+    :sponsored_post
 
   belongs_to :image
   has_and_belongs_to_many :authors, class_name: 'Staff',
@@ -132,6 +133,21 @@ class Post < ActiveRecord::Base
     end
   end
   private_class_method :fetch_popular_from_redis
+
+  ##
+  # Get the class that corresponds to a section string based on the class'
+  # taxonomy. Used to determine what type a Post should be based on its section
+  # and no other context.
+  #
+  def self.section_to_class(section)
+    # FIX: This is so gross, but Camayak would have to change to fix it
+    begin
+      Taxonomy.new(:blogs, section)
+      Blog::Post
+    rescue Taxonomy::Errors::InvalidTaxonomyError
+      Article
+    end
+  end
 end
 
 # Necessary to avoid autoload namespacing conflict
