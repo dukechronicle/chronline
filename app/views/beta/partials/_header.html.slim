@@ -25,7 +25,7 @@ header#super-header
             li.has-form
               = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
                   .large-8.small-9.columns
-                    = f.search_field :query, placeholder: 'Search articles and authors'
+                    = f.search_field :query, placeholder: 'Search'
                   .large-4.small-3.columns
                     input.button.expand[type="submit" value="Go"]
   aside.header-advertisement.row
