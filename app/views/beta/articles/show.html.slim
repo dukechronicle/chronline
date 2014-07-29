@@ -60,5 +60,8 @@
         = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
     footer.page-footer
       .row
-        section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4), feature: false, style: :title}
-        section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
+        .small-12.large-8
+          section#recommended= render partial: 'beta/containers/article-row', locals: {title: 'Recommended', articles: @article.related(4)}
+      .row
+        .small-8
+          section#disqus_thread.rounded[data-disqus= disqus_options(@article)]

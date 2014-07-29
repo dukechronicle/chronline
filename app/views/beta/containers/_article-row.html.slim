@@ -1,0 +1,10 @@
+.article-row.page-content-column
+  .row
+    .small-12.columns
+      h2= title
+  .row
+    - articles.each_with_index do |article, i|
+      .small-12.medium-4.columns
+        - if article.image
+          a href= site_post_path(article)
+            = cropped_image_tag article.image, :rectangle_314x
