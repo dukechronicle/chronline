@@ -1,44 +1,42 @@
 footer#super-footer
-  .row.footer-container
-    section.columns.small-4
-      header
-        h2.chron-title
-          a[href=site_root_path] The Chronicle
-      = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
-        .large-8.small-9.columns
-          = f.search_field :query, placeholder: 'Search articles and authors'
-        .large-4.small-3.columns
-          input.button.postfix[type="submit" value="Go"]
-      ul
-        li= link_to "About Us", "/pages/about-us"
-        li= link_to "Advertising", "/pages/advertising"
-        li= link_to "Contact", "/pages/contact"
-        li= link_to "Daily Newsletter", "/newsletter"
-        li= link_to "Editorial Board", "/pages/editorial-board"
-        li= link_to "Join Us", "/pages/join"
-        li= link_to "Letters to the Editor", "/pages/letters"
-        li= link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
-        li= link_to "Print Subscription", "/pages/subscribe"
-      .legal
-        p.copyright Copyright &copy; #{Date.today.year} Duke Student Publishing Company. All rights reserved.
-        p= link_to "User Guidelines", "/pages/user-guidelines"
-        span= link_to "Privacy Policy", "/pages/privacy-policy"
+  .footer-container
+    .row
+      section.columns.small-12
+        header
+          h2.chron-title
+            a[href=site_root_path] The Chronicle
+      section.columns.small-6.medium-4
+        ul
+          li= link_to "About Us", "/pages/about-us"
+          li= link_to "Advertising", "/pages/advertising"
+          li= link_to "Contact", "/pages/contact"
+          li= link_to "Daily Newsletter", "/newsletter"
+          li= link_to "Editorial Board", "/pages/editorial-board"
+          li= link_to "Join Us", "/pages/join"
+          li= link_to "Letters to the Editor", "/pages/letters"
+          li= link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
+          li= link_to "Print Subscription", "/pages/subscribe"
+        .legal
+          p.copyright Copyright &copy; #{Date.today.year} Duke Student Publishing Company. All rights reserved.
+          p= link_to "User Guidelines", "/pages/user-guidelines"
+          span= link_to "Privacy Policy", "/pages/privacy-policy"
 
-    section.columns.small-4
-      header
-        h3 Chronicle Network
-      ul
-        li= link_to "qDuke.com", "http://qduke.com"
-        li= link_to "Alumni", "http://dukechroniclealumni.com/"
-        li= link_to "Classifieds", "http://dukechronicle.campusave.com/"
-        li= link_to "Housing Guide", "http://www.nearduke.com/housing"
-        li= link_to "Schedulator", "http://dukeschedulator.com"
-    section.columns.small-4
-      header
-        h3 Social Media
-      ul
-        li= link_to "qDuke.com" "http://qduke.com"
-        li= link_to "Alumni", "http://dukechroniclealumni.com/"
-        li= link_to "Classifieds", "http://dukechronicle.campusave.com/"
-        li= link_to "Housing Guide", "http://www.nearduke.com/housing"
-        li= link_to "Schedulator", "http://dukeschedulator.com"
+      section.columns.small-6.medium-4
+        header
+          h3 Chronicle Network
+        ul
+          li= link_to "qDuke.com", "http://qduke.com"
+          li= link_to "Alumni", "http://dukechroniclealumni.com/"
+          li= link_to "Classifieds", "http://dukechronicle.campusave.com/"
+          li= link_to "Housing Guide", "http://www.nearduke.com/housing"
+          li= link_to "Schedulator", "http://dukeschedulator.com"
+
+      section.columns.small-6.medium-4
+        header
+          h3 Social Media
+        ul
+          li= link_to "qDuke.com", "http://qduke.com"
+          li= link_to "Alumni", "http://dukechroniclealumni.com/"
+          li= link_to "Classifieds", "http://dukechronicle.campusave.com/"
+          li= link_to "Housing Guide", "http://www.nearduke.com/housing"
+          li= link_to "Schedulator", "http://dukeschedulator.com"
