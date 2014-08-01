@@ -5,6 +5,7 @@ footer#super-footer
         header
           h2.chron-title
             a[href=site_root_path] The Chronicle
+    .row
       section.columns.small-6.medium-4
         ul
           li= link_to "About Us", "/pages/about-us"
@@ -16,10 +17,6 @@ footer#super-footer
           li= link_to "Letters to the Editor", "/pages/letters"
           li= link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
           li= link_to "Print Subscription", "/pages/subscribe"
-        .legal
-          p.copyright Copyright &copy; #{Date.today.year} Duke Student Publishing Company. All rights reserved.
-          p= link_to "User Guidelines", "/pages/user-guidelines"
-          span= link_to "Privacy Policy", "/pages/privacy-policy"
 
       section.columns.small-6.medium-4
         header
@@ -40,3 +37,12 @@ footer#super-footer
           li= link_to "Classifieds", "http://dukechronicle.campusave.com/"
           li= link_to "Housing Guide", "http://www.nearduke.com/housing"
           li= link_to "Schedulator", "http://dukeschedulator.com"
+    .legal
+      .row
+        .columns.small-12
+          span Copyright &copy; #{Date.today.year} Duke Student Publishing Company. All rights reserved.
+      .row
+        .columns.small-12
+          ul
+            li= link_to "User Guidelines", "/pages/user-guidelines"
+            li= link_to "Privacy Policy", "/pages/privacy-policy"
