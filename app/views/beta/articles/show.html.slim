@@ -28,9 +28,7 @@
         header.page-header
           .header-taxonomy
             - @article.section.parents.each_with_index do |parent, i|
-              .chev-container
-                .chev-header-rt-arrow
-                = link_to parent.name, section_path(parent), class: "button tiny"
+              = link_to parent.name, section_path(parent), class: "breadcrumb-link"
           .header-title
             h1
               = @article.title
