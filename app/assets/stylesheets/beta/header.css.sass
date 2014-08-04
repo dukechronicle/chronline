@@ -12,6 +12,9 @@ header#super-header
       color: $chron-gray-light
       a:hover
         color: $chron-blue-highlight
+      h1.chron-title
+        a:hover
+          color: white
   .contain-to-grid.sticky
     opacity: .95
   nav.top-bar
@@ -24,6 +27,11 @@ header#super-header
   .search-section form
     @media #{$large-up}
       width: 220px
+
+  .top-bar-section
+    li.active:not(.has-form)
+      a:not(.button)
+        background: $topbar-link-bg-active-hover
 
 .fixed
   nav
