@@ -13,13 +13,13 @@ xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom",
       xml.title title(@taxonomy)
       xml.link site_root_url(subdomain: 'www')
     end
-
+  
     @posts.each do |post|
       xml.item do
         xml.guid site_post_url(post, subdomain: 'www')
         xml.title post.title
         xml.link site_post_url(post, subdomain: 'www')
-        xml.description post.render_body
+        xml.description post.body_text
         xml.tag!("dc:creator", byline(post))
         xml.pubDate post.published_at.rfc822
         xml.comments site_post_url(post, subdomain: 'www') + '#disqus_thread'
