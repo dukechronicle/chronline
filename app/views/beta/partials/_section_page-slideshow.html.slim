@@ -1,6 +1,6 @@
 .section-page-slider
   .slider-feature
-    ul(data-orbit data-options="bullets: false")
+    ul(data-orbit data-options="bullets: false; next_on_click: false")
       - count = 0
       - if pages_first
         - (pages || []).each do |page|
@@ -14,12 +14,13 @@
         - if article.image
           - count += 1
           li(data-orbit-slide= site_post_path(article).gsub(/\//, "-"))
-            = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article)
-            .orbit-caption
-              h2= article.title
-              p 
-                span Read More | 
-                span.author By #{byline(article, link: false)}
+            a(href=site_post_path(article))
+              = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article)
+              .orbit-caption
+                h2= article.title
+                p
+                  span Read More | 
+                  span.author By #{byline(article, link: false)}
       - unless pages_first
         - (pages || []).each do |page|
           - if page.image
