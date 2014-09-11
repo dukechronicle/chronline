@@ -16,8 +16,8 @@ class ImageSweeper < ActionController::Caching::Sweeper
 
   private
   def expire_cache_for(image)
-    image.articles.each do |article|
-      expire_obj_cache_with_taxonomies article
+    image.posts.each do |post|
+      expire_obj_cache post
     end
   end
 end
