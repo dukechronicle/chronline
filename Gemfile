@@ -7,7 +7,7 @@ group :production do
   gem 'asset_sync'
   gem 'newrelic_rpm'
   gem 'rails_12factor'
-  gem 'unicorn'
+  gem 'unicorn', '~> 4.8.3'
 end
 
 group :development, :test do
