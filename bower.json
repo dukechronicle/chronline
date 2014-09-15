@@ -21,6 +21,9 @@
             "underscore": "~1.5.2",
             "lightbox2": "~2.7.1",
             "imagesloaded": "latest"
+        },
+        "resolutions": {
+            "jquery": ">=1.2"
         }
     }
 }
