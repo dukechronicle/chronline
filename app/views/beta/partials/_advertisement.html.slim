@@ -1,3 +1,5 @@
 - suffix ||= nil
 section.row.advertisement
-  div{class: zone}= advertisement(zone, suffix)
+  .advertisement-container
+    h2.advertisement-label Advertisement
+    div{class=zone}= advertisement(zone, suffix)
