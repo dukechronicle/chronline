@@ -21,7 +21,7 @@ class StaffSweeper < ActionController::Caching::Sweeper
   def expire_cache_for(staff)
     articles = staff.articles + staff.images.map(&:articles).flatten
     articles.each do |article|
-      expire_obj_cache_with_taxonomies article
+      expire_article_cache article
     end
   end
 
