@@ -1,4 +1,4 @@
-Chronline
+Chronline [![Build Status](https://travis-ci.org/dukechronicle/chronline.svg?branch=master)](https://travis-ci.org/dukechronicle/chronline)
 =========
 
 This is the code for the [Duke Chronicle](http://www.dukechronicle.com) website. The Chronicle is Duke's independent daily news organization. The site was written entirely by undergrad students at Duke. We are one of the few college news organizations that have a dedicated team responsible for building, maintaining, and running the online product. We want to build a platform for providing information and fostering discussion within the Duke community, and we take this mission very seriously. This is a project that will continue to improve as we try to build the *best* news platform out there.

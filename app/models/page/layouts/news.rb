@@ -63,6 +63,10 @@ class Page::Layouts::News < Layout
         'default' => 'news',
         'extends' => popular_schema,
       },
+      'twitter_widget' => {
+        'label' => 'Twitter Widget ID',
+        'type' => 'string',
+      },
     }
   end
 

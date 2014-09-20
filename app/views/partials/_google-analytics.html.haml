@@ -1,6 +1,8 @@
 :javascript
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '#{ENV['GOOGLE_ANALYTICS']}']);
+
+  _gaq.push(['_setCustomVar', 2, 'Viewport Height (Rounded)', (Math.round(window.innerHeight / 25) * 25).toString(), 2]);
   _gaq.push(['_trackPageview']);
 
   (function() {

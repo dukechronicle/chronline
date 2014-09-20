@@ -7,6 +7,10 @@ leaderboard:
   width: 728
   height: 90
   unit: 536871739
+towerview_leaderboard:
+  width: 728
+  height: 90
+  unit: 537147352
 medium_rectangle:
   width: 300
   height: 250

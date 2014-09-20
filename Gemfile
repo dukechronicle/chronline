@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.2'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.19'
 
 group :production do
   gem 'asset_sync'
   gem 'newrelic_rpm'
   gem 'rails_12factor'
-  gem 'unicorn'
+  gem 'unicorn', '~> 4.8.3'
 end
 
 group :development, :test do
