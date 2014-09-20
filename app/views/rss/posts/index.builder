@@ -1,5 +1,6 @@
 xml.instruct! :xml, version: "1.0"
-xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
+xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom",
+  "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
   xml.channel do
     xml.tag! "atom:link", href: url_for(only_path: false), rel: "self", type: "application/rss+xml"
     xml.title title(@taxonomy)
@@ -12,18 +13,19 @@ xml.rss version: "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
       xml.title title(@taxonomy)
       xml.link site_root_url(subdomain: 'www')
     end
-
+  
     @posts.each do |post|
       xml.item do
+        xml.guid site_post_url(post, subdomain: 'www')
         xml.title post.title
         xml.link site_post_url(post, subdomain: 'www')
-        xml.description post.render_body
-        xml.author byline(post)
+        xml.description post.body_text
+        xml.tag!("dc:creator", byline(post))
         xml.pubDate post.published_at.rfc822
         xml.comments site_post_url(post, subdomain: 'www') + '#disqus_thread'
         if post.image
           xml.enclosure(
-            url: post.image.original.url(:rectangle_636x),
+            url: URI.join(site_root_url(subdomain: 'www'), post.image.original.url(:rectangle_636x)),
             length: post.image.original_file_size,
             type: post.image.original_content_type
           )

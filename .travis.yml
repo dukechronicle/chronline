@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - "2.1.1"
+  - "2.1.2"
 before_script:
   - redis-server &
   - psql -c 'create database chronline_test;' -U postgres
