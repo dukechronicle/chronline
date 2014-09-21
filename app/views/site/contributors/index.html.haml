@@ -1,0 +1,7 @@
+.span-8
+  .rounded
+    .content-container
+      %ul.contributor-list
+        - @contributors.each do |contributor|
+          %li
+            %a{href: contributor['html_url'], class: 'contributor-link'}= contributor['login']

@@ -39,6 +39,8 @@ Chronline::Application.routes.draw do
         get 'categories/:category' => 'blog_posts#categories', as: :category
       end
 
+      resources :contributors, only: :index
+
       resources :staff, only: :show do
         member do
           get 'articles'
