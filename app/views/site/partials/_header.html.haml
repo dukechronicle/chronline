@@ -1,6 +1,6 @@
 .advertisement.leaderboard-row
   .custom_ad= advertisement :custom
-  .leaderboard= advertisement :leaderboard
+  .leaderboard= advertisement @leaderboard_id || :leaderboard
 
 #super-header
   %time.date{data: {format: 'dddd, mmmm dS, yyyy'}}
