@@ -10,13 +10,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise64"
+  config.vm.network "private_network", type: "dhcp"
+  config.vm.box = "chef/ubuntu-14.04"
   config.vm.provision :shell, :path => "script/lang.sh", privileged: false
   config.vm.provision :shell, :path => "script/bootstrap.sh", privileged: false
   config.vm.network :forwarded_port, guest: 3000, host: 3000
-  config.vm.synced_folder ".", "/home/vagrant/chronline"
+  config.vm.synced_folder ".", "/home/vagrant/chronline", type: "nfs"
   config.vm.provider "virtualbox" do |v|
-    v.memory = 1024
+    v.memory = 500
   end
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
