@@ -36,7 +36,7 @@ nvm alias default 0.10
 
 
 # Install rvm and stable version of ruby
-curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.1
+curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.2
 
 # add rvm to PATH
 echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"' >> ~/.profile
