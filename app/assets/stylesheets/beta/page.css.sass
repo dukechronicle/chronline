@@ -92,6 +92,8 @@ aside.page-sidebar
 .page-front
   background-color: $chron-blue
   overflow: hidden
+  .top-news-container
+    background-color: $chron-text-white
   .page-widget-sidebar
     section
       background-color: $chron-blue
@@ -120,3 +122,27 @@ aside.page-sidebar
     &.section-slideshow
       > header
         display: none
+
+.page-article-vertical-list
+  padding: 40px
+  h3
+    text-transform: uppercase
+    font-weight: bold
+  ul
+    margin-left: 0
+    li
+      margin-bottom: 4px
+  .more-articles
+    font-size: .85em
+  .article-detail
+    margin-bottom: 4px
+  figure
+    padding: 2px
+    float: right
+    img
+      width: auto
+  .teaser
+    font-size: .7em
+
+.element
+  display: inline
