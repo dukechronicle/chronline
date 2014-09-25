@@ -9,12 +9,12 @@
         = link_to articles.first.title, site_article_path(articles.first)
         p.teaser= articles.first.teaser
   .row
-    .columns.small-7
+    .columns.small-12.medium-7
       - articles[1...3].each do |article|
         .list-article-detail
           = link_to article.title, site_article_path(article)
           p.teaser= article.teaser
-    .columns.small-5
+    .columns.small-5.show-for-medium-up
       ul.more-articles
         - articles.drop(3).each do |article|
           li= article.title

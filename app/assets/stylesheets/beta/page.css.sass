@@ -124,7 +124,8 @@ aside.page-sidebar
         display: none
 
 .page-article-vertical-list
-  padding: 40px
+  @media #{$medium-up}
+    padding: 40px
   h3
     text-transform: uppercase
     font-weight: bold
