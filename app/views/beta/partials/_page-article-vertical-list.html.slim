@@ -1,4 +1,4 @@
-.page-article-vertical-list
+.page-article-vertical-list.column-inner
   h3= title
   .row
     .columns.small-12
@@ -14,7 +14,8 @@
         .list-article-detail
           = link_to article.title, site_article_path(article)
           p.teaser= article.teaser
-    .columns.small-5.show-for-medium-up
-      ul.more-articles
-        - articles.drop(3).each do |article|
-          li= article.title
+    - if not articles.drop(3).empty?
+      .columns.small-5.show-for-medium-up
+        ul.more-articles
+          - articles.drop(3).each do |article|
+            li= article.title
