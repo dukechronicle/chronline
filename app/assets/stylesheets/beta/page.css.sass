@@ -2,8 +2,8 @@
 // Article/Page
 .page-content-column
   background-color: $chron-text-white
-  border-left: 1px solid $chron-gray-border
-  border-right: 1px solid $chron-gray-border
+  border-left: $chron-gray-border
+  border-right: $chron-gray-border
   //box-shadow: $chron-gray-dark 0px 3px 6px -2px
   z-index: 1
 
@@ -34,8 +34,8 @@ aside.page-sidebar
   background: white
   .row  
     padding-bottom: $page-section-spacing
-    border-bottom: 1px solid $chron-gray-border
-    border-right: 1px solid $chron-gray-border
+    border-bottom: $chron-gray-border
+    border-right: $chron-gray-border
   .row.advertisement
     background: $chron-gray-light
     text-align: center
@@ -98,14 +98,14 @@ aside.page-sidebar
     section
       background-color: $chron-blue
       color: $chron-text-white
-      //border-bottom: 1px solid $chron-gray-border
+      //border-bottom: $chron-gray-border
   section
     background-color: $chron-text-white
   .section-column-container
-    //border-bottom: 1px solid $chron-gray-border
-    //border-left: 1px solid $chron-gray-border
+    //border-bottom: $chron-gray-border
+    //border-left: $chron-gray-border
     &:last-child
-      //border-right: 1px solid $chron-gray-border
+      //border-right: $chron-gray-border
       border-left: none
   section > header
     background-color: $chron-blue
@@ -123,9 +123,24 @@ aside.page-sidebar
       > header
         display: none
 
-.page-article-vertical-list
+.section-column-container > .column-row
   @media #{$medium-up}
-    padding: 40px
+    margin: 0px 10px
+    border-top: $chron-gray-border
+    &:first-child
+      border-top: none
+
+.row > .columns:last-child .column-inner
+  @media #{$medium-up}
+    border-right: none
+
+.column-inner
+  @media #{$medium-up}
+    border-right: $chron-gray-border
+    margin: 20px 0px
+    padding-right: 20px
+
+.page-article-vertical-list
   h3
     text-transform: uppercase
     font-weight: bold
@@ -135,6 +150,9 @@ aside.page-sidebar
       margin-bottom: 4px
   .more-articles
     font-size: .85em
+    @media #{$medium-up}
+      padding-top: 15px
+      border-top: $chron-gray-border
   .article-detail
     margin-bottom: 4px
   figure
