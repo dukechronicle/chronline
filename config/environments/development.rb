@@ -49,4 +49,7 @@ Chronline::Application.configure do
   if ENV['SMTP_DOMAIN'].present?
     ActionMailer::Base.smtp_settings[:domain] = ENV['SMTP_DOMAIN']
   end
+
+  config.cache_store = [:file_store, '/tmp/rails-cache']
+  config.assets.cache_store = [:file_store, "/tmp/rails-cache/assets/#{Rails.env}"]
 end
