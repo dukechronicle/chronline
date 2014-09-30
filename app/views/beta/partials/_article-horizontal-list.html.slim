@@ -1,0 +1,17 @@
+- show_teaser = false if local_assigns[:show_teaser].nil?
+.article-horizontal-list
+  - if title
+    h3= title
+  ul.small-block-grid-1(class="medium-block-grid-#{show_teaser ? 3 : 6}")
+    - articles.each do |article|
+      li.grid-center
+        .row
+          .columns.small-12
+            - if article.image
+              = cropped_image_tag article.image, :rectangle_183x
+          .columns.small-12
+            = article.title
+          - if show_teaser
+            .columns.small-12
+              .teaser
+                = article.teaser
