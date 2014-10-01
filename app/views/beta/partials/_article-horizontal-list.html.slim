@@ -1,10 +1,11 @@
 - show_teaser = false if local_assigns[:show_teaser].nil?
+- grid_width = local_assigns[:grid_width] || (show_teaser ? 3 : 6)
 .article-horizontal-list
   - if title
     h3= title
-  ul.small-block-grid-1(class="medium-block-grid-#{show_teaser ? 3 : 6}")
+  ul.small-block-grid-1(class="medium-block-grid-#{grid_width}")
     - articles.each do |article|
-      li.grid-center
+      li
         .row
           .columns.small-12
             - if article.image
