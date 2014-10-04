@@ -3,7 +3,7 @@
 - grid_width = articles.length < ideal_width ? articles.length : ideal_width
 .article-horizontal-list
   ul.small-block-grid-1(class="medium-block-grid-#{grid_width}")
-      h3= title
+    h3= title
     - articles.each do |article|
       li
         .row
