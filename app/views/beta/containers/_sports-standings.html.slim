@@ -1,0 +1,15 @@
+.standings
+  .content-container
+    - ESPN.new.standings(url).to_a.reverse.each do |league, standings|
+      .league
+        h3= league
+        table
+          tr
+            th Team
+            th Conference
+            th Overall
+          - standings.each do |team, conf, overall|
+            tr
+              td= team
+              td= conf
+              td= overall
