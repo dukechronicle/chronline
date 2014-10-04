@@ -31,14 +31,11 @@
         section.row
           header.columns.small-12
             h2 Standings
-          = render partial: 'site/containers/sports-standings', locals: {url: @model.standings_url}
+          .columns.small-12
+            = render partial: 'beta/containers/sports-standings', locals: {url: @model.standings_url}
         section.row
           header.columns.small-12
             h2 Twitter
           .twitter
             - @model.twitter_widgets.each do |widget_id|
               a.twitter-timeline(data-widget-id=widget_id)
-        section.row.section-top_news
-      .section-column-container.columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
-        
-      .section-column-container.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
