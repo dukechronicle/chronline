@@ -111,11 +111,11 @@ aside.page-sidebar
     background-color: $chron-blue
     h2, h3
       color: white
-      font-size: 1rem
+    h2
+      font-size: 1.3rem
       text-transform: uppercase
-      text-align: right
     h3
-      font-size: .8rem
+      font-size: 1rem
   .section-active
     > header
       background-color: $chron-blue-accent
@@ -169,3 +169,46 @@ aside.page-sidebar
 
 .inner-grid-center
   display: inline-block
+
+.column-articles
+  a:hover
+    color: inherit
+  h3
+    margin: 0px
+    &:hover
+      color: $anchor-font-color-hover
+  .subtitle
+    text-transform: uppercase
+    font-family: $chron-font-sans
+
+.author-box
+  a:hover
+    color: inherit
+  .selectors
+    h3
+      text-transform: uppercase
+      font-size: 1rem
+  p
+    margin-bottom: 0px
+  .headshot
+    float: right
+  .subtitle
+    text-transform: uppercase
+    font-family: $chron-font-sans
+  .author-info
+    overflow: hidden
+    border-bottom: $chron-gray-border
+    padding-bottom: 0.5rem
+    h3
+      margin-bottom: 0px
+    .subtitle
+      span
+        &:after
+          content: ' | '
+        &:last-child:after
+          content: none
+  .list-story
+    h3
+      margin-bottom: 0px
+      &:hover
+        color: $anchor-font-color-hover
