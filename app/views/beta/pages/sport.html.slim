@@ -1,0 +1,10 @@
+- slideshow_articles = @model.featured_stories.map {|article_hash| article_hash['article'] }
+.page-main-wrap
+  = render partial: 'beta/partials/section-gallery-top', locals: {slideshow_articles: slideshow_articles, slideshow_pages: [], pages_first: true, top_news: []}
+  .row.page-container
+    .page-front
+      .section-column-container.columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
+        section.row.column-row
+          .columns.small-12-medium-6
+            = render partial: 'beta/containers/article-list', locals: { title: "Recent", articles: @model.stories, style: :teaser}
+
