@@ -91,6 +91,13 @@ Chronline::Application.routes.draw do
       resources :articles, only: :show, id: Post::SLUG_PATTERN do
         get :print, on: :member
       end
+
+      resources :blogs, only: :index, controller: 'blog_posts' do
+        resources :posts, only: [:index, :show], controller: 'blog_posts',
+          id: Post::SLUG_PATTERN
+        get 'tags/:tag' => 'blog_posts#tags', as: :tagged
+        get 'categories/:category' => 'blog_posts#categories', as: :category
+      end
     end
   end
 
