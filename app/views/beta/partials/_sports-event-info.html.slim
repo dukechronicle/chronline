@@ -1,0 +1,35 @@
+.sports-event-info
+  .content-container
+    .game-stats(data-starttime=info['date'])
+      p.label Game Score
+      p.value
+
+    .teams
+      div.team
+        p.score
+          #{game_info[:away_team][:name]}
+          - unless game_info[:away_team][:score].nil?
+            | (#{game_info[:away_team][:score]})
+        = image_tag game_info[:away_team][:logo], class: 'logo', alt: game_info[:away_team][:name], title: game_info[:away_team][:name]
+      span.separator= '@'
+      div.team
+        p.score
+          #{game_info[:home_team][:name]}
+          - unless game_info[:home_team][:score].nil?
+            | (#{game_info[:home_team][:score]})
+        = image_tag game_info[:home_team][:logo], class: 'logo', alt: game_info[:home_team][:name], title: game_info[:home_team][:name]
+
+    .event-info
+      p
+        span.white-label Where
+        span= info['location']
+      p
+        span.white-label Date
+        span= datetime_tag info['date'], 'dddd, mmmm d, yyyy'
+      p
+        span.white-label Time
+        span= datetime_tag info['date'], 'h:MM Z'
+      p
+        span.white-label TV Channel/Radio
+        span= info['channel']
+
