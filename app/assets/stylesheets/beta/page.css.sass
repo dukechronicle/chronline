@@ -212,3 +212,35 @@ aside.page-sidebar
       margin-bottom: 0px
       &:hover
         color: $anchor-font-color-hover
+
+.blog-preview
+  margin-bottom: 30px
+
+.blog-banner
+  margin: 20px 0px
+
+.byline
+  span
+    &:after
+      content: ' | '
+    &:last-child:after
+      content: none
+
+ul.tags
+  border-top: $chron-gray-border
+  list-display-type: none
+  margin: 30px 0px 0px
+  padding-top: 10px
+  font-size: .8em
+  li
+    display: inline
+    &:after
+      content: ' \2022  '
+    &:last-child:after
+      content: none
+
+.pagination
+  ul
+    list-display-type: none
+    li
+      display: inline
