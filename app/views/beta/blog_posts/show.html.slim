@@ -5,8 +5,8 @@
   - cache(action_suffix: :head) do
     - if @blog_post.published?
       - post = Blog::Post.includes(:authors, image: :photographer).find(@blog_post)
-      = render 'site/partials/twitter_cards/post', post: post
-      = render 'site/partials/open-graph/post', post: post
+      = render 'beta/partials/twitter_cards/post', post: post
+      = render 'beta/partials/open-graph/post', post: post
     - if @blog_post.block_bots
       meta(name='robots' content='noindex')
     link(rel="canonical" href=site_blog_post_url(@blog, @blog_post, subdomain: :www, protocol: 'http'))
