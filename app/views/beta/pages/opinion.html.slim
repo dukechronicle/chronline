@@ -15,6 +15,8 @@
           section.row.column-row
             .columns.small-12.medium-6
               #columnists= render partial: 'beta/partials/author-box', locals: {title: "Columnists", authors: @model.columnists}
+            .columns.small-12.medium-6
+              #discussion-board= render partial: 'beta/containers/topic', locals: {title: "ChronFessional", topic: @model.topic}
 
 
 
