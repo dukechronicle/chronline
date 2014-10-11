@@ -92,6 +92,16 @@ Chronline::Application.routes.draw do
         get :print, on: :member
       end
 
+      resources :staff, only: :show do
+        member do
+          get 'articles'
+          get 'blog_posts'
+          get 'images'
+        end
+      end
+
+      resource :search, only: :show
+
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
           id: Post::SLUG_PATTERN
