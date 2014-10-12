@@ -1,0 +1,18 @@
+.search-options
+  h2.vertical-label Search
+  .rounded
+    = simple_form_for(search, url: site_search_path, method: :get) do |f|
+      fieldset
+        legend Refine your search
+        = f.search_field :query, results: '5'
+        .facets
+          = f.input :sort, collection: [['Relevance', :score], ['Newest', :date]], default: 1, label: "Order by"
+          = f.input :model, label: "Result Type", collection: [["Articles", Article],
+                                                               ["Blog Posts", Blog::Post]]
+          = f.input :start_date, collection: [['Past 24 Hours', 1.day.ago.to_date],
+                                              ['Past 7 Days', 7.days.ago.to_date],
+                                              ['Past 30 Days', 30.days.ago.to_date],
+                                              ['Past 12 Months', 1.year.ago.to_date]]
+          - search.facet_results.each do |field, label, rows|
+            = f.input field, collection: search_options(rows), label: label
+        = f.submit "Search", class: 'btn'

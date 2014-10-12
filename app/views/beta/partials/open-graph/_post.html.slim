@@ -1,0 +1,20 @@
+meta(property="og:title" content=post.title)
+meta(property="og:type" content="article")
+- if post.image
+  meta(property="og:image" content="http:#{post.image.original.url(:rectangle_636x)}")
+- else
+  meta(property="og:image" content="http:#{image_path("logo/300x300.png")}")
+meta(property="og:url" content=permanent_post_url(post))
+meta(property="og:site_name" content="The Duke Chronicle")
+meta(property="og:description" content=post.teaser)
+meta(property="article:published_time" content=post.published_at.iso8601)
+meta(property="article:modified_time" content=post.updated_at.iso8601)
+- post.authors.each do |author|
+  meta(property="article:author" content=site_staff_url(author, subdomain: 'www', protocol: 'http'))
+- if post.is_a? Article
+  - unless post.section.root?
+    meta(property="article:section" content=post.section[0])
+- else
+  meta(property="article:section" content=post.blog.name)
+  - post.tags.each do |tag|
+    meta(property="article:tag" content=tag.name)
