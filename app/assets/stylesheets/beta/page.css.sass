@@ -111,11 +111,11 @@ aside.page-sidebar
     background-color: $chron-blue
     h2, h3
       color: white
-      font-size: 1rem
+    h2
+      font-size: 1.3rem
       text-transform: uppercase
-      text-align: right
     h3
-      font-size: .8rem
+      font-size: 1rem
   .section-active
     > header
       background-color: $chron-blue-accent
@@ -137,8 +137,11 @@ aside.page-sidebar
 .column-inner, .border-right
   @media #{$medium-up}
     border-right: $chron-gray-border
-    margin: 20px 0px
     padding-right: 20px
+
+.column-inner
+  @media #{$medium-up}
+    margin: 20px 0px
 
 .page-article-vertical-list
   h3
@@ -166,3 +169,81 @@ aside.page-sidebar
 
 .grid-center
   text-align: center
+
+.inner-grid-center
+  display: inline-block
+
+.column-articles
+  a:hover
+    color: inherit
+  h3
+    margin: 0px
+    &:hover
+      color: $anchor-font-color-hover
+  .subtitle
+    text-transform: uppercase
+    font-family: $chron-font-sans
+
+.author-box
+  a:hover
+    color: inherit
+  .selectors
+    h3
+      text-transform: uppercase
+      font-size: 1rem
+  p
+    margin-bottom: 0px
+  .headshot
+    float: right
+  .subtitle
+    text-transform: uppercase
+    font-family: $chron-font-sans
+  .author-info
+    overflow: hidden
+    border-bottom: $chron-gray-border
+    padding-bottom: 0.5rem
+    h3
+      margin-bottom: 0px
+    .subtitle
+      span
+        &:after
+          content: ' | '
+        &:last-child:after
+          content: none
+  .list-story
+    h3
+      margin-bottom: 0px
+      &:hover
+        color: $anchor-font-color-hover
+
+.blog-preview
+  margin-bottom: 30px
+
+.blog-banner
+  margin: 20px 0px
+
+.byline
+  span
+    &:after
+      content: ' | '
+    &:last-child:after
+      content: none
+
+ul.tags
+  border-top: $chron-gray-border
+  list-display-type: none
+  margin: 30px 0px 0px
+  padding-top: 10px
+  font-size: .8em
+  li
+    display: inline
+    &:after
+      content: ' \2022  '
+    &:last-child:after
+      content: none
+
+.pagination
+  ul
+    list-display-type: none
+    li
+      display: inline

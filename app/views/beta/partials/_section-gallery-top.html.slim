@@ -6,13 +6,14 @@
           h2 Slideshow
         #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: slideshow_pages, pages_first: pages_first}
     .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
-      aside.page-widget-sidebar.row
-        = render partial: 'beta/partials/widgets/today'
-        .widget Widget 2
-        .widget Widget 3
+      = render partial: 'beta/partials/widget-sidebar'
+
     .section-column-container.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
       = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
       section.row.section-top_news
-        header.columns.small-12
-          h2 Top News
-        .columns.small-12= render partial: 'beta/containers/article-list', locals: {articles: top_news, style: "social-image", notime: false}
+        - if local_assigns[:sidebar_content].nil?
+          header.columns.small-12
+            h2 Top News
+          .columns.small-12= render partial: 'beta/containers/article-list', locals: {articles: top_news, style: "social-image", notime: false}
+        - else
+          = sidebar_content
