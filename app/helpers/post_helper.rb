@@ -41,6 +41,19 @@ module PostHelper
     }.to_json
   end
 
+  def beta_post_url(post, options = {})
+    if post.is_a? Blog::Post
+      polymorphic_url([:beta, post.blog, post], options)
+    else
+      polymorphic_url([:beta, post], options)
+    end
+  end
+
+  def beta_post_path(post, options = {})
+    options[:routing_type] = :path
+    beta_post_url(post, options)
+  end
+
   def site_post_url(post, options = {})
     if post.is_a? Blog::Post
       polymorphic_url([:site, post.blog, post], options)
