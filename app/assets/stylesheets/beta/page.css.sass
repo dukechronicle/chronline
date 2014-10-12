@@ -125,7 +125,7 @@ aside.page-sidebar
 
 .section-column-container > .column-row
   @media #{$medium-up}
-    margin: 0px 10px
+    margin: 0px
     border-top: $chron-gray-border
     &:first-child
       border-top: none
@@ -216,6 +216,11 @@ aside.page-sidebar
       &:hover
         color: $anchor-font-color-hover
 
+.article-horizontal-list
+  h3
+    text-transform: uppercase
+    font-weight: bold
+
 .blog-preview
   margin-bottom: 30px
 
@@ -247,3 +252,6 @@ ul.tags
     list-display-type: none
     li
       display: inline
+
+.bordered
+  border: $chron-gray-border

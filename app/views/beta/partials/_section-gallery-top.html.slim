@@ -1,6 +1,6 @@
 .row.page-container
   .page-front data-equalizer=""
-    .section-column-container.columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
+    .section-column-container.bordered.columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
       section.row.section-active.section-slideshow
         header.columns.small-12
           h2 Slideshow
@@ -8,7 +8,7 @@
     .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
       = render partial: 'beta/partials/widget-sidebar'
 
-    .section-column-container.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
+    .section-column-container.bordered.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
       = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
       section.row.section-top_news
         - if local_assigns[:sidebar_content].nil?
