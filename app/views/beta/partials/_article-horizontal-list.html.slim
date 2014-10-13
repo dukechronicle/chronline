@@ -10,7 +10,7 @@
         .row
           .columns.small-12
             - if article.image
-              = cropped_image_tag article.image, :rectangle_183x
+              = cropped_image_tag article.image, :rectangle_183x, width: "100%"
           .columns.small-12
             = article.title
           - if show_teaser
