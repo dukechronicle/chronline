@@ -2,9 +2,8 @@
 - ideal_width = local_assigns[:grid_width] || (show_teaser ? 3 : 6)
 - grid_width = articles.length < ideal_width ? articles.length : ideal_width
 .article-horizontal-list
-  - if title
-    h3= title
   ul.small-block-grid-1(class="medium-block-grid-#{grid_width}")
+    h3= title
     - articles.each do |article|
       li
         .row
