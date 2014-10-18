@@ -1,12 +1,15 @@
+- sidebar = local_assigns.has_key?(:sidebar) ? sidebar : true
 .row.page-container
   .page-front data-equalizer=""
-    .section-column-container.bordered.columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
+    - gallery_width = sidebar ? 'medium-7 push-1' : 'medium-8'
+    .section-column-container.bordered.columns.page-content-column.small-12(class=gallery_width data-equalizer-watch="")
       section.row.section-active.section-slideshow
         header.columns.small-12
           h2 Slideshow
         #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: slideshow_pages, pages_first: pages_first}
-    .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
-      = render partial: 'beta/partials/widget-sidebar'
+    - if sidebar
+      .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
+        = render partial: 'beta/partials/widget-sidebar'
 
     .section-column-container.bordered.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
       = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
