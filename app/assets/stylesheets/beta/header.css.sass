@@ -22,8 +22,13 @@ header#super-header
           text-transform: uppercase
           font-family: $chron-font-sans-alt
           font-weight: 500
+      @media #{$medium-only}
+        margin-left: -20px
 
   .search-section form
+    width: 200px
+    @media #{$medium-only}
+      width: 75px
     @media #{$large-up}
       width: 220px
 

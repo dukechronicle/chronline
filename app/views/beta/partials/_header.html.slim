@@ -24,10 +24,8 @@ header#super-header
           ul.right.search-section
             li.has-form
               = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
-                  .large-8.small-9.columns
-                    = f.search_field :query, placeholder: 'Search'
-                  .large-4.small-3.columns
-                    input.button.expand[type="submit" value="Go"]
+                  .small-12.columns
+                    = f.search_field :query, placeholder: 'Search', type: :search, results: 0
   aside.header-advertisement.row
     .custom_ad.columns.show-for-medium-up.medium-4= advertisement :custom
     .leaderboard.columns.small-12.medium-12.large-8= advertisement :leaderboard
