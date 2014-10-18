@@ -124,6 +124,9 @@ aside.page-sidebar
         display: none
 
 .section-column-container > .column-row
+  &:last-child
+    // need this because of foundation's [class*="column"] + [class*="column"]:last-child
+    float: none
   @media #{$medium-up}
     margin: 0px
     border-top: $chron-gray-border
