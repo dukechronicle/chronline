@@ -7,12 +7,13 @@
     - articles.each do |article|
       li
         .row
-          .columns.small-12
-            - if article.image
-              = cropped_image_tag article.image, :rectangle_183x, width: "100%"
-          .columns.small-12
-            = article.title
-          - if show_teaser
+          a(href=site_post_path(article))
             .columns.small-12
-              .teaser
-                = article.teaser
+              - if article.image
+                = cropped_image_tag article.image, :rectangle_183x, width: "100%"
+            .columns.small-12
+              = article.title
+            - if show_teaser
+              .columns.small-12
+                .teaser
+                  = article.teaser
