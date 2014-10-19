@@ -1,5 +1,6 @@
 //= require jquery
-//= require foundation/js/foundation
+//= require foundation
+//= require modernizr/modernizr
 
 //= require util
 //= require initialize

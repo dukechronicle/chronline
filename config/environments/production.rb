@@ -42,8 +42,8 @@ Chronline::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile +=
-    ['site.js', 'admin.js', 'mobile.js',
-     'site.css', 'admin.css', 'mobile.css', 'print.css', 'ie.css',
+    ['site.js', 'admin.js', 'mobile.js', 'beta.js',
+     'site.css', 'admin.css', 'mobile.css', 'beta.css', 'print.css', 'ie.css',
      'galleria/themes/chronicle/galleria.chronicle.js',
      'galleria/themes/chronicle/galleria.chronicle.css',
      'galleria/themes/gallery/galleria.gallery.js',
