@@ -1,12 +1,14 @@
 header#super-header
   .header-advertisement
     background: $chron-gray-medium
-    border-left: 1px solid $chron-gray-border
-    border-right: 1px solid $chron-gray-border
-    border-bottom: 1px solid $chron-gray-border
     text-align: center
+    height: 90px
     > div
-      display: inline
+      display: inline-block
+      vertical-align: top
+      margin-left: 20px
+      &:first-child
+        margin-left: 0px
   ul.title-area
     li.name
       background: $chron-blue
