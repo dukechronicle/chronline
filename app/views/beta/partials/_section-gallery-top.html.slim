@@ -17,6 +17,6 @@
         - if local_assigns[:sidebar_content].nil?
           header.columns.small-12
             h2 Top News
-          .columns.small-12= render partial: 'beta/containers/article-list', locals: {articles: top_news, style: "social-image", notime: false}
+          .columns.small-12= render partial: 'beta/containers/article-list', locals: {articles: top_news.take(3), style: "social-image", notime: false}
         - else
           = sidebar_content
