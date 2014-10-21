@@ -12,7 +12,8 @@
         = render partial: 'beta/partials/widget-sidebar'
 
     .section-column-container.bordered-bottom.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
-      = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+      .gallery-side-ad
+        = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
       section.row.section-top-news
         - if local_assigns[:sidebar_content].nil?
           header.columns.small-12
