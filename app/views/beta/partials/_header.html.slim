@@ -27,5 +27,7 @@ header#super-header
                   .small-12.columns
                     = f.search_field :query, placeholder: 'Search', type: :search, results: 0
   aside.header-advertisement.row
-    .custom_ad.columns.show-for-medium-up.medium-4= advertisement :custom
-    .leaderboard.columns.small-12.medium-12.large-8= advertisement :leaderboard
+    .custom_ad
+      .show-for-large-up= advertisement :custom2
+    .leaderboard.small-12
+      .show-for-medium-up= advertisement :leaderboard
