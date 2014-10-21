@@ -20,13 +20,20 @@
   +transform(rotate(-90deg) translate(-100%, -100%))
   white-space: nowrap
 
-.custom_ad
-  width: 300px
-  height: 90px
+.header-advertisement
+  .custom_ad
+    display: none
+    width: 300px
+    height: 90px
+    @media #{$large-up}
+      display: inline
 
-.leaderboard
-  width: 728px
-  height: 90px
+  .leaderboard
+    display: none
+    width: 728px
+    height: 90px
+    @media #{$medium-up}
+      display: inline
 
 .medium_rectangle
   width: 300px
