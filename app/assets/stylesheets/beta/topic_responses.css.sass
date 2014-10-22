@@ -1,0 +1,45 @@
+.topic-response
+  .content
+    margin: 0
+    padding: 5px
+    font-size: 1.2em
+
+  ul.response-actions
+    list-style: none
+    padding: 0
+    margin: 0
+    font-family: sans-serif
+    color: #555
+
+    li
+      display: inline
+      &:last-child:after
+        content: none
+        color: #222
+      &:after
+        content: "\b7"
+        color: #222
+
+    button
+      cursor: pointer
+      color: #555
+      background: none
+      border: none
+      padding: 0
+      outline: none
+
+    .upvote
+      &:before
+        content: "\25B2"
+        color: #222
+    .downvote
+      &:before
+        content: "\25BC"
+        color: #222
+    .voted
+      .upvote
+        &:before
+          color: #239023
+      .downvote
+        &:before
+          color: darkred
