@@ -3,6 +3,10 @@ custom:
   width: 240
   height: 90
   unit: 536871737
+custom2:
+  width: 300
+  height: 90
+  unit: 537234517
 leaderboard:
   width: 728
   height: 90

@@ -1,11 +1,4 @@
 header#super-header
-  .header-advertisement
-    padding-top: $page-section-spacing
-    padding-bottom: $page-section-spacing
-    background: $chron-gray-medium
-    border-left: 1px solid $chron-gray-border
-    border-right: 1px solid $chron-gray-border
-    border-bottom: 1px solid $chron-gray-border
   ul.title-area
     li.name
       background: $chron-blue
@@ -47,3 +40,14 @@ header#super-header
 .wf-loading
   .nav-sections
     display: none
+
+.header-advertisement
+  background: $chron-gray-medium
+  text-align: center
+  height: 90px
+  .advertisement
+    display: inline-block
+    vertical-align: top
+    margin-left: 20px
+    &:first-child
+      margin-left: 0px
