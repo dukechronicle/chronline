@@ -1,30 +1,18 @@
 - title ||= nil
+- details = local_assigns.has_key?(:details) ? details : true
 .column-articles
-  h2= title
+  h3.section-title= title
   .span-3.article-list.content-container
     - articles.each_with_index do |article, i|
-      - if i.even?
-        .column-article
-          a.hover.list-story.highlight-left(href=site_post_path(article))
+      .column-article
+        a.hover.list-story.highlight-left(href=site_post_path(article))
+          - if details
             .subtitle
               span= article.section.name
-            h3.title= article.title
+          h3.title= article.title
+          - if details
             .subtitle
               span By #{byline(article)}
-            - if article.authors.first.headshot
-              = cropped_image_tag article.authors.first.headshot, :square_70x, class: 'headshot'
-            p.teaser= article.teaser
-
-  .span-3.article-list.content-container.last
-    - articles.each_with_index do |article, i|
-      - if i.odd?
-        .column-article
-          a.hover.list-story.highlight-right(href=site_post_path(article))
-            .subtitle
-              span= article.section.name
-            h3.title= article.title
-            .subtitle
-              span By #{byline(article)}
-            - if article.authors.first.headshot
-              = cropped_image_tag article.authors.first.headshot, :square_70x, class: 'headshot'
-            p.teaser= article.teaser
+          - if article.authors.first.headshot
+            = cropped_image_tag article.authors.first.headshot, :square_70x, class: 'headshot'
+          p.teaser= article.teaser
