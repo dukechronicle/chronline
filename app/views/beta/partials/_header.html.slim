@@ -14,7 +14,7 @@ header#super-header
             a[href="#"] Menu
         section.top-bar-section
           ul.left.nav-sections
-            - Taxonomy.top_level(:sections).each do |taxonomy|
+            - Taxonomy.top_level(:sections)[0...-1].each do |taxonomy|
               li[class= ("active" if @taxonomy && @taxonomy <= taxonomy)]
                 a[href= section_path(taxonomy)] = taxonomy.name
             li[class= ("active" if @taxonomy.try(:taxonomy) == :blogs)]
