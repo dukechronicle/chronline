@@ -179,10 +179,11 @@ aside.page-sidebar
 .column-articles
   a:hover
     color: inherit
+  a
+    h3:hover
+      color: $anchor-font-color-hover
   h3
     margin: 0px
-    &:hover
-      color: $anchor-font-color-hover
   .subtitle
     text-transform: uppercase
     font-family: $chron-font-sans
@@ -242,3 +243,7 @@ aside.page-sidebar
 
 .bordered-bottom
   border-bottom: $chron-gray-border
+
+.section-title
+  text-transform: uppercase
+  font-weight: bold
