@@ -15,4 +15,5 @@
               span By #{byline(article)}
           - if article.authors.first.headshot
             = cropped_image_tag article.authors.first.headshot, :square_70x, class: 'headshot'
-          p.teaser= article.teaser
+          - if details || i == 0
+            p.teaser= article.teaser
