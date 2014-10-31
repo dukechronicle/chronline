@@ -21,7 +21,7 @@
           - @images.each do |image|
             .item.image-item
               .image-container
-                a href: associated_url(image) 
+                a href=(associated_url(image))
                   = cropped_image_tag image, styles.sample
           = will_paginate @images
 
