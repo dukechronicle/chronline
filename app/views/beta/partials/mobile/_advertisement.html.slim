@@ -1,0 +1,12 @@
+#mobile-advertisement-container.show-for-small-only
+  .advertisement
+    javascript:
+       if (!window.OX_ads) { OX_ads = []; }
+       OX_ads.push({ "auid" : "536873615" });
+       document.write('<scr'+'ipt src="http://ox-d.oncampusweb.com/mw/1.0/jstag"><\/scr'+'ipt>');
+
+    - a_random = Random.rand(99999999)
+    noscript
+      iframe(id="8d8f2523fd" name="8d8f2523fd" src="http://ox-d.oncampusweb.com/mw/1.0/afr?auid=536873615&cb=#{a_random}" frameborder="0" scrolling="no" width="320" height="50")
+        a(href="http://ox-d.oncampusweb.com/mw/1.0/rc?cs=8d8f2523fd&cb=#{a_random}")
+          img(src="http://ox-d.oncampusweb.com/mw/1.0/ai?auid=536873615&cs=8d8f2523fd&cb=#{a_random}" border="0" alt="")

@@ -32,6 +32,7 @@ html class="no-js"
             == render 'beta/partials/header'
             == yield
             == render 'beta/partials/footer'
+            = render 'beta/partials/mobile/advertisement'
         #scripts
         	= javascript_include_tag "beta"
             = yield :scripts
