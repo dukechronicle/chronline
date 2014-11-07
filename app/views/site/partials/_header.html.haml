@@ -34,6 +34,9 @@
       - Taxonomy.top_level(:sections)[0...-1].each do |taxonomy|
         %a{href: section_path(taxonomy), class: ("active" if @taxonomy && @taxonomy <= taxonomy)}
           %h2= taxonomy.name
+        - if taxonomy.name.eql?('Sports')
+          %a{href: '/pages/coachk1k', class: 'coachk'}
+            %h2 Coach K 1K
       %a{href: site_blogs_path, class: ("active" if @taxonomy.try(:taxonomy) == :blogs)}
         %h2 Blogs
       %a{href: "http://shutter.dukechronicle.com/", class: ("active" if @galleries || @gallery)}
