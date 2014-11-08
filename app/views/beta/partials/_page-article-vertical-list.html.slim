@@ -18,4 +18,4 @@
       .columns.small-5.show-for-medium-up
         ul.more-articles
           - articles.drop(3).each do |article|
-            li= article.title
+            li= link_to article.title, site_article_path(article)
