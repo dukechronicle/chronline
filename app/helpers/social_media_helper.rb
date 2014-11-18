@@ -35,4 +35,13 @@ module SocialMediaHelper
     content_tag :div, nil, class: 'g-plusone', data: defaults.merge(options)
   end
 
+  def coinbase_tip(url, options={})
+    defaults = {
+      'content-location' => url,
+      'href' => 'https://www.coinbase.com/tip_buttons/show_tip',
+      'to-user-id' => ENV['COINBASE_USER_ID']
+    }
+    content_tag :div, nil, class: 'cb-tip-button', data: defaults.merge(options)
+  end
+
 end
