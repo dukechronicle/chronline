@@ -28,3 +28,14 @@ initialize '.twitter-share-button, .twitter-timeline, .twitter-tweet', ->
     js.src = "//platform.twitter.com/widgets.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document,"script","twitter-wjs"));`
+
+# Coinbase Tip
+initialize '.cb-tip-button', ->
+  `!function(d,s,id){
+    var js, cjs = d.getElementsByTagName(s)[0];
+    e=d.getElementById(id);
+    if(e){return;}
+    js=d.createElement(s); js.id=id;
+    js.src="https://www.coinbase.com/assets/tips.js";
+    cjs.parentNode.insertBefore(js,cjs);
+  }(document, 'script', 'coinbase-tips');`
