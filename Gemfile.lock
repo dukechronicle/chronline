@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/mbleigh/subdomain-fu.git
-  revision: dfbd86448694e019a805830f0866599da7e2bae1
-  specs:
-    subdomain-fu (1.0.0.beta3)
-
-GIT
   remote: git://github.com/dukechronicle/jade.git
   revision: 29028034ab480a3c0ecb070f803f5046cc8c717b
   specs:
@@ -12,6 +6,12 @@ GIT
       execjs
       sprockets
       tilt
+
+GIT
+  remote: git://github.com/mbleigh/subdomain-fu.git
+  revision: dfbd86448694e019a805830f0866599da7e2bae1
+  specs:
+    subdomain-fu (1.0.0.beta3)
 
 GEM
   remote: https://rubygems.org/
