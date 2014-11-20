@@ -1,0 +1,5 @@
+.gallery-edit
+  .image-selector.js-masonry
+    - @gallery.images.each do |image|
+      .gallery-image{ data: { pid: image.pid }, class: image.eql?(@gallery.primary_image) ? "selected" : "" }
+        %img{src: image.url, width: "100px", height: "100px"}

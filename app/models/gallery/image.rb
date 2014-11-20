@@ -2,11 +2,12 @@ class Gallery::Image < ActiveRecord::Base
   self.primary_key = :pid
 
   BASE_IMAGE_URL = "http://cdn.c.photoshelter.com/img-get"
-  attr_accessible :title, :credit, :caption, :pid, :uploaded_at, :section, :gid, :gallery
+  attr_accessible :title, :credit, :caption, :pid, :uploaded_at,
+    :section, :gid, :gallery, :gallery_id
 
   self.table_name = :gallery_images
 
-  belongs_to :gallery, foreign_key: :gid
+  belongs_to :gallery
   validates :gid, presence: true
   validates :pid, presence: true
 
