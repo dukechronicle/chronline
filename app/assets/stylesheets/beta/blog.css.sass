@@ -1,0 +1,37 @@
+ul.tags
+  list-style-type: none
+  margin: 0px
+  padding-top: 10px
+  font-size: .8em
+  li
+    display: inline
+    border: $chron-gray-border
+    border-radius: 4px
+    padding: 4px 8px
+    &:hover
+      a
+        color: inherit
+      background-color: $chron-gray-light
+    &:after
+      content: ' \2022  '
+    &:last-child:after
+      content: none
+
+.blog-preview
+  padding-bottom: 30px
+  border-bottom: $chron-gray-border
+
+.blog-banner
+  margin: 20px 0px
+
+.blog-info
+  ul
+    list-style-type: disc
+  h2
+    font-size: $h3-font-size
+    font-weight: bold
+    text-transform: uppercase
+  h3
+    font-size: $h4-font-size
+    &:hover
+      color: $anchor-font-color-hover

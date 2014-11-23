@@ -81,6 +81,36 @@ Chronline::Application.routes.draw do
     end
   end
 
+
+  constraints subdomain: 'beta' do
+    namespace :beta, path: '/' do
+      root to: 'articles#index'
+      get 'section/*section' => 'articles#index', as: :article_section
+      get 'pages/*path' => 'base#custom_page'
+
+      resources :articles, only: :show, id: Post::SLUG_PATTERN do
+        get :print, on: :member
+      end
+
+      resources :staff, only: :show do
+        member do
+          get 'articles'
+          get 'blog_posts'
+          get 'images'
+        end
+      end
+
+      resource :search, only: :show
+
+      resources :blogs, only: :index, controller: 'blog_posts' do
+        resources :posts, only: [:index, :show], controller: 'blog_posts',
+          id: Post::SLUG_PATTERN
+        get 'tags/:tag' => 'blog_posts#tags', as: :tagged
+        get 'categories/:category' => 'blog_posts#categories', as: :category
+      end
+    end
+  end
+
   constraints subdomain: 'm' do
     namespace :mobile, path: '/'  do
       root to: 'articles#index'

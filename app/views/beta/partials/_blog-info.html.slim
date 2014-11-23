@@ -1,0 +1,13 @@
+- unless defined? show_label then show_label = true end
+
+.blog-info.title-small
+  .blog-description(data-equalizer-watch="")
+    a.banner(href=site_blog_posts_path(blog))
+      = blog_logo_tag blog, class: 'blog-logo', width: '100%'
+    p.description= blog.description
+  h2 Recent Posts
+  ul.article-list
+    - recent_blog_posts(blog).each do |blog_post|
+      li
+        a.list-story.hover(href=site_blog_post_path(blog, blog_post))
+          h3.title= blog_post.title

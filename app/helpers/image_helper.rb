@@ -30,7 +30,8 @@ module ImageHelper
 
   def cropped_image_tag(image, style, options = {})
     options[:alt] = image.caption
-    if (match = image.original.styles[style].geometry.match(/\d+x\d+/))
+    if (match = image.original.styles[style].geometry.match(/\d+x\d+/) and
+        (options.keys & [:width, :height, :size]).empty?)
       options[:size] = match[0]
     end
     image_tag image.original.url(style), options

@@ -1,0 +1,9 @@
+- if not frontpage?
+  section.widget.columns.small-12
+    header
+      a(href=section_path(@taxonomy.parents.last))
+        h2= @taxonomy.parents.last.name
+    - @taxonomy.children.each do |subsection|
+      header
+        a(href=section_path(subsection))
+          h3= subsection.name

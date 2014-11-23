@@ -1,0 +1,17 @@
+h3.section-title= title
+.rounded
+  .topic-container(data-id=topic.id)
+    h4.title= topic.title
+    p= topic.description
+
+    ul.responses
+
+    = form_for([:api, topic, topic.responses.build],
+      url: api_topic_responses_url(topic, subdomain: :api),
+      remote: true, html: { 'data-with-credentials' => true}) do |f|
+      #topic_response_error.error
+      = f.text_field :content, placeholder: 'Submit a response...'
+      = f.text_area :content, placeholder: 'Submit a response...', maxlength: 140
+      = recaptcha_tags
+      = f.submit 'Submit', class: 'button'
+

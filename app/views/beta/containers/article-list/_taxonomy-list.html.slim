@@ -1,0 +1,20 @@
+- if article.image
+  .article-list-social.columns.small-4
+    = cropped_image_tag article.image, :rectangle_314x
+  header.columns.small-8
+    h1= article.title
+    p.header-byline
+      span.author By #{byline(article, link: false)}
+      span.date
+        = " on "
+        = display_date(article)
+    p.header-teaser= article.teaser
+- unless article.image
+  header.columns.small-12
+    h1= article.title
+    p.header-byline
+      span.author By #{byline(article, link: false)}
+      span.date
+        = " on "
+        = display_date(article)
+    p.header-teaser= article.teaser

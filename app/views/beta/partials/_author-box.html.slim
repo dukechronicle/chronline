@@ -1,0 +1,31 @@
+.multiplexer.author-box
+  h3.section-title= title
+
+  .row
+    .columns.medium-3.selectors
+      .content-container
+        - authors.each do |author|
+          a.hover.highlight-left(href=site_staff_path(author))
+            h3= author.name
+
+    .columns.medium-9.selections
+      - authors.each do |author|
+        .selection
+          .content-container.author-listing
+            .author-info
+              - if author.headshot
+                = cropped_image_tag author.headshot, :rectangle_152x, class: 'headshot'
+              a.hover.name(href=site_staff_path(author))
+                h3= author.name
+              .subtitle
+                span.affiliation= author.affiliation
+                - if author.twitter.present?
+                  span.twitter= link_to "@#{author.twitter}", "http://twitter.com/#{author.twitter}"
+              .tagline= author.tagline
+
+            .article-list
+              - recent_articles_by_author(author).each do |article|
+                a.hover.list-story.highlight-right(href=site_post_path(article))
+                  h3.title= article.title
+                  p.subtitle= display_date(article)
+                  p.teaser= article.teaser

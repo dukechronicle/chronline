@@ -1,0 +1,243 @@
+/* Includes styles for .page-main-wrap, which is used on static pages, articles, and blog posts */
+// Article/Page
+.page-content-column
+  background-color: $chron-text-white
+  border-left: $chron-gray-border
+  border-right: $chron-gray-border
+  border-bottom: $chron-gray-border
+  //box-shadow: $chron-gray-dark 0px 3px 6px -2px
+  z-index: 1
+
+header.page-header
+  padding-bottom: $page-section-spacing
+  .header-title
+    h1
+      font-weight: 700
+      font-size: 3.5rem
+      letter-spacing: 1px
+      line-height: 3.3rem
+    .subtitle
+      color: $chron-gray-dark
+      font-size: 1.4rem
+      margin-bottom: 1rem
+      font-family: $chron-font-sans-alt
+      letter-spacing: 1px
+  .header-byline
+    .date
+      color: $chron-gray-dark
+
+main.page-body
+  padding-top: $page-section-spacing
+  p
+    font-size: 1.05 rem
+
+aside.page-sidebar
+  background: white
+  .row  
+    padding-bottom: $page-section-spacing
+    border-bottom: $chron-gray-border
+    border-right: $chron-gray-border
+  .row.advertisement
+    background: $chron-gray-light
+    text-align: center
+    padding: 1rem
+    border: 0
+  header
+    background-color: $chron-blue
+    h2
+      color: white
+      font-size: 1.2rem
+      text-transform: uppercase
+
+    /* TODO Clean Below*/
+
+.header-widget
+  color: white
+  a
+    color: white
+  width: 70px
+  height: 70px
+  display: inline-block
+  background-color: $chron-blue
+  vertical-align: top
+.header-widget-comments
+.header-widget-print
+.header-widget-email
+.header-widget-fb
+  background-color: #3b5998
+.header-widget-twitter
+  background-color: #4099ff
+.header-widget-gplus
+  background-color: #d34836
+
+.feature-comments
+  position: absolute
+  right: 0
+  bottom: 0
+  .feature-comments-count a
+    padding: 5px
+    background-color: $chron-blue-accent
+    color: $chron-text-white
+    border: none
+    display: block
+    &:hover
+      color: $chron-gray-light
+      border: none
+      background-color: $chron-blue-highlight
+
+// Section/Front Page
+.page-front
+  background-color: $chron-blue
+  overflow: hidden
+  .top-news-container
+    background-color: $chron-text-white
+  .page-widget-sidebar
+    section
+      background-color: $chron-blue
+      color: $chron-text-white
+      //border-bottom: $chron-gray-border
+  section
+    background-color: $chron-text-white
+  .section-column-container
+    //border-bottom: $chron-gray-border
+    //border-left: $chron-gray-border
+  section > header
+    background-color: $chron-blue
+    h2, h3
+      color: white
+    h2
+      font-size: 1.3rem
+      text-transform: uppercase
+    h3
+      font-size: 1rem
+  .section-active
+    > header
+      background-color: $chron-blue-accent
+    &.section-slideshow
+      > header
+        display: none
+
+.section-column-container > .column-row
+  &:last-child
+    // need this because of foundation's [class*="column"] + [class*="column"]:last-child
+    float: none
+  @media #{$medium-up}
+    margin: 0px
+    border-top: $chron-gray-border
+    &:first-child
+      border-top: none
+
+.row > .columns:last-child .column-inner
+  @media #{$medium-up}
+    border-right: none
+
+.column-inner, .border-right
+  @media #{$medium-up}
+    border-right: $chron-gray-border
+    padding-right: 20px
+
+.column-inner
+  @media #{$medium-up}
+    margin: 20px 0px
+
+.page-article-vertical-list
+  h3
+    text-transform: uppercase
+    font-weight: bold
+  ul
+    margin-left: 0
+    li
+      margin-bottom: 4px
+  .more-articles
+    font-size: .85em
+    @media #{$medium-up}
+      padding-top: 15px
+      border-top: $chron-gray-border
+  .article-detail
+    margin-bottom: 4px
+  figure
+    padding: 2px
+    float: right
+    img
+      width: auto
+
+.teaser
+  font-size: .7em
+
+.grid-center
+  text-align: center
+
+.inner-grid-center
+  display: inline-block
+
+.opinion-articles
+  a:hover
+    color: inherit
+  a
+    h3:hover
+      color: $anchor-font-color-hover
+  h3
+    margin: 0px
+  .subtitle
+    text-transform: uppercase
+    font-family: $chron-font-sans
+
+.author-box
+  a:hover
+    color: inherit
+  .selectors
+    h3
+      text-transform: uppercase
+      font-size: 1rem
+  p
+    margin-bottom: 0px
+  .headshot
+    float: right
+  .subtitle
+    text-transform: uppercase
+    font-family: $chron-font-sans
+  .author-info
+    overflow: hidden
+    border-bottom: $chron-gray-border
+    padding-bottom: 0.5rem
+    h3
+      margin-bottom: 0px
+    .subtitle
+      span
+        &:after
+          content: ' | '
+        &:last-child:after
+          content: none
+  .list-story
+    h3
+      margin-bottom: 0px
+      &:hover
+        color: $anchor-font-color-hover
+
+.article-horizontal-list
+  h3
+    text-transform: uppercase
+    font-weight: bold
+
+.byline
+  span
+    &:after
+      content: ' | '
+    &:last-child:after
+      content: none
+
+.pagination
+  ul
+    list-display-type: none
+    li
+      display: inline
+
+.bordered
+  border: $chron-gray-border
+
+.bordered-bottom
+  border-bottom: $chron-gray-border
+
+.section-title
+  text-transform: uppercase
+  font-weight: bold

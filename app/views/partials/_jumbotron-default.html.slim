@@ -1,0 +1,9 @@
+figure
+  - if image_size
+    = cropped_image_tag image, image_size, class: 'jumbotron jumbotron-default'
+  - else
+    = cropped_image_tag image, :rectangle_606x, class: 'jumbotron jumbotron-default'
+  figcaption
+    - if not image.caption.blank?
+      .photo-credit= photo_credit(image, link: true)
+      .photo-caption= image.caption

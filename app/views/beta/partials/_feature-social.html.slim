@@ -1,0 +1,28 @@
+- except ||= []
+
+.feature-social
+  .addthis_toolbox.addthis_default_style.addthis_32x32_style
+    a.addthis_button_preferred_1
+    a.addthis_button_preferred_2
+    a.addthis_button_preferred_3
+    a.addthis_button_preferred_4
+    a.addthis_button_compact
+    a.addthis_counter.addthis_bubble_style
+    javascript:
+      var addthis_config = {"data_track_addressbar":true}
+    script[type= "text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53338d03144dec7e"]
+
+.feature-comments
+  .feature-comments-count= link_to "?", "#disqus_thread", 'data-disqus-identifier' => disqus_identifier(postable)
+
+  / - if not except.include? :print
+  /   .header-widget.header-widget-print
+  /     = link_to "Print", print_site_article_path(postable)
+
+  / - if not except.include? :email
+  /   .header-widget.header-widget-email
+  /     = link_to "Email", mailto_article(postable)
+
+  / .header-widget.header-widget-fb= facebook_recommend(permanent_post_url(postable))
+  / .header-widget.header-widget-twitter= twitter_share(permanent_post_url(postable))
+  / .header-widget.header-widget-gplus= google_plusone(permanent_post_url(postable))

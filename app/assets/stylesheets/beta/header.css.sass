@@ -1,0 +1,54 @@
+header#super-header
+  ul.title-area
+    li.name
+      background: $chron-blue
+      color: $chron-gray-light
+      a:hover
+        color: $chron-blue-highlight
+      h1.chron-title
+        a
+          color: white
+  nav.top-bar
+    .nav-sections
+      >li
+        a
+          text-transform: uppercase
+          font-family: $chron-font-sans-alt
+          font-weight: 500
+      @media #{$medium-only}
+        margin-left: -20px
+
+  .search-section form
+    width: 200px
+    @media #{$medium-only}
+      width: 75px
+    @media #{$large-up}
+      width: 220px
+
+  .top-bar-section
+    li.active:not(.has-form)
+      a:not(.button)
+        background: $topbar-link-bg-active-hover
+
+.fixed
+  nav
+    .sticky-hide
+      display: none
+      @media #{$large-up}
+        display: inline
+
+.wf-loading
+  .nav-sections
+    display: none
+
+.header-advertisement
+  background: $chron-gray-light
+  text-align: center
+  height: 110px
+  padding: 10px 0px
+  .advertisement
+    display: inline-block
+    vertical-align: top
+    margin-left: 71px
+    &:first-child
+      margin-left: 0px

@@ -1,0 +1,52 @@
+.admin-panel
+  background-color: $chron-gray-dark
+  padding: 5px
+  a:after
+    content: " | "
+  a:last-child:after
+    content: " "
+
+.chron-title, h1.chron-title, h1.chron-title a
+  font-family: "ambroise-firmin-std", serif
+
+.button
+  text-transform: uppercase
+
+figure
+  margin: 0 0 1.25rem 0
+  img
+    width: 100%
+  figcaption
+    opacity: .8
+    background-color: $chron-gray-light
+    border-left: 7px solid $chron-blue-accent
+    margin-left: -7px
+    .photo-credit
+      text-align: right
+      font-size: .9rem
+      padding: .3rem
+      margin-top: -1.4rem
+    .photo-caption
+      font-size: 1rem
+      padding: .7rem
+
+/* Header Chevron Styling */
+.chev-container
+  position: relative
+  padding-right: 44px
+  .chev-header-bg
+    z-index: -1
+    background: $chron-blue
+    position: absolute
+    top: 0
+    right: 44px
+    width: 1000px
+  .chev-header-rt-arrow
+    @include css-triangle(22px, $chron-blue, left) 
+    position: absolute
+    top: 0
+    right: 0
+aside.page-sidebar
+  .chev-header-rt-arrow
+    @include css-triangle(17px, $chron-blue, left) 
+    right: -34px

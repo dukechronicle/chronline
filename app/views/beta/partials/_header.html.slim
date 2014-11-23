@@ -1,0 +1,31 @@
+header#super-header
+  .contain-to-grid.sticky
+      nav.top-bar[data-topbar]
+        ul.title-area.chev-container
+          .chev-header-bg
+          .chev-header-rt-arrow
+          li.name
+            h1.chron-title
+              a[href=site_root_path]
+                span.sticky-hide The&nbsp;
+                | C
+                span.sticky-hide hronicle
+          li.toggle-topbar.menu-icon
+            a[href="#"] Menu
+        section.top-bar-section
+          ul.left.nav-sections
+            - Taxonomy.top_level(:sections)[0...-1].each do |taxonomy|
+              li[class= ("active" if @taxonomy && @taxonomy <= taxonomy)]
+                a[href= section_path(taxonomy)] = taxonomy.name
+            li[class= ("active" if @taxonomy.try(:taxonomy) == :blogs)]
+              a[href= site_blogs_path] Blogs
+            li
+              a[href="http://shutter.dukechronicle.com"] Photos
+          ul.right.search-section
+            li.has-form
+              = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
+                  .small-12.columns
+                    = f.search_field :query, placeholder: 'Search', type: :search, results: 0
+  aside.header-advertisement.row.show-for-medium-up
+    .advertisement.custom_ad= advertisement :custom2
+    .advertisement.leaderboard= advertisement :leaderboard
