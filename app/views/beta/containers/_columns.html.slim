@@ -1,10 +1,10 @@
 - title ||= nil
 - details = local_assigns.has_key?(:details) ? details : true
-.column-articles
+.opinion-articles
   h3.section-title= title
-  .span-3.article-list.content-container
+  ul.small-block-grid-1.medium-block-grid-2
     - articles.each_with_index do |article, i|
-      .column-article
+      li.opinion-article
         a.hover.list-story.highlight-left(href=site_post_path(article))
           - if details
             .subtitle

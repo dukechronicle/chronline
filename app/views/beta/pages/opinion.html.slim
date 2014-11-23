@@ -4,12 +4,11 @@
       .page-front
         .section-column-container.page-content-column.columns.small-12.medium-11.medium-push-1
           section.row.column-row
-            .columns.small-12.medium-6.column-inner
+            .columns.small-12.medium-7.column-inner
               #columns= render partial: 'beta/containers/columns', locals: {title: "Daily Features", articles: @model.featured}
-            .columns.show-for-medium-up.medium-2
-              #editorial-board= render partial: 'beta/containers/columns', locals: {title: "Editorial Board", articles: @model.editorial_board, details: false}
-            .columns.small-12.medium-4
+            .columns.show-for-medium-up.medium-5
               = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+              #editorial-board= render partial: 'beta/containers/columns', locals: {title: "Editorial Board", articles: @model.editorial_board, details: false}
           section.row.column-row
             .columns.small-12.medium-6.column-inner
               #columnists= render partial: 'beta/partials/author-box', locals: {title: "Columnists", authors: @model.columnists}
