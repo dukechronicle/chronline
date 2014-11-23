@@ -1,6 +1,8 @@
 .article-list-social.columns.small-4
   - if article.image
-    = cropped_image_tag article.image, :square_200x
+    = cropped_image_tag article.image, :
+  - elsif article.authors.first.columnist?
+    = cropped_image_tag article.authors.first.headshot, :square_200x
   - else
     = render 'beta/partials/image-placeholder', locals: {width: 200, height: 200}
 header.columns.small-8
