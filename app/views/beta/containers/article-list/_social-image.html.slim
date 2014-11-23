@@ -1,6 +1,8 @@
 .article-list-social.columns.small-4
   - if article.image
     = cropped_image_tag article.image, :square_200x
+  - else
+    = render 'beta/partials/image-placeholder', locals: {width: 200, height: 200}
 header.columns.small-8
   h1= article.title
   p.header-byline
