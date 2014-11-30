@@ -3,6 +3,13 @@
   .row.page-container
     .page-front data-equalizer=""
       .section-column-container.columns.page-content-column.small-12.medium-8 data-equalizer-watch=""
+        section.row.section
+          .coachk
+            .note
+              .logo
+                =image_tag @model.image_url
+              .content-container== @model.note
+        .separator
         section.row.section-active.section-slideshow
           header.columns.small-12
             h2 Slideshow
