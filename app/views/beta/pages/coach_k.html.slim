@@ -1,0 +1,40 @@
+- slideshow_articles = @model.featured_stories.map {|article_hash| article_hash['article'] }
+.page-main-wrap
+  .row.page-container
+    .page-front data-equalizer=""
+      .section-column-container.columns.page-content-column.small-12.medium-8 data-equalizer-watch=""
+        section.row.section-active.section-slideshow
+          header.columns.small-12
+            h2 Slideshow
+          #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: [], pages_first: true}
+          .columns.small-12
+            = render partial: 'beta/containers/article-list', locals: { title: "Recent", articles: @model.stories, style: :teaser}
+          .columns.small-12.medium-6
+            .column-inner
+              a(href="https://twitter.com/#{@model.twitter}")
+                .image-container
+                  = image_tag 'social-media/twitter.png'
+          .columns.small-12.medium-6
+            .column-inner
+              a(href="https://twitter.com/#{@model.facebook}")
+                .image-container
+                  = image_tag 'social-media/facebook.png'
+      .section-column-container.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
+        section.row
+          header.columns.small-12
+            h2 Wins
+          .columns.small-12.wins-box
+            h1.wins= @model.count_up
+            h2.wins Wins
+        = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+        section.row
+          header.columns.small-12
+            h2 Standings
+          .columns.small-12
+            = render partial: 'beta/containers/sports-standings', locals: {url: @model.standings_url}
+        section.row
+          header.columns.small-12
+            h2 Twitter
+          .twitter
+            - @model.twitter_widgets.each do |widget_id|
+              a.twitter-timeline(data-widget-id=widget_id)
