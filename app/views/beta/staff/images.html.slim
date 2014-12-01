@@ -17,11 +17,12 @@
         section.row.column-row
           #images-container
             .item= render partial: 'beta/containers/staff-profile', locals:  {staff: @staff, except: :images }
-          - styles = [:rectangle_183x] * 3 << :rectangle_378x
-          - @images.each do |image|
-            .item.image-item
-              .image-container
-                a href=(associated_url(image))
-                  = cropped_image_tag image, styles.sample
-          = will_paginate @images
+            - styles = [:rectangle_183x] * 3 << :rectangle_378x
+            - 10.times do |i|
+              - @images.each do |image|
+                .item.image-item
+                  .image-container
+                    a href=(associated_url(image))
+                      = cropped_image_tag image, styles.sample
+              = will_paginate @images
 
