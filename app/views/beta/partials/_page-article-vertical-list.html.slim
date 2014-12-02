@@ -6,16 +6,16 @@
         figure
           = cropped_image_tag articles.first.image, :rectangle_183x
       .list-article-detail
-        = link_to articles.first.title, site_article_path(articles.first)
+        = link_to articles.first.title, site_post_path(articles.first)
         p.teaser= articles.first.teaser
   .row
     .columns.small-12.medium-7
       - articles[1...3].each do |article|
         .list-article-detail
-          = link_to article.title, site_article_path(article)
+          = link_to article.title, site_post_path(article)
           p.teaser= article.teaser
     - if not articles.drop(3).empty?
       .columns.small-5.show-for-medium-up
         ul.more-articles
           - articles.drop(3).each do |article|
-            li= link_to article.title, site_article_path(article)
+            li= link_to article.title, site_post_path(article)
