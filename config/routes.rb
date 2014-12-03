@@ -91,6 +91,15 @@ Chronline::Application.routes.draw do
     }
 
     namespace :beta, path: '/' do
+      get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
+
+      resource :search, only: :show
+
+      resource :newsletter, only: :show do
+        post 'subscribe'
+        post 'unsubscribe'
+      end
+
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
       get 'pages/*path' => 'base#custom_page'
@@ -107,14 +116,25 @@ Chronline::Application.routes.draw do
         end
       end
 
-      resource :search, only: :show
-
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
           id: Post::SLUG_PATTERN
         get 'tags/:tag' => 'blog_posts#tags', as: :tagged
         get 'categories/:category' => 'blog_posts#categories', as: :category
       end
+
+      match 'join' => redirect('/pages/join', subdomain: :beta)
+
+      # Legacy routes
+      %w[news sports opinion recess towerview].each do |section|
+        match section => redirect("/section/#{section}")
+      end
+
+      match 'rss' => redirect("http://rss.#{ENV['DOMAIN']}/articles")
+
+      # The controller methods redirect to the most current route
+      get 'article/:id' => 'articles#show', as: :article_deprecated
+      get 'article/:id/print' => 'articles#print', as: :print_article_deprecated
     end
   end
 
