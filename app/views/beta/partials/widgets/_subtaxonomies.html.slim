@@ -1,9 +1,17 @@
+- nav_links ||= nil
+
 - if not frontpage?
   section.widget.columns.small-12
     header
       a(href=section_path(@taxonomy.parents.last))
         h2= @taxonomy.parents.last.name
-    - @taxonomy.children.each do |subsection|
-      header
-        a(href=section_path(subsection))
-          h3= subsection.name
+    - if nav_links
+      - nav_links.each do |link|
+        header
+          a.hover(href=link['href'])
+            h3= link['name']
+    - else
+      - @taxonomy.children.each do |subsection|
+        header
+          a(href=section_path(subsection))
+            h3= subsection.name
