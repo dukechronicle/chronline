@@ -1,5 +1,6 @@
 - sidebar = local_assigns.has_key?(:sidebar) ? sidebar : true
 - top_headline = local_assigns.has_key?(:top_headline) ? top_headline : false
+- nav_links ||= nil
 .row.page-container
   .page-front data-equalizer=""
     - gallery_width = sidebar ? 'medium-7 push-1' : 'medium-8'
@@ -15,7 +16,7 @@
         #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: slideshow_pages, pages_first: pages_first}
     - if sidebar
       .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
-        = render partial: 'beta/partials/widget-sidebar'
+        = render partial: 'beta/partials/widget-sidebar', locals: {nav_links: nav_links}
 
     .section-column-container.bordered-bottom.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
       .gallery-side-ad
