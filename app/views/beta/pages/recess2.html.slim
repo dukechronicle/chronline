@@ -5,7 +5,7 @@
       .section-column-container.page-content-column.columns.small-12.medium-11.medium-push-1
         section.row.column-row
           .columns.small-12.medium-push-8.medium-4
-            = render partial: 'beta/partials/article-horizontal-list', locals: {title: "Editor's Notes", articles: @model.editors_notes, show_teaser: true, grid_width: 2}
+            = render partial: 'beta/partials/article-horizontal-list', locals: {title: "Page Two", articles: @model.editors_notes, show_teaser: true, grid_width: 2}
           .columns.small-12.medium-pull-4.medium-8.border-right
             = render partial: 'beta/partials/article-horizontal-list', locals: {title: 'Playground', articles: @model.playground, show_teaser: true}
         section.row.column-row
