@@ -83,6 +83,13 @@ Chronline::Application.routes.draw do
 
 
   constraints subdomain: 'www' do
+    devise_for :users, controllers: {
+      sessions: 'site/sessions',
+      registrations: 'site/registrations',
+      passwords: 'site/passwords',
+      omniauth_callbacks: 'site/omniauth_callbacks',
+    }
+
     namespace :beta, path: '/' do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
