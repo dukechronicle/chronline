@@ -2,7 +2,9 @@
   - cache do
     .row.page-container
       .page-front
-        .section-column-container.page-content-column.columns.small-12.medium-11.medium-push-1
+        .section-column-container.columns.small-12.medium-1
+          = render partial: 'beta/partials/widget-sidebar'
+        .section-column-container.page-content-column.columns.small-12.medium-11
           section.row.column-row(data-equalizer="" data-options="equalize_on_stack:true")
             .columns.small-12.medium-7
               .column-inner(data-equalizer-watch="")
