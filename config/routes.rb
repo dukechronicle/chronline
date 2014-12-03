@@ -4,7 +4,7 @@ require_dependency 'site/users_controller' # contains site devise controllers
 Chronline::Application.routes.draw do
   get 'robots' => 'robots#show', format: true, constraints: {format: :txt}
 
-  constraints subdomain: 'www' do
+  constraints subdomain: 'beta' do
     devise_for :users, controllers: {
       sessions: 'site/sessions',
       registrations: 'site/registrations',
@@ -82,7 +82,7 @@ Chronline::Application.routes.draw do
   end
 
 
-  constraints subdomain: 'beta' do
+  constraints subdomain: 'www' do
     namespace :beta, path: '/' do
       root to: 'articles#index'
       get 'section/*section' => 'articles#index', as: :article_section
