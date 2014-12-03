@@ -6,7 +6,7 @@
     aside.page-sidebar.columns.show-for-medium-up.medium-4
       = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
       - if @popular.present?
-        render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
+        = render partial: 'site/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
       = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
       = render 'beta/partials/facebook-recommended'
       = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
