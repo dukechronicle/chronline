@@ -15,10 +15,17 @@ header#super-header
           text-transform: uppercase
           font-family: $chron-font-sans-alt
           font-weight: 500
+          font-size: 1em
+          @media #{$medium-only}
+            font-size: .7em
+            padding: 0px 6px
+          @media #{$large-up}
+            padding: 0px 15px
         a.coachk
           color: orange
 
   .search-section form
+    position: relative
     width: 200px
     @media #{$medium-only}
       width: 75px
@@ -26,9 +33,30 @@ header#super-header
       width: 220px
 
   .top-bar-section
+    .left
+      @media #{$medium-up}
+        margin-left: -15px
     li.active:not(.has-form)
       a:not(.button)
         background: $topbar-link-bg-active-hover
+
+.search-placeholder
+  color: $chron-gray-light
+  @media #{$small-only}
+    display: none
+  li.search-placeholder-item
+    height: 45px
+    line-height: 45px
+    background-color: inherit
+    padding: 0px 10px
+    &:hover
+      cursor: pointer
+
+.search-form
+  @media #{$medium-up}
+    position: absolute
+    right: 0px
+    display: none
 
 .fixed
   nav
