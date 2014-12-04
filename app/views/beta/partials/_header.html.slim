@@ -26,10 +26,14 @@ header#super-header
             li
               a[href="http://shutter.dukechronicle.com"] Photos
           ul.right.search-section
-            li.has-form
-              = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
-                  .small-12.columns
-                    = f.search_field :query, placeholder: 'Search', type: :search, results: 0
+            .search-placeholder
+              li.search-placeholder-item
+                i.fi-magnifying-glass
+            .search-form
+              li.has-form
+                = form_for(Article::Search.new, url: site_search_path, method: :get, html: {class: 'row collapse'}) do |f|
+                    .small-12.columns
+                      = f.search_field :query, placeholder: 'Search', type: :search, results: 0
   aside.header-advertisement.row.show-for-medium-up
     .advertisement.custom_ad= advertisement :custom2
     .advertisement.leaderboard= advertisement :leaderboard
