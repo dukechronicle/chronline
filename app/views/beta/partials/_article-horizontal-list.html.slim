@@ -1,6 +1,7 @@
 - show_teaser = false if local_assigns[:show_teaser].nil?
 - ideal_width = local_assigns[:grid_width] || (show_teaser ? 3 : 6)
 - grid_width = articles.length < ideal_width ? articles.length : ideal_width
+- ideal_crop = grid_width < 4 ? :rectangle_314x : :rectangle_183x
 .article-horizontal-list
   ul.small-block-grid-1(class="medium-block-grid-#{grid_width}")
     h3= title
@@ -10,7 +11,7 @@
           a(href=site_post_path(article))
             .columns.small-12
               - if article.image
-                = cropped_image_tag article.image, :rectangle_183x, width: "100%"
+                = cropped_image_tag article.image, ideal_crop, width: "100%"
             .columns.small-12
               = article.title
             - if show_teaser
