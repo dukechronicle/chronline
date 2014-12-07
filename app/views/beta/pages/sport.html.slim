@@ -1,4 +1,5 @@
 - slideshow_articles = @model.featured_stories.map {|article_hash| article_hash['article'] }
+- slideshow_display_tags = @model.featured_stories.map {|article_hash| article_hash['headline'] }
 .page-main-wrap
   .row.page-container
     .page-front data-equalizer=""
@@ -6,7 +7,7 @@
         section.row.section-active.section-slideshow
           header.columns.small-12
             h2 Slideshow
-          #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: [], pages_first: true}
+          #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: [], pages_first: true, display_tags: slideshow_display_tags}
           .columns.small-12
             = render partial: 'beta/containers/article-list', locals: { title: "Recent", articles: @model.stories, style: :teaser}
           .columns.small-12.medium-6
