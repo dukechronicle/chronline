@@ -99,9 +99,6 @@ aside.page-sidebar
       //border-bottom: $chron-gray-border
   section
     background-color: $chron-text-white
-  .section-column-container
-    //border-bottom: $chron-gray-border
-    //border-left: $chron-gray-border
   section > header
     background-color: $chron-blue
     h2, h3
@@ -118,7 +115,7 @@ aside.page-sidebar
       > header
         display: none
 
-.section-column-container > .column-row
+.page-content-column .column-row
   &:last-child
     // need this because of foundation's [class*="column"] + [class*="column"]:last-child
     float: none
@@ -219,6 +216,7 @@ aside.page-sidebar
   h3
     text-transform: uppercase
     font-weight: bold
+    padding: 0px $block-grid-default-spacing / 2
 
 .byline
   span

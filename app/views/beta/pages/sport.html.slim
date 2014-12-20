@@ -2,7 +2,7 @@
 .page-main-wrap
   .row.page-container
     .page-front data-equalizer=""
-      .section-column-container.columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
+      .columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
         section.row.section-active.section-slideshow
           header.columns.small-12
             h2 Slideshow
@@ -21,10 +21,10 @@
               a(href="https://twitter.com/#{@model.facebook}")
                 .image-container
                   = image_tag 'social-media/facebook.png'
-      .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
+      .columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
         = render partial: 'beta/partials/widget-sidebar'
 
-      .section-column-container.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
+      .columns.small-12.medium-4.top-news-container data-equalizer-watch=""
         section.row
           header.columns.small-12
             h2 Game Details
