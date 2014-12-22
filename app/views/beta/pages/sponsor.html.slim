@@ -1,0 +1,17 @@
+.page-main-wrap
+  .row.page-container
+    .page-front data-equalizer=""
+      .section-column-container.columns.page-content-column.small-12.sponsor data-equalizer-watch=""
+        section.row.section
+          .logo
+            =image_tag @model.logo_url
+          .content-container.description== @model.description
+
+        section.row.section-active
+          header.columns.small-12
+            h2 Sponsors
+          - @model.sponsors.each do |sponsor|
+            .columns.small-12.medium-3
+              .column-inner
+                a(href= sponsor['image_link'])
+                  img(src= sponsor['image_url'] class='sponsor-img')
