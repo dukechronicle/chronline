@@ -11,6 +11,11 @@ class Page::Layouts::Sponsor < Layout
         'required' => true,
         'extends' => markdown_schema,
       },
+      'sponsor_bar' => {
+        'label' => 'Sponsor Bar',
+        'required' => true,
+        'type' => 'string',
+      },
       'sponsors' => {
         'label' => 'Sponsors',
         'type' => 'array',

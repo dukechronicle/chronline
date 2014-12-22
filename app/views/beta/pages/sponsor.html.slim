@@ -9,7 +9,7 @@
 
         section.row.section-active
           header.columns.small-12
-            h2 Sponsors
+            h2= @model.sponsor_bar
           - @model.sponsors.each do |sponsor|
             .columns.small-12.medium-3
               .column-inner
