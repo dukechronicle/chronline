@@ -57,7 +57,8 @@
     footer.page-footer
       .row
         .small-12.large-8
-          section#recommended= render partial: 'beta/containers/article-row', locals: {title: 'Recommended', articles: @blog_post.related(4)}
+          section#recommended= render partial: 'beta/containers/article-row', locals: {title: 'Recommended', articles: @blog_post.related(3)}
       .row
         .small-8
           section#disqus_thread.rounded[data-disqus= disqus_options(@blog_post)]
+  script(src="//www.antenna.is/static/engage.js" defer="")

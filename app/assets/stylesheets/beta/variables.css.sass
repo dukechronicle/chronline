@@ -47,8 +47,8 @@ $body-font-family: $chron-font-serif
 
 /*Anchors*/
 $anchor-text-decoration: none
-$anchor-font-color: $primary-color
-$anchor-font-color-hover: $chron-blue-highlight
+$anchor-font-color: lighten($chron-blue-accent, 5%)
+$anchor-font-color-hover: lighten($anchor-font-color, 20%)
 
 /*Topbar (header)*/
 $topbar-bg: $chron-blue-accent
@@ -76,3 +76,10 @@ $row-width: 1200px
 
 $topbar-breakpoint: "66.063em"
 $topbar-media-query: "only screen and (min-width: 66.063em)"
+
+@mixin text-underline($color, $pos)
+  background-image: -webkit-linear-gradient(top, rgba($color, 0) 75%, rgba($color, 0.8) 75%)
+  background-image: linear-gradient(to bottom, rgba($color, 0) 75%, rgba($color, 0.8) 75%)
+  background-repeat: repeat-x
+  background-size: 2px 2px
+  background-position: 0 $pos
