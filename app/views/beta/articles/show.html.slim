@@ -61,5 +61,6 @@
         .small-12.large-8
           section#recommended= render partial: 'beta/containers/article-row', locals: {title: 'Recommended', articles: @article.related(3)}
       .row
-        .small-8
+        .small-12.large-8.article-row.columns
           section#disqus_thread.rounded[data-disqus= disqus_options(@article)]
+  script(src="//www.antenna.is/static/engage.js" defer="")
