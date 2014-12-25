@@ -1,6 +1,6 @@
 .section-page-slider
   .slider-feature
-    ul(data-orbit data-options="bullets: false; next_on_click: false; slide_number: false; timer_container_class: hidden")
+    ul(data-orbit data-options="next_on_click: false; slide_number: false; timer_container_class: hidden")
       - count = 0
       - if pages_first
         - (pages || []).each do |page|
@@ -28,7 +28,7 @@
             li(data-orbit-slide= page.path.gsub(/\//, "-"))
               = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
               .orbit-caption= page.description
-  .slider-links.columns.small-12
+  .slider-links.columns.small-12.show-for-medium-up
     ul(class="small-block-grid-#{count}")
       - if pages_first
         - (pages || []).each do |page|
