@@ -3,14 +3,16 @@
   = render partial: 'beta/partials/section-gallery-top', locals: {slideshow_articles: @model.featured, slideshow_pages: [], pages_first: true, sidebar_content: editors_note}
   .row.page-container
     .page-front
-      .section-column-container.page-content-column.columns.small-12.medium-11.medium-push-1
+      .page-content-column.columns.small-12.medium-11.medium-push-1
         section.row.column-row
           .columns.small-12
             .column-inner
               = render partial: 'beta/partials/article-horizontal-list', locals: {title: 'Features', articles: @model.bus_stop, show_teaser: true}
+        section.row.column-row
           .columns.small-12
             .column-inner
               = render partial: 'beta/partials/article-horizontal-list', locals: {title: 'Ten People to Watch', articles: @model.plaza, show_teaser: true}
+        section.row
           .columns.small-12
             .column-inner
               ul.small-block-grid-1(class="medium-block-grid-#{@model.multimedia.length}")
