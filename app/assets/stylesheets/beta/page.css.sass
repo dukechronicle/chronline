@@ -35,7 +35,6 @@ main.page-body
 aside.page-sidebar
   background: white
   .row  
-    padding-bottom: $page-section-spacing
     border-bottom: $chron-gray-border
     border-right: $chron-gray-border
   .row.advertisement
@@ -99,9 +98,6 @@ aside.page-sidebar
       //border-bottom: $chron-gray-border
   section
     background-color: $chron-text-white
-  .section-column-container
-    //border-bottom: $chron-gray-border
-    //border-left: $chron-gray-border
   section > header
     background-color: $chron-blue
     h2, h3
@@ -118,7 +114,7 @@ aside.page-sidebar
       > header
         display: none
 
-.section-column-container > .column-row
+.page-content-column .column-row
   &:last-child
     // need this because of foundation's [class*="column"] + [class*="column"]:last-child
     float: none
@@ -219,6 +215,7 @@ aside.page-sidebar
   h3
     text-transform: uppercase
     font-weight: bold
+    padding: 0px $block-grid-default-spacing / 2
 
 .byline
   span
@@ -251,3 +248,10 @@ aside.page-sidebar
   background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)
   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 )
+
+#slideshow-wrapper
+  overflow: hidden
+
+.column-collapse
+  padding-left: 0px
+  padding-right: 0px
