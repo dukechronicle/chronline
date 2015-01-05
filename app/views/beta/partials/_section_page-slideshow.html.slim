@@ -7,7 +7,7 @@
           - if page.image
             - count += 1
             li(data-orbit-slide= page.path.gsub(/\//, "-"))
-              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
+              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path, width: 798
               .orbit-caption
                 h2= page.description
       - articles.each do |article|
@@ -15,7 +15,7 @@
           - count += 1
           li(data-orbit-slide= site_post_path(article).gsub(/\//, "-"))
             a(href=site_post_path(article))
-              = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article)
+              = cropped_image_tag article.image, :rectangle_636x, 'data-title' => article.title, 'data-description' => article.teaser, 'data-link' => site_post_path(article), width: 798
               .orbit-caption
                 h2= article.title
                 p
@@ -26,7 +26,7 @@
           - if page.image
             - count += 1
             li(data-orbit-slide= page.path.gsub(/\//, "-"))
-              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path
+              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path, width: 798
               .orbit-caption= page.description
   .slider-links.columns.small-12.show-for-medium-up
     ul(class="small-block-grid-#{count}")
