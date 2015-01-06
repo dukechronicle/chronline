@@ -35,6 +35,33 @@ class Page::Layouts::CoachK < Layout
           }
         }
       },
+      'quotes_preface' => {
+        'label' => 'Quotes Section Preface',
+        'required' => false,
+        'extends' => markdown_schema,
+      },
+      'quotes' => {
+        'label' => 'Quotes',
+        'type' => 'array',
+        'required' => false,
+        'items' => {
+          'type' => 'object',
+          'properties' => {
+            'name' => {
+              'label' => 'Name',
+              'type' => 'string',
+            },
+            'quote' => {
+              'label' => 'Quote Text',
+              'type' => 'string',
+            },
+            'image_url' => {
+              'label' => 'Image URL',
+              'type' => 'string',
+            }
+          }
+        }
+      },
       'stories' => {
         'label' => 'Recent Articles',
         'type' => 'array',

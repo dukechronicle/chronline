@@ -18,8 +18,25 @@
           header.columns.small-12
             h2 Slideshow
           #slideshow-wrapper= render partial: 'beta/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: [], pages_first: true}
+        - if @model.quotes_preface or @model.quotes
+          .row
+            .columns.small-12
+              h3.section-title Quotes
+              - if @model.quotes_preface
+                .coachk
+                  .note== @model.quotes_preface
+              ul.small-block-grid-2.medium-block-grid-3
+                - if @model.quotes
+                  - @model.quotes.each do |quote|
+                    li
+                      .quote
+                        span(data-tooltip='' aria-haspopup="true" class="has-tip" title=quote['quote'])
+                          img(src=quote['image_url'] width=150 height=150)
+                          h4= quote['name']
+        section.row
           .columns.small-12
             = render partial: 'beta/containers/article-list', locals: { title: "Recent", articles: @model.stories, style: :teaser}
+        .row
           .columns.small-12.medium-6
             .column-inner
               a(href="https://twitter.com/#{@model.twitter}")

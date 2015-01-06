@@ -13,4 +13,12 @@
 //= require common/local-time
 //= require_tree ./beta
 
-$(document).foundation();
+$(document).foundation({
+  tooltip: {
+    tip_template: function (selector, content) {
+      return '<span data-selector="' + selector + '" class="'
+        + Foundation.libs.tooltip.settings.tooltip_class.substring(1)
+        + '">' + content + '</span>';
+    }
+  }
+});
