@@ -34,3 +34,20 @@
 
 .touch .orbit-bullets
   display: block
+
+// https://github.com/zurb/foundation/issues/1707#issuecomment-18400744
+ul[data-orbit]
+  margin: 0
+  padding-left: 0
+  list-style-type: none
+/* initially, hide all slides... */
+ul[data-orbit] li,
+ul[data-orbit] .orbit-caption
+  display: none
+/* ...except for the first one */
+ul[data-orbit] li:first-child
+  display: block
+/* show slides once .orbit-container is loaded */
+.orbit-container ul[data-orbit] li,
+.orbit-container ul[data-orbit] .orbit-caption
+  display: block
