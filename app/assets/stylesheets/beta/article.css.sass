@@ -1,15 +1,81 @@
-.header-taxonomy
-  margin-top: $page-section-spacing
-.breadcrumb-link
-  font-family: $chron-font-serif
-  &:after
-    content: ' » '
+.article-body
+  +pie-clearfix
+
+  h4, h5
+    font-weight: bold
+    margin-bottom: 0.5em
+    [class^="icon-"], [class*=" icon-"]
+      vertical-align: baseline
+
+  .share-box
+    float: right
+    margin-left: 10px
+    min-width: 145px
+
+    .comment-link, .print-link, .email-link, .camera-link
+      position: relative
+      a
+        color: $dark-text
+        padding-left: 23px
+        position: relative
+        z-index: 1
+      i
+        display: block
+        position: absolute
+        width: 16px
+        height: 16px
+        top: 3px
+        left: 2px
+
+    .fb-like
+      margin-top: 2px
+      margin-bottom: 4px
+
+    .twitter-share-button
+      margin-bottom: -3px
+
+    .cb-tip-button
+      margin-left: -4px
+      margin-bottom: -9px
+      margin-right: -300px
+
+.article-container
+  padding: 1.2em 1.5em
+
+  .title
+    font-size: 2.4em
+    line-height: 1.2em
+
+  .subtitle
+    font-size: 1.5em
+    margin-top: -10px
+    font-style: italic
+
+  .main-image
+    +border-radius($corner-radius)
+
+  .photo-credit
+    float: right
+    margin-left: 2em
     font-size: .8em
-    vertical-align: .1em
-  &:last-child:after
-    content: none
-article
-  padding-bottom: 3.5em
-  main
-    a
-      @include text-underline($anchor-font-color, 1.1em)
+    span
+      color: #777
+
+  .photo-caption
+    color: $caption-color
+
+  .byline
+    color: $caption-color
+
+  .article-body
+    font-size: 1.2em
+    line-height: 1.6em
+    color: $dark-text
+    img
+      max-width: 100%
+
+  .lead-letter
+    font-size: 2em
+
+#disqus_thread
+  padding: 1.5em 1.5em 0

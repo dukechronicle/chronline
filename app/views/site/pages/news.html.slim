@@ -1,0 +1,21 @@
+.page-main-wrap
+  = render partial: 'site/partials/section-gallery-top', locals: {slideshow_articles: @model.headlines, slideshow_pages: [], pages_first: false, top_news: @model.right_headlines}
+  .row.page-container
+    .page-front
+      .columns.page-content-column.small-12.medium-11.medium-push-1
+        / headlines, more news | twitter row
+        section.row.column-row
+          / headlines, more news
+          .columns.small-12.medium-9
+            .column-inner
+              .bordered-bottom= render partial: 'site/partials/article-horizontal-list', locals: {title: 'Headlines', articles: @model.right_headlines, show_teaser: true}
+              = render partial: 'site/partials/article-horizontal-list', locals: {title: 'More News', articles: @model.more_news}
+          / twitter
+          .columns.small-12.medium-3.show-for-medium-up
+            .column-inner
+              = render partial: 'beta/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget} if @model.twitter_widget
+        section.row.show-for-medium-up
+          .columns.small-12
+            ul(class="medium-block-grid-#{@model.multimedia.count}")
+              - @model.multimedia.each do |element|
+                li== element

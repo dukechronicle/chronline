@@ -1,36 +1,22 @@
-footer#super-footer
-  margin-bottom: $page-section-spacing
-  @media #{$medium-up}
-    margin-bottom: inherit
-  .footer-container
-    padding-top: $page-section-spacing
-    padding-bottom: $page-section-spacing
-    background-color: $chron-blue
-  .chron-title
-    font-size: 3rem
-    margin: 0 0 8px
-  color: $chron-text-white
-  h1, h2, h3, h4
-    color: $chron-text-white
-  // TODO(rivkees): make mixin for white text on dark bg
-  a
-    color: $chron-gray-medium
-    &:hover
-      color: $chron-text-white
-  ul
-    margin-left: 0
-    list-style-type: none
-    li
-      margin-top: 4px
+#footer
+  padding: 10px 0px 30px
+  font-variant: small-caps
+  +single-text-shadow(0px, 1px, 1px, white)
 
-  .legal
-    text-align: center
-    ul,span
-      font-size: .6em
-      margin-left: 0
-      list-style-type: none
-    li
-      display: inline
-      padding-right: 5px
-      height: .9em
-      border-spacing: 0px
+  .legal, .legal a
+    text-align: left
+    color: #888
+    .sep
+      padding: 0px 3px
+    a:hover
+      color: $link-color
+
+  .links
+    a
+      padding: 0px 12px
+    a:first-child
+      padding-left: 0px
+    a:last-child
+      padding-right: 0px
+    a:hover
+      text-decoration: underline

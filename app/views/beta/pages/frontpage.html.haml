@@ -1,0 +1,22 @@
+- cache do
+  .clearfix.align-group
+    .span-8.align-element{data: {alignprimary: "true"}}
+      - if @model.top_headline['page']
+        = render partial: 'beta/containers/article-list/page', locals: {page: @model.top_headline['page']}
+      - elsif @model.top_headline['article']
+        = render partial: 'beta/containers/article-list/single', locals: {article: @model.top_headline['article'], breaking: @model.top_headline['breaking']}
+
+      #slideshow= render partial: 'beta/partials/slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first']}
+      #headlines= render partial: 'beta/containers/two-column-article-list', locals: {title: 'Top Stories', articles: @model.headlines}
+
+    .span-4.last.align-element{data: {aligntarget: '#popular .rounded'}}
+      = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+      #popular.title-small= render partial: 'beta/containers/article-list/disqus', locals: {title: "What's Hot", articles: @model.popular, style: :subhead}
+      #opinion.title-small= render partial: 'beta/containers/article-list', locals: {title: 'Opinion', articles: @model.opinion, style: :subhead, notime: true}
+
+  .clearfix.align-group
+    #news.span-6.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-box', locals: {title: 'News', articles: @model.news}
+    #sports.span-6.last.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-box', locals: {title: 'Sports', articles: @model.sports}
+
+  #recess= render partial: 'beta/containers/article-row', locals: {title: 'Recess', articles: @model.recess, feature: true}
+  #towerview= render partial: 'beta/containers/article-row', locals: {title: 'Towerview', articles: @model.towerview, feature: true}

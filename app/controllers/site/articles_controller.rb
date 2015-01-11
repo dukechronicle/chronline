@@ -1,5 +1,6 @@
 class Site::ArticlesController < Site::BaseController
   include ::PostsController
+
   before_filter :redirect_article, only: [:show, :print]
 
 
@@ -29,12 +30,6 @@ class Site::ArticlesController < Site::BaseController
   def show
     @article.register_view
     @taxonomy = @article.section
-  end
-
-  def print
-    @article = Article.includes(:authors, image: :photographer).find(@article)
-    @article.register_view
-    render 'print', layout: 'print'
   end
 
 end

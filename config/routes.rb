@@ -12,7 +12,7 @@ Chronline::Application.routes.draw do
       omniauth_callbacks: 'site/omniauth_callbacks',
     }
 
-    namespace :site, path: '/'  do
+    namespace :beta, path: '/'  do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
       resources :galleries, only: [:index, :show], id: Gallery::SLUG_PATTERN
@@ -90,7 +90,7 @@ Chronline::Application.routes.draw do
       omniauth_callbacks: 'site/omniauth_callbacks',
     }
 
-    namespace :beta, path: '/' do
+    namespace :site, path: '/' do
       get 'sitemap' => 'base#sitemap_proxy', format: true, constraints: {format: 'xml.gz'}
 
       resource :search, only: :show

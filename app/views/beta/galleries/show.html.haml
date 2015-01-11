@@ -1,0 +1,43 @@
+-provide :title, @gallery.name
+
+- content_for :title_block do
+  = render 'beta/partials/gallery_navigation', gallery: @gallery
+
+.span-8.photo-gal
+  .rounded
+    %article.article-container
+      .article-body
+        / TODO: Later add styling and include - Thanh-ha said ingore 
+        / != @gallery.description
+        .outer
+          .title-area
+            %h2#title= @gallery.name
+        .gallery
+          - @gallery.images.each_with_index do |image, i|
+            %img{src: image.url, data: { description: image_info(image, i+1), link: image.photoshelter_url}}
+        #imageinfo.photo-caption
+          .social
+            .byline.photo-credit
+              - if @gallery.credit
+                %span.author#cred #{photag_byline(@gallery)} / The Chronicle
+        .gal-share
+          .share-box
+            .buy
+              .camera-link
+                %i.icons-camera
+              .buy-link
+                %a.buy Buy Photograph
+            .share.face= facebook_recommend(permanent_gallery_url(@gallery))
+            .share.twit= twitter_share(permanent_gallery_url(@gallery))
+            .share.gplus= google_plusone(permanent_gallery_url(@gallery))
+  .span-8
+    .rounded.clearfix
+      %h2.vertical-label Most Recent
+      #galleryContainer.js-masonry
+        - @recent.each do |gallery|
+          .small-gallery
+            = render partial: 'beta/partials/small-photoshelter-slideshow', locals: {gallery: gallery, width: 204}
+
+.span-4.last
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+  = render partial: 'beta/partials/twitter-timeline', locals: {widget_id: 413760724477804544}

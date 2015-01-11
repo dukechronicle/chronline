@@ -1,0 +1,40 @@
+- provide(:title, @title) unless content_for? :title
+- provide(:description, @description) unless content_for? :description
+
+!!! 5
+%html{lang: "en", "xmlns:og" => "http://ogp.me/ns#", "xmlns:fb" => "https://www.facebook.com/2008/fbml"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{'http-equiv' => "X-UA-Compatible", content:"IE=edge,chrome=1"}
+    %title #{yield :title} | The Chronicle
+    %meta{name: "description", content: (yield :description)}
+
+    = stylesheet_link_tag "beta", :media => "all"
+    /[if lt IE 9]
+      = stylesheet_link_tag "ie", :media => "all"
+      %script{type: "text/javascript", src: "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
+
+    %script{type: "text/javascript", src: "//use.typekit.com/dwv2bjy.js"}
+    :javascript
+      try{Typekit.load()}catch(e){}
+
+    = render 'partials/favicon'
+    = render 'beta/partials/openx'
+    = csrf_meta_tags
+    %link{rel: "image_src", href: image_path("logo/300x300.png")}
+
+    = yield :head
+    = render 'beta/partials/open-graph/facebook-app'
+    = render 'partials/google-analytics'
+  %body
+    #fb-root{data: {'app-id' => ENV['FACEBOOK_APP_ID']}}
+    = render 'beta/partials/admin-panel'
+    .container
+      = render 'beta/partials/header'
+      %section#content.clearfix= yield
+      = render 'beta/partials/footer'
+    #scripts
+      = javascript_include_tag "beta"
+      = render 'partials/quantcast'
+      = render 'beta/partials/widgets'
+      = yield :scripts

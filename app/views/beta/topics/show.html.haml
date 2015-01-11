@@ -1,0 +1,5 @@
+.span-8
+  .rounded
+    .topic-container
+      =button_to "Back", site_topics_path, method: :get
+      = render 'beta/containers/topics', title: 'Discussion', topic: @topic

@@ -1,5 +1,5 @@
 class Site::SessionsController < Devise::SessionsController
-  layout 'site'
+  layout 'beta'
   respond_to :html, :js
 end
 

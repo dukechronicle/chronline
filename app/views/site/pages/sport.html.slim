@@ -1,0 +1,43 @@
+- slideshow_articles = @model.featured_stories.map {|article_hash| article_hash['article'] }
+.page-main-wrap
+  .row.page-container
+    .page-front data-equalizer=""
+      .columns.page-content-column.small-12.medium-7.medium-push-1 data-equalizer-watch=""
+        section.row.section-active.section-slideshow
+          header.columns.small-12
+            h2 Slideshow
+          #slideshow-wrapper.bordered-bottom= render partial: 'site/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: [], pages_first: true}
+          .columns.small-12
+            .column-inner
+              = render partial: 'site/containers/article-list', locals: { title: "Recent", articles: @model.stories, style: :teaser}
+        section.row
+          .columns.small-12.medium-6
+            .column-inner
+              a(href="https://twitter.com/#{@model.twitter}")
+                .image-container
+                  = image_tag 'social-media/twitter.png'
+          .columns.small-12.medium-6
+            .column-inner
+              a(href="https://twitter.com/#{@model.facebook}")
+                .image-container
+                  = image_tag 'social-media/facebook.png'
+      .columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
+        = render partial: 'site/partials/widget-sidebar'
+
+      .columns.small-12.medium-4.top-news-container data-equalizer-watch=""
+        section.row
+          header.columns.small-12
+            h2 Game Details
+          = render partial: 'site/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information, game_info: ESPN.new.game_information(@model.information['espn_url'])}
+        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+        section.row
+          header.columns.small-12
+            h2 Standings
+          .columns.small-12
+            = render partial: 'site/containers/sports-standings', locals: {url: @model.standings_url}
+        section.row
+          header.columns.small-12
+            h2 Twitter
+          .twitter
+            - @model.twitter_widgets.each do |widget_id|
+              a.twitter-timeline(data-widget-id=widget_id)

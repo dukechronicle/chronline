@@ -1,0 +1,57 @@
+- provide :title, @blog_post.title
+- provide :description, @blog_post.teaser
+
+- content_for :title_block do
+  %h1= link_to @blog.name, site_blog_posts_path(@blog)
+
+- content_for :head do
+  - cache(action_suffix: :head) do
+    - if @blog_post.published?
+      - post = Blog::Post.includes(:authors, image: :photographer).find(@blog_post)
+      = render 'beta/partials/twitter_cards/post', post: post
+      = render 'beta/partials/open-graph/post', post: post
+    - if @blog_post.block_bots
+      %meta{name: 'robots', content: 'noindex'}
+    %link{rel: "canonical", href: site_blog_post_url(@blog, @blog_post, subdomain: :www, protocol: 'http')}
+
+- content_for :administrative_links do
+  = link_to "Edit this blog post", edit_admin_blog_post_url(@blog, @blog_post, subdomain: :admin)
+
+- unless @blog_post.published?
+  = render 'beta/partials/admin-notification'
+
+- cache do
+  - @blog_post = Blog::Post.unscoped { Blog::Post.includes(:authors, :tags, series: :image, image: :photographer).find(@blog_post) }
+  .span-8
+    .rounded
+      .image-container
+        = blog_banner_tag @blog, class: 'blog-banner'
+    .rounded
+      %article.article-container.blog-post
+        %h1.title= @blog_post.title
+
+        %p.byline
+          %span.author By #{byline(@blog_post, link: true)}
+          %span.sep= "|"
+          = display_date(@blog_post)
+
+        = render partial: 'partials/blog-image', locals: {blog_post: @blog_post}
+
+        .article-body
+          = render partial: 'beta/partials/share-box', locals: {postable: @blog_post, except: [:print, :email]}
+          != @blog_post.render_body
+
+        = render partial: 'beta/blog_posts/tags', locals: {blog_post: @blog_post}
+
+    #recommended= render partial: 'beta/containers/article-row', locals: {title: 'Recommended', articles: @blog_post.related(4), feature: false, style: :title}
+    #disqus_thread.rounded{data: {disqus: disqus_options(@blog_post)}}
+
+  %aside.span-4.last
+    = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+    = render partial: 'beta/partials/blog-info', locals: {blog: @blog}
+    - @blog.twitter_widgets.each do |widget_id|
+      = render partial: 'beta/partials/twitter-timeline', locals: {widget_id: widget_id}
+    = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+    = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+
+  #facebook-social-share

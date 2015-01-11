@@ -7,7 +7,7 @@ module Site::AdvertisementHelper
     zone = suffix ? "#{zone}_#{suffix}" : zone.to_s
     page_id = '536870985'
     render(
-      partial: 'site/partials/advertisement_tag', layout: false, locals: {
+      partial: 'beta/partials/advertisement_tag', layout: false, locals: {
         group_id: GROUP_ID,
         unit: AD_UNITS[zone]['unit'],
         width: AD_UNITS[zone]['width'],

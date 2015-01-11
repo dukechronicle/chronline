@@ -1,50 +1,52 @@
-.clearfix
-  overflow: visible
-  +pie-clearfix
+.admin-panel
+  background-color: $chron-gray-dark
+  padding: 5px
+  a:after
+    content: " | "
+  a:last-child:after
+    content: " "
 
-html, body
-  width: 100%
-  height: 100%
-  +background-with-css2-fallback($background-bottom-color linear-gradient(top, $background-top-color, $background-bottom-color) no-repeat)
+.chron-title, h1.chron-title, h1.chron-title a
+  font-family: "ambroise-firmin-std", serif
 
-body
-  .container
-    overflow: visible
+.button
+  text-transform: uppercase
 
-  font-family: skolar, "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
+figure
+  margin: 0 0 1.25rem 0
+  img
+    width: 100%
+  figcaption
+    opacity: .8
+    background-color: $chron-gray-light
+    border-left: 7px solid $chron-blue-accent
+    margin-left: -7px
+    .photo-credit
+      text-align: right
+      font-size: .9rem
+      padding: .2rem
+      margin-top: -1.6rem
+    .photo-caption
+      font-size: 1rem
+      padding: .7rem
 
-  h1, h2, h3, h4, h5, h6
-    font-family: skolar, Georgia,"Century Schoolbook","Times New Roman",Times,serif
-    font-weight: normal
-
-  a
-    text-decoration: none
-    color: $link-color
-
-  a.hover
-    display: block
-    +single-transition(border-color, .25s, linear)
-
-    h1, h2, h3, h4, h5, h6, p
-      +single-transition(color, .25s, linear)
-
-  a.hover:hover, a.hover.selected
-    h1, h2, h3, h4, h5, h6
-      color: $link-color
-
-  a.highlight-left
-    border-left: 1px solid transparent
-  a.highlight-left:hover, a.highlight-left.selected
-    border-left-color: $highlight-color
-  a.highlight-right
-    border-right: 1px solid transparent
-  a.highlight-right:hover, a.highlight-right.selected
-    border-right-color: $highlight-color
-  a.highlight-bottom
-    border-bottom: 1px solid transparent
-  a.highlight-bottom:hover, a.highlight-bottom.selected
-    border-bottom-color: $highlight-color
-  a.highlight-top
-    border-top: 1px solid transparent
-  a.highlight-top:hover, a.highlight-top.selected
-    border-top-color: $highlight-color
+/* Header Chevron Styling */
+.chev-container
+  position: relative
+  padding-right: 44px
+  .chev-header-bg
+    z-index: -1
+    background: $chron-blue
+    position: absolute
+    top: 0
+    right: 44px
+    width: 1000px
+  .chev-header-rt-arrow
+    @include css-triangle(22px, $chron-blue, left) 
+    position: absolute
+    top: 0
+    right: 0
+aside.page-sidebar
+  .chev-header-rt-arrow
+    @include css-triangle(17px, $chron-blue, left) 
+    right: -34px

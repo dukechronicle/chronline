@@ -3,7 +3,7 @@
 .span-8
   .rounded
     .form-container
-      = render 'site/partials/flash', flash: flash
+      = render 'beta/partials/flash', flash: flash
       = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
         = f.error_notification
         %fieldset
@@ -15,4 +15,4 @@
       = render 'devise/shared/links'
 
 .span-4.last
-  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}

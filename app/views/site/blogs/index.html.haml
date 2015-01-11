@@ -1,8 +1,0 @@
-- provide :title, "Blogs"
-- provide :title_block do
-  %h1 Chronicle Blogs
-
-.align-group.clearfix
-  - Blog.all.each_with_index do |blog, i|
-    .span-4.align-element{data: {aligntarget: '.rounded'}, class: ("last" if i % 3 == 2)}
-      = render 'site/partials/blog-info', {blog: blog, show_label: false}

@@ -1,23 +1,41 @@
+.breaking
+  .rounded
+    +single-box-shadow(rgba(200, 0, 0, 0.6), 0px, 1px, 3px)
+
+  .breaking-label
+    background-color: red
+    color: $light-color
+    font-size: .65em
+    vertical-align: top
+    margin: 0px 10px
+    padding: 0px 2px
+    +border-radius($corner-radius)
+
 .article-list
-  article
-    &:hover
-      background: $chron-gray-light
-    padding-top: $page-section-spacing
-    padding-bottom: $page-section-spacing
-    header
-      h1
-        color: $chron-blue-accent
-        font-size: 1.1rem
-        line-height: 1.1rem
-      p
-        color: $chron-gray-dark
-        font-size: .8rem
-.taxonomy-article-list
-  .article-list
-    article
-      header
-        h1
-          font-size: 1.2rem
-          line-height: 1.2rem
-        .header-byline
-          font-size: 1rem
+  .banner
+    width: 100%
+    height: 60px
+
+  ol
+    margin: 0px
+
+  .list-story
+    margin-bottom: 1.4em
+  .list-story:last-child
+    margin-bottom: 0em
+
+  .rounded
+    overflow: hidden
+
+.title-small
+  .list-story
+    margin-bottom: .7em
+  .title
+    font-size: 1.1em
+    line-height: 100%
+
+.title-medium
+  .list-story
+    margin-bottom: 1em
+  .title
+    font-size: 1.3em

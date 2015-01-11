@@ -1,0 +1,14 @@
+.article-list-social.columns.small-4
+  - if article.image
+    = cropped_image_tag article.image, :square_200x
+  - elsif article.authors.first.columnist?
+    = cropped_image_tag article.authors.first.headshot, :square_200x
+  - else
+    = render 'site/partials/image-placeholder', locals: {width: 200, height: 200}
+header.columns.small-8
+  h1= article.title
+  p.header-byline
+    span.author By #{byline(article, link: false)}
+    span.date
+      = " on "
+      = display_date(article)

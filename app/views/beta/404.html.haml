@@ -1,0 +1,15 @@
+- provide :title, 'Page Not Found'
+
+- content_for :title_bock do
+  %h1 'Page Not Found'
+.span-8
+  .rounded
+    .article-container
+      .notfound-text
+        Sorry, this page doesn't exist. Please click 
+        %a{href: site_root_path} here
+        to go back to our homepage.
+      = render 'partials/failwhale'
+.span-4.last
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+  = render 'beta/partials/facebook-recommended'

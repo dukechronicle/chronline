@@ -1,0 +1,38 @@
+- provide(:title, @title) unless content_for? :title
+- provide(:description, @description) unless content_for? :description
+
+DOCTYPE html
+html class="no-js"
+    head
+        meta[charset="utf-8"]
+        meta[http-equiv="X-UA-Compatible" content="IE=edge"]
+        meta[name="description" content=""]
+        meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+        title #{yield :title} | The Chronicle
+        = stylesheet_link_tag "site", :media => "all"
+        // TODO: add gem for modernizr
+        //= javascript_include_tag "modernizr/modernizr"
+        // TODO(grivkees): CHANGE TYPEKIT
+        / script[type= "text/javascript" src= "//use.typekit.com/dwv2bjy.js"]
+        script[type= "text/javascript" src= "//use.typekit.com/uxs6igf.js"]
+        javascript:
+            try{Typekit.load()}catch(e){}
+        = render 'partials/favicon'
+        = render 'beta/partials/openx'
+        = csrf_meta_tags
+        link[rel= "image_src" href= image_path("logo/300x300.png")]
+        = yield :head
+        // TODO(rivkees): finishing migrating includes from site
+        = render 'beta/partials/open-graph/facebook-app'
+        = render 'partials/google-analytics'
+    body
+        #fb-root[data-app-id=ENV['FACEBOOK_APP_ID']]
+        = render 'beta/partials/admin-panel'
+        #wrap
+            == render 'site/partials/header'
+            == yield
+            == render 'site/partials/footer'
+            = render 'site/partials/mobile/advertisement'
+        #scripts
+          = javascript_include_tag "site"
+          = yield :scripts

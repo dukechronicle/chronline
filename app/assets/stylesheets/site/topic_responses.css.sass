@@ -6,23 +6,25 @@
 
   ul.response-actions
     list-style: none
-    padding: 0
+    padding: 0 0 0 5px
     margin: 0
     font-family: sans-serif
-    color: $caption-color
+    color: #555
+    font-size: .7rem
 
     li
       display: inline
       &:last-child:after
         content: none
-        color: $dark-text
+        color: #222
       &:after
         content: "\b7"
-        color: $dark-text
+        color: #222
 
     button
+      font-size: .7rem
       cursor: pointer
-      color: $caption-color
+      color: #555
       background: none
       border: none
       padding: 0
@@ -31,11 +33,11 @@
     .upvote
       &:before
         content: "\25B2"
-        color: $dark-text
+        color: #222
     .downvote
       &:before
         content: "\25BC"
-        color: $dark-text
+        color: #222
     .voted
       .upvote
         &:before

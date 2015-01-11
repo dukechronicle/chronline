@@ -1,0 +1,22 @@
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+
+- cache do
+  .clearfix.align-group
+    .span-6.align-element{data: {aligntarget: '#featured .rounded'}}
+      #featured= render partial: 'beta/containers/block/featured', locals: {article: @model.featured}
+      - @model.headlines.each do |article|
+        = render partial: 'beta/containers/block/square', locals: {article: article}
+
+    .span-6.last.align-element{data: {aligntarget: '#headlines .rounded'}}
+      .clearfix.align-group
+        #popular.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-list/numbered', locals: {title: 'Popular', articles: @model.popular}
+        .span-4.last.align-element{data: {alignprimary: "true"}}= render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+
+      .clearfix.align-group
+        #headlines.span-3.title-medium.align-element= render partial: 'beta/containers/article-list', locals: {title: 'Headlines', articles: @model.right_headlines, style: :featured}
+        #blog-poll.span-3.last.title-small.align-element
+          = render partial: 'beta/containers/poll', locals: {poll: @model.poll}
+          = render partial: 'beta/partials/twitter-timeline', locals: {widget_id: @model.twitter_widget} if @model.twitter_widget
+  = render partial: 'beta/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+  = render partial: 'beta/containers/article-row', locals: {title: 'More News', articles: @model.more_news, feature: false}
