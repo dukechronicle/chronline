@@ -1,0 +1,32 @@
+- if @search.query.present?
+  - provide :title, "Search: #{@search.query}"
+  - content_for :title_block do
+    h1
+      = "Results for "
+      strong= @search.query
+- else
+  - provide :title, "Search"
+  - content_for :title_block do
+    h1 Search the Archives
+
+.page-main-wrap
+  .row.page-container
+    .page-front
+      .columns.page-content-column.small-12
+        section.row
+          .columns.small-12.medium-8
+            - if @search.query.blank?
+              .error
+                h3 Please enter a query
+            - elsif @results.blank?
+              .error
+                h3 No results found
+            - else
+              .search-results
+                - @results.each do |result|
+                  = render partial: 'site/searches/result', locals: {result: result}
+              = will_paginate @results
+
+          .columns.small-12.medium-4
+            = render partial: 'site/partials/search', locals: {search: @search}
+            = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}

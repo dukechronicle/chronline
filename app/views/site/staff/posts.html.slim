@@ -1,0 +1,30 @@
+- provide :title, @staff.name
+- provide :description, "Recent and archived #{action_name} by #{@staff.name} of The Chronicle at Duke University."
+
+- content_for :administrative_links do
+  = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
+
+- content_for :head do
+  = render partial: 'site/partials/open-graph/staff', locals: {staff: @staff}
+
+- content_for :title_block do
+  h1= @staff.name
+
+.page-main-wrap
+  .row.page-container
+    .page-front
+      .page-content-column.columns.small-12.medium-12
+        section.row.column-row
+          .columns.small-12.medium-7.staff
+            .column-inner
+            - @posts.each do |post|
+                  a.hover(href=beta_post_path(post))
+                    .content-container
+                      h3= post.title
+                      = render partial: 'site/articles/subtitle', locals: {article: post, notime: true}
+                      p= post.teaser
+            = will_paginate @posts
+          .columns.small-12.medium-5
+            .column-inner
+              .span-5.last= render partial: 'site/containers/staff-profile', locals:  {staff: @staff, except: action_name.to_sym }
+

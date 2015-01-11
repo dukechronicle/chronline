@@ -1,0 +1,16 @@
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+
+- cache do
+  .clearfix.align-group
+    .span-8.align-element{data: {alignprimary: "true"}}
+      #slideshow= render partial: 'beta/partials/slideshow', locals: {articles: @model.slideshow, pages: [], pages_first: true}
+
+    .span-4.last.align-element{data: {aligntarget: '#editors-notes .rounded'}}
+      = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+      #editors-notes.title-medium= render partial: 'beta/containers/article-list', locals: {title: "Editor's Notes", articles: @model.editors_notes, style: :featured}
+
+  #music= render partial: 'beta/containers/article-row', locals: {title: 'Music', articles: @model.music, feature: true}
+  #film= render partial: 'beta/containers/article-row', locals: {title: 'Film', articles: @model.film, feature: true}
+  #art= render partial: 'beta/containers/article-row', locals: {title: 'Art', articles: @model.art, feature: true}
+  #multimedia= render partial: 'beta/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}

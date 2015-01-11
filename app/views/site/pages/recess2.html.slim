@@ -1,0 +1,15 @@
+.page-main-wrap
+  = render partial: 'site/partials/section-gallery-top', locals: {slideshow_articles: @model.slideshow, slideshow_pages: [], pages_first: false, top_news: @model.slideshow}
+  .row.page-container
+    .page-front
+      .page-content-column.columns.small-12.medium-11.medium-push-1
+        section.row.column-row
+          .columns.small-12.medium-8
+            .column-inner
+              = render partial: 'site/partials/article-horizontal-list', locals: {title: 'Playground', articles: @model.playground, show_teaser: true}
+          .columns.small-12.medium-4
+            .column-inner
+              = render partial: 'site/partials/article-horizontal-list', locals: {title: "Page Two", articles: @model.editors_notes, show_teaser: true, grid_width: 2}
+        section.row.column-row
+          .columns.small-12
+            = render partial: 'site/partials/article-horizontal-list', locals: {title: 'More Articles', articles: @model.more_articles, show_teaser: false}

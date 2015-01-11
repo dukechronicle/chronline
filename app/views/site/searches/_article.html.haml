@@ -1,6 +1,0 @@
-.rounded
-  %a.hover{href: site_article_path(article)}
-    .content-container
-      %h3= article.matched_title || article.title
-      = render partial: 'site/articles/subtitle', locals: {article: article}
-      %p= article.matched_content || article.teaser

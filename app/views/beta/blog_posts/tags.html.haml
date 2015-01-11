@@ -1,0 +1,6 @@
+- provide :title, "#{@blog.name}: #{params[:tag]}"
+
+- content_for :title_block do
+  %h1 #{link_to @blog.name, site_blog_posts_path(@blog)}: #{params[:tag]}
+
+= render 'beta/blog_posts/index'

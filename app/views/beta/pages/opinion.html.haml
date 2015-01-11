@@ -1,0 +1,15 @@
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+
+.clearfix
+  - cache do
+    .span-6
+      #columns= render partial: 'beta/containers/columns', locals: {title: "Daily Features", articles: @model.featured}
+      #columnists= render partial: 'beta/containers/author-box', locals: {title: "Columnists", authors: @model.columnists}
+
+  .span-6.last
+    .clearfix.align-group
+      #editorial-board.title-small.span-2.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-list', locals: {title: "Editorial Board", articles: @model.editorial_board, style: :featured}
+      .span-4.last.align-element{data: {alignprimary: "true"}}= render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+    #discussion-board= render partial: 'beta/containers/topic', locals: {title: "ChronFessional", topic: @model.topic}
+    #embed= render partial: 'beta/partials/video', locals: {video: @model.video } if @model.video

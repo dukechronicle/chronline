@@ -1,0 +1,24 @@
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+
+.span-8
+  #featured= render partial: 'beta/containers/featured-selectable', locals: {posts: @model.featured_stories}
+  = render partial: 'beta/containers/article-list', locals: {articles: @model.stories, title: "Recent", style: :teaser}
+  .clearfix
+    .span-4
+      .rounded
+        %a{href: "https://twitter.com/#{@model.twitter}"}
+          .image-container
+            = image_tag 'social-media/twitter.png'
+    .span-4.last
+      .rounded
+        %a{href: "https://www.facebook.com/#{@model.facebook}"}
+          .image-container
+            = image_tag 'social-media/facebook.png'
+
+.span-4.last
+  = render partial: 'beta/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information, game_info: ESPN.new.game_information(@model.information['espn_url'])}
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+  = render partial: 'beta/containers/sports-standings', locals: {url: @model.standings_url}
+  - @model.twitter_widgets.each do |widget_id|
+    = render partial: 'beta/partials/twitter-timeline', locals: {widget_id: widget_id}

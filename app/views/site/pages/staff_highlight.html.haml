@@ -1,8 +1,0 @@
-- authors = (@model.editor_columns + @model.senior_columns).map(&:authors).flatten.uniq.sort_by(&:name)
-
-.align-group.clearfix
-  .align-element.span-6{data: {aligntarget: '.rounded'}}= render partial: 'site/containers/columns', locals: {title: "Senior Columns", articles: @model.senior_columns}
-  .align-element.span-6.last{data: {aligntarget: '.author-list'}}
-    = render partial: 'site/containers/columns', locals: {title: "Editor Columns", articles: @model.editor_columns}
-    = render partial: 'site/containers/author-box', locals: {title: "", authors: authors}
-= render partial: 'site/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}

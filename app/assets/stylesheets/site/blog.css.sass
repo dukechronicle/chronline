@@ -1,7 +1,36 @@
-.blog-logo
-  width: 300px
-  height: 100px
+ul.tags
+  list-style-type: none
+  margin: 0px
+  padding-top: 10px
+  font-size: .8em
+  li
+    display: inline-block
+    border: $chron-gray-border
+    border-radius: 4px
+    padding: 4px 8px
+    margin: 3px 4px 3px 0px
+    &:hover
+      a
+        color: inherit
+      background-color: $chron-gray-light
+    a
+      @include text-underline-none
+
+.blog-preview
+  padding-bottom: 30px
+  border-bottom: $chron-gray-border
 
 .blog-banner
-  width: 636px
-  height: 106px
+  margin: 20px 0px
+
+.blog-info
+  ul
+    list-style-type: disc
+  h2
+    font-size: $h3-font-size
+    font-weight: bold
+    text-transform: uppercase
+  h3
+    font-size: $h4-font-size
+    &:hover
+      color: $anchor-font-color-hover

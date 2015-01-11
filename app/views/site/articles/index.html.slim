@@ -1,0 +1,14 @@
+.page-main-wrap
+  .row.page-container
+    section.page-content-column.columns.small-8
+      .taxonomy-article-list= render partial: 'site/containers/article-list', locals: {articles: @articles, style: "taxonomy-list", notime: false} 
+      = will_paginate
+    aside.page-sidebar.columns.show-for-medium-up.medium-4
+      = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+      - if @popular.present?
+        = render partial: 'beta/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
+      = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+      = render 'site/partials/facebook-recommended'
+      = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+
+

@@ -14,7 +14,7 @@ class Beta::BlogPostsController < Beta::BaseController
         .page(params[:page])
     else
       @taxonomy = Taxonomy.new(:blogs)
-      render 'beta/blogs/index'
+      render 'site/blogs/index'
     end
   end
 

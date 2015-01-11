@@ -1,0 +1,6 @@
+- provide :title, @blog.name
+
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+
+= render 'beta/blog_posts/index'

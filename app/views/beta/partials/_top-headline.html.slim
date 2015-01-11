@@ -1,8 +1,0 @@
-.top-headline
-  a href=site_article_path(headline['article'])
-    h3
-      = headline['article'].title
-      - if headline['breaking']
-        span.breaking-label Breaking
-    = render partial: 'beta/articles/subtitle', locals: {article: headline['article']}
-    p.teaser= headline['article'].teaser

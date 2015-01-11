@@ -1,0 +1,6 @@
+.clearfix.align-group
+- (@model.articles || []).each_with_index do |article, i|
+  - if (i+1)%2 == 0
+    .span-6.last= render partial: 'beta/containers/block/square', locals: {article: article }
+  - else
+    .span-6= render partial: 'beta/containers/block/square', locals: {article: article }

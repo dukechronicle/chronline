@@ -1,0 +1,19 @@
+.clearfix.align-group
+  .span-8.align-element{data: {alignprimary: "true"}}
+    #slideshow= render partial: 'beta/partials/slideshow', locals: {articles: @model.slideshow, pages: [], pages_first: true}
+    #multimedia= render partial: 'beta/containers/multimedia-row', locals: {title: 'Multimedia', multimedia: @model.multimedia}
+
+  .span-4.last.align-element{data: {aligntarget: '#recruitment-info .rounded'}}
+    = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+    #editors-notes.title-medium= render partial: 'beta/containers/article-list', locals: {title: "Letter from the Editor", articles: @model.editors_note, style: :featured}
+    #recruitment-info
+      %h2.vertical-label Join the Chronicle
+      .rounded
+        .content-container!= @model.recruitment_info
+
+#news= render partial: 'beta/containers/article-row', locals: {title: 'News', articles: @model.news, feature: true}
+#sports= render partial: 'beta/containers/article-row', locals: {title: 'Sports', articles: @model.sports, feature: true}
+
+.clearfix.align-group
+  #recess.span-6.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-box', locals: {title: 'Recess', articles: @model.recess}
+  #towerview.span-6.last.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-box', locals: {title: 'Towerview', articles: @model.towerview}

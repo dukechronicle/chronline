@@ -1,0 +1,7 @@
+.clearfix.align-group
+  .span-6.align-element{data: {aligntarget: '.rounded'}}
+    .rounded
+      .image-container!= @model.video
+
+  .span-6.last.align-element{data: {aligntarget: '.rounded'}}
+    = render partial: 'beta/partials/sports-event-info', locals: {title: 'Game Details', info: @model.information}

@@ -1,73 +1,40 @@
-/*
- *= require jquery.hoverscroll
- *= require lightbox2/css/lightbox
- *= require themes/jquery-ui/chronicle/jquery-ui-1.10.2.custom
- *= require Buttons/css/buttons
- */
+//@import "foundation/scss/foundation/functions"
 
-// This import applies a global reset to any page that imports this stylesheet.
-@import "blueprint/reset"
+@import "site/variables"
 
-// To configure blueprint, edit the partials/_base.sass file.
-@import "site/partials/base"
-
-// Import all the default blueprint modules so that we can access their mixins.
-@import "blueprint"
-
-// Import the non-default scaffolding module.
-@import "blueprint/scaffolding"
-
-// Generate the blueprint framework according to your configuration:
-@include blueprint
-
-
-
-@include blueprint-scaffolding
+//@import "foundation/scss/normalize"
+//@import "foundation/scss/foundation"
+@import "foundation"
 
 @import "compass"
 
-@import "site/mixins"
+@import "beta/mixins"
 
 @import "icons/*.png"
 @include all-icons-sprites
 
+/* Add imports of custom sass/scss files here */
 @import "site/layout"
 @import "site/header"
 @import "site/footer"
-@import "site/container"
-@import "site/article"
-@import "site/topic"
-@import "site/topic_responses"
-@import "site/blog"
-@import "site/blog-post"
-@import "site/staff"
+@import "site/page"
 @import "site/advertisement"
-@import "site/pagination"
-@import "site/admin-panel"
-@import "site/video-player"
-@import "site/search"
-@import "site/form"
-@import "site/featured-selectable"
-@import "site/glyphicon"
-@import "site/embedded-media"
-@import "site/poll"
-@import "site/gallery"
-@import "site/large-embed"
-@import "site/brackets"
-@import "site/games"
-@import "site/buttons"
-@import "site/tournaments"
-@import "site/game-preview"
-@import "site/coach-k"
 @import "site/containers/article-list"
-@import "site/containers/article-box"
 @import "site/containers/article-row"
-@import "site/containers/block"
-@import "site/containers/blog-info"
-@import "site/containers/facebook-recommended"
-@import "site/containers/multimedia-row"
-@import "site/containers/opinion"
+@import "site/multiplexer"
+@import "site/blog"
+@import "site/opinion"
+@import "site/search"
+@import "site/article"
+@import "site/partials/section_page-slideshow"
+@import "site/partials/top-headline"
 @import "site/containers/sports-event-info"
-@import "site/containers/multiplexer"
-@import "site/partials/facebook-social-share"
-@import "404"
+@import "site/containers/sports-standings"
+@import "site/staff"
+@import "site/embedded-media"
+@import "site/partials/columns"
+@import "site/topic"
+@import "site/coach_k"
+@import "site/sponsor"
+@import "site/topic_responses"
+@import "site/mobile/advertisement"

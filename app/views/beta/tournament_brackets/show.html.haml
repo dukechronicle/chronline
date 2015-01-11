@@ -1,0 +1,12 @@
+- provide :title, "#{@bracket.user.name}'s #{@tournament.full_name} Bracket"
+
+.rounded
+  .bracket-container
+    = render 'beta/partials/flash', flash: flash
+    - if @tournament.started?
+      %p.challenge-text
+        Click
+        = link_to "here", leaderboard_site_tournament_path(@tournament)
+        to see the Chronicle bracket challenge leaderboard.
+    - unless @forbidden
+      #bracket.bracket{data: {bracket: tournament_bracket_json(@bracket)}}

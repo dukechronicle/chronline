@@ -1,0 +1,12 @@
+- notime ||= true
+
+.article-list
+  %h2.vertical-label= title
+  .rounded
+    .content-container
+      - articles.each_with_index do |article, i|
+        %a.list-story.hover.highlight-right{href: site_post_path(article)}
+          - if style
+            = render partial: "beta/containers/article-list/#{style}", locals: {article: article, first: (i == 0), options: {notime: notime}}
+          - else
+            %h3.title= article.title

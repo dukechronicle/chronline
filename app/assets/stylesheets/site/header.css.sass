@@ -1,255 +1,54 @@
-.leaderboard-row
-  +clearfix
-  margin-bottom: 3px
-
-.leaderboard-row
-  .custom_ad
-    float: left
-    margin-right: 10px
-
-  .leaderboard
-    float: left
-
-#super-header
-  +clearfix
-  color: #666
-  padding: 3px 0px
-
-  .date
-    float: left
-    font-size: 1.2em
-    padding-right: 10px
-
-  .icons
-    float: left
-    a
-      display: inline-block
-      width: 16px
-      height: 16px
-      vertical-align: bottom
-
-  .advertising-links
-    float: right
-    font-size: 1.1em
-    margin-left: 10px
-    a
-      margin-right: 5px
-      color: #666
-    a:last-child
-      margin-right: 0px
-
-
-#search-box
-  display: inline-block
-  float: right
-  position: relative
-
-  input
-    font-size: 12px
-    font-family: inherit
-    border: 1px inset
-    +border-radius(10px)
-
-    background: white image-url("icons/search.png") no-repeat
-    background-position: 2px 2px
-    padding-left: 20px
-    +box-sizing(border-box)
-
-@media screen and (-webkit-min-device-pixel-ratio:0)
-  html #search-box input
-    background: white
-    padding: 0px
-
-header
-  margin-bottom: 20px
-  +border-radius($corner-radius)
-  background-color: $banner-color
-  +black-box-shadow($default-box-shadow-opacity, 0px, 1px, 3px)
-  color: $light-color
-
-  #home-link
-    h1, h2, h3
-      line-height: 100%
-      +single-text-shadow(0px, 1px, 3px, rgba(0, 0, 0, $default-box-shadow-opacity))
-      margin: 0px
-      color: $light-color
-
-    .brand
-      font-family: ambroise-std
-      font-weight: lighter
-
-#header-frontpage
-  #header-top
-    overflow: hidden
-    padding: 10px 10px 3px
-
-  #home-link
-    border-bottom: 2px solid $light-color
-    border-image: -webkit-radial-gradient($light-color 70%, $banner-color 100%) 2
-
-    a
-      display: block
-      position: relative
-      margin: auto
-      width: 600px
-
-    #header-overlay
-      position: absolute
-      opacity: 0.15
-      top: -70px
-      left: 90px
-      width: 300px
-
-    h1, h2, h3
-      text-align: center
-      position: relative
-      z-index: 1
-
-    .brand
-      font-size: 5.25em
-      letter-spacing: 1px
-
-    .tagline
-      font-size: 1.2em
-      font-family: proxima-nova-sc-osf-ext-cond
-      letter-spacing: 3px
-
-  #nav
-    float: left
-    padding-top: 3px
-    position: relative
-    z-index: 1
-
-    a.coachk
-      h2
-        color: orange
-    a
-      display: inline-block
-      line-height: 1.6
-
-      h2
-        display: inline-block
-        margin: 0px
-        font-weight: bold
-        font-size: 1.0em
-        +single-text-shadow(0px, 1px, 3px, rgba(0, 0, 0, $default-box-shadow-opacity))
-        letter-spacing: 2px
-        text-transform: uppercase
-        color: $light-color
-        border-bottom: 1px solid transparent
-        +border-radius($corner-radius)
-        +single-transition(background-color, 0.25s, linear)
-        padding: 0px 14px
-
-    a:hover h2, a.active h2
-      border-bottom-color: rgba(255, 255, 255, 0.6)
-      background-color: rgba(255, 255, 255, 0.4)
-
-  #search-box
-    top: 3px
-    input
-      width: 170px
-
-#header
-  #header-top
-    +clearfix
-    padding: 3px 8px 0px
-
-  #home-link
-    float: left
-    position: relative
-    padding: 3px 8px
-
-    .brand
-      font-size: 2.4em
-      display: inline-block
-
-  #nav
-    float: left
-    letter-spacing: 1px
-    position: relative
-    top: 17px
-    left: 10px
-
-    a.coachk
-      h2
-        color: orange
-
-    a
-      display: inline-block
-      margin-right: 9px
-      vertical-align: bottom
-
-      h2
-        display: inline-block
-        margin: 0px
-        vertical-align: bottom
-        background-color: $banner-color
-
-        font-weight: bold
-        font-size: 1.0em
-        +single-text-shadow(rgba(0,0,0,.4), 0px, 1px, 3px)
-        letter-spacing: 1.2px
-        text-transform: uppercase
-        color: $light-color
-        padding: 0px 5px 1.5px 5px
-
-        +transition(background-color, 0.25s)
-        +border-top-left-radius($corner-radius)
-        +border-top-right-radius($corner-radius)
-
-    a:hover h2, a.active h2
-      background-color: white
-      color: $banner-color
-
-  #search-box
-    top: 10px
-    input
-      width: 150px
-
-  #subheader
-    +clearfix
-    +border-bottom-left-radius($corner-radius)
-    +border-bottom-right-radius($corner-radius)
-    +background-with-css2-fallback(white linear-gradient(bottom, whiteSmoke 0%, white 33%))
-
-    .pagetitle
-      white-space: nowrap
-      padding: .8em 0px .8em 19px
-      h1
-        font-size: 1.8em
-        margin: 0px
+header#super-header
+  ul.title-area
+    li.name
+      background: $chron-blue
+      color: $chron-gray-light
+      a:hover
+        color: $chron-blue-highlight
+      h1.chron-title
         a
-          color: $dark-text
-          +transition(color .25s linear)
-        a:hover
-          color: $highlight-color
-
-    .nav-container
-      width: 558px
-      float: right
-      margin-left: 20px
-      margin-top: -8px
-      +box-sizing(border-box)
-
-    .subnav
-      text-align: right
-      white-space: nowrap
-      position: relative
-      overflow-x: hidden
-      left: 0px
-      a
-        display: inline-block
-        h2
-          display: inline-block
-          letter-spacing: 1px
-          font-size: 0.9em
+          color: white
+  nav.top-bar
+    .nav-sections
+      >li
+        a
           text-transform: uppercase
-          color: $text-color
-          display: block
-          padding: 9px 11px
-          margin: 0px
-      a:first-child h2
-        padding-left: 0px
-      a:hover h2
-        color: $link-color
+          font-family: $chron-font-sans-alt
+          font-weight: 500
+        a.coachk
+          color: orange
+
+  .search-section form
+    width: 200px
+    @media #{$medium-only}
+      width: 75px
+    @media #{$large-up}
+      width: 220px
+
+  .top-bar-section
+    li.active:not(.has-form)
+      a:not(.button)
+        background: $topbar-link-bg-active-hover
+
+.fixed
+  nav
+    .sticky-hide
+      display: none
+      @media #{$large-up}
+        display: inline
+
+.wf-loading
+  .nav-sections
+    display: none
+
+.header-advertisement
+  background: $chron-gray-light
+  text-align: center
+  max-height: 110px
+  padding: 10px 0px
+  .advertisement
+    display: inline-block
+    vertical-align: top
+    margin-left: 71px
+    &:first-child
+      margin-left: 0px

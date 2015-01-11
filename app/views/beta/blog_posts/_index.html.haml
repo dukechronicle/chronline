@@ -1,0 +1,33 @@
+.span-8
+  .rounded
+    .image-container
+      = blog_banner_tag @blog, class: 'blog-banner'
+  - @blog_posts.each do |blog_post|
+    .rounded
+      %article.article-container.blog-post
+        %a.hover{href: site_blog_post_path(@blog, blog_post)}
+          %h1.title= blog_post.title
+
+        %p.byline
+          %span.author By #{byline(blog_post, link: true)}
+          %span.sep= "|"
+          %span.date= display_date(blog_post)
+
+        = render partial: 'partials/blog-image', locals: {blog_post: blog_post}
+
+        .article-body
+          != truncate_text(blog_post)
+
+        = render partial: 'beta/blog_posts/tags', locals: {blog_post: blog_post}
+
+  = will_paginate
+
+
+%aside.span-4.last
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+  = render partial: 'beta/partials/blog-info', locals: {blog: @blog}
+  - @blog.twitter_widgets.each do |widget_id|
+    = render partial: 'beta/partials/twitter-timeline', locals: {widget_id: widget_id}
+  = render 'beta/partials/facebook-recommended'
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
+  = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}

@@ -1,0 +1,15 @@
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+.clearfix.align-group
+  .span-6.align-element{data: {alignprimary: "true"}}
+    .rounded
+      .image-container
+        = cropped_image_tag @model.image, :rectangle_468x
+    .rounded
+      #articles.span-6.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/article-box', locals: {title: 'Articles', articles: @model.bottom_articles}
+  .clearfix
+    .span-6.last
+      .rounded
+        .article-body
+          != @model.description
+      #blogs.align-element{data: {aligntarget: '.rounded'}}= render partial: 'beta/containers/blog-box', locals: {title: 'Blogs', articles: @model.side_articles}

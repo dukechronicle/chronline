@@ -1,11 +1,45 @@
-.custom_ad
-  width: 240px
-  height: 90px
+.advertisement
+  text-align: center
 
-.leaderboard
-  width: 728px
-  height: 90px
+
+.gallery-side-ad section.advertisement
+  background-color: $chron-gray-medium
+  padding: 4px 0px
+  @media #{$medium-up}
+    padding: 0px
+
+.page-front .gallery-side-ad section.advertisement
+  background-color: $chron-gray-light
+  padding: 10px 0px
+
+.advertisement-container
+  margin: auto
+  position: relative
+  display: inline-block
+  text-align: center
+
+.advertisement-label
+  font-size: 1em
+  position: absolute
+  +transform-origin(0, 0)
+  +transform(rotate(-90deg) translate(-100%, -100%))
+  white-space: nowrap
+
+.header-advertisement
+  .custom_ad
+    display: none
+    width: 300px
+    max-height: 90px
+    @media #{$large-up}
+      display: inline-block
+
+  .leaderboard
+    display: none
+    width: 728px
+    max-height: 90px
+    @media #{$medium-up}
+      display: inline-block
 
 .medium_rectangle
   width: 300px
-  height: 250px
+  max-height: 250px

@@ -1,7 +1,0 @@
-.rounded
-  %a.hover{href: site_blog_post_path(blog_post.blog, blog_post)}
-    .content-container
-      %h3= blog_post.matched_title || blog_post.title
-      = render partial: 'site/articles/subtitle', locals: {article: blog_post}
-      - if blog_post.matched_content.present?
-        %p= blog_post.matched_content

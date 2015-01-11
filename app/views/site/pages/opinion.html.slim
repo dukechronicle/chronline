@@ -1,0 +1,20 @@
+.page-main-wrap
+  - cache do
+    .row.page-container
+      .page-front
+        .columns.small-12.medium-1
+          = render partial: 'site/partials/widget-sidebar'
+        .page-content-column.columns.small-12.medium-11
+          section.row.column-row(data-equalizer="" data-options="equalize_on_stack:true")
+            .columns.small-12.medium-7
+              .column-inner(data-equalizer-watch="")
+                #columns= render partial: 'site/containers/columns', locals: {title: "Daily Features", articles: @model.featured}
+            .columns.medium-5.show-for-medium-up
+              .column-inner(data-equalizer-watch="")
+                = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+                #editorial-board= render partial: 'site/containers/columns', locals: {title: "Editorial Board", articles: @model.editorial_board, details: false}
+          section.row.column-row
+            .columns.small-12.medium-6.column-inner
+              #columnists= render partial: 'site/partials/author-box', locals: {title: "Columnists", authors: @model.columnists}
+            .columns.small-12.medium-6.column-inner
+              #discussion-board= render partial: 'site/containers/topic', locals: {title: "ChronFessional", topic: @model.topic}

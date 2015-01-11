@@ -4,7 +4,7 @@
 .rounded.clearfix.align-group
   .span-6.align-element{data: {aligntarget: 'fieldset'}}
     .form-container
-      = render 'site/partials/flash', flash: flash
+      = render 'beta/partials/flash', flash: flash
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
         = f.error_notification
         %fieldset

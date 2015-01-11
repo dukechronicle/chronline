@@ -1,11 +1,16 @@
-.search-result
-  border-bottom: $chron-gray-border
-  overflow: hidden
-  a
-    &:hover
-      color: inherit
-  &:last-child
-    border-bottom: none
-  &:hover
-    h3
-      color: $anchor-font-color-hover
+@import "blueprint/buttons"
+
+.search-options
+  .rounded
+    padding: 10px
+  fieldset
+    width: 100%
+    +box-sizing(border-box)
+  .facets
+    padding: 10px 0px
+  select
+    margin-top: 0px
+    width: 200px
+  input[type=submit]
+    +anchor-button
+    +black-box-shadow(.6)

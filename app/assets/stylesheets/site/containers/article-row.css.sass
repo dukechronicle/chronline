@@ -1,43 +1,8 @@
 .article-row
-  .rounded
-    padding: 8px
-
-  .content-container
-    padding: 0px
-
-  .row-article
-    float: left
-    margin-right: 10px
-    width: 152px
-
-    img
-      margin-bottom: 5px
-      display: block
-      +black-box-shadow($default-box-shadow-opacity, 0px, 0px, 4px)
-      +border-radius($corner-radius)
-
-    a.hover
-      height: 100%
-      margin-bottom: -9px
-      padding-bottom: 9px
-
-    .title
-      font-size: 1.1em
-      line-height: 1.2em
-
-    .teaser
-      line-height: 1.2em
-
-  .row-article:last-child
-    margin-right: 0px
-
-  .row-article.feature
-    width: 314px
-    .title
-      font-size: 1.6em
-
-.span-8 .article-row
-  .row-article
-    margin-right: 6px
-  .row-article:last-child
-    margin-right: 0px
+  overflow: hidden
+  background-color: white
+  margin: .9rem 0
+  padding: 0 .9rem
+  border: $chron-gray-border
+  ul
+    padding: 0px $column-gutter/2

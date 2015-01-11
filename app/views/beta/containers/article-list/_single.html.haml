@@ -1,0 +1,10 @@
+.article-list{class: ('breaking' if breaking)}
+  .rounded
+    .content-container
+      %a.list-story.hover{href: site_post_path(article)}
+        %h3.title
+          = article.title
+          - if breaking
+            %span.breaking-label Breaking
+        = render partial: 'beta/articles/subtitle', locals: {article: article}
+        %p.teaser= article.teaser

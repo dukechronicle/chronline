@@ -1,0 +1,22 @@
+- provide :title, @taxonomy.to_a.join(', ')
+
+- content_for :title_block do
+  = render 'beta/partials/navigation'
+
+- cache(action_suffix: "page_#{params[:page]}") do
+  .span-8
+    - @articles.each do |article|
+      .rounded
+        %a.hover{href: site_article_path(article)}
+          .content-container
+            %h3= article.title
+            = render partial: 'beta/articles/subtitle', locals: {article: article}
+            %p= article.teaser
+
+    = will_paginate
+
+  .span-4.last
+    = render partial: 'beta/partials/advertisement', locals: {zone: :medium_rectangle}
+    - if @popular.present?
+      .title-small= render partial: 'beta/containers/article-list/numbered', locals: {title: 'Popular', articles: @popular}
+    = render 'beta/partials/facebook-recommended'

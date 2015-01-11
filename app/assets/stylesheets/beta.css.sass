@@ -1,40 +1,73 @@
-//@import "foundation/scss/foundation/functions"
+/*
+ *= require jquery.hoverscroll
+ *= require lightbox2/css/lightbox
+ *= require themes/jquery-ui/chronicle/jquery-ui-1.10.2.custom
+ *= require Buttons/css/buttons
+ */
 
-@import "beta/variables"
+// This import applies a global reset to any page that imports this stylesheet.
+@import "blueprint/reset"
 
-//@import "foundation/scss/normalize"
-//@import "foundation/scss/foundation"
-@import "foundation"
+// To configure blueprint, edit the partials/_base.sass file.
+@import "beta/partials/base"
+
+// Import all the default blueprint modules so that we can access their mixins.
+@import "blueprint"
+
+// Import the non-default scaffolding module.
+@import "blueprint/scaffolding"
+
+// Generate the blueprint framework according to your configuration:
+@include blueprint
+
+
+
+@include blueprint-scaffolding
 
 @import "compass"
 
-@import "site/mixins"
+@import "beta/mixins"
 
 @import "icons/*.png"
 @include all-icons-sprites
 
-/* Add imports of custom sass/scss files here */
 @import "beta/layout"
 @import "beta/header"
 @import "beta/footer"
-@import "beta/page"
-@import "beta/advertisement"
-@import "beta/containers/article-list"
-@import "beta/containers/article-row"
-@import "beta/multiplexer"
-@import "beta/blog"
-@import "beta/opinion"
-@import "beta/search"
+@import "beta/container"
 @import "beta/article"
-@import "beta/partials/section_page-slideshow"
-@import "beta/partials/top-headline"
-@import "beta/containers/sports-event-info"
-@import "beta/containers/sports-standings"
-@import "beta/staff"
-@import "beta/embedded-media"
-@import "beta/partials/columns"
 @import "beta/topic"
-@import "beta/coach_k"
-@import "beta/sponsor"
 @import "beta/topic_responses"
-@import "beta/mobile/advertisement"
+@import "beta/blog"
+@import "beta/blog-post"
+@import "beta/staff"
+@import "beta/advertisement"
+@import "beta/pagination"
+@import "beta/admin-panel"
+@import "beta/video-player"
+@import "beta/search"
+@import "beta/form"
+@import "beta/featured-selectable"
+@import "beta/glyphicon"
+@import "beta/embedded-media"
+@import "beta/poll"
+@import "beta/gallery"
+@import "beta/large-embed"
+@import "beta/brackets"
+@import "beta/games"
+@import "beta/buttons"
+@import "beta/tournaments"
+@import "beta/game-preview"
+@import "beta/coach-k"
+@import "beta/containers/article-list"
+@import "beta/containers/article-box"
+@import "beta/containers/article-row"
+@import "beta/containers/block"
+@import "beta/containers/blog-info"
+@import "beta/containers/facebook-recommended"
+@import "beta/containers/multimedia-row"
+@import "beta/containers/opinion"
+@import "beta/containers/sports-event-info"
+@import "beta/containers/multiplexer"
+@import "beta/partials/facebook-social-share"
+@import "404"

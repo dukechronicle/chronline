@@ -1,0 +1,12 @@
+.page-main-wrap
+  .row.page-container
+    .page-front data-equalizer=""
+      .section-column-container.columns.page-content-column.small-12 data-equalizer-watch=""
+        section.row.section-active.section-slideshow
+          .columns.small-12.medium-8
+            #slideshow-wrapper= render partial: 'site/partials/section_page-slideshow', locals: {articles: @model.slideshow, pages: [], pages_first: true}
+          .columns.small-12.medium-4
+            .title-medium= render partial: 'site/containers/article-list', locals: {title: @model.list_title, articles: @model.top_articles, style: :featured}
+        section.row
+          .columns.small-12
+            =render partial: 'site/partials/article-horizontal-list', locals: {articles: @model.bottom_articles, title: '', show_teaser: true}
