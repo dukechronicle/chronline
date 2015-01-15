@@ -17,5 +17,8 @@
         section.row.column-row
           .columns.small-12
             .column-inner
+              = render partial: 'site/partials/multimedia-row', locals: {multimedia: @model.multimedia, title: 'Multimedia'}
+        section.row.column-row
+          .columns.small-12
+            .column-inner
               = render partial: 'site/partials/article-horizontal-list', locals: {title: 'More Articles', articles: @model.bottom_articles, show_teaser: true}
-

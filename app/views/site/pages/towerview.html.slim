@@ -12,9 +12,7 @@
           .columns.small-12
             .column-inner
               = render partial: 'site/partials/article-horizontal-list', locals: {title: 'Ten People to Watch', articles: @model.plaza, show_teaser: true}
-        section.row
+        section.row.column-row
           .columns.small-12
             .column-inner
-              ul.small-block-grid-1(class="medium-block-grid-#{@model.multimedia.length}")
-                - @model.multimedia.each do |m|
-                  li== m
+              = render partial: 'site/partials/multimedia-row', locals: {multimedia: @model.multimedia, title: "Multimedia"}

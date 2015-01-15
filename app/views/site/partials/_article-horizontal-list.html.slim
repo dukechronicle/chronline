@@ -3,8 +3,8 @@
 - grid_width = articles.length < ideal_width ? articles.length : ideal_width
 - ideal_crop = grid_width < 4 ? :rectangle_314x : :rectangle_183x
 .article-horizontal-list
+  h3= title
   ul.small-block-grid-1(class="medium-block-grid-#{grid_width}")
-    h3= title
     - articles.each do |article|
       li
         .row
