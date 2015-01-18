@@ -8,7 +8,7 @@ class Post
 
       def initialize(embedded_media, image_id, style = :rectangle_314x)
         @image = embedded_media.find(Image, image_id, include: :photographer)
-        @style = style
+        @style = style.to_s.strip.to_sym
       end
 
       def to_html
