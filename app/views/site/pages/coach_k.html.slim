@@ -31,7 +31,8 @@
                     li
                       .quote
                         span(data-tooltip='' aria-haspopup="true" class="has-tip" title=quote['quote'])
-                          img(src=quote['image_url'] width=150 height=150)
+                          .img-container
+                            img(src=quote['image_url'] width=150 height=150)
                           h4= quote['name']
         section.row
           .columns.small-12
