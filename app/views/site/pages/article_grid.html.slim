@@ -1,0 +1,8 @@
+.page-main-wrap
+  .row.page-container
+    .page-front
+      .columns.page-content-column.small-12
+        section.row
+          .columns.small-12
+            h2.section-title= @title
+            = render partial: 'site/partials/article-grid', locals: {articles: @model.articles}
