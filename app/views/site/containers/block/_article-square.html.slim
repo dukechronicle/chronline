@@ -1,0 +1,7 @@
+a href=site_post_path(article)
+  .row
+    .column.small-4
+      = cropped_image_tag article.image, :square_150x
+    .column.small-8
+      h3= article.title
+      p= article.teaser
