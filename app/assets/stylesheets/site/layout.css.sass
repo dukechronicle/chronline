@@ -23,12 +23,23 @@ figure
     margin-left: -7px
     .photo-credit
       text-align: right
-      font-size: .9rem
+      font-size: 0.8rem
+      line-height: 0.8rem
       padding: .2rem
-      margin-top: -1.6rem
+      margin-top: -2.0rem
+      @media #{$medium-up}
+        font-size: 0.9rem
+        line-height: 0.9rem
+        padding: .3rem
+        margin-top: -1.5rem
     .photo-caption
-      font-size: 1rem
-      padding: .7rem
+      font-size: 0.8rem
+      padding: .2rem
+      line-height: 1rem
+      @media #{$medium-up}
+        font-size: 1rem
+        line-height: 1.2rem
+        padding: .7rem
 
 /* Header Chevron Styling */
 .chev-container

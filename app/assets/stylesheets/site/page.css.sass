@@ -14,15 +14,20 @@ header.page-header
   .header-title
     h1
       font-weight: 700
-      font-size: 3.5rem
+      font-size: 1.9rem
       letter-spacing: 1px
-      line-height: 3.3rem
+      line-height: 2.0rem
+      @media #{$medium-up}
+        line-height: 3.3rem
+        font-size: 3.5rem
     .subtitle
       color: $chron-gray-dark
       font-size: 1.4rem
-      margin-bottom: 1rem
+      margin-bottom: 0.5rem
       font-family: $chron-font-sans-alt
       letter-spacing: 1px
+      @media #{$medium-up}
+        margin-bottom: 1rem
   .header-byline
     .date
       color: $chron-gray-dark
