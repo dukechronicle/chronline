@@ -134,6 +134,8 @@ Chronline::Application.routes.draw do
         get 'categories/:category' => 'blog_posts#categories', as: :category
       end
 
+      match '/404', :to => 'base#not_found'
+
       match 'join' => redirect('/pages/join', subdomain: :beta)
 
       resources :polls, only: :show  do
