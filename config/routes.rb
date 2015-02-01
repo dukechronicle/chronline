@@ -116,6 +116,17 @@ Chronline::Application.routes.draw do
         end
       end
 
+      resources :tournaments, only: :show, id: Tournament::SLUG_PATTERN do
+        member do
+          get 'challenge'
+          get 'leaderboard'
+        end
+      end
+      resources :tournaments, only: :none do
+        resources :tournament_brackets, except: :edit, path: 'brackets',
+          tournament_id: Tournament::SLUG_PATTERN
+      end
+
       resources :blogs, only: :index, controller: 'blog_posts' do
         resources :posts, only: [:index, :show], controller: 'blog_posts',
           id: Post::SLUG_PATTERN
