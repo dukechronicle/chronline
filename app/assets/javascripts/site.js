@@ -5,6 +5,7 @@
 //= require backbone/backbone
 //= require marionette/lib/backbone.marionette
 //= require jade/runtime
+//= require lightbox2/js/lightbox
 
 //= require util
 //= require initialize
