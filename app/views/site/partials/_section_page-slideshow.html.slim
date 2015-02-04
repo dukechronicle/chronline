@@ -26,8 +26,11 @@
           - if page.image
             - count += 1
             li(data-orbit-slide= page.path.gsub(/\//, "-"))
-              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path, width: 798
-              .orbit-caption= page.description
+              a href=page_url(page)
+                = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path, width: 798
+                .orbit-caption
+                  h2= page.title
+                  p= page.description
   .slider-links.columns.small-12.show-for-medium-up
     ul(class="small-block-grid-#{count}")
       - if pages_first
