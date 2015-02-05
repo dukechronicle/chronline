@@ -6,10 +6,12 @@
         - (pages || []).each do |page|
           - if page.image
             - count += 1
-            li(data-orbit-slide= page.path.gsub(/\//, "-"))
-              = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path, width: 798
-              .orbit-caption
-                h2= page.description
+            li data-orbit-slide= page.path.gsub(/\//, "-")
+              a href=page_url(page)
+                = cropped_image_tag page.image, :rectangle_636x, 'data-title' => page.title, 'data-description' => page.description, 'data-link' => page.path, width: 798
+                .orbit-caption
+                  h2= page.title
+                  p= page.description
       - articles.each do |article|
         - if article.image
           - count += 1
@@ -39,7 +41,7 @@
             li
               a(data-orbit-link= page.path.gsub(/\//, "-"))
                 = cropped_image_tag page.image, :rectangle_636x
-                .slider-link-title= page.description
+                .slider-link-title= page.title
       - articles.each do |article|
         - if article.image
           li
