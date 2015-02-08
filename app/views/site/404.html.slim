@@ -2,13 +2,12 @@
 
 - content_for :title_bock do
   h1 'Page Not Found'
-.span-8
-  .rounded
-    .article-container
+.page-main-wrap
+  .row.page-container
       .notfound-text
-        Sorry, this page doesn't exist. Please click 
-        link_to "here", site_root_path
-        to go back to our homepage.
+        Sorry, this page doesn't exist. Please click  
+        = link_to "here ", site_root_path
+        lsdk to go back to our homepage.
       = render 'partials/failwhale'
 .span-4.last
   = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
