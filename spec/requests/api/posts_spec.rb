@@ -34,9 +34,10 @@ describe Api::PostsController do
 
       context "with valid metadata" do
         before do
-          post_attrs[:metadata] = [{
-            embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'
-          }]
+          post_attrs[:metadata] = [
+            {embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'},
+            {subtitle: 'Metadata subtitle'}
+          ]
           post api_posts_url(subdomain: :api), post_attrs.to_json,
             'HTTP_AUTHORIZATION' => http_auth(@user),
             'CONTENT_TYPE' => 'application/json'
@@ -48,6 +49,12 @@ describe Api::PostsController do
           subject { ActiveSupport::JSON.decode(response.body) }
           post = Post.find(subject['id'])
           expect(post.embed_code).to eq('JuYeHPFR3f0')
+        end
+
+        it "should have overriden fields with metadata" do
+          subject { ActiveSupport::JSON.decode(response.body) }
+          post = Post.find(subject['id'])
+          expect(post.subtitle).to eq(post_attrs[:metadata][1][:subtitle])
         end
       end
 
@@ -92,7 +99,13 @@ describe Api::PostsController do
 
     context "with metadata" do
       let(:valid_attrs) do
-        {metadata: [{embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'}]}
+        {
+          subtitle: "Overridden subtitle",
+          metadata: [
+            {embed_url: 'http://www.youtube.com/watch?v=JuYeHPFR3f0'},
+            {subtitle: 'Metadata subtitle'}
+          ]
+        }
       end
 
       before do
@@ -105,6 +118,10 @@ describe Api::PostsController do
 
       it "should have saved metadata" do
         expect(post.reload.embed_code).to eq('JuYeHPFR3f0')
+      end
+
+      it "should have overriden fields with metadata" do
+        expect(post.reload.subtitle).to eq(valid_attrs[:metadata][1][:subtitle])
       end
     end
 
