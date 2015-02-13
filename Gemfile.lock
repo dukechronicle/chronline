@@ -148,9 +148,6 @@ GEM
       nokogiri (~> 1.5)
       ruby-hmac
     formatador (0.2.4)
-    foundation-icons-sass-rails (3.0.0)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
     foundation-rails (5.4.5.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -468,7 +465,6 @@ DEPENDENCIES
   feedzirra (~> 0.2.0.rc2)
   ffaker (~> 1.22.1)
   fog (~> 1.19.0)
-  foundation-icons-sass-rails
   foundation-rails
   friendly_id
   gibbon (~> 1.0.4)
