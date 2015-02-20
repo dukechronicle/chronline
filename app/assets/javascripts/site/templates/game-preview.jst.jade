@@ -1,0 +1,24 @@
+mixin team(team, num)
+  .team-preview(class="team" + num + "-preview")
+    img(width=100, height=100, src=team.image(100))
+    h2.school
+      strong.seed ##{team.get('seed')}
+      = team.get('school')
+    h3.mascot= team.get('mascot')
+    .preview
+      != team.get('preview')
+      if team.get('article')
+        a(href="/articles/" + team.get('article').slug) Read more
+
+.game-preview
+  +team(team1, 1)
+  +team(team2, 2)
+  .game-info
+    .versus
+    h3
+      if game.get('final')
+        p.final-score-text Final Score:
+        p.final-score #{game.get('score1')} - #{game.get('score2')}
+      else if game.get('start_time')
+        time(datetime=game.get('start_time'))
+          = game.formatStartTime('mmmm d, h:MM TT Z')

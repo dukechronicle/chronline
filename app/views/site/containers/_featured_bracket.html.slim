@@ -1,0 +1,14 @@
+.featured-bracket
+  - if bracket_info['headshot']
+    = cropped_image_tag Image.find(bracket_info['headshot']), :square_80x, class: 'headshot'
+  h3.name= link_to bracket_info['bracket'].user.name, [:site, tournament, bracket_info['bracket']]
+  p.title= bracket_info['position']
+  p
+    strong Champion:
+    = bracket_info['champion'].try(:school)
+  p
+    strong Rank:
+    = bracket_info['bracket'].rank
+  p
+    strong Score:
+    = bracket_info['bracket'].score

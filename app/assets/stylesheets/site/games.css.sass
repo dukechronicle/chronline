@@ -1,0 +1,42 @@
+.game
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+  background-color: white
+  cursor: pointer
+
+  .team
+    height: 22px
+    margin-bottom: 2px
+    background-color: #DDDDDD
+    &:last-child
+      margin-bottom: 0
+
+  .seed
+    height: 100%
+    float: left
+    width: 15%
+    text-align: center
+    margin-right: 3%
+    color: white
+    background-color: #006699
+
+  .game-info
+    height: 100%
+    padding: 0 3%
+  .winner, .selected
+    font-weight: bold
+  .correct
+    background-color: darkseagreen
+  .incorrect
+    background-color: indianred
+    text-decoration: line-through
+  .score
+    float: right
+
+.region-right .game .seed
+  float: right
+  margin-left: 3%
+  margin-right: 0
+
+.team-selectable
+  &:hover
+    background-color: darkgray
