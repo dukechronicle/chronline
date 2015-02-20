@@ -1,0 +1,18 @@
+- provide :title, @tournament.full_name
+
+.page-front
+  .page-content-column.columns.small-12
+    section.row
+      .columns.small-12.medium-6
+      .bracket-container
+        = render 'site/partials/flash', flash: flash
+        p.challenge-text
+          - if @tournament.started?
+            | Click 
+            = link_to "here", leaderboard_site_tournament_path(@tournament)
+            |  to see the Chronicle bracket challenge leaderboard.
+          - else
+            | Click 
+            = link_to "here", challenge_site_tournament_path(@tournament)
+            |  to read more about the Chronicle bracket challenge.
+        #bracket.tournament(data-tournament= tournament_json(@tournament) data-user-bracket== @bracket.try(:id))

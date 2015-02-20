@@ -1,0 +1,13 @@
+- provide :title, "Create an #{@tournament.full_name} Bracket"
+
+.page-front
+  .page-content-column.columns.small-12
+    section.row
+      .columns.small-12
+        .bracket-container
+          p.challenge-text
+            | Double click on a game box to see a preview of the match up.
+          = form_for [:site, @tournament, @bracket] do |f|
+            = f.hidden_field :picks
+            = f.submit "Done", class: "done button button-flat-action button-large"
+          #bracket.bracket(data-bracket=tournament_bracket_json(@bracket))

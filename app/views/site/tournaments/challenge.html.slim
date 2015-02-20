@@ -1,0 +1,11 @@
+- provide :title, "#{@tournament.full_name} Challenge"
+
+.page-main-wrap
+  .row.page-container
+    .page-front
+      .page-content-column.columns.small-12
+        section.row
+          .article-body== @tournament.challenge_text
+
+  .span-4.last
+    = render 'beta/partials/advertisement', zone: :medium_rectangle

@@ -1,0 +1,13 @@
+mixin team(team, num)
+  .team(class=[
+    "team-" + num,
+    selectable ? 'team-selectable' : '',
+    winner && team && winner.id == team.id ? selectedClass : '',
+    team && team.roundEliminated(game.collection) && game.round() > team.roundEliminated(game.collection) ? 'incomplete' : ''
+  ])
+    .seed= team && team.get('seed')
+    .game-info
+      span.name= team && team.get('shortname')
+
++team(team1, 1)
++team(team2, 2)

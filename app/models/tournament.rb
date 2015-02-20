@@ -22,6 +22,12 @@ class Tournament < ActiveRecord::Base
   validates :region3, presence: true
 
   # TODO: Switch to Postgres array type on switch to Rails 4
+  # This is an array of hashes, with the shape:
+  # {
+  #   id: <bracket id>,
+  #   position: <description of person>,
+  #   headshot: <photo headshot id>
+  # }
   serialize :featured, JSON
 
   def normalize_friendly_id(s)

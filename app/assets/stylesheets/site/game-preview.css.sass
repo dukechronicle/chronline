@@ -1,0 +1,34 @@
+.game-preview
+  +clearfix
+  height: 500px
+
+  .game-info
+    text-align: center
+  .versus
+    text-align: center
+    font-size: 4em
+    font-weight: bold
+    font-family: serif
+    margin-bottom: 0.5em
+    &:before
+      content: "VS"
+  .school
+    margin-bottom: 0.2em
+  .team-preview
+    height: 100%
+    +box-sizing(border-box)
+    background-color: lightgray
+    width: 35%
+    padding: 1em
+    text-align: center
+  .team1-preview
+    float: left
+  .team2-preview
+    float: right
+  .preview
+    padding-top: 10px
+    text-align: left
+  .final-score-text
+    margin-bottom: 0.5em
+  .final-score
+    font-size: 1.5em

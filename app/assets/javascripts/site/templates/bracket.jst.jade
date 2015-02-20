@@ -1,0 +1,40 @@
+mixin region(id)
+  .region(class="region-" + id)
+    h3.region-name= tournament.get('region' + id)
+    each round in (id < 2 ? [1, 2, 3, 4] : [4, 3, 2, 1])
+      .round(class="round-" + round)
+
+if bracket && !(bracket.isNew() || tournament.started() || bracket.complete())
+  .notice Your bracket is incomplete. Please make all selections before the tournament begins.
+
+.bracket-inner
+  .actions
+    if userBracket
+      a.button.button-flat-primary.button-large(href=window.location.pathname + "/brackets/" + userBracket) My Bracket
+    else if !(tournament.started() || bracket)
+      a.button.button-flat-primary.button-large(href=window.location.pathname + "/brackets/new") Make Bracket
+
+    if bracket && !bracket.get('editing') && bracket.editable()
+      button.edit.button.button-flat-highlight.button-large(type="button") Edit
+    else if bracket && tournament.started()
+      .bracket-score
+        strong Score: 
+        = bracket.get('score')
+
+    if bracket && bracket.get('editing') && !bracket.isNew()
+      button.done.button.button-flat-action.button-large(type="button")
+        = bracket.complete() ? "Done" : "Save"
+
+  .clearfix
+    +region(0)
+    +region(2)
+
+  .clearfix
+    .final-rounds
+      .game-61.final-four
+      .game-62.final-four
+      .game-63.championship
+
+  .clearfix
+    +region(1)
+    +region(3)
