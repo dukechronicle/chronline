@@ -1,0 +1,20 @@
+.admin-panel.show-for-medium-up
+  .row
+    .columns.small-3
+      - if current_user.try(:admin?)
+        = link_to "Administrative Interface", admin_root_url(subdomain: :admin)
+        - if @page.present? and @page.is_a? Page
+          = link_to "Edit this page", edit_admin_page_url(@page, subdomain: :admin)
+        - if content_for? :administrative_links
+          = yield :administrative_links
+    .columns.small-9.text-right
+      = link_to "Daily Newsletter", "/newsletter"
+      = link_to "Print Edition", "http://issuu.com/dukechronicle/docs"
+      = link_to "Advertising", "/pages/advertising"
+      = link_to "Classifieds", "http://dukechronicle.campusave.com"
+      = link_to "Housing", "http://www.nearduke.com/housing"
+      = link_to "Dining", "http://www.nearduke.com/dining"
+      - if user_signed_in?
+        = link_to "Logout", destroy_user_session_path, method: :delete
+      - else
+        = link_to "Sign In", new_user_session_path
