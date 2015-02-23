@@ -1,5 +1,4 @@
 class Admin::ImagesController < Admin::BaseController
-
   def index
     @images = Image.page(params[:page]).order('date DESC')
   end
@@ -8,7 +7,8 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def create
-    @image = Image.new(params[:image])
+    image_params = params.require(:image).permit(:original)
+    @image = Image.new(image_params)
     if @image.save
       render json: { files: [jq_upload_data(@image)] }
     else
@@ -53,8 +53,11 @@ class Admin::ImagesController < Admin::BaseController
 
   private
   def update_image(image)
-    photographer_name = params[:image].delete(:photographer_id)
-    image.assign_attributes(params[:image])
+    image_params = params.require(:image).permit(
+      :attribution, :caption, :credit, :date, :location, :photographer_id
+    )
+    photographer_name = image_params.delete(:photographer_id)
+    image.assign_attributes(image_params)
     if photographer_name.blank?
       image.photographer = nil
     else
@@ -73,5 +76,4 @@ class Admin::ImagesController < Admin::BaseController
       delete_type: 'DELETE',
      }
   end
-
 end

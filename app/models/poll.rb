@@ -1,4 +1,5 @@
 class Poll < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   extend HasTaxonomy
 
   attr_accessible :description, :title, :section, :choice_ids, :archived
