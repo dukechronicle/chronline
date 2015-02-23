@@ -5,8 +5,8 @@
   - cache(action_suffix: :head) do
     - if @article.published?
       - article = Article.includes(:authors, :slugs, image: :photographer).find(@article)
-      = render partial: 'site/partials/twitter_cards/post', locals: {post: article}
-      = render partial: 'site/partials/open-graph/post', locals: {post: article}
+      = render 'site/partials/twitter_cards/post', post: article
+      = render 'site/partials/open_graph/post', post: article
     - if @article.block_bots
       meta[name= 'robots' content= 'noindex']
     link[rel= "canonical" href= site_article_url(@article, subdomain: :www, protocol: 'http')]
@@ -18,7 +18,7 @@
   = link_to "Edit this article", edit_admin_article_url(@article, subdomain: :admin)
 
 - unless @article.published?
-  = render 'beta/partials/admin-notification'
+  = render 'site/partials/admin_notification'
 
 - cache do
   - @article = Article.unscoped { Article.includes(:authors, :slugs, image: :photographer).find(@article) }
@@ -40,26 +40,26 @@
                 = " on "
                 = display_date(@article)
           .header-social
-            = render partial: 'site/partials/feature-social', locals: {postable: @article}
+            = render 'site/partials/feature_social', postable: @article
         .feature-container
           section.page-feature
             //TODO(rivkees): implement video, gallary, and graph jumbo's
             - if @article.embed_code.present?
-              = render partial: 'partials/main-video'
+              = render 'partials/main_video'
             - elsif @article.image
-              = render partial: 'partials/jumbotron-default', locals: {image: @article.image, image_size: :rectangle_636x}
+              = render 'partials/jumbotron_default', image: @article.image, image_size: :rectangle_636x
         .page-content-container
           main.page-body
             == @article.render_body
       aside.page-sidebar.columns.show-for-medium-up.medium-4
-        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-        = render 'site/partials/facebook-recommended'
-        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 1}
-        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle, suffix: 2}
+        = render 'site/partials/advertisement', zone: :medium_rectangle
+        = render 'site/partials/facebook_recommended'
+        = render 'site/partials/advertisement', zone: :medium_rectangle, suffix: 1
+        = render 'site/partials/advertisement', zone: :medium_rectangle, suffix: 2
     footer.page-footer
       .row
         .small-12.large-8
-          section#recommended= render partial: 'site/containers/article-row', locals: {title: 'Recommended', articles: @article.related(3)}
+          section#recommended= render 'site/containers/article_row', title: 'Recommended', articles: @article.related(3)
       .row
         .small-12.large-8.article-row.columns
           section#disqus_thread.rounded[data-disqus= disqus_options(@article)]

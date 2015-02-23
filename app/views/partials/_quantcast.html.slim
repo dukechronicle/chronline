@@ -1,5 +1,5 @@
-/ Quantcast Tag
-:javascript
+/! Quantcast Tag
+javascript:
   var _qevents = _qevents || [];
 
   (function() {
@@ -15,7 +15,7 @@
   qacct:"#{ENV['QUANTCAST']}"
   });
 
-%noscript
-  %div{style: "display:none;"}
-    %img{src: "//pixel.quantserve.com/pixel/#{ENV['QUANTCAST']}.gif", border: "0", height: "1", width: "1", alt: "Quantcast"}
-/ End Quantcast Tag
+noscript
+  div[style="display:none;"]
+    img[src="//pixel.quantserve.com/pixel/#{ENV['QUANTCAST']}.gif" border="0" height="1" width="1" alt="Quantcast"]
+/! End Quantcast Tag

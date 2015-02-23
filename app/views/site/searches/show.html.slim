@@ -24,9 +24,9 @@
             - else
               .search-results
                 - @results.each do |result|
-                  = render partial: 'site/searches/result', locals: {result: result}
+                  = render 'site/searches/result', result: result
               = will_paginate @results
 
           .columns.small-12.medium-4
-            = render partial: 'site/partials/search', locals: {search: @search}
-            = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+            = render 'site/partials/search', search: @search
+            = render 'site/partials/advertisement', zone: :medium_rectangle

@@ -1,0 +1,4 @@
+.article-grid
+  ul.small-block-grid-1.medium-block-grid-2
+    - articles.each do |article|
+      li= render 'site/containers/block/article_square', article: article

@@ -5,17 +5,17 @@
         section.row.section-active.section-slideshow
           header.columns.small-12
             h2 Slideshow
-          #slideshow-wrapper= render partial: 'site/partials/section_page-slideshow', locals: {articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first']}
+          #slideshow-wrapper= render 'site/partials/section_page_slideshow', articles: @model.slideshow['articles'], pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first']
       .section-column-container.columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
         aside.page-widget-sidebar.row
-          = render partial: 'site/partials/widgets/today'
+          = render 'site/partials/widgets/today'
           .widget Widget 2
           .widget Widget 3
       .section-column-container.columns.small-12.medium-4 data-equalizer-watch=""
         section.row.section-top_news
           header.columns.small-12
             h2 Top News
-          .columns.small-12= render partial: 'site/containers/article-list', locals: {articles: @model.topnews, style: "social-image", notime: false}
+          .columns.small-12= render 'site/containers/article_list', articles: @model.topnews, style: "social_image", notime: false
 
       .section-column-container.columns.page-content-column.small-12.medium-11
         section.row

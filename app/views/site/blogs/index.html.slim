@@ -6,7 +6,7 @@
       .columns.page-content-column.small-12
         h1 Chronicle Blogs
 
-        ul.small-block-grid-1.medium-block-grid-4(data-equalizer="")
+        ul.small-block-grid-1.medium-block-grid-4[data-equalizer=""]
           - Blog.all.each_with_index do |blog, i|
             li
-              = render 'site/partials/blog-info', {blog: blog, show_label: false}
+              = render 'site/partials/blog_info', blog: blog, show_label: false

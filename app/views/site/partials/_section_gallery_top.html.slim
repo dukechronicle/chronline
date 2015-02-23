@@ -8,23 +8,23 @@
       section.row.section-active.section-slideshow
         - if top_headline
           - if top_headline['page']
-            = render partial: 'site/partials/top-headline-page', locals: {page: top_headline['page']}
+            = render 'site/partials/top_headline_page', page: top_headline['page']
           - elsif top_headline['article']
-            = render partial: 'site/partials/top-headline', locals: {headline: top_headline}
+            = render 'site/partials/top_headline', headline: top_headline
         header.columns.small-12
           h2 Slideshow
-        #slideshow-wrapper= render partial: 'site/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: slideshow_pages, pages_first: pages_first}
+        #slideshow-wrapper= render 'site/partials/section_page_slideshow', articles: slideshow_articles, pages: slideshow_pages, pages_first: pages_first
     - if sidebar
       .columns.small-12.medium-1.medium-pull-7 data-equalizer-watch=""
-        = render partial: 'site/partials/widget-sidebar', locals: {nav_links: nav_links}
+        = render 'site/partials/widget_sidebar', nav_links: nav_links
 
     .bordered-bottom.columns.small-12.medium-4.top-news-container data-equalizer-watch=""
       .gallery-side-ad
-        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+        = render 'site/partials/advertisement', zone: :medium_rectangle
       section.row.section-top-news
         - if local_assigns[:sidebar_content].nil?
           header.columns.small-12
             h2 What's Hot
-          .columns.small-12= render partial: 'site/containers/article-list', locals: {articles: top_news.take(3), style: "social-image", notime: false}
+          .columns.small-12= render 'site/containers/article_list', articles: top_news.take(3), style: "social_image", notime: false
         - else
           = sidebar_content

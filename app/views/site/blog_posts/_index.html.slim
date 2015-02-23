@@ -2,7 +2,7 @@
   .row.page-container
     .page-front
       .columns.small-12.medium-1
-        = render partial: 'site/partials/widget-sidebar'
+        = render 'site/partials/widget_sidebar'
       .columns.page-content-column.small-12.medium-11
         section.row.column-row
           .columns.small-12.medium-8
@@ -15,8 +15,8 @@
                 .byline
                   span.author By #{byline(blog_post, link: true)}
                   span.date= display_date(blog_post)
-                = render partial: 'partials/blog-image', locals: {blog_post: blog_post}
+                = render 'partials/blog_image', blog_post: blog_post
                 .article-body
                   == truncate_text(blog_post)
-                = render partial: 'site/blog_posts/tags', locals: {blog_post: blog_post}
+                = render 'site/blog_posts/tags', blog_post: blog_post
         = will_paginate

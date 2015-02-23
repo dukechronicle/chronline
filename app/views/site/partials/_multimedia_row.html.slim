@@ -1,5 +1,5 @@
 .multimedia-row
   h3.section-title= title
-  ul.small-block-grid-1(class="medium-block-grid-#{multimedia.length}")
+  ul.small-block-grid-1[class="medium-block-grid-#{multimedia.length}"]
     - multimedia.each do |m|
       li== m

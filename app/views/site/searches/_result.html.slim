@@ -1,5 +1,5 @@
 .search-result
   - if result.is_a? Article
-    = render partial: 'site/searches/article', locals: {article: result}
+    = render 'site/searches/article', article: result
   - if result.is_a? Blog::Post
-    = render partial: 'site/searches/blog_post', locals: {blog_post: result}
+    = render 'site/searches/blog_post', blog_post: result

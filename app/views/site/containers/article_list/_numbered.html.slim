@@ -1,0 +1,9 @@
+.article-list
+  h2.vertical-label= title
+  .rounded
+    .content-container
+      ol
+        - articles.each do |article|
+          a.list-story.hover.highlight-right[href=site_post_path(article)]
+            li
+              h3.title= article.title

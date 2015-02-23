@@ -4,10 +4,9 @@
   = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
 
 - content_for :open_graph_tags do
-  = render partial: 'beta/partials/open-graph/staff', locals: {staff: @staff}
+  = render 'site/partials/open_graph/staff', staff: @staff
 
 - content_for :title_block do
   h1= @staff.name
 
-= render partial: 'beta/containers/staff-profile', locals: {staff: @staff, except: nil}
-
+= render 'site/containers/staff_profile', staff: @staff, except: nil

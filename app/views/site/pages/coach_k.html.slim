@@ -1,8 +1,8 @@
 - slideshow_articles = @model.featured_stories.map {|article_hash| article_hash['article'] }
 .page-main-wrap
   .row.page-container
-    .page-front data-equalizer=""
-      .columns.page-content-column.small-12.medium-8 data-equalizer-watch=""
+    .page-front(data-equalizer="")
+      .columns.page-content-column.small-12.medium-8(data-equalizer-watch="")
         section.row.section
           //.sponsor-coachk
           //  .top-headline
@@ -17,7 +17,7 @@
         section.row.section-active.section-slideshow
           header.columns.small-12
             h2 Slideshow
-          #slideshow-wrapper= render partial: 'site/partials/section_page-slideshow', locals: {articles: slideshow_articles, pages: [], pages_first: true}
+          #slideshow-wrapper= render 'site/partials/section_page_slideshow', articles: slideshow_articles, pages: [], pages_first: true
         - if @model.quotes_preface or @model.quotes
           .row
             .columns.small-12
@@ -36,7 +36,7 @@
                           h4= quote['name']
         section.row
           .columns.small-12
-            = render partial: 'site/containers/article-list', locals: { title: "Recent", articles: @model.stories, style: :teaser}
+            = render 'site/containers/article_list', title: "Recent", articles: @model.stories, style: :teaser
         .row
           .columns.small-12.medium-6
             .column-inner
@@ -55,12 +55,12 @@
           .columns.small-12.wins-box
             h1.wins= @model.count_up
             h2.wins Wins
-        = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+        = render 'site/partials/advertisement', zone: :medium_rectangle
         section.row
           header.columns.small-12
             h2 Standings
           .columns.small-12
-            = render partial: 'site/containers/sports-standings', locals: {url: @model.standings_url}
+            = render 'site/containers/sports_standings', url: @model.standings_url
         section.row
           header.columns.small-12
             h2 Twitter

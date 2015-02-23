@@ -1,0 +1,9 @@
+- if current_user.try(:admin?)
+  .admin-notification.showing
+    .admin-notification-header
+      | Admin Notification
+      .toggle-link
+        | [ Hide ]
+    .admin-notification-body
+      h1 This is a sample view!
+      h2 Your article has not been published yet.

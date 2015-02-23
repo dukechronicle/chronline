@@ -1,4 +1,4 @@
 - if blog_post.series
   = cropped_image_tag blog_post.series.image, :banner_606x, class: 'main-image'
 - elsif blog_post.image
-  = render partial: 'partials/main-image', locals: {image: blog_post.image}
+  = render 'partials/main_image', image: blog_post.image

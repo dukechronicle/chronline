@@ -1,18 +1,18 @@
-- editors_note = render partial: 'site/partials/towerview-gallery-side', locals: {note: @model.editors_note}
+- editors_note = render 'site/partials/towerview_gallery_side', note: @model.editors_note
 .page-main-wrap
-  = render partial: 'site/partials/section-gallery-top', locals: {slideshow_articles: @model.featured, slideshow_pages: [], pages_first: true, sidebar_content: editors_note}
+  = render 'site/partials/section_gallery_top', slideshow_articles: @model.featured, slideshow_pages: [], pages_first: true, sidebar_content: editors_note
   .row.page-container
     .page-front
       .page-content-column.columns.small-12.medium-11.medium-push-1
         section.row.column-row
           .columns.small-12
             .column-inner
-              = render partial: 'site/partials/article-horizontal-list', locals: {title: 'Features', articles: @model.bus_stop, show_teaser: true}
+              = render 'site/partials/article_horizontal_list', title: 'Features', articles: @model.bus_stop, show_teaser: true
         section.row.column-row
           .columns.small-12
             .column-inner
-              = render partial: 'site/partials/article-horizontal-list', locals: {title: 'Ten People to Watch', articles: @model.plaza, show_teaser: true}
+              = render 'site/partials/article_horizontal_list', title: 'Ten People to Watch', articles: @model.plaza, show_teaser: true
         section.row.column-row
           .columns.small-12
             .column-inner
-              = render partial: 'site/partials/multimedia-row', locals: {multimedia: @model.multimedia, title: "Multimedia"}
+              = render 'site/partials/multimedia_row', multimedia: @model.multimedia, title: "Multimedia"

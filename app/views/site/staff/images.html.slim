@@ -5,7 +5,7 @@
   = link_to "Edit staff profile", edit_admin_staff_url(@staff, subdomain: :admin)
 
 - content_for :head do
-  = render partial: 'site/partials/open-graph/staff', locals: {staff: @staff}
+  = render 'site/partials/open_graph/staff', staff: @staff
 
 - content_for :title_block do
   h1= @staff.name
@@ -16,7 +16,7 @@
       .page-content-column.columns.small-12.medium-12
         section.row.column-row
           #images-container
-            .item= render partial: 'site/containers/staff-profile', locals:  {staff: @staff, except: :images }
+            .item= render 'site/containers/staff_profile', staff: @staff, except: :images
             - styles = [:rectangle_183x] * 3 << :rectangle_378x
             - @images.each do |image|
               .item.image-item

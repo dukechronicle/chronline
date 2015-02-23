@@ -2,7 +2,7 @@
 - provide(:description, @description) unless content_for? :description
 
 DOCTYPE html
-html class="no-js"
+html[class="no-js"]
     head
         meta[charset="utf-8"]
         meta[http-equiv="X-UA-Compatible" content="IE=edge"]
@@ -18,16 +18,16 @@ html class="no-js"
         javascript:
             try{Typekit.load()}catch(e){}
         = render 'partials/favicon'
-        = render 'beta/partials/openx'
+        = render 'site/partials/openx'
         = csrf_meta_tags
         link[rel= "image_src" href= image_path("logo/300x300.png")]
         = yield :head
         // TODO(rivkees): finishing migrating includes from site
-        = render 'beta/partials/open-graph/facebook-app'
-        = render 'partials/google-analytics'
+        = render 'site/partials/open_graph/facebook_app'
+        = render 'partials/google_analytics'
     body
         #fb-root[data-app-id=ENV['FACEBOOK_APP_ID']]
-        = render 'site/partials/admin-panel'
+        = render 'site/partials/admin_panel'
         #wrap
             == render 'site/partials/header'
             == yield

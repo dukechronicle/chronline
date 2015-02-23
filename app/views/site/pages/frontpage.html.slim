@@ -1,18 +1,18 @@
 .page-main-wrap
-  = render partial: 'site/partials/section-gallery-top', locals: {slideshow_articles: @model.slideshow['articles'], slideshow_pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first'], top_news: @model.popular.map(&:first), sidebar: false, top_headline: @model.top_headline}
+  = render 'site/partials/section_gallery_top', slideshow_articles: @model.slideshow['articles'], slideshow_pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first'], top_news: @model.popular.map(&:first), sidebar: false, top_headline: @model.top_headline
   .row.page-container
     .page-front
       .page-content-column.columns.small-12
         section.row.column-row
           .columns.small-12.medium-6
-            = render partial: 'site/partials/page-article-vertical-list', locals: {title: 'News', articles: @model.news}
+            = render 'site/partials/page_article_vertical_list', title: 'News', articles: @model.news
           .columns.small-12.medium-6
-            = render partial: 'site/partials/page-article-vertical-list', locals: {title: 'Sports', articles: @model.sports}
+            = render 'site/partials/page_article_vertical_list', title: 'Sports', articles: @model.sports
         section.row.column-row
           .columns.small-12.medium-6
-            = render partial: 'site/partials/page-article-vertical-list', locals: {title: 'Opinion', articles: @model.opinion}
+            = render 'site/partials/page_article_vertical_list', title: 'Opinion', articles: @model.opinion
           .columns.small-12.medium-6
-            = render partial: 'site/partials/page-article-vertical-list', locals: {title: 'Recess', articles: @model.recess}
+            = render 'site/partials/page_article_vertical_list', title: 'Recess', articles: @model.recess
         section.row.column-row
           .columns.small-12
-            = render partial: 'site/partials/page-article-vertical-list', locals: {title: 'Towerview', articles: @model.towerview}
+            = render 'site/partials/page_article_vertical_list', title: 'Towerview', articles: @model.towerview
