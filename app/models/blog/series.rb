@@ -1,7 +1,7 @@
 class Blog::Series < ActiveRecord::Base
-  self.table_name = :blog_series
+  include ActiveModel::ForbiddenAttributesProtection
 
-  attr_accessible :blog_id, :image_id, :name
+  self.table_name = :blog_series
 
   # HAX: needed so that url_for works correctly for blog posts
   # self.model_name.instance_variable_set(:@singular_route_key, 'series')

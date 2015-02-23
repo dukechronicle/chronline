@@ -1,5 +1,4 @@
 class Admin::StaffController < Admin::BaseController
-
   def index
   end
 
@@ -8,7 +7,7 @@ class Admin::StaffController < Admin::BaseController
   end
 
   def create
-    @staff = Staff.new(params[:staff])
+    @staff = Staff.new(staff_params)
     if @staff.save
       redirect_to site_staff_url(@staff, subdomain: :www)
     else
@@ -22,7 +21,7 @@ class Admin::StaffController < Admin::BaseController
 
   def update
     @staff = Staff.find(params[:id])
-    if @staff.update_attributes(params[:staff])
+    if @staff.update_attributes(staff_params)
       redirect_to site_staff_url(@staff, subdomain: :www)
     else
       render 'edit'
@@ -36,4 +35,11 @@ class Admin::StaffController < Admin::BaseController
     redirect_to admin_staff_index_path
   end
 
+  private
+  def staff_params
+    params.require(:staff).permit(
+      :affiliation, :biography, :columnist, :headshot_id, :name, :tagline,
+      :twitter
+    )
+  end
 end

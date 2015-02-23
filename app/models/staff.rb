@@ -16,6 +16,7 @@
 #
 
 class Staff < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include FriendlyId
 
   attr_accessible :affiliation, :biography, :columnist, :headshot_id, :name, :tagline, :twitter
@@ -76,5 +77,4 @@ class Staff < ActiveRecord::Base
     end
     staff.values
   end
-
 end

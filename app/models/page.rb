@@ -16,6 +16,7 @@ require 'has_layout'
 
 
 class Page < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   extend HasLayout
 
   attr_accessible :path, :title, :description, :image_id
@@ -26,5 +27,4 @@ class Page < ActiveRecord::Base
   validates :title, presence: true
   validates :path, presence: true, uniqueness: true, format: {with: /^\/[a-z0-9%\_\.\-\/]*$/, message: 'Must be a URL path'}
   validates_with LayoutValidator
-
 end

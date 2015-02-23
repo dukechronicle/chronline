@@ -36,9 +36,12 @@ class Admin::PollsController < Admin::BaseController
 
   private
   def update_poll(poll)
-    params[:poll][:section].reject!(&:empty?)
-    choice_titles = params[:poll].delete(:choice_ids).reject {|s| s.blank? }
-    poll.assign_attributes(params[:poll])
+    poll_params = params.require(:poll).permit(
+      :archived, :description, :title, choice_ids: [], section: []
+    )
+    poll_params[:section].reject!(&:empty?)
+    choice_titles = poll_params.delete(:choice_ids).reject(&:blank?)
+    poll.assign_attributes(poll_params)
     poll.choices = Poll::Choice.find_create_or_delete_poll_choices(poll, choice_titles)
     poll
   end
