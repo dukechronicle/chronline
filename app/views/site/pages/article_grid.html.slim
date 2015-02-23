@@ -5,4 +5,4 @@
         section.row
           .columns.small-12
             h2.section-title= @title
-            = render partial: 'site/partials/article-grid', locals: {articles: @model.articles}
+            = render 'site/partials/article_grid', articles: @model.articles

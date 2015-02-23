@@ -1,6 +1,6 @@
 = cropped_image_tag image, :rectangle_606x, class: 'main-image'
 .clearfix
   .photo-credit
-    %span= photo_credit(image, link: true)
+    span= photo_credit(image, link: true)
   - if not image.caption.blank?
-    %p.photo-caption= image.caption
+    p.photo-caption= image.caption

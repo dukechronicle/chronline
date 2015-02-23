@@ -4,7 +4,7 @@
   - elsif article.authors.first.columnist? and not article.authors.first.headshot.nil?
     = cropped_image_tag article.authors.first.headshot, :square_200x
   - else
-    = render 'site/partials/image-placeholder', locals: {width: 200, height: 200}
+    = render 'site/partials/image_placeholder', width: 200, height: 200
 header.columns.small-8
   h1= article.title
   p.header-byline

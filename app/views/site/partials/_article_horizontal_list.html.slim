@@ -4,11 +4,11 @@
 - ideal_crop = grid_width < 4 ? :rectangle_314x : :rectangle_183x
 .article-horizontal-list
   h3= title
-  ul.small-block-grid-1(class="medium-block-grid-#{grid_width}")
+  ul.small-block-grid-1[class="medium-block-grid-#{grid_width}"]
     - articles.each do |article|
       li
         .row
-          a(href=site_post_path(article))
+          a[href=site_post_path(article)]
             .columns.small-12
               - if article.image
                 = cropped_image_tag article.image, ideal_crop, width: "100%"

@@ -4,10 +4,10 @@
   h3.section-title= title
 .article-list
   - articles.each_with_index do |article, i|
-    a(href=site_post_path(article))
+    a[href=site_post_path(article)]
       article.row
         - if style
-          = render partial: "site/containers/article-list/#{style}", locals: {article: article, first: (i == 0), options: {notime: notime}}
+          = render "site/containers/article_list/#{style}", article: article, first: i == 0, options: { notime: notime }
         - else
           header.columns.small-12
             h1.title= article.title
