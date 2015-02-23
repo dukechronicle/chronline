@@ -2,7 +2,6 @@ class Admin::ArticlesController < Admin::BaseController
   include ::PostsController
   before_filter :redirect_article, only: :edit
 
-
   def index
     taxonomy_string = "/#{params[:section]}/" if params[:section]
     @taxonomy = Taxonomy.new(:sections, taxonomy_string)
@@ -66,9 +65,9 @@ class Admin::ArticlesController < Admin::BaseController
 
   private
   def update_article(article)
-    # Last element of taxonomy array may be an empty string
-    author_names = params[:article].delete(:author_ids).reject {|s| s.blank? }
-    article.assign_attributes(params[:article])
+    update_params = article_params
+    author_names = update_params.delete(:author_ids).reject(&:blank?)
+    article.assign_attributes(update_params)
     article.authors = Staff.find_or_create_all_by_name(author_names)
     article
   end
@@ -79,4 +78,9 @@ class Admin::ArticlesController < Admin::BaseController
     index / Article.per_page + 1
   end
 
+  def article_params
+    params.require(:article).permit(
+      :body, :embed_url, :subtitle, author_ids: []
+    )
+  end
 end

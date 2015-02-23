@@ -20,12 +20,12 @@ class Api::PostsController < Api::BaseController
   end
 
   def create
-    klass = Post.section_to_class(params[:post][:section])
-    params[:post][:teaser] = params[:post][:teaser]
+    @post_params = post_params
+    klass = Post.section_to_class(@post_params[:section])
+    @post_params[:teaser] = @post_params[:teaser]
       .try(:truncate, 200, separator: ' ')
-    metadata = params.delete(:metadata)
-    post = klass.new(params[:post])
-    add_metadata(post, metadata)
+    post = klass.new(@post_params)
+    add_metadata(post, params[:metadata])
     post.authors = [default_staff] if post.authors.blank?
     post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
@@ -43,19 +43,19 @@ class Api::PostsController < Api::BaseController
   end
 
   def update
+    @post_params = post_params
     post = Post.unscoped.find(params[:id])
-    detected_class = Post.section_to_class(params[:section])
-    if params[:section] and not post.class.eql? detected_class
+    detected_class = Post.section_to_class(@post_params[:section])
+    if @post_params[:section] and not post.class.eql? detected_class
       # Change the type of the post if the new section is outside of the
       # current taxonomy
       post.update_attribute(:type, detected_class.to_s)
       post = post.becomes(detected_class)
     end
-    params[:post][:teaser] = params[:post][:teaser]
+    @post_params[:teaser] = @post_params[:teaser]
       .try(:truncate, 200, separator: ' ')
-    metadata = params.delete(:metadata)
-    post.assign_attributes(params[:post])
-    add_metadata(post, metadata)
+    post.assign_attributes(@post_params)
+    add_metadata(post, params[:metadata])
     post.authors = [default_staff] if post.authors.blank?
     post.body = Post::EmbeddedMedia.convert_camayak_tags(post.body)
     if post.save
@@ -96,10 +96,20 @@ class Api::PostsController < Api::BaseController
   def add_metadata(post, metadata)
     if metadata
       metadata.each do |attr|
-        if post.class.accessible_attributes.include?(attr.keys.first)
-          post.assign_attributes(attr)
-        end
+        post.assign_attributes(sanitize_metadata(attr))
       end
     end
+  end
+
+  def post_params
+    params.require(:post).permit(
+      :body, :image_id, :published_at, :section, :subtitle, :teaser, :title,
+      author_ids: []
+    )
+  end
+
+  def sanitize_metadata(metadata_attribute)
+    ActionController::Parameters.new(metadata_attribute)
+      .permit(:embed_url, :embed_code, :subtitle)
   end
 end

@@ -1,7 +1,9 @@
 class Post < ActiveRecord::Base
-  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
+  include ActiveModel::ForbiddenAttributesProtection
   extend HasTaxonomy
   include FriendlyId
+
+  SLUG_PATTERN = %r[(\d{4}/\d{2}/\d{2}/)?[a-z_\d\-]+]
 
   self.table_name = :articles
 
