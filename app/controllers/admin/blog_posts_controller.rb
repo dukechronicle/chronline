@@ -2,7 +2,6 @@ class Admin::BlogPostsController < Admin::BaseController
   include ::PostsController
   before_filter :redirect_blog_post, only: :edit
 
-
   def index
     if params[:blog_id]
       @blog = Blog.find(params[:blog_id])
@@ -34,7 +33,7 @@ class Admin::BlogPostsController < Admin::BaseController
 
   def update
     @blog_post = update_blog_post(Blog::Post.find(params[:id]))
-    if @blog_post.update_attributes(params[:blog_post])
+    if @blog_post.save
       redirect_to site_blog_post_url(
         @blog_post.blog, @blog_post, subdomain: 'www')
     else
@@ -49,14 +48,18 @@ class Admin::BlogPostsController < Admin::BaseController
     redirect_to admin_blog_posts_path(params[:blog_id])
   end
 
-
   private
   def update_blog_post(blog_post)
-    author_names = params[:blog_post].delete(:author_ids).reject { |s| s.blank? }
-    blog_post.assign_attributes(params[:blog_post])
+    update_params = blog_post_params
+    author_names = update_params.delete(:author_ids).reject(&:blank?)
+    blog_post.assign_attributes(update_params)
     blog_post.authors = Staff.find_or_create_all_by_name(author_names)
-    blog_post.assign_attributes(params[:blog_post])
     blog_post
   end
 
+  def blog_post_params
+    params.require(:blog_post).permit(
+      :blog_id, :body, :embed_url, :subtitle, :tag_list, author_ids: []
+    )
+  end
 end
