@@ -14,7 +14,7 @@
       = link_to "Classifieds", "http://dukechronicle.campusave.com"
       = link_to "Housing", "http://www.nearduke.com/housing"
       = link_to "Dining", "http://www.nearduke.com/dining"
-      - if user_signed_in?
-        = link_to "Logout", destroy_user_session_path, method: :delete
-      - else
-        = link_to "Sign In", new_user_session_path
+      /- if user_signed_in?
+      /  = link_to "Logout", destroy_user_session_path, method: :delete
+      /- else
+      /  = link_to "Sign In", new_user_session_path
