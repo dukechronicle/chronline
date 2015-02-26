@@ -1,0 +1,25 @@
+- provide :title, 'Sign in'
+
+.page-front
+  .page-content-column.columns.small-12
+    section.row
+      .columns.small-12.medium-6
+        .form-container
+          = render 'site/partials/flash', flash: flash
+          = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            fieldset
+              .form-inputs
+                = f.input :email, required: false, autofocus: true
+                = f.input :password, required: false
+                = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+
+              .form-actions
+                = f.button :submit, "Sign in", class: 'button button-rounded button-primary'
+
+              = render 'devise/shared/links'
+
+      .columns.small-12.medium-6
+        .form-container
+          fieldset
+            = link_to '', omniauth_authorize_path(resource_name, :facebook), class: 'facebook-login'
+            = link_to '', omniauth_authorize_path(resource_name, :google_oauth2), class: 'google-login'
