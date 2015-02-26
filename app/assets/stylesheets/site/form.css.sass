@@ -1,0 +1,21 @@
+@import "auth/*.png"
+
+.facebook-login
+  margin: 0 auto 10px
+  width: 374px
+  height: 84px
+  display: block
+  @include auth-sprite(facebook_active)
+  &:active
+    @include auth-sprite(facebook_pressed)
+
+.google-login
+  margin: 0 auto
+  width: 374px
+  height: 64px
+  display: block
+  @include auth-sprite(google_active)
+  &:active
+    @include auth-sprite(google_pressed)
+  &:hover
+    @include auth-sprite(google_hover)
