@@ -34,24 +34,24 @@
                   h2= page.title
                   p= page.description
   .slider-links.columns.small-12.show-for-medium-up
-    ul(class="small-block-grid-#{count}" data-equalizer="")
+    ul(class="small-block-grid-#{count}")
       - if pages_first
         - (pages || []).each do |page|
           - if page.image
-            li(data-equalizer-watch="")
+            li
               a(href=page_url(page))
                 = cropped_image_tag page.image, :rectangle_636x
                 .slider-link-title= page.title
       - articles.each do |article|
         - if article.image
-          li(data-equalizer-watch="")
+          li
             a(href=site_post_path(article))
               = cropped_image_tag article.image, :rectangle_636x
               .slider-link-title= article.title
       - unless pages_first
         - (pages || []).each do |page|
           - if page.image
-            li(data-equalizer-watch="")
+            li
               a(href=page_url(page))
                 = cropped_image_tag page.image, :rectangle_636x
                 .slider-link-title= page.title
