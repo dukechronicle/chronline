@@ -8,8 +8,8 @@
           = render 'site/partials/flash', flash: flash
           - if @tournament.started?
             p.challenge-text
-              Click
+              | Click 
               = link_to "here", leaderboard_site_tournament_path(@tournament)
-              | to see the Chronicle bracket challenge leaderboard.
+              |  to see the Chronicle bracket challenge leaderboard.
           - unless @forbidden
             #bracket.bracket(data-bracket=tournament_bracket_json(@bracket))
