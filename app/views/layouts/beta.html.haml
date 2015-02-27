@@ -25,7 +25,7 @@
 
     = yield :head
     = render 'beta/partials/open-graph/facebook-app'
-    = render 'partials/google-analytics'
+    = render 'partials/google_analytics'
   %body
     #fb-root{data: {'app-id' => ENV['FACEBOOK_APP_ID']}}
     = render 'beta/partials/admin-panel'
