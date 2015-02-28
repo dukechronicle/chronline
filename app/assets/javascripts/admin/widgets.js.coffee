@@ -6,6 +6,7 @@ initialize '#widget-editor', ->
 
     providers:
       'image': ImageView
+      'poll': PollView
       'url': OembedView
 
     routes:
