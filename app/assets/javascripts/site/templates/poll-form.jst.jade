@@ -1,0 +1,9 @@
+h4.title= title
+p= description
+form.poll-form(accept-charset="UTF-8", action="/polls/" + id + "/vote", method="post")
+  ul.choice-list
+    each choice in choices
+      li.poll-choice
+        input(id="choice_" + choice.id, name="choice", type="radio", value=choice.id)
+        label(for="choice_" + choice.id)= choice.title
+  button(class="button", type="submit") Submit
