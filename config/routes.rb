@@ -136,6 +136,12 @@ Chronline::Application.routes.draw do
 
       match 'join' => redirect('/pages/join', subdomain: :beta)
 
+      resources :polls, only: :show  do
+        member do
+          post 'vote'
+        end
+      end
+
       # Legacy routes
       %w[news sports opinion recess towerview].each do |section|
         match section => redirect("/section/#{section}")
