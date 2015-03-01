@@ -2,13 +2,22 @@
 
 - content_for :title_bock do
   h1 'Page Not Found'
-.page-main-wrap
-  .row.page-container
-      .notfound-text
-        Sorry, this page doesn't exist. Please click  
-        = link_to "here ", site_root_path
-        lsdk to go back to our homepage.
-      = render 'partials/failwhale'
-.span-4.last
-  = render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
-  = render 'site/partials/facebook-recommended'
+.page-front
+  .page-content-column.columns.small-12
+    section.row
+      .columns.small-12.medium-8
+        .notfound-text
+          | Sorry, this page doesn't exist. Please click  
+          = link_to "here ", site_root_path
+          | to go back to our homepage.
+        = render 'partials/failwhale'
+      .columns.small-12.medium-4.top-news-container
+        /.gallery-side-ad
+          /= render partial: 'site/partials/advertisement', locals: {zone: :medium_rectangle}
+        section.row.section-top-news
+          - if local_assigns[:sidebar_content].nil?
+            header.columns.small-12
+              h2 What's Hot
+            .columns.small-12= render partial: 'site/containers/article-list', locals: {articles: @popular, style: "social-image", notime: false}
+          - else
+            = sidebar_content

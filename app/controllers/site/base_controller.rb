@@ -10,6 +10,9 @@ class Site::BaseController < ApplicationController
   end
 
   def not_found
+    #@taxonomy = Taxonomy.new(:sections, "/")
+    @popular = Article.first(3)
+    #@popular = Article.popular(@taxonomy, limit: 3)
     render 'site/404', status: :not_found
   end
 
