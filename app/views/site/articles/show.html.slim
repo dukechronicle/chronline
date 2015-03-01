@@ -54,6 +54,7 @@
       aside.page-sidebar.columns.show-for-medium-up.medium-4
         = render 'site/partials/advertisement', zone: :medium_rectangle
         = render 'site/partials/facebook_recommended'
+        = render partial: 'site/containers/poll', locals: {poll: find_section_poll(@article.section)}
         = render 'site/partials/advertisement', zone: :medium_rectangle, suffix: 1
         = render 'site/partials/advertisement', zone: :medium_rectangle, suffix: 2
     footer.page-footer
