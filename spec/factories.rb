@@ -77,4 +77,11 @@ FactoryGirl.define do
     start_time Date.new(2013, 3, 1)
     tournament
   end
+
+  factory :poll, class: Poll do
+    title 'What is the best Pokemon?'
+    description 'Which one of these is the best Pokemon, objectively?'
+    section ['News']
+    archived false
+  end
 end
