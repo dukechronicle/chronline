@@ -18,6 +18,6 @@
           - if local_assigns[:sidebar_content].nil?
             header.columns.small-12
               h2 What's Hot
-            .columns.small-12= render partial: 'site/containers/article-list', locals: {articles: @popular, style: "social-image", notime: false}
+            .columns.small-12= render 'site/containers/article_list', articles: @popular, style: "social-image", notime: false
           - else
             = sidebar_content
