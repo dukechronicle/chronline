@@ -1,4 +1,7 @@
 - provide :title, @tournament.full_name
+- content_for :administrative_links do
+  = link_to "Manage tournament", admin_tournament_url(@tournament, subdomain: :admin)
+  = link_to "Edit tournament info", edit_admin_tournament_url(@tournament, subdomain: :admin)
 
 .page-front
   .page-content-column.columns.small-12
