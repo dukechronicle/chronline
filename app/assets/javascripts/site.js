@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/ui/jquery-ui
 //= require foundation
 //= require modernizr/modernizr
 //= require underscore/underscore
