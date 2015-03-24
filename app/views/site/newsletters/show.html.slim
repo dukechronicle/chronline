@@ -1,0 +1,36 @@
+- provide :title, "Newsletter"
+
+.page-main-wrap
+  .row.page-container
+    .page-front
+      .page-content-column.columns.tiny-12
+        section.row
+          .columns.tiny-12
+            = render 'site/newsletters/alt'
+            .newsletter-message
+              - if @error
+                .error
+                  h2 Uh oh
+                  p= @error
+              - else
+                - case controller.action_name.to_sym
+                - when :show
+                  .feedback
+                    h2 Subscribe to our daily newsletter
+                    p Receive an email containing the latest news from each Chronicle issue!
+                - when :subscribe
+                  .success
+                    h2 Thank You for Subscribing!
+                    p You should be receiving an email at #{@email} to confirm your subscription.
+                - when :unsubscribe
+                  .info
+                    h2 We're Sorry to See You Go!
+                    p You should no longer receive our newsletter at #{@email}.
+
+            = form_tag subscribe_site_newsletter_path do |f|
+              = text_field_tag :email, nil, placeholder: 'Your email address'
+              = submit_tag 'Subscribe', class: 'button tiny'
+
+            = form_tag unsubscribe_site_newsletter_path, html: {class: 'inline'} do |f|
+              = text_field_tag :email, nil, placeholder: 'Your email address'
+              = submit_tag 'Unsubscribe', class: 'button tiny'
