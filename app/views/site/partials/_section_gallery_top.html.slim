@@ -1,7 +1,6 @@
 - sidebar = local_assigns.has_key?(:sidebar) ? sidebar : true
 - top_headline ||= false
 - nav_links ||= nil
-- top_link ||= nil
 .row.page-container
   .page-front data-equalizer=""
     - gallery_width = sidebar ? 'medium-7 push-1' : 'medium-8'
@@ -12,8 +11,6 @@
             = render 'site/partials/top_headline_page', page: top_headline['page']
           - elsif top_headline['article']
             = render 'site/partials/top_headline', headline: top_headline
-        - if top_link
-          == top_link
         header.columns.small-12
           h2 Slideshow
         #slideshow-wrapper= render 'site/partials/section_page_slideshow', articles: slideshow_articles, pages: slideshow_pages, pages_first: pages_first
