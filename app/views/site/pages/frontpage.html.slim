@@ -1,6 +1,5 @@
 .page-main-wrap
-  - tournament_teaser = render 'site/partials/tournament_teaser', link: "/tournaments/ncaa-mens-basketball/2015/leaderboard"
-  = render 'site/partials/section_gallery_top', slideshow_articles: @model.slideshow['articles'], slideshow_pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first'], top_news: @model.popular.map(&:first), sidebar: false, top_headline: @model.top_headline, top_link: tournament_teaser
+  = render 'site/partials/section_gallery_top', slideshow_articles: @model.slideshow['articles'], slideshow_pages: @model.slideshow['pages'], pages_first: @model.slideshow['pages_first'], top_news: @model.popular.map(&:first), sidebar: false, top_headline: @model.top_headline
   .row.page-container
     .page-front
       .page-content-column.columns.small-12
