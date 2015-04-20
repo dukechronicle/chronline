@@ -5,6 +5,7 @@
 #= require get-size/get-size
 #= require jquery-bridget/jquery.bridget
 #= require matches-selector/matches-selector
+#= require fizzy-ui-utils/utils
 #= require outlayer/item
 #= require outlayer/outlayer
 #= require jquery-masonry/masonry
