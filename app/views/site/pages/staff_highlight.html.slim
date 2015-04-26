@@ -1,0 +1,18 @@
+- authors = (@model.editor_columns + @model.senior_columns).map(&:authors).flatten.uniq.sort_by(&:name)
+
+.page-main-wrap
+  .row.page-container
+    .page-front[data-equalizer=""]
+      .page-content-column.columns.small-12
+        section.row.column-row[data-equalizer="" data-options="equalize_on_stack:true"]
+          .columns.small-12.medium-7
+            .column-inner[data-equalizer-watch=""]
+              = render 'site/containers/columns', title: "Senior Columns", articles: @model.senior_columns
+          .columns.small-12.medium-5
+            .column-inner[data-equalizer-watch=""]
+              = render 'site/containers/columns', title: "Editor Columns", articles: @model.editor_columns, details: false
+              = render 'site/partials/author_box', title: "", authors: authors
+        section.row.column-row
+          .columns.small-12
+            .column-inner
+              = render 'site/partials/multimedia_row', multimedia: @model.multimedia, title: 'Multimedia'
