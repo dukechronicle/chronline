@@ -1,0 +1,22 @@
+.page-main-wrap
+  .row.page-container
+    .page-front[data-equalizer=""]
+      .page-content-column.columns.small-12
+        section.row.column-row[data-equalizer="" data-options="equalize_on_stack:true"]
+          .columns.small-12.medium-7
+            .column-inner[data-equalizer-watch=""]
+              == @model.slideshow
+              = render 'site/partials/article_horizontal_list', title: '', articles: @model.speaker_articles, show_teaser: true
+          .columns.small-12.medium-5
+            .column-inner[data-equalizer-watch=""]== @model.schedule
+        section.row.column-row
+          .columns.small-12.medium-3
+            = render 'site/partials/article_horizontal_list', title: 'Freshman Year', articles: [@model.freshman], show_teaser: true
+          .columns.small-12.medium-3
+            = render 'site/partials/article_horizontal_list', title: 'Sophomore Year', articles: [@model.sophomore], show_teaser: true
+          .columns.small-12.medium-3
+            = render 'site/partials/article_horizontal_list', title: 'Junior Year', articles: [@model.junior], show_teaser: true
+          .columns.small-12.medium-3
+            = render 'site/partials/article_horizontal_list', title: 'Senior Year', articles: [@model.senior], show_teaser: true
+        section.row.column-row
+          = render 'site/partials/article_horizontal_list', title: '', articles: @model.articles, show_teaser: true, grid_width: 4
