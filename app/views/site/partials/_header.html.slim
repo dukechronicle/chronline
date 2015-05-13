@@ -17,10 +17,6 @@ header#super-header
             - Taxonomy.top_level(:sections)[0...-1].each do |taxonomy|
               li[class= ("active" if @taxonomy && @taxonomy <= taxonomy)]
                 a[href= section_path(taxonomy)] = taxonomy.name
-              - if taxonomy.name.eql?('Sports')
-                li
-                  a[href='/pages/coachk1k' class='coachk'] Coach K 1K
-
             li[class= ("active" if @taxonomy.try(:taxonomy) == :blogs)]
               a[href= site_blogs_path] Blogs
             li
