@@ -1,4 +1,6 @@
 class NewsletterMailer < ActionMailer::Base
+  helper PostHelper
+
   def article(article)
     @article = article
     mail
