@@ -89,7 +89,7 @@ class ArticleNewsletter < Newsletter
   def initialize(attributes={})
     super
     if attributes[:article]
-      @article = Article.find(attributes[:article], include: :authors)
+      @article = Post.find(attributes[:article], include: :authors)
     end
   end
 

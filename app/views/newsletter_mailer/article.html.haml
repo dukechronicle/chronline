@@ -1,5 +1,5 @@
 %h1
-  %a{href: site_article_url(@article, subdomain: 'www')}= @article.title
+  %a{href: site_post_url(@article, subdomain: 'www')}= @article.title
 
 %p.byline
   %span.author By #{@article.authors.map(&:name).join(', ')}
@@ -12,5 +12,5 @@
 %p= @article.teaser
 
 %p
-  %a{href: site_article_url(@article, subdomain: 'www')}
+  %a{href: site_post_url(@article, subdomain: 'www')}
     Visit #{ENV['DOMAIN']} for the full article.
