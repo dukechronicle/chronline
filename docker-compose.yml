@@ -1,0 +1,28 @@
+web:
+  build: .
+  links:
+    - db
+    - dbtest
+    - redis
+  ports:
+      - "8080:80"
+  environment:
+    - RAILS_ENV=development
+  volumes:
+    - .:/usr/src/app
+    - ./docker:/etc/supervisor/conf.d
+
+db:
+  image: postgres:9.4
+  environment:
+   - POSTGRES_PASSWORD=postgres
+   - POSTGRES_DB=postgres
+
+dbtest:
+  image: postgres:9.4
+  environment:
+   - POSTGRES_PASSWORD=postgrest
+   - POSTGRES_DB=postgres_test
+
+redis:
+  image: redis:3.0

@@ -23,7 +23,7 @@ after_fork do |server, worker|
   ObjectSpace.each_object(ActionDispatch::Session::RedisStore) do |store|
     store.pool.reconnect
   end
-  Rails.cache.reconnect
+  #Rails.cache.reconnect
   Resque.redis = Sitevar.config.redis = $redis =
     Redis.new(url: ENV['REDIS_URL'], driver: :hiredis)
 end

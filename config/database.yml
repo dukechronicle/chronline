@@ -1,16 +1,18 @@
 development:
   adapter: postgresql
-  database: chronline_development
+  database: <%= ENV['DB_ENV_POSTGRES_DB'] %>
   username: postgres
-  password: postgres
-  host: localhost
+  password: <%= ENV['DB_ENV_POSTGRES_PASSWORD'] %>
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
 
 test: &test
   adapter: postgresql
-  database: chronline_test
+  database: <%= ENV['DBTEST_ENV_POSTGRES_DB'] %>
   username: postgres
-  password: postgres
-  host: localhost
+  password: <%= ENV['DBTEST_ENV_POSTGRES_PASSWORD'] %>
+  host: <%= ENV['DBTEST_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['DBTEST_PORT_5432_TCP_PORT'] %>
 
 production:
   adapter: postgresql
