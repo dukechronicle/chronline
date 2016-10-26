@@ -1,6 +1,8 @@
 class Tournament < ActiveRecord::Base
-  SLUG_PATTERN = %r([a-z_\-\d]+/\d{4})
+  include ActiveModel::ForbiddenAttributesProtection
   include FriendlyId
+
+  SLUG_PATTERN = %r([a-z_\-\d]+/\d{4})
 
   friendly_id :name_and_event, use: [:slugged, :chronSlug]
 

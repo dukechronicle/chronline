@@ -1,5 +1,4 @@
 class Admin::PagesController < Admin::BaseController
-
   def index
     @pages = Page.page(params[:page]).order('updated_at DESC')
   end
@@ -18,7 +17,7 @@ class Admin::PagesController < Admin::BaseController
 
   def update
     @page = Page.find(params[:id])
-    if @page.update_attributes(params[:page])
+    if @page.update_attributes(page_params)
       # TODO: refactor this
       redirect_to (site_root_url(subdomain: :www) + @page.path[1..-1])
     else
@@ -27,7 +26,7 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def create
-    @page = Page.new(params[:page])
+    @page = Page.new(page_params)
     if @page.save
       redirect_to (site_root_url(subdomain: :www) + @page.path[1..-1])
     else
@@ -42,4 +41,10 @@ class Admin::PagesController < Admin::BaseController
     redirect_to admin_pages_path
   end
 
+  private
+  def page_params
+    params.require(:page).permit(
+      :image_id, :description, :layout_data, :layout_template, :path, :title
+    )
+  end
 end

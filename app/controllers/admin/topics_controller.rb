@@ -6,7 +6,7 @@ class Admin::TopicsController < Admin::BaseController
   end
 
   def create
-    @topic = Topic.new(params[:topic])
+    @topic = Topic.new(topic_params)
     if @topic.save
       redirect_to admin_topics_path
     else
@@ -20,7 +20,7 @@ class Admin::TopicsController < Admin::BaseController
 
   def update
     @topic = Topic.find(params[:id])
-    if @topic.update_attributes(params[:topic])
+    if @topic.update_attributes(topic_params)
       redirect_to admin_topics_path
     else
       render 'edit'
@@ -46,7 +46,8 @@ class Admin::TopicsController < Admin::BaseController
 
   def archive
     @topic = Topic.find(params[:id])
-    @topic.update_attributes(archived: !@topic.archived)
+    @topic.archived = !@topic.archived
+    @topic.save!
     redirect_to admin_topics_path
   end
 
@@ -57,29 +58,31 @@ class Admin::TopicsController < Admin::BaseController
   end
 
   private
-
-    def approve_toggle(approved)
-      if approved
-        return 'Remove Approval'
-      else
-        return 'Approve'
-      end
+  def approve_toggle(approved)
+    if approved
+      'Remove Approval'
+    else
+      'Approve'
     end
+  end
 
-    def report_toggle(reported)
-      if reported
-        return 'Remove Reported'
-      else
-        return 'Report'
-      end
+  def report_toggle(reported)
+    if reported
+      'Remove Reported'
+    else
+      'Report'
     end
+  end
 
-    def archive_toggle(archived)
-      if archived
-        return 'UnArchive'
-      else
-        return 'Archive'
-      end
+  def archive_toggle(archived)
+    if archived
+      'UnArchive'
+    else
+      'Archive'
     end
+  end
 
+  def topic_params
+    params.require(:topic).permit(:title, :description)
+  end
 end

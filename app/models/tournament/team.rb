@@ -1,4 +1,6 @@
 class Tournament::Team < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   attr_accessible :espn_id, :mascot, :region_id, :seed, :shortname, :school,
     :preview, :article_id
 

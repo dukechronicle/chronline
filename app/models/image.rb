@@ -18,6 +18,8 @@
 require_dependency 'staff'
 
 class Image < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   Attributions = [
     '? / The Chronicle',
     '? / Chronicle File Photo',

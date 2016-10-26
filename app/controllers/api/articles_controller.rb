@@ -18,7 +18,7 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    article = Article.new(params[:article])
+    article = Article.new(article_params)
     if article.save
       respond_with_article article, status: :created,
         location: api_article_url(article)
@@ -35,7 +35,7 @@ class Api::ArticlesController < Api::BaseController
 
   def update
     article = Article.find(params[:id])
-    if article.update_attributes(params[:article])
+    if article.update_attributes(article_params)
       head :no_content
     else
       render json: article.errors, status: :unprocessable_entity
@@ -58,8 +58,15 @@ class Api::ArticlesController < Api::BaseController
       properties: {
         published_url: published_url,
         section_id: ->(article) { article.section.id },
-      },
+      }
     )
     respond_with :api, article, options
+  end
+
+  def article_params
+    params.require(:article).permit(
+      :body, :image_id, :published_at, :subtitle, :teaser, :title,
+      author_ids: [], section: []
+    )
   end
 end
