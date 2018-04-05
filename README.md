@@ -16,7 +16,7 @@ The Chronline team is a small group of undergrads who are passionate about progr
 Writing Tests
 -------------
 
-We are building up our test coverage slowly. We would like for all new code to have tests. Sometimes hard deadlines make this difficult, but we request that any pull requests come with tests. For more about our testing infrastructure, see the [testing](https://github.com/dukechronicle/chronline/wiki/Testing) wiki page.
+We are building up our test coverage slowly and would like all new changes to be tested. Although hard deadlines make this difficult, we ask for any pull requests come with tests. For more about our testing infrastructure, see the [testing](https://github.com/dukechronicle/chronline/wiki/Testing) wiki page.
 
 Resources
 ---------
